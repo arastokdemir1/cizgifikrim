@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade | Cizgifikrim</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="crosshair ch-tl"></div>
+    <div class="crosshair ch-tr"></div>
+    <div class="crosshair ch-bl"></div>
+    <div class="crosshair ch-br"></div>
+    <div class="container">
+        <nav>
+            <a href="../../tr/index.html" class="logo-box"><span class="logo">CIZGIFIKRIM</span><span class="logo-sub">by Aras TOKDEMIR</span></a>
+            <div class="nav-links">
+                <a href="../../tr/index.html">ZEKA</a>
+                <a href="../../tr/technology.html">TEKNOLOJI</a>
+                <a href="../../tr/projects.html" class="active">PROJELER</a>
+                <a href="../../tr/vision.html">VIZYON</a>
+                <div class="lang-switcher">
+                    <a href="../../en/index.html" class="lang-btn">EN</a>
+                    <a href="../../tr/index.html" class="lang-btn">TR</a>
+                    <a href="../../de/index.html" class="lang-btn">DE</a>
+                    <a href="../../es/index.html" class="lang-btn">ES</a>
+                </div>
+            </div>
+        </nav>
+
+        <header class="hero">
+            <h1 class="hologram" style="font-size: clamp(3rem, 8vw, 6rem);">Trade</h1>
+            <p style="font-size:1.45rem; font-weight:200; max-width:980px; margin:0 auto;">
+                Trade, canli piyasa akisini sadece izlemeyen; onu ozellik muhendisligi, strateji uzlasisi, portfoy mantigi ve bagimsiz risk kapisi uzerinden karar sinyaline donusturen cok katmanli quant arastirma sistemi.
+            </p>
+        </header>
+
+        <section class="section">
+            <span class="sec-label">// AMAC</span>
+            <p style="font-size:1.22rem; line-height:1.9; color:#fff; margin-bottom:34px;">
+                Proje, tek modele yaslanan kirilgan bot anlayisindan uzaklasip daha kurumsal bir islem runtime'i kurmaya odaklaniyor. `main.py` icinde `BinanceWebsocketManager`, `ProfessionalEnsembleV3`, `PortfolioManager`, `RiskManagerPro` ve farkli strateji siniflari ayni akista bulusuyor. Yani sistem tek bir buy-sell karari vermiyor; veri, model ve risk katmanlarini birlikte tartiyor.
+            </p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:22px;">
+                <div style="background:rgba(255,255,255,0.03); padding:26px; border:1px solid rgba(255,255,255,0.08);">
+                    <strong style="display:block; margin-bottom:10px;">Canli Veri</strong>
+                    <span style="color:#b8b8c2; line-height:1.8;">WebSocket akisi ile kapanmis mumlar ve piyasa baglami sürekli guncelleniyor.</span>
+                </div>
+                <div style="background:rgba(255,255,255,0.03); padding:26px; border:1px solid rgba(255,255,255,0.08);">
+                    <strong style="display:block; margin-bottom:10px;">Ensemble Karar</strong>
+                    <span style="color:#b8b8c2; line-height:1.8;">Mean reversion, momentum, breakout ve diger sinyaller ayni cekirdekte uzlasiyor.</span>
+                </div>
+                <div style="background:rgba(255,255,255,0.03); padding:26px; border:1px solid rgba(255,255,255,0.08);">
+                    <strong style="display:block; margin-bottom:10px;">Risk Filtresi</strong>
+                    <span style="color:#b8b8c2; line-height:1.8;">Guven, volatilite ve baglam kontrolleri islemi izinli ya da engelli hale getiriyor.</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <span class="sec-label">// KARAR ZINCIRI</span>
+            <p style="font-size:1.22rem; line-height:1.9; color:#fff; margin-bottom:34px;">
+                Runtime once gecmis veriyi tampon bellekte isiitir, sonra gelen veri ciftlerini ozelliklere cevirir. Teknik indikatorlerin yanina mikro yapi sinyalleri ve capraz varlik iliskileri eklenir. Ardindan ensemble tahmini olusur, portfoy mantigi pozisyon agirligini degerlendirir ve son soz risk katmanina ait olur. Bu duzen, projeyi sadece “kripto botu” gorunumunden cikarip daha olgun bir quant laboratuvarina yaklastiriyor.
+            </p>
+            <div style="font-family:JetBrains Mono; color:var(--accent); white-space:pre-wrap; background:rgba(255,255,255,0.02); padding:34px; border-left:2px solid #fff; line-height:2;">
+[BOOT] 3 gunluk tampon veri yukleniyor
+[STREAM] kapali mum veri cercevesine ekleniyor
+[FEATURE] indikator, microstructure ve cross-asset alanlari uretiliyor
+[ENSEMBLE] son bar icin tahmin skoru hesaplanıyor
+[RISK] isleme izin verilip verilmeyecegi belirleniyor
+[ALERT] sanal pozisyon ve izleme akisi guncelleniyor
+            </div>
+        </section>
+
+        <section class="section">
+            <span class="sec-label">// TEKNIK DERINLIK</span>
+            <p style="font-size:1.22rem; line-height:1.9; color:#fff; margin-bottom:26px;">
+                `torch`, `pytorch-forecasting`, `optuna`, `redis`, Flask, SocketIO ve Binance baglantilarinin ayni ortamda yer almasi, projenin deneme seviyesi bir script olmadigini gosteriyor. Veri alma, tahmin, alarm, risk ve portfoy yonetimi birbirinden kopuk degil; ayni ticari kararin farkli dogrulama katmanlari olarak calisiyor.
+            </p>
+            <p style="font-family:JetBrains Mono; color:#666; font-size:0.92rem;">Kaynak odaklari: main.py, requirements, websocket ve ensemble akislari, risk yonetimi ve portfoy katmani.</p>
+        </section>
+
+        <footer><div class="logo-box"><span class="logo">CIZGIFIKRIM</span><span class="logo-sub">by Aras TOKDEMIR</span></div></footer>
+    </div>
+    <script src="../../assets/js/app.js"></script>
+</body>
+</html>

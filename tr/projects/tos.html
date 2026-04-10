@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOS | Cizgifikrim</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="crosshair ch-tl"></div>
+    <div class="crosshair ch-tr"></div>
+    <div class="crosshair ch-bl"></div>
+    <div class="crosshair ch-br"></div>
+    <div class="container">
+        <nav>
+            <a href="../../tr/index.html" class="logo-box"><span class="logo">CIZGIFIKRIM</span><span class="logo-sub">by Aras TOKDEMIR</span></a>
+            <div class="nav-links">
+                <a href="../../tr/index.html">ZEKA</a>
+                <a href="../../tr/technology.html">TEKNOLOJI</a>
+                <a href="../../tr/projects.html" class="active">PROJELER</a>
+                <a href="../../tr/vision.html">VIZYON</a>
+                <div class="lang-switcher">
+                    <a href="../../en/index.html" class="lang-btn">EN</a>
+                    <a href="../../tr/index.html" class="lang-btn">TR</a>
+                    <a href="../../de/index.html" class="lang-btn">DE</a>
+                    <a href="../../es/index.html" class="lang-btn">ES</a>
+                </div>
+            </div>
+        </nav>
+
+        <header class="hero">
+            <h1 class="hologram" style="font-size: clamp(3rem, 8vw, 6rem);">TOS</h1>
+            <p style="font-size:1.45rem; font-weight:200; max-width:980px; margin:0 auto;">
+                TOS, yapay zekayi tek uygulama icine gommek yerine; komut, analiz, daemon, izleme, bellek ve iletisim islevlerini ayri moduller halinde yoneten AI isletim katmani kurma denemesi.
+            </p>
+        </header>
+
+        <section class="section">
+            <span class="sec-label">// ISLETIM MANTIGI</span>
+            <p style="font-size:1.22rem; line-height:1.9; color:#fff; margin-bottom:34px;">
+                `backend/main.py` icinde `brain`, `monitor`, `executor` ve `daemon` modullerinin API uzerinden disari acilmasi; TOS'un tek chat endpoint'i kurmadigini, daha genis bir sistem davranisi tanimladigini gosteriyor. Arka tarafta `core` klasoru; bellek, internet, vision, comm ve yardimci servislerle bu omurgayi daha da buyutuyor.
+            </p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:22px;">
+                <div style="background:rgba(255,255,255,0.03); padding:26px; border:1px solid rgba(255,255,255,0.08);">
+                    <strong style="display:block; margin-bottom:10px;">Brain</strong>
+                    <span style="color:#b8b8c2; line-height:1.8;">Komut yorumlama ve karar cekirdegi burada sekilleniyor.</span>
+                </div>
+                <div style="background:rgba(255,255,255,0.03); padding:26px; border:1px solid rgba(255,255,255,0.08);">
+                    <strong style="display:block; margin-bottom:10px;">Monitor ve Daemon</strong>
+                    <span style="color:#b8b8c2; line-height:1.8;">Sistem durumu ve arka plan hayat belirtileri servis mantigiyla yurutuluyor.</span>
+                </div>
+                <div style="background:rgba(255,255,255,0.03); padding:26px; border:1px solid rgba(255,255,255,0.08);">
+                    <strong style="display:block; margin-bottom:10px;">Memory ve Vision</strong>
+                    <span style="color:#b8b8c2; line-height:1.8;">Tek endpoint yerine cok modullu AI runtime hedefleniyor.</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <span class="sec-label">// MODUL AKISI</span>
+            <p style="font-size:1.22rem; line-height:1.9; color:#fff; margin-bottom:34px;">
+                `ollama`, `chromadb`, `psutil` ve `websockets` bagimliliklari, TOS'un yalnizca metin uretim odakli olmadigini belli ediyor. Burada yerel model cagrisi, vektor bellek, sistem izleme ve canli haberlesme birlikte dusunulmus. Frontend ile backend ayrimi da bu modulleri urunlesebilir yuzle bulusturmak icin kurulmus.
+            </p>
+            <div style="font-family:JetBrains Mono; color:var(--accent); white-space:pre-wrap; background:rgba(255,255,255,0.02); padding:34px; border-left:2px solid #fff; line-height:2;">
+[STARTUP] daemon ve monitor servisleri ayaga kalkiyor
+[BRAIN] komutlar karar cekirdigine aktariliyor
+[EXECUTOR] eylem ve arac cagrilari yurutuluyor
+[MEMORY] context ve vektor saklama katmani baglaniyor
+[COMM] websocket ya da API uzerinden durum yayini yapiliyor
+[UI] frontend bu servisleri urun yuzune tasiyor
+            </div>
+        </section>
+
+        <section class="section">
+            <span class="sec-label">// PROJE DEGERI</span>
+            <p style="font-size:1.22rem; line-height:1.9; color:#fff; margin-bottom:26px;">
+                TOS'un guclu yani, “AI isletim sistemi” soylemini en azindan modul organizasyonu ve servis ayrimi seviyesinde ciddiye almasi. Arka ucta runtime, onde ise urun yuzu bulunuyor. Bu kombinasyon, projeyi deneysel backend olmaktan cikarip kullaniciya acilabilecek daha gercekci bir sistem temelina yaklastiriyor.
+            </p>
+            <p style="font-family:JetBrains Mono; color:#666; font-size:0.92rem;">Kaynak odaklari: backend/main.py, core alt modulleri, ollama ve chromadb bagimliliklari, frontend-backend ayrimi.</p>
+        </section>
+
+        <footer><div class="logo-box"><span class="logo">CIZGIFIKRIM</span><span class="logo-sub">by Aras TOKDEMIR</span></div></footer>
+    </div>
+    <script src="../../assets/js/app.js"></script>
+</body>
+</html>
