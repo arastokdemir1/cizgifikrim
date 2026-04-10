@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nias | Cizgifikrim Intelligence Lab</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono:wght@400;800&display=swap" rel="stylesheet">
+    <style>
+        .project-hero { padding: 250px 0 100px; text-align: left; position: relative; }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin: 80px 0; }
+        .detail-section { padding: 100px 0; border-top: 1px solid var(--glass-border); }
+        .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 40px; }
+        .insight-card { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 32px; }
+        .insight-card h3 { font-size: 1.25rem; margin-bottom: 14px; }
+        .insight-card p { color: #86868b; line-height: 1.75; }
+        .logic-panel { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px; font-family: 'JetBrains Mono', monospace; font-size: 14px; margin: 40px 0; line-height: 1.8; color: #007AFF; white-space: pre-wrap; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .stat-num { font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; color: #fff; display: block; }
+        .stat-label { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
+        .detail-copy { font-size: 1.15rem; color: #86868b; line-height: 1.9; max-width: 980px; }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="cursor-glow"></div>
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">Cizgifikrim</a>
+            <div class="nav-links">
+                <a href="../index.html">Core</a>
+                <a href="../services.html">Verticals</a>
+                <a href="../ecosystem.html">Ecosystem</a>
+                <a href="../about.html">Philosophy</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="project-hero">
+            <span class="pod-badge">AI-FIRST AUTOMATION OS</span>
+            <h1 class="section-title" style="font-size: 6rem; line-height: 0.9; margin: 30px 0;">nias</h1>
+            <p style="font-size: 1.5rem; color: #86868b; max-width: 920px; font-weight: 300;">nias, otomasyon fikrini birkaç form ve cron ekranından çıkarıp görsel akış, kuyruk, kayıt, auth ve çok sağlayıcılı AI entegrasyonuyla çalışan daha ciddi bir kontrol düzlemine çeviriyor. Bu proje, modern web ürünü ile ajan yürütme mantığını aynı sahada birleştiriyor.</p>
+
+            <div class="kpi-grid">
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Next.js 16</span>
+                    <span class="stat-label">App Router</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">BullMQ</span>
+                    <span class="stat-label">Queue Layer</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Prisma</span>
+                    <span class="stat-label">Data Core</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">XYFlow</span>
+                    <span class="stat-label">Visual Workflow</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// ÜRÜN POZİSYONU</span>
+                <h2 class="section-title">nias hangi boşluğu dolduruyor?</h2>
+            </div>
+            <p class="detail-copy">Çoğu otomasyon ürünü ya teknik ama itici, ya da görsel ama sığ kalır. nias bu ikisini birleştirmeye çalışıyor. Repo içinde Next.js 16, React 19, Prisma, NextAuth, Redis, BullMQ, Upstash, OpenAI, Google Generative AI, Replicate, Playwright ve XYFlow bir arada bulunuyor. Bu, projenin “tek servisli panel” değil; çok katmanlı otomasyon işletim yüzeyi olarak kurgulandığını gösteriyor.</p>
+            <div class="insight-grid">
+                <div class="insight-card">
+                    <h3>Görsel Akış</h3>
+                    <p>Kullanıcı sadece form doldurmuyor; düğümler ve ilişkiler üzerinden iş akışı kuruyor.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Kuyruk ve Durum</h3>
+                    <p>Queue katmanı sayesinde akışlar yalnızca tasarlanmıyor; sıraya alınıyor, yürütülüyor ve izleniyor.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Çok Sağlayıcılı AI</h3>
+                    <p>OpenAI, Google ve Replicate gibi parçalar; sistemi tek model bağımlılığına mahkum etmiyor.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// YÜRÜTME MOTORU</span>
+                <h2 class="section-title">Akış motoru nasıl çalışıyor?</h2>
+            </div>
+            <p class="detail-copy">`src/lib/engine.ts`, aslında nias’ın kalbini gösteriyor. Burada workflow, Directed Acyclic Graph mantığında yürütülüyor. Node’lar için bağımlılıklar hesaplanıyor, hata veren üst düğümler aşağı akışta blokaj yaratıyor, uygun düğümler dalga dalga paralel çalıştırılıyor. Bu yapı nias’ı sadece görsel düzenleyici olmaktan çıkarıp gerçek bir yürütme motoruna yaklaştırıyor.</p>
+            <div class="logic-panel">[GRAPH] incoming edges çıkarılıyor
+[CHECK] dependency success / error durumu okunuyor
+[WAVE] uygun node'lar aynı batch içinde paralel başlatılıyor
+[RESULT] output, duration ve status context'e yazılıyor
+[TRACE] execution history daha sonra ürün arayüzüne taşınıyor</div>
+        </section>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// STRATEJİK GÜÇ</span>
+                <h2 class="section-title">Neden eski otomasyon araçlarından daha güçlü?</h2>
+            </div>
+            <p class="detail-copy">nias’ın asıl değeri, modern frontend estetiğini sadece vitrin olarak kullanmaması. Veri, auth, rate limit, queue, AI provider ve test katmanı gerçekten mevcut. Bu yüzden proje “güzel görünen fikir” değil; iyi ürünleşirse sahada çalışan otomasyon işletim sistemi olabilecek kadar ciddi bir temel sunuyor.</p>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-brand">CIZGIFIKRIM</div>
+            <div class="footer-bottom">&copy; 2026 ARCHITECTURE OF INTELLIGENCE.</div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/app.js"></script>
+</body>
+</html>

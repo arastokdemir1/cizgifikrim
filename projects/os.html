@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegis OS | Cizgifikrim Intelligence Lab</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono:wght@400;800&display=swap" rel="stylesheet">
+    <style>
+        .project-hero { padding: 250px 0 100px; text-align: left; position: relative; }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin: 80px 0; }
+        .detail-section { padding: 100px 0; border-top: 1px solid var(--glass-border); }
+        .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 40px; }
+        .insight-card { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 32px; }
+        .insight-card h3 { font-size: 1.25rem; margin-bottom: 14px; }
+        .insight-card p { color: #86868b; line-height: 1.75; }
+        .logic-panel { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px; font-family: 'JetBrains Mono', monospace; font-size: 14px; margin: 40px 0; line-height: 1.8; color: #007AFF; white-space: pre-wrap; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .stat-num { font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; color: #fff; display: block; }
+        .stat-label { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
+        .detail-copy { font-size: 1.15rem; color: #86868b; line-height: 1.9; max-width: 980px; }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="cursor-glow"></div>
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">Cizgifikrim</a>
+            <div class="nav-links">
+                <a href="../index.html">Core</a>
+                <a href="../services.html">Verticals</a>
+                <a href="../ecosystem.html">Ecosystem</a>
+                <a href="../about.html">Philosophy</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="project-hero">
+            <span class="pod-badge">SECURITY OPERATIONS PLATFORM</span>
+            <h1 class="section-title" style="font-size: 6rem; line-height: 0.9; margin: 30px 0;">Aegis OS</h1>
+            <p style="font-size: 1.5rem; color: #86868b; max-width: 920px; font-weight: 300;">Aegis OS, Django tabanlı ama klasik yönetim panelinden daha sert düşünülmüş bir güvenlik ve operasyon çekirdeği. Projenin değeri, web uygulaması görünümünün arkasında kuyruk, cache, gerçek zamanlı iletişim ve kimlik sertleştirme katmanlarının birlikte bulunmasından geliyor.</p>
+
+            <div class="kpi-grid">
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Django</span>
+                    <span class="stat-label">Backend Core</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Redis</span>
+                    <span class="stat-label">Cache / Queue</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Celery</span>
+                    <span class="stat-label">Background Work</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Channels</span>
+                    <span class="stat-label">Realtime Layer</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// PLATFORM FİKRİ</span>
+                <h2 class="section-title">Aegis OS tam olarak ne?</h2>
+            </div>
+            <p class="detail-copy">Bu proje, Django’yu sadece CRUD paneli olarak kullanmıyor. `requirements.txt` dosyasında `django-ratelimit`, `redis`, `django-redis`, `celery`, `channels`, `channels-redis`, `whitenoise`, `rsa` ve `argon2-cffi` gibi paketlerin bir arada olması; sistemin hem saldırı yüzeyi kontrolünü hem arka plan işlemlerini hem de gerçek zamanlı akışı ciddiye aldığını gösteriyor. Bu nedenle Aegis OS, klasik web projesi değil; güvenlik odaklı bir operasyon paneli etkisi veriyor.</p>
+            <div class="insight-grid">
+                <div class="insight-card">
+                    <h3>Kimlik ve Sınır</h3>
+                    <p>Rate limit, Argon2 ve kriptografi tercihleri, sistemin kullanıcı ve erişim katmanını ciddiye aldığını gösteriyor.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Arka Plan Gücü</h3>
+                    <p>Celery ve Redis kombinasyonu, işlerin web request yaşam süresi dışına taşınabildiği daha olgun bir yapı kuruyor.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Gerçek Zamanlı Yüz</h3>
+                    <p>Channels katmanı sayesinde sistem yalnızca sayfa yükleyen değil, olay akışı taşıyabilen bir yüzey haline geliyor.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// ALTYAPI</span>
+                <h2 class="section-title">Nasıl ölçeklenebilir hale geliyor?</h2>
+            </div>
+            <p class="detail-copy">`manage.py` tek başına sıradan görünse de etrafındaki bağımlılıklar sistemin niyetini gösteriyor. Django application çekirdeği üzerine cache, WebSocket iletişimi, görev kuyruğu ve statik dosya sertleştirmesi eklenmiş durumda. Bu; Aegis OS’un sadece lokal deney değil, daha uzun yaşayan operasyonel çekirdek olarak düşünülmüş olduğunu anlatıyor.</p>
+            <div class="logic-panel">[BOOT] Django settings yükleniyor
+[CACHE] redis ve django-redis erişime hazırlanıyor
+[QUEUE] Celery arka plan işlerini devralıyor
+[REALTIME] channels-redis canlı olay katmanını açıyor
+[EDGE] rate limit + whitenoise + argon2 ile sınırlar sertleşiyor</div>
+        </section>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// TEKNİK ETKİ</span>
+                <h2 class="section-title">Neden önemli bir çekirdek?</h2>
+            </div>
+            <p class="detail-copy">Aegis OS’un değeri, “güvenlik” kelimesini dekor olarak kullanmaması. Paket seçimleri ve modüler kurulum mantığı gerçekten korumalı, kuyruklu ve gerçek zamanlı bir operasyon omurgasına işaret ediyor. Eğer büyütülürse bu sistem, savunma, izleme ve görev yönetimini aynı yüzeyde toplayan daha ciddi bir güvenlik platformuna evrilebilir.</p>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-brand">CIZGIFIKRIM</div>
+            <div class="footer-bottom">&copy; 2026 ARCHITECTURE OF INTELLIGENCE.</div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/app.js"></script>
+</body>
+</html>

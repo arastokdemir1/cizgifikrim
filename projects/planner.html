@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether | Cizgifikrim Intelligence Lab</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono:wght@400;800&display=swap" rel="stylesheet">
+    <style>
+        .project-hero { padding: 250px 0 100px; text-align: left; position: relative; }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin: 80px 0; }
+        .detail-section { padding: 100px 0; border-top: 1px solid var(--glass-border); }
+        .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 40px; }
+        .insight-card { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 32px; }
+        .insight-card h3 { font-size: 1.25rem; margin-bottom: 14px; }
+        .insight-card p { color: #86868b; line-height: 1.75; }
+        .logic-panel { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px; font-family: 'JetBrains Mono', monospace; font-size: 14px; margin: 40px 0; line-height: 1.8; color: #007AFF; white-space: pre-wrap; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .stat-num { font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; color: #fff; display: block; }
+        .stat-label { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
+        .detail-copy { font-size: 1.15rem; color: #86868b; line-height: 1.9; max-width: 980px; }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="cursor-glow"></div>
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">Cizgifikrim</a>
+            <div class="nav-links">
+                <a href="../index.html">Core</a>
+                <a href="../services.html">Verticals</a>
+                <a href="../ecosystem.html">Ecosystem</a>
+                <a href="../about.html">Philosophy</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="project-hero">
+            <span class="pod-badge">LOCAL-FIRST PRODUCTIVITY</span>
+            <h1 class="section-title" style="font-size: 6rem; line-height: 0.9; margin: 30px 0;">Aether</h1>
+            <p style="font-size: 1.5rem; color: #86868b; max-width: 920px; font-weight: 300;">Aether, web teknolojilerini masaüstü kabuğuna sarmalayan sıradan bir Electron denemesi değil; tek örnek kilidi, yerel kullanıcı bootstrap’i, SQLite veri tabanı, bildirim kanalı, cron akışı ve macOS hardened runtime ile ürünleşmiş local-first planlama sistemi kurmaya çalışan ciddi bir masaüstü çekirdeği.</p>
+
+            <div class="kpi-grid">
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Electron</span>
+                    <span class="stat-label">Desktop Shell</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">SQLite</span>
+                    <span class="stat-label">Local Data</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Socket.IO</span>
+                    <span class="stat-label">Realtime Alerts</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Hardened</span>
+                    <span class="stat-label">Mac Runtime</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// ÜRÜN ODAĞI</span>
+                <h2 class="section-title">Aether neyi hedefliyor?</h2>
+            </div>
+            <p class="detail-copy">Birçok planlayıcı bulut merkezli çalışır; Aether ise yerel veri hâkimiyetini temel alan masaüstü ürününe daha yakın duruyor. `main.js` Electron pencere yaşam döngüsünü yönetirken, `server.js` tarafı local kullanıcıyı garanti altına alıyor, eski JSON veriyi SQLite tarafına taşıyan migrasyon çalıştırıyor ve tüm görev akışını yerel kimlik üzerinden birleştiriyor. Bu nedenle proje, takvim/görev arayüzünden daha fazlası olarak düşünülmüş.</p>
+            <div class="insight-grid">
+                <div class="insight-card">
+                    <h3>Yerel Kimlik</h3>
+                    <p>`local-desktop-user` yaklaşımı, çok kullanıcılı bulut yapısı yerine masaüstü sahibini merkeze alan local-first model kuruyor.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Migrasyon Disiplini</h3>
+                    <p>Eski `db.json` verisinin SQLite şemasına taşınması, projenin prototipten ürünleşmeye ilerlediğini gösteriyor.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Paketleme Ciddiyeti</h3>
+                    <p>Universal DMG, entitlements ve hardened runtime ayarları, Aether’in gerçekten dağıtılan bir masaüstü ürününe dönüştürüldüğünü gösteriyor.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// ÇEKİRDEK AKIŞ</span>
+                <h2 class="section-title">Uygulama arkada nasıl işliyor?</h2>
+            </div>
+            <p class="detail-copy">Electron penceresi açılmadan önce Express tabanlı yerel sunucu ayağa kalkıyor. API sağlık kontrolü, statik public yüz, görev normalize etme, renk/öncelik eşleme ve Socket.IO bildirim hattı aynı servis içinde toplanıyor. Böylece Aether yalnızca HTML paketleyen Electron uygulaması olmuyor; kendi backend’i ile yaşayan masaüstü ürünü haline geliyor.</p>
+            <div class="logic-panel">[BOOT] local server başlatılıyor
+[LOCK] ikinci instance engelleniyor
+[DB] local kullanıcı ve migration kontrolü çalışıyor
+[API] görev / alışkanlık uçları hazır hale geliyor
+[WINDOW] Electron yalnızca server hazır olunca yükleniyor</div>
+        </section>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// STRATEJİK GÜÇ</span>
+                <h2 class="section-title">Projeyi değerli yapan yön</h2>
+            </div>
+            <p class="detail-copy">Aether’in güçlü tarafı, verimlilik uygulamasını “sadece UI” olarak görmemesi. Veri modeli, migration, bildirim, paketleme ve işletim sistemi sertliği birlikte ele alınıyor. Bu yüzden proje, masaüstü planlayıcı pazarında yerel veri kontrolünü önemseyen ciddi bir alternatif olabilecek kadar sağlam bir temel sunuyor.</p>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-brand">CIZGIFIKRIM</div>
+            <div class="footer-bottom">&copy; 2026 ARCHITECTURE OF INTELLIGENCE.</div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/app.js"></script>
+</body>
+</html>

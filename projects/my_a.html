@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My_A | Cizgifikrim Intelligence Lab</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono:wght@400;800&display=swap" rel="stylesheet">
+    <style>
+        .project-hero { padding: 250px 0 100px; text-align: left; position: relative; }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin: 80px 0; }
+        .detail-section { padding: 100px 0; border-top: 1px solid var(--glass-border); }
+        .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 40px; }
+        .insight-card { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 32px; }
+        .insight-card h3 { font-size: 1.25rem; margin-bottom: 14px; }
+        .insight-card p { color: #86868b; line-height: 1.75; }
+        .logic-panel { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px; font-family: 'JetBrains Mono', monospace; font-size: 14px; margin: 40px 0; line-height: 1.8; color: #007AFF; white-space: pre-wrap; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .stat-num { font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; color: #fff; display: block; }
+        .stat-label { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
+        .detail-copy { font-size: 1.15rem; color: #86868b; line-height: 1.9; max-width: 1020px; }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="cursor-glow"></div>
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">Cizgifikrim</a>
+            <div class="nav-links">
+                <a href="../index.html">Core</a>
+                <a href="../services.html">Verticals</a>
+                <a href="../ecosystem.html">Ecosystem</a>
+                <a href="../about.html">Philosophy</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="project-hero">
+            <span class="pod-badge">AI INCUBATION CAMPUS</span>
+            <h1 class="section-title" style="font-size: 6rem; line-height: 0.9; margin: 30px 0;">My_A</h1>
+            <p style="font-size: 1.5rem; color: #86868b; max-width: 950px; font-weight: 300;">My_A, tek bir ürün değil; aynı masaüstü laboratuvarında birlikte evrilen çok sayıda yapay zeka ürününün ve ajan çekirdeğinin toplandığı bir geliştirme alanı. `CodeMinds`, `LocalGravity`, `mark2_crypto` ve özellikle `localgravity/ai/nexis` omurgası bu alanın asıl gücünü oluşturuyor.</p>
+
+            <div class="kpi-grid">
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">CodeMinds</span>
+                    <span class="stat-label">Desktop AI IDE</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">LocalGravity</span>
+                    <span class="stat-label">Agent Systems</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Nexis</span>
+                    <span class="stat-label">Synthetic Brain Core</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">PyQt6</span>
+                    <span class="stat-label">GUI Entry</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// KULUÇKA ALANI</span>
+                <h2 class="section-title">Bu klasör aslında ne?</h2>
+            </div>
+            <p class="detail-copy">My_A, yazılımcının üzerinde çalıştığı farklı zekâ çekirdeklerini ortak bir üretim kampüsünde biriktirdiği üst yapı gibi davranıyor. `CodeMinds` tarafında PyQt6 ile açılan masaüstü arayüz ve IDE mantığı var. `LocalGravity` tarafında servis tabanlı ajan yaklaşımı bulunuyor. Bu yüzden My_A’yı tek cümleyle açıklamak zor: o, ayrı ürünlerin doğduğu ve birbirinden beslendiği ana merkez.</p>
+            <div class="insight-grid">
+                <div class="insight-card">
+                    <h3>CodeMinds Katmanı</h3>
+                    <p>`main.py` doğrudan PyQt6 `MainWindow` açıyor; bu da My_A içinde yalnızca backend deneyleri değil masaüstü üretim araçları da bulunduğunu gösteriyor.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>LocalGravity Katmanı</h3>
+                    <p>FastAPI, Ollama, Pydantic ve SSE tabanlı servis akışı; laboratuvarın sadece GUI değil gerçek ajan runtime’ı da barındırdığını gösteriyor.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Çapraz Beslenme</h3>
+                    <p>Aynı ağaç altında IDE, ajan, deneysel finans ve diğer yan projelerin birlikte bulunması, sistemi üretken bir çekirdek havuzuna dönüştürüyor.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// NEXIS ODAĞI</span>
+                <h2 class="section-title">`localgravity/ai/nexis` neden kritik?</h2>
+            </div>
+            <p class="detail-copy">Nexis, My_A içindeki en önemli ajan omurgalarından biri. `MANIFESTO.md` sentetik beyin için nöro-kimyasal pekiştirmeli öğrenme, sürücüler, proaktif bilinç ve merkezi beyin döngüsünü tanımlıyor. `NEXIS_USAGE.md` ise sistemin profil başlatma, sağlık onarımı, köprü mesajı gönderme, patch önerisi, capability matrix üretimi ve günlük yoldaş akışı gibi operasyon modlarını açıkça listeliyor. `brain_core.py` içindeki modül listesi, bunun küçük bir bot değil; kimlik, bellek, bilimsel akıl yürütme, görev planlama, araç politikası, world model ve continuity stream katmanları olan sentetik bir beyin denemesi olduğunu gösteriyor.</p>
+            <div class="logic-panel">[BOOT] runtime lock alınıyor
+[LOAD] persona, mode, memory bridge ve benchmark profilleri okunuyor
+[INIT] chemistry + drives + emotion bridge + soul kuruluyor
+[BRAIN] task manager, planner, world model, identity ve dialogue katmanları bağlanıyor
+[LOOP] Nexis kendi çalışma protokolüyle uzun ömürlü ajan akışına geçiyor</div>
+        </section>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// STRATEJİK DEĞER</span>
+                <h2 class="section-title">My_A neden güçlü bir merkez?</h2>
+            </div>
+            <p class="detail-copy">Birçok geliştiricinin masaüstünde çok proje olur; ama çoğu birbirinden kopuktur. My_A’nın farkı, bu ürünlerin aynı düşünsel çizgiden beslenmesi. Burada arayüz araçları, servis ajanları, sentetik beyin protokolleri ve deneysel üretim hatları yan yana gelişiyor. Bu yüzden My_A yalnızca büyük bir klasör değil; yeni çekirdeklerin yetiştirildiği asıl laboratuvar.</p>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-brand">CIZGIFIKRIM</div>
+            <div class="footer-bottom">&copy; 2026 ARCHITECTURE OF INTELLIGENCE.</div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/app.js"></script>
+</body>
+</html>

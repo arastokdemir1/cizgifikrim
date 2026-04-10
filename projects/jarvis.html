@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jarvis MK2 | Cizgifikrim Intelligence Lab</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono:wght@400;800&display=swap" rel="stylesheet">
+    <style>
+        .project-hero { padding: 250px 0 100px; text-align: left; position: relative; }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin: 80px 0; }
+        .detail-section { padding: 100px 0; border-top: 1px solid var(--glass-border); }
+        .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 40px; }
+        .insight-card { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 32px; }
+        .insight-card h3 { font-size: 1.25rem; margin-bottom: 14px; }
+        .insight-card p { color: #86868b; line-height: 1.75; }
+        .logic-panel { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px; font-family: 'JetBrains Mono', monospace; font-size: 14px; margin: 40px 0; line-height: 1.8; color: #007AFF; white-space: pre-wrap; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .stat-num { font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; color: #fff; display: block; }
+        .stat-label { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
+        .detail-copy { font-size: 1.15rem; color: #86868b; line-height: 1.9; max-width: 980px; }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="cursor-glow"></div>
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">Cizgifikrim</a>
+            <div class="nav-links">
+                <a href="../index.html">Core</a>
+                <a href="../services.html">Verticals</a>
+                <a href="../ecosystem.html">Ecosystem</a>
+                <a href="../about.html">Philosophy</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="project-hero">
+            <span class="pod-badge">MULTIMODAL PERSONAL SYSTEM</span>
+            <h1 class="section-title" style="font-size: 6rem; line-height: 0.9; margin: 30px 0;">Jarvis MK2</h1>
+            <p style="font-size: 1.5rem; color: #86868b; max-width: 900px; font-weight: 300;">Jarvis MK2, ses, ekran, olay akışı, suit protokolleri ve proaktif farkındalığı tek çekirdekte toplamaya çalışan geniş ölçekli bir kişisel sistem projesi. Bu repo bir “konuşan bot”tan çok, çok katmanlı bir yardımcı işletim sistemi denemesi gibi davranıyor.</p>
+
+            <div class="kpi-grid">
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Voice</span>
+                    <span class="stat-label">Input / TTS</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">HUD</span>
+                    <span class="stat-label">Visual Layer</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Bus</span>
+                    <span class="stat-label">Event Orchestration</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Proactive</span>
+                    <span class="stat-label">Monitoring Loop</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// SİSTEM POZİSYONU</span>
+                <h2 class="section-title">Jarvis burada neye dönüşüyor?</h2>
+            </div>
+            <p class="detail-copy">`jarvis_1` klasörü, isim olarak popüler bir fikri çağırsa da kod tarafında daha özgün bir amaç taşıyor: bir kişisel sistemin sesini, görsel arayüzünü, reflekslerini ve izleme davranışını tek omurgada toplamak. `kernel`, `perception`, `awareness`, `agents`, `domain`, `voice`, `web_ui`, `memory`, `tools` ve `training` gibi klasörler, projenin tek bir modülden değil katmanlı bir organizasyondan oluştuğunu gösteriyor.</p>
+            <div class="insight-grid">
+                <div class="insight-card">
+                    <h3>Görsel Katman</h3>
+                    <p>StartupSequence ve HUD bileşenleri, sistemi yalnızca komut satırı deneyimi olmaktan çıkarıp sahnelenmiş bir kontrol paneline dönüştürüyor.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Ses Katmanı</h3>
+                    <p>Voice loop, STT adaptörü ve TTS profili birlikte kullanılarak sözlü etkileşim ayrı modül haline getirilmiş durumda.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Proaktif İzleme</h3>
+                    <p>ProactiveMonitor callback’leri, sistemin yalnızca istek geldiğinde değil kendi alarm akışında da konuşabilmesini sağlıyor.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// OPERASYON AKIŞI</span>
+                <h2 class="section-title">Çalışma döngüsü nasıl ilerliyor?</h2>
+            </div>
+            <p class="detail-copy">Ana akışta önce startup animasyonu ve ses efektleri çalışıyor, ardından kişilik başlatılıyor, karşılama mesajı üretiliyor ve görsel çekirdek aktive ediliyor. Bundan sonra event bus kuruluyor, bootstrap tamamlanıyor, proactive monitor arka planda koşuyor, eş zamanlı olarak CLI ve sesli giriş katmanları devreye giriyor. Bu çoklu başlatma düzeni, sistemin tek kanallı olmadığını net biçimde gösteriyor.</p>
+            <div class="logic-panel">[STARTUP] ekran temizleniyor + startup sesi çalıyor
+[HUD] startup sequence ve arc reactor aktive ediliyor
+[PERSONA] karşılama üretiliyor ve seslendiriliyor
+[BUS] event bus bootstrap ediliyor
+[LOOPS] CLI + voice + proactive monitor birlikte çalışıyor</div>
+        </section>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// NEDEN GÜÇLÜ</span>
+                <h2 class="section-title">Esas teknik değeri ne?</h2>
+            </div>
+            <p class="detail-copy">Jarvis MK2’nin gücü, tek tek modüllerin varlığından çok bunların tek sistem gibi davranmasında. Ses, HUD, suit durumu, monitoring, personality ve tool registration ayrı parçalar olarak yazılmış ama tek yaşam döngüsü içinde bütünleşiyor. Bu da projeyi basit asistan denemelerinden ayırıp daha deneysel ama daha bütünlüklü bir kişisel sistem platformuna yaklaştırıyor.</p>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-brand">CIZGIFIKRIM</div>
+            <div class="footer-bottom">&copy; 2026 ARCHITECTURE OF INTELLIGENCE.</div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/app.js"></script>
+</body>
+</html>
