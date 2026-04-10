@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Tycoon | Cizgifikrim Intelligence Lab</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono:wght@400;800&display=swap" rel="stylesheet">
+    <style>
+        .project-hero { padding: 250px 0 100px; text-align: left; position: relative; }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin: 80px 0; }
+        .detail-section { padding: 100px 0; border-top: 1px solid var(--glass-border); }
+        .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 40px; }
+        .insight-card { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 32px; }
+        .insight-card h3 { font-size: 1.25rem; margin-bottom: 14px; }
+        .insight-card p { color: #86868b; line-height: 1.75; }
+        .logic-panel { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px; font-family: 'JetBrains Mono', monospace; font-size: 14px; margin: 40px 0; line-height: 1.8; color: #007AFF; white-space: pre-wrap; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .stat-num { font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; color: #fff; display: block; }
+        .stat-label { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
+        .detail-copy { font-size: 1.15rem; color: #86868b; line-height: 1.9; max-width: 980px; }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="cursor-glow"></div>
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">Cizgifikrim</a>
+            <div class="nav-links">
+                <a href="../index.html">Core</a>
+                <a href="../services.html">Verticals</a>
+                <a href="../ecosystem.html">Ecosystem</a>
+                <a href="../about.html">Philosophy</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="project-hero">
+            <span class="pod-badge">MULTI-SURFACE SIMULATION</span>
+            <h1 class="section-title" style="font-size: 6rem; line-height: 0.9; margin: 30px 0;">Office Tycoon</h1>
+            <p style="font-size: 1.5rem; color: #86868b; max-width: 920px; font-weight: 300;">Office Tycoon, tarayıcıda çalışan küçük bir simülasyon fikrinin ötesinde; API, web ve desktop yüzlerini aynı workspace mantığında taşıyan daha geniş bir ürün yapısı. `office-tycoon-pro` içindeki monorepo yaklaşımı, simülasyon çekirdeğini birden fazla istemciye yaymak için düşünülmüş.</p>
+
+            <div class="kpi-grid">
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Workspaces</span>
+                    <span class="stat-label">apps/* Model</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">API</span>
+                    <span class="stat-label">Service Surface</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Web</span>
+                    <span class="stat-label">Interactive UI</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Desktop</span>
+                    <span class="stat-label">Packaged Runtime</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// ÜRÜN MANTIĞI</span>
+                <h2 class="section-title">Neden yalnızca oyun değil?</h2>
+            </div>
+            <p class="detail-copy">Kök `package.json`, `apps/*` workspace modelini açıkça tanımlıyor ve aynı ürün içinde `api`, `web` ve `desktop` yüzlerinin birlikte geliştirildiğini gösteriyor. Bu, projenin yalnızca browser tabında kalan küçük oyun denemesi olmadığını; ekonomik mantık katmanını farklı istemci biçimlerinde yaşatmak istediğini kanıtlıyor. Simülasyon burada yalnızca eğlence değil, ürün mimarisi için de bir test alanı.</p>
+            <div class="insight-grid">
+                <div class="insight-card">
+                    <h3>Tek Çekirdek, Çok Yüz</h3>
+                    <p>Aynı mantık katmanının API, web ve desktop dağıtımına hazırlanması, projeyi genişleyebilir hale getiriyor.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Dağıtım Düşüncesi</h3>
+                    <p>Desktop package komutlarından önce web hazırlama scriptleri çalıştırılıyor; bu da ürünleşme niyetini açıkça gösteriyor.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Uzun Vadeli Alan</h3>
+                    <p>Monorepo yaklaşımı, simülasyon çekirdeğinin zamanla farklı modüllerle büyümesine uygun bir zemin hazırlıyor.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// ÇALIŞMA AKIŞI</span>
+                <h2 class="section-title">Geliştirme modeli nasıl kurgulanmış?</h2>
+            </div>
+            <p class="detail-copy">Kök komutlar, `concurrently` kullanarak farklı çalışma alanlarını aynı anda ayağa kaldırıyor. Bu yaklaşım, simülasyon mantığını tek tarafta dondurmak yerine ürün yüzlerini birlikte geliştirmeyi kolaylaştırıyor. Özellikle desktop paketi öncesi web build alınması, kullanıcıya ulaşacak son deneyimin yalnızca geliştirme moduna bırakılmadığını gösteriyor.</p>
+            <div class="logic-panel">[ROOT] workspace package.json okunuyor
+[DEV] api + web eşzamanlı ayağa kalkıyor
+[DESKTOP] isteğe bağlı desktop runtime üçüncü kanal olarak ekleniyor
+[BUILD] desktop packaging öncesi web derleniyor
+[DISTRIBUTION] aynı simülasyon çekirdeği farklı yüzlere taşınıyor</div>
+        </section>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// DEĞER</span>
+                <h2 class="section-title">Bu projeyi neden ciddiye almak gerekir?</h2>
+            </div>
+            <p class="detail-copy">Birçok simülasyon denemesi yalnızca fikir aşamasında kalır. Office Tycoon’un farkı, bunun baştan çok yüzlü ürün mantığıyla ele alınması. Bu sayede proje, basit web oyunu yerine gelecekte masaüstüne ve servis katmanına açılabilecek bir simülasyon platformu gibi düşünülebilir.</p>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-brand">CIZGIFIKRIM</div>
+            <div class="footer-bottom">&copy; 2026 ARCHITECTURE OF INTELLIGENCE.</div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/app.js"></script>
+</body>
+</html>

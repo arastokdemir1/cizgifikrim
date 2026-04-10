@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wix4.1 | Cizgifikrim Intelligence Lab</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono:wght@400;800&display=swap" rel="stylesheet">
+    <style>
+        .project-hero { padding: 250px 0 100px; text-align: left; position: relative; }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin: 80px 0; }
+        .detail-section { padding: 100px 0; border-top: 1px solid var(--glass-border); }
+        .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 40px; }
+        .insight-card { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 32px; }
+        .insight-card h3 { font-size: 1.25rem; margin-bottom: 14px; }
+        .insight-card p { color: #86868b; line-height: 1.75; }
+        .logic-panel { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px; font-family: 'JetBrains Mono', monospace; font-size: 14px; margin: 40px 0; line-height: 1.8; color: #007AFF; white-space: pre-wrap; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .stat-num { font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; color: #fff; display: block; }
+        .stat-label { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
+        .detail-copy { font-size: 1.15rem; color: #86868b; line-height: 1.9; max-width: 980px; }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="cursor-glow"></div>
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">Cizgifikrim</a>
+            <div class="nav-links">
+                <a href="../index.html">Core</a>
+                <a href="../services.html">Verticals</a>
+                <a href="../ecosystem.html">Ecosystem</a>
+                <a href="../about.html">Philosophy</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="project-hero">
+            <span class="pod-badge">DIGITAL TWIN INFRASTRUCTURE</span>
+            <h1 class="section-title" style="font-size: 6rem; line-height: 0.9; margin: 30px 0;">wix4.1</h1>
+            <p style="font-size: 1.5rem; color: #86868b; max-width: 900px; font-weight: 300;">wix4.1, dijital ikiz fikrini basit bir marka katmanı olarak değil; kimlik, sohbet hafızası, proaktif servis, güvenlik kapısı ve çoklu istemci yapısı üzerinden uygulamaya çalışan daha bütünlüklü bir temsil sistemi. Repo hem backend davranışını hem kullanıcıyla süreklilik kuran etkileşim akışını birlikte ele alıyor.</p>
+
+            <div class="kpi-grid">
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">FastAPI</span>
+                    <span class="stat-label">Core Service</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Threads</span>
+                    <span class="stat-label">Chat Memory</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Proactive</span>
+                    <span class="stat-label">Service Loop</span>
+                </div>
+                <div class="glass-card" style="padding: 40px; border-radius: 30px;">
+                    <span class="stat-num">Next 16</span>
+                    <span class="stat-label">Modern Client</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// TEMSİL MANTIĞI</span>
+                <h2 class="section-title">Dijital ikiz burada ne anlama geliyor?</h2>
+            </div>
+            <p class="detail-copy">Bu proje, bir kişiyi yalnızca taklit eden arayüz olmaya çalışmıyor. README yapısı ve `server/main.py` üzerinden görülen startup zinciri, kimlik, davranış, hafıza ve servis sürekliliğini birlikte yönetme amacını gösteriyor. `ARAS` sistemleri başlatılırken güvenlik konfigürasyonu doğrulanıyor, chat thread tabanı bulunuyor, otonomi devreye giriyor ve proaktif servis başlatılıyor. Böylece “ikiz” kavramı sabit bir persona olmaktan çıkıp yaşayan bir runtime davranışına dönüşüyor.</p>
+            <div class="insight-grid">
+                <div class="insight-card">
+                    <h3>Güvenlik Önceliği</h3>
+                    <p>Prod modunda CORS ve token ayarlarının fail-fast mantığı ile doğrulanması, sistemi deneysel ama kontrolsüz olmayan bir noktaya taşıyor.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Thread Belleği</h3>
+                    <p>Sohbet geçmişi dosya temelli kalıcılıkla ele alınıyor; bu da geçici cevaplardan çok süreklilik hissine yatırım yapıldığını gösteriyor.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Çift İstemci Yapısı</h3>
+                    <p>Hem eski istemci hem `client-next` bulunması, sistemin aynı anda deneysel ve ürünleşebilir yüzlere sahip olduğuna işaret ediyor.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// ÇALIŞMA ZİNCİRİ</span>
+                <h2 class="section-title">Sistem nasıl ayakta kalıyor?</h2>
+            </div>
+            <p class="detail-copy">`server/main.py` içindeki startup sırası özellikle önemli. Önce logger ve global exception handler devreye giriyor, ardından CORS çözümleyicisi ortamı doğruluyor, sonra güvenlik kapısı fail-fast çalışıyor. Hafıza dizini bulunduktan sonra önce otonomi, sonra proaktif servis başlatılıyor. Bu sıra, sistemin sadece API döndüren bir backend değil; arka planda yaşayan bir dijital davranış alanı olduğunu anlatıyor.</p>
+            <div class="logic-panel">[STARTUP] security gate doğrulanıyor
+[MEMORY] chat threads path çözümleniyor
+[AUTONOMY] arka plan inisiyatifi başlıyor
+[PROACTIVE] proaktif servis devreye giriyor
+[ROUTERS] auth + chat + upload dış dünyaya açılıyor</div>
+        </section>
+
+        <section class="detail-section">
+            <div class="section-header">
+                <span class="section-tag">// TEKNİK ETKİ</span>
+                <h2 class="section-title">Neden güçlü bir temel?</h2>
+            </div>
+            <p class="detail-copy">wix4.1’in güçlü tarafı, “AI karakter” fikrini hizmet mimarisiyle birleştirmesi. Kişilik, güvenlik, hafıza, proaktif davranış ve istemci deneyimi ayrı ayrı yamalanmıyor; tek bir sistem yaşam döngüsünde toplanıyor. Bu yüzden proje, isimden çok altyapı düzeyinde dijital ikiz hissi veriyor ve eski PDF anlatımlarındaki iddiaları güncel koda daha gerçekçi biçimde yaklaştırıyor.</p>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-brand">CIZGIFIKRIM</div>
+            <div class="footer-bottom">&copy; 2026 ARCHITECTURE OF INTELLIGENCE.</div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/app.js"></script>
+</body>
+</html>
