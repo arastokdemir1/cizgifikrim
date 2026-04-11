@@ -66,3 +66,36 @@ footer { padding: 100px 0; border-top: 1px solid var(--line); display: flex; jus
 .nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg-overlay); backdrop-filter: blur(20px); display: none; flex-direction: column; justify-content: center; align-items: center; gap: 40px; z-index: 999; transition: background 0.3s; }
 .nav-overlay a { font-family: 'Space Grotesk'; font-size: 2.5rem; text-decoration: none; color: var(--text-secondary); transition: color 0.3s; }
 @media (max-width: 900px) { .nav-links { display: none; } .menu-toggle { display: block; } .nav-overlay.open { display: flex; } .canvas-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 3.5rem; } }
+
+/* Custom Cursor */
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+  }
+
+  .custom-cursor.hover {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+@media (pointer: coarse) {
+  .custom-cursor {
+    display: none !important;
+  }
+}
