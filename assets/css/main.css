@@ -79,18 +79,18 @@ footer { padding: 100px 0; border-top: 1px solid var(--line); display: flex; jus
     left: 0;
     width: 20px;
     height: 20px;
-    background-color: #ffffff;
+    background-color: var(--text-primary);
     border-radius: 50%;
     pointer-events: none;
     transform: translate(-50%, -50%);
     z-index: 10000;
-    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, opacity 0.2s ease, left 0.15s ease-out, top 0.15s ease-out;
   }
 
   .custom-cursor.hover {
-    width: 50px;
-    height: 50px;
-    background-color: rgba(255, 255, 255, 0.3);
+    width: 80px;
+    height: 80px;
+    opacity: 0.15;
   }
 }
 
