@@ -67,4 +67,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   themeBtn.addEventListener('click', toggleThemeHandler);
   themeBtnMobile.addEventListener('click', toggleThemeHandler);
+
+  // Custom Cursor Logic
+  const cursor = document.createElement('div');
+  cursor.classList.add('custom-cursor');
+  document.body.appendChild(cursor);
+
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+
+  const addHoverEffects = () => {
+    const interactables = document.querySelectorAll('a, button, .canvas-item, .lang-btn, .theme-toggle-btn');
+    interactables.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.classList.add('hover');
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('hover');
+      });
+    });
+  };
+
+  addHoverEffects();
 });
