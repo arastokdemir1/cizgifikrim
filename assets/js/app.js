@@ -69,26 +69,88 @@ document.addEventListener('DOMContentLoaded', () => {
   themeBtnMobile.addEventListener('click', toggleThemeHandler);
 
   // Custom Cursor Logic
-  const cursor = document.createElement('div');
-  cursor.classList.add('custom-cursor');
-  document.body.appendChild(cursor);
+  const cursorDot = document.createElement('div');
+  const cursorOutline = document.createElement('div');
+  cursorDot.classList.add('cursor-dot');
+  cursorOutline.classList.add('cursor-outline');
+  document.body.appendChild(cursorDot);
+  document.body.appendChild(cursorOutline);
 
-  document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+  let mouseX = -100;
+  let mouseY = -100;
+  let outlineX = -100;
+  let outlineY = -100;
+  let isMoving = false;
+
+  // Initialize cursor out of view
+  cursorDot.style.opacity = '0';
+  cursorOutline.style.opacity = '0';
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isMoving) {
+        cursorDot.style.opacity = '1';
+        cursorOutline.style.opacity = '1';
+        isMoving = true;
+    }
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top = mouseY + 'px';
   });
 
+  document.addEventListener('mousedown', () => cursorOutline.classList.add('clicking'));
+  document.addEventListener('mouseup', () => cursorOutline.classList.remove('clicking'));
+
+  // Sync position on scroll
+  window.addEventListener('scroll', () => {
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top = mouseY + 'px';
+  }, { passive: true });
+
+  // Hide when mouse leaves window
+  document.addEventListener('mouseleave', () => {
+    cursorDot.style.opacity = '0';
+    cursorOutline.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    cursorDot.style.opacity = '1';
+    cursorOutline.style.opacity = '1';
+  });
+
+  const animateOutline = () => {
+    const easing = 0.15;
+    outlineX += (mouseX - outlineX) * easing;
+    outlineY += (mouseY - outlineY) * easing;
+
+    cursorOutline.style.left = outlineX + 'px';
+    cursorOutline.style.top = outlineY + 'px';
+
+    requestAnimationFrame(animateOutline);
+  };
+  animateOutline();
+
   const addHoverEffects = () => {
-    const interactables = document.querySelectorAll('a, button, .canvas-item, .lang-btn, .theme-toggle-btn');
+    const interactables = document.querySelectorAll('a, button, .canvas-item, .lang-btn, .theme-toggle-btn, .menu-toggle, [role="button"]');
     interactables.forEach(el => {
+      // Prevent multiple listeners
+      if (el.getAttribute('data-cursor-bound')) return;
+      el.setAttribute('data-cursor-bound', 'true');
+
       el.addEventListener('mouseenter', () => {
-        cursor.classList.add('hover');
+        cursorOutline.classList.add('hover');
+        cursorDot.classList.add('hover');
       });
       el.addEventListener('mouseleave', () => {
-        cursor.classList.remove('hover');
+        cursorOutline.classList.remove('hover');
+        cursorDot.classList.remove('hover');
       });
     });
   };
+
+  // Run once and also after a small delay to catch late-renders
+  addHoverEffects();
+  setTimeout(addHoverEffects, 1000);
 
   addHoverEffects();
 });
