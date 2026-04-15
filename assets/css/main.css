@@ -66,36 +66,117 @@ footer { padding: 100px 0; border-top: 1px solid var(--line); display: flex; jus
 .nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg-overlay); backdrop-filter: blur(20px); display: none; flex-direction: column; justify-content: center; align-items: center; gap: 40px; z-index: 999; transition: background 0.3s; }
 .nav-overlay a { font-family: 'Space Grotesk'; font-size: 2.5rem; text-decoration: none; color: var(--text-secondary); transition: color 0.3s; }
 @media (max-width: 900px) { .nav-links { display: none; } .menu-toggle { display: block; } .nav-overlay.open { display: flex; } .canvas-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 3.5rem; } }
-
 /* Custom Cursor */
 @media (pointer: fine) {
-  *, *::before, *::after {
+  /* En üst seviyeden en alta kadar her şeyi gizle, tüm durumları kapsa */
+  html, body, 
+  a, button, input, select, textarea,
+  [role="button"], .canvas-item,
+  *, *::before, *::after,
+  *:hover, *:active, *:focus {
     cursor: none !important;
   }
 
-  .custom-cursor {
+  /* Kendi imleç elemanlarımızı GÖRÜNÜR yap ve sistem gizleme kuralından muaf tut */
+  .cursor-dot,
+  .cursor-outline {
+    pointer-events: none;
     position: fixed;
     top: 0;
     left: 0;
-    width: 20px;
-    height: 20px;
-    background-color: var(--text-primary);
-    border-radius: 50%;
-    pointer-events: none;
     transform: translate(-50%, -50%);
+    border-radius: 50%;
     z-index: 10000;
-    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, opacity 0.2s ease, left 0.15s ease-out, top 0.15s ease-out;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, background-color 0.3s ease, border-color 0.3s ease;
+    /* Zorunlu görünürlük */
+    opacity: 1;
+    visibility: visible;
+    display: block !important;
   }
 
-  .custom-cursor.hover {
-    width: 80px;
-    height: 80px;
-    opacity: 0.15;
+  /* Scrollbar alanını sabitle ve orada da gizle */
+  html {
+    overflow-y: scroll;
   }
+  
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--line);
+    cursor: none !important;
+  }
+
+  .cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--text-primary);
+  }
+
+  .cursor-outline {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--text-primary);
+    transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1), height 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  /* Custom Cursor - Sharp & Inverted */
+  .cursor-dot,
+  .cursor-outline {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 10000;
+    mix-blend-mode: difference; /* Her zeminde mükemmel zıtlık */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #fff; /* Difference modunda beyaz, beyaz zeminde siyah görünür */
+  }
+
+  .cursor-outline {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #fff;
+    transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1), height 0.3s cubic-bezier(0.23, 1, 0.32, 1), transform 0.3s ease;
+  }
+
+  /* Hover State - Saydam Gri (İstediğin net tasarım) */
+  .cursor-outline.hover {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(128, 128, 128, 0.25); /* Saydam gri */
+    mix-blend-mode: normal; /* Gri görünmesi için zıtlık modunu burada kapatıyoruz */
+    border: none;
+    opacity: 1;
+  }
+
+  .cursor-dot.hover {
+    opacity: 0; /* Buton üzerindeyken nokta tamamen kaybolur */
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  /* Click State */
+  .cursor-outline.clicking {
+    transform: translate(-50%, -50%) scale(0.8);
+    background-color: rgba(128, 128, 128, 0.4);
+  }
+}
 }
 
 @media (pointer: coarse) {
-  .custom-cursor {
+  .cursor-dot,
+  .cursor-outline {
     display: none !important;
   }
+}
 }
