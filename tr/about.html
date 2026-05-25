@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Hakkında | CIZGIFIKRIM</title>
-    <link rel="stylesheet" href="../assets/css/main.css?v=4">
+    <meta name="description" content="CizgiFikrim: akıllı sistemler inşa eden bağımsız bir yazılım ve yapay zekâ stüdyosu.">
+    <link rel="stylesheet" href="../assets/css/main.css?v=9">
 </head>
 <body>
     <div class="bg-grid"></div>
     <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
 
     <nav class="glass-nav">
         <a href="index.html" class="logo-box">
@@ -19,41 +21,34 @@
             <a href="products.html">ÜRÜNLER</a>
             <a href="about.html" class="active">HAKKINDA</a>
             <a href="contact.html">İLETİŞİM</a>
-            <div class="lang-switcher">
-                <a href="index.html" class="lang-btn active">TR</a>
-                <a href="../en/index.html" class="lang-btn">EN</a>
-                <a href="../de/index.html" class="lang-btn">DE</a>
-                <a href="../es/index.html" class="lang-btn">ES</a>
-            </div>
         </div>
         <button class="menu-toggle"><span></span><span></span></button>
     </nav>
 
+    <div class="nav-overlay">
+        <a href="products.html">ÜRÜNLER</a>
+        <a href="about.html">HAKKINDA</a>
+        <a href="contact.html">İLETİŞİM</a>
+    </div>
+
     <main class="container" style="padding-top: 150px;">
-        <section class="hero" style="min-height: auto; margin-bottom: 100px;">
+        <section class="hero" style="min-height: auto; margin-bottom: 80px;">
             <span class="section-tag reveal">Stüdyo</span>
             <h1 class="reveal">Mühendislik, dürüstlükle buluşuyor.</h1>
             <p class="reveal" style="font-size:1.2rem; color:var(--text-secondary); max-width:800px; margin-top:20px;">
                 CizgiFikrim, karmaşık problemleri zarif yazılım çözümleriyle çözen bağımsız bir teknoloji stüdyosudur. Biz bir ajans değil, bir lab olarak çalışıyoruz.
             </p>
         </section>
-
-        <section class="reveal" style="margin-bottom: 100px;">
-            <div class="canvas-grid" style="grid-template-columns: 1fr 1fr;">
+        <section class="reveal" style="margin-bottom: 80px;">
+            <div class="canvas-grid">
                 <div>
                     <h3 style="font-family:'Space Grotesk'; font-weight:300;">Yaklaşımımız</h3>
-                    <p style="color:var(--text-secondary); margin-top:20px;">
-                        Yapay zekâyı bir "sihir" değil, denetlenebilir bir mühendislik aracı olarak görüyoruz. LLM'leri (Büyük Dil Modelleri) sistemlerimizin merkezine koymak yerine, onları karar verici süreçleri destekleyen yüksek performanslı bileşenler olarak konumlandırıyoruz.
-                    </p>
-                    <p style="color:var(--text-secondary); margin-top:20px;">
-                        "Recursive self-evolution" gibi abartılı pazarlama terimleri yerine; test edilebilir, şeffaf ve güvenli kod yazmaya odaklanıyoruz.
-                    </p>
+                    <p style="color:var(--text-secondary); margin-top:20px;">Yapay zekâyı bir "sihir" değil, denetlenebilir bir mühendislik aracı olarak görüyoruz. Dil modellerini sistemlerimizin merkezine koymak yerine, karar süreçlerini destekleyen yüksek performanslı bileşenler olarak konumlandırıyoruz.</p>
+                    <p style="color:var(--text-secondary); margin-top:20px;">Abartılı pazarlama terimleri yerine; test edilebilir, şeffaf ve güvenli kod yazmaya odaklanıyoruz.</p>
                 </div>
                 <div>
                     <h3 style="font-family:'Space Grotesk'; font-weight:300;">Aras Tokdemir</h3>
-                    <p style="color:var(--text-secondary); margin-top:20px;">
-                        CizgiFikrim'in kurucusu ve baş mühendisi. Otonom sistemler, finansal teknolojiler ve mobil ekosistemler üzerine uzmanlaşmış bir geliştirici. Her projede bizzat kodun başında yer alarak, teorik vizyonu pratik ve ölçeklenebilir ürünlere dönüştürüyor.
-                    </p>
+                    <p style="color:var(--text-secondary); margin-top:20px;">CizgiFikrim'in kurucusu ve baş mühendisi. Otonom sistemler, finansal teknolojiler ve mobil ekosistemler üzerine uzmanlaşmış bir geliştirici. Her projede bizzat kodun başında yer alarak, teorik vizyonu pratik ve ölçeklenebilir ürünlere dönüştürüyor.</p>
                 </div>
             </div>
         </section>
@@ -65,10 +60,11 @@
             <span class="logo-sub">© 2026 ARCHITECTURE OF INTELLIGENCE</span>
         </div>
         <div style="text-align: right;">
-            <a href="mailto:hello@cizgifikrim.net" style="color:var(--text-primary); text-decoration:none;">hello@cizgifikrim.net</a>
+            <a href="mailto:hello@cizgifikrim.net" style="color:var(--text-primary); text-decoration:none;">hello@cizgifikrim.net</a><br>
+            <span style="opacity:0.5; margin-top:10px; display:block;">Independent Software Lab</span>
         </div>
     </footer>
 
-    <script src="../assets/js/app.js?v=4"></script>
+    <script src="../assets/js/app.js?v=9"></script>
 </body>
 </html>
