@@ -171,12 +171,176 @@ footer { padding: 100px 0; border-top: 1px solid var(--line); display: flex; jus
     background-color: rgba(128, 128, 128, 0.4);
   }
 }
+
+/* Glass & Ambient Effects */
+.glass-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 5vw;
+  background: rgba(3, 3, 3, 0.7);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  z-index: 1000;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-@media (pointer: coarse) {
-  .cursor-dot,
-  .cursor-outline {
-    display: none !important;
-  }
+.ambient-orb {
+  position: fixed;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  filter: blur(80px);
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 50%;
 }
+
+.orb-1 { top: -10%; right: -10%; }
+.orb-2 { bottom: -10%; left: -10%; }
+
+/* Typography & Layout */
+.section-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: block;
 }
+
+.item-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid var(--line);
+  margin-bottom: 15px;
+}
+
+.badge-live { background: rgba(0, 255, 128, 0.1); color: #00ff80; border-color: rgba(0, 255, 128, 0.2); }
+.badge-dev { background: rgba(255, 170, 0, 0.1); color: #ffaa00; border-color: rgba(255, 170, 0, 0.2); }
+.badge-research { background: rgba(0, 122, 255, 0.1); color: #007aff; border-color: rgba(0, 122, 255, 0.2); }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 15px 40px;
+  background: var(--text-primary);
+  color: var(--bg);
+  text-decoration: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 0;
+  transition: 0.3s;
+  margin-top: 30px;
+}
+
+.cta-button:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-5px);
+}
+
+.grid-cols-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+@media (max-width: 1100px) {
+  .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .grid-cols-4 { grid-template-columns: 1fr; }
+}
+
+.product-card {
+  border: 1px solid var(--line);
+  padding: 40px;
+  transition: 0.4s;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  border-color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.product-card h3 {
+  font-family: 'Space Grotesk';
+  font-size: 1.8rem;
+  margin: 15px 0;
+}
+
+.product-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* Waitlist Form */
+.waitlist-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 500px;
+}
+
+.waitlist-form input, .waitlist-form textarea {
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 15px;
+  color: var(--text-primary);
+  font-family: 'Inter';
+  outline: none;
+  transition: 0.3s;
+}
+
+.waitlist-form input:focus, .waitlist-form textarea:focus {
+  border-color: var(--accent);
+}
+
+.waitlist-form button {
+  background: var(--text-primary);
+  color: var(--bg);
+  border: none;
+  padding: 15px;
+  cursor: pointer;
+  font-family: 'Space Grotesk';
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: 0.3s;
+}
+
+.waitlist-form button:hover {
+  background: var(--accent);
+  color: white;
+}
+
