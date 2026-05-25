@@ -8,32 +8,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Theme Toggle Logic
-  const themeBtn = document.createElement('button');
-  themeBtn.className = 'theme-toggle-btn';
-  themeBtn.innerText = '🌓 THEME';
+  document.documentElement.classList.add('dark-theme');
 
-  const themeBtnMobile = document.createElement('button');
-  themeBtnMobile.className = 'theme-toggle-btn';
-  themeBtnMobile.innerText = '🌓 THEME';
+  // Reveal Animation Logic
+  const revealCallback = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  };
 
-  const langSwitcher = document.querySelector('.lang-switcher');
-  if (langSwitcher) {
-    langSwitcher.appendChild(themeBtn);
-  }
+  const revealObserver = new IntersectionObserver(revealCallback, {
+    threshold: 0.1
+  });
 
-  const navOverlay = document.querySelector('.nav-overlay');
-  if (navOverlay) {
-    navOverlay.appendChild(themeBtnMobile);
-  }
+  const registerReveals = () => {
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  };
 
-  const applyTheme = (isLight) => {
-    if (isLight) {
-        document.documentElement.classList.remove('dark-theme');
-        document.documentElement.classList.add('light-theme');
-    } else {
-        document.documentElement.classList.remove('light-theme');
-        document.documentElement.classList.add('dark-theme');
+  registerReveals();
+
+  // Export for potential dynamic content
+  window.registerReveals = registerReveals;
+});
     }
   };
 
