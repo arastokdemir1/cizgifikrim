@@ -150,7 +150,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Run once and also after a small delay to catch late-renders
   addHoverEffects();
-  setTimeout(addHoverEffects, 1000);
 
-  addHoverEffects();
+  // Reveal Animation Logic
+  const revealCallback = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  };
+
+  const revealObserver = new IntersectionObserver(revealCallback, {
+    threshold: 0.1
+  });
+
+  const registerReveals = () => {
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  };
+
+  registerReveals();
+
+  // Export for potential dynamic content
+  window.registerReveals = registerReveals;
 });
