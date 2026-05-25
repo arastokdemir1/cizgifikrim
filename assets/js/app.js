@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
       no.classList.toggle('open');
       document.body.style.overflow = no.classList.contains('open') ? 'hidden' : 'auto';
     });
-  }
+  } 
 
   document.documentElement.classList.add('dark-theme');
 
