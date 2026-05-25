@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>İletişim | CIZGIFIKRIM</title>
-    <link rel="stylesheet" href="../assets/css/main.css?v=4">
+    <meta name="description" content="CizgiFikrim ile iletişime geç: bekleme listesi, iş birliği veya proje talebi.">
+    <link rel="stylesheet" href="../assets/css/main.css?v=9">
 </head>
 <body>
     <div class="bg-grid"></div>
+    <div class="ambient-orb orb-1"></div>
     <div class="ambient-orb orb-2"></div>
 
     <nav class="glass-nav">
@@ -19,51 +21,38 @@
             <a href="products.html">ÜRÜNLER</a>
             <a href="about.html">HAKKINDA</a>
             <a href="contact.html" class="active">İLETİŞİM</a>
-            <div class="lang-switcher">
-                <a href="index.html" class="lang-btn active">TR</a>
-                <a href="../en/index.html" class="lang-btn">EN</a>
-                <a href="../de/index.html" class="lang-btn">DE</a>
-                <a href="../es/index.html" class="lang-btn">ES</a>
-            </div>
         </div>
         <button class="menu-toggle"><span></span><span></span></button>
     </nav>
 
-    <main class="container" style="padding-top: 150px;">
-        <section class="hero" style="min-height: auto; margin-bottom: 50px;">
+    <div class="nav-overlay">
+        <a href="products.html">ÜRÜNLER</a>
+        <a href="about.html">HAKKINDA</a>
+        <a href="contact.html">İLETİŞİM</a>
+    </div>
+
+    <main class="container" style="padding-top: 180px; padding-bottom: 120px;">
+        <section class="hero" style="min-height:auto; align-items:center; text-align:center; margin-bottom:70px;">
             <span class="section-tag reveal">Bağlantı Kur</span>
-            <h1 class="reveal">Yeni nesil bir sistem mi inşa ediyoruz?</h1>
-            <p class="reveal" style="font-size:1.2rem; color:var(--text-secondary); max-width:800px; margin-top:20px;">
-                Projelerimiz hakkında bilgi almak, bekleme listesine katılmak veya yeni bir fikir üzerinde iş birliği yapmak için bize ulaşın.
-            </p>
+            <h1 class="reveal" style="font-size:clamp(2rem,4.5vw,3.4rem);">Birlikte bir şey<br><span class="hologram">inşa edelim.</span></h1>
+            <p class="reveal" style="font-size:1.2rem; color:var(--text-secondary); max-width:620px; margin-top:20px;">Bir ürünün bekleme listesine katılmak, iş birliği yapmak ya da fikrini paylaşmak için yaz. Genellikle 1–2 gün içinde dönüş yapıyorum.</p>
         </section>
-
-        <section class="reveal" style="margin-bottom: 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 100px;">
-            <div>
-                <h3 style="font-family:'Space Grotesk'; font-weight:300; margin-bottom:30px;">İletişim Bilgileri</h3>
-                <div style="margin-bottom: 40px;">
-                    <span class="section-tag" style="color:var(--text-secondary); font-size:0.6rem;">E-POSTA</span>
-                    <a href="mailto:hello@cizgifikrim.net" style="font-size:1.5rem; color:var(--text-primary); text-decoration:none; font-family:'Space Grotesk';">hello@cizgifikrim.net</a>
-                </div>
-                <div style="margin-bottom: 40px;">
-                    <span class="section-tag" style="color:var(--text-secondary); font-size:0.6rem;">GITHUB</span>
-                    <a href="https://github.com/aras-tokdemir" target="_blank" style="font-size:1.5rem; color:var(--text-primary); text-decoration:none; font-family:'Space Grotesk';">@aras-tokdemir</a>
-                </div>
-            </div>
-
-            <div>
-                <h3 style="font-family:'Space Grotesk'; font-weight:300; margin-bottom:30px;">Bekleme Listesi & Talep</h3>
-                <form action="https://formspree.io/f/xoqogpgz" method="POST" class="waitlist-form">
-                    <input type="email" name="email" placeholder="E-posta adresiniz" required>
-                    <select name="subject" style="background:transparent; border:1px solid var(--line); padding:15px; color:var(--text-primary); font-family:'Inter'; outline:none;">
-                        <option value="waitlist" style="background:var(--bg);">Bekleme Listesine Katıl</option>
-                        <option value="collaboration" style="background:var(--bg);">İş Birliği / Proje Talebi</option>
-                        <option value="other" style="background:var(--bg);">Diğer</option>
-                    </select>
-                    <textarea name="message" rows="4" placeholder="Mesajınız (opsiyonel)"></textarea>
-                    <button type="submit">GÖNDER</button>
-                </form>
-            </div>
+        <section class="reveal" style="max-width:640px; margin:0 auto;">
+            <form action="https://formspree.io/f/xoqogpgz" method="POST" class="waitlist-form" style="max-width:none;">
+                <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <input type="email" name="email" placeholder="E-posta adresiniz" required>
+                <select name="subject">
+                    <option value="waitlist" style="background:var(--bg);">Bekleme listesine katıl</option>
+                    <option value="collaboration" style="background:var(--bg);">İş birliği / proje talebi</option>
+                    <option value="other" style="background:var(--bg);">Diğer</option>
+                </select>
+                <textarea name="message" rows="5" placeholder="Mesajınız (opsiyonel)"></textarea>
+                <button type="submit">Gönder</button>
+            </form>
+        </section>
+        <section class="reveal" style="text-align:center; margin-top:90px; padding-top:50px; border-top:1px solid var(--line);">
+            <span class="section-tag" style="color:var(--text-secondary); display:block; margin-bottom:12px;">Doğrudan E-posta</span>
+            <a href="mailto:hello@cizgifikrim.net" style="font-size:clamp(1.4rem,3vw,2rem); color:var(--text-primary); text-decoration:none; font-family:'Space Grotesk'; font-weight:300;">hello@cizgifikrim.net</a>
         </section>
     </main>
 
@@ -72,8 +61,12 @@
             <span class="logo">CIZGIFIKRIM</span>
             <span class="logo-sub">© 2026 ARCHITECTURE OF INTELLIGENCE</span>
         </div>
+        <div style="text-align: right;">
+            <a href="mailto:hello@cizgifikrim.net" style="color:var(--text-primary); text-decoration:none;">hello@cizgifikrim.net</a><br>
+            <span style="opacity:0.5; margin-top:10px; display:block;">Independent Software Lab</span>
+        </div>
     </footer>
 
-    <script src="../assets/js/app.js?v=4"></script>
+    <script src="../assets/js/app.js?v=9"></script>
 </body>
 </html>
