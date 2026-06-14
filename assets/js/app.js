@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ── Contact: reason buttons ─────────────────────────────────────────────────
-  const reasonBtns = document.querySelectorAll('.reason-btn');
+  const reasonBtns = document.querySelectorAll('.reason-btn'); 
   const subjectInput = document.getElementById('subject-input');
   reasonBtns.forEach(btn => {
     btn.addEventListener('click', () => {
