@@ -1,61 +1,115 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FlowGraph | iOS Finans Görselleştirme | CIZGIFIKRIM</title>
-    <meta name="description" content="iOS Finans Görselleştirme">
-    <link rel="stylesheet" href="../../assets/css/main.css?v=9">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowGraph — Kişisel Finans Akışı | CizgiFikrim</title>
+  <meta name="description" content="FlowGraph, gelir-gider hareketlerini kategoriler arası bir akış grafiği olarak görselleştirir.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../../assets/css/main.css?v=17">
 </head>
 <body>
-    <div class="bg-grid"></div>
-    <div class="ambient-orb orb-1"></div>
-    <div class="ambient-orb orb-2"></div>
 
-    <nav class="glass-nav">
-        <a href="../index.html" class="logo-box">
-            <span class="logo">CIZGIFIKRIM</span>
-            <span class="logo-sub">by Aras Tokdemir</span>
-        </a>
-        <div class="nav-links">
-            <a href="../products.html">ÜRÜNLER</a>
-            <a href="../about.html">HAKKINDA</a>
-            <a href="../contact.html">İLETİŞİM</a>
-        </div>
-        <button class="menu-toggle"><span></span><span></span></button>
+<header class="site-header">
+  <div class="page header-inner">
+    <a href="../index.html" class="brand">
+      <span class="brand-kicker folio">EST. 2024 — STÜDYO No. 01</span>
+      <div class="brand-name">
+        <span class="brand-serif">cizgi</span><span class="brand-sans">fikrim</span><span class="brand-dot">.</span>
+      </div>
+    </a>
+    <nav class="desktop-nav">
+      <a href="../products.html" class="nav-link"><span class="nav-sym">§</span>Ürünler</a>
+      <a href="../about.html" class="nav-link"><span class="nav-sym">¶</span>Hakkında</a>
+      <a href="../contact.html" class="nav-link"><span class="nav-sym">✎</span>İletişim</a>
     </nav>
+    <button class="mobile-toggle" aria-label="Menü" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="mobile-nav">
+    <div class="page mobile-nav-inner">
+      <a href="../products.html" class="mobile-nav-link"><span class="mobile-nav-sym">§</span>Ürünler</a>
+      <a href="../about.html" class="mobile-nav-link"><span class="mobile-nav-sym">¶</span>Hakkında</a>
+      <a href="../contact.html" class="mobile-nav-link"><span class="mobile-nav-sym">✎</span>İletişim</a>
+    </div>
+  </nav>
+</header>
 
-    <div class="nav-overlay">
-        <a href="../products.html">ÜRÜNLER</a>
-        <a href="../about.html">HAKKINDA</a>
-        <a href="../contact.html">İLETİŞİM</a>
+<div class="page folio-bar">
+  <div class="folio-bar-row">
+    <span class="folio">Dosya · Mobil Uygulamalar</span>
+    <hr class="folio-dotted-rule">
+  </div>
+</div>
+
+<main>
+  <article class="page project-article">
+
+    <aside class="project-aside">
+      <div class="meta-block">
+        <p class="folio meta-label">Durum</p>
+        <div class="meta-val">
+          <span class="status-badge"><span class="status-dot dot-live"></span><span class="label-live">Canlı</span></span>
+        </div>
+      </div>
+      <div class="meta-block">
+        <p class="folio meta-label">Kategori</p>
+        <p class="meta-val">Mobil Uygulamalar</p>
+      </div>
+      <div class="meta-block">
+        <p class="folio meta-label">Dosya No.</p>
+        <p class="meta-val-mono">CF-009</p>
+      </div>
+    </aside>
+
+    <div class="project-content">
+      <p class="folio">Proje</p>
+      <h1 class="project-h1">FlowGraph<span class="project-dot">.</span></h1>
+      <p class="project-tagline">Kişisel Finans Akışı</p>
+      <div class="project-body">
+        <p class="project-para">FlowGraph, gelir-gider hareketlerini kategoriler arası bir akış grafiği olarak görselleştirir.</p>
+        <p class="project-para">Tablolar yerine sezgisel akışlar üzerinden finansal farkındalık yaratmayı hedefler.</p>
+      </div>
     </div>
 
-    <main class="container" style="padding-top: 150px;">
-        <section class="hero" style="min-height: auto; margin-bottom: 60px;">
-            <span class="section-tag reveal">Mobil Uygulamalar</span>
-            <span class="item-badge badge-live reveal" style="margin-top:10px; align-self:flex-start;">Canlı</span>
-            <h1 class="reveal" style="margin-top:15px;">FlowGraph</h1>
-            <p class="reveal" style="font-size:1.2rem; color:var(--text-secondary); max-width:760px; margin-top:20px;">iOS Finans Görselleştirme</p>
-        </section>
-        <section class="reveal" style="max-width:760px; margin-bottom:80px;">
-            <p style="color:var(--text-secondary); margin-bottom:20px;">FlowGraph, gelir ve giderleri sıkıcı listeler yerine, paranın akışını gösteren organik bir görselleştirmeyle sunar. Büyük işlemler görsel olarak öne çıkar.</p>
-            <p style="color:var(--text-secondary);">SwiftData ve WidgetKit üzerine kurulu, çok dilli ve App Store'da yayında olan bir üründür.</p>
-        </section>
-        <a href="../products.html" class="reveal" style="color:var(--text-secondary); text-decoration:none; font-family:'JetBrains Mono'; font-size:0.8rem; letter-spacing:1px;">← TÜM ÜRÜNLER</a>
-    </main>
+  </article>
 
-    <footer class="container">
-        <div class="logo-box">
-            <span class="logo">CIZGIFIKRIM</span>
-            <span class="logo-sub">© 2026 ARCHITECTURE OF INTELLIGENCE</span>
-        </div>
-        <div style="text-align: right;">
-            <a href="mailto:hello@cizgifikrim.net" style="color:var(--text-primary); text-decoration:none;">hello@cizgifikrim.net</a><br>
-            <span style="opacity:0.5; margin-top:10px; display:block;">Independent Software Lab</span>
-        </div>
-    </footer>
+  <section class="page project-nav">
+    <div class="proj-nav-prev">
+      <a href="focusgrid.html" class="proj-nav-a">
+        <p class="folio">← Önceki</p>
+        <p class="proj-nav-name">FocusGrid</p>
+      </a>
+    </div>
+    <div class="proj-nav-next">
+      <a href="formafit.html" class="proj-nav-a">
+        <p class="folio">Sonraki →</p>
+        <p class="proj-nav-name">FormaFit</p>
+      </a>
+    </div>
+  </section>
+</main>
 
-    <script src="../../assets/js/app.js?v=9"></script>
+<footer class="site-footer">
+  <div class="page footer-inner">
+    <div>
+      <p class="folio">Kolofon</p>
+      <p class="footer-big">Fraunces, Inter Tight &amp; IBM Plex Mono ile dizildi.</p>
+      <p class="footer-small">Sayfalar elle yerleştirildi.</p>
+    </div>
+    <div>
+      <p class="folio">Yazışma</p>
+      <a href="mailto:hello@cizgifikrim.net" class="footer-email">hello@cizgifikrim.net</a>
+    </div>
+    <div class="footer-right">
+      <p class="folio">© 2026</p>
+      <p class="footer-location">İstanbul'dan.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../../assets/js/app.js?v=17"></script>
 </body>
 </html>
