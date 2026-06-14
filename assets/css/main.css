@@ -5,7 +5,7 @@
 :root {
   --bg:       oklch(0.97 0.006 85);
   --fg:       oklch(0.22 0.008 65);
-  --ink:      oklch(0.22 0.008 65);
+  --ink:      oklch(0.22 0.008 65); 
   --rule:     oklch(0.85 0.01 75);
   --mark:     oklch(0.94 0.025 85);
   --muted:    oklch(0.93 0.008 80);
