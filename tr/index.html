@@ -1,76 +1,219 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CIZGIFIKRIM | Akıllı Sistemler Labı</title>
-    <meta name="description" content="Akıllı sistemler inşa eden bağımsız bir yazılım ve yapay zekâ stüdyosu.">
-    <link rel="stylesheet" href="../assets/css/main.css?v=9">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CizgiFikrim — Akıllı sistemler inşa eden bağımsız bir lab</title>
+  <meta name="description" content="Otonom bilişsel sistemlerden finansal mühendisliğe; dürüst, denetlenebilir ve insan eliyle yazılmış yazılım.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../assets/css/main.css?v=17">
 </head>
 <body>
-    <div class="bg-grid"></div>
-    <div class="ambient-orb orb-1"></div>
-    <div class="ambient-orb orb-2"></div>
 
-    <nav class="glass-nav">
-        <a href="index.html" class="logo-box">
-            <span class="logo">CIZGIFIKRIM</span>
-            <span class="logo-sub">by Aras Tokdemir</span>
-        </a>
-        <div class="nav-links">
-            <a href="products.html">ÜRÜNLER</a>
-            <a href="about.html">HAKKINDA</a>
-            <a href="contact.html">İLETİŞİM</a>
-        </div>
-        <button class="menu-toggle"><span></span><span></span></button>
+<header class="site-header">
+  <div class="page header-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-kicker folio">EST. 2024 — STÜDYO No. 01</span>
+      <div class="brand-name">
+        <span class="brand-serif">cizgi</span><span class="brand-sans">fikrim</span><span class="brand-dot">.</span>
+      </div>
+    </a>
+    <nav class="desktop-nav">
+      <a href="products.html" class="nav-link"><span class="nav-sym">§</span>Ürünler</a>
+      <a href="about.html" class="nav-link"><span class="nav-sym">¶</span>Hakkında</a>
+      <a href="contact.html" class="nav-link"><span class="nav-sym">✎</span>İletişim</a>
     </nav>
+    <button class="mobile-toggle" aria-label="Menü" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="mobile-nav">
+    <div class="page mobile-nav-inner">
+      <a href="products.html" class="mobile-nav-link"><span class="mobile-nav-sym">§</span>Ürünler</a>
+      <a href="about.html" class="mobile-nav-link"><span class="mobile-nav-sym">¶</span>Hakkında</a>
+      <a href="contact.html" class="mobile-nav-link"><span class="mobile-nav-sym">✎</span>İletişim</a>
+    </div>
+  </nav>
+</header>
 
-    <div class="nav-overlay">
-        <a href="products.html">ÜRÜNLER</a>
-        <a href="about.html">HAKKINDA</a>
-        <a href="contact.html">İLETİŞİM</a>
+<div class="page folio-bar">
+  <div class="folio-bar-row">
+    <span class="folio" id="folio-date">Cilt I · Sayı 01</span>
+    <hr class="folio-dotted-rule">
+  </div>
+</div>
+
+<main>
+
+  <!-- HERO -->
+  <section class="page hero-section">
+    <div class="hero-main">
+      <span class="folio hero-folio">Başyazı</span>
+      <h1 class="hero-h1 reveal">
+        Akıllı sistemler inşa eden <em class="underline-soft">bağımsız</em> bir lab.
+      </h1>
+      <p class="hero-sub reveal reveal-d1">
+        Otonom bilişsel sistemlerden finansal mühendisliğe — geleceğin teknolojilerini bugün
+        <span class="marker"> dürüst </span>
+        ve şeffaf bir yaklaşımla, satır satır yazıyoruz.
+      </p>
+      <div class="hero-ctas reveal reveal-d1">
+        <a href="contact.html" class="btn-primary">İletişime Geç<span class="btn-arrow">→</span></a>
+        <a href="products.html" class="btn-ghost">ya da portfolyoyu karıştır</a>
+      </div>
     </div>
 
-    <main class="container">
-        <section class="hero">
-            <h1 class="reveal">Akıllı sistemler inşa eden<br><span class="hologram">bağımsız bir lab.</span></h1>
-            <p class="reveal" style="font-size:1.2rem; color:var(--text-secondary); max-width:600px; margin-top:20px;">
-                Otonom bilişsel sistemlerden finansal mühendisliğe, geleceğin teknolojilerini bugün dürüst ve şeffaf bir yaklaşımla geliştiriyoruz.
-            </p>
-            <div class="reveal"><a href="contact.html" class="cta-button">İletişime Geç</a></div>
-        </section>
+    <div class="hero-aside reveal reveal-d2">
+      <div class="folio">Editörden</div>
+      <p class="editorial-quote">"Yazılım, sihir değildir. Birinin gece yarısı bir hata günlüğüne bakıp düzelttiği şeydir."</p>
+      <p class="editorial-attr">— Aras T.</p>
 
-        <section style="padding: 64px 0;">
-            <span class="section-tag reveal">Odak Alanları</span>
-            <div class="grid-cols-4">
-                <div class="reveal"><h4 style="margin-bottom:15px; font-family:'Space Grotesk';">Otonom AI</h4><p style="font-size:0.9rem; color:var(--text-secondary);">Denetlenebilir ve otonom bilişsel mimariler.</p></div>
-                <div class="reveal"><h4 style="margin-bottom:15px; font-family:'Space Grotesk';">Mobil Uygulamalar</h4><p style="font-size:0.9rem; color:var(--text-secondary);">Yüksek performanslı, kullanıcı odaklı mobil çözümler.</p></div>
-                <div class="reveal"><h4 style="margin-bottom:15px; font-family:'Space Grotesk';">Finansal Sistemler</h4><p style="font-size:0.9rem; color:var(--text-secondary);">Algoritmik ticaret ve kantitatif finans motorları.</p></div>
-                <div class="reveal"><h4 style="margin-bottom:15px; font-family:'Space Grotesk';">Otomotiv</h4><p style="font-size:0.9rem; color:var(--text-secondary);">Yeni nesil araç yazılımları ve ECU entegrasyonu.</p></div>
-            </div>
-        </section>
+      <div class="wip-box">
+        <div class="folio">Şu an üzerinde çalışılan</div>
+        <ul class="wip-list">
+          <li class="wip-item">
+            <span class="wip-name">Emre · v0.3 bellek</span>
+            <span class="wip-tag label-rd">Ar-Ge</span>
+          </li>
+          <li class="wip-item">
+            <span class="wip-name">CarLog · iOS 18</span>
+            <span class="wip-tag label-live">Canlı</span>
+          </li>
+          <li class="wip-item">
+            <span class="wip-name">Trade · backtest</span>
+            <span class="wip-tag label-rd">Ar-Ge</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-        <section style="padding: 64px 0;">
-            <span class="section-tag reveal">Öne Çıkan Ürünler</span>
-            <div class="canvas-grid">
-                <a href="projects/ultron.html" class="product-card reveal"><span class="item-badge badge-research">Ar-Ge / Canlı</span><h3>Emre</h3><p>Denetlenebilir otonom bilişsel sistemler üzerine kurulu amiral gemisi mimari.</p></a>
-                <a href="projects/carlog.html" class="product-card reveal"><span class="item-badge badge-live">Canlı</span><h3>CarLog</h3><p>Araç verimliliği ve maliyet yönetimi için gelişmiş mobil platform.</p></a>
-            </div>
-            <div style="margin-top:50px; text-align:center;" class="reveal"><a href="products.html" style="color:var(--text-secondary); text-decoration:none; font-family:'JetBrains Mono'; font-size:0.8rem; letter-spacing:1px;">TÜM ÜRÜNLERİ GÖR →</a></div>
-        </section>
-    </main>
+  <!-- ODAK ALANLARI -->
+  <section class="page section-border">
+    <div class="focus-layout">
+      <div>
+        <p class="folio">Bölüm I</p>
+        <h2 class="section-h2">Odak alanları</h2>
+        <p class="section-sub">Dört disiplin, tek bir el yazısı.</p>
+      </div>
+      <ol class="focus-list">
+        <li class="focus-item reveal">
+          <span class="folio focus-num">01</span>
+          <div>
+            <h3 class="focus-title">Otonom AI</h3>
+            <p class="focus-desc">Denetlenebilir ve otonom bilişsel mimariler.</p>
+          </div>
+        </li>
+        <li class="focus-item reveal">
+          <span class="folio focus-num">02</span>
+          <div>
+            <h3 class="focus-title">Mobil Uygulamalar</h3>
+            <p class="focus-desc">Yüksek performanslı, kullanıcı odaklı mobil çözümler.</p>
+          </div>
+        </li>
+        <li class="focus-item reveal">
+          <span class="folio focus-num">03</span>
+          <div>
+            <h3 class="focus-title">Finansal Sistemler</h3>
+            <p class="focus-desc">Algoritmik ticaret ve kantitatif finans motorları.</p>
+          </div>
+        </li>
+        <li class="focus-item reveal">
+          <span class="folio focus-num">04</span>
+          <div>
+            <h3 class="focus-title">Otomotiv</h3>
+            <p class="focus-desc">Yeni nesil araç yazılımları ve ECU entegrasyonu.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
 
-    <footer class="container">
-        <div class="logo-box">
-            <span class="logo">CIZGIFIKRIM</span>
-            <span class="logo-sub">© 2026 ARCHITECTURE OF INTELLIGENCE</span>
+  <!-- ÖNE ÇIKAN ÜRÜNLER -->
+  <section class="page section-border">
+    <div class="feat-header">
+      <div>
+        <p class="folio">Bölüm II</p>
+        <h2 class="section-h2">Öne çıkan ürünler</h2>
+      </div>
+      <a href="products.html" class="all-link">Tümü →</a>
+    </div>
+    <div class="feat-grid">
+      <a href="projects/ultron.html" class="feat-card reveal">
+        <div class="feat-meta">
+          <span class="status-badge">
+            <span class="status-dot dot-rd"></span>
+            <span class="label-rd">Ar-Ge / Canlı</span>
+          </span>
+          <span class="feat-num">№ 001</span>
         </div>
-        <div style="text-align: right;">
-            <a href="mailto:hello@cizgifikrim.net" style="color:var(--text-primary); text-decoration:none;">hello@cizgifikrim.net</a><br>
-            <span style="opacity:0.5; margin-top:10px; display:block;">Independent Software Lab</span>
+        <h3 class="feat-name">Emre</h3>
+        <p class="feat-tagline">Otonom Bilişsel Sistem</p>
+        <p class="feat-desc">Denetlenebilir ve otonom bilişsel sistem mimarisi. CizgiFikrim'in otonom zekâ vizyonunun merkezindeki amiral gemisi.</p>
+        <div class="feat-footer">
+          <span class="feat-cat">Otonom AI / Bilişsel Sistemler</span>
+          <span>oku →</span>
         </div>
-    </footer>
+      </a>
+      <a href="projects/carlog.html" class="feat-card reveal reveal-d1">
+        <div class="feat-meta">
+          <span class="status-badge">
+            <span class="status-dot dot-live"></span>
+            <span class="label-live">Canlı</span>
+          </span>
+          <span class="feat-num">№ 002</span>
+        </div>
+        <h3 class="feat-name">CarLog</h3>
+        <p class="feat-tagline">iOS Araç Maliyet Uygulaması</p>
+        <p class="feat-desc">Araç maliyet yönetimi, yakıt takibi ve verimlilik analizi için profesyonel mobil çözüm.</p>
+        <div class="feat-footer">
+          <span class="feat-cat">Mobil Uygulamalar</span>
+          <span>oku →</span>
+        </div>
+      </a>
+    </div>
+  </section>
 
-    <script src="../assets/js/app.js?v=9"></script>
+  <!-- MANİFESTO -->
+  <section class="page section-border">
+    <div class="manifesto-layout">
+      <aside class="margin-note">
+        <div class="mn-label">Not 03</div>
+        <div class="mn-text">Bu bir manifesto değil, bir çalışma alışkanlığı.</div>
+      </aside>
+      <div>
+        <p class="folio">Çalışma şekli</p>
+        <p class="manifesto-text reveal">
+          Önce <span class="underline-soft">test edilebilir</span> kodu yazarız, sonra demo.
+          Yapay zekâ kararı verir <em>değil</em>, kararı destekler. Her sistemde
+          bir <span class="marker">insan</span> kapısı vardır; çünkü güvenli yazılım, hesabını
+          verebileceğin yazılımdır.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="page footer-inner">
+    <div>
+      <p class="folio">Kolofon</p>
+      <p class="footer-big">Fraunces, Inter Tight &amp; IBM Plex Mono ile dizildi.</p>
+      <p class="footer-small">Sayfalar elle yerleştirildi.</p>
+    </div>
+    <div>
+      <p class="folio">Yazışma</p>
+      <a href="mailto:hello@cizgifikrim.net" class="footer-email">hello@cizgifikrim.net</a>
+    </div>
+    <div class="footer-right">
+      <p class="folio footer-year">© <span id="year">2026</span></p>
+      <p class="footer-location">İstanbul'dan.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js?v=17"></script>
 </body>
 </html>
