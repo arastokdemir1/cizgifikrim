@@ -1,70 +1,146 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Hakkında | CIZGIFIKRIM</title>
-    <meta name="description" content="CizgiFikrim: akıllı sistemler inşa eden bağımsız bir yazılım ve yapay zekâ stüdyosu.">
-    <link rel="stylesheet" href="../assets/css/main.css?v=9">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hakkında — CizgiFikrim</title>
+  <meta name="description" content="CizgiFikrim, karmaşık problemleri zarif yazılım çözümleriyle çözen bağımsız bir teknoloji stüdyosudur.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../assets/css/main.css?v=17">
 </head>
 <body>
-    <div class="bg-grid"></div>
-    <div class="ambient-orb orb-1"></div>
-    <div class="ambient-orb orb-2"></div>
 
-    <nav class="glass-nav">
-        <a href="index.html" class="logo-box">
-            <span class="logo">CIZGIFIKRIM</span>
-            <span class="logo-sub">by Aras Tokdemir</span>
-        </a>
-        <div class="nav-links">
-            <a href="products.html">ÜRÜNLER</a>
-            <a href="about.html" class="active">HAKKINDA</a>
-            <a href="contact.html">İLETİŞİM</a>
-        </div>
-        <button class="menu-toggle"><span></span><span></span></button>
+<header class="site-header">
+  <div class="page header-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-kicker folio">EST. 2024 — STÜDYO No. 01</span>
+      <div class="brand-name">
+        <span class="brand-serif">cizgi</span><span class="brand-sans">fikrim</span><span class="brand-dot">.</span>
+      </div>
+    </a>
+    <nav class="desktop-nav">
+      <a href="products.html" class="nav-link"><span class="nav-sym">§</span>Ürünler</a>
+      <a href="about.html" class="nav-link active"><span class="nav-sym">¶</span>Hakkında</a>
+      <a href="contact.html" class="nav-link"><span class="nav-sym">✎</span>İletişim</a>
     </nav>
-
-    <div class="nav-overlay">
-        <a href="products.html">ÜRÜNLER</a>
-        <a href="about.html">HAKKINDA</a>
-        <a href="contact.html">İLETİŞİM</a>
+    <button class="mobile-toggle" aria-label="Menü" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="mobile-nav">
+    <div class="page mobile-nav-inner">
+      <a href="products.html" class="mobile-nav-link"><span class="mobile-nav-sym">§</span>Ürünler</a>
+      <a href="about.html" class="mobile-nav-link"><span class="mobile-nav-sym">¶</span>Hakkında</a>
+      <a href="contact.html" class="mobile-nav-link"><span class="mobile-nav-sym">✎</span>İletişim</a>
     </div>
+  </nav>
+</header>
 
-    <main class="container" style="padding-top: 150px;">
-        <section class="hero" style="min-height: auto; margin-bottom: 80px;">
-            <span class="section-tag reveal">Stüdyo</span>
-            <h1 class="reveal">Mühendislik, dürüstlükle buluşuyor.</h1>
-            <p class="reveal" style="font-size:1.2rem; color:var(--text-secondary); max-width:800px; margin-top:20px;">
-                CizgiFikrim, karmaşık problemleri zarif yazılım çözümleriyle çözen bağımsız bir teknoloji stüdyosudur. Biz bir ajans değil, bir lab olarak çalışıyoruz.
-            </p>
-        </section>
-        <section class="reveal" style="margin-bottom: 80px;">
-            <div class="canvas-grid">
-                <div>
-                    <h3 style="font-family:'Space Grotesk'; font-weight:300;">Yaklaşımımız</h3>
-                    <p style="color:var(--text-secondary); margin-top:20px;">Yapay zekâyı bir "sihir" değil, denetlenebilir bir mühendislik aracı olarak görüyoruz. Dil modellerini sistemlerimizin merkezine koymak yerine, karar süreçlerini destekleyen yüksek performanslı bileşenler olarak konumlandırıyoruz.</p>
-                    <p style="color:var(--text-secondary); margin-top:20px;">Abartılı pazarlama terimleri yerine; test edilebilir, şeffaf ve güvenli kod yazmaya odaklanıyoruz.</p>
-                </div>
-                <div>
-                    <h3 style="font-family:'Space Grotesk'; font-weight:300;">Aras Tokdemir</h3>
-                    <p style="color:var(--text-secondary); margin-top:20px;">CizgiFikrim'in kurucusu ve baş mühendisi. Otonom sistemler, finansal teknolojiler ve mobil ekosistemler üzerine uzmanlaşmış bir geliştirici. Her projede bizzat kodun başında yer alarak, teorik vizyonu pratik ve ölçeklenebilir ürünlere dönüştürüyor.</p>
-                </div>
-            </div>
-        </section>
-    </main>
+<div class="page folio-bar">
+  <div class="folio-bar-row">
+    <span class="folio">Bölüm · Stüdyo Hakkında</span>
+    <hr class="folio-dotted-rule">
+  </div>
+</div>
 
-    <footer class="container">
-        <div class="logo-box">
-            <span class="logo">CIZGIFIKRIM</span>
-            <span class="logo-sub">© 2026 ARCHITECTURE OF INTELLIGENCE</span>
+<main>
+
+  <!-- HERO -->
+  <section class="page page-hero">
+    <div>
+      <p class="folio">Manifesto</p>
+      <h1 class="page-h1 reveal">
+        Mühendislik, <em class="underline-soft">dürüstlükle</em> buluşuyor.
+      </h1>
+      <p class="page-intro reveal reveal-d1">
+        CizgiFikrim, karmaşık problemleri zarif yazılım çözümleriyle çözen bağımsız bir teknoloji
+        stüdyosudur. Biz bir ajans değiliz — bir <span class="marker">lab</span> olarak çalışıyoruz.
+      </p>
+    </div>
+  </section>
+
+  <!-- 01 · YAKLAŞIMIMIZ -->
+  <section class="page about-grid">
+    <aside class="margin-note">
+      <div class="mn-label">Not 01</div>
+      <div class="mn-text">Modeller hızla değişir; mimari kalır.</div>
+    </aside>
+    <div class="about-body">
+      <p class="folio">01 · Yaklaşımımız</p>
+      <div class="about-paras">
+        <p class="reveal">
+          Yapay zekâyı bir "sihir" değil, <em>denetlenebilir bir mühendislik aracı</em> olarak
+          görüyoruz. Dil modellerini sistemlerimizin merkezine koymak yerine, karar süreçlerini
+          destekleyen yüksek performanslı bileşenler olarak konumlandırıyoruz.
+        </p>
+        <p class="reveal reveal-d1">
+          Abartılı pazarlama terimleri yerine; test edilebilir, şeffaf ve güvenli kod yazmaya
+          odaklanıyoruz.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · ARAS TOKDEMİR -->
+  <section class="page about-grid">
+    <aside class="margin-note">
+      <div class="mn-label">Not 02</div>
+      <div class="mn-text">Her satırın arkasında bir imza vardır.</div>
+    </aside>
+    <div class="about-body">
+      <p class="folio">02 · Aras Tokdemir</p>
+      <div class="about-paras">
+        <p class="reveal">
+          CizgiFikrim'in kurucusu ve baş mühendisi. Otonom sistemler, finansal teknolojiler ve
+          mobil ekosistemler üzerine uzmanlaşmış bir geliştirici.
+        </p>
+        <p class="reveal reveal-d1">
+          Her projede bizzat kodun başında yer alarak, teorik vizyonu pratik ve ölçeklenebilir
+          ürünlere dönüştürüyor.
+        </p>
+      </div>
+      <div class="discipline-grid reveal reveal-d1">
+        <div>
+          <p class="folio">Disiplin</p>
+          <p class="disc-val">Otonom AI</p>
         </div>
-        <div style="text-align: right;">
-            <a href="mailto:hello@cizgifikrim.net" style="color:var(--text-primary); text-decoration:none;">hello@cizgifikrim.net</a><br>
-            <span style="opacity:0.5; margin-top:10px; display:block;">Independent Software Lab</span>
+        <div>
+          <p class="folio">Disiplin</p>
+          <p class="disc-val">Mobil</p>
         </div>
-    </footer>
+        <div>
+          <p class="folio">Disiplin</p>
+          <p class="disc-val">Quant</p>
+        </div>
+        <div>
+          <p class="folio">Disiplin</p>
+          <p class="disc-val">Otomotiv</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="../assets/js/app.js?v=9"></script>
+</main>
+
+<footer class="site-footer">
+  <div class="page footer-inner">
+    <div>
+      <p class="folio">Kolofon</p>
+      <p class="footer-big">Fraunces, Inter Tight &amp; IBM Plex Mono ile dizildi.</p>
+      <p class="footer-small">Sayfalar elle yerleştirildi.</p>
+    </div>
+    <div>
+      <p class="folio">Yazışma</p>
+      <a href="mailto:hello@cizgifikrim.net" class="footer-email">hello@cizgifikrim.net</a>
+    </div>
+    <div class="footer-right">
+      <p class="folio">© 2026</p>
+      <p class="footer-location">İstanbul'dan.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js?v=17"></script>
 </body>
 </html>
