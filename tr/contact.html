@@ -1,73 +1,138 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>İletişim | CIZGIFIKRIM</title>
-    <meta name="description" content="CizgiFikrim ile iletişime geç: bekleme listesi, iş birliği veya proje talebi.">
-    <link rel="stylesheet" href="../assets/css/main.css?v=9">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>İletişim — CizgiFikrim</title>
+  <meta name="description" content="Bir ürünün bekleme listesine katılmak, iş birliği yapmak ya da fikrini paylaşmak için yaz.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../assets/css/main.css?v=17">
 </head>
 <body>
-    <div class="bg-grid"></div>
-    <div class="ambient-orb orb-1"></div> 
-    <div class="ambient-orb orb-2"></div>
 
-    <nav class="glass-nav">
-        <a href="index.html" class="logo-box">
-            <span class="logo">CIZGIFIKRIM</span>
-            <span class="logo-sub">by Aras Tokdemir</span>
-        </a>
-        <div class="nav-links">
-            <a href="products.html">ÜRÜNLER</a>
-            <a href="about.html">HAKKINDA</a>
-            <a href="contact.html" class="active">İLETİŞİM</a>
-        </div>
-        <button class="menu-toggle"><span></span><span></span></button>
+<header class="site-header">
+  <div class="page header-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-kicker folio">EST. 2024 — STÜDYO No. 01</span>
+      <div class="brand-name">
+        <span class="brand-serif">cizgi</span><span class="brand-sans">fikrim</span><span class="brand-dot">.</span>
+      </div>
+    </a>
+    <nav class="desktop-nav">
+      <a href="products.html" class="nav-link"><span class="nav-sym">§</span>Ürünler</a>
+      <a href="about.html" class="nav-link"><span class="nav-sym">¶</span>Hakkında</a>
+      <a href="contact.html" class="nav-link active"><span class="nav-sym">✎</span>İletişim</a>
     </nav>
-
-    <div class="nav-overlay">
-        <a href="products.html">ÜRÜNLER</a>
-        <a href="about.html">HAKKINDA</a>
-        <a href="contact.html">İLETİŞİM</a>
+    <button class="mobile-toggle" aria-label="Menü" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="mobile-nav">
+    <div class="page mobile-nav-inner">
+      <a href="products.html" class="mobile-nav-link"><span class="mobile-nav-sym">§</span>Ürünler</a>
+      <a href="about.html" class="mobile-nav-link"><span class="mobile-nav-sym">¶</span>Hakkında</a>
+      <a href="contact.html" class="mobile-nav-link"><span class="mobile-nav-sym">✎</span>İletişim</a>
     </div>
+  </nav>
+</header>
 
-    <main class="container" style="padding-top: 180px; padding-bottom: 120px;">
-        <section class="hero" style="min-height:auto; align-items:center; text-align:center; margin-bottom:70px;">
-            <span class="section-tag reveal">Bağlantı Kur</span>
-            <h1 class="reveal" style="font-size:clamp(2rem,4.5vw,3.4rem);">Birlikte bir şey<br><span class="hologram">inşa edelim.</span></h1>
-            <p class="reveal" style="font-size:1.2rem; color:var(--text-secondary); max-width:620px; margin-top:20px;">Bir ürünün bekleme listesine katılmak, iş birliği yapmak ya da fikrini paylaşmak için yaz. Genellikle 1–2 gün içinde dönüş yapıyorum.</p>
-        </section>
-        <section class="reveal" style="max-width:640px; margin:0 auto;">
-            <form action="https://formspree.io/f/xoqogpgz" method="POST" class="waitlist-form" style="max-width:none;">
-                <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
-                <input type="email" name="email" placeholder="E-posta adresiniz" required>
-                <select name="subject">
-                    <option value="waitlist" style="background:var(--bg);">Bekleme listesine katıl</option>
-                    <option value="collaboration" style="background:var(--bg);">İş birliği / proje talebi</option>
-                    <option value="other" style="background:var(--bg);">Diğer</option>
-                </select>
-                <textarea name="message" rows="5" placeholder="Mesajınız (opsiyonel)"></textarea>
-                <button type="submit">Gönder</button>
-            </form>
-        </section>
-        <section class="reveal" style="text-align:center; margin-top:90px; padding-top:50px; border-top:1px solid var(--line);">
-            <span class="section-tag" style="color:var(--text-secondary); display:block; margin-bottom:12px;">Doğrudan E-posta</span>
-            <a href="mailto:hello@cizgifikrim.net" style="font-size:clamp(1.4rem,3vw,2rem); color:var(--text-primary); text-decoration:none; font-family:'Space Grotesk'; font-weight:300;">hello@cizgifikrim.net</a>
-        </section>
-    </main>
+<div class="page folio-bar">
+  <div class="folio-bar-row">
+    <span class="folio">Bölüm · Yazışma</span>
+    <hr class="folio-dotted-rule">
+  </div>
+</div>
 
-    <footer class="container">
-        <div class="logo-box">
-            <span class="logo">CIZGIFIKRIM</span>
-            <span class="logo-sub">© 2026 ARCHITECTURE OF INTELLIGENCE</span>
+<main>
+
+  <!-- HERO -->
+  <div class="page contact-hero">
+    <div>
+      <p class="folio">Bağlantı kur</p>
+      <h1 class="page-h1 reveal">
+        Birlikte bir şey <em class="underline-soft">inşa</em> edelim.
+      </h1>
+      <p class="page-intro reveal reveal-d1">
+        Bir ürünün bekleme listesine katılmak, iş birliği yapmak ya da fikrini paylaşmak için yaz.
+        Genellikle 1–2 gün içinde dönüş yapıyorum.
+      </p>
+    </div>
+  </div>
+
+  <!-- FORM + ASIDE -->
+  <div class="page contact-layout">
+
+    <form class="contact-form" id="contact-form" action="https://formspree.io/f/xoqogpgz" method="POST">
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div>
+        <p class="folio">01 · Konu</p>
+        <div class="reason-btns">
+          <button type="button" class="reason-btn active" data-reason="bekleme">Bekleme listesine katıl</button>
+          <button type="button" class="reason-btn" data-reason="isbirligi">İş birliği / proje talebi</button>
+          <button type="button" class="reason-btn" data-reason="diger">Diğer</button>
         </div>
-        <div style="text-align: right;">
-            <a href="mailto:hello@cizgifikrim.net" style="color:var(--text-primary); text-decoration:none;">hello@cizgifikrim.net</a><br>
-            <span style="opacity:0.5; margin-top:10px; display:block;">Independent Software Lab</span>
-        </div>
-    </footer>
+        <input type="hidden" name="subject" id="subject-input" value="Bekleme listesine katıl">
+      </div>
 
-    <script src="../assets/js/app.js?v=9"></script>
+      <div class="input-2col">
+        <label class="form-field">
+          <span class="folio">02 · İsim</span>
+          <input type="text" name="name" class="form-input" required placeholder="">
+        </label>
+        <label class="form-field">
+          <span class="folio">03 · E-posta</span>
+          <input type="email" name="email" class="form-input" required placeholder="">
+        </label>
+      </div>
+
+      <label class="form-field">
+        <span class="folio">04 · Mesaj</span>
+        <textarea name="message" class="form-input form-textarea" rows="5" placeholder="Bir paragraf yeter…"></textarea>
+      </label>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Gönder<span class="btn-arrow">→</span></button>
+        <span class="form-sent" id="form-sent" style="display:none">Mesaj gönderildi — teşekkürler.</span>
+      </div>
+    </form>
+
+    <aside class="contact-aside">
+      <div class="c-email-card">
+        <p class="folio">Doğrudan e-posta</p>
+        <a href="mailto:hello@cizgifikrim.net" class="c-email-link">hello@cizgifikrim.net</a>
+        <p class="c-note">Form kullanmayı sevmiyorsan, doğrudan yaz.</p>
+      </div>
+      <div class="c-time-card">
+        <p class="folio">Cevap süresi</p>
+        <p class="c-time-val"><span class="marker">~ 1–2 gün</span></p>
+        <p class="c-time-note">Hafta sonları biraz daha tembel.</p>
+      </div>
+    </aside>
+
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="page footer-inner">
+    <div>
+      <p class="folio">Kolofon</p>
+      <p class="footer-big">Fraunces, Inter Tight &amp; IBM Plex Mono ile dizildi.</p>
+      <p class="footer-small">Sayfalar elle yerleştirildi.</p>
+    </div>
+    <div>
+      <p class="folio">Yazışma</p>
+      <a href="mailto:hello@cizgifikrim.net" class="footer-email">hello@cizgifikrim.net</a>
+    </div>
+    <div class="footer-right">
+      <p class="folio">© 2026</p>
+      <p class="footer-location">İstanbul'dan.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js?v=17"></script>
 </body>
 </html>
- 
