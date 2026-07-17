@@ -22,14 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ── Contact: form submit feedback ───────────────────────────────────────────
-  const form = document.getElementById('contact-form');
-  const sentMsg = document.getElementById('form-sent');
-  if (form && sentMsg) {
-    form.addEventListener('submit', () => {
-      setTimeout(() => { sentMsg.style.display = 'inline'; }, 800);
-    });
-  }
+  // Not: form submit artık render.js → initContactFormSupabase() tarafından
+  // yönetiliyor (Supabase'e yazıyor). Burada ayrıca bir submit handler YOK —
+  // eskiden Formspree için buradaydı, çakışmasın diye kaldırıldı.
 
   // ── Folio date ──────────────────────────────────────────────────────────────
   const folioDate = document.getElementById('folio-date');
@@ -41,19 +36,26 @@ document.addEventListener('DOMContentLoaded', () => {
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // ── Reveal animations ───────────────────────────────────────────────────────
-  const reveals = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08 });
-    reveals.forEach(el => observer.observe(el));
-  } else {
-    reveals.forEach(el => el.classList.add('visible'));
-  }
+  // window.initReveal olarak dışa açılır: Supabase'ten gelen içerik DOM'a
+  // eklendikten SONRA render.js bunu tekrar çağırır, çünkü ilk yüklemede
+  // henüz o .reveal elemanları var olmayabilir. reveal-bound sınıfı aynı
+  // elemanın iki kez gözlemlenmesini önler.
+  window.initReveal = function () {
+    const reveals = document.querySelectorAll('.reveal:not(.reveal-bound)');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      reveals.forEach(el => { el.classList.add('reveal-bound'); observer.observe(el); });
+    } else {
+      reveals.forEach(el => el.classList.add('visible', 'reveal-bound'));
+    }
+  };
+  window.initReveal();
 
 });

@@ -39,7 +39,7 @@
 
 <div class="page folio-bar">
   <div class="folio-bar-row">
-    <span class="folio">Dosya · Finansal Sistemler</span>
+    <span class="folio" id="folio-category">Dosya</span>
     <hr class="folio-dotted-rule">
   </div>
 </div>
@@ -50,45 +50,30 @@
     <aside class="project-aside">
       <div class="meta-block">
         <p class="folio meta-label">Durum</p>
-        <div class="meta-val">
-          <span class="status-badge"><span class="status-dot dot-rd"></span><span class="label-rd">Ar-Ge</span></span>
-        </div>
+        <div class="meta-val" id="meta-status"></div>
       </div>
       <div class="meta-block">
         <p class="folio meta-label">Kategori</p>
-        <p class="meta-val">Finansal Sistemler</p>
+        <p class="meta-val" id="meta-category"></p>
       </div>
       <div class="meta-block">
         <p class="folio meta-label">Dosya No.</p>
-        <p class="meta-val-mono">CF-012</p>
+        <p class="meta-val-mono" id="meta-folder"></p>
       </div>
     </aside>
 
     <div class="project-content">
       <p class="folio">Proje</p>
-      <h1 class="project-h1">Trade<span class="project-dot">.</span></h1>
-      <p class="project-tagline">Quant & Algoritmik Ticaret</p>
-      <div class="project-body">
-        <p class="project-para">Trade, veriden stratejiye uzanan tam zincirli bir kantitatif ticaret altyapısıdır.</p>
-        <p class="project-para">Backtest, risk yönetimi ve canlı yürütme bileşenleri ayrı, denetlenebilir modüller olarak tasarlanır.</p>
-      </div>
+      <h1 class="project-h1" id="project-name">Yükleniyor…</h1>
+      <p class="project-tagline" id="project-tagline"></p>
+      <div class="project-body" id="project-body"></div>
     </div>
 
   </article>
 
   <section class="page project-nav">
-    <div class="proj-nav-prev">
-      <a href="gnomon.html" class="proj-nav-a">
-        <p class="folio">← Önceki</p>
-        <p class="proj-nav-name">Gnomon</p>
-      </a>
-    </div>
-    <div class="proj-nav-next">
-      <a href="better_motors.html" class="proj-nav-a">
-        <p class="folio">Sonraki →</p>
-        <p class="proj-nav-name">Better Motors</p>
-      </a>
-    </div>
+    <div class="proj-nav-prev" id="nav-prev"></div>
+    <div class="proj-nav-next" id="nav-next"></div>
   </section>
 </main>
 
@@ -110,6 +95,9 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../../assets/js/supabase-client.js"></script>
+<script src="../../assets/js/render.js"></script>
 <script src="../../assets/js/app.js?v=17"></script>
 </body>
 </html>

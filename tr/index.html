@@ -139,40 +139,8 @@
       </div>
       <a href="products.html" class="all-link">Tümü →</a>
     </div>
-    <div class="feat-grid">
-      <a href="projects/ultron.html" class="feat-card reveal">
-        <div class="feat-meta">
-          <span class="status-badge">
-            <span class="status-dot dot-rd"></span>
-            <span class="label-rd">Ar-Ge / Canlı</span>
-          </span>
-          <span class="feat-num">№ 001</span>
-        </div>
-        <h3 class="feat-name">Emre</h3>
-        <p class="feat-tagline">Otonom Bilişsel Sistem</p>
-        <p class="feat-desc">Denetlenebilir ve otonom bilişsel sistem mimarisi. CizgiFikrim'in otonom zekâ vizyonunun merkezindeki amiral gemisi.</p>
-        <div class="feat-footer">
-          <span class="feat-cat">Otonom AI / Bilişsel Sistemler</span>
-          <span>oku →</span>
-        </div>
-      </a>
-      <a href="projects/carlog.html" class="feat-card reveal reveal-d1">
-        <div class="feat-meta">
-          <span class="status-badge">
-            <span class="status-dot dot-live"></span>
-            <span class="label-live">Canlı</span>
-          </span>
-          <span class="feat-num">№ 002</span>
-        </div>
-        <h3 class="feat-name">CarLog</h3>
-        <p class="feat-tagline">iOS Araç Maliyet Uygulaması</p>
-        <p class="feat-desc">Araç maliyet yönetimi, yakıt takibi ve verimlilik analizi için profesyonel mobil çözüm.</p>
-        <div class="feat-footer">
-          <span class="feat-cat">Mobil Uygulamalar</span>
-          <span>oku →</span>
-        </div>
-      </a>
-    </div>
+    <!-- Öne çıkan kartlar Supabase'ten dinamik olarak yüklenir (is_featured=true) — bkz. assets/js/render.js -->
+    <div id="featured-grid" class="feat-grid"></div>
   </section>
 
   <!-- MANİFESTO -->
@@ -214,6 +182,9 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/js/supabase-client.js"></script>
+<script src="../assets/js/render.js"></script>
 <script src="../assets/js/app.js?v=17"></script>
 </body>
 </html>

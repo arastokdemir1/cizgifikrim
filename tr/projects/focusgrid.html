@@ -39,7 +39,7 @@
 
 <div class="page folio-bar">
   <div class="folio-bar-row">
-    <span class="folio">Dosya · Mobil Uygulamalar</span>
+    <span class="folio" id="folio-category">Dosya</span>
     <hr class="folio-dotted-rule">
   </div>
 </div>
@@ -50,45 +50,30 @@
     <aside class="project-aside">
       <div class="meta-block">
         <p class="folio meta-label">Durum</p>
-        <div class="meta-val">
-          <span class="status-badge"><span class="status-dot dot-live"></span><span class="label-live">Canlı</span></span>
-        </div>
+        <div class="meta-val" id="meta-status"></div>
       </div>
       <div class="meta-block">
         <p class="folio meta-label">Kategori</p>
-        <p class="meta-val">Mobil Uygulamalar</p>
+        <p class="meta-val" id="meta-category"></p>
       </div>
       <div class="meta-block">
         <p class="folio meta-label">Dosya No.</p>
-        <p class="meta-val-mono">CF-008</p>
+        <p class="meta-val-mono" id="meta-folder"></p>
       </div>
     </aside>
 
     <div class="project-content">
       <p class="folio">Proje</p>
-      <h1 class="project-h1">FocusGrid<span class="project-dot">.</span></h1>
-      <p class="project-tagline">Minimalist Odaklanma Aracı</p>
-      <div class="project-body">
-        <p class="project-para">FocusGrid, gün içindeki odaklanma bloklarını görsel bir ızgara olarak takip etmenizi sağlar.</p>
-        <p class="project-para">Sade arayüzü ve düşük sürtünmeli akışıyla günlük rutine kolayca yerleşir.</p>
-      </div>
+      <h1 class="project-h1" id="project-name">Yükleniyor…</h1>
+      <p class="project-tagline" id="project-tagline"></p>
+      <div class="project-body" id="project-body"></div>
     </div>
 
   </article>
 
   <section class="page project-nav">
-    <div class="proj-nav-prev">
-      <a href="carlog.html" class="proj-nav-a">
-        <p class="folio">← Önceki</p>
-        <p class="proj-nav-name">CarLog</p>
-      </a>
-    </div>
-    <div class="proj-nav-next">
-      <a href="flowgraph.html" class="proj-nav-a">
-        <p class="folio">Sonraki →</p>
-        <p class="proj-nav-name">FlowGraph</p>
-      </a>
-    </div>
+    <div class="proj-nav-prev" id="nav-prev"></div>
+    <div class="proj-nav-next" id="nav-next"></div>
   </section>
 </main>
 
@@ -110,6 +95,9 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../../assets/js/supabase-client.js"></script>
+<script src="../../assets/js/render.js"></script>
 <script src="../../assets/js/app.js?v=17"></script>
 </body>
 </html>
