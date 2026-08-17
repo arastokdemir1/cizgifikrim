@@ -1,114 +1,103 @@
 <!DOCTYPE html>
-<html class="dark" lang="tr"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Radar — BIST Hisse Tarayıcısı | CizgiFikrim</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=IBM+Plex+Mono:wght@500;700&amp;family=Inter:wght@400&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: { extend: {
-            "colors": {
-                    "on-surface": "#e5e2e1", "status-stale": "#666666", "outline": "#849396",
-                    "surface-tint": "#00daf3", "surface-bright": "#393939", "tertiary-container": "#fec931",
-                    "on-surface-variant": "#bac9cc", "inverse-surface": "#e5e2e1", "primary-container": "#00e5ff",
-                    "primary": "#c3f5ff", "surface-container-lowest": "#0e0e0e", "status-active": "#00FF41",
-                    "error": "#ffb4ab", "surface-glass": "rgba(26, 26, 26, 0.6)", "surface-container-low": "#1c1b1b",
-                    "on-background": "#e5e2e1", "surface": "#131313", "primary-fixed-dim": "#00daf3",
-                    "secondary": "#d1bcff", "status-idle": "#FFB800", "background": "#131313", "on-primary": "#00363d",
-                    "secondary-container": "#7000ff", "surface-variant": "#353535", "surface-container-high": "#2a2a2a",
-                    "outline-variant": "#3b494c", "surface-dim": "#131313", "tertiary": "#ffeac0",
-                    "surface-container-highest": "#353535", "border-subtle": "rgba(255, 255, 255, 0.1)",
-                    "surface-container": "#20201f"
-            },
-            "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
-            "spacing": { "margin-mobile": "16px", "gutter": "24px", "container-max": "1440px", "unit": "4px", "margin-desktop": "64px" },
-            "fontFamily": {
-                    "label-status": ["IBM Plex Mono"], "body-md": ["Inter"], "headline-lg": ["Hanken Grotesk"],
-                    "headline-xl": ["Hanken Grotesk"], "label-mono": ["IBM Plex Mono"], "headline-lg-mobile": ["Hanken Grotesk"]
-            },
-            "fontSize": {
-                    "label-status": ["11px", { "lineHeight": "12px", "fontWeight": "700" }],
-                    "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                    "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-                    "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                    "label-mono": ["13px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
-                    "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
-            }
-        } }
-      }
-    </script>
-<style>
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: theme('colors.surface-container-lowest'); }
-        ::-webkit-scrollbar-thumb { background: theme('colors.surface-variant'); border-radius: 4px; }
-        .glow-active { box-shadow: 0 0 15px rgba(0, 255, 65, 0.2); }
-    </style>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radar — BIST Hisse Tarayıcısı | CizgiFikrim</title>
+  <meta name="description" content="Türk bireysel yatırımcılar için filtre tabanlı BIST hisse tarama uygulaması.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../../assets/css/main.css?v=17">
 </head>
-<body class="bg-background text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
-<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto bg-surface-glass backdrop-blur-xl border-b border-subtle">
-<a href="../index.html" class="font-headline-lg text-headline-lg font-bold text-primary">CizgiFikrim</a>
-<ul class="hidden md:flex gap-gutter items-center">
-<li><a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1 hover:text-primary transition-colors duration-300" href="../products.html">Projeler</a></li>
-<li><a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="../aktivite.html">Aktivite</a></li>
-<li><a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="../about.html">Hakkında</a></li>
-</ul>
-<a href="../contact.html" class="hidden md:flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded font-label-mono text-label-mono uppercase hover:bg-primary-fixed-dim transition-colors active:scale-95 duration-200">
-<span class="material-symbols-outlined">mail</span>İletişim
-</a>
-</nav>
-<main class="flex-grow pt-[100px] pb-16 px-margin-mobile md:px-margin-desktop w-full max-w-container-max mx-auto flex flex-col gap-8">
-<header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-subtle pb-6">
-<div class="flex flex-col gap-2">
-<div class="flex items-center gap-4">
-<h1 id="project-name" class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Yükleniyor…</h1>
-<span id="project-category-badge" class="px-2 py-1 border border-outline-variant rounded bg-surface-container text-on-surface-variant font-label-mono text-label-mono mt-2"></span>
-</div>
-<p id="project-tagline" class="font-body-md text-body-md text-on-surface-variant max-w-2xl"></p>
-</div>
-<div id="project-status-badge" class="flex items-center gap-3 bg-surface-container border border-subtle rounded-full px-5 py-2.5 glow-active"></div>
+<body>
+
+<header class="site-header">
+  <div class="page header-inner">
+    <a href="../index.html" class="brand">
+      <span class="brand-kicker folio">EST. 2024 — STÜDYO No. 01</span>
+      <div class="brand-name">
+        <span class="brand-serif">cizgi</span><span class="brand-sans">fikrim</span><span class="brand-dot">.</span>
+      </div>
+    </a>
+    <nav class="desktop-nav">
+      <a href="../products.html" class="nav-link"><span class="nav-sym">§</span>Ürünler</a>
+      <a href="../about.html" class="nav-link"><span class="nav-sym">¶</span>Hakkında</a>
+      <a href="../contact.html" class="nav-link"><span class="nav-sym">✎</span>İletişim</a>
+    </nav>
+    <button class="mobile-toggle" aria-label="Menü" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="mobile-nav">
+    <div class="page mobile-nav-inner">
+      <a href="../products.html" class="mobile-nav-link"><span class="mobile-nav-sym">§</span>Ürünler</a>
+      <a href="../about.html" class="mobile-nav-link"><span class="mobile-nav-sym">¶</span>Hakkında</a>
+      <a href="../contact.html" class="mobile-nav-link"><span class="mobile-nav-sym">✎</span>İletişim</a>
+    </div>
+  </nav>
 </header>
-<div class="grid grid-cols-12 gap-gutter">
-<section class="col-span-12 lg:col-span-8 bg-surface-container-low border border-subtle rounded-xl p-6 flex flex-col gap-4">
-<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface border-b border-subtle pb-4">Proje Hakkında</h3>
-<p id="project-description" class="font-body-md text-body-md text-on-surface-variant leading-relaxed"></p>
-</section>
-<section class="col-span-12 lg:col-span-4 bg-surface-container-low border border-subtle rounded-xl p-6 flex flex-col gap-4" id="project-stats">
-<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface border-b border-subtle pb-4">Durum</h3>
-</section>
-<section class="col-span-12 bg-surface-glass backdrop-blur-xl border border-subtle rounded-xl p-6 flex flex-col gap-4">
-<h2 class="font-headline-lg text-headline-lg text-on-surface flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">monitoring</span>Aktivite Yoğunluğu
-</h2>
-<div id="activity-chart-area" class="min-h-[120px] flex items-center justify-center"></div>
-</section>
-<section class="col-span-12 mt-4">
-<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-4 flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">terminal</span>Geliştirme Günlüğü
-</h3>
-<div class="bg-surface-container-lowest border border-subtle rounded-xl overflow-hidden p-4" id="commit-feed-area"></div>
-</section>
-<section class="col-span-12 flex justify-between items-center border-t border-subtle pt-8 mt-4">
-<div id="nav-prev"></div>
-<div id="nav-next"></div>
-</section>
+
+<div class="page folio-bar">
+  <div class="folio-bar-row">
+    <span class="folio" id="folio-category">Dosya</span>
+    <hr class="folio-dotted-rule">
+  </div>
 </div>
+
+<main>
+  <article class="page project-article">
+
+    <aside class="project-aside">
+      <div class="meta-block">
+        <p class="folio meta-label">Durum</p>
+        <div class="meta-val" id="meta-status"></div>
+      </div>
+      <div class="meta-block">
+        <p class="folio meta-label">Kategori</p>
+        <p class="meta-val" id="meta-category"></p>
+      </div>
+      <div class="meta-block">
+        <p class="folio meta-label">Dosya No.</p>
+        <p class="meta-val-mono" id="meta-folder"></p>
+      </div>
+    </aside>
+
+    <div class="project-content">
+      <p class="folio">Proje</p>
+      <h1 class="project-h1" id="project-name">Yükleniyor…</h1>
+      <p class="project-tagline" id="project-tagline"></p>
+      <div class="project-body" id="project-body"></div>
+    </div>
+
+  </article>
+
+  <section class="page project-nav">
+    <div class="proj-nav-prev" id="nav-prev"></div>
+    <div class="proj-nav-next" id="nav-next"></div>
+  </section>
 </main>
-<footer class="bg-surface-container-lowest border-t border-subtle w-full py-16 px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-start gap-gutter max-w-container-max mx-auto mt-auto">
-<div class="flex flex-col gap-4">
-<div class="font-headline-lg text-headline-lg font-bold text-on-surface">CizgiFikrim</div>
-<p class="font-label-mono text-label-mono font-body-md text-body-md text-on-surface-variant">© 2026 CizgiFikrim. Tüm hakları saklıdır.</p>
-</div>
-<ul class="flex flex-wrap gap-6">
-<li><a class="font-label-mono text-label-mono font-body-md text-body-md text-on-surface-variant hover:text-surface-tint transition-colors duration-200" href="../products.html">Projeler</a></li>
-<li><a class="font-label-mono text-label-mono font-body-md text-body-md text-on-surface-variant hover:text-surface-tint transition-colors duration-200" href="mailto:hello@cizgifikrim.net">hello@cizgifikrim.net</a></li>
-</ul>
+
+<footer class="site-footer">
+  <div class="page footer-inner">
+    <div>
+      <p class="folio">Kolofon</p>
+      <p class="footer-big">Fraunces, Inter Tight &amp; IBM Plex Mono ile dizildi.</p>
+      <p class="footer-small">Sayfalar elle yerleştirildi.</p>
+    </div>
+    <div>
+      <p class="folio">Yazışma</p>
+      <a href="mailto:hello@cizgifikrim.net" class="footer-email">hello@cizgifikrim.net</a>
+    </div>
+    <div class="footer-right">
+      <p class="folio">© 2026</p>
+      <p class="footer-location">İstanbul'dan.</p>
+    </div>
+  </div>
 </footer>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../../assets/js/supabase-client.js"></script>
-<script src="../../assets/js/site.js"></script>
-</body></html>
+<script src="../../assets/js/render.js"></script>
+<script src="../../assets/js/app.js?v=17"></script>
+</body>
+</html>
