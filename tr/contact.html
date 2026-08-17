@@ -1,141 +1,153 @@
 <!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>İletişim — CizgiFikrim</title>
-  <meta name="description" content="Bir ürünün bekleme listesine katılmak, iş birliği yapmak ya da fikrini paylaşmak için yaz.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="../assets/css/main.css?v=17">
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>İletişim — CizgiFikrim</title>
+<meta name="description" content="Bir proje işbirliği, teknik destek ya da fikrini paylaşmak için yaz."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=IBM+Plex+Mono:wght@500;700&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: { extend: {
+            "colors": {
+                    "secondary": "#d1bcff", "tertiary": "#ffeac0", "surface-container-lowest": "#0e0e0e",
+                    "surface-bright": "#393939", "surface-variant": "#353535",
+                    "surface-glass": "rgba(26, 26, 26, 0.6)", "border-subtle": "rgba(255, 255, 255, 0.1)",
+                    "status-stale": "#666666", "surface": "#131313", "surface-container-high": "#2a2a2a",
+                    "primary": "#c3f5ff", "outline": "#849396", "surface-container-highest": "#353535",
+                    "tertiary-container": "#fec931", "surface-container": "#20201f", "on-background": "#e5e2e1",
+                    "surface-container-low": "#1c1b1b", "on-primary": "#00363d", "primary-fixed": "#9cf0ff",
+                    "background": "#131313", "on-surface": "#e5e2e1", "status-active": "#00FF41",
+                    "status-idle": "#FFB800", "on-surface-variant": "#bac9cc", "surface-dim": "#131313",
+                    "surface-tint": "#00daf3", "primary-container": "#00e5ff", "outline-variant": "#3b494c"
+            },
+            "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+            "spacing": { "margin-mobile": "16px", "margin-desktop": "64px", "unit": "4px", "container-max": "1440px", "gutter": "24px" },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Hanken Grotesk"], "body-md": ["Inter"], "headline-lg": ["Hanken Grotesk"],
+                    "label-status": ["IBM Plex Mono"], "headline-xl": ["Hanken Grotesk"], "label-mono": ["IBM Plex Mono"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                    "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                    "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                    "label-status": ["11px", { "lineHeight": "12px", "fontWeight": "700" }],
+                    "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "label-mono": ["13px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }]
+            }
+        } }
+      }
+    </script>
+<style>
+        .pulse-dot { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+    </style>
 </head>
-<body>
-
-<header class="site-header">
-  <div class="page header-inner">
-    <a href="index.html" class="brand">
-      <span class="brand-kicker folio">EST. 2024 — STÜDYO No. 01</span>
-      <div class="brand-name">
-        <span class="brand-serif">cizgi</span><span class="brand-sans">fikrim</span><span class="brand-dot">.</span> 
-      </div>
-    </a>
-    <nav class="desktop-nav">
-      <a href="products.html" class="nav-link"><span class="nav-sym">§</span>Ürünler</a>
-      <a href="about.html" class="nav-link"><span class="nav-sym">¶</span>Hakkında</a>
-      <a href="contact.html" class="nav-link active"><span class="nav-sym">✎</span>İletişim</a>
-    </nav>
-    <button class="mobile-toggle" aria-label="Menü" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-  <nav class="mobile-nav">
-    <div class="page mobile-nav-inner">
-      <a href="products.html" class="mobile-nav-link"><span class="mobile-nav-sym">§</span>Ürünler</a>
-      <a href="about.html" class="mobile-nav-link"><span class="mobile-nav-sym">¶</span>Hakkında</a>
-      <a href="contact.html" class="mobile-nav-link"><span class="mobile-nav-sym">✎</span>İletişim</a>
-    </div>
-  </nav>
-</header>
-
-<div class="page folio-bar">
-  <div class="folio-bar-row">
-    <span class="folio">Bölüm · Yazışma</span>
-    <hr class="folio-dotted-rule">
-  </div>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col">
+<header class="bg-surface-glass backdrop-blur-xl border-b border-subtle fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<a href="index.html" class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-primary">CizgiFikrim</a>
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="products.html">Projeler</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="aktivite.html">Aktivite</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="about.html">Hakkında</a>
+</nav>
+<div class="flex items-center gap-4">
+<a href="contact.html" class="active:scale-95 transition-transform bg-primary text-on-primary px-6 py-2 rounded font-medium font-body-md hover:bg-primary-container hidden md:inline-block">İletişim</a>
 </div>
-
-<main>
-
-  <!-- HERO -->
-  <div class="page contact-hero">
-    <div>
-      <p class="folio">Bağlantı kur</p>
-      <h1 class="page-h1 reveal">
-        Birlikte bir şey <em class="underline-soft">inşa</em> edelim.
-      </h1>
-      <p class="page-intro reveal reveal-d1">
-        Bir ürünün bekleme listesine katılmak, iş birliği yapmak ya da fikrini paylaşmak için yaz.
-        Genellikle 1–2 gün içinde dönüş yapıyorum.
-      </p>
-    </div>
-  </div>
-
-  <!-- FORM + ASIDE -->
-  <div class="page contact-layout">
-
-    <form class="contact-form" id="contact-form" action="https://formspree.io/f/xoqogpgz" method="POST">
-      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
-
-      <div>
-        <p class="folio">01 · Konu</p>
-        <div class="reason-btns">
-          <button type="button" class="reason-btn active" data-reason="bekleme">Bekleme listesine katıl</button>
-          <button type="button" class="reason-btn" data-reason="isbirligi">İş birliği / proje talebi</button>
-          <button type="button" class="reason-btn" data-reason="diger">Diğer</button>
-        </div>
-        <input type="hidden" name="subject" id="subject-input" value="Bekleme listesine katıl">
-      </div>
-
-      <div class="input-2col">
-        <label class="form-field">
-          <span class="folio">02 · İsim</span>
-          <input type="text" name="name" class="form-input" required placeholder="">
-        </label>
-        <label class="form-field">
-          <span class="folio">03 · E-posta</span>
-          <input type="email" name="email" class="form-input" required placeholder="">
-        </label>
-      </div>
-
-      <label class="form-field">
-        <span class="folio">04 · Mesaj</span>
-        <textarea name="message" class="form-input form-textarea" rows="5" placeholder="Bir paragraf yeter…"></textarea>
-      </label>
-
-      <div class="form-actions">
-        <button type="submit" class="btn-primary">Gönder<span class="btn-arrow">→</span></button>
-        <span class="form-sent" id="form-sent" style="display:none">Mesaj gönderildi — teşekkürler.</span>
-      </div>
-    </form>
-
-    <aside class="contact-aside">
-      <div class="c-email-card">
-        <p class="folio">Doğrudan e-posta</p>
-        <a href="mailto:hello@cizgifikrim.net" class="c-email-link">hello@cizgifikrim.net</a>
-        <p class="c-note">Form kullanmayı sevmiyorsan, doğrudan yaz.</p>
-      </div>
-      <div class="c-time-card">
-        <p class="folio">Cevap süresi</p>
-        <p class="c-time-val"><span class="marker">~ 1–2 gün</span></p>
-        <p class="c-time-note">Hafta sonları biraz daha tembel.</p>
-      </div>
-    </aside>
-
-  </div>
-
+</header>
+<main class="flex-grow pt-32 pb-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full grid grid-cols-4 md:grid-cols-12 gap-gutter">
+<div class="col-span-4 md:col-span-12 mb-12">
+<h1 class="font-headline-xl text-headline-xl text-primary mb-4 flex items-center gap-4">
+<span class="material-symbols-outlined text-4xl">mail</span>İletişim Kurun
+</h1>
+<p class="text-on-surface-variant max-w-2xl text-lg">Proje işbirlikleri veya teknik destek için bize ulaşın. 1-2 gün içinde dönüş yapıyoruz.</p>
+</div>
+<div class="col-span-4 md:col-span-5 flex flex-col gap-8 mb-12 md:mb-0">
+<div class="bg-surface-container-low border border-subtle rounded-xl p-8 relative overflow-hidden group">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-3 h-3 rounded-full bg-status-active pulse-dot"></div>
+<span class="font-label-mono text-label-mono text-status-active tracking-wider uppercase">Sistem Aktif</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Doğrudan Hat</h3>
+<a class="text-primary text-xl font-medium hover:underline flex items-center gap-2 mb-6" href="mailto:hello@cizgifikrim.net">
+                    hello@cizgifikrim.net
+                    <span class="material-symbols-outlined">arrow_outward</span>
+</a>
+<div class="pt-6 border-t border-subtle flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant">schedule</span>
+<div>
+<p class="font-label-status text-label-status text-on-surface-variant uppercase mb-1">Yanıt Süresi</p>
+<p class="font-body-md text-on-surface">1-2 gün içinde dönüş yapıyoruz</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-glass border border-subtle rounded-xl p-8 backdrop-blur-md">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary mt-1">location_on</span>
+<div>
+<p class="font-label-status text-label-status text-on-surface-variant uppercase mb-1">Konum</p>
+<p class="font-body-md text-on-surface">İstanbul, Türkiye</p>
+</div>
+</div>
+</div>
+</div>
+<div class="col-span-4 md:col-span-7 md:col-start-6">
+<div class="bg-surface-container border border-subtle rounded-xl p-8 shadow-[0_0_40px_rgba(0,218,243,0.05)]">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-8">Mesaj Gönder</h2>
+<form id="contact-form" class="flex flex-col gap-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="font-label-mono text-label-mono text-on-surface-variant flex items-center gap-2" for="name">
+<span class="material-symbols-outlined text-[16px]">person</span>İsim Soyisim
+                            </label>
+<input class="bg-surface-container-lowest border border-subtle rounded-lg px-4 py-3 text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all duration-300 font-body-md" id="name" name="name" placeholder="Adın soyadın" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-mono text-label-mono text-on-surface-variant flex items-center gap-2" for="email">
+<span class="material-symbols-outlined text-[16px]">alternate_email</span>E-posta Adresi
+                            </label>
+<input class="bg-surface-container-lowest border border-subtle rounded-lg px-4 py-3 text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all duration-300 font-body-md" id="email" name="email" placeholder="ornek@mail.com" required="" type="email"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-mono text-label-mono text-on-surface-variant flex items-center gap-2" for="subject">
+<span class="material-symbols-outlined text-[16px]">label</span>Konu
+                        </label>
+<select class="bg-surface-container-lowest border border-subtle rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all duration-300 font-body-md appearance-none" id="subject" name="subject">
+<option value="Proje İşbirliği">Proje İşbirliği</option>
+<option value="Teknik Destek">Teknik Destek</option>
+<option value="Genel Soru">Genel Soru</option>
+<option value="Diğer">Diğer</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-mono text-label-mono text-on-surface-variant flex items-center gap-2" for="message">
+<span class="material-symbols-outlined text-[16px]">chat</span>Mesajınız
+                        </label>
+<textarea class="bg-surface-container-lowest border border-subtle rounded-lg px-4 py-3 text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all duration-300 font-body-md resize-none" id="message" name="message" placeholder="Bir paragraf yeter…" rows="5"></textarea>
+</div>
+<button class="bg-primary text-background font-body-md font-medium px-6 py-4 rounded-lg flex justify-center items-center gap-2 hover:bg-primary-container hover:shadow-[0_0_15px_rgba(0,218,243,0.4)] transition-all duration-300 group mt-4" type="submit">
+                        Gönder
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">send</span>
+</button>
+<p id="contact-feedback" class="hidden text-sm text-primary font-label-mono text-label-mono text-center"></p>
+</form>
+</div>
+</div>
 </main>
-
-<footer class="site-footer">
-  <div class="page footer-inner">
-    <div>
-      <p class="folio">Kolofon</p>
-      <p class="footer-big">Fraunces, Inter Tight &amp; IBM Plex Mono ile dizildi.</p>
-      <p class="footer-small">Sayfalar elle yerleştirildi.</p>
-    </div>
-    <div>
-      <p class="folio">Yazışma</p>
-      <a href="mailto:hello@cizgifikrim.net" class="footer-email">hello@cizgifikrim.net</a>
-    </div>
-    <div class="footer-right">
-      <p class="folio">© 2026</p>
-      <p class="footer-location">İstanbul'dan.</p>
-    </div>
-  </div>
+<footer class="bg-surface-container-lowest border-t border-subtle w-full py-16 px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-start gap-gutter max-w-container-max mx-auto mt-auto">
+<div class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface mb-6 md:mb-0">CizgiFikrim</div>
+<div class="flex flex-col md:flex-row gap-8 md:gap-16">
+<nav class="flex flex-col gap-4 font-label-mono text-label-mono">
+<a class="text-on-surface-variant hover:text-surface-tint transition-colors" href="products.html">Projeler</a>
+<a class="text-on-surface-variant hover:text-surface-tint transition-colors" href="about.html">Hakkında</a>
+</nav>
+<div class="font-label-mono text-label-mono text-on-surface-variant max-w-xs">© 2026 CizgiFikrim. Tüm hakları saklıdır.</div>
+</div>
 </footer>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../assets/js/supabase-client.js"></script>
-<script src="../assets/js/render.js"></script>
-<script src="../assets/js/app.js?v=17"></script>
-</body>
-</html>
+<script src="../assets/js/site.js"></script>
+</body></html>

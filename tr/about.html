@@ -1,146 +1,146 @@
 <!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hakkında — CizgiFikrim</title>
-  <meta name="description" content="CizgiFikrim, karmaşık problemleri zarif yazılım çözümleriyle çözen bağımsız bir teknoloji stüdyosudur.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="../assets/css/main.css?v=17">
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hakkında — CizgiFikrim</title>
+<meta name="description" content="CizgiFikrim, karmaşık problemleri zarif yazılım çözümleriyle çözen bağımsız bir teknoloji stüdyosudur."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=IBM+Plex+Mono:wght@500;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: { extend: {
+                    "colors": {
+                        "secondary": "#d1bcff", "tertiary": "#ffeac0", "surface-container-lowest": "#0e0e0e",
+                        "surface-bright": "#393939", "surface-variant": "#353535",
+                        "surface-glass": "rgba(26, 26, 26, 0.6)", "primary-fixed-dim": "#00daf3",
+                        "border-subtle": "rgba(255, 255, 255, 0.1)", "status-stale": "#666666",
+                        "surface": "#131313", "surface-container-high": "#2a2a2a", "primary": "#c3f5ff",
+                        "outline": "#849396", "surface-container-highest": "#353535",
+                        "tertiary-container": "#fec931", "surface-container": "#20201f",
+                        "on-background": "#e5e2e1", "surface-container-low": "#1c1b1b", "on-primary": "#00363d",
+                        "background": "#131313", "on-surface": "#e5e2e1", "status-active": "#00FF41",
+                        "status-idle": "#FFB800", "on-surface-variant": "#bac9cc", "surface-dim": "#131313",
+                        "surface-tint": "#00daf3", "primary-container": "#00e5ff", "outline-variant": "#3b494c"
+                    },
+                    "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                    "spacing": { "margin-mobile": "16px", "margin-desktop": "64px", "unit": "4px", "container-max": "1440px", "gutter": "24px" },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Hanken Grotesk"], "body-md": ["Inter"], "headline-lg": ["Hanken Grotesk"],
+                        "label-status": ["IBM Plex Mono"], "headline-xl": ["Hanken Grotesk"], "label-mono": ["IBM Plex Mono"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-status": ["11px", { "lineHeight": "12px", "fontWeight": "700" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-mono": ["13px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }]
+                    }
+            } }
+        }
+    </script>
+<style>
+        .glass-panel { background: rgba(26, 26, 26, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .pulse-active { animation: pulse-green 2s infinite; }
+        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(0, 255, 65, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0); } }
+        .data-grid { background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 24px 24px; }
+        .text-glow-primary { text-shadow: 0 0 10px rgba(195, 245, 255, 0.5); }
+        .avatar-mono { background: linear-gradient(135deg, #1c1b1b, #2a2a2a); }
+    </style>
 </head>
-<body>
- 
-<header class="site-header">
-  <div class="page header-inner">
-    <a href="index.html" class="brand">
-      <span class="brand-kicker folio">EST. 2024 — STÜDYO No. 01</span>
-      <div class="brand-name">
-        <span class="brand-serif">cizgi</span><span class="brand-sans">fikrim</span><span class="brand-dot">.</span>
-      </div>
-    </a>
-    <nav class="desktop-nav">
-      <a href="products.html" class="nav-link"><span class="nav-sym">§</span>Ürünler</a>
-      <a href="about.html" class="nav-link active"><span class="nav-sym">¶</span>Hakkında</a>
-      <a href="contact.html" class="nav-link"><span class="nav-sym">✎</span>İletişim</a>
-    </nav>
-    <button class="mobile-toggle" aria-label="Menü" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-  <nav class="mobile-nav">
-    <div class="page mobile-nav-inner">
-      <a href="products.html" class="mobile-nav-link"><span class="mobile-nav-sym">§</span>Ürünler</a>
-      <a href="about.html" class="mobile-nav-link"><span class="mobile-nav-sym">¶</span>Hakkında</a>
-      <a href="contact.html" class="mobile-nav-link"><span class="mobile-nav-sym">✎</span>İletişim</a>
-    </div>
-  </nav>
-</header>
-
-<div class="page folio-bar">
-  <div class="folio-bar-row">
-    <span class="folio">Bölüm · Stüdyo Hakkında</span>
-    <hr class="folio-dotted-rule">
-  </div>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col data-grid">
+<header class="bg-surface-glass backdrop-blur-xl border-b border-subtle fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto">
+<a href="index.html" class="font-headline-lg text-headline-lg font-bold text-primary text-glow-primary">CizgiFikrim</a>
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-label-mono text-label-mono" href="products.html">Projeler</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-label-mono text-label-mono" href="aktivite.html">Aktivite</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 hover:text-primary transition-colors duration-300 font-label-mono text-label-mono" href="about.html">Hakkında</a>
+</nav>
+<div class="flex items-center gap-4">
+<a href="contact.html" class="bg-primary text-on-primary px-4 py-2 rounded font-label-mono text-label-mono uppercase tracking-widest hover:bg-primary-container transition-colors duration-300 active:scale-95 transition-transform">İletişim</a>
 </div>
-
-<main>
-
-  <!-- HERO -->
-  <section class="page page-hero">
-    <div>
-      <p class="folio">Manifesto</p>
-      <h1 class="page-h1 reveal">
-        Mühendislik, <em class="underline-soft">dürüstlükle</em> buluşuyor.
-      </h1>
-      <p class="page-intro reveal reveal-d1">
-        CizgiFikrim, karmaşık problemleri zarif yazılım çözümleriyle çözen bağımsız bir teknoloji
-        stüdyosudur. Biz bir ajans değiliz — bir <span class="marker">lab</span> olarak çalışıyoruz.
-      </p>
-    </div>
-  </section>
-
-  <!-- 01 · YAKLAŞIMIMIZ -->
-  <section class="page about-grid">
-    <aside class="margin-note">
-      <div class="mn-label">Not 01</div>
-      <div class="mn-text">Modeller hızla değişir; mimari kalır.</div>
-    </aside>
-    <div class="about-body">
-      <p class="folio">01 · Yaklaşımımız</p>
-      <div class="about-paras">
-        <p class="reveal">
-          Yapay zekâyı bir "sihir" değil, <em>denetlenebilir bir mühendislik aracı</em> olarak
-          görüyoruz. Dil modellerini sistemlerimizin merkezine koymak yerine, karar süreçlerini
-          destekleyen yüksek performanslı bileşenler olarak konumlandırıyoruz.
-        </p>
-        <p class="reveal reveal-d1">
-          Abartılı pazarlama terimleri yerine; test edilebilir, şeffaf ve güvenli kod yazmaya
-          odaklanıyoruz.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 02 · ARAS TOKDEMİR -->
-  <section class="page about-grid">
-    <aside class="margin-note">
-      <div class="mn-label">Not 02</div>
-      <div class="mn-text">Her satırın arkasında bir imza vardır.</div>
-    </aside>
-    <div class="about-body">
-      <p class="folio">02 · Aras Tokdemir</p>
-      <div class="about-paras">
-        <p class="reveal">
-          CizgiFikrim'in kurucusu ve baş mühendisi. Otonom sistemler, finansal teknolojiler ve
-          mobil ekosistemler üzerine uzmanlaşmış bir geliştirici.
-        </p>
-        <p class="reveal reveal-d1">
-          Her projede bizzat kodun başında yer alarak, teorik vizyonu pratik ve ölçeklenebilir
-          ürünlere dönüştürüyor.
-        </p>
-      </div>
-      <div class="discipline-grid reveal reveal-d1">
-        <div>
-          <p class="folio">Disiplin</p>
-          <p class="disc-val">Otonom AI</p>
-        </div>
-        <div>
-          <p class="folio">Disiplin</p>
-          <p class="disc-val">Mobil</p>
-        </div>
-        <div>
-          <p class="folio">Disiplin</p>
-          <p class="disc-val">Quant</p>
-        </div>
-        <div>
-          <p class="folio">Disiplin</p>
-          <p class="disc-val">Otomotiv</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
+</header>
+<main class="flex-grow pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full grid grid-cols-4 md:grid-cols-12 gap-gutter">
+<div class="col-span-4 md:col-span-12 mb-16">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-2 h-2 rounded-full bg-status-active pulse-active"></div>
+<span class="font-label-mono text-label-mono text-status-active tracking-widest uppercase">Sistem Durumu: Aktif</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-primary mb-6">Mühendislik Odaklı<br/>Tasarım Stüdyosu.</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+                Veri, performans ve kesinliği temel alan dijital çözümler üretiyoruz. Karmaşık sistemleri, anlaşılabilir ve işlevsel arayüzlere dönüştürerek her pikseli bir amaca bağlıyoruz.
+            </p>
+</div>
+<div class="col-span-4 md:col-span-7 glass-panel rounded-lg p-8 flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary opacity-50 group-hover:opacity-100 transition-opacity"></div>
+<div>
+<span class="font-label-mono text-label-mono text-primary mb-2 block uppercase tracking-widest">// Manifesto</span>
+<h2 class="font-headline-lg text-headline-lg mb-6">Gerçek İş, Sıfır Gösteriş.</h2>
+<div class="space-y-4 text-on-surface-variant font-body-md text-body-md">
+<p>Süslü animasyonlar ve işlevsiz estetik detaylar yerine, verinin kendisini ön plana çıkaran hassasiyette arayüzler tasarlıyoruz. Her piksel bir amaca hizmet etmeli.</p>
+<p>Şeffaflık, hız ve doğrudan erişim ana prensiplerimiz. Yapay zekâyı bir "sihir" değil, denetlenebilir bir mühendislik aracı olarak görüyoruz.</p>
+</div>
+</div>
+</div>
+<div class="col-span-4 md:col-span-5 glass-panel rounded-lg p-8 flex flex-col">
+<span class="font-label-mono text-label-mono text-primary mb-2 block uppercase tracking-widest">// Kurucu</span>
+<h2 class="font-headline-lg text-headline-lg mb-6">Aras Tokdemir</h2>
+<div class="flex items-start gap-6 mb-6">
+<div class="w-24 h-24 rounded bg-surface-container-high border border-subtle flex-shrink-0 avatar-mono flex items-center justify-center">
+<span class="font-headline-lg text-headline-lg text-primary">AT</span>
+</div>
+<div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Kurucu &amp; Baş Mühendis</h3>
+<div class="flex gap-2 mt-3">
+<span class="px-2 py-1 bg-surface-container-highest border border-subtle rounded font-label-status text-label-status uppercase">Otonom AI</span>
+<span class="px-2 py-1 bg-surface-container-highest border border-subtle rounded font-label-status text-label-status uppercase">Full-Stack</span>
+</div>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">
+                CizgiFikrim'in kurucusu ve baş mühendisi. Otonom sistemler, finansal teknolojiler ve mobil ekosistemler üzerine uzmanlaşmış bir geliştirici. Her projede bizzat kodun başında yer alarak, teorik vizyonu pratik ve ölçeklenebilir ürünlere dönüştürüyor.
+            </p>
+</div>
+<div class="col-span-4 md:col-span-12 mt-16">
+<div class="flex items-center gap-4 mb-8 border-b border-subtle pb-4">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Odak Alanları</h2>
+<span class="font-label-mono text-label-mono text-on-surface-variant ml-auto">04</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="glass-panel rounded-lg p-6 relative overflow-hidden group hover:border-primary transition-colors duration-300">
+<span class="material-symbols-outlined text-3xl text-primary mb-4 block">memory</span>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2">Otonom AI</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Denetlenebilir ve otonom bilişsel mimariler. Model durumunu şeffaf gösteren sistemler.</p>
+</div>
+<div class="glass-panel rounded-lg p-6 relative overflow-hidden group hover:border-primary transition-colors duration-300">
+<span class="material-symbols-outlined text-3xl text-primary mb-4 block">smartphone</span>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2">Mobil</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Performans odaklı, kullanıcı odaklı mobil çözümler.</p>
+</div>
+<div class="glass-panel rounded-lg p-6 relative overflow-hidden group hover:border-primary transition-colors duration-300">
+<span class="material-symbols-outlined text-3xl text-primary mb-4 block">candlestick_chart</span>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2">Finansal</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Algoritmik ticaret ve kantitatif finans motorları.</p>
+</div>
+<div class="glass-panel rounded-lg p-6 relative overflow-hidden group hover:border-primary transition-colors duration-300">
+<span class="material-symbols-outlined text-3xl text-primary mb-4 block">directions_car</span>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2">Otomotiv</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Yeni nesil araç yazılımları ve ECU entegrasyonu.</p>
+</div>
+</div>
+</div>
 </main>
-
-<footer class="site-footer">
-  <div class="page footer-inner">
-    <div>
-      <p class="folio">Kolofon</p>
-      <p class="footer-big">Fraunces, Inter Tight &amp; IBM Plex Mono ile dizildi.</p>
-      <p class="footer-small">Sayfalar elle yerleştirildi.</p>
-    </div>
-    <div>
-      <p class="folio">Yazışma</p>
-      <a href="mailto:hello@cizgifikrim.net" class="footer-email">hello@cizgifikrim.net</a>
-    </div>
-    <div class="footer-right">
-      <p class="folio">© 2026</p>
-      <p class="footer-location">İstanbul'dan.</p>
-    </div>
-  </div>
+<footer class="bg-surface-container-lowest border-t border-subtle w-full py-16 px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-start gap-gutter max-w-container-max mx-auto mt-auto">
+<div class="flex flex-col gap-4">
+<div class="font-headline-lg text-headline-lg font-bold text-on-surface">CizgiFikrim</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant">© 2026 CizgiFikrim. Tüm hakları saklıdır.</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="text-on-surface-variant hover:text-surface-tint transition-colors font-label-mono text-label-mono" href="products.html">Projeler</a>
+<a class="text-on-surface-variant hover:text-surface-tint transition-colors font-label-mono text-label-mono" href="contact.html">İletişim</a>
+<a class="text-on-surface-variant hover:text-surface-tint transition-colors font-label-mono text-label-mono" href="mailto:hello@cizgifikrim.net">hello@cizgifikrim.net</a>
+</nav>
 </footer>
-
-<script src="../assets/js/app.js?v=17"></script>
-</body>
-</html>
+</body></html>

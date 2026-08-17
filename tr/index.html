@@ -1,190 +1,142 @@
 <!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CizgiFikrim — Akıllı sistemler inşa eden bağımsız bir lab</title>
-  <meta name="description" content="Otonom bilişsel sistemlerden finansal mühendisliğe; dürüst, denetlenebilir ve insan eliyle yazılmış yazılım.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="../assets/css/main.css?v=17">
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CizgiFikrim — Canlı Laboratuvar</title>
+<meta name="description" content="CizgiFikrim, bağımsız bir yazılım ve yapay zeka stüdyosudur. Otonom sistemlerden mobil çözümlere kadar tüm aktif projeler."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=IBM+Plex+Mono:wght@400;500;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#e5e2e1", "status-stale": "#666666", "outline": "#849396",
+                        "surface-tint": "#00daf3", "surface-bright": "#393939", "tertiary-container": "#fec931",
+                        "on-surface-variant": "#bac9cc", "inverse-surface": "#e5e2e1", "primary-container": "#00e5ff",
+                        "primary": "#c3f5ff", "surface-container-lowest": "#0e0e0e", "status-active": "#00FF41",
+                        "error": "#ffb4ab", "surface-glass": "rgba(26, 26, 26, 0.6)", "surface-container-low": "#1c1b1b",
+                        "on-background": "#e5e2e1", "surface": "#131313", "inverse-on-surface": "#313030",
+                        "primary-fixed-dim": "#00daf3", "on-error": "#690005", "secondary": "#d1bcff",
+                        "status-idle": "#FFB800", "background": "#131313", "on-primary": "#00363d",
+                        "surface-variant": "#353535", "surface-container-high": "#2a2a2a", "outline-variant": "#3b494c",
+                        "surface-dim": "#131313", "tertiary": "#ffeac0", "on-tertiary-container": "#6f5500",
+                        "surface-container-highest": "#353535", "border-subtle": "rgba(255, 255, 255, 0.1)",
+                        "surface-container": "#20201f"
+                    },
+                    "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                    "spacing": { "margin-mobile": "16px", "gutter": "24px", "container-max": "1440px", "unit": "4px", "margin-desktop": "64px" },
+                    "fontFamily": {
+                        "label-status": ["IBM Plex Mono"], "body-md": ["Inter"], "headline-lg": ["Hanken Grotesk"],
+                        "headline-xl": ["Hanken Grotesk"], "label-mono": ["IBM Plex Mono"], "headline-lg-mobile": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-status": ["11px", { "lineHeight": "12px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-mono": ["13px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .pulse-active { animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 255, 65, 0); }
+            100% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(0, 255, 65, 0); }
+        }
+        .data-stream {
+            background: linear-gradient(90deg, transparent, rgba(0, 218, 243, 0.1), transparent);
+            background-size: 200% 100%; animation: data-flow 3s linear infinite;
+        }
+        @keyframes data-flow { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+    </style>
 </head>
-<body>
-
-<header class="site-header">
-  <div class="page header-inner">
-    <a href="index.html" class="brand"> 
-      <span class="brand-kicker folio">EST. 2024 — STÜDYO No. 01</span>
-      <div class="brand-name">
-        <span class="brand-serif">cizgi</span><span class="brand-sans">fikrim</span><span class="brand-dot">.</span>
-      </div>
-    </a>
-    <nav class="desktop-nav">
-      <a href="products.html" class="nav-link"><span class="nav-sym">§</span>Ürünler</a>
-      <a href="about.html" class="nav-link"><span class="nav-sym">¶</span>Hakkında</a>
-      <a href="contact.html" class="nav-link"><span class="nav-sym">✎</span>İletişim</a>
-    </nav>
-    <button class="mobile-toggle" aria-label="Menü" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-  <nav class="mobile-nav">
-    <div class="page mobile-nav-inner">
-      <a href="products.html" class="mobile-nav-link"><span class="mobile-nav-sym">§</span>Ürünler</a>
-      <a href="about.html" class="mobile-nav-link"><span class="mobile-nav-sym">¶</span>Hakkında</a>
-      <a href="contact.html" class="mobile-nav-link"><span class="mobile-nav-sym">✎</span>İletişim</a>
-    </div>
-  </nav>
-</header>
-
-<div class="page folio-bar">
-  <div class="folio-bar-row">
-    <span class="folio" id="folio-date">Cilt I · Sayı 01</span>
-    <hr class="folio-dotted-rule">
-  </div>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col pt-24 selection:bg-surface-tint selection:text-background">
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto bg-surface-glass backdrop-blur-xl border-b border-subtle">
+<a href="index.html" class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-primary">CizgiFikrim</a>
+<div class="hidden md:flex gap-gutter items-center">
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="products.html">Projeler</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="aktivite.html">Aktivite</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="about.html">Hakkında</a>
 </div>
-
-<main>
-
-  <!-- HERO -->
-  <section class="page hero-section">
-    <div class="hero-main">
-      <span class="folio hero-folio">Başyazı</span>
-      <h1 class="hero-h1 reveal">
-        Akıllı sistemler inşa eden <em class="underline-soft">bağımsız</em> bir lab.
-      </h1>
-      <p class="hero-sub reveal reveal-d1">
-        Otonom bilişsel sistemlerden finansal mühendisliğe — geleceğin teknolojilerini bugün
-        <span class="marker"> dürüst </span>
-        ve şeffaf bir yaklaşımla, satır satır yazıyoruz.
-      </p>
-      <div class="hero-ctas reveal reveal-d1">
-        <a href="contact.html" class="btn-primary">İletişime Geç<span class="btn-arrow">→</span></a>
-        <a href="products.html" class="btn-ghost">ya da portfolyoyu karıştır</a>
-      </div>
-    </div>
-
-    <div class="hero-aside reveal reveal-d2">
-      <div class="folio">Editörden</div>
-      <p class="editorial-quote">"Yazılım, sihir değildir. Birinin gece yarısı bir hata günlüğüne bakıp düzelttiği şeydir."</p>
-      <p class="editorial-attr">— Aras T.</p>
-
-      <div class="wip-box">
-        <div class="folio">Şu an üzerinde çalışılan</div>
-        <ul class="wip-list">
-          <li class="wip-item">
-            <span class="wip-name">Emre · v0.3 bellek</span>
-            <span class="wip-tag label-rd">Ar-Ge</span>
-          </li>
-          <li class="wip-item">
-            <span class="wip-name">CarLog · iOS 18</span>
-            <span class="wip-tag label-live">Canlı</span>
-          </li>
-          <li class="wip-item">
-            <span class="wip-name">Trade · backtest</span>
-            <span class="wip-tag label-rd">Ar-Ge</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ODAK ALANLARI -->
-  <section class="page section-border">
-    <div class="focus-layout">
-      <div>
-        <p class="folio">Bölüm I</p>
-        <h2 class="section-h2">Odak alanları</h2>
-        <p class="section-sub">Dört disiplin, tek bir el yazısı.</p>
-      </div>
-      <ol class="focus-list">
-        <li class="focus-item reveal">
-          <span class="folio focus-num">01</span>
-          <div>
-            <h3 class="focus-title">Otonom AI</h3>
-            <p class="focus-desc">Denetlenebilir ve otonom bilişsel mimariler.</p>
-          </div>
-        </li>
-        <li class="focus-item reveal">
-          <span class="folio focus-num">02</span>
-          <div>
-            <h3 class="focus-title">Mobil Uygulamalar</h3>
-            <p class="focus-desc">Yüksek performanslı, kullanıcı odaklı mobil çözümler.</p>
-          </div>
-        </li>
-        <li class="focus-item reveal">
-          <span class="folio focus-num">03</span>
-          <div>
-            <h3 class="focus-title">Finansal Sistemler</h3>
-            <p class="focus-desc">Algoritmik ticaret ve kantitatif finans motorları.</p>
-          </div>
-        </li>
-        <li class="focus-item reveal">
-          <span class="folio focus-num">04</span>
-          <div>
-            <h3 class="focus-title">Otomotiv</h3>
-            <p class="focus-desc">Yeni nesil araç yazılımları ve ECU entegrasyonu.</p>
-          </div>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- ÖNE ÇIKAN ÜRÜNLER -->
-  <section class="page section-border">
-    <div class="feat-header">
-      <div>
-        <p class="folio">Bölüm II</p>
-        <h2 class="section-h2">Öne çıkan ürünler</h2>
-      </div>
-      <a href="products.html" class="all-link">Tümü →</a>
-    </div>
-    <!-- Öne çıkan kartlar Supabase'ten dinamik olarak yüklenir (is_featured=true) — bkz. assets/js/render.js -->
-    <div id="featured-grid" class="feat-grid"></div>
-  </section>
-
-  <!-- MANİFESTO -->
-  <section class="page section-border">
-    <div class="manifesto-layout">
-      <aside class="margin-note">
-        <div class="mn-label">Not 03</div>
-        <div class="mn-text">Bu bir manifesto değil, bir çalışma alışkanlığı.</div>
-      </aside>
-      <div>
-        <p class="folio">Çalışma şekli</p>
-        <p class="manifesto-text reveal">
-          Önce <span class="underline-soft">test edilebilir</span> kodu yazarız, sonra demo.
-          Yapay zekâ kararı verir <em>değil</em>, kararı destekler. Her sistemde
-          bir <span class="marker">insan</span> kapısı vardır; çünkü güvenli yazılım, hesabını
-          verebileceğin yazılımdır.
-        </p>
-      </div>
-    </div>
-  </section>
-
+<div class="flex items-center gap-4">
+<a href="contact.html" class="bg-primary text-on-primary font-body-md text-body-md px-6 py-2 rounded-DEFAULT hover:bg-primary-fixed-dim transition-colors duration-300 active:scale-95 transition-transform">İletişim</a>
+</div>
+</nav>
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 flex flex-col gap-16 md:gap-24">
+<section class="flex flex-col md:flex-row gap-gutter items-center min-h-[409px]">
+<div class="flex-1 space-y-6">
+<div class="inline-flex items-center gap-2 bg-surface-container-low border border-subtle rounded-full px-4 py-1.5">
+<span class="w-2 h-2 rounded-full bg-status-active pulse-active"></span>
+<span class="font-label-status text-label-status text-primary uppercase tracking-wider">Sistem Canlı</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface leading-tight">Statikten <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-surface-tint">Canlıya</span> Dönüşen Projeler</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">CizgiFikrim, bağımsız bir yazılım ve yapay zeka stüdyosudur. Durağan konseptleri yüksek performanslı, dinamik dijital deneyimlere dönüştüren veri odaklı yaklaşımımızla her pikseli bir amaca bağlarız.</p>
+</div>
+<div class="flex-1 w-full h-64 md:h-96 relative border border-subtle rounded-xl overflow-hidden bg-surface-container-low flex items-center justify-center data-stream">
+<div class="absolute inset-0 opacity-20 flex items-center justify-center">
+<span class="material-symbols-outlined text-9xl text-primary">polyline</span>
+</div>
+<div class="relative z-10 flex flex-col gap-4 w-3/4">
+<div class="h-2 w-full bg-surface rounded-full overflow-hidden"><div class="h-full bg-primary w-3/4 animate-[pulse_2s_ease-in-out_infinite]"></div></div>
+<div class="h-2 w-full bg-surface rounded-full overflow-hidden"><div class="h-full bg-surface-tint w-1/2 animate-[pulse_3s_ease-in-out_infinite_0.5s]"></div></div>
+<div class="h-2 w-full bg-surface rounded-full overflow-hidden"><div class="h-full bg-status-active w-5/6 animate-[pulse_2.5s_ease-in-out_infinite_1s]"></div></div>
+</div>
+</div>
+</section>
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-8 bg-surface-container-low border border-subtle rounded-xl p-6 flex flex-col gap-6">
+<div class="flex justify-between items-center border-b border-subtle pb-4">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">monitoring</span>Öne Çıkan Projeler
+</h2>
+</div>
+<div class="flex flex-col gap-4" id="active-projects-list">
+<p class="font-body-md text-body-md text-on-surface-variant text-sm opacity-60">Yükleniyor…</p>
+</div>
+</div>
+<div class="md:col-span-4 bg-surface-container-low border border-subtle rounded-xl p-6 flex flex-col gap-4">
+<h2 class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider border-b border-subtle pb-2">Stüdyo Notu</h2>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">CizgiFikrim'in her projesi insan eliyle yazılıyor. Aktivite akışı ve canlı geliştirme verisi yakında bu panelde yer alacak.</p>
+</div>
+</section>
+<section class="flex flex-col gap-8">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface border-b border-subtle pb-4">Öne Çıkan Projeler</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter" id="featured-cards">
+<p class="font-body-md text-body-md text-on-surface-variant text-sm opacity-60">Yükleniyor…</p>
+</div>
+</section>
+<section class="bg-surface-container-low border border-subtle rounded-xl p-8 md:p-12 flex flex-col md:flex-row justify-between items-center gap-8 relative overflow-hidden">
+<div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-primary-container/10 to-transparent pointer-events-none"></div>
+<div class="flex-1 z-10">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Yeni Bir Düğüm Başlatın</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">Kendi projenizi laboratuvarımıza entegre etmek ve geliştirme sürecini başlatmak için iletişime geçin.</p>
+</div>
+<div class="z-10 flex gap-4 w-full md:w-auto">
+<a href="contact.html" class="flex-1 md:flex-none bg-primary text-on-primary font-body-md text-body-md px-8 py-3 rounded-DEFAULT hover:bg-primary-fixed-dim transition-colors duration-300 font-semibold shadow-[0_0_15px_rgba(0,229,255,0.3)] text-center">Sisteme Bağlan</a>
+</div>
+</section>
 </main>
-
-<footer class="site-footer">
-  <div class="page footer-inner">
-    <div>
-      <p class="folio">Kolofon</p>
-      <p class="footer-big">Fraunces, Inter Tight &amp; IBM Plex Mono ile dizildi.</p>
-      <p class="footer-small">Sayfalar elle yerleştirildi.</p>
-    </div>
-    <div>
-      <p class="folio">Yazışma</p>
-      <a href="mailto:hello@cizgifikrim.net" class="footer-email">hello@cizgifikrim.net</a>
-    </div>
-    <div class="footer-right">
-      <p class="folio footer-year">© <span id="year">2026</span></p>
-      <p class="footer-location">İstanbul'dan.</p>
-    </div>
-  </div>
+<footer class="w-full py-16 px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-start gap-gutter max-w-container-max mx-auto bg-surface-container-lowest border-t border-subtle mt-16">
+<div class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface mb-6 md:mb-0">CizgiFikrim</div>
+<div class="flex flex-col sm:flex-row gap-6 sm:gap-12 font-label-mono text-label-mono font-body-md text-body-md">
+<a class="text-on-surface-variant hover:text-surface-tint transition-all duration-200" href="products.html">Projeler</a>
+<a class="text-on-surface-variant hover:text-surface-tint transition-all duration-200" href="about.html">Hakkında</a>
+<a class="text-on-surface-variant hover:text-surface-tint transition-all duration-200" href="contact.html">İletişim</a>
+<a class="text-on-surface-variant hover:text-surface-tint transition-all duration-200" href="mailto:hello@cizgifikrim.net">hello@cizgifikrim.net</a>
+</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant mt-8 md:mt-0 opacity-50">© 2026 CizgiFikrim. Tüm hakları saklıdır.</div>
 </footer>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../assets/js/supabase-client.js"></script>
-<script src="../assets/js/render.js"></script>
-<script src="../assets/js/app.js?v=17"></script>
-</body>
-</html>
+<script src="../assets/js/site.js"></script>
+</body></html>

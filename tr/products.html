@@ -1,93 +1,93 @@
 <!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ürünler &amp; Sistemler — CizgiFikrim</title>
-  <meta name="description" content="CizgiFikrim ekosisteminde geliştirilen, otonom zekâdan mobil çözümlere kadar tüm aktif projeler.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="../assets/css/main.css?v=17">
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ürünler ve Laboratuvar — CizgiFikrim</title>
+<meta name="description" content="CizgiFikrim ekosisteminde geliştirilen tüm aktif projeler, kategori bazlı."/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=IBM+Plex+Mono:wght@500;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: { extend: {
+            "colors": {
+                    "on-surface": "#e5e2e1", "status-stale": "#666666", "outline": "#849396",
+                    "surface-tint": "#00daf3", "surface-bright": "#393939", "tertiary-container": "#fec931",
+                    "on-surface-variant": "#bac9cc", "inverse-surface": "#e5e2e1", "primary-container": "#00e5ff",
+                    "primary": "#c3f5ff", "surface-container-lowest": "#0e0e0e", "status-active": "#00FF41",
+                    "error": "#ffb4ab", "surface-glass": "rgba(26, 26, 26, 0.6)", "surface-container-low": "#1c1b1b",
+                    "on-background": "#e5e2e1", "surface": "#131313", "primary-fixed-dim": "#00daf3",
+                    "on-error": "#690005", "secondary": "#d1bcff", "status-idle": "#FFB800", "background": "#131313",
+                    "on-primary": "#00363d", "surface-variant": "#353535", "surface-container-high": "#2a2a2a",
+                    "outline-variant": "#3b494c", "surface-dim": "#131313", "tertiary": "#ffeac0",
+                    "surface-container-highest": "#353535", "border-subtle": "rgba(255, 255, 255, 0.1)",
+                    "surface-container": "#20201f"
+            },
+            "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+            "spacing": { "margin-mobile": "16px", "gutter": "24px", "container-max": "1440px", "unit": "4px", "margin-desktop": "64px" },
+            "fontFamily": {
+                    "label-status": ["IBM Plex Mono"], "body-md": ["Inter"], "headline-lg": ["Hanken Grotesk"],
+                    "headline-xl": ["Hanken Grotesk"], "label-mono": ["IBM Plex Mono"], "headline-lg-mobile": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "label-status": ["11px", { "lineHeight": "12px", "fontWeight": "700" }],
+                    "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                    "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                    "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "label-mono": ["13px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                    "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+            }
+        } }
+      }
+    </script>
+<style>
+        @keyframes pulse-active { 0% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(0, 255, 65, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0); } }
+        .pulse-active { animation: pulse-active 2s infinite; }
+    </style>
 </head>
-<body>
-
-<header class="site-header">
-  <div class="page header-inner">
-    <a href="index.html" class="brand">
-      <span class="brand-kicker folio">EST. 2024 — STÜDYO No. 01</span>
-      <div class="brand-name"> 
-        <span class="brand-serif">cizgi</span><span class="brand-sans">fikrim</span><span class="brand-dot">.</span>
-      </div>
-    </a>
-    <nav class="desktop-nav">
-      <a href="products.html" class="nav-link active"><span class="nav-sym">§</span>Ürünler</a>
-      <a href="about.html" class="nav-link"><span class="nav-sym">¶</span>Hakkında</a>
-      <a href="contact.html" class="nav-link"><span class="nav-sym">✎</span>İletişim</a>
-    </nav>
-    <button class="mobile-toggle" aria-label="Menü" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-  <nav class="mobile-nav">
-    <div class="page mobile-nav-inner">
-      <a href="products.html" class="mobile-nav-link"><span class="mobile-nav-sym">§</span>Ürünler</a>
-      <a href="about.html" class="mobile-nav-link"><span class="mobile-nav-sym">¶</span>Hakkında</a>
-      <a href="contact.html" class="mobile-nav-link"><span class="mobile-nav-sym">✎</span>İletişim</a>
-    </div>
-  </nav>
-</header>
-
-<div class="page folio-bar">
-  <div class="folio-bar-row">
-    <span class="folio">Katalog · Aktif &amp; Geliştirilen Projeler</span>
-    <hr class="folio-dotted-rule">
-  </div>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col pt-[88px]">
+<nav class="bg-surface-glass backdrop-blur-xl border-b border-subtle fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto md:px-margin-desktop px-margin-mobile">
+<a href="index.html" class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-primary active:scale-95 transition-transform cursor-pointer">CizgiFikrim</a>
+<div class="hidden md:flex gap-gutter items-center">
+<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1 active:scale-95 transition-transform" href="products.html">Projeler</a>
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 active:scale-95 transition-transform" href="aktivite.html">Aktivite</a>
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 active:scale-95 transition-transform" href="about.html">Hakkında</a>
 </div>
-
-<main>
-
-  <!-- HERO -->
-  <section class="page products-hero">
-    <div>
-      <p class="folio">Bölüm · Portfolyo</p>
-      <h1 class="products-h1 reveal">
-        Ürünler &amp; <em>sistemler</em><span style="color:var(--accent)">.</span>
-      </h1>
-    </div>
-    <p class="products-desc reveal reveal-d1">
-      Her satırı insan eliyle yazılmış, denetlenebilir ve şu an gerçekten kullanılan ya da yapılan
-      işlerin bir listesi. Spekülatif değil — repolarda yaşıyor.
-    </p>
-  </section>
-
-  <!-- Kategori bölümleri Supabase'ten dinamik olarak yüklenir — bkz. assets/js/render.js -->
-  <div id="products-categories">
-    <p class="page" style="padding-block:3rem; opacity:.6;">Yükleniyor…</p>
-  </div>
-
+<div class="flex items-center gap-4">
+<a href="contact.html" class="font-body-md text-body-md bg-primary text-background font-bold px-4 py-2 rounded hover:bg-primary-fixed-dim transition-colors active:scale-95">İletişim</a>
+</div>
+</nav>
+<main class="flex-grow flex flex-col w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 gap-12">
+<header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 w-full border-b border-subtle pb-6">
+<div>
+<h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary mb-2 tracking-tight">Ürünler ve Laboratuvar</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Gerçek zamanlı olarak geliştirilen, test edilen ve izlenen tüm projelerin merkezi.</p>
+</div>
+<div class="flex items-center gap-3 bg-surface-container-low p-2 rounded border border-subtle">
+<span class="material-symbols-outlined text-on-surface-variant">sort</span>
+<select id="products-sort" class="bg-transparent border-none text-on-surface font-label-mono text-label-mono focus:ring-0 cursor-pointer">
+<option class="bg-surface" value="category">Kategoriye göre</option>
+<option class="bg-surface" value="name">İsim (A-Z)</option>
+</select>
+</div>
+</header>
+<div class="flex flex-col gap-12 w-full" id="products-categories">
+<p class="font-body-md text-body-md text-on-surface-variant opacity-60">Yükleniyor…</p>
+</div>
 </main>
-
-<footer class="site-footer">
-  <div class="page footer-inner">
-    <div>
-      <p class="folio">Kolofon</p>
-      <p class="footer-big">Fraunces, Inter Tight &amp; IBM Plex Mono ile dizildi.</p>
-      <p class="footer-small">Sayfalar elle yerleştirildi.</p>
-    </div>
-    <div>
-      <p class="folio">Yazışma</p>
-      <a href="mailto:hello@cizgifikrim.net" class="footer-email">hello@cizgifikrim.net</a>
-    </div>
-    <div class="footer-right">
-      <p class="folio">© 2026</p>
-      <p class="footer-location">İstanbul'dan.</p>
-    </div>
-  </div>
+<footer class="bg-surface-container-lowest w-full py-16 px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-start gap-gutter max-w-container-max mx-auto border-t border-subtle mt-16">
+<div class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface">CizgiFikrim</div>
+<div class="flex flex-col md:flex-row gap-8">
+<a class="font-label-mono text-label-mono font-body-md text-body-md text-on-surface-variant hover:text-surface-tint transition-colors duration-200" href="about.html">Hakkında</a>
+<a class="font-label-mono text-label-mono font-body-md text-body-md text-on-surface-variant hover:text-surface-tint transition-colors duration-200" href="contact.html">İletişim</a>
+<a class="font-label-mono text-label-mono font-body-md text-body-md text-on-surface-variant hover:text-surface-tint transition-colors duration-200" href="mailto:hello@cizgifikrim.net">hello@cizgifikrim.net</a>
+</div>
+<div class="font-label-mono text-label-mono font-body-md text-body-md text-on-surface-variant">© 2026 CizgiFikrim. Tüm hakları saklıdır.</div>
 </footer>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../assets/js/supabase-client.js"></script>
-<script src="../assets/js/render.js"></script>
-<script src="../assets/js/app.js?v=17"></script>
-</body>
-</html>
+<script src="../assets/js/site.js"></script>
+</body></html>

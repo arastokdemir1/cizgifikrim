@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aktivite Akışı — CizgiFikrim</title>
+<meta name="description" content="Projelerdeki son teknik ilerlemelerin canlı akışı."/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=IBM+Plex+Mono:wght@500;700&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: { extend: {
+        "colors": {
+                "secondary": "#d1bcff", "tertiary": "#ffeac0", "surface-container-lowest": "#0e0e0e",
+                "surface-bright": "#393939", "surface-variant": "#353535", "surface-glass": "rgba(26, 26, 26, 0.6)",
+                "border-subtle": "rgba(255, 255, 255, 0.1)", "status-stale": "#666666", "surface": "#131313",
+                "surface-container-high": "#2a2a2a", "primary": "#c3f5ff", "surface-container": "#20201f",
+                "on-background": "#e5e2e1", "surface-container-low": "#1c1b1b", "on-primary": "#00363d",
+                "background": "#131313", "on-surface": "#e5e2e1", "status-active": "#00FF41",
+                "status-idle": "#FFB800", "on-surface-variant": "#bac9cc", "surface-dim": "#131313",
+                "surface-tint": "#00daf3", "primary-container": "#00e5ff", "outline-variant": "#3b494c"
+        },
+        "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+        "spacing": { "margin-mobile": "16px", "margin-desktop": "64px", "unit": "4px", "container-max": "1440px", "gutter": "24px" },
+        "fontFamily": {
+                "headline-lg-mobile": ["Hanken Grotesk"], "body-md": ["Inter"], "headline-lg": ["Hanken Grotesk"],
+                "label-status": ["IBM Plex Mono"], "headline-xl": ["Hanken Grotesk"], "label-mono": ["IBM Plex Mono"]
+        },
+        "fontSize": {
+                "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                "label-mono": ["13px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }]
+        }
+    } }
+  }
+</script>
+<style>
+        body { background-color: theme('colors.surface'); color: theme('colors.on-surface'); -webkit-font-smoothing: antialiased; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-body-md">
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto bg-surface-glass backdrop-blur-xl border-b border-subtle">
+<a href="index.html" class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-primary">CizgiFikrim</a>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="products.html">Projeler</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="aktivite.html">Aktivite</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="about.html">Hakkında</a>
+</div>
+<div class="flex items-center gap-4">
+<a href="contact.html" class="bg-primary text-on-primary px-4 py-2 rounded font-label-mono text-label-mono active:scale-95 transition-transform">İletişim</a>
+</div>
+</nav>
+<main class="flex-grow pt-24 md:pt-32 pb-16 px-margin-mobile md:px-margin-desktop w-full max-w-container-max mx-auto flex flex-col md:flex-row gap-gutter">
+<section class="w-full md:w-8/12 flex flex-col gap-8">
+<header class="flex flex-col gap-2">
+<h1 class="font-headline-xl text-headline-xl text-on-surface">Stüdyo Aktivitesi</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Projelerdeki son teknik ilerlemeler — yakında burada canlı olarak akacak.</p>
+</header>
+<div class="flex flex-col gap-3 relative bg-surface-container-lowest border border-border-subtle rounded-lg p-8" id="activity-feed-root">
+<p class="font-body-md text-body-md text-on-surface-variant text-sm opacity-60">Yükleniyor…</p>
+</div>
+</section>
+<aside class="w-full md:w-4/12 flex flex-col gap-6">
+<div class="bg-surface-glass backdrop-blur-md border border-border-subtle rounded-xl p-6 flex flex-col gap-6" id="activity-sidebar-stats">
+<div class="flex items-center justify-between border-b border-border-subtle pb-4">
+<h2 class="font-label-mono text-label-mono text-on-surface tracking-widest uppercase">Durum</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">İstatistikler yakında.</p>
+</div>
+<div class="bg-surface-container-lowest border border-border-subtle rounded-xl p-4">
+<h3 class="font-label-mono text-label-mono text-on-surface-variant mb-4 border-b border-border-subtle pb-2">Bağlantılar</h3>
+<ul class="flex flex-col gap-2">
+<li><a class="flex items-center justify-between text-on-surface hover:text-primary transition-colors py-1" href="https://github.com/arastokdemir1" target="_blank" rel="noopener">
+<span class="font-body-md text-body-md text-sm">GitHub</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</a></li>
+<li><a class="flex items-center justify-between text-on-surface hover:text-primary transition-colors py-1" href="products.html">
+<span class="font-body-md text-body-md text-sm">Ürünler</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</a></li>
+</ul>
+</div>
+</aside>
+</main>
+<footer class="mt-auto bg-surface-container-lowest border-t border-subtle w-full py-16 px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-start gap-gutter max-w-container-max mx-auto">
+<div class="flex flex-col gap-2">
+<span class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface">CizgiFikrim</span>
+<span class="font-label-mono text-label-mono font-body-md text-body-md text-on-surface-variant">© 2026 CizgiFikrim. Tüm hakları saklıdır.</span>
+</div>
+<div class="flex flex-wrap gap-6 mt-6 md:mt-0">
+<a class="font-label-mono text-label-mono font-body-md text-body-md text-on-surface-variant hover:text-surface-tint transition-colors duration-200" href="products.html">Projeler</a>
+<a class="font-label-mono text-label-mono font-body-md text-body-md text-on-surface-variant hover:text-surface-tint transition-colors duration-200" href="mailto:hello@cizgifikrim.net">hello@cizgifikrim.net</a>
+</div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/js/supabase-client.js"></script>
+<script src="../assets/js/site.js"></script>
+</body></html>
