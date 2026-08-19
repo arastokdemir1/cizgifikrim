@@ -1058,3 +1058,88 @@ ul, ol { list-style: none; }
 .build-status-home-link { display: block; margin-bottom: 0.75rem; }
 .build-status-home-link .folio { transition: color 0.15s; }
 .build-status-home-link:hover .folio { color: var(--wip); }
+
+/* ======================================================
+   ATÖLYE (mekansal proje/masa görünümü)
+   ====================================================== */
+
+.atolye-zone { padding-block: 2.5rem; border-top: 1px solid var(--rule); }
+.atolye-zone:first-child { border-top: none; }
+.atolye-zone-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.atolye-zone-header h2 {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+}
+@media (min-width: 640px) { .atolye-zone-header h2 { font-size: 1.75rem; } }
+.atolye-zone-count { font-family: var(--mono); font-size: 0.68rem; color: var(--muted-fg); margin-left: auto; }
+
+.atolye-desks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.desk-wrap { display: flex; flex-direction: column; }
+
+.desk {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  padding: 0.65rem 1rem;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.desk:hover { border-color: var(--ink); transform: translateY(-1px); }
+.desk[aria-expanded="true"] { border-color: var(--ink); background: var(--mark); }
+
+.desk-light { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.desk-light.pulse { animation: desk-pulse 1.8s ease-in-out infinite; }
+@keyframes desk-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--live) 60%, transparent); }
+  50% { box-shadow: 0 0 0 4px color-mix(in oklch, var(--live) 0%, transparent); }
+}
+
+.desk-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  flex-shrink: 0;
+}
+
+.desk-name { font-weight: 500; }
+.desk-toggle {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--muted-fg);
+  margin-left: 0.25rem;
+  transition: transform 0.15s;
+}
+.desk[aria-expanded="true"] .desk-toggle { transform: rotate(45deg); }
+
+.desk-terminal {
+  margin-top: 0.75rem;
+  max-width: 640px;
+}
+.desk-terminal-prompt {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted-fg);
+  margin-bottom: 0.5rem;
+}
+.desk-terminal-prompt::before { content: "$ "; color: var(--accent); }
