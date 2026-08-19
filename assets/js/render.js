@@ -76,6 +76,104 @@ async function renderFeaturedProjects() {
   if (window.initReveal) window.initReveal();
 }
 
+// ── İnşa Durumu (build status) — canlı ve geliştirme varyantı ─────────────
+// Uydurma veri yok: canlı projelerde gerçek App Store linki/test notu,
+// geliştirme aşamasındaki projelerde gerçek yerel git commit istatistikleri
+// gösterilir (bkz. Projeler/site-canli-donusum/VERI_MIMARISI.md).
+
+function relativeTimeTR(dateStr) {
+  if (!dateStr) return '';
+  const diffMs = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diffMs / 60000);
+  if (mins < 1) return 'az önce';
+  if (mins < 60) return `${mins} dk önce`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours} saat önce`;
+  const days = Math.floor(hours / 24);
+  return `${days} gün önce`;
+}
+
+function buildStatusHTML(p) {
+  if (p.status === 'live') {
+    return `
+      <div class="build-status build-status--live">
+        <div class="build-status-header">
+          <h3 class="build-status-headline">Canlı — yayında</h3>
+          ${statusBadgeHTML(p.status, p.status_label)}
+        </div>
+        ${p.latest_update_text ? `
+        <div class="build-status-row">
+          <span class="folio">Son Düzeltme</span>
+          <p>${p.latest_update_text}</p>
+        </div>` : ''}
+        ${p.test_status ? `
+        <div class="build-status-row">
+          <span class="folio">Test Durumu</span>
+          <p>${p.test_status}</p>
+        </div>` : ''}
+        ${p.live_url ? `<a href="${p.live_url}" target="_blank" rel="noopener" class="btn-primary build-status-cta">App Store'da Gör<span class="btn-arrow">→</span></a>` : ''}
+      </div>`;
+  }
+
+  const total = p.commit_count_total || 0;
+  const d30 = p.commit_count_30d || 0;
+  const d7 = p.commit_count_7d || 0;
+  const pct = (n) => (total > 0 ? Math.round((n / total) * 100) : 0);
+
+  return `
+    <div class="build-status build-status--building">
+      <div class="build-status-header">
+        <h3 class="build-status-headline">İnşa Durumu</h3>
+        ${statusBadgeHTML(p.status, p.status_label)}
+      </div>
+      ${total ? `
+      <div class="build-graph">
+        <div class="build-graph-row">
+          <span class="build-graph-label">Son 7 gün</span>
+          <div class="build-graph-track"><div class="build-graph-fill" style="width:${pct(d7)}%"></div></div>
+          <span class="build-graph-value">${d7}</span>
+        </div>
+        <div class="build-graph-row">
+          <span class="build-graph-label">Son 30 gün</span>
+          <div class="build-graph-track"><div class="build-graph-fill" style="width:${pct(d30)}%"></div></div>
+          <span class="build-graph-value">${d30}</span>
+        </div>
+        <div class="build-graph-row">
+          <span class="build-graph-label">Toplam</span>
+          <div class="build-graph-track"><div class="build-graph-fill" style="width:100%"></div></div>
+          <span class="build-graph-value">${total}</span>
+        </div>
+      </div>` : `<p class="build-status-live-note">Aktivite verisi henüz senkronize edilmedi.</p>`}
+      ${p.latest_update_text ? `
+      <div class="build-status-row">
+        <span class="folio">Son Güncelleme${p.latest_update_at ? ' · ' + relativeTimeTR(p.latest_update_at) : ''}</span>
+        <p>${p.latest_update_text}</p>
+      </div>` : ''}
+      ${p.show_commit_detail === false ? `<p class="build-status-privacy-note">Detaylı commit kayıtları güvenlik protokolleri gereği paylaşılmıyor — sadece aktivite istatistikleri gösteriliyor.</p>` : ''}
+    </div>`;
+}
+
+async function renderProjectBuildStatus() {
+  const root = document.getElementById('build-status-root');
+  if (!root) return;
+  const slug = location.pathname.split('/').pop().replace('.html', '');
+  const project = await fetchProjectBySlug(slug);
+  if (!project) return;
+  root.innerHTML = buildStatusHTML(project);
+}
+
+async function renderHomeBuildStatus() {
+  const root = document.getElementById('home-build-status');
+  if (!root) return;
+  const project = await fetchProjectBySlug(root.dataset.slug || 'ersoy');
+  if (!project) return;
+  root.innerHTML = `
+    <a href="projects/${project.slug}.html" class="build-status-home-link">
+      <p class="folio">${project.display_name} — ${project.tagline}</p>
+    </a>
+    ${buildStatusHTML(project)}`;
+}
+
 async function renderProjectDetail() {
   const nameEl = document.getElementById('project-name');
   if (!nameEl) return;
@@ -152,5 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProductsPage();
   renderFeaturedProjects();
   renderProjectDetail();
+  renderProjectBuildStatus();
+  renderHomeBuildStatus();
   initContactFormSupabase();
 });

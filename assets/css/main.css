@@ -969,3 +969,92 @@ ul, ol { list-style: none; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 .reveal-d1 { transition-delay: 0.1s; }
 .reveal-d2 { transition-delay: 0.2s; }
+
+/* ======================================================
+   BUILD STATUS (proje inşa durumu — canlı ve geliştirme)
+   ====================================================== */
+
+.build-status {
+  border: 1px solid var(--rule);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+@media (min-width: 640px) { .build-status { padding: 2rem; } }
+
+.build-status-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 1rem;
+}
+.build-status-headline {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+}
+@media (min-width: 640px) { .build-status-headline { font-size: 1.5rem; } }
+
+/* Canlı varyant */
+.build-status--live .build-status-headline { color: var(--live); }
+.build-status-live-note {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted-fg);
+  line-height: 1.6;
+}
+.build-status-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.build-status-row p { font-size: 0.95rem; line-height: 1.6; }
+
+/* İnşa/geliştirme varyantı — grafik */
+.build-status--building .build-status-headline { color: var(--wip); }
+.build-graph { display: flex; flex-direction: column; gap: 0.75rem; }
+.build-graph-row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr 2.5rem;
+  align-items: center;
+  gap: 0.75rem;
+}
+.build-graph-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--muted-fg);
+  text-transform: uppercase;
+}
+.build-graph-track {
+  height: 6px;
+  background: var(--muted);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.build-graph-fill {
+  height: 100%;
+  background: var(--wip);
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+.build-graph-value {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  text-align: right;
+  color: var(--fg);
+}
+.build-status-privacy-note {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted-fg);
+  line-height: 1.6;
+  border-top: 1px dashed var(--rule);
+  padding-top: 0.85rem;
+}
+.build-status-cta { align-self: flex-start; }
+.build-status-home-link { display: block; margin-bottom: 0.75rem; }
+.build-status-home-link .folio { transition: color 0.15s; }
+.build-status-home-link:hover .folio { color: var(--wip); }
