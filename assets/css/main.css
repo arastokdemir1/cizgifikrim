@@ -1143,3 +1143,18 @@ ul, ol { list-style: none; }
   margin-bottom: 0.5rem;
 }
 .desk-terminal-prompt::before { content: "$ "; color: var(--accent); }
+
+/* ======================================================
+   PROJE OFİSİ (proje detay sayfasına özel ekip kutusu)
+   ====================================================== */
+
+.office-box {
+  border: 1px solid var(--rule);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+@media (min-width: 640px) { .office-box { padding: 2rem; } }
+.office-box .atolye-desks { margin-top: 0.25rem; }

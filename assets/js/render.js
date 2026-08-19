@@ -238,6 +238,87 @@ async function renderAtolye() {
   });
 }
 
+// ── Proje Ofisi — her projenin kendi ekip görünümü (proje detay sayfası) ──
+// Gerçek Fleet/Paperclip ajan kadrosundan (AJANLAR.md) — canlı görev durumu
+// değil, o kategoride gerçekten çalışan ajan rolleri ve sorumlulukları.
+const AGENT_ROSTER = {
+  'mimar-claude':      { role: 'Mimar',       cli: 'claude', desc: 'Hedef bölme, mimari, kontratlar.' },
+  'backend-claude':    { role: 'Backend',     cli: 'claude', desc: 'API, servis, auth, hata yönetimi.' },
+  'frontend-codex':    { role: 'Frontend',    cli: 'codex',  desc: 'UI, formlar, panel akışları.' },
+  'ui-codex':          { role: 'UI',          cli: 'codex',  desc: 'Tekil bileşen üretimi.' },
+  'test-codex':        { role: 'Test',        cli: 'codex',  desc: 'Test yazma ve koşturma.' },
+  'veritabani-agy':    { role: 'Veritabanı',  cli: 'agy',    desc: 'Şema/veri analizi, migration planı.' },
+  'denetleyici-claude':{ role: 'Denetleyici', cli: 'claude', desc: 'Çıktı denetimi, risk kararı.' },
+};
+const TEAM_BY_CATEGORY = {
+  'otonom-ai': ['mimar-claude', 'backend-claude', 'test-codex', 'denetleyici-claude'],
+  'mobil':     ['frontend-codex', 'ui-codex', 'test-codex', 'denetleyici-claude'],
+  'finansal':  ['backend-claude', 'veritabani-agy', 'test-codex', 'denetleyici-claude'],
+  'otomotiv':  ['backend-claude', 'veritabani-agy', 'test-codex', 'denetleyici-claude'],
+};
+const CLI_LABEL = { claude: 'Claude', codex: 'Codex', agy: 'Antigravity' };
+
+function officeAgentHTML(agentId) {
+  const a = AGENT_ROSTER[agentId];
+  return `
+    <div class="desk-wrap">
+      <button class="desk" data-agent="${agentId}" aria-expanded="false">
+        <span class="desk-avatar">${initialsOf(a.role)}</span>
+        <span class="desk-name">${a.role}</span>
+        <span class="desk-toggle">+</span>
+      </button>
+      <div class="desk-terminal" id="office-term-${agentId}" hidden></div>
+    </div>`;
+}
+
+async function renderProjectOffice() {
+  const root = document.getElementById('office-root');
+  if (!root) return;
+  const slug = location.pathname.split('/').pop().replace('.html', '');
+  const project = await fetchProjectBySlug(slug);
+  if (!project) return;
+  const team = TEAM_BY_CATEGORY[project.category] || TEAM_BY_CATEGORY['otonom-ai'];
+
+  root.innerHTML = `
+    <div class="office-box">
+      <div class="build-status-header">
+        <h3 class="build-status-headline" style="color:var(--ink)">Ekip</h3>
+        <span class="folio">${team.length} rol</span>
+      </div>
+      <p class="build-status-live-note">Bu kategoride gerçekten çalışan ajan rolleri — Fleet/Paperclip kadrosundan. Tıkla, sorumluluğunu gör.</p>
+      <div class="atolye-desks">${team.map(officeAgentHTML).join('')}</div>
+    </div>`;
+
+  root.querySelectorAll('.desk').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const agentId = btn.dataset.agent;
+      const panel = document.getElementById(`office-term-${agentId}`);
+      const nowOpen = btn.getAttribute('aria-expanded') !== 'true';
+
+      root.querySelectorAll('.desk[aria-expanded="true"]').forEach(other => {
+        if (other !== btn) {
+          other.setAttribute('aria-expanded', 'false');
+          const otherPanel = document.getElementById(`office-term-${other.dataset.agent}`);
+          if (otherPanel) otherPanel.hidden = true;
+        }
+      });
+
+      btn.setAttribute('aria-expanded', String(nowOpen));
+      panel.hidden = !nowOpen;
+      if (nowOpen && !panel.dataset.loaded) {
+        const a = AGENT_ROSTER[agentId];
+        panel.dataset.loaded = '1';
+        panel.innerHTML = `
+          <p class="desk-terminal-prompt">whoami — ${agentId}</p>
+          <div class="build-status" style="padding:1rem;">
+            <p style="font-size:0.9rem;"><strong>${a.role}</strong> · ${CLI_LABEL[a.cli]} CLI</p>
+            <p style="font-size:0.9rem; color:var(--muted-fg); margin-top:0.5rem;">${a.desc}</p>
+          </div>`;
+      }
+    });
+  });
+}
+
 async function renderHomeBuildStatus() {
   const root = document.getElementById('home-build-status');
   if (!root) return;
@@ -326,6 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProductsPage();
   renderFeaturedProjects();
   renderProjectDetail();
+  renderProjectOffice();
   renderProjectBuildStatus();
   renderHomeBuildStatus();
   renderAtolye();
