@@ -164,80 +164,6 @@ async function renderProjectBuildStatus() {
   root.innerHTML = buildStatusHTML(project);
 }
 
-// ── Atölye — mekansal masa görünümü (tüm projeler, bölge/kategori bazlı) ──
-function initialsOf(name) {
-  return (name || '')
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map(w => w[0])
-    .join('')
-    .toUpperCase();
-}
-
-function deskHTML(p) {
-  const isActive = (p.commit_count_7d || 0) > 0 || p.status === 'live';
-  const dotClass = { live: 'dot-live', rd: 'dot-rd', wip: 'dot-wip', concept: 'dot-concept' }[p.status] || 'dot-wip';
-  return `
-    <div class="desk-wrap">
-      <button class="desk" data-slug="${p.slug}" aria-expanded="false">
-        <span class="desk-light ${dotClass}${isActive ? ' pulse' : ''}"></span>
-        <span class="desk-avatar">${initialsOf(p.display_name)}</span>
-        <span class="desk-name">${p.display_name}</span>
-        <span class="desk-toggle">+</span>
-      </button>
-      <div class="desk-terminal" id="terminal-${p.slug}" hidden></div>
-    </div>`;
-}
-
-async function renderAtolye() {
-  const root = document.getElementById('atolye-zones');
-  if (!root) return;
-
-  const all = await fetchAllProjects();
-  const grouped = {};
-  all.forEach(p => { (grouped[p.category] ||= []).push(p); });
-
-  root.innerHTML = CATEGORY_ORDER
-    .filter(cat => grouped[cat] && grouped[cat].length)
-    .map(cat => `
-      <section class="atolye-zone">
-        <header class="atolye-zone-header">
-          <span class="folio">${CATEGORY_META[cat].folioNum}</span>
-          <h2>${CATEGORY_META[cat].name}</h2>
-          <span class="atolye-zone-count">${grouped[cat].length} masa</span>
-        </header>
-        <div class="atolye-desks">${grouped[cat].map(deskHTML).join('')}</div>
-      </section>`)
-    .join('');
-
-  const cache = {};
-  root.querySelectorAll('.desk').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const slug = btn.dataset.slug;
-      const panel = document.getElementById(`terminal-${slug}`);
-      const nowOpen = btn.getAttribute('aria-expanded') !== 'true';
-
-      // Aynı bölgedeki diğer açık terminalleri kapat (tek seferde bir masa)
-      root.querySelectorAll('.desk[aria-expanded="true"]').forEach(other => {
-        if (other !== btn) {
-          other.setAttribute('aria-expanded', 'false');
-          const otherPanel = document.getElementById(`terminal-${other.dataset.slug}`);
-          if (otherPanel) otherPanel.hidden = true;
-        }
-      });
-
-      btn.setAttribute('aria-expanded', String(nowOpen));
-      panel.hidden = !nowOpen;
-      if (nowOpen && !cache[slug]) {
-        const project = await fetchProjectBySlug(slug);
-        cache[slug] = true;
-        panel.innerHTML = `<p class="desk-terminal-prompt">cat ${slug}/activity.log</p>` + buildStatusHTML(project);
-      }
-    });
-  });
-}
-
 // ── Proje Ofisi — her projenin kendi ekip görünümü (proje detay sayfası) ──
 // Gerçek Fleet/Paperclip ajan kadrosundan (AJANLAR.md) — canlı görev durumu
 // değil, o kategoride gerçekten çalışan ajan rolleri ve sorumlulukları.
@@ -499,6 +425,5 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProjectOffice();
   renderProjectBuildStatus();
   renderHomeBuildStatus();
-  renderAtolye();
   initContactFormSupabase();
 });
