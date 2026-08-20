@@ -199,7 +199,6 @@ function officeZoneSVG(agentId, i, statusDotClass, isActive) {
   const { x, y } = ZONE_LAYOUT[i];
   const deskX = x + 85, deskY = y + 44;
   const monX = deskX + 25, monY = deskY - 24;
-  const headCx = deskX + 45, headCy = deskY - 34;
   const plateX = x + 130, plateY = y + 82;
   const delay = i * 160;
   return `
@@ -215,10 +214,6 @@ function officeZoneSVG(agentId, i, statusDotClass, isActive) {
       <rect class="office-monitor" x="${monX}" y="${monY}" width="40" height="26" rx="3"></rect>
       <rect class="office-monitor-line" x="${monX + 6}" y="${monY + 8}" width="20" height="2"></rect>
       <rect class="office-monitor-line" x="${monX + 6}" y="${monY + 14}" width="12" height="2"></rect>
-      <g class="office-figure">
-        <circle class="office-char-head" cx="${headCx}" cy="${headCy}" r="8"></circle>
-        <rect class="office-char-body" x="${headCx - 10}" y="${headCy + 6}" width="20" height="16" rx="6"></rect>
-      </g>
       <circle class="office-status-dot ${statusDotClass}${isActive ? ' office-pulse' : ''}" cx="${monX + 34}" cy="${monY + 2}" r="4"></circle>
       <rect class="office-nameplate office-zone-${i % 4}" x="${plateX - 40}" y="${plateY}" width="80" height="24" rx="4"></rect>
       <text class="office-name" x="${plateX}" y="${plateY + 12}" text-anchor="middle">${name}</text>
@@ -241,12 +236,40 @@ function officeSceneSVG(team, statusDotClass, isActive) {
     </svg>`;
 }
 
+// Piksel figürler — kıyafet/saç/ten tonu CSS custom property ile verilen,
+// 4 katmanlı (saç/yüz/gövde/bacak) tamamen CSS'ten çizilen kurgusal kişiler.
+const PIXEL_PALETTES = [
+  { shirt: 'var(--accent)', hair: '#3b2a20', skin: '#e8b98c' },
+  { shirt: 'var(--wip)',    hair: '#1f2430', skin: '#caa274' },
+  { shirt: 'var(--rd)',     hair: '#5c4632', skin: '#f0c9a0' },
+  { shirt: 'var(--live)',   hair: '#241b14', skin: '#b8886a' },
+];
+
+function pixelAgentHTML(i, isActive) {
+  const { x, y } = ZONE_LAYOUT[i];
+  const leftPct = ((x + 130) / 580 * 100).toFixed(2);
+  const topPct = ((y + 10) / 280 * 100).toFixed(2);
+  const p = PIXEL_PALETTES[i % PIXEL_PALETTES.length];
+  const delay = i * 160;
+  return `
+    <div class="pixel-agent${isActive ? ' working' : ''}" style="left:${leftPct}%;top:${topPct}%;--shirt:${p.shirt};--hair:${p.hair};--skin:${p.skin};--office-delay:${delay}ms">
+      <span class="pixel-person" aria-hidden="true"><i class="hair"></i><i class="face"></i><i class="body"></i><i class="legs"></i></span>
+    </div>`;
+}
+
+function officeAgentLayerHTML(team, isActive) {
+  return `<div class="office-agent-layer">${team.map((_, i) => pixelAgentHTML(i, isActive)).join('')}</div>`;
+}
+
 function officeOfficePaneHTML(project, team, statusDotClass, isActive) {
   const activeCount = isActive ? team.length : 0;
   return `
     <div class="am-pane am-pane-office">
       <div class="am-pane-head"><span class="am-pane-title">Ofis</span><span class="am-pane-badge">${activeCount}/${team.length}</span></div>
-      ${officeSceneSVG(team, statusDotClass, isActive)}
+      <div class="am-office">
+        ${officeSceneSVG(team, statusDotClass, isActive)}
+        ${officeAgentLayerHTML(team, isActive)}
+      </div>
       <p class="am-office-caption"><span class="am-dot ${statusDotClass}${isActive ? ' office-pulse' : ''}"></span>${project.display_name} — ${project.status_label || (isActive ? 'aktif' : 'beklemede')}</p>
     </div>`;
 }
@@ -275,30 +298,42 @@ function officeTerminalPaneHTML(team, project) {
     </div>`;
 }
 
-function officeTasksPaneHTML(project) {
+function officeTasksPaneHTML(project, team, isActive) {
   const d7 = project.commit_count_7d ?? null;
   const d30 = project.commit_count_30d ?? null;
   const total = project.commit_count_total ?? null;
+  const categoryLabel = CATEGORY_META[project.category]?.name || '';
+  const activeCount = isActive ? team.length : 0;
+  const statCard = (num, tag) => `<div class="am-card am-card-stat"><span class="am-card-num">${num ?? '—'}</span><span class="am-card-tag">${tag}</span></div>`;
   return `
     <div class="am-pane am-pane-tasks">
       <div class="am-pane-head"><span class="am-pane-title">Görevler</span><span class="am-pane-badge">${total ?? '—'} toplam</span></div>
       <div class="am-board">
         <div class="am-col am-col-wide">
-          <p class="am-col-head">SON GÜNCELLEME</p>
+          <p class="am-col-head">AKTİVİTE</p>
           ${project.latest_update_text ? `
-          <div class="am-card">
+          <div class="am-card am-card-activity">
+            <span class="am-card-tag">GIT${project.latest_update_at ? ' · ' + relativeTimeTR(project.latest_update_at) : ''}</span>
             <p class="am-card-title">${project.latest_update_text}</p>
-            ${project.latest_update_at ? `<p class="am-card-meta">${relativeTimeTR(project.latest_update_at)}</p>` : ''}
+            <p class="am-card-foot">${categoryLabel}${total != null ? ' · ' + total + ' toplam commit' : ''}</p>
           </div>` : `<p class="am-card-empty">Henüz kayıt yok.</p>`}
           ${project.show_commit_detail === false ? `<p class="am-card-privacy">Güvenlik protokolleri gereği detay paylaşılmıyor.</p>` : ''}
         </div>
         <div class="am-col">
           <p class="am-col-head">BU HAFTA</p>
-          <div class="am-card am-card-stat">${d7 ?? '—'}</div>
+          ${statCard(d7, 'COMMIT')}
         </div>
         <div class="am-col">
           <p class="am-col-head">BU AY</p>
-          <div class="am-card am-card-stat">${d30 ?? '—'}</div>
+          ${statCard(d30, 'COMMIT')}
+        </div>
+        <div class="am-col">
+          <p class="am-col-head">TOPLAM</p>
+          ${statCard(total, 'COMMIT')}
+        </div>
+        <div class="am-col">
+          <p class="am-col-head">EKİP</p>
+          ${statCard(`${activeCount}/${team.length}`, 'AKTİF')}
         </div>
       </div>
     </div>`;
@@ -319,7 +354,7 @@ function officeFrameHTML(project) {
       <div class="am-grid">
         ${officeOfficePaneHTML(project, team, statusDotClass, isActive)}
         ${officeTerminalPaneHTML(team, project)}
-        ${officeTasksPaneHTML(project)}
+        ${officeTasksPaneHTML(project, team, isActive)}
       </div>
       <p class="am-note">Kurgusal ekip görünümü — kişiler temsili, ışık ve sayılar gerçek aktivite verisi.</p>
     </div>`;

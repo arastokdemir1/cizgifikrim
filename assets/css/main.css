@@ -1207,8 +1207,6 @@ ul, ol { list-style: none; }
 .office-desk { fill: var(--accent); }
 .office-monitor { fill: var(--ink); opacity: 0; animation: office-screen-on 480ms ease-out calc(var(--office-delay, 0ms) + 380ms) both; }
 .office-monitor-line { fill: var(--card); opacity: 0; animation: office-line-on 480ms ease-out calc(var(--office-delay, 0ms) + 460ms) both; }
-.office-char-head { fill: var(--card); stroke: var(--ink); stroke-width: 1.5; }
-.office-char-body { fill: var(--ink); }
 
 .office-plant-pot { fill: color-mix(in oklch, var(--accent) 70%, var(--ink) 15%); }
 .office-plant-leaf { fill: var(--live); opacity: 0.6; }
@@ -1246,18 +1244,59 @@ ul, ol { list-style: none; }
   0% { opacity: 0; }
   100% { opacity: 0.7; }
 }
-.office-char-active .office-figure {
-  animation: office-bob 1.3s ease-in-out calc(var(--office-delay, 0ms) + 700ms) infinite;
-  transform-box: fill-box;
-  transform-origin: center;
-}
-.office-char:not(.office-char-active) .office-char-head,
-.office-char:not(.office-char-active) .office-char-body {
-  opacity: 0.55;
-}
 @keyframes office-bob {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-1.5px); }
+}
+
+/* ── Piksel figürler — sprite dosyası yok, tamamen CSS'ten çizilen 4
+   katmanlı (saç/yüz/gövde/bacak) kurgusal kişiler; masaüstündeki
+   agentspace-backend-clone'daki tekniğin aynısı, orijinal renk/ölçekle. ── */
+.am-office { position: relative; }
+.office-agent-layer { position: absolute; inset: 0; pointer-events: none; }
+.pixel-agent {
+  position: absolute;
+  width: 26px;
+  height: 34px;
+  transform: translate(-50%, -78%);
+  animation: office-walk-in 480ms cubic-bezier(0.2, 0, 0, 1) var(--office-delay, 0ms) both;
+}
+.pixel-agent:not(.working) { opacity: 0.55; }
+.pixel-agent.working .pixel-person {
+  animation: office-bob 1.3s ease-in-out calc(var(--office-delay, 0ms) + 700ms) infinite;
+}
+.pixel-person { position: relative; display: block; width: 16px; height: 26px; margin: 0 auto; }
+.pixel-person i { position: absolute; display: block; image-rendering: pixelated; }
+.pixel-person .hair {
+  left: 2px; top: 0; width: 10px; height: 5px;
+  border: 1.5px solid var(--ink);
+  background: var(--hair);
+  box-shadow: -2px 3px 0 var(--hair), 8px 3px 0 var(--hair);
+}
+.pixel-person .face {
+  left: 3px; top: 5px; width: 8px; height: 6px;
+  border-right: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  background: var(--skin);
+}
+.pixel-person .face::after {
+  content: '';
+  position: absolute;
+  left: 1.5px; top: 2px;
+  width: 1.5px; height: 1.5px;
+  background: var(--ink);
+  box-shadow: 4px 0 var(--ink);
+}
+.pixel-person .body {
+  left: 1.5px; top: 11px; width: 11px; height: 8px;
+  border: 1.5px solid var(--ink);
+  background: var(--shirt);
+  box-shadow: -2.5px 1.5px 0 var(--skin), 10.5px 1.5px 0 var(--skin);
+}
+.pixel-person .legs {
+  left: 3px; top: 19px; width: 3px; height: 6px;
+  background: var(--ink);
+  box-shadow: 5px 0 var(--ink), 0 4px var(--ink), 5px 4px var(--ink);
 }
 
 .am-office-caption {
@@ -1341,19 +1380,33 @@ ul, ol { list-style: none; }
   background: var(--am-panel-2);
   border: 1px solid var(--am-border);
   border-radius: 6px;
-  padding: 0.5rem 0.6rem;
+  padding: 0.6rem 0.7rem;
 }
-.am-card-title { font-family: var(--sans); font-size: 0.72rem; color: var(--am-text-1); line-height: 1.4; }
-.am-card-meta { font-family: var(--mono); font-size: 0.62rem; color: var(--am-text-3); margin-top: 0.25rem; }
+.am-card-activity { padding: 0.7rem 0.8rem; }
+.am-card-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--am-text-3);
+}
+.am-card-title { font-family: var(--sans); font-size: 0.78rem; color: var(--am-text-1); line-height: 1.45; margin-top: 0.35rem; }
+.am-card-foot {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--am-text-3);
+  margin-top: 0.5rem;
+  padding-top: 0.4rem;
+  border-top: 1px dashed var(--am-border);
+}
 .am-card-empty { font-family: var(--sans); font-size: 0.68rem; color: var(--am-text-3); font-style: italic; }
 .am-card-privacy { font-family: var(--sans); font-size: 0.6rem; color: var(--am-text-3); margin-top: 0.35rem; line-height: 1.4; }
 .am-card-stat {
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--serif);
-  font-size: 1.9rem;
-  color: var(--am-text-1);
-  padding: 1rem 0.5rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem;
+  padding: 1.1rem 0.5rem;
 }
+.am-card-stat .am-card-num { font-family: var(--serif); font-size: 1.7rem; color: var(--am-text-1); }
 
 .am-note {
   font-family: var(--sans);
@@ -1363,11 +1416,12 @@ ul, ol { list-style: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .office-char, .office-monitor, .office-monitor-line, .office-figure, .am-term-line::after, .office-pulse {
+  .office-char, .office-monitor, .office-monitor-line, .am-term-line::after, .office-pulse, .pixel-person {
     animation: none !important;
     opacity: 1;
     transform: none;
   }
   .office-monitor-line { opacity: 0.7; }
   .am-term-line::after { opacity: 0.8; }
+  .pixel-agent { animation: none !important; }
 }
