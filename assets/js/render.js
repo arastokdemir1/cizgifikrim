@@ -261,69 +261,89 @@ const CLI_LABEL = { claude: 'Claude', codex: 'Codex', agy: 'Antigravity' };
 // kimlikleriyle karıştırılmasın diye bilerek farklı/kurgusal isimler.
 const CHARACTER_NAMES = ['Ela', 'Deniz', 'Kaan', 'Mira'];
 
-// Mekansal ofis sahnesi — SVG. Işık = o projenin gerçek aktivite durumu.
-const ZONE_LAYOUT = [
-  { x: 20,  y: 20  }, { x: 300, y: 20  },
-  { x: 20,  y: 140 }, { x: 300, y: 140 },
+// Ofis karo zemininde karakterlerin dağınık konumu (yüzde, sol/üst).
+const TILE_POSITIONS = [
+  { x: 18, y: 62 }, { x: 40, y: 28 },
+  { x: 64, y: 58 }, { x: 85, y: 32 },
 ];
 
-function officeZoneSVG(agentId, i, statusDotClass, isActive) {
+function officeFigureHTML(agentId, i, isActive) {
   const a = AGENT_ROSTER[agentId];
   const name = CHARACTER_NAMES[i];
-  const { x, y } = ZONE_LAYOUT[i];
-  const deskX = x + 85, deskY = y + 46;
-  const monX = deskX + 25, monY = deskY - 24;
-  const headCx = deskX + 45, headCy = deskY - 34;
-  const delay = i * 180;
+  const { x, y } = TILE_POSITIONS[i];
+  const delay = i * 140;
   return `
-    <g class="office-char${isActive ? ' office-char-active' : ''}" style="--office-delay:${delay}ms">
-      <rect class="office-zone office-zone-${i % 4}" x="${x}" y="${y}" width="260" height="100" rx="10"></rect>
-      <ellipse class="office-pool" cx="${headCx}" cy="${deskY + 32}" rx="30" ry="6"></ellipse>
-      <rect class="office-desk" x="${deskX}" y="${deskY}" width="90" height="30" rx="3"></rect>
-      <rect class="office-monitor" x="${monX}" y="${monY}" width="40" height="26" rx="3"></rect>
-      <rect class="office-monitor-line" x="${monX + 6}" y="${monY + 8}" width="20" height="2"></rect>
-      <rect class="office-monitor-line" x="${monX + 6}" y="${monY + 14}" width="12" height="2"></rect>
-      <g class="office-figure">
-        <circle class="office-char-head" cx="${headCx}" cy="${headCy}" r="8"></circle>
-        <rect class="office-char-body" x="${headCx - 10}" y="${headCy + 6}" width="20" height="16" rx="6"></rect>
-      </g>
-      <circle class="office-status-dot ${statusDotClass}${isActive ? ' office-pulse' : ''}" cx="${monX + 34}" cy="${monY + 2}" r="4"></circle>
-      <text class="office-name" x="${x + 130}" y="${y + 84}" text-anchor="middle">${name}</text>
-      <text class="office-label" x="${x + 130}" y="${y + 96}" text-anchor="middle">${a.role.toUpperCase()}</text>
-    </g>`;
-}
-
-function officeSceneSVG(team, statusDotClass, isActive) {
-  return `
-    <svg class="office-scene" viewBox="0 0 580 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Proje ekibi ofisi">
-      ${team.map((agentId, i) => officeZoneSVG(agentId, i, statusDotClass, isActive)).join('')}
-    </svg>`;
-}
-
-function terminalCardHTML(agentId, i, project) {
-  const a = AGENT_ROSTER[agentId];
-  const name = CHARACTER_NAMES[i];
-  return `
-    <div class="office-term-card">
-      <p class="office-term-titlebar"><span class="office-term-dot"></span>${name} · ${a.role}</p>
-      <p class="office-term-cmd">$ ${a.cli} run --project ${project.slug} --role ${a.role.toLowerCase()}</p>
-      <p class="office-term-desc">${a.desc}</p>
+    <div class="am-figure${isActive ? ' am-figure-active' : ''}" style="left:${x}%;top:${y}%;--am-delay:${delay}ms" title="${name} · ${a.role}">
+      <span class="am-figure-shadow"></span>
+      <span class="am-figure-body"></span>
+      <span class="am-figure-head"></span>
+      <span class="am-figure-label">${name}</span>
     </div>`;
 }
 
-function officeBoardHTML(project) {
-  const cols = [
-    { label: 'Bu Hafta', val: project.commit_count_7d },
-    { label: 'Bu Ay', val: project.commit_count_30d },
-    { label: 'Toplam', val: project.commit_count_total },
-  ];
+function officeOfficePaneHTML(project, team, statusDotClass, isActive) {
+  const activeCount = isActive ? team.length : 0;
   return `
-    <div class="office-board">
-      ${cols.map(c => `
-        <div class="office-board-col">
-          <span class="folio">${c.label}</span>
-          <span class="office-board-num">${c.val ?? '—'}</span>
-        </div>`).join('')}
+    <div class="am-pane am-pane-office">
+      <div class="am-pane-head"><span class="am-pane-title">Ofis</span><span class="am-pane-badge">${activeCount}/${team.length}</span></div>
+      <div class="am-office">
+        <div class="am-floor"></div>
+        ${team.map((id, i) => officeFigureHTML(id, i, isActive)).join('')}
+      </div>
+      <p class="am-office-caption"><span class="am-dot ${statusDotClass}${isActive ? ' office-pulse' : ''}"></span>${project.display_name} — ${project.status_label || (isActive ? 'aktif' : 'beklemede')}</p>
+    </div>`;
+}
+
+function terminalWindowHTML(agentId, i, project) {
+  const a = AGENT_ROSTER[agentId];
+  const name = CHARACTER_NAMES[i];
+  return `
+    <div class="am-term">
+      <div class="am-term-bar">
+        <span class="am-term-dots"><i></i><i></i><i></i></span>
+        <span class="am-term-title">${name} — ${a.role}</span>
+      </div>
+      <div class="am-term-body">
+        <p class="am-term-line">$ ${a.cli} run --project ${project.slug} --role ${a.role.toLowerCase()}</p>
+        <p class="am-term-desc"># ${a.desc}</p>
+      </div>
+    </div>`;
+}
+
+function officeTerminalPaneHTML(team, project) {
+  return `
+    <div class="am-pane am-pane-terminal">
+      <div class="am-pane-head"><span class="am-pane-title">Terminal</span><span class="am-pane-badge">${team.length} açık</span></div>
+      <div class="am-terminals">${team.map((id, i) => terminalWindowHTML(id, i, project)).join('')}</div>
+    </div>`;
+}
+
+function officeTasksPaneHTML(project) {
+  const d7 = project.commit_count_7d ?? null;
+  const d30 = project.commit_count_30d ?? null;
+  const total = project.commit_count_total ?? null;
+  return `
+    <div class="am-pane am-pane-tasks">
+      <div class="am-pane-head"><span class="am-pane-title">Görevler</span><span class="am-pane-badge">${total ?? '—'} toplam</span></div>
+      <div class="am-board">
+        <div class="am-col">
+          <p class="am-col-head">SON GÜNCELLEME</p>
+          ${project.latest_update_text ? `
+          <div class="am-card">
+            <p class="am-card-title">${project.latest_update_text}</p>
+            ${project.latest_update_at ? `<p class="am-card-meta">${relativeTimeTR(project.latest_update_at)}</p>` : ''}
+          </div>` : `<p class="am-card-empty">Henüz kayıt yok.</p>`}
+          ${project.show_commit_detail === false ? `<p class="am-card-privacy">Güvenlik protokolleri gereği detay paylaşılmıyor.</p>` : ''}
+        </div>
+        <div class="am-col">
+          <p class="am-col-head">BU HAFTA</p>
+          <div class="am-card am-card-stat">${d7 ?? '—'}</div>
+        </div>
+        <div class="am-col">
+          <p class="am-col-head">BU AY</p>
+          <div class="am-card am-card-stat">${d30 ?? '—'}</div>
+        </div>
+      </div>
     </div>`;
 }
 
@@ -338,15 +358,17 @@ async function renderProjectOffice() {
   const isActive = (project.commit_count_7d || 0) > 0 || project.status === 'live';
 
   root.innerHTML = `
-    <div class="office-box">
-      <div class="build-status-header">
-        <h3 class="build-status-headline" style="color:var(--ink)">Ofis</h3>
-        <span class="folio">${project.display_name}</span>
+    <div class="am-frame">
+      <div class="am-topbar">
+        <span class="am-brand"><span class="am-brand-dot"></span>cizgifikrim <span class="am-brand-sub">ofis</span></span>
+        <span class="am-tab am-tab-active">${project.display_name} <span class="am-tab-count">${isActive ? team.length : 0}/${team.length}</span></span>
       </div>
-      <p class="build-status-live-note">Kurgusal ekip görünümü — kişiler temsili, ışık ve sayılar gerçek aktivite verisi.</p>
-      ${officeSceneSVG(team, statusDotClass, isActive)}
-      <div class="office-terminals">${team.map((id, i) => terminalCardHTML(id, i, project)).join('')}</div>
-      ${officeBoardHTML(project)}
+      <div class="am-grid">
+        ${officeOfficePaneHTML(project, team, statusDotClass, isActive)}
+        ${officeTerminalPaneHTML(team, project)}
+        ${officeTasksPaneHTML(project)}
+      </div>
+      <p class="am-note">Kurgusal ekip görünümü — kişiler temsili, ışık ve sayılar gerçek aktivite verisi.</p>
     </div>`;
 }
 
