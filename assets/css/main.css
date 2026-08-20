@@ -1158,3 +1158,44 @@ ul, ol { list-style: none; }
 }
 @media (min-width: 640px) { .office-box { padding: 2rem; } }
 .office-box .atolye-desks { margin-top: 0.25rem; }
+
+/* Ofis sahnesi (SVG) */
+.office-scene { width: 100%; height: auto; display: block; margin-top: 0.5rem; }
+
+.office-zone { fill: var(--mark); transition: fill 0.15s; }
+.office-zone-1 { fill: color-mix(in oklch, var(--mark) 70%, var(--wip) 18%); }
+.office-zone-2 { fill: color-mix(in oklch, var(--mark) 70%, var(--rd) 18%); }
+.office-zone-3 { fill: color-mix(in oklch, var(--mark) 70%, var(--live) 18%); }
+
+.office-char { cursor: pointer; outline: none; }
+.office-char:hover .office-zone,
+.office-char[aria-expanded="true"] .office-zone { fill: color-mix(in oklch, var(--mark) 40%, var(--ink) 12%); }
+.office-char:focus-visible .office-zone { stroke: var(--ink); stroke-width: 2; }
+
+.office-desk { fill: var(--accent); }
+.office-monitor { fill: var(--ink); }
+.office-monitor-line { fill: var(--bg); opacity: 0.7; }
+
+.office-status-dot { fill: var(--muted-fg); }
+.office-status-dot.dot-live { fill: var(--live); }
+.office-status-dot.dot-rd { fill: var(--rd); }
+.office-status-dot.dot-wip { fill: var(--wip); }
+.office-status-dot.dot-concept { fill: var(--muted-fg); }
+.office-pulse { animation: office-pulse 1.8s ease-in-out infinite; }
+@keyframes office-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.office-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  fill: var(--ink);
+}
+
+.office-terminal {
+  border-top: 1px dashed var(--rule);
+  padding-top: 0.85rem;
+  margin-top: 0.25rem;
+}

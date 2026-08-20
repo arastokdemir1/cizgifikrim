@@ -258,17 +258,36 @@ const TEAM_BY_CATEGORY = {
 };
 const CLI_LABEL = { claude: 'Claude', codex: 'Codex', agy: 'Antigravity' };
 
-function officeAgentHTML(agentId) {
+// Mekansal ofis sahnesi — SVG. Karakter yerine "terminal/masa" ikonu:
+// bunlar insan değil AI ajan, o yüzden soyut bir masaüstü ekranı olarak
+// çizildi. Işık = o projenin gerçek aktivite durumu (uydurma değil).
+const ZONE_LAYOUT = [
+  { x: 20,  y: 20  }, { x: 300, y: 20  },
+  { x: 20,  y: 140 }, { x: 300, y: 140 },
+];
+
+function officeZoneSVG(agentId, i, statusDotClass, isActive) {
   const a = AGENT_ROSTER[agentId];
+  const { x, y } = ZONE_LAYOUT[i];
+  const deskX = x + 85, deskY = y + 50;
+  const monX = deskX + 25, monY = deskY - 24;
   return `
-    <div class="desk-wrap">
-      <button class="desk" data-agent="${agentId}" aria-expanded="false">
-        <span class="desk-avatar">${initialsOf(a.role)}</span>
-        <span class="desk-name">${a.role}</span>
-        <span class="desk-toggle">+</span>
-      </button>
-      <div class="desk-terminal" id="office-term-${agentId}" hidden></div>
-    </div>`;
+    <g class="office-char" data-agent="${agentId}" tabindex="0" role="button" aria-expanded="false">
+      <rect class="office-zone office-zone-${i % 4}" x="${x}" y="${y}" width="260" height="100" rx="10"></rect>
+      <rect class="office-desk" x="${deskX}" y="${deskY}" width="90" height="30" rx="3"></rect>
+      <rect class="office-monitor" x="${monX}" y="${monY}" width="40" height="26" rx="3"></rect>
+      <rect class="office-monitor-line" x="${monX + 6}" y="${monY + 8}" width="20" height="2"></rect>
+      <rect class="office-monitor-line" x="${monX + 6}" y="${monY + 14}" width="12" height="2"></rect>
+      <circle class="office-status-dot ${statusDotClass}${isActive ? ' office-pulse' : ''}" cx="${monX + 34}" cy="${monY + 2}" r="4"></circle>
+      <text class="office-label" x="${x + 130}" y="${y + 92}" text-anchor="middle">${a.role.toUpperCase()}</text>
+    </g>`;
+}
+
+function officeSceneSVG(team, statusDotClass, isActive) {
+  return `
+    <svg class="office-scene" viewBox="0 0 580 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Proje ekibi ofisi">
+      ${team.map((agentId, i) => officeZoneSVG(agentId, i, statusDotClass, isActive)).join('')}
+    </svg>`;
 }
 
 async function renderProjectOffice() {
@@ -278,44 +297,37 @@ async function renderProjectOffice() {
   const project = await fetchProjectBySlug(slug);
   if (!project) return;
   const team = TEAM_BY_CATEGORY[project.category] || TEAM_BY_CATEGORY['otonom-ai'];
+  const statusDotClass = { live: 'dot-live', rd: 'dot-rd', wip: 'dot-wip', concept: 'dot-concept' }[project.status] || 'dot-wip';
+  const isActive = (project.commit_count_7d || 0) > 0 || project.status === 'live';
 
   root.innerHTML = `
     <div class="office-box">
       <div class="build-status-header">
-        <h3 class="build-status-headline" style="color:var(--ink)">Ekip</h3>
-        <span class="folio">${team.length} rol</span>
+        <h3 class="build-status-headline" style="color:var(--ink)">Ofis</h3>
+        <span class="folio">${team.length} masa</span>
       </div>
-      <p class="build-status-live-note">Bu kategoride gerçekten çalışan ajan rolleri — Fleet/Paperclip kadrosundan. Tıkla, sorumluluğunu gör.</p>
-      <div class="atolye-desks">${team.map(officeAgentHTML).join('')}</div>
+      <p class="build-status-live-note">${project.display_name} üzerinde çalışan gerçek ajan rolleri. Bir masaya tıkla, sorumluluğunu gör.</p>
+      ${officeSceneSVG(team, statusDotClass, isActive)}
+      <div class="office-terminal" id="office-terminal-panel" hidden></div>
     </div>`;
 
-  root.querySelectorAll('.desk').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const agentId = btn.dataset.agent;
-      const panel = document.getElementById(`office-term-${agentId}`);
-      const nowOpen = btn.getAttribute('aria-expanded') !== 'true';
-
-      root.querySelectorAll('.desk[aria-expanded="true"]').forEach(other => {
-        if (other !== btn) {
-          other.setAttribute('aria-expanded', 'false');
-          const otherPanel = document.getElementById(`office-term-${other.dataset.agent}`);
-          if (otherPanel) otherPanel.hidden = true;
-        }
-      });
-
-      btn.setAttribute('aria-expanded', String(nowOpen));
-      panel.hidden = !nowOpen;
-      if (nowOpen && !panel.dataset.loaded) {
-        const a = AGENT_ROSTER[agentId];
-        panel.dataset.loaded = '1';
-        panel.innerHTML = `
-          <p class="desk-terminal-prompt">whoami — ${agentId}</p>
-          <div class="build-status" style="padding:1rem;">
-            <p style="font-size:0.9rem;"><strong>${a.role}</strong> · ${CLI_LABEL[a.cli]} CLI</p>
-            <p style="font-size:0.9rem; color:var(--muted-fg); margin-top:0.5rem;">${a.desc}</p>
-          </div>`;
-      }
-    });
+  const panel = document.getElementById('office-terminal-panel');
+  root.querySelectorAll('.office-char').forEach(g => {
+    const activate = () => {
+      const agentId = g.dataset.agent;
+      const nowOpen = g.getAttribute('aria-expanded') !== 'true';
+      root.querySelectorAll('.office-char[aria-expanded="true"]').forEach(o => o.setAttribute('aria-expanded', 'false'));
+      g.setAttribute('aria-expanded', String(nowOpen));
+      if (!nowOpen) { panel.hidden = true; return; }
+      const a = AGENT_ROSTER[agentId];
+      panel.hidden = false;
+      panel.innerHTML = `
+        <p class="desk-terminal-prompt">whoami — ${agentId}</p>
+        <p style="font-size:0.9rem;"><strong>${a.role}</strong> · ${CLI_LABEL[a.cli]} CLI</p>
+        <p style="font-size:0.9rem; color:var(--muted-fg); margin-top:0.35rem;">${a.desc}</p>`;
+    };
+    g.addEventListener('click', activate);
+    g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); } });
   });
 }
 
