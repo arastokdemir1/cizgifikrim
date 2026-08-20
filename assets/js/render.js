@@ -261,24 +261,58 @@ const CLI_LABEL = { claude: 'Claude', codex: 'Codex', agy: 'Antigravity' };
 // kimlikleriyle karıştırılmasın diye bilerek farklı/kurgusal isimler.
 const CHARACTER_NAMES = ['Ela', 'Deniz', 'Kaan', 'Mira'];
 
-// Ofis karo zemininde karakterlerin dağınık konumu (yüzde, sol/üst).
-const TILE_POSITIONS = [
-  { x: 18, y: 62 }, { x: 40, y: 28 },
-  { x: 64, y: 58 }, { x: 85, y: 32 },
+// Ofis kat planı — 4 bölge, her biri kendi karo dokusu ve mobilyasıyla.
+const ZONE_LAYOUT = [
+  { x: 20,  y: 20  }, { x: 300, y: 20  },
+  { x: 20,  y: 150 }, { x: 300, y: 150 },
 ];
 
-function officeFigureHTML(agentId, i, isActive) {
+function officeZoneSVG(agentId, i, statusDotClass, isActive) {
   const a = AGENT_ROSTER[agentId];
   const name = CHARACTER_NAMES[i];
-  const { x, y } = TILE_POSITIONS[i];
-  const delay = i * 140;
+  const { x, y } = ZONE_LAYOUT[i];
+  const deskX = x + 85, deskY = y + 44;
+  const monX = deskX + 25, monY = deskY - 24;
+  const headCx = deskX + 45, headCy = deskY - 34;
+  const plateX = x + 130, plateY = y + 82;
+  const delay = i * 160;
   return `
-    <div class="am-figure${isActive ? ' am-figure-active' : ''}" style="left:${x}%;top:${y}%;--am-delay:${delay}ms" title="${name} · ${a.role}">
-      <span class="am-figure-shadow"></span>
-      <span class="am-figure-body"></span>
-      <span class="am-figure-head"></span>
-      <span class="am-figure-label">${name}</span>
-    </div>`;
+    <g class="office-char${isActive ? ' office-char-active' : ''}" style="--office-delay:${delay}ms">
+      <rect class="office-zone" x="${x}" y="${y}" width="260" height="110" rx="10" fill="url(#office-checker-${i})"></rect>
+      <ellipse class="office-plant-pot office-zone-${i % 4}" cx="${x + 22}" cy="${y + 84}" rx="7" ry="4"></ellipse>
+      <circle class="office-plant-leaf office-zone-${i % 4}" cx="${x + 22}" cy="${y + 72}" r="9"></circle>
+      <rect class="office-cabinet office-zone-${i % 4}" x="${x + 224}" y="${y + 14}" width="24" height="30" rx="2"></rect>
+      <line class="office-cabinet-line" x1="${x + 224}" y1="${y + 24}" x2="${x + 248}" y2="${y + 24}"></line>
+      <line class="office-cabinet-line" x1="${x + 224}" y1="${y + 34}" x2="${x + 248}" y2="${y + 34}"></line>
+      <ellipse class="office-rug" cx="${deskX + 45}" cy="${deskY + 20}" rx="55" ry="14"></ellipse>
+      <rect class="office-desk" x="${deskX}" y="${deskY}" width="90" height="30" rx="3"></rect>
+      <rect class="office-monitor" x="${monX}" y="${monY}" width="40" height="26" rx="3"></rect>
+      <rect class="office-monitor-line" x="${monX + 6}" y="${monY + 8}" width="20" height="2"></rect>
+      <rect class="office-monitor-line" x="${monX + 6}" y="${monY + 14}" width="12" height="2"></rect>
+      <g class="office-figure">
+        <circle class="office-char-head" cx="${headCx}" cy="${headCy}" r="8"></circle>
+        <rect class="office-char-body" x="${headCx - 10}" y="${headCy + 6}" width="20" height="16" rx="6"></rect>
+      </g>
+      <circle class="office-status-dot ${statusDotClass}${isActive ? ' office-pulse' : ''}" cx="${monX + 34}" cy="${monY + 2}" r="4"></circle>
+      <rect class="office-nameplate office-zone-${i % 4}" x="${plateX - 40}" y="${plateY}" width="80" height="24" rx="4"></rect>
+      <text class="office-name" x="${plateX}" y="${plateY + 12}" text-anchor="middle">${name}</text>
+      <text class="office-label" x="${plateX}" y="${plateY + 21}" text-anchor="middle">${a.role.toUpperCase()}</text>
+    </g>`;
+}
+
+function officeSceneSVG(team, statusDotClass, isActive) {
+  return `
+    <svg class="office-scene" viewBox="0 0 580 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Proje ekibi ofisi">
+      <defs>
+        ${team.map((_, i) => `
+        <pattern id="office-checker-${i}" width="13" height="13" patternUnits="userSpaceOnUse">
+          <rect width="13" height="13" class="office-checker-a office-zone-${i % 4}"></rect>
+          <rect width="6.5" height="6.5" class="office-checker-b office-zone-${i % 4}"></rect>
+          <rect x="6.5" y="6.5" width="6.5" height="6.5" class="office-checker-b office-zone-${i % 4}"></rect>
+        </pattern>`).join('')}
+      </defs>
+      ${team.map((agentId, i) => officeZoneSVG(agentId, i, statusDotClass, isActive)).join('')}
+    </svg>`;
 }
 
 function officeOfficePaneHTML(project, team, statusDotClass, isActive) {
@@ -286,10 +320,7 @@ function officeOfficePaneHTML(project, team, statusDotClass, isActive) {
   return `
     <div class="am-pane am-pane-office">
       <div class="am-pane-head"><span class="am-pane-title">Ofis</span><span class="am-pane-badge">${activeCount}/${team.length}</span></div>
-      <div class="am-office">
-        <div class="am-floor"></div>
-        ${team.map((id, i) => officeFigureHTML(id, i, isActive)).join('')}
-      </div>
+      ${officeSceneSVG(team, statusDotClass, isActive)}
       <p class="am-office-caption"><span class="am-dot ${statusDotClass}${isActive ? ' office-pulse' : ''}"></span>${project.display_name} — ${project.status_label || (isActive ? 'aktif' : 'beklemede')}</p>
     </div>`;
 }
@@ -360,6 +391,7 @@ async function renderProjectOffice() {
   root.innerHTML = `
     <div class="am-frame">
       <div class="am-topbar">
+        <span class="am-window-dots"><i></i><i></i><i></i></span>
         <span class="am-brand"><span class="am-brand-dot"></span>cizgifikrim <span class="am-brand-sub">ofis</span></span>
         <span class="am-tab am-tab-active">${project.display_name} <span class="am-tab-count">${isActive ? team.length : 0}/${team.length}</span></span>
       </div>

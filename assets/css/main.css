@@ -1152,20 +1152,28 @@ ul, ol { list-style: none; }
    dayanır (üst çubuk + ofis/terminal/görev üç sütunu), ama içerik ve
    görseller tamamen orijinal; hiçbir varlık kopyalanmadı. */
 .am-frame {
-  --am-bg: #0d0f17;
-  --am-panel: #141926;
-  --am-panel-2: #1c2233;
-  --am-border: #2a3145;
-  --am-text-1: #dfe4f0;
-  --am-text-2: #a8b0c4;
-  --am-text-3: #7b8399;
+  /* Çerçeve/panel kroması siteyle aynı açık/krem paleti kullanır. */
+  --am-bg: var(--card);
+  --am-panel: var(--muted);
+  --am-panel-2: color-mix(in oklch, var(--muted) 82%, var(--ink) 8%);
+  --am-border: var(--rule);
+  --am-text-1: var(--ink);
+  --am-text-2: var(--muted-fg);
+  --am-text-3: color-mix(in oklch, var(--muted-fg) 88%, transparent);
+  /* Terminal gövdesi her zaman koyu kalır — tema değişse de gerçek bir
+     terminal gibi okunması için sabit tonlar. */
+  --am-term-panel: #1c2233;
+  --am-term-border: #2a3145;
+  --am-term-text-1: #dfe4f0;
+  --am-term-text-2: #a8b0c4;
+  --am-term-text-3: #7b8399;
   background: var(--am-bg);
   border: 1px solid var(--am-border);
   border-radius: 10px;
   padding: 0;
   margin-bottom: 1.5rem;
   overflow: hidden;
-  box-shadow: 0 20px 44px -28px rgba(10, 12, 20, 0.55);
+  box-shadow: 0 20px 44px -28px rgba(40, 30, 10, 0.16);
 }
 
 .am-topbar {
@@ -1175,6 +1183,8 @@ ul, ol { list-style: none; }
   padding: 0.7rem 1rem;
   border-bottom: 1px solid var(--am-border);
 }
+.am-window-dots { display: flex; gap: 5px; }
+.am-window-dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--rule); display: block; }
 .am-brand {
   display: flex;
   align-items: center;
@@ -1254,71 +1264,76 @@ ul, ol { list-style: none; }
   padding: 0.1rem 0.5rem;
 }
 
-/* ── Ofis karo zemini ── */
-.am-office {
-  position: relative;
-  height: 170px;
-  border-radius: 6px;
-  overflow: hidden;
-  background-color: #0a0d15;
-  background-image:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 22px 22px;
+/* ── Ofis kat planı (SVG) — bölge başına dama dokusu + mobilya ── */
+.office-scene { width: 100%; height: auto; display: block; }
+.office-zone { stroke: var(--am-border); stroke-width: 1; }
+
+.office-checker-a.office-zone-0 { fill: var(--mark); }
+.office-checker-b.office-zone-0 { fill: color-mix(in oklch, var(--mark) 82%, var(--ink) 10%); }
+.office-checker-a.office-zone-1 { fill: color-mix(in oklch, var(--mark) 70%, var(--wip) 20%); }
+.office-checker-b.office-zone-1 { fill: color-mix(in oklch, var(--mark) 58%, var(--wip) 30%); }
+.office-checker-a.office-zone-2 { fill: color-mix(in oklch, var(--mark) 70%, var(--rd) 18%); }
+.office-checker-b.office-zone-2 { fill: color-mix(in oklch, var(--mark) 58%, var(--rd) 28%); }
+.office-checker-a.office-zone-3 { fill: color-mix(in oklch, var(--mark) 70%, var(--live) 18%); }
+.office-checker-b.office-zone-3 { fill: color-mix(in oklch, var(--mark) 58%, var(--live) 28%); }
+
+.office-rug { fill: rgba(0, 0, 0, 0.05); }
+.office-desk { fill: var(--accent); }
+.office-monitor { fill: var(--ink); opacity: 0; animation: office-screen-on 480ms ease-out calc(var(--office-delay, 0ms) + 380ms) both; }
+.office-monitor-line { fill: var(--card); opacity: 0; animation: office-line-on 480ms ease-out calc(var(--office-delay, 0ms) + 460ms) both; }
+.office-char-head { fill: var(--card); stroke: var(--ink); stroke-width: 1.5; }
+.office-char-body { fill: var(--ink); }
+
+.office-plant-pot { fill: color-mix(in oklch, var(--accent) 70%, var(--ink) 15%); }
+.office-plant-leaf { fill: var(--live); opacity: 0.6; }
+.office-cabinet { fill: var(--card); stroke: var(--am-border); stroke-width: 1; }
+.office-cabinet-line { stroke: var(--am-border); stroke-width: 1; }
+
+.office-nameplate { fill: var(--card); stroke: var(--am-border); stroke-width: 1; }
+.office-name {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 11px;
+  fill: var(--ink);
 }
-.am-figure {
-  position: absolute;
-  transform: translate(-50%, -100%);
-  animation: am-figure-in 420ms ease-out var(--am-delay, 0ms) both;
-}
-.am-figure:not(.am-figure-active) { filter: grayscale(0.5) brightness(0.75); }
-.am-figure-shadow {
-  position: absolute;
-  bottom: -3px; left: 50%;
-  width: 20px; height: 5px;
-  margin-left: -10px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.45);
-  filter: blur(1px);
-}
-.am-figure-body {
-  position: absolute;
-  bottom: 0; left: 50%;
-  width: 14px; height: 16px;
-  margin-left: -7px;
-  border-radius: 4px;
-  background: var(--am-text-2);
-}
-.am-figure-head {
-  position: absolute;
-  bottom: 14px; left: 50%;
-  width: 10px; height: 10px;
-  margin-left: -5px;
-  border-radius: 50%;
-  background: var(--am-text-1);
-}
-.am-figure-label {
-  position: absolute;
-  bottom: -14px; left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
+.office-label {
   font-family: var(--mono);
-  font-size: 6.5px;
-  letter-spacing: 0.06em;
-  color: var(--am-text-3);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  fill: var(--muted-fg);
 }
-.am-figure-active .am-figure-body,
-.am-figure-active .am-figure-head {
-  animation: am-figure-bob 1.4s ease-in-out calc(var(--am-delay, 0ms) + 500ms) infinite;
+
+.office-char {
+  animation: office-walk-in 480ms cubic-bezier(0.2, 0, 0, 1) var(--office-delay, 0ms) both;
 }
-@keyframes am-figure-in {
-  from { opacity: 0; transform: translate(-50%, -70%); }
-  to { opacity: 1; transform: translate(-50%, -100%); }
+@keyframes office-walk-in {
+  from { transform: translateY(-6px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
-@keyframes am-figure-bob {
+@keyframes office-screen-on {
+  0% { opacity: 0; }
+  40% { opacity: 0.9; }
+  60% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+@keyframes office-line-on {
+  0% { opacity: 0; }
+  100% { opacity: 0.7; }
+}
+.office-char-active .office-figure {
+  animation: office-bob 1.3s ease-in-out calc(var(--office-delay, 0ms) + 700ms) infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.office-char:not(.office-char-active) .office-char-head,
+.office-char:not(.office-char-active) .office-char-body {
+  opacity: 0.55;
+}
+@keyframes office-bob {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-2px); }
+  50% { transform: translateY(-1.5px); }
 }
+
 .am-office-caption {
   display: flex;
   align-items: center;
@@ -1338,11 +1353,11 @@ ul, ol { list-style: none; }
   50% { opacity: 0.35; }
 }
 
-/* ── Terminal panelleri — hepsi aynı anda açık ── */
+/* ── Terminal panelleri — hepsi aynı anda açık, hep koyu ── */
 .am-terminals { display: flex; flex-direction: column; gap: 0.5rem; }
 .am-term {
   background: #0a0d14;
-  border: 1px solid var(--am-border);
+  border: 1px solid var(--am-term-border);
   border-radius: 6px;
   overflow: hidden;
 }
@@ -1351,21 +1366,21 @@ ul, ol { list-style: none; }
   align-items: center;
   gap: 0.5rem;
   padding: 0.4rem 0.6rem;
-  background: var(--am-panel-2);
-  border-bottom: 1px solid var(--am-border);
+  background: var(--am-term-panel);
+  border-bottom: 1px solid var(--am-term-border);
 }
 .am-term-dots { display: flex; gap: 4px; }
-.am-term-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--am-border); display: block; }
+.am-term-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--am-term-border); display: block; }
 .am-term-title {
   font-family: var(--sans);
   font-size: 0.68rem;
-  color: var(--am-text-2);
+  color: var(--am-term-text-2);
 }
 .am-term-body { padding: 0.55rem 0.65rem; }
 .am-term-line {
   font-family: var(--mono);
   font-size: 0.72rem;
-  color: color-mix(in oklch, var(--am-text-1) 35%, var(--live) 65%);
+  color: color-mix(in oklch, var(--am-term-text-1) 35%, var(--live) 65%);
   word-break: break-word;
 }
 .am-term-line::after {
@@ -1378,7 +1393,7 @@ ul, ol { list-style: none; }
 .am-term-desc {
   font-family: var(--sans);
   font-size: 0.68rem;
-  color: var(--am-text-3);
+  color: var(--am-term-text-3);
   margin-top: 0.3rem;
 }
 
@@ -1421,10 +1436,11 @@ ul, ol { list-style: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .am-figure, .am-figure-body, .am-figure-head, .am-term-line::after, .office-pulse {
+  .office-char, .office-monitor, .office-monitor-line, .office-figure, .am-term-line::after, .office-pulse {
     animation: none !important;
     opacity: 1;
-    transform: translate(-50%, -100%);
+    transform: none;
   }
+  .office-monitor-line { opacity: 0.7; }
   .am-term-line::after { opacity: 0.8; }
 }
