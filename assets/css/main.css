@@ -1167,14 +1167,11 @@ ul, ol { list-style: none; }
 .office-zone-2 { fill: color-mix(in oklch, var(--mark) 70%, var(--rd) 18%); }
 .office-zone-3 { fill: color-mix(in oklch, var(--mark) 70%, var(--live) 18%); }
 
-.office-char { cursor: pointer; outline: none; }
-.office-char:hover .office-zone,
-.office-char[aria-expanded="true"] .office-zone { fill: color-mix(in oklch, var(--mark) 40%, var(--ink) 12%); }
-.office-char:focus-visible .office-zone { stroke: var(--ink); stroke-width: 2; }
-
 .office-desk { fill: var(--accent); }
 .office-monitor { fill: var(--ink); }
 .office-monitor-line { fill: var(--bg); opacity: 0.7; }
+.office-char-head { fill: var(--bg); stroke: var(--ink); stroke-width: 1.5; }
+.office-char-body { fill: var(--ink); }
 
 .office-status-dot { fill: var(--muted-fg); }
 .office-status-dot.dot-live { fill: var(--live); }
@@ -1187,15 +1184,80 @@ ul, ol { list-style: none; }
   50% { opacity: 0.35; }
 }
 
-.office-label {
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.08em;
+.office-name {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 11px;
   fill: var(--ink);
 }
+.office-label {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  fill: var(--muted-fg);
+}
 
-.office-terminal {
-  border-top: 1px dashed var(--rule);
-  padding-top: 0.85rem;
+/* Terminal kartları — hepsi aynı anda açık */
+.office-terminals {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+@media (min-width: 640px) { .office-terminals { grid-template-columns: 1fr 1fr; } }
+
+.office-term-card {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0.85rem 1rem;
+  border-radius: 4px;
+}
+.office-term-titlebar {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+.office-term-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--live);
+  flex-shrink: 0;
+}
+.office-term-cmd {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: color-mix(in oklch, var(--bg) 75%, var(--live) 25%);
+  word-break: break-word;
+  margin-bottom: 0.4rem;
+}
+.office-term-desc {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: color-mix(in oklch, var(--bg) 70%, transparent);
+  line-height: 1.5;
+}
+
+/* Görev/istatistik panosu — gerçek commit sayılarıyla */
+.office-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
   margin-top: 0.25rem;
+  border-top: 1px dashed var(--rule);
+  padding-top: 1rem;
+}
+.office-board-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: center;
+}
+.office-board-num {
+  font-family: var(--serif);
+  font-size: 1.75rem;
+  color: var(--ink);
 }
