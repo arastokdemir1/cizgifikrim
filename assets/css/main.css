@@ -1226,19 +1226,19 @@ ul, ol { list-style: none; }
 .am-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.75rem;
-  padding: 0.9rem;
+  gap: 1rem;
+  padding: 1.1rem;
 }
-@media (min-width: 880px) { .am-grid { grid-template-columns: 1fr 1.25fr 1fr; } }
+@media (min-width: 880px) { .am-grid { grid-template-columns: 1fr 1.1fr 1.15fr; } }
 
 .am-pane {
   background: var(--am-panel);
   border: 1px solid var(--am-border);
   border-radius: 8px;
-  padding: 0.75rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.7rem;
   min-width: 0;
 }
 .am-pane-head {
@@ -1400,10 +1400,11 @@ ul, ol { list-style: none; }
 /* ── Görev panosu — gerçek commit/aktivite verisiyle ── */
 .am-board {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
 }
 .am-col { display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
+.am-col-wide { grid-column: 1 / -1; }
 .am-col-head {
   font-family: var(--mono);
   font-size: 0.6rem;
@@ -1423,9 +1424,9 @@ ul, ol { list-style: none; }
 .am-card-stat {
   display: flex; align-items: center; justify-content: center;
   font-family: var(--serif);
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   color: var(--am-text-1);
-  padding: 0.9rem 0.5rem;
+  padding: 1rem 0.5rem;
 }
 
 .am-note {

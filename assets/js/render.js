@@ -357,7 +357,7 @@ function officeTasksPaneHTML(project) {
     <div class="am-pane am-pane-tasks">
       <div class="am-pane-head"><span class="am-pane-title">Görevler</span><span class="am-pane-badge">${total ?? '—'} toplam</span></div>
       <div class="am-board">
-        <div class="am-col">
+        <div class="am-col am-col-wide">
           <p class="am-col-head">SON GÜNCELLEME</p>
           ${project.latest_update_text ? `
           <div class="am-card">
@@ -378,17 +378,12 @@ function officeTasksPaneHTML(project) {
     </div>`;
 }
 
-async function renderProjectOffice() {
-  const root = document.getElementById('office-root');
-  if (!root) return;
-  const slug = location.pathname.split('/').pop().replace('.html', '');
-  const project = await fetchProjectBySlug(slug);
-  if (!project) return;
+function officeFrameHTML(project) {
   const team = TEAM_BY_CATEGORY[project.category] || TEAM_BY_CATEGORY['otonom-ai'];
   const statusDotClass = { live: 'dot-live', rd: 'dot-rd', wip: 'dot-wip', concept: 'dot-concept' }[project.status] || 'dot-wip';
   const isActive = (project.commit_count_7d || 0) > 0 || project.status === 'live';
 
-  root.innerHTML = `
+  return `
     <div class="am-frame">
       <div class="am-topbar">
         <span class="am-window-dots"><i></i><i></i><i></i></span>
@@ -404,6 +399,15 @@ async function renderProjectOffice() {
     </div>`;
 }
 
+async function renderProjectOffice() {
+  const root = document.getElementById('office-root');
+  if (!root) return;
+  const slug = location.pathname.split('/').pop().replace('.html', '');
+  const project = await fetchProjectBySlug(slug);
+  if (!project) return;
+  root.innerHTML = officeFrameHTML(project);
+}
+
 async function renderHomeBuildStatus() {
   const root = document.getElementById('home-build-status');
   if (!root) return;
@@ -413,7 +417,7 @@ async function renderHomeBuildStatus() {
     <a href="projects/${project.slug}.html" class="build-status-home-link">
       <p class="folio">${project.display_name} — ${project.tagline}</p>
     </a>
-    ${buildStatusHTML(project)}`;
+    ${officeFrameHTML(project)}`;
 }
 
 async function renderProjectDetail() {
