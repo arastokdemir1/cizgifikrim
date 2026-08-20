@@ -274,15 +274,19 @@ function officeZoneSVG(agentId, i, statusDotClass, isActive) {
   const deskX = x + 85, deskY = y + 46;
   const monX = deskX + 25, monY = deskY - 24;
   const headCx = deskX + 45, headCy = deskY - 34;
+  const delay = i * 180;
   return `
-    <g class="office-char">
+    <g class="office-char${isActive ? ' office-char-active' : ''}" style="--office-delay:${delay}ms">
       <rect class="office-zone office-zone-${i % 4}" x="${x}" y="${y}" width="260" height="100" rx="10"></rect>
+      <ellipse class="office-pool" cx="${headCx}" cy="${deskY + 32}" rx="30" ry="6"></ellipse>
       <rect class="office-desk" x="${deskX}" y="${deskY}" width="90" height="30" rx="3"></rect>
       <rect class="office-monitor" x="${monX}" y="${monY}" width="40" height="26" rx="3"></rect>
       <rect class="office-monitor-line" x="${monX + 6}" y="${monY + 8}" width="20" height="2"></rect>
       <rect class="office-monitor-line" x="${monX + 6}" y="${monY + 14}" width="12" height="2"></rect>
-      <circle class="office-char-head" cx="${headCx}" cy="${headCy}" r="8"></circle>
-      <rect class="office-char-body" x="${headCx - 10}" y="${headCy + 6}" width="20" height="16" rx="6"></rect>
+      <g class="office-figure">
+        <circle class="office-char-head" cx="${headCx}" cy="${headCy}" r="8"></circle>
+        <rect class="office-char-body" x="${headCx - 10}" y="${headCy + 6}" width="20" height="16" rx="6"></rect>
+      </g>
       <circle class="office-status-dot ${statusDotClass}${isActive ? ' office-pulse' : ''}" cx="${monX + 34}" cy="${monY + 2}" r="4"></circle>
       <text class="office-name" x="${x + 130}" y="${y + 84}" text-anchor="middle">${name}</text>
       <text class="office-label" x="${x + 130}" y="${y + 96}" text-anchor="middle">${a.role.toUpperCase()}</text>

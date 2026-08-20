@@ -1168,10 +1168,58 @@ ul, ol { list-style: none; }
 .office-zone-3 { fill: color-mix(in oklch, var(--mark) 70%, var(--live) 18%); }
 
 .office-desk { fill: var(--accent); }
-.office-monitor { fill: var(--ink); }
-.office-monitor-line { fill: var(--bg); opacity: 0.7; }
+.office-monitor { fill: var(--ink); opacity: 0; animation: office-screen-on 480ms ease-out calc(var(--office-delay, 0ms) + 380ms) both; }
+.office-monitor-line { fill: var(--bg); opacity: 0; animation: office-line-on 480ms ease-out calc(var(--office-delay, 0ms) + 460ms) both; }
 .office-char-head { fill: var(--bg); stroke: var(--ink); stroke-width: 1.5; }
 .office-char-body { fill: var(--ink); }
+.office-pool { fill: var(--live); opacity: 0; }
+
+/* Sahne kuruluşu — bölge grubu soldan kayarak "yerleşiyor" (AgentSpace'teki
+   yürüme sahnesinden esinlenildi, kendi soyut şeklimizle). */
+.office-char {
+  animation: office-walk-in 520ms cubic-bezier(0.2, 0, 0, 1) var(--office-delay, 0ms) both;
+}
+@keyframes office-walk-in {
+  from { transform: translateX(-18px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes office-screen-on {
+  0% { opacity: 0; }
+  40% { opacity: 0.9; }
+  60% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+@keyframes office-line-on {
+  0% { opacity: 0; }
+  100% { opacity: 0.7; }
+}
+/* Aktif projelerde masa altı ışık havuzu + hafif "nefes alma" hareketi. */
+.office-char-active .office-pool {
+  animation: office-pool-in 700ms ease-out calc(var(--office-delay, 0ms) + 420ms) both;
+}
+@keyframes office-pool-in {
+  0% { opacity: 0; }
+  100% { opacity: 0.14; }
+}
+.office-char-active .office-figure {
+  animation: office-bob 1.2s ease-in-out calc(var(--office-delay, 0ms) + 900ms) infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes office-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.5px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .office-char, .office-monitor, .office-monitor-line, .office-pool, .office-figure, .office-pulse {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+  .office-monitor-line { opacity: 0.7; }
+  .office-pool { opacity: 0; }
+  .office-char-active .office-pool { opacity: 0.14; }
+}
 
 .office-status-dot { fill: var(--muted-fg); }
 .office-status-dot.dot-live { fill: var(--live); }
