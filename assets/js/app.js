@@ -4,6 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.querySelector('.mobile-toggle');
   const mobileNav = document.querySelector('.mobile-nav');
   if (toggle && mobileNav) {
+    mobileNav.id = mobileNav.id || 'mobile-nav';
+    toggle.setAttribute('aria-controls', mobileNav.id);
+    document.querySelectorAll('.nav-sym, .mobile-nav-sym').forEach((symbol) => {
+      symbol.setAttribute('aria-hidden', 'true');
+    });
     toggle.addEventListener('click', () => {
       const open = mobileNav.classList.toggle('open');
       toggle.classList.toggle('open', open);

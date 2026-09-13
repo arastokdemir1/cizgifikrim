@@ -326,14 +326,31 @@ function officeAgentLayerHTML(team, isActive) {
 function officeOfficePaneHTML(project, team, statusDotClass, isActive) {
   const activeCount = isActive ? team.length : 0;
   return `
-    <div class="am-pane am-pane-office">
-      <div class="am-pane-head"><span class="am-pane-title">Ofis</span><span class="am-pane-badge">${activeCount}/${team.length}</span></div>
-      <div class="am-office">
-        ${officeSceneSVG(team, statusDotClass, isActive)}
-        ${officeAgentLayerHTML(team, isActive)}
+    <section class="am-pane am-pane-office" aria-labelledby="office-team-title">
+      <div class="am-pane-head">
+        <div>
+          <span class="am-eyebrow">EKİP</span>
+          <h2 class="am-pane-title am-pane-heading" id="office-team-title">Çalışma alanı</h2>
+        </div>
+        <span class="am-pane-badge">${activeCount}/${team.length} aktif</span>
       </div>
-      <p class="am-office-caption"><span class="am-dot ${statusDotClass}${isActive ? ' office-pulse' : ''}"></span>${escapeHTML(project.display_name)} — ${escapeHTML(project.status_label || (isActive ? 'aktif' : 'beklemede'))}</p>
-    </div>`;
+      <div class="am-team-context">
+        <span class="am-team-project">${escapeHTML(project.display_name)}</span>
+        <span class="am-team-status"><span class="am-dot ${statusDotClass}${isActive ? ' office-pulse' : ''}"></span>${escapeHTML(project.status_label || (isActive ? 'aktif' : 'beklemede'))}</span>
+      </div>
+      <ul class="am-member-grid" aria-label="Proje ekibi">
+        ${team.map((agentId, i) => {
+          const a = AGENT_ROSTER[agentId];
+          const name = CHARACTER_NAMES[i];
+          return `<li class="am-member">
+            <span class="am-member-avatar am-avatar-${i % 4}" aria-hidden="true">${name.charAt(0)}</span>
+            <span class="am-member-copy"><strong>${escapeHTML(name)}</strong><span>${escapeHTML(a.role)}</span></span>
+            <span class="am-member-state">${isActive ? 'aktif' : 'beklemede'}</span>
+          </li>`;
+        }).join('')}
+      </ul>
+      <p class="am-office-caption"><span class="am-dot ${statusDotClass}${isActive ? ' office-pulse' : ''}"></span>${isActive ? 'Ekip bu proje üzerinde çalışıyor.' : 'Ekip bekleme durumunda.'}</p>
+    </section>`;
 }
 
 function terminalWindowHTML(agentId, i, project) {
@@ -354,10 +371,20 @@ function terminalWindowHTML(agentId, i, project) {
 
 function officeTerminalPaneHTML(team, project) {
   return `
-    <div class="am-pane am-pane-terminal">
-      <div class="am-pane-head"><span class="am-pane-title">Terminal</span><span class="am-pane-badge">${team.length} açık</span></div>
-      <div class="am-terminals">${team.map((id, i) => terminalWindowHTML(id, i, project)).join('')}</div>
-    </div>`;
+    <section class="am-pane am-pane-terminal" aria-labelledby="office-flow-title">
+      <div class="am-pane-head"><div><span class="am-eyebrow">AKIŞ</span><h2 class="am-pane-title am-pane-heading" id="office-flow-title">Çalışan komutlar</h2></div><span class="am-pane-badge">${team.length} açık</span></div>
+      <ol class="am-command-list">
+        ${team.map((id, i) => {
+          const a = AGENT_ROSTER[id];
+          const name = CHARACTER_NAMES[i];
+          return `<li class="am-command-row">
+            <span class="am-command-index">${String(i + 1).padStart(2, '0')}</span>
+            <span class="am-command-copy"><strong>${escapeHTML(name)} · ${escapeHTML(a.role)}</strong><code>$ ${escapeHTML(a.cli)} run --project ${escapeHTML(safeProjectSlug(project.slug))} --role ${escapeHTML(a.role.toLowerCase())}</code></span>
+            <span class="am-command-state">izleniyor</span>
+          </li>`;
+        }).join('')}
+      </ol>
+    </section>`;
 }
 
 function officeTasksPaneHTML(project, team, isActive) {
@@ -368,8 +395,8 @@ function officeTasksPaneHTML(project, team, isActive) {
   const activeCount = isActive ? team.length : 0;
   const statCard = (num, tag) => `<div class="am-card am-card-stat"><span class="am-card-num">${num ?? '—'}</span><span class="am-card-tag">${tag}</span></div>`;
   return `
-    <div class="am-pane am-pane-tasks">
-      <div class="am-pane-head"><span class="am-pane-title">Görevler</span><span class="am-pane-badge">${total ?? '—'} toplam</span></div>
+    <section class="am-pane am-pane-tasks" aria-labelledby="office-activity-title">
+      <div class="am-pane-head"><div><span class="am-eyebrow">SİNYAL</span><h2 class="am-pane-title am-pane-heading" id="office-activity-title">Aktivite özeti</h2></div><span class="am-pane-badge">${total ?? '—'} commit</span></div>
       <div class="am-board">
         <div class="am-col am-col-wide">
           <p class="am-col-head">AKTİVİTE</p>
@@ -398,7 +425,7 @@ function officeTasksPaneHTML(project, team, isActive) {
           ${statCard(`${activeCount}/${team.length}`, 'AKTİF')}
         </div>
       </div>
-    </div>`;
+    </section>`;
 }
 
 function officeFrameHTML(project) {
@@ -410,7 +437,7 @@ function officeFrameHTML(project) {
     <div class="am-frame">
       <div class="am-topbar">
         <span class="am-window-dots"><i></i><i></i><i></i></span>
-        <span class="am-brand"><span class="am-brand-dot"></span>cizgifikrim <span class="am-brand-sub">ofis</span></span>
+        <span class="am-brand"><span class="am-brand-dot"></span>cizgifikrim <span class="am-brand-sub">çalışma alanı</span></span>
         <span class="am-tab am-tab-active">${escapeHTML(project.display_name)} <span class="am-tab-count">${isActive ? team.length : 0}/${team.length}</span></span>
       </div>
       <div class="am-grid">
