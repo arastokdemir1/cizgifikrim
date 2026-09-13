@@ -226,9 +226,9 @@ async function renderProjectBuildStatus() {
   root.innerHTML = buildStatusHTML(project);
 }
 
-// ── Proje Ofisi — her projenin kendi ekip görünümü (proje detay sayfası) ──
+// ── Proje Ofisi — her proje için ayrı ekip kompozisyonu ──
 // Gerçek Fleet/Paperclip ajan kadrosundan (AJANLAR.md) — canlı görev durumu
-// değil, o kategoride gerçekten çalışan ajan rolleri ve sorumlulukları.
+// değil, o projeye atanmış ajan rolleri ve sorumlulukları.
 const AGENT_ROSTER = {
   'mimar-claude':      { role: 'Mimar',       cli: 'claude', desc: 'Hedef bölme, mimari, kontratlar.' },
   'backend-claude':    { role: 'Backend',     cli: 'claude', desc: 'API, servis, auth, hata yönetimi.' },
@@ -243,6 +243,24 @@ const TEAM_BY_CATEGORY = {
   'mobil':     ['frontend-codex', 'ui-codex', 'test-codex', 'denetleyici-claude'],
   'finansal':  ['backend-claude', 'veritabani-agy', 'test-codex', 'denetleyici-claude'],
   'otomotiv':  ['backend-claude', 'veritabani-agy', 'test-codex', 'denetleyici-claude'],
+};
+const TEAM_BY_PROJECT = {
+  ultron: ['mimar-claude', 'backend-claude', 'test-codex', 'denetleyici-claude'],
+  aka: ['backend-claude', 'ui-codex', 'test-codex', 'denetleyici-claude'],
+  ersoy: ['frontend-codex', 'backend-claude', 'ui-codex', 'denetleyici-claude'],
+  arda: ['frontend-codex', 'ui-codex', 'test-codex', 'denetleyici-claude'],
+  my_b: ['mimar-claude', 'frontend-codex', 'test-codex', 'denetleyici-claude'],
+  'wix4.1': ['mimar-claude', 'backend-claude', 'ui-codex', 'denetleyici-claude'],
+  carlog: ['frontend-codex', 'backend-claude', 'test-codex', 'denetleyici-claude'],
+  focusgrid: ['frontend-codex', 'ui-codex', 'test-codex', 'denetleyici-claude'],
+  flowgraph: ['frontend-codex', 'veritabani-agy', 'test-codex', 'denetleyici-claude'],
+  formafit: ['frontend-codex', 'backend-claude', 'veritabani-agy', 'test-codex'],
+  gnomon: ['mimar-claude', 'backend-claude', 'test-codex', 'denetleyici-claude'],
+  trade_bot: ['mimar-claude', 'backend-claude', 'veritabani-agy', 'denetleyici-claude'],
+  piyasa: ['frontend-codex', 'backend-claude', 'veritabani-agy', 'test-codex'],
+  radar: ['backend-claude', 'veritabani-agy', 'test-codex', 'denetleyici-claude'],
+  better_motors: ['backend-claude', 'veritabani-agy', 'test-codex', 'denetleyici-claude'],
+  sano: ['frontend-codex', 'backend-claude', 'test-codex', 'denetleyici-claude'],
 };
 const CLI_LABEL = { claude: 'Claude', codex: 'Codex', agy: 'Antigravity' };
 // Jenerik karakter isimleri — kurgusal, dekoratif. Gerçek Fleet ajan
@@ -447,7 +465,7 @@ function officeTasksPaneHTML(project, team, isActive) {
 }
 
 function officeFrameHTML(project) {
-  const team = TEAM_BY_CATEGORY[project.category] || TEAM_BY_CATEGORY['otonom-ai'];
+  const team = TEAM_BY_PROJECT[project.slug] || TEAM_BY_CATEGORY[project.category] || TEAM_BY_CATEGORY['otonom-ai'];
   const statusDotClass = { live: 'dot-live', rd: 'dot-rd', wip: 'dot-wip', concept: 'dot-concept' }[project.status] || 'dot-wip';
   const isActive = (project.commit_count_7d || 0) > 0 || project.status === 'live';
 
