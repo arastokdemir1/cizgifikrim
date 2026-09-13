@@ -3,16 +3,67 @@
 
 const CATEGORY_ORDER = ['otonom-ai', 'mobil', 'finansal', 'otomotiv'];
 
+// Bu veri son bilinen, repo içinde yayınlanan katalogdur. Ağ/veritabanı
+// erişilemediğinde sayfanın boş kalmaması için kullanılır; Supabase yanıtı
+// geldiğinde canlı kayıtlar bunun yerini alır.
+const STATIC_PROJECTS = [
+  ['ultron', 'Emre', 'Otonom Bilişsel Sistem', 'LLM-bağımsız bilişsel karar çekirdeği.', 'otonom-ai', 'rd', 'Ar-Ge / Canlı'],
+  ['aka', 'ALP', 'Yerel Yapay Zekâ Asistanı', 'Tamamen yerel çalışan, gizlilik odaklı yapay zekâ asistanı.', 'otonom-ai', 'wip', 'Geliştiriliyor'],
+  ['ersoy', 'Ersoy', 'Web Tabanlı Bilişsel AI', 'Web tabanlı bilişsel AI asistanı; hızlı ve ölçeklenebilir bir mimari.', 'otonom-ai', 'wip', 'Geliştiriliyor'],
+  ['arda', 'Arda', 'Masaüstü ve Ses Odaklı AI', 'Doğrudan etkileşim ve otomasyon için tasarlanan bilişsel asistan.', 'otonom-ai', 'wip', 'Geliştiriliyor'],
+  ['my_b', 'Yerel Kodlama Ajanı', 'Geliştiriciler için Yerel Asistan', 'Yerel ortamda çalışan kodlama asistanı.', 'otonom-ai', 'rd', 'Ar-Ge'],
+  ['wix4.1', 'Kişilik Sürekliliği', 'Dijital İkiz Ar-Ge', 'Dijital ikiz ve kişilik sürekliliği üzerine Ar-Ge çalışması.', 'otonom-ai', 'concept', 'Konsept'],
+  ['carlog', 'CarLog', 'iOS Araç Maliyet Uygulaması', 'Araç maliyet yönetimi, yakıt takibi ve verimlilik analizi için mobil çözüm.', 'mobil', 'live', 'Canlı'],
+  ['focusgrid', 'FocusGrid', 'Minimalist Odaklanma Aracı', 'Odaklanmayı destekleyen minimalist mobil araç.', 'mobil', 'live', 'Canlı'],
+  ['flowgraph', 'FlowGraph', 'Kişisel Finans Akışı', 'Kişisel finans akışını görünür kılan mobil uygulama.', 'mobil', 'live', 'Canlı'],
+  ['formafit', 'FormaFit', 'Sağlık ve Fitness Platformu', 'Kişiselleştirilmiş sağlık ve fitness takip platformu.', 'mobil', 'wip', 'Geliştiriliyor'],
+  ['gnomon', 'Gnomon', 'macOS Proje Yönetimi', 'Bağımlılık-kilitleme motorlu proje yönetimi.', 'mobil', 'wip', 'Geliştiriliyor'],
+  ['trade_bot', 'Trade', 'Quant ve Algoritmik Ticaret', 'Veriden stratejiye uzanan kantitatif ticaret altyapısı.', 'finansal', 'rd', 'Ar-Ge'],
+  ['piyasa', 'Piyasa', 'Finansal Piyasa Uygulaması', 'Piyasa verileri ve finansal karar akışları üzerine mobil çalışma.', 'finansal', 'wip', 'Geliştiriliyor'],
+  ['radar', 'Radar', 'Piyasa İzleme Sistemi', 'Piyasa sinyallerini izlemeye yönelik çalışma.', 'finansal', 'wip', 'Geliştiriliyor'],
+  ['better_motors', 'Better Motors', 'ECU ve Araç İçi Yazılımlar', 'ECU yazılımları ve araç içi dijital sistemlere yönelik çözüm.', 'otomotiv', 'wip', 'Geliştiriliyor'],
+  ['sano', 'Sano', 'Sağlık Teknolojileri', 'Sağlık odaklı ürün geliştirme çalışması.', 'mobil', 'wip', 'Geliştiriliyor'],
+].map(([slug, display_name, tagline, description, category, status, status_label], order_index) => ({
+  slug, display_name, tagline, description, category, status, status_label, order_index,
+}));
+
+function safeProjectSlug(slug) {
+  return /^[a-z0-9._-]+$/i.test(String(slug || '')) ? String(slug) : '';
+}
+
+function safeExternalURL(value) {
+  try {
+    const url = new URL(value);
+    return ['https:', 'http:'].includes(url.protocol) ? url.href : '';
+  } catch (_) {
+    return '';
+  }
+}
+
+function setStatusNotice(root, message) {
+  let notice = root.parentElement?.querySelector('[data-data-status]');
+  if (!notice) {
+    notice = document.createElement('p');
+    notice.className = 'page folio';
+    notice.dataset.dataStatus = 'true';
+    notice.setAttribute('role', 'status');
+    root.before(notice);
+  }
+  notice.textContent = message;
+}
+
 function projectCardHTML(p, num) {
+  const slug = safeProjectSlug(p.slug);
+  if (!slug) return '';
   return `
     <li class="proj-item">
-      <a href="projects/${p.slug}.html" class="proj-link reveal">
+      <a href="projects/${slug}.html" class="proj-link reveal">
         <span class="folio proj-num-col">№${num}</span>
         <div class="proj-name-col">
-          <h3 class="proj-name-main">${p.display_name}</h3>
-          <p class="proj-tagline-sm">${p.tagline}</p>
+          <h3 class="proj-name-main">${escapeHTML(p.display_name)}</h3>
+          <p class="proj-tagline-sm">${escapeHTML(p.tagline)}</p>
         </div>
-        <p class="proj-desc-col">${(p.description || '').split('\n\n')[0]}</p>
+        <p class="proj-desc-col">${escapeHTML((p.description || '').split('\n\n')[0])}</p>
         <div class="proj-status-col">${statusBadgeHTML(p.status, p.status_label)}</div>
       </a>
     </li>`;
@@ -22,7 +73,10 @@ async function renderProductsPage() {
   const root = document.getElementById('products-categories');
   if (!root) return;
 
-  const projects = await fetchAllProjects();
+  const remoteProjects = await fetchAllProjects();
+  const projects = remoteProjects?.length ? remoteProjects : STATIC_PROJECTS;
+  if (!remoteProjects) setStatusNotice(root, 'Katalogun güncel verisi alınamadı; son yayınlanan katalog gösteriliyor.');
+  if (remoteProjects && !remoteProjects.length) setStatusNotice(root, 'Katalogda şu anda yayınlanmış proje bulunmuyor.');
   const order = ['otonom-ai', 'mobil', 'finansal', 'otomotiv'];
   const grouped = {};
   projects.forEach(p => { (grouped[p.category] ||= []).push(p); });
@@ -45,20 +99,23 @@ async function renderProductsPage() {
         </section>`;
     })
     .join('');
+  root.setAttribute('aria-busy', 'false');
 
   if (window.initReveal) window.initReveal();
 }
 
 function featuredCardHTML(p, num) {
+  const slug = safeProjectSlug(p.slug);
+  if (!slug) return '';
   return `
-    <a href="projects/${p.slug}.html" class="feat-card reveal">
+    <a href="projects/${slug}.html" class="feat-card reveal">
       <div class="feat-meta">
         ${statusBadgeHTML(p.status, p.status_label)}
         <span class="feat-num">№ ${num}</span>
       </div>
-      <h3 class="feat-name">${p.display_name}</h3>
-      <p class="feat-tagline">${p.tagline}</p>
-      <p class="feat-desc">${(p.description || '').split('\n\n')[0]}</p>
+      <h3 class="feat-name">${escapeHTML(p.display_name)}</h3>
+      <p class="feat-tagline">${escapeHTML(p.tagline)}</p>
+      <p class="feat-desc">${escapeHTML((p.description || '').split('\n\n')[0])}</p>
       <div class="feat-footer">
         <span class="feat-cat">${CATEGORY_META[p.category]?.name || ''}</span>
         <span>oku →</span>
@@ -70,7 +127,9 @@ async function renderFeaturedProjects() {
   const root = document.getElementById('featured-grid');
   if (!root) return;
 
-  const featured = await fetchFeaturedProjects();
+  const remoteFeatured = await fetchFeaturedProjects();
+  const featured = remoteFeatured?.length ? remoteFeatured : STATIC_PROJECTS.slice(0, 3);
+  if (!remoteFeatured) setStatusNotice(root, 'Güncel inşa verisi alınamadı; son yayınlanan öne çıkan projeler gösteriliyor.');
   root.innerHTML = featured
     .map((p, i) => featuredCardHTML(p, String(i + 1).padStart(3, '0')))
     .join('');
@@ -96,6 +155,9 @@ function relativeTimeTR(dateStr) {
 }
 
 function buildStatusHTML(p) {
+  const latestUpdate = escapeHTML(p.latest_update_text);
+  const testStatus = escapeHTML(p.test_status);
+  const liveURL = safeExternalURL(p.live_url);
   if (p.status === 'live') {
     return `
       <div class="build-status build-status--live">
@@ -106,20 +168,20 @@ function buildStatusHTML(p) {
         ${p.latest_update_text ? `
         <div class="build-status-row">
           <span class="folio">Son Düzeltme</span>
-          <p>${p.latest_update_text}</p>
+          <p>${latestUpdate}</p>
         </div>` : ''}
         ${p.test_status ? `
         <div class="build-status-row">
           <span class="folio">Test Durumu</span>
-          <p>${p.test_status}</p>
+          <p>${testStatus}</p>
         </div>` : ''}
-        ${p.live_url ? `<a href="${p.live_url}" target="_blank" rel="noopener" class="btn-primary build-status-cta">App Store'da Gör<span class="btn-arrow">→</span></a>` : ''}
+        ${liveURL ? `<a href="${liveURL}" target="_blank" rel="noopener" class="btn-primary build-status-cta">App Store'da Gör<span class="btn-arrow">→</span></a>` : ''}
       </div>`;
   }
 
-  const total = p.commit_count_total || 0;
-  const d30 = p.commit_count_30d || 0;
-  const d7 = p.commit_count_7d || 0;
+  const total = Math.max(0, Number(p.commit_count_total) || 0);
+  const d30 = Math.max(0, Number(p.commit_count_30d) || 0);
+  const d7 = Math.max(0, Number(p.commit_count_7d) || 0);
   const pct = (n) => (total > 0 ? Math.round((n / total) * 100) : 0);
 
   return `
@@ -149,7 +211,7 @@ function buildStatusHTML(p) {
       ${p.latest_update_text ? `
       <div class="build-status-row">
         <span class="folio">Son Güncelleme${p.latest_update_at ? ' · ' + relativeTimeTR(p.latest_update_at) : ''}</span>
-        <p>${p.latest_update_text}</p>
+        <p>${latestUpdate}</p>
       </div>` : ''}
       ${p.show_commit_detail === false ? `<p class="build-status-privacy-note">Detaylı commit kayıtları güvenlik protokolleri gereği paylaşılmıyor — sadece aktivite istatistikleri gösteriliyor.</p>` : ''}
     </div>`;
@@ -270,7 +332,7 @@ function officeOfficePaneHTML(project, team, statusDotClass, isActive) {
         ${officeSceneSVG(team, statusDotClass, isActive)}
         ${officeAgentLayerHTML(team, isActive)}
       </div>
-      <p class="am-office-caption"><span class="am-dot ${statusDotClass}${isActive ? ' office-pulse' : ''}"></span>${project.display_name} — ${project.status_label || (isActive ? 'aktif' : 'beklemede')}</p>
+      <p class="am-office-caption"><span class="am-dot ${statusDotClass}${isActive ? ' office-pulse' : ''}"></span>${escapeHTML(project.display_name)} — ${escapeHTML(project.status_label || (isActive ? 'aktif' : 'beklemede'))}</p>
     </div>`;
 }
 
@@ -284,7 +346,7 @@ function terminalWindowHTML(agentId, i, project) {
         <span class="am-term-title">${name} — ${a.role}</span>
       </div>
       <div class="am-term-body">
-        <p class="am-term-line">$ ${a.cli} run --project ${project.slug} --role ${a.role.toLowerCase()}</p>
+        <p class="am-term-line">$ ${a.cli} run --project ${escapeHTML(safeProjectSlug(project.slug))} --role ${a.role.toLowerCase()}</p>
         <p class="am-term-desc"># ${a.desc}</p>
       </div>
     </div>`;
@@ -314,7 +376,7 @@ function officeTasksPaneHTML(project, team, isActive) {
           ${project.latest_update_text ? `
           <div class="am-card am-card-activity">
             <span class="am-card-tag">GIT${project.latest_update_at ? ' · ' + relativeTimeTR(project.latest_update_at) : ''}</span>
-            <p class="am-card-title">${project.latest_update_text}</p>
+            <p class="am-card-title">${escapeHTML(project.latest_update_text)}</p>
             <p class="am-card-foot">${categoryLabel}${total != null ? ' · ' + total + ' toplam commit' : ''}</p>
           </div>` : `<p class="am-card-empty">Henüz kayıt yok.</p>`}
           ${project.show_commit_detail === false ? `<p class="am-card-privacy">Güvenlik protokolleri gereği detay paylaşılmıyor.</p>` : ''}
@@ -349,7 +411,7 @@ function officeFrameHTML(project) {
       <div class="am-topbar">
         <span class="am-window-dots"><i></i><i></i><i></i></span>
         <span class="am-brand"><span class="am-brand-dot"></span>cizgifikrim <span class="am-brand-sub">ofis</span></span>
-        <span class="am-tab am-tab-active">${project.display_name} <span class="am-tab-count">${isActive ? team.length : 0}/${team.length}</span></span>
+        <span class="am-tab am-tab-active">${escapeHTML(project.display_name)} <span class="am-tab-count">${isActive ? team.length : 0}/${team.length}</span></span>
       </div>
       <div class="am-grid">
         ${officeOfficePaneHTML(project, team, statusDotClass, isActive)}
@@ -372,11 +434,14 @@ async function renderProjectOffice() {
 async function renderHomeBuildStatus() {
   const root = document.getElementById('home-build-status');
   if (!root) return;
-  const project = await fetchProjectBySlug(root.dataset.slug || 'ersoy');
+  const remoteProject = await fetchProjectBySlug(root.dataset.slug || 'ersoy');
+  const project = remoteProject || STATIC_PROJECTS.find(p => p.slug === (root.dataset.slug || 'ersoy'));
   if (!project) return;
+  if (!remoteProject) setStatusNotice(root, 'Güncel aktivite verisi alınamadı; son yayınlanan bilgi gösteriliyor.');
+  const slug = safeProjectSlug(project.slug);
   root.innerHTML = `
-    <a href="projects/${project.slug}.html" class="build-status-home-link">
-      <p class="folio">${project.display_name} — ${project.tagline}</p>
+    <a href="projects/${slug}.html" class="build-status-home-link">
+      <p class="folio">${escapeHTML(project.display_name)} — ${escapeHTML(project.tagline)}</p>
     </a>
     ${officeFrameHTML(project)}`;
 }
@@ -386,20 +451,29 @@ async function renderProjectDetail() {
   if (!nameEl) return;
 
   const slug = location.pathname.split('/').pop().replace('.html', '');
-  const [project, all] = await Promise.all([fetchProjectBySlug(slug), fetchAllProjects()]);
+  const [remoteProject, remoteAll] = await Promise.all([fetchProjectBySlug(slug), fetchAllProjects()]);
+  const project = remoteProject || STATIC_PROJECTS.find(p => p.slug === slug);
+  const all = remoteAll?.length ? remoteAll : STATIC_PROJECTS;
 
   if (!project) {
-    nameEl.textContent = 'Proje bulunamadı';
+    nameEl.textContent = 'Proje bilgisi bulunamadı';
+    const body = document.getElementById('project-body');
+    if (body) body.textContent = 'Bu bağlantı için yayınlanmış bir proje kaydı yok. Tüm projeleri katalogdan inceleyebilirsin.';
     return;
   }
 
+  if (!remoteProject) {
+    const notice = document.createElement('p');
+    notice.className = 'folio project-data-notice';
+    notice.setAttribute('role', 'status');
+    notice.textContent = 'Güncel proje verisi alınamadı; son yayınlanan proje özeti gösteriliyor.';
+    document.getElementById('project-tagline')?.before(notice);
+  }
   document.title = `${project.display_name} — ${project.tagline} | CizgiFikrim`;
-  nameEl.innerHTML = `${project.display_name}<span class="project-dot">.</span>`;
-  document.getElementById('project-tagline').textContent = project.tagline;
-  document.getElementById('project-body').innerHTML = (project.description || '')
-    .split('\n\n')
-    .map(para => `<p class="project-para">${para}</p>`)
-    .join('');
+  nameEl.replaceChildren(document.createTextNode(project.display_name || 'Proje'), Object.assign(document.createElement('span'), { className: 'project-dot', textContent: '.' }));
+  document.getElementById('project-tagline').textContent = project.tagline || '';
+  const body = document.getElementById('project-body');
+  body.replaceChildren(...String(project.description || 'Bu proje için henüz ayrıntılı açıklama yayınlanmadı.').split('\n\n').map(para => Object.assign(document.createElement('p'), { className: 'project-para', textContent: para })));
   document.getElementById('meta-status').innerHTML = statusBadgeHTML(project.status, project.status_label);
   document.getElementById('meta-category').textContent = CATEGORY_META[project.category]?.name || '';
   document.getElementById('meta-folder').textContent = project.folder_number || '';
@@ -407,18 +481,23 @@ async function renderProjectDetail() {
   if (folioEl) folioEl.textContent = `Dosya · ${CATEGORY_META[project.category]?.name || ''}`;
 
   const idx = all.findIndex(p => p.slug === slug);
+  if (!all.length || idx < 0) {
+    document.getElementById('nav-prev').replaceChildren();
+    document.getElementById('nav-next').replaceChildren();
+    return;
+  }
   const prev = all[(idx - 1 + all.length) % all.length];
   const next = all[(idx + 1) % all.length];
 
   document.getElementById('nav-prev').innerHTML = `
-    <a href="${prev.slug}.html" class="proj-nav-a">
+    <a href="${safeProjectSlug(prev.slug)}.html" class="proj-nav-a">
       <p class="folio">← Önceki</p>
-      <p class="proj-nav-name">${prev.display_name}</p>
+      <p class="proj-nav-name">${escapeHTML(prev.display_name)}</p>
     </a>`;
   document.getElementById('nav-next').innerHTML = `
-    <a href="${next.slug}.html" class="proj-nav-a">
+    <a href="${safeProjectSlug(next.slug)}.html" class="proj-nav-a">
       <p class="folio">Sonraki →</p>
-      <p class="proj-nav-name">${next.display_name}</p>
+      <p class="proj-nav-name">${escapeHTML(next.display_name)}</p>
     </a>`;
 }
 
@@ -433,7 +512,14 @@ function initContactFormSupabase() {
     if (formData.get('_gotcha')) return; // honeypot
 
     const submitBtn = form.querySelector('button[type="submit"]');
-    if (submitBtn) submitBtn.disabled = true;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.setAttribute('aria-busy', 'true');
+    }
+    if (sentMsg) {
+      sentMsg.hidden = false;
+      sentMsg.textContent = 'Mesaj gönderiliyor…';
+    }
 
     const ok = await submitContactMessage({
       name: formData.get('name'),
@@ -442,13 +528,37 @@ function initContactFormSupabase() {
       message: formData.get('message') || '',
     });
 
-    if (submitBtn) submitBtn.disabled = false;
     if (ok) {
       form.reset();
-      if (sentMsg) sentMsg.style.display = 'inline';
-    } else if (sentMsg) {
-      sentMsg.textContent = 'Bir sorun oluştu — lütfen tekrar dene ya da e-posta gönder.';
-      sentMsg.style.display = 'inline';
+      if (sentMsg) sentMsg.textContent = 'Mesaj gönderildi — teşekkürler.';
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.removeAttribute('aria-busy');
+      }
+      return;
+    }
+
+    // Supabase kapalıysa formun HTML'deki mevcut Formspree hedefi kullanılır.
+    // Test verisi göndermeden bu yol yalnız gerçek kullanıcı gönderiminde çalışır.
+    try {
+      const response = await fetch(form.action, {
+        method: form.method || 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (!response.ok) throw new Error(`Formspree ${response.status}`);
+      form.reset();
+      if (sentMsg) sentMsg.textContent = 'Mesaj gönderildi — teşekkürler.';
+    } catch (error) {
+      console.error('contact form fallback', error);
+      if (sentMsg) {
+        sentMsg.textContent = 'Mesaj şu anda gönderilemedi. Lütfen hello@cizgifikrim.net adresine e-posta gönder.';
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.removeAttribute('aria-busy');
+      }
     }
   });
 }

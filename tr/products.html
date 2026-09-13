@@ -61,8 +61,8 @@
   </section>
 
   <!-- Kategori bölümleri Supabase'ten dinamik olarak yüklenir — bkz. assets/js/render.js -->
-  <div id="products-categories">
-    <p class="page" style="padding-block:3rem; opacity:.6;">Yükleniyor…</p>
+  <div id="products-categories" aria-live="polite" aria-busy="true">
+    <p class="page" style="padding-block:3rem; opacity:.6;">Katalog hazırlanıyor…</p>
   </div>
 
 </main>
@@ -85,7 +85,7 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8/dist/umd/supabase.js" integrity="sha384-l7yJnh/cWKcqeTC5adHUdc5b+J4Kb2QTGRSkCQehn1YT5xEFlrgwnXOYuvrtI1F6" crossorigin="anonymous"></script>
 <script src="../assets/js/supabase-client.js"></script>
 <script src="../assets/js/render.js?v=30"></script>
 <script src="../assets/js/app.js?v=30"></script>

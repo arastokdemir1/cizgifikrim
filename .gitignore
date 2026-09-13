@@ -1,0 +1,17 @@
+# Local operating-system and editor metadata
+.DS_Store
+.idea/
+.vscode/
+
+# Development server output and diagnostics
+*.log
+logs/
+
+# Local environment files and package-manager diagnostics
+.env
+.env.*
+!.env.example
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

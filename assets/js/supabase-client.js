@@ -3,7 +3,7 @@
 const SUPABASE_URL = 'https://iekdktdhhryqewvcrnmr.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlla2RrdGRoaHJ5cWV3dmNybm1yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQzMTA4NjIsImV4cCI6MjA5OTg4Njg2Mn0.1R70BzCmDdXbTpVGGk19y9ThY9n7dDJ7SMcJWc5Uhl4';
 
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = window.supabase ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
 const STATUS_META = {
   live:    { dotClass: 'dot-live',    labelClass: 'label-live' },
@@ -19,43 +19,73 @@ const CATEGORY_META = {
   'otomotiv':  { name: 'Otomotiv',                        folioNum: '04' },
 };
 
+function escapeHTML(value) {
+  return String(value ?? '').replace(/[&<>'"]/g, char => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;',
+  }[char]));
+}
+
 async function fetchAllProjects() {
-  const { data, error } = await sb
-    .from('projects')
-    .select('*')
-    .order('order_index', { ascending: true });
-  if (error) { console.error('fetchAllProjects', error); return []; }
-  return data;
+  if (!sb) return null;
+  try {
+    const { data, error } = await sb
+      .from('projects')
+      .select('*')
+      .order('order_index', { ascending: true });
+    if (error) { console.error('fetchAllProjects', error); return null; }
+    return data || [];
+  } catch (error) {
+    console.error('fetchAllProjects', error);
+    return null;
+  }
 }
 
 async function fetchFeaturedProjects() {
-  const { data, error } = await sb
-    .from('projects')
-    .select('*')
-    .eq('is_featured', true)
-    .order('order_index', { ascending: true });
-  if (error) { console.error('fetchFeaturedProjects', error); return []; }
-  return data;
+  if (!sb) return null;
+  try {
+    const { data, error } = await sb
+      .from('projects')
+      .select('*')
+      .eq('is_featured', true)
+      .order('order_index', { ascending: true });
+    if (error) { console.error('fetchFeaturedProjects', error); return null; }
+    return data || [];
+  } catch (error) {
+    console.error('fetchFeaturedProjects', error);
+    return null;
+  }
 }
 
 async function fetchProjectBySlug(slug) {
-  const { data, error } = await sb
-    .from('projects')
-    .select('*')
-    .eq('slug', slug)
-    .single();
-  if (error) { console.error('fetchProjectBySlug', error); return null; }
-  return data;
+  if (!sb) return null;
+  try {
+    const { data, error } = await sb
+      .from('projects')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+    if (error) { console.error('fetchProjectBySlug', error); return null; }
+    return data;
+  } catch (error) {
+    console.error('fetchProjectBySlug', error);
+    return null;
+  }
 }
 
 async function submitContactMessage({ name, email, subject, message }) {
-  const { error } = await sb
-    .from('contact_messages')
-    .insert([{ name, email, subject, message }]);
-  return !error;
+  if (!sb) return false;
+  try {
+    const { error } = await sb
+      .from('contact_messages')
+      .insert([{ name, email, subject, message }]);
+    return !error;
+  } catch (error) {
+    console.error('submitContactMessage', error);
+    return false;
+  }
 }
 
 function statusBadgeHTML(status, statusLabel) {
   const meta = STATUS_META[status] || STATUS_META.wip;
-  return `<span class="status-badge"><span class="status-dot ${meta.dotClass}"></span><span class="${meta.labelClass}">${statusLabel}</span></span>`;
+  return `<span class="status-badge"><span class="status-dot ${meta.dotClass}"></span><span class="${meta.labelClass}">${escapeHTML(statusLabel || 'Geliştiriliyor')}</span></span>`;
 }
