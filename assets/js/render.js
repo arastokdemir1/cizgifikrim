@@ -248,6 +248,15 @@ const CLI_LABEL = { claude: 'Claude', codex: 'Codex', agy: 'Antigravity' };
 // Jenerik karakter isimleri — kurgusal, dekoratif. Gerçek Fleet ajan
 // kimlikleriyle karıştırılmasın diye bilerek farklı/kurgusal isimler.
 const CHARACTER_NAMES = ['Ela', 'Deniz', 'Kaan', 'Mira'];
+const ROLE_BUBBLES = {
+  frontend: 'arayüz akışı',
+  backend: 'servis katmanı',
+  ui: 'ekran düzeni',
+  test: 'test koşuyor',
+  denetleyici: 'çıktı denetimi',
+  mimar: 'kontrat çiziyor',
+  veritabanı: 'veri modeli',
+};
 
 // Ofis kat planı — 4 bölge, her biri kendi karo dokusu ve mobilyasıyla.
 const ZONE_LAYOUT = [
@@ -263,9 +272,11 @@ function officeZoneSVG(agentId, i, statusDotClass, isActive) {
   const monX = deskX + 25, monY = deskY - 24;
   const plateX = x + 130, plateY = y + 82;
   const delay = i * 160;
+  const bubbleText = ROLE_BUBBLES[a.role.toLowerCase()] || 'görev üzerinde';
   return `
     <g class="office-char${isActive ? ' office-char-active' : ''}" style="--office-delay:${delay}ms">
       <rect class="office-zone" x="${x}" y="${y}" width="260" height="110" rx="10" fill="url(#office-checker-${i})"></rect>
+      ${isActive ? `<g class="office-speech"><rect x="${x + 42}" y="${y + 7}" width="118" height="18" rx="5"></rect><text x="${x + 101}" y="${y + 19}" text-anchor="middle">${bubbleText}</text></g>` : ''}
       <ellipse class="office-plant-pot office-zone-${i % 4}" cx="${x + 22}" cy="${y + 84}" rx="7" ry="4"></ellipse>
       <circle class="office-plant-leaf office-zone-${i % 4}" cx="${x + 22}" cy="${y + 72}" r="9"></circle>
       <rect class="office-cabinet office-zone-${i % 4}" x="${x + 224}" y="${y + 14}" width="24" height="30" rx="2"></rect>
@@ -310,7 +321,9 @@ const PIXEL_PALETTES = [
 function pixelAgentHTML(i, isActive) {
   const { x, y } = ZONE_LAYOUT[i];
   const leftPct = ((x + 130) / 580 * 100).toFixed(2);
-  const topPct = ((y + 10) / 280 * 100).toFixed(2);
+  // Figürü kendi masasının önüne yerleştir: ofis kat planı ve ekip listesi
+  // aynı kişiyi aynı yerde göstermeli.
+  const topPct = ((y + 72) / 280 * 100).toFixed(2);
   const p = PIXEL_PALETTES[i % PIXEL_PALETTES.length];
   const delay = i * 160;
   return `
@@ -338,11 +351,16 @@ function officeOfficePaneHTML(project, team, statusDotClass, isActive) {
         <span class="am-team-project">${escapeHTML(project.display_name)}</span>
         <span class="am-team-status"><span class="am-dot ${statusDotClass}${isActive ? ' office-pulse' : ''}"></span>${escapeHTML(project.status_label || (isActive ? 'aktif' : 'beklemede'))}</span>
       </div>
+      <div class="am-office-stage">
+        ${officeSceneSVG(team, statusDotClass, isActive)}
+        ${officeAgentLayerHTML(team, isActive)}
+        <span class="am-stage-badge">${isActive ? 'CANLI ÇALIŞMA' : 'BEKLEMEDE'}</span>
+      </div>
       <ul class="am-member-grid" aria-label="Proje ekibi">
         ${team.map((agentId, i) => {
           const a = AGENT_ROSTER[agentId];
           const name = CHARACTER_NAMES[i];
-          return `<li class="am-member">
+          return `<li class="am-member" data-agent-index="${i}" role="button" tabindex="0" aria-controls="agent-command-${i}">
             <span class="am-member-avatar am-avatar-${i % 4}" aria-hidden="true">${name.charAt(0)}</span>
             <span class="am-member-copy"><strong>${escapeHTML(name)}</strong><span>${escapeHTML(a.role)}</span></span>
             <span class="am-member-state">${isActive ? 'aktif' : 'beklemede'}</span>
@@ -377,7 +395,7 @@ function officeTerminalPaneHTML(team, project) {
         ${team.map((id, i) => {
           const a = AGENT_ROSTER[id];
           const name = CHARACTER_NAMES[i];
-          return `<li class="am-command-row">
+          return `<li class="am-command-row" id="agent-command-${i}" data-agent-index="${i}">
             <span class="am-command-index">${String(i + 1).padStart(2, '0')}</span>
             <span class="am-command-copy"><strong>${escapeHTML(name)} · ${escapeHTML(a.role)}</strong><code>$ ${escapeHTML(a.cli)} run --project ${escapeHTML(safeProjectSlug(project.slug))} --role ${escapeHTML(a.role.toLowerCase())}</code></span>
             <span class="am-command-state">izleniyor</span>

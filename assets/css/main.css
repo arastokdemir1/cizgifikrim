@@ -1454,6 +1454,8 @@ ul, ol { list-style: none; }
 .am-member-copy strong { font-family: var(--sans); font-size: 0.72rem; color: var(--am-text-1); }
 .am-member-copy span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--mono); font-size: 0.53rem; color: var(--am-text-3); text-transform: uppercase; letter-spacing: 0.04em; }
 .am-member-state { font-family: var(--mono); font-size: 0.52rem; color: var(--live); text-transform: uppercase; letter-spacing: 0.05em; }
+.am-member { cursor: pointer; transition: border-color 0.15s, background 0.15s, box-shadow 0.15s; }
+.am-member:hover, .am-member:focus-visible, .am-member.is-focused { border-color: color-mix(in oklch, var(--live) 60%, var(--am-border)); box-shadow: 0 0 0 2px color-mix(in oklch, var(--live) 18%, transparent); outline: none; }
 .am-office-caption { margin-top: auto; padding-top: 0.25rem; }
 .am-command-list { display: flex; flex-direction: column; gap: 0.45rem; list-style: none; margin: 0; padding: 0; }
 .am-command-row { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; align-items: center; gap: 0.65rem; padding: 0.6rem 0.7rem; border: 1px solid var(--am-border); border-radius: 9px; background: var(--am-panel-2); }
@@ -1462,12 +1464,25 @@ ul, ol { list-style: none; }
 .am-command-copy strong { font-family: var(--sans); font-size: 0.7rem; color: var(--am-text-1); }
 .am-command-copy code { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--mono); font-size: 0.59rem; color: color-mix(in oklch, var(--am-text-1) 35%, var(--live) 65%); }
 .am-command-state { font-family: var(--mono); font-size: 0.52rem; color: var(--am-text-3); text-transform: uppercase; letter-spacing: 0.04em; }
-.am-board { grid-template-columns: minmax(0, 1.55fr) repeat(4, minmax(0, 0.75fr)); align-items: stretch; }
-.am-col-wide { grid-column: auto; }
+.am-command-row { transition: border-color 0.15s, box-shadow 0.15s; }
+.am-command-row.is-focused { border-color: #64d7b0; box-shadow: 0 0 0 2px rgba(100, 215, 176, 0.16); }
+.am-board { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
+.am-col-wide { grid-column: 1 / -1; }
 .am-card { border-radius: 9px; }
 .am-card-activity { min-height: 100%; }
 .am-card-stat { min-height: 5.1rem; padding: 0.75rem 0.4rem; }
 .am-card-stat .am-card-num { font-size: 1.55rem; }
+
+.am-pane-terminal { background: #1d2433; border-color: #38445a; }
+.am-pane-terminal .am-pane-head { border-color: #38445a; }
+.am-pane-terminal .am-eyebrow,
+.am-pane-terminal .am-pane-badge,
+.am-pane-terminal .am-command-index,
+.am-pane-terminal .am-command-state { color: #94a0b5; }
+.am-pane-terminal .am-pane-heading { color: #edf1f7; }
+.am-pane-terminal .am-command-row { background: #0c111b; border-color: #38445a; }
+.am-pane-terminal .am-command-copy strong { color: #dfe5ef; }
+.am-pane-terminal .am-command-copy code { color: #64d7b0; }
 @media (max-width: 879px) {
   .am-grid { grid-template-columns: 1fr; grid-template-areas: "office" "tasks" "terminal"; }
   .am-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1487,4 +1502,43 @@ ul, ol { list-style: none; }
 
 @media (max-width: 639px) {
   .cat-name { white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.05; }
+}
+
+/* ── Ajan ofisi — proje ekibini görünür kılan canlı kat planı ── */
+.am-office-stage {
+  position: relative;
+  padding: 0.35rem;
+  overflow: hidden;
+  background: var(--am-bg);
+  border: 1px solid var(--am-border);
+  border-radius: 10px;
+}
+.am-office-stage .office-scene { border-radius: 7px; }
+.am-office-stage .office-speech rect { fill: var(--card); stroke: var(--am-border); stroke-width: 1; }
+.am-office-stage .office-speech text { fill: var(--muted-fg); font-family: var(--mono); font-size: 7px; letter-spacing: 0.02em; }
+.am-office-stage .pixel-agent {
+  width: 38px;
+  height: 48px;
+  transform: translate(-50%, -76%) scale(1.28);
+  transform-origin: center bottom;
+}
+.am-office-stage .pixel-person { transform: scale(1.2); transform-origin: center bottom; }
+.am-office-stage .office-name { font-size: 12px; }
+.am-stage-badge {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  padding: 0.24rem 0.48rem;
+  border: 1px solid var(--am-border);
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--am-bg) 82%, transparent);
+  font-family: var(--mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  color: var(--am-text-2);
+}
+@media (max-width: 520px) {
+  .am-office-stage { padding: 0.2rem; }
+  .am-office-stage .pixel-agent { transform: translate(-50%, -76%) scale(1.05); }
+  .am-stage-badge { top: 0.45rem; right: 0.45rem; }
 }

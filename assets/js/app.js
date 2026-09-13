@@ -40,6 +40,31 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  // Ofisteki bir ajana tıklamak, onun canlı komut satırını görünür biçimde eşler.
+  // İçerik render.js tarafından asenkron üretildiği için olay delegasyonu kullanılır.
+  const focusAgent = (member) => {
+    const index = member?.dataset.agentIndex;
+    if (index == null) return;
+    document.querySelectorAll('.am-member.is-focused, .am-command-row.is-focused')
+      .forEach((el) => el.classList.remove('is-focused'));
+    member.classList.add('is-focused');
+    const command = document.getElementById(`agent-command-${index}`);
+    if (command) {
+      command.classList.add('is-focused');
+      command.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  };
+  document.addEventListener('click', (event) => {
+    const member = event.target.closest('.am-member');
+    if (member) focusAgent(member);
+  });
+  document.addEventListener('keydown', (event) => {
+    if ((event.key === 'Enter' || event.key === ' ') && event.target.closest('.am-member')) {
+      event.preventDefault();
+      focusAgent(event.target.closest('.am-member'));
+    }
+  });
+
   // ── Reveal animations ───────────────────────────────────────────────────────
   // window.initReveal olarak dışa açılır: Supabase'ten gelen içerik DOM'a
   // eklendikten SONRA render.js bunu tekrar çağırır, çünkü ilk yüklemede
