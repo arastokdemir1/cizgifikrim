@@ -467,7 +467,9 @@ function officeTasksPaneHTML(project, team, isActive) {
 function officeFrameHTML(project) {
   const team = TEAM_BY_PROJECT[project.slug] || TEAM_BY_CATEGORY[project.category] || TEAM_BY_CATEGORY['otonom-ai'];
   const statusDotClass = { live: 'dot-live', rd: 'dot-rd', wip: 'dot-wip', concept: 'dot-concept' }[project.status] || 'dot-wip';
-  const isActive = (project.commit_count_7d || 0) > 0 || project.status === 'live';
+  // Canlı/Ar-Ge/Geliştiriliyor projeleri ofiste görevde görünür; konseptler
+  // beklemede kalır. Ekip çizimi temsilidir, commit istatistikleri gerçek kalır.
+  const isActive = project.status !== 'concept';
 
   return `
     <div class="am-frame">
@@ -481,7 +483,7 @@ function officeFrameHTML(project) {
         ${officeTerminalPaneHTML(team, project)}
         ${officeTasksPaneHTML(project, team, isActive)}
       </div>
-      <p class="am-note">Kurgusal ekip görünümü — kişiler temsili, ışık ve sayılar gerçek aktivite verisi.</p>
+      <p class="am-note">Kurgusal ekip görünümü — kişiler ve çalışma ışıkları temsili; istatistikler gerçek aktivite verisi.</p>
     </div>`;
 }
 
