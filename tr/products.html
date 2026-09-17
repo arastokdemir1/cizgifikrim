@@ -4,91 +4,105 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ürünler &amp; Sistemler — CizgiFikrim</title>
-  <meta name="description" content="CizgiFikrim ekosisteminde geliştirilen, otonom zekâdan mobil çözümlere kadar tüm aktif projeler.">
+  <meta name="description" content="CizgiFikrim'de yayınlanan ürün ve sistem çalışmalarını inceleyin.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="../assets/css/main.css?v=32">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css?v=42">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <style>
+    /* Stitch yönü: mevcut render.js sınıflarını koruyan, sayfaya özel tema. */
+    .catalog-page { --bg:#f8f9ff; --fg:#10213b; --ink:#10213b; --rule:#d9e2ef; --mark:#dbeafe; --muted:#edf3fa; --muted-fg:#5a6b82; --accent:#2563eb; --card:#fff; --serif:'Plus Jakarta Sans',Inter,system-ui,sans-serif; --sans:Inter,system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace; background-image:none; }
+    .catalog-page .site-header { background:color-mix(in srgb,#f8f9ff 92%,transparent); border-color:var(--rule); }
+    .catalog-page .header-inner { min-height:4.9rem; padding-block:.8rem; }
+    .catalog-page .brand-kicker { color:var(--muted-fg); font-size:.58rem; letter-spacing:.14em; }
+    .catalog-page .brand-name { margin:0; font-family:var(--serif); font-size:1.22rem; font-weight:800; letter-spacing:-.06em; }
+    .catalog-page .brand-serif { font-style:normal; }.catalog-page .brand-sans { font-family:var(--serif); font-weight:800; }
+    .catalog-page .desktop-nav { align-items:center; gap:1.25rem; font-family:var(--sans); font-size:.76rem; font-weight:600; letter-spacing:0; text-transform:none; }
+    .catalog-page .nav-link { padding:.45rem 0; }.catalog-page .nav-link:hover,.catalog-page .nav-link.active { color:#1d4ed8; border-color:#2563eb; }.catalog-page .nav-sym { display:none; }
+    .catalog-page .nav-cta { border:1px solid #2563eb; border-radius:.45rem; padding:.55rem .8rem; color:#fff; background:#2563eb; }.catalog-page .nav-cta:hover { background:#1d4ed8; color:#fff; }
+    .catalog-page .folio-bar { padding-top:.85rem; }.catalog-page .folio-bar-row { gap:.85rem; }.catalog-page .folio { color:var(--muted-fg); font-size:.63rem; letter-spacing:.13em; }
+    .catalog-page .products-hero { padding-top:clamp(3.5rem,8vw,7rem); padding-bottom:2.25rem; gap:2rem; align-items:end; }
+    .catalog-page .products-h1 { max-width:13ch; margin-top:.7rem; font-family:var(--serif); font-size:clamp(2.65rem,6vw,5.5rem); font-weight:800; letter-spacing:-.065em; line-height:1.02; }
+    .catalog-page .products-h1 em { color:#2563eb; font-style:normal; }.catalog-page .products-desc { max-width:36rem; font-size:1rem; color:#43536a; line-height:1.75; }
+    .catalog-page .catalog-summary { display:grid; grid-template-columns:1fr; gap:.75rem; padding-bottom:3.5rem; }
+    .catalog-page .summary-card { min-height:8rem; padding:1.2rem; border:1px solid var(--rule); border-radius:.65rem; background:var(--card); box-shadow:0 10px 30px rgba(30,64,175,.045); }
+    .catalog-page .summary-card h2 { margin-top:.85rem; font-family:var(--serif); font-size:1.05rem; letter-spacing:-.02em; }.catalog-page .summary-card p:last-child { margin-top:.35rem; color:var(--muted-fg); font-size:.86rem; line-height:1.55; }
+    .catalog-page .catalog-intro { display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; padding-bottom:1.25rem; }.catalog-page .catalog-intro h2 { font-family:var(--serif); font-size:clamp(1.4rem,3vw,2rem); letter-spacing:-.04em; }.catalog-page .catalog-intro p { max-width:34rem; color:var(--muted-fg); font-size:.9rem; }
+    .catalog-page .cat-section { border-top:1px solid var(--rule); padding-top:2.2rem; padding-bottom:2.2rem; }.catalog-page .cat-header { margin-bottom:1.1rem; }.catalog-page .cat-name { font-family:var(--serif); font-style:normal; font-weight:700; letter-spacing:-.04em; }.catalog-page .cat-count { color:#2563eb; }
+    .catalog-page .proj-item { margin-bottom:.65rem; border:1px solid var(--rule); border-radius:.65rem; background:var(--card); overflow:hidden; }.catalog-page .proj-link { min-height:8.5rem; padding:1.2rem; margin:0; gap:1rem; }.catalog-page .proj-link:hover,.catalog-page .proj-link:focus-visible { background:#f1f5ff; outline:none; }.catalog-page .proj-link:focus-visible { box-shadow:inset 0 0 0 2px #2563eb; }.catalog-page .proj-num-col { color:#2563eb; }.catalog-page .proj-name-main { font-family:var(--serif); font-size:1.42rem; font-weight:700; letter-spacing:-.045em; }.catalog-page .proj-link:hover .proj-name-main { text-decoration:none; color:#1d4ed8; }.catalog-page .proj-tagline-sm { font-family:var(--sans); font-style:normal; font-size:.84rem; line-height:1.45; }.catalog-page .proj-desc-col { color:#526278; }.catalog-page .proj-status-col { padding-top:0; }
+    .catalog-page .site-footer { margin-top:2.5rem; border-top:1px solid var(--rule); background:#fff; }.catalog-page .footer-inner { padding-top:2.5rem; padding-bottom:2.5rem; }.catalog-page .footer-big { max-width:22rem; font-family:var(--serif); font-size:1.05rem; font-style:normal; font-weight:600; }.catalog-page .footer-small,.catalog-page .footer-location { color:var(--muted-fg); }.catalog-page .footer-email { color:#1d4ed8; font-family:var(--sans); font-size:1rem; font-style:normal; }
+    @media (min-width:640px) { .catalog-page .catalog-summary { grid-template-columns:repeat(3,1fr); }.catalog-page .summary-card { min-height:9.5rem; }.catalog-page .proj-link { grid-template-columns:auto minmax(12rem,4fr) minmax(12rem,5fr) auto; align-items:start; }.catalog-page .proj-name-main { font-size:1.7rem; } }
+    @media (max-width:767px) { .catalog-page .mobile-nav { background:#fff; }.catalog-page .mobile-nav-link { font-family:var(--sans); font-size:1rem; font-weight:600; }.catalog-page .mobile-nav-sym { display:none; } }
+  </style>
 </head>
-<body>
+<body class="catalog-page">
 
 <header class="site-header">
   <div class="page header-inner">
-    <a href="index.html" class="brand">
-      <span class="brand-kicker folio">EST. 2024 — STÜDYO No. 01</span>
-      <div class="brand-name"> 
-        <span class="brand-serif">cizgi</span><span class="brand-sans">fikrim</span><span class="brand-dot">.</span>
-      </div>
+    <a href="index.html" class="brand" aria-label="CizgiFikrim ana sayfa">
+      <span class="brand-kicker folio">TEKNOLOJİ &amp; AR-GE</span>
+      <div class="brand-name"><span class="brand-serif">cizgi</span><span class="brand-sans">fikrim</span><span class="brand-dot">.</span></div>
     </a>
-    <nav class="desktop-nav">
-      <a href="products.html" class="nav-link active"><span class="nav-sym">§</span>Ürünler</a>
-      <a href="about.html" class="nav-link"><span class="nav-sym">¶</span>Hakkında</a>
-      <a href="contact.html" class="nav-link"><span class="nav-sym">✎</span>İletişim</a>
+    <nav class="desktop-nav" aria-label="Ana menü">
+      <a href="products.html" class="nav-link active" aria-current="page">Ürünler</a>
+      <a href="about.html" class="nav-link">Hakkımızda</a>
+      <a href="contact.html" class="nav-link">İletişim</a>
+      <a href="contact.html" class="nav-link nav-cta">Görüşme talep et</a>
     </nav>
-    <button class="mobile-toggle" aria-label="Menü" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="mobile-toggle" aria-label="Menüyü aç" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
-  <nav class="mobile-nav">
+  <nav class="mobile-nav" aria-label="Mobil menü">
     <div class="page mobile-nav-inner">
-      <a href="products.html" class="mobile-nav-link"><span class="mobile-nav-sym">§</span>Ürünler</a>
-      <a href="about.html" class="mobile-nav-link"><span class="mobile-nav-sym">¶</span>Hakkında</a>
-      <a href="contact.html" class="mobile-nav-link"><span class="mobile-nav-sym">✎</span>İletişim</a>
+      <a href="products.html" class="mobile-nav-link" aria-current="page">Ürünler</a>
+      <a href="about.html" class="mobile-nav-link">Hakkımızda</a>
+      <a href="contact.html" class="mobile-nav-link">İletişim</a>
+      <a href="contact.html" class="mobile-nav-link">Görüşme talep et</a>
     </div>
   </nav>
 </header>
 
 <div class="page folio-bar">
-  <div class="folio-bar-row">
-    <span class="folio">Katalog · Aktif &amp; Geliştirilen Projeler</span>
-    <hr class="folio-dotted-rule">
-  </div>
+  <div class="folio-bar-row"><span class="folio">Ürün kataloğu</span><hr class="folio-dotted-rule"></div>
 </div>
 
 <main>
-
-  <!-- HERO -->
-  <section class="page products-hero">
+  <section class="page products-hero" id="katalog" aria-labelledby="products-title">
     <div>
-      <p class="folio">Bölüm · Portfolyo</p>
-      <h1 class="products-h1 reveal">
-        Ürünler &amp; <em>sistemler</em><span style="color:var(--accent)">.</span>
-      </h1>
+      <p class="folio">CİZGİFİKRİM · ÜRÜNLER VE SİSTEMLER</p>
+      <h1 class="products-h1 reveal" id="products-title">Fikirden <em>işleyen</em> sistemlere.</h1>
     </div>
-    <p class="products-desc reveal reveal-d1">
-      Her satırı insan eliyle yazılmış, denetlenebilir ve şu an gerçekten kullanılan ya da yapılan
-      işlerin bir listesi. Spekülatif değil — repolarda yaşıyor.
-    </p>
+    <p class="products-desc reveal reveal-d1">Farklı problem alanları için geliştirilen ürün, araç ve araştırma çalışmalarını tek katalogda topluyoruz. Her kart, yayınlanan proje kaydındaki güncel özetle hazırlanır.</p>
+  </section>
+
+  <section class="page catalog-summary" aria-label="Katalog hakkında">
+    <article class="summary-card"><p class="folio">Kapsam</p><h2>Ürün ve araştırma çalışmaları</h2><p>Yayınlanan proje kayıtlarıyla büyüyen canlı katalog.</p></article>
+    <article class="summary-card"><p class="folio">Alanlar</p><h2>Farklı çalışma alanları</h2><p>Otonom AI, mobil, finansal ve otomotiv odakları aynı yapıda.</p></article>
+    <article class="summary-card"><p class="folio">İnceleme</p><h2>Her proje kendi dosyasında</h2><p>Durum, kapsam ve yayınlanan açıklamalar proje sayfasında yer alır.</p></article>
+  </section>
+
+  <section class="page catalog-intro" aria-labelledby="catalog-heading">
+    <div><p class="folio">PORTFOLYO</p><h2 id="catalog-heading">Yayınlanan çalışmalar</h2></div>
+    <p>Proje durumu ve açıklamaları, erişilebilir olduğunda veri kaynağından güncellenir; bağlantı yoksa son yayınlanan katalog gösterilir.</p>
   </section>
 
   <!-- Kategori bölümleri Supabase'ten dinamik olarak yüklenir — bkz. assets/js/render.js -->
   <div id="products-categories" aria-live="polite" aria-busy="true">
-    <p class="page" style="padding-block:3rem; opacity:.6;">Katalog hazırlanıyor…</p>
+    <p class="page" style="padding-block:3rem; color:var(--muted-fg);">Katalog hazırlanıyor…</p>
   </div>
-
 </main>
 
 <footer class="site-footer">
   <div class="page footer-inner">
-    <div>
-      <p class="folio">Kolofon</p>
-      <p class="footer-big">Fraunces, Inter Tight &amp; IBM Plex Mono ile dizildi.</p>
-      <p class="footer-small">Sayfalar elle yerleştirildi.</p>
-    </div>
-    <div>
-      <p class="folio">Yazışma</p>
-      <a href="mailto:hello@cizgifikrim.net" class="footer-email">hello@cizgifikrim.net</a>
-    </div>
-    <div class="footer-right">
-      <p class="folio">© 2026</p>
-      <p class="footer-location">İstanbul'dan.</p>
-    </div>
+    <div><p class="folio">CİZGİFİKRİM</p><p class="footer-big">Teknoloji, ürün ve araştırma çalışmalarının yayınlanan kataloğu.</p><p class="footer-small">Proje bilgileri yayınlandıkça güncellenir.</p></div>
+    <div><p class="folio">Yazışma</p><a href="mailto:hello@cizgifikrim.net" class="footer-email">hello@cizgifikrim.net</a></div>
+    <div class="footer-right"><p class="folio">© 2026</p><p class="footer-location">İstanbul, Türkiye</p></div>
   </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8/dist/umd/supabase.js" integrity="sha384-l7yJnh/cWKcqeTC5adHUdc5b+J4Kb2QTGRSkCQehn1YT5xEFlrgwnXOYuvrtI1F6" crossorigin="anonymous"></script>
-<script src="../assets/js/supabase-client.js?v=31"></script>
-<script src="../assets/js/render.js?v=35"></script>
+<script src="../assets/js/supabase-client.js?v=32"></script>
+<script src="../assets/js/render.js?v=43"></script>
 <script src="../assets/js/app.js?v=33"></script>
 </body>
 </html>
