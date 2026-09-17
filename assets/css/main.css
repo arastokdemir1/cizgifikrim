@@ -1555,8 +1555,8 @@ button { color: inherit; }
 .brand-sans { font-family: var(--sans); font-weight: 500; color: var(--muted-fg); }
 .brand-dot { color: var(--accent); }
 
-.desktop-nav { align-items: center; gap: 1.6rem; font-family: var(--sans); font-size: 0.95rem; font-weight: 700; letter-spacing: 0; text-transform: none; }
-.nav-link { padding: 0.65rem 0.15rem; border-bottom: 2px solid transparent; }
+.desktop-nav { align-items: center; gap: 1.85rem; font-family: var(--sans); font-size: 1.1rem; font-weight: 700; letter-spacing: 0; text-transform: none; }
+.nav-link { padding: 0.7rem 0.15rem; border-bottom: 2px solid transparent; }
 .nav-link:hover, .nav-link.active { color: var(--accent-strong); border-bottom-color: var(--accent); }
 .nav-sym { display: none; }
 
@@ -1567,9 +1567,9 @@ button { color: inherit; }
   border-radius: var(--radius-sm);
   background: var(--accent);
   color: white;
-  padding: 0.75rem 1.05rem;
+  padding: 0.85rem 1.3rem;
   font-family: var(--sans);
-  font-size: 0.8125rem;
+  font-size: 0.98rem;
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1.2;
@@ -1983,7 +1983,6 @@ button { color: inherit; }
 .founder-section .page-intro { max-width: 34rem; }
 .corporate-contact-hero { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
 .corporate-contact-layout { align-items: start; padding-bottom: clamp(3rem, 6vw, 5rem); }
-.contact-info-card { padding: 1.35rem; border: 1px solid var(--rule); border-radius: var(--radius-md); background: var(--card); box-shadow: var(--shadow-sm); }
 .contact-process-step > p + p { margin-top: 0.7rem; color: var(--muted-fg); font-size: 0.85rem; line-height: 1.55; }
 .visually-hidden { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(0 0 0 0) !important; white-space: nowrap !important; clip-path: inset(50%) !important; }
 
