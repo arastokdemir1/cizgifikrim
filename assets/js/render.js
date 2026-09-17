@@ -217,6 +217,24 @@ function buildStatusHTML(p) {
     </div>`;
 }
 
+function homeBuildNoteHTML(p) {
+  const slug = safeProjectSlug(p.slug);
+  const status = escapeHTML(p.status_label || 'Geliştiriliyor');
+  const update = escapeHTML(p.latest_update_text || 'Bu çalışma için yeni bir kısa not henüz yayınlanmadı.');
+  const category = escapeHTML(CATEGORY_META[p.category]?.name || 'Çalışma kaydı');
+  if (!slug) return '';
+  return `
+    <article class="lab-home-note">
+      <div class="lab-home-note-meta">
+        <span>${category}</span>
+        <span>${status}</span>
+      </div>
+      <h3>${escapeHTML(p.display_name || 'Çalışma notu')}</h3>
+      <p>${update}</p>
+      <a href="projects/${slug}.html">Çalışmaya git <span aria-hidden="true">↗</span></a>
+    </article>`;
+}
+
 async function renderProjectBuildStatus() {
   const root = document.getElementById('build-status-root');
   if (!root) return;
@@ -332,7 +350,7 @@ function officeSceneSVG(team, statusDotClass, isActive) {
 const PIXEL_PALETTES = [
   { shirt: 'var(--accent)', hair: '#3b2a20', skin: '#e8b98c' },
   { shirt: 'var(--wip)',    hair: '#1f2430', skin: '#caa274' },
-  { shirt: 'var(--rd)',     hair: '#5c4632', skin: '#f0c9a0' },
+  { shirt: 'var(--accent-strong)', hair: '#5c4632', skin: '#f0c9a0' },
   { shirt: 'var(--live)',   hair: '#241b14', skin: '#b8886a' },
 ];
 
@@ -464,7 +482,7 @@ function officeTasksPaneHTML(project, team, isActive) {
     </section>`;
 }
 
-function officeFrameHTML(project) {
+function legacyOfficeFrameHTML(project) {
   const team = TEAM_BY_PROJECT[project.slug] || TEAM_BY_CATEGORY[project.category] || TEAM_BY_CATEGORY['otonom-ai'];
   const statusDotClass = { live: 'dot-live', rd: 'dot-rd', wip: 'dot-wip', concept: 'dot-concept' }[project.status] || 'dot-wip';
   // Canlı/Ar-Ge/Geliştiriliyor projeleri ofiste görevde görünür; konseptler
@@ -487,13 +505,411 @@ function officeFrameHTML(project) {
     </div>`;
 }
 
-async function renderProjectOffice() {
+async function legacyRenderProjectOffice() {
   const root = document.getElementById('office-root');
   if (!root) return;
   const slug = location.pathname.split('/').pop().replace('.html', '');
   const project = await fetchProjectBySlug(slug);
   if (!project) return;
-  root.innerHTML = officeFrameHTML(project);
+  root.innerHTML = legacyOfficeFrameHTML(project);
+}
+
+// ── Canlı çalışma katı ──────────────────────────────────────────────────────
+// UI, `project_activity_events` yayın akışını kullanır. Bu kaynak yoksa aynı
+// senaryoyu "yerel prototip" diye açıkça etiketleyerek sahnenin etkileşimini
+// gösterebilir; dekoratif hareket hiçbir zaman gerçek çalışma diye sunulmaz.
+const OFFICE_STATIONS = [
+  { id: 'product', label: 'Ürün masası', x: 15, y: 27, visitX: 22, visitY: 29 },
+  { id: 'research', label: 'Araştırma masası', x: 47, y: 27, visitX: 54, visitY: 29 },
+  { id: 'build', label: 'Uygulama masası', x: 79, y: 27, visitX: 86, visitY: 29 },
+  { id: 'design', label: 'Tasarım masası', x: 15, y: 75, visitX: 22, visitY: 77 },
+  { id: 'meeting', label: 'Ortak alan', x: 47, y: 75, visitX: 55, visitY: 77 },
+  { id: 'review', label: 'İnceleme masası', x: 79, y: 75, visitX: 86, visitY: 77 },
+];
+
+const OFFICE_ROOMS = [
+  { id: 'product', label: 'ÜRÜN', x: 1, y: 2, w: 30, h: 45, decor: 'shelf' },
+  { id: 'research', label: 'ARAŞTIRMA', x: 33, y: 2, w: 31, h: 45, decor: 'books' },
+  { id: 'build', label: 'UYGULAMA', x: 66, y: 2, w: 33, h: 45, decor: 'server' },
+  { id: 'design', label: 'TASARIM', x: 1, y: 50, w: 30, h: 48, decor: 'board' },
+  { id: 'shared', label: 'ORTAK ALAN', x: 33, y: 50, w: 31, h: 48, decor: 'table' },
+  { id: 'review', label: 'İNCELEME', x: 66, y: 50, w: 33, h: 48, decor: 'archive' },
+];
+
+const OFFICE_PROTOTYPE_EVENTS = [
+  { event_type: 'task', agent_key: 'frontend-codex', summary: 'Ekran akışını gözden geçiriyor.', status: 'working' },
+  { event_type: 'message', agent_key: 'frontend-codex', target_agent_key: 'backend-claude', summary: 'Veri sözleşmesindeki alanları birlikte doğruluyor.', status: 'working' },
+  { event_type: 'movement', agent_key: 'backend-claude', target_agent_key: 'frontend-codex', summary: 'Ela’nın çalışma alanına kısa bir eşleştirme için gidiyor.', status: 'working' },
+  { event_type: 'task', agent_key: 'ui-codex', summary: 'Bileşen durumlarını kontrol ediyor.', status: 'reviewing' },
+  { event_type: 'message', agent_key: 'denetleyici-claude', target_agent_key: 'ui-codex', summary: 'İnceleme notunu paylaşıyor.', status: 'reviewing' },
+  { event_type: 'movement', agent_key: 'denetleyici-claude', target_agent_key: 'backend-claude', summary: 'Deniz’in çalışma alanına çıktıyı birlikte kontrol etmeye gidiyor.', status: 'reviewing' },
+];
+
+const OFFICE_STATUS_LABEL = {
+  working: 'çalışıyor',
+  reviewing: 'inceliyor',
+  waiting: 'bekliyor',
+  done: 'tamamlandı',
+};
+
+function officeTeam(project) {
+  return TEAM_BY_PROJECT[project.slug] || TEAM_BY_CATEGORY[project.category] || TEAM_BY_CATEGORY['otonom-ai'];
+}
+
+function officeCharacter(agentId, index) {
+  return CHARACTER_NAMES[index] || `Ajan ${index + 1}`;
+}
+
+function officeAgentIndex(team, agentKey) {
+  const index = team.indexOf(agentKey);
+  return index >= 0 ? index : 0;
+}
+
+function officeEventAgentName(team, agentKey) {
+  const index = team.indexOf(agentKey);
+  return index >= 0 ? officeCharacter(agentKey, index) : 'Sistem';
+}
+
+function officeEventText(team, event) {
+  const from = officeEventAgentName(team, event.agent_key);
+  const to = event.target_agent_key && team.includes(event.target_agent_key)
+    ? ` → ${officeEventAgentName(team, event.target_agent_key)}`
+    : '';
+  return `${from}${to}: ${String(event.summary || 'Durum güncellendi.')}`;
+}
+
+function officePersonHTML(team, agentId, index) {
+  const agent = AGENT_ROSTER[agentId];
+  const station = OFFICE_STATIONS[index] || OFFICE_STATIONS[0];
+  const palette = PIXEL_PALETTES[index % PIXEL_PALETTES.length];
+  const name = officeCharacter(agentId, index);
+  return `
+    <button class="lo-agent lo-agent-${index}" type="button" data-office-agent="${escapeHTML(agentId)}" data-office-x="${station.x}" data-office-y="${station.y}" aria-label="${escapeHTML(name)} — ${escapeHTML(agent.role)} ajanı" aria-pressed="false" style="--agent-x:${station.x}%;--agent-y:${station.y}%;--shirt:${palette.shirt};--hair:${palette.hair};--skin:${palette.skin}">
+      <span class="lo-agent-presence" aria-hidden="true"></span>
+      <span class="lo-agent-avatar pixel-person" aria-hidden="true"><i class="hair"></i><i class="face"></i><i class="body"></i><i class="legs"></i></span>
+      <span class="lo-agent-label"><strong>${escapeHTML(name)}</strong><small>${escapeHTML(agent.role)}</small></span>
+    </button>`;
+}
+
+function officeStationHTML(station, index) {
+  const label = station.id === 'meeting' ? 'ORTAK MASA' : String(index + 1).padStart(2, '0');
+  return `<div class="lo-station lo-station-${index}" data-office-station="${station.id}" style="--station-x:${station.x}%;--station-y:${station.y}%">
+    <span class="lo-station-screen" aria-hidden="true"></span>
+    <span class="lo-station-label">${label}</span>
+  </div>`;
+}
+
+function officeRoomHTML(room) {
+  return `<section class="lo-room lo-room-${room.id}" aria-label="${room.label}" style="--room-x:${room.x}%;--room-y:${room.y}%;--room-w:${room.w}%;--room-h:${room.h}%">
+    <span class="lo-room-label">${room.label}</span>
+    <span class="lo-room-window" aria-hidden="true"></span>
+    <span class="lo-room-shelf lo-decor-${room.decor}" aria-hidden="true"></span>
+    <span class="lo-room-plant" aria-hidden="true"></span>
+  </section>`;
+}
+
+// Özgün, tarayıcıda çizilen piksel kat planı. Bir üçüncü tarafın sprite veya
+// tile varlıklarını taşımaz; yalnızca ofis akışının görsel bağlamını üretir.
+function drawOfficeCanvas(canvas) {
+  const bounds = canvas.getBoundingClientRect();
+  const width = Math.max(320, Math.round(bounds.width));
+  const height = Math.max(300, Math.round(bounds.height));
+  const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = Math.round(width * pixelRatio);
+  canvas.height = Math.round(height * pixelRatio);
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+  ctx.imageSmoothingEnabled = false;
+
+  const scaleX = width / 1000;
+  const scaleY = height / 620;
+  const ux = (value) => Math.round(value * scaleX);
+  const uy = (value) => Math.round(value * scaleY);
+  const rect = (x, y, w, h, fill) => { ctx.fillStyle = fill; ctx.fillRect(ux(x), uy(y), Math.max(1, ux(w)), Math.max(1, uy(h))); };
+  const stroke = (x, y, w, h, color, line = 2) => { ctx.strokeStyle = color; ctx.lineWidth = Math.max(1, Math.min(ux(line), uy(line))); ctx.strokeRect(ux(x), uy(y), ux(w), uy(h)); };
+
+  ctx.fillStyle = '#0c1020';
+  ctx.fillRect(0, 0, width, height);
+  rect(12, 12, 976, 596, '#12203a');
+  stroke(12, 12, 976, 596, '#4774b8', 3);
+
+  const rooms = [
+    { x: 28, y: 28, w: 300, h: 262, floor: ['#768895', '#879aa6'], accent: '#a6c9e2', kind: 'product' },
+    { x: 350, y: 28, w: 300, h: 262, floor: ['#704b32', '#81583a'], accent: '#d59b5c', kind: 'research' },
+    { x: 672, y: 28, w: 300, h: 262, floor: ['#466a82', '#5a7f97'], accent: '#8ab6d2', kind: 'build' },
+    { x: 28, y: 312, w: 300, h: 278, floor: ['#a5c8be', '#bbddd2'], accent: '#d5eee4', kind: 'design' },
+    { x: 350, y: 312, w: 300, h: 278, floor: ['#cf9665', '#e5ae79'], accent: '#f2c78e', kind: 'shared' },
+    { x: 672, y: 312, w: 300, h: 278, floor: ['#1d2439', '#262e45'], accent: '#4d5b7e', kind: 'review' },
+  ];
+
+  const tileRoom = (room) => {
+    rect(room.x, room.y, room.w, room.h, '#11172a');
+    const tile = 22;
+    for (let row = 0; row < Math.ceil(room.h / tile); row += 1) {
+      for (let col = 0; col < Math.ceil(room.w / tile); col += 1) {
+        rect(room.x + col * tile + 1, room.y + row * tile + 1, tile - 2, tile - 2, (row + col) % 2 ? room.floor[0] : room.floor[1]);
+      }
+    }
+    stroke(room.x, room.y, room.w, room.h, '#2b3454', 3);
+  };
+
+  const plant = (x, y) => {
+    rect(x + 6, y + 20, 16, 12, '#754936');
+    rect(x + 2, y + 8, 11, 14, '#45a776');
+    rect(x + 15, y + 4, 13, 18, '#55bc7f');
+    rect(x + 9, y, 10, 18, '#32916a');
+  };
+  const desk = (x, y, flip = false) => {
+    rect(x, y, 80, 13, '#1b2131');
+    rect(x + 4, y + 3, 72, 7, '#c28c4b');
+    rect(x + 8, y + 13, 8, 10, '#252b40');
+    rect(x + 64, y + 13, 8, 10, '#252b40');
+    rect(x + (flip ? 48 : 16), y - 24, 25, 22, '#1a2034');
+    rect(x + (flip ? 51 : 19), y - 21, 19, 14, '#5d9be6');
+    rect(x + (flip ? 54 : 22), y - 18, 13, 8, '#2f74c7');
+    rect(x + (flip ? 58 : 26), y - 3, 5, 5, '#252b40');
+  };
+  const shelf = (x, y, rows = 3) => {
+    rect(x, y, 34, 13 * rows + 4, '#252b3d');
+    for (let row = 0; row < rows; row += 1) {
+      rect(x + 4, y + 4 + row * 13, 26, 7, row % 2 ? '#d0b36e' : '#bd7153');
+      rect(x + 8, y + 4 + row * 13, 3, 7, '#7db5c7');
+      rect(x + 19, y + 4 + row * 13, 3, 7, '#4d93d7');
+    }
+  };
+  const cabinet = (x, y) => {
+    rect(x, y, 28, 45, '#202b38');
+    rect(x + 4, y + 5, 20, 7, '#90aabe');
+    rect(x + 4, y + 17, 20, 7, '#90aabe');
+    rect(x + 4, y + 29, 20, 7, '#90aabe');
+  };
+
+  rooms.forEach(tileRoom);
+  rooms.forEach((room, index) => {
+    plant(room.x + 16, room.y + room.h - 46);
+    if (index !== 4) desk(room.x + 110, room.y + Math.round(room.h * .54), index % 2 === 0);
+  });
+  shelf(46, 68, 3); shelf(566, 58, 3); cabinet(920, 176); cabinet(50, 470);
+  shelf(580, 454, 2); shelf(735, 350, 3); cabinet(918, 468);
+  rect(448, 92, 42, 19, '#c58d4c'); rect(453, 97, 32, 8, '#efce67');
+  rect(481, 180, 38, 17, '#242b3d'); rect(486, 184, 28, 9, '#d6d9b7');
+  rect(434, 393, 132, 22, '#6a4834');
+  for (let chair = 0; chair < 5; chair += 1) { rect(442 + chair * 25, 421, 15, 17, '#303b57'); rect(445 + chair * 25, 437, 3, 8, '#20263a'); }
+  rect(465, 500, 65, 37, '#343c49'); rect(473, 508, 49, 19, '#5ca8b8');
+  rect(738, 83, 58, 33, '#ece4c9'); rect(743, 88, 48, 23, '#7eaac0');
+  rect(836, 75, 25, 48, '#b36c4f'); rect(841, 80, 15, 12, '#edce70'); rect(841, 97, 15, 12, '#db8a62');
+  rect(103, 424, 68, 18, '#e3cf8f'); rect(106, 428, 62, 10, '#7f5a40');
+  rect(246, 501, 40, 24, '#252b3e'); rect(251, 506, 30, 14, '#e6d5a4');
+  rect(808, 510, 66, 20, '#121827'); rect(814, 515, 54, 10, '#367fd8');
+  rect(902, 342, 31, 64, '#303b51'); rect(907, 348, 21, 12, '#8cc7d5');
+
+  // Oda girişleri ile koridorların oluşturduğu tek kat hissi.
+  rect(322, 156, 34, 32, '#151a2c'); rect(644, 156, 34, 32, '#151a2c');
+  rect(322, 432, 34, 32, '#151a2c'); rect(644, 432, 34, 32, '#151a2c');
+  stroke(322, 156, 34, 32, '#4c587f', 2); stroke(644, 156, 34, 32, '#4c587f', 2);
+  stroke(322, 432, 34, 32, '#4c587f', 2); stroke(644, 432, 34, 32, '#4c587f', 2);
+}
+
+function initialiseOfficeCanvas(root) {
+  const canvas = root.querySelector('[data-office-canvas]');
+  if (!canvas) return;
+  const redraw = () => drawOfficeCanvas(canvas);
+  redraw();
+  const observer = new ResizeObserver(redraw);
+  observer.observe(canvas);
+  root._officeCanvasObserver = observer;
+}
+
+function liveOfficeFrameHTML(project, team) {
+  const count = project.status === 'concept' ? 0 : team.length;
+  return `
+    <section class="live-office" aria-labelledby="live-office-title" data-office-project="${escapeHTML(project.slug)}">
+      <header class="lo-header">
+        <div><span class="lo-product-word">PRODUCT</span><h2 id="live-office-title">${escapeHTML(project.display_name)} çalışma alanı</h2></div>
+        <div class="lo-header-status"><span class="lo-active-count">${count}/${team.length} aktif</span><div class="lo-connection"><span class="lo-connection-dot" aria-hidden="true"></span><span data-office-mode>AKIŞ KONTROL EDİLİYOR</span></div></div>
+      </header>
+      <div class="lo-layout">
+        <section class="lo-floor-wrap" aria-label="Etkileşimli proje ofisi">
+            <div class="lo-floor" data-office-floor>
+            <canvas class="lo-pixel-canvas" data-office-canvas aria-hidden="true"></canvas>
+            <div class="lo-conversation" data-office-dialog role="status" aria-live="polite">Akış hazırlanıyor…</div>
+            ${team.map((agentId, index) => officePersonHTML(team, agentId, index)).join('')}
+          </div>
+          <p class="lo-floor-help">Bir ajana tıkla: görevini, bulunduğu alanı ve son sinyali öne çıkar.</p>
+        </section>
+        <aside class="lo-activity" aria-label="Görev ve konuşma akışı">
+          <div class="lo-activity-head"><div><span class="lo-overline">AKIŞ</span><h3>Ofis sinyalleri</h3></div></div>
+          <p class="lo-source-note" data-office-source>Bağlantı sınanıyor.</p>
+          <ol class="lo-event-log" data-office-log aria-live="polite"></ol>
+        </aside>
+      </div>
+      <div class="lo-team" aria-label="Proje ajanları">
+        ${team.map((agentId, index) => {
+          const agent = AGENT_ROSTER[agentId];
+          return `<button class="lo-team-member" type="button" data-office-agent="${escapeHTML(agentId)}" aria-pressed="false"><span class="lo-team-index">${String(index + 1).padStart(2, '0')}</span><span><strong>${escapeHTML(officeCharacter(agentId, index))}</strong><small>${escapeHTML(agent.role)}</small></span><em data-agent-status="${escapeHTML(agentId)}">çalışıyor</em></button>`;
+        }).join('')}
+      </div>
+      <p class="lo-disclosure" data-office-disclosure>Bağlantı sonucu bekleniyor. Kişiler arayüzdeki temsili proje ajanlarıdır.</p>
+    </section>`;
+}
+
+function appendOfficeEvent(root, team, event, source) {
+  const log = root.querySelector('[data-office-log]');
+  const dialog = root.querySelector('[data-office-dialog]');
+  if (!log || !dialog) return;
+  const item = document.createElement('li');
+  const eventType = ['message', 'movement', 'task', 'status'].includes(event.event_type) ? event.event_type : 'status';
+  const time = event.occurred_at ? relativeTimeTR(event.occurred_at) : 'şimdi';
+  item.className = `lo-event lo-event-${eventType}`;
+  const timeEl = document.createElement('time');
+  timeEl.textContent = time;
+  const textEl = document.createElement('p');
+  textEl.textContent = officeEventText(team, event);
+  item.append(timeEl, textEl);
+  log.prepend(item);
+  while (log.children.length > 5) log.lastElementChild.remove();
+  dialog.textContent = officeEventText(team, event);
+  dialog.dataset.source = source;
+}
+
+function officeWalkPath(from, to) {
+  if (Math.abs(from.x - to.x) < .1 && Math.abs(from.y - to.y) < .1) return [to];
+  const points = [from];
+  const changingFloor = (from.y < 50) !== (to.y < 50);
+  if (changingFloor) {
+    const exitX = from.x < 33 ? 33 : from.x > 66 ? 66 : 50;
+    points.push({ x: exitX, y: from.y });
+    points.push({ x: exitX, y: 51 });
+    points.push({ x: to.x, y: 51 });
+  } else {
+    const aisleY = from.y < 50 ? 31 : 73;
+    points.push({ x: from.x, y: aisleY });
+    points.push({ x: to.x, y: aisleY });
+  }
+  points.push(to);
+  return points.filter((point, index, all) => index === 0 || point.x !== all[index - 1].x || point.y !== all[index - 1].y);
+}
+
+function walkOfficeAgent(moving, destination) {
+  const from = {
+    x: Number.parseFloat(moving.dataset.officeX) || 15,
+    y: Number.parseFloat(moving.dataset.officeY) || 27,
+  };
+  const path = officeWalkPath(from, destination);
+  moving.getAnimations().forEach((animation) => animation.cancel());
+  moving.classList.add('is-walking');
+  moving.style.setProperty('--agent-x', `${destination.x}%`);
+  moving.style.setProperty('--agent-y', `${destination.y}%`);
+  moving.dataset.officeX = String(destination.x);
+  moving.dataset.officeY = String(destination.y);
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || path.length < 2) {
+    moving.classList.remove('is-walking');
+    return;
+  }
+  const animation = moving.animate(path.map((point, index) => ({
+    left: `${point.x}%`,
+    top: `${point.y}%`,
+    offset: index / (path.length - 1),
+  })), { duration: 2300, easing: 'linear', fill: 'none' });
+  animation.addEventListener('finish', () => {
+    moving.classList.remove('is-walking');
+    moving.classList.add('is-moving');
+    window.setTimeout(() => moving.classList.remove('is-moving'), 550);
+  }, { once: true });
+}
+
+function moveOfficeAgent(root, team, event) {
+  if (!team.includes(event.agent_key)) return;
+  const moving = root.querySelector(`.lo-agent[data-office-agent="${CSS.escape(event.agent_key)}"]`);
+  if (!moving) return;
+  const index = officeAgentIndex(team, event.agent_key);
+  const targetIndex = event.target_agent_key && team.includes(event.target_agent_key)
+    ? officeAgentIndex(team, event.target_agent_key)
+    : -1;
+  // Konuşma ve ziyaretler ortak alan kısayoluna değil, hedef ajanın kendi
+  // ofisindeki ziyaret konumuna yönlenir. Görev olayı ise ajanı kendi masasına döndürür.
+  const targetStation = targetIndex >= 0 ? OFFICE_STATIONS[targetIndex] : null;
+  const destination = (event.event_type === 'movement' || event.event_type === 'message') && targetStation && targetIndex !== index
+    ? { x: targetStation.visitX, y: targetStation.visitY }
+    : OFFICE_STATIONS[index] || OFFICE_STATIONS[0];
+  walkOfficeAgent(moving, destination);
+  const status = root.querySelector(`[data-agent-status="${CSS.escape(event.agent_key)}"]`);
+  if (status) status.textContent = OFFICE_STATUS_LABEL[event.status] || 'çalışıyor';
+}
+
+function applyOfficeEvent(root, team, event, source) {
+  appendOfficeEvent(root, team, event, source);
+  moveOfficeAgent(root, team, event);
+}
+
+function setOfficeMode(root, mode, sourceText, disclosure) {
+  const modeEl = root.querySelector('[data-office-mode]');
+  const sourceEl = root.querySelector('[data-office-source]');
+  const disclosureEl = root.querySelector('[data-office-disclosure]');
+  root.dataset.officeMode = mode;
+  if (modeEl) modeEl.textContent = mode === 'live' ? 'CANLI AKIŞ BAĞLI' : 'YEREL PROTOTİP';
+  if (sourceEl) sourceEl.textContent = sourceText;
+  if (disclosureEl) disclosureEl.textContent = disclosure;
+}
+
+function activateOfficeAgent(root, agentKey) {
+  root.querySelectorAll('[data-office-agent]').forEach((element) => {
+    const active = element.dataset.officeAgent === agentKey;
+    element.classList.toggle('is-selected', active);
+    element.setAttribute('aria-pressed', String(active));
+  });
+}
+
+function startPrototypeOffice(root, team) {
+  let sequence = 0;
+  const emit = () => {
+    const base = OFFICE_PROTOTYPE_EVENTS[sequence % OFFICE_PROTOTYPE_EVENTS.length];
+    const event = { ...base, agent_key: team.includes(base.agent_key) ? base.agent_key : team[sequence % team.length], occurred_at: new Date().toISOString() };
+    if (event.target_agent_key && (!team.includes(event.target_agent_key) || event.target_agent_key === event.agent_key)) {
+      const agentIndex = Math.max(0, team.indexOf(event.agent_key));
+      event.target_agent_key = team[(agentIndex + 1) % team.length];
+    }
+    applyOfficeEvent(root, team, event, 'prototype');
+    sequence += 1;
+  };
+  emit();
+  const timer = window.setInterval(emit, 5200);
+  root._officeStop = () => window.clearInterval(timer);
+  root._officeResume = () => startPrototypeOffice(root, team);
+}
+
+async function renderProjectOffice() {
+  const root = document.getElementById('office-root');
+  if (!root) return;
+  const slug = location.pathname.split('/').pop().replace('.html', '');
+  const remoteProject = await fetchProjectBySlug(slug);
+  const project = remoteProject || STATIC_PROJECTS.find(p => p.slug === slug);
+  if (!project) return;
+  const team = officeTeam(project);
+  root.innerHTML = liveOfficeFrameHTML(project, team);
+  initialiseOfficeCanvas(root);
+
+  root.addEventListener('click', (event) => {
+    const agentControl = event.target.closest('[data-office-agent]');
+    if (agentControl) activateOfficeAgent(root, agentControl.dataset.officeAgent);
+  });
+
+  const result = await fetchProjectActivityEvents(project.slug);
+  if (!result.available) {
+    setOfficeMode(root, 'prototype', 'Canlı olay kaynağı bağlı değil; hareket ve konuşmalar yerel prototipte üretiliyor.', 'Yerel prototip: hareketler ve konuşmalar temsili. Gerçek zamanlı akış için project_activity_events migration’ı ve güvenilir bir agent runner gerekir.');
+    startPrototypeOffice(root, team);
+    return;
+  }
+
+  setOfficeMode(root, 'live', result.events.length ? 'Yayınlanmış çalışma olayları gerçek zamanlı izleniyor.' : 'Akış bağlı; yayınlanmış ilk olay bekleniyor.', 'Canlı akış: yalnızca güvenli, yayınlanmış olay özetleri gösterilir. Ajan kimlikleri arayüzde temsili rol adlarıyla gösterilir.');
+  result.events.slice().reverse().forEach((event) => applyOfficeEvent(root, team, event, 'live'));
+  root._officeChannel = subscribeToProjectActivityEvents(project.slug, (event) => applyOfficeEvent(root, team, event, 'live'), (status) => {
+    if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+      setOfficeMode(root, 'prototype', 'Canlı akış kesildi; yerel prototip gösteriliyor.', 'Yerel prototip: canlı bağlantı yeniden kurulana kadar temsili hareket ve konuşmalar gösterilir.');
+      if (!root._officeStop) startPrototypeOffice(root, team);
+    }
+  });
 }
 
 async function renderHomeBuildStatus() {
@@ -508,7 +924,7 @@ async function renderHomeBuildStatus() {
     <a href="projects/${slug}.html" class="build-status-home-link">
       <p class="folio">${escapeHTML(project.display_name)} — ${escapeHTML(project.tagline)}</p>
     </a>
-    ${officeFrameHTML(project)}`;
+    ${homeBuildNoteHTML(project)}`;
 }
 
 async function renderProjectDetail() {
