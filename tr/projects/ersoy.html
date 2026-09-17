@@ -8,13 +8,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=44">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=45">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <style>
     /* Sayfaya özel, mevcut project-detail render sözleşmesini koruyan tema. */
     .ersoy-page { --bg:#f8f9ff; --fg:#10213b; --ink:#10213b; --rule:#d9e2ef; --mark:#dbeafe; --muted:#edf3fa; --muted-fg:#5a6b82; --accent:#2563eb; --card:#fff; --serif:'Plus Jakarta Sans',Inter,system-ui,sans-serif; --sans:Inter,system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace; background-image:none; }
-    .ersoy-page .site-header { background:color-mix(in srgb,#f8f9ff 92%,transparent); border-color:var(--rule); }.ersoy-page .header-inner { min-height:4.9rem; padding-block:.8rem; }.ersoy-page .brand-kicker { color:var(--muted-fg); font-size:.58rem; letter-spacing:.14em; }.ersoy-page .brand-name { margin:0; font-family:var(--serif); font-size:1.22rem; font-weight:800; letter-spacing:-.06em; }.ersoy-page .brand-serif { font-style:normal; }.ersoy-page .brand-sans { font-family:var(--serif); font-weight:800; }
-    .ersoy-page .desktop-nav { align-items:center; gap:1.25rem; font-family:var(--sans); font-size:.76rem; font-weight:600; letter-spacing:0; text-transform:none; }.ersoy-page .nav-link { padding:.45rem 0; }.ersoy-page .nav-link:hover { color:#1d4ed8; border-color:#2563eb; }.ersoy-page .nav-sym { display:none; }.ersoy-page .nav-cta { border:1px solid #2563eb; border-radius:.45rem; padding:.55rem .8rem; color:#fff; background:#2563eb; }.ersoy-page .nav-cta:hover { background:#1d4ed8; color:#fff; }
     .ersoy-page .folio { color:var(--muted-fg); font-size:.63rem; letter-spacing:.13em; }.ersoy-page .folio-bar { padding-top:.85rem; }.ersoy-page .folio-bar-row { gap:.85rem; }
     .ersoy-page .project-article { display:block; padding-top:clamp(3.25rem,7vw,6.5rem); padding-bottom:0; }.ersoy-page .project-hero-grid { display:grid; grid-template-columns:1fr; gap:2rem; }.ersoy-page .project-content { order:initial; }.ersoy-page .project-h1 { max-width:12ch; margin-top:.75rem; font-family:var(--serif); font-size:clamp(2.7rem,7.5vw,6.25rem); font-weight:800; letter-spacing:-.07em; line-height:1.01; }.ersoy-page .project-tagline { max-width:48rem; margin-top:1.3rem; font-family:var(--sans); font-size:clamp(1.05rem,2vw,1.35rem); font-style:normal; line-height:1.65; color:#43536a; }.ersoy-page .project-body { max-width:48rem; margin-top:2rem; }.ersoy-page .project-para { font-family:var(--sans); font-size:1rem; line-height:1.8; color:#34445a; }.ersoy-page .project-para:first-child::first-letter { float:none; margin:0; font-family:inherit; font-size:inherit; line-height:inherit; }.ersoy-page .project-data-notice { display:inline-block; margin-top:1.1rem; padding:.5rem .65rem; border-radius:.35rem; background:#fff7ed; color:#8a4b10; letter-spacing:.04em; text-transform:none; }
     .ersoy-page .project-aside { order:initial; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; padding:1.15rem; border:1px solid var(--rule); border-radius:.65rem; background:#fff; }.ersoy-page .meta-block { padding:.25rem; }.ersoy-page .meta-block:first-child { grid-column:1 / -1; padding-bottom:1rem; border-bottom:1px solid var(--rule); }.ersoy-page .meta-val { margin-top:.5rem; font-family:var(--sans); font-size:.95rem; font-style:normal; font-weight:600; }.ersoy-page .meta-val-mono { color:#43536a; font-size:.78rem; }.ersoy-page .status-badge { border-radius:999px; }
@@ -26,19 +24,19 @@
     /* Tam ekran olmayan masaüstü pencereleri için: sağdaki bilgi kartını
        zorla sıkıştırmak yerine içerikle aynı akışta tam genişliğe al. */
     @media (min-width:768px) and (max-width:1360px) { .ersoy-page .project-hero-grid { grid-template-columns:minmax(0,1fr); gap:1.5rem; }.ersoy-page .project-content,.ersoy-page .project-aside { min-width:0; }.ersoy-page .project-aside { position:static; grid-template-columns:repeat(3,minmax(0,1fr)); padding:1rem; }.ersoy-page .meta-block:first-child { grid-column:auto; padding-bottom:.25rem; border-bottom:0; }.ersoy-page .project-h1 { font-size:clamp(3.5rem,8vw,5.7rem); } }
-    @media (min-width:768px) and (max-width:980px) { .ersoy-page .desktop-nav { display:none; }.ersoy-page .mobile-toggle { display:flex; }.ersoy-page .project-aside { grid-template-columns:repeat(2,minmax(0,1fr)); }.ersoy-page .meta-block:first-child { grid-column:1 / -1; padding-bottom:.75rem; border-bottom:1px solid var(--rule); } }
-    @media (max-width:767px) { .ersoy-page .mobile-nav { background:#fff; }.ersoy-page .mobile-nav-link { font-family:var(--sans); font-size:1rem; font-weight:600; }.ersoy-page .mobile-nav-sym { display:none; } }
+    @media (min-width:768px) and (max-width:980px) { .ersoy-page .project-aside { grid-template-columns:repeat(2,minmax(0,1fr)); }.ersoy-page .meta-block:first-child { grid-column:1 / -1; padding-bottom:.75rem; border-bottom:1px solid var(--rule); } }
   </style>
 </head>
 <body class="ersoy-page">
 
 <header class="site-header">
   <div class="page header-inner">
-    <a href="../index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><span class="brand-kicker folio">TEKNOLOJİ &amp; AR-GE</span><div class="brand-name"><span class="brand-serif">cizgi</span><span class="brand-sans">fikrim</span><span class="brand-dot">.</span></div></a>
-    <nav class="desktop-nav" aria-label="Ana menü"><a href="../products.html" class="nav-link">Çalışmalar</a><a href="../about.html" class="nav-link">Hakkında</a><a href="../contact.html" class="nav-link">Yazış</a><a href="../contact.html" class="nav-link nav-cta">Görüşme talep et</a></nav>
+    <a href="../index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><span class="brand-mark" aria-hidden="true"></span><span class="brand-name"><span class="brand-sans">cizgi</span><span class="brand-serif">fikrim</span><span class="brand-dot">.</span></span><span class="brand-meta">TEKNOLOJİ &amp; AR-GE</span></a>
+    <nav class="desktop-nav" aria-label="Ana menü"><a href="../products.html" class="nav-link">Çalışmalar</a><a href="../about.html" class="nav-link">Hakkında</a><a href="../contact.html" class="nav-link">Yazış</a></nav>
+    <a href="../contact.html" class="nav-cta">Görüşme talep et<span aria-hidden="true"> →</span></a>
     <button class="mobile-toggle" aria-label="Menüyü aç" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
-  <nav class="mobile-nav" aria-label="Mobil menü"><div class="page mobile-nav-inner"><a href="../products.html" class="mobile-nav-link">Çalışmalar</a><a href="../about.html" class="mobile-nav-link">Hakkında</a><a href="../contact.html" class="mobile-nav-link">Yazış</a><a href="../contact.html" class="mobile-nav-link">Görüşme talep et</a></div></nav>
+  <nav class="mobile-nav" aria-label="Mobil menü"><div class="page mobile-nav-inner"><a href="../products.html" class="mobile-nav-link">Çalışmalar</a><a href="../about.html" class="mobile-nav-link">Hakkında</a><a href="../contact.html" class="mobile-nav-link">Yazış</a></div></nav>
 </header>
 
 <div class="page folio-bar"><div class="folio-bar-row"><span class="folio" id="folio-category">Ürün dosyası</span><hr class="folio-dotted-rule"></div></div>
