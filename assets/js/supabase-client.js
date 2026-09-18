@@ -145,12 +145,24 @@ async function submitContactMessage({ name, email, subject, message }) {
 // ── Müşteri portalı — kimlik doğrulama ve veri erişimi ─────────────────────
 // Şifresiz giriş (magic link): kullanıcı e-postasına gelen linke tıklayıp
 // panel.html'e döner. sb.auth oturumu localStorage'da kendisi yönetir.
-async function signInWithMagicLink(email) {
+// Giriş sayfası createUser:false ile çağırır (kayıtlı olmayan e-postaya hesap
+// açmaz); kayıt sayfası ad bilgisini user_metadata.full_name olarak gönderir,
+// handle_new_client tetikleyicisi bunu clients.full_name'e yazar.
+async function signInWithMagicLink(email, { createUser = true, fullName = '' } = {}) {
   if (!sb) return { error: 'no-client' };
   try {
     const redirectTo = new URL('panel.html', location.href).toString();
-    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: redirectTo } });
-    return { error: error ? error.message : null };
+    const options = { emailRedirectTo: redirectTo, shouldCreateUser: createUser };
+    if (fullName) options.data = { full_name: fullName };
+    const { error } = await sb.auth.signInWithOtp({ email, options });
+    if (error) {
+      const code = error.code || '';
+      const message = error.message || '';
+      if (code === 'otp_disabled' || /signups? not allowed/i.test(message)) return { error: 'no-account' };
+      if (error.status === 429 || /rate limit|security purposes/i.test(message)) return { error: 'rate-limit' };
+      return { error: message || 'unknown' };
+    }
+    return { error: null };
   } catch (error) {
     console.error('signInWithMagicLink', error);
     return { error: 'unknown' };

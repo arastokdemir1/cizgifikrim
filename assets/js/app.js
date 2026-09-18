@@ -16,6 +16,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ── Hesap alanı (header) ────────────────────────────────────────────────────
+  // supabase-js oturumu localStorage'da `sb-<ref>-auth-token` anahtarıyla tutar.
+  // Header'daki isim yalnızca gösterim içindir; supabase-js yüklü olmayan
+  // sayfalarda da (ör. Hakkında) çalışsın diye doğrudan oradan okunur. Gerçek
+  // yetki kontrolü panelde ve RLS'te yapılır.
+  const escapeText = (value) => String(value ?? '').replace(/[&<>'"]/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;',
+  }[c]));
+  const readStoredUser = () => {
+    try {
+      const key = Object.keys(localStorage).find((k) => /^sb-.+-auth-token$/.test(k));
+      if (!key) return null;
+      const data = JSON.parse(localStorage.getItem(key));
+      return data?.user || null;
+    } catch (_) {
+      return null;
+    }
+  };
+  const userLabel = (user) => {
+    const meta = user.user_metadata || {};
+    const name = meta.full_name || meta.name || meta.user_name || meta.preferred_username || String(user.email || '').split('@')[0];
+    return String(name || 'Hesabım').trim();
+  };
+  const authSlots = document.querySelectorAll('[data-auth-slot]');
+  const guestMarkup = new Map([...authSlots].map((slot) => [slot, slot.innerHTML]));
+  const renderAuth = (user) => {
+    authSlots.forEach((slot) => {
+      if (!user) { slot.innerHTML = guestMarkup.get(slot); return; }
+      const base = slot.dataset.base || '';
+      const label = userLabel(user);
+      const avatarUrl = user.user_metadata?.avatar_url;
+      const avatar = /^https:\/\//.test(avatarUrl || '')
+        ? `<img src="${escapeText(avatarUrl)}" alt="" referrerpolicy="no-referrer">`
+        : escapeText(label.charAt(0));
+      const onPanel = /\/panel\.html$/.test(location.pathname) ? ' aria-current="page"' : '';
+      const cls = slot.dataset.authSlot === 'mobile' ? 'mobile-nav-btn nav-user' : 'nav-user';
+      slot.innerHTML = `<a href="${base}panel.html" class="${cls}" title="Panelim"${onPanel}><span class="nav-user-avatar" aria-hidden="true">${avatar}</span><span class="nav-user-name">${escapeText(label)}</span></a>`;
+    });
+  };
+  if (authSlots.length) {
+    renderAuth(readStoredUser());
+    // OAuth/magic link dönüşünde oturum sayfa yüklendikten sonra kurulur.
+    if (typeof onAuthStateChange === 'function') onAuthStateChange((session) => renderAuth(session?.user || null));
+    window.addEventListener('storage', () => renderAuth(readStoredUser()));
+  }
+
   // ── Contact: reason buttons ─────────────────────────────────────────────────
   const reasonBtns = document.querySelectorAll('.reason-btn'); 
   const subjectInput = document.getElementById('subject-input');
