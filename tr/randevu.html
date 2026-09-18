@@ -7,7 +7,7 @@
   <meta name="description" content="CizgiFikrim ile gerçek zamanlı bir görüşme planla.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="../assets/css/main.css?v=46">
+  <link rel="stylesheet" href="../assets/css/main.css?v=47">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -19,27 +19,54 @@
   </div><nav class="mobile-nav" aria-label="Mobil menü"><div class="page mobile-nav-inner"><a href="products.html" class="mobile-nav-link">Çalışmalar</a><a href="about.html" class="mobile-nav-link">Hakkında</a><a href="contact.html" class="mobile-nav-link">Yazış</a></div></nav></header>
 
   <main>
-    <section class="page auth-section">
-      <div class="auth-box" style="max-width:32rem;">
+    <section class="page randevu-section">
+      <div class="randevu-head">
         <p class="folio">RANDEVU</p>
         <h1 class="auth-h1">Bir görüşme planla</h1>
-        <p class="auth-sub" id="booking-fallback">
-          Takvim entegrasyonu yakında burada olacak. O zamana kadar
-          <a href="contact.html" style="text-decoration:underline;">iletişim formundan</a>
-          yazabilir veya doğrudan
-          <a href="mailto:hello@cizgifikrim.net" style="text-decoration:underline;">hello@cizgifikrim.net</a>
-          adresine yazabilirsin.
-        </p>
-        <!-- Cal.com hesabı/kullanıcı adı verildiğinde buraya gerçek embed gelecek, ör:
-        <div id="booking-embed"></div>
-        <script src="https://app.cal.com/embed/embed.js"></script>
-        -->
+        <p class="auth-sub">Aşağıdan uygun bir saat seç — takvim gerçek zamanlı, saniyeler içinde onaylanır.</p>
       </div>
+      <div id="my-cal-inline" class="randevu-embed"></div>
     </section>
   </main>
 
   <footer class="site-footer"><div class="page footer-inner"><div><p class="folio">CİZGİFİKRİM</p><p class="footer-big">Teknoloji, araştırma ve ürün geliştirme.</p><p class="footer-small">İstanbul, Türkiye</p></div><div><p class="folio">İLETİŞİM</p><a href="mailto:hello@cizgifikrim.net" class="footer-email">hello@cizgifikrim.net</a></div><div class="footer-right"><p class="folio">© 2026</p><a href="products.html" class="all-link">Çalışmalar →</a></div></div></footer>
 
 <script src="../assets/js/app.js?v=33"></script>
+<script type="text/javascript">
+  (function (C, A, L) {
+    let p = function (a, ar) { a.q.push(ar); };
+    let d = C.document;
+    C.Cal = C.Cal || function () {
+      let cal = C.Cal;
+      let ar = arguments;
+      if (!cal.loaded) {
+        cal.ns = {};
+        cal.q = cal.q || [];
+        d.head.appendChild(d.createElement("script")).src = A;
+        cal.loaded = true;
+      }
+      if (ar[0] === L) {
+        const api = function () { p(api, arguments); };
+        const namespace = ar[1];
+        api.q = api.q || [];
+        if (typeof namespace === "string") {
+          cal.ns[namespace] = cal.ns[namespace] || api;
+          p(cal.ns[namespace], ar);
+          p(cal, ["initNamespace", namespace]);
+        } else p(cal, ar);
+        return;
+      }
+      p(cal, ar);
+    };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  Cal("init", { origin: "https://cal.com" });
+  Cal("inline", {
+    elementOrSelector: "#my-cal-inline",
+    calLink: "cizgifikrim",
+    layout: "month_view",
+  });
+  Cal("ui", { styles: { branding: { brandColor: "#2563eb" } }, hideEventTypeDetails: false, layout: "month_view" });
+</script>
 </body>
 </html>
