@@ -300,7 +300,7 @@ const ZONE_LAYOUT = [
   { x: 20,  y: 150 }, { x: 300, y: 150 },
 ];
 
-function officeZoneSVG(agentId, i, statusDotClass, isActive) {
+function officeZoneSVG(agentId, i, statusDotClass, isActive, realUpdateText) {
   const a = AGENT_ROSTER[agentId];
   const name = CHARACTER_NAMES[i];
   const { x, y } = ZONE_LAYOUT[i];
@@ -308,11 +308,20 @@ function officeZoneSVG(agentId, i, statusDotClass, isActive) {
   const monX = deskX + 25, monY = deskY - 24;
   const plateX = x + 130, plateY = y + 82;
   const delay = i * 160;
-  const bubbleText = ROLE_BUBBLES[a.role.toLowerCase()] || 'görev üzerinde';
+  // Zone 0 (lider rol) gerçek son-güncelleme metnini gösterir — Muratify
+  // referansındaki "canlı" balon fikri, ama uydurma değil, gerçek veriyle.
+  // Diğer 3 balon zaten dekoratif/kurgusal olarak etiketlenmiş genel roldür.
+  const isLeadBubble = i === 0 && isActive && realUpdateText;
+  const rawBubble = isLeadBubble ? realUpdateText : (ROLE_BUBBLES[a.role.toLowerCase()] || 'görev üzerinde');
+  const bubbleText = escapeHTML(rawBubble.length > 46 ? rawBubble.slice(0, 45) + '…' : rawBubble);
+  const bubbleWidth = Math.min(220, Math.max(118, bubbleText.length * 5.4 + 20));
+  const bubbleX = x + 130 - bubbleWidth / 2;
   return `
-    <g class="office-char${isActive ? ' office-char-active' : ''}" style="--office-delay:${delay}ms">
-      <rect class="office-zone" x="${x}" y="${y}" width="260" height="110" rx="10" fill="url(#office-checker-${i})"></rect>
-      ${isActive ? `<g class="office-speech"><rect x="${x + 42}" y="${y + 7}" width="118" height="18" rx="5"></rect><text x="${x + 101}" y="${y + 19}" text-anchor="middle">${bubbleText}</text></g>` : ''}
+    <g class="office-char${isActive ? ' office-char-active' : ''}${isLeadBubble ? ' office-char-lead' : ''}" style="--office-delay:${delay}ms">
+      <rect class="office-zone${isLeadBubble ? ' office-zone-lead' : ''}" x="${x}" y="${y}" width="260" height="110" rx="10" fill="url(#office-checker-${i})"></rect>
+      ${isActive
+        ? `<g class="office-speech${isLeadBubble ? ' office-speech-real' : ''}"><rect x="${bubbleX}" y="${y + 7}" width="${bubbleWidth}" height="18" rx="5"></rect><text x="${x + 130}" y="${y + 19}" text-anchor="middle">${bubbleText}</text></g>`
+        : `<text class="office-zone-tag" x="${x + 10}" y="${y + 16}">// ${escapeHTML(a.role.toUpperCase())}</text>`}
       <ellipse class="office-plant-pot office-zone-${i % 4}" cx="${x + 22}" cy="${y + 84}" rx="7" ry="4"></ellipse>
       <circle class="office-plant-leaf office-zone-${i % 4}" cx="${x + 22}" cy="${y + 72}" r="9"></circle>
       <rect class="office-cabinet office-zone-${i % 4}" x="${x + 224}" y="${y + 14}" width="24" height="30" rx="2"></rect>
@@ -330,7 +339,7 @@ function officeZoneSVG(agentId, i, statusDotClass, isActive) {
     </g>`;
 }
 
-function officeSceneSVG(team, statusDotClass, isActive) {
+function officeSceneSVG(team, statusDotClass, isActive, realUpdateText) {
   return `
     <svg class="office-scene" viewBox="0 0 580 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Proje ekibi ofisi">
       <defs>
@@ -341,7 +350,7 @@ function officeSceneSVG(team, statusDotClass, isActive) {
           <rect x="6.5" y="6.5" width="6.5" height="6.5" class="office-checker-b office-zone-${i % 4}"></rect>
         </pattern>`).join('')}
       </defs>
-      ${team.map((agentId, i) => officeZoneSVG(agentId, i, statusDotClass, isActive)).join('')}
+      ${team.map((agentId, i) => officeZoneSVG(agentId, i, statusDotClass, isActive, realUpdateText)).join('')}
     </svg>`;
 }
 
@@ -374,6 +383,9 @@ function officeAgentLayerHTML(team, isActive) {
 
 function officeOfficePaneHTML(project, team, statusDotClass, isActive) {
   const activeCount = isActive ? team.length : 0;
+  // Gizlilik protokolü olan projelerde (ör. Ersoy) ham commit metni sahnede
+  // de gösterilmez — buildStatusHTML'deki aynı kural burada da geçerli.
+  const realUpdateText = project.show_commit_detail !== false ? project.latest_update_text : null;
   return `
     <section class="am-pane am-pane-office" aria-labelledby="office-team-title">
       <div class="am-pane-head">
@@ -388,7 +400,7 @@ function officeOfficePaneHTML(project, team, statusDotClass, isActive) {
         <span class="am-team-status"><span class="am-dot ${statusDotClass}${isActive ? ' office-pulse' : ''}"></span>${escapeHTML(project.status_label || (isActive ? 'aktif' : 'beklemede'))}</span>
       </div>
       <div class="am-office-stage">
-        ${officeSceneSVG(team, statusDotClass, isActive)}
+        ${officeSceneSVG(team, statusDotClass, isActive, realUpdateText)}
         ${officeAgentLayerHTML(team, isActive)}
         <span class="am-stage-badge">${isActive ? 'CANLI ÇALIŞMA' : 'BEKLEMEDE'}</span>
       </div>
