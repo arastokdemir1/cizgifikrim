@@ -142,6 +142,128 @@ async function submitContactMessage({ name, email, subject, message }) {
   }
 }
 
+// ── Müşteri portalı — kimlik doğrulama ve veri erişimi ─────────────────────
+// Şifresiz giriş (magic link): kullanıcı e-postasına gelen linke tıklayıp
+// panel.html'e döner. sb.auth oturumu localStorage'da kendisi yönetir.
+async function signInWithMagicLink(email) {
+  if (!sb) return { error: 'no-client' };
+  try {
+    const redirectTo = new URL('panel.html', location.href).toString();
+    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: redirectTo } });
+    return { error: error ? error.message : null };
+  } catch (error) {
+    console.error('signInWithMagicLink', error);
+    return { error: 'unknown' };
+  }
+}
+
+async function signOut() {
+  if (!sb) return;
+  try { await sb.auth.signOut(); } catch (error) { console.error('signOut', error); }
+}
+
+async function getSession() {
+  if (!sb) return null;
+  try {
+    const { data, error } = await sb.auth.getSession();
+    if (error) { console.error('getSession', error); return null; }
+    return data?.session || null;
+  } catch (error) {
+    console.error('getSession', error);
+    return null;
+  }
+}
+
+function onAuthStateChange(callback) {
+  if (!sb || typeof callback !== 'function') return null;
+  const { data } = sb.auth.onAuthStateChange((_event, session) => callback(session));
+  return data?.subscription || null;
+}
+
+async function fetchClientProfile() {
+  if (!sb) return null;
+  try {
+    const { data: { user } } = await sb.auth.getUser();
+    if (!user) return null;
+    const { data, error } = await sb.from('clients').select('*').eq('id', user.id).single();
+    if (error) { console.error('fetchClientProfile', error); return null; }
+    return data;
+  } catch (error) {
+    console.error('fetchClientProfile', error);
+    return null;
+  }
+}
+
+async function fetchMyEngagements() {
+  if (!sb) return [];
+  try {
+    const { data, error } = await sb.from('engagements').select('*').order('created_at', { ascending: false });
+    if (error) { console.error('fetchMyEngagements', error); return []; }
+    return data || [];
+  } catch (error) {
+    console.error('fetchMyEngagements', error);
+    return [];
+  }
+}
+
+async function fetchEngagementMessages(engagementId) {
+  if (!sb || !engagementId) return [];
+  try {
+    const { data, error } = await sb
+      .from('engagement_messages')
+      .select('*')
+      .eq('engagement_id', engagementId)
+      .order('created_at', { ascending: true });
+    if (error) { console.error('fetchEngagementMessages', error); return []; }
+    return data || [];
+  } catch (error) {
+    console.error('fetchEngagementMessages', error);
+    return [];
+  }
+}
+
+async function sendEngagementMessage(engagementId, body) {
+  if (!sb || !engagementId || !body?.trim()) return false;
+  try {
+    const { error } = await sb
+      .from('engagement_messages')
+      .insert([{ engagement_id: engagementId, sender: 'client', body: body.trim() }]);
+    if (error) console.error('sendEngagementMessage', error);
+    return !error;
+  } catch (error) {
+    console.error('sendEngagementMessage', error);
+    return false;
+  }
+}
+
+async function uploadEngagementFile(engagementId, file) {
+  if (!sb || !engagementId || !file) return { error: 'invalid' };
+  try {
+    const path = `${engagementId}/${Date.now()}-${file.name}`;
+    const { error } = await sb.storage.from('engagement-files').upload(path, file);
+    return { error: error ? error.message : null, path };
+  } catch (error) {
+    console.error('uploadEngagementFile', error);
+    return { error: 'unknown' };
+  }
+}
+
+async function listEngagementFiles(engagementId) {
+  if (!sb || !engagementId) return [];
+  try {
+    const { data, error } = await sb.storage.from('engagement-files').list(engagementId, { sortBy: { column: 'created_at', order: 'desc' } });
+    if (error) { console.error('listEngagementFiles', error); return []; }
+    const withUrls = await Promise.all((data || []).map(async (item) => {
+      const { data: signed } = await sb.storage.from('engagement-files').createSignedUrl(`${engagementId}/${item.name}`, 3600);
+      return { name: item.name, url: signed?.signedUrl || null, createdAt: item.created_at };
+    }));
+    return withUrls;
+  } catch (error) {
+    console.error('listEngagementFiles', error);
+    return [];
+  }
+}
+
 function statusBadgeHTML(status, statusLabel) {
   const meta = STATUS_META[status] || STATUS_META.wip;
   return `<span class="status-badge"><span class="status-dot ${meta.dotClass}"></span><span class="${meta.labelClass}">${escapeHTML(statusLabel || 'Geliştiriliyor')}</span></span>`;
