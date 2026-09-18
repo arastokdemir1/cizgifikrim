@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel — CizgiFikrim</title>
+  <meta name="description" content="Müşteri portalı — proje durumu, mesajlaşma ve dosyalar.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../assets/css/main.css?v=46">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <header class="site-header"><div class="page header-inner">
+    <a href="index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><span class="brand-mark" aria-hidden="true"></span><span class="brand-name"><span class="brand-sans">cizgi</span><span class="brand-serif">fikrim</span><span class="brand-dot">.</span></span><span class="brand-meta">TEKNOLOJİ &amp; AR-GE</span></a>
+    <nav class="desktop-nav" aria-label="Ana menü"><a href="products.html" class="nav-link">Çalışmalar</a><a href="about.html" class="nav-link">Hakkında</a><a href="contact.html" class="nav-link">Yazış</a></nav>
+    <a href="#" class="nav-cta" id="panel-logout">Çıkış yap</a>
+    <button class="mobile-toggle" aria-label="Menüyü aç" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div><nav class="mobile-nav" aria-label="Mobil menü"><div class="page mobile-nav-inner"><a href="products.html" class="mobile-nav-link">Çalışmalar</a><a href="about.html" class="mobile-nav-link">Hakkında</a><a href="contact.html" class="mobile-nav-link">Yazış</a></div></nav></header>
+
+  <main>
+    <section class="page panel-section" id="panel-loading">
+      <p class="folio">Yükleniyor…</p>
+    </section>
+
+    <section class="page panel-section" id="panel-app" hidden>
+      <div class="panel-head">
+        <p class="folio">MÜŞTERİ PORTALI</p>
+        <h1 class="panel-h1">Merhaba, <span id="panel-name">—</span></h1>
+      </div>
+
+      <div class="panel-layout">
+        <aside class="panel-list" id="panel-engagement-list" aria-label="Projelerin">
+          <p class="panel-empty">Yükleniyor…</p>
+        </aside>
+
+        <div class="panel-detail" id="panel-detail" hidden>
+          <div class="panel-detail-head">
+            <h2 id="panel-detail-title">—</h2>
+            <span class="status-badge" id="panel-detail-status"></span>
+          </div>
+          <p class="panel-detail-summary" id="panel-detail-summary"></p>
+
+          <div class="panel-files">
+            <p class="folio">DOSYALAR</p>
+            <ul class="panel-file-list" id="panel-file-list"></ul>
+            <label class="panel-file-upload">
+              <input type="file" id="panel-file-input">
+              <span>+ Dosya ekle</span>
+            </label>
+          </div>
+
+          <div class="panel-messages">
+            <p class="folio">MESAJLAR</p>
+            <div class="panel-message-list" id="panel-message-list"></div>
+            <form class="panel-message-form" id="panel-message-form">
+              <textarea id="panel-message-input" placeholder="Mesaj yaz…" required></textarea>
+              <button type="submit" class="btn-primary">Gönder <span class="btn-arrow">→</span></button>
+            </form>
+          </div>
+        </div>
+
+        <p class="panel-empty" id="panel-no-selection">Soldan bir proje seç.</p>
+      </div>
+    </section>
+
+    <section class="page panel-section" id="panel-guest" hidden>
+      <p class="folio">MÜŞTERİ PORTALI</p>
+      <h1 class="panel-h1">Bu sayfayı görmek için giriş yapman gerekiyor.</h1>
+      <a href="giris.html" class="btn-primary" style="margin-top:1.5rem;">Giriş yap <span class="btn-arrow">→</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="page footer-inner"><div><p class="folio">CİZGİFİKRİM</p><p class="footer-big">Teknoloji, araştırma ve ürün geliştirme.</p><p class="footer-small">İstanbul, Türkiye</p></div><div><p class="folio">İLETİŞİM</p><a href="mailto:hello@cizgifikrim.net" class="footer-email">hello@cizgifikrim.net</a></div><div class="footer-right"><p class="folio">© 2026</p><a href="products.html" class="all-link">Çalışmalar →</a></div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8/dist/umd/supabase.js" integrity="sha384-l7yJnh/cWKcqeTC5adHUdc5b+J4Kb2QTGRSkCQehn1YT5xEFlrgwnXOYuvrtI1F6" crossorigin="anonymous"></script>
+<script src="../assets/js/supabase-client.js?v=33"></script>
+<script src="../assets/js/app.js?v=33"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const session = await getSession();
+  const loading = document.getElementById('panel-loading');
+  const app = document.getElementById('panel-app');
+  const guest = document.getElementById('panel-guest');
+  loading.hidden = true;
+
+  if (!session) {
+    guest.hidden = false;
+    return;
+  }
+  app.hidden = false;
+
+  document.getElementById('panel-logout').addEventListener('click', async (event) => {
+    event.preventDefault();
+    await signOut();
+    location.href = 'giris.html';
+  });
+
+  const profile = await fetchClientProfile();
+  document.getElementById('panel-name').textContent = profile?.full_name || session.user.email;
+
+  const STATUS_LABEL = {
+    intake: 'Alındı', in_progress: 'Devam ediyor', review: 'İncelemede',
+    delivered: 'Teslim edildi', on_hold: 'Beklemede',
+  };
+  const STATUS_DOT = {
+    intake: 'dot-wip', in_progress: 'dot-wip', review: 'dot-rd',
+    delivered: 'dot-live', on_hold: 'dot-concept',
+  };
+
+  const listEl = document.getElementById('panel-engagement-list');
+  const detailEl = document.getElementById('panel-detail');
+  const noSelectionEl = document.getElementById('panel-no-selection');
+  const engagements = await fetchMyEngagements();
+
+  if (!engagements.length) {
+    listEl.innerHTML = '<p class="panel-empty">Henüz sana bağlı bir proje kaydı yok. Bir talebin varsa <a href="contact.html">bize yaz</a>.</p>';
+  } else {
+    listEl.innerHTML = engagements.map((e, i) => `
+      <button class="panel-list-item" data-index="${i}">
+        <span class="status-dot ${STATUS_DOT[e.status] || 'dot-wip'}"></span>
+        <span>${escapeHTML(e.title)}</span>
+      </button>`).join('');
+  }
+
+  async function openEngagement(e) {
+    noSelectionEl.hidden = true;
+    detailEl.hidden = false;
+    document.getElementById('panel-detail-title').textContent = e.title;
+    document.getElementById('panel-detail-status').innerHTML = `<span class="status-dot ${STATUS_DOT[e.status] || 'dot-wip'}"></span><span>${STATUS_LABEL[e.status] || e.status}</span>`;
+    document.getElementById('panel-detail-summary').textContent = e.summary || '';
+
+    const fileListEl = document.getElementById('panel-file-list');
+    const files = await listEngagementFiles(e.id);
+    fileListEl.innerHTML = files.length
+      ? files.map(f => `<li><a href="${f.url}" target="_blank" rel="noopener">${escapeHTML(f.name)}</a></li>`).join('')
+      : '<li class="panel-empty">Henüz dosya yok.</li>';
+
+    document.getElementById('panel-file-input').onchange = async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      await uploadEngagementFile(e.id, file);
+      openEngagement(e);
+    };
+
+    const messageListEl = document.getElementById('panel-message-list');
+    const messages = await fetchEngagementMessages(e.id);
+    messageListEl.innerHTML = messages.length
+      ? messages.map(m => `<p class="panel-message panel-message-${m.sender}"><strong>${m.sender === 'client' ? 'Sen' : 'CizgiFikrim'}</strong> ${escapeHTML(m.body)}</p>`).join('')
+      : '<p class="panel-empty">Henüz mesaj yok.</p>';
+
+    const form = document.getElementById('panel-message-form');
+    form.onsubmit = async (event) => {
+      event.preventDefault();
+      const input = document.getElementById('panel-message-input');
+      if (!input.value.trim()) return;
+      await sendEngagementMessage(e.id, input.value);
+      input.value = '';
+      openEngagement(e);
+    };
+  }
+
+  listEl.querySelectorAll('.panel-list-item').forEach((btn) => {
+    btn.addEventListener('click', () => openEngagement(engagements[Number(btn.dataset.index)]));
+  });
+});
+</script>
+</body>
+</html>
