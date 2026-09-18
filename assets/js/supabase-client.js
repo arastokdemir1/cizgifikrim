@@ -162,6 +162,21 @@ async function signOut() {
   try { await sb.auth.signOut(); } catch (error) { console.error('signOut', error); }
 }
 
+// OAuth ile giriş (Google / GitHub). Sağlayıcı Supabase Dashboard'da
+// (Authentication → Providers) etkinleştirilip gerçek client ID/secret
+// girilmeden bu her zaman bir hata döner — kod hazır, kurulum ayrı.
+async function signInWithOAuth(provider) {
+  if (!sb) return { error: 'no-client' };
+  try {
+    const redirectTo = new URL('panel.html', location.href).toString();
+    const { error } = await sb.auth.signInWithOAuth({ provider, options: { redirectTo } });
+    return { error: error ? error.message : null };
+  } catch (error) {
+    console.error('signInWithOAuth', error);
+    return { error: 'unknown' };
+  }
+}
+
 async function getSession() {
   if (!sb) return null;
   try {

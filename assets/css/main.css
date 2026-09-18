@@ -2257,6 +2257,21 @@ button { color: inherit; }
 .auth-form { margin-top: 1.75rem; display: flex; flex-direction: column; gap: 1rem; }
 .auth-status { margin-top: 1rem; font-size: .85rem; color: var(--muted-fg); }
 
+.auth-oauth { margin-top: 1.75rem; display: flex; flex-direction: column; gap: .75rem; }
+.auth-oauth-btn {
+  display: flex; align-items: center; justify-content: center; gap: .65rem;
+  padding: .75rem 1rem; border: 1px solid var(--rule); border-radius: var(--radius-sm);
+  background: var(--card); font-family: var(--sans); font-size: .9rem; font-weight: 600;
+  color: var(--ink); cursor: pointer; transition: border-color .15s, background-color .15s;
+}
+.auth-oauth-btn:hover { border-color: var(--accent); background: var(--accent-soft); }
+.auth-oauth-btn:disabled { opacity: .6; cursor: default; }
+.auth-divider {
+  margin: 1.5rem 0; display: flex; align-items: center; gap: .75rem;
+  color: var(--muted-fg); font-family: var(--mono); font-size: .68rem; letter-spacing: .04em;
+}
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
 .randevu-section { padding-block: clamp(2.5rem, 6vw, 4rem); }
 .randevu-head { max-width: 32rem; margin-bottom: 2rem; }
 .randevu-embed { width: 100%; min-height: 680px; border: 1px solid var(--rule); border-radius: var(--radius-md); overflow: hidden; }

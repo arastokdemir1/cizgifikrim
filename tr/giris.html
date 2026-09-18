@@ -7,7 +7,7 @@
   <meta name="description" content="Müşteri portalına şifresiz giriş.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="../assets/css/main.css?v=50">
+  <link rel="stylesheet" href="../assets/css/main.css?v=51">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -24,6 +24,21 @@
         <p class="folio">MÜŞTERİ PORTALI</p>
         <h1 class="auth-h1">Giriş yap</h1>
         <p class="auth-sub">E-posta adresini yaz, sana tek kullanımlık bir giriş linki gönderelim. Şifre yok.</p>
+
+        <div class="auth-oauth">
+          <button type="button" class="auth-oauth-btn" id="oauth-google">
+            <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 6.1 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 6.1 29.6 4 24 4c-7.5 0-13.9 4.3-17.1 10.5z"/><path fill="#4CAF50" d="M24 44c5.5 0 10.4-1.9 14.2-5.1l-6.6-5.4C29.6 35.1 27 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.6 5.1C9.9 39.6 16.4 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.6 5.4C41.4 36 44 30.6 44 24c0-1.3-.1-2.3-.4-3.5z"/></svg>
+            Google ile giriş yap
+          </button>
+          <button type="button" class="auth-oauth-btn" id="oauth-github">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5 3.3 9.3 7.9 10.8.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0C17.6 5 18.6 5.3 18.6 5.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+            GitHub ile giriş yap
+          </button>
+        </div>
+        <p class="auth-status" id="oauth-status" role="status" aria-live="polite" hidden></p>
+
+        <div class="auth-divider"><span>veya e-posta ile</span></div>
+
         <form id="magic-link-form" class="auth-form">
           <label class="form-field">
             <span class="folio">E-POSTA</span>
@@ -39,7 +54,7 @@
   <footer class="site-footer"><div class="page footer-inner"><div><p class="folio">CİZGİFİKRİM</p><p class="footer-big">Teknoloji, araştırma ve ürün geliştirme.</p><p class="footer-small">İstanbul, Türkiye</p></div><div><p class="folio">İLETİŞİM</p><a href="mailto:hello@cizgifikrim.net" class="footer-email">hello@cizgifikrim.net</a></div><div class="footer-right"><p class="folio">© 2026</p><a href="products.html" class="all-link">Çalışmalar →</a></div></div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8/dist/umd/supabase.js" integrity="sha384-l7yJnh/cWKcqeTC5adHUdc5b+J4Kb2QTGRSkCQehn1YT5xEFlrgwnXOYuvrtI1F6" crossorigin="anonymous"></script>
-<script src="../assets/js/supabase-client.js?v=33"></script>
+<script src="../assets/js/supabase-client.js?v=34"></script>
 <script src="../assets/js/app.js?v=33"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -63,6 +78,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Zaten girişliyse doğrudan panele yönlendir.
   getSession().then((session) => { if (session) location.href = 'panel.html'; });
+
+  const oauthStatus = document.getElementById('oauth-status');
+  const startOAuth = async (provider, btn) => {
+    btn.disabled = true;
+    oauthStatus.hidden = false;
+    oauthStatus.textContent = 'Yönlendiriliyor…';
+    const { error } = await signInWithOAuth(provider);
+    if (error) {
+      btn.disabled = false;
+      oauthStatus.textContent = 'Bu giriş yöntemi henüz açık değil.';
+    }
+  };
+  document.getElementById('oauth-google').addEventListener('click', (e) => startOAuth('google', e.currentTarget));
+  document.getElementById('oauth-github').addEventListener('click', (e) => startOAuth('github', e.currentTarget));
 });
 </script>
 </body>
