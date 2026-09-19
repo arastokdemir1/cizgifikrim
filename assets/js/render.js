@@ -161,6 +161,11 @@ function buildStatusHTML(p) {
           <h3 class="build-status-headline">Canlı — yayında</h3>
           ${statusBadgeHTML(p.status, p.status_label)}
         </div>
+        ${!p.latest_update_text && !p.test_status ? `
+        <div class="build-status-row">
+          <span class="folio">Durum</span>
+          <p>Ürün yayında ve kullanıma açık. Yeni sürüm notları yayınlandıkça burada görünür.</p>
+        </div>` : ''}
         ${p.latest_update_text ? `
         <div class="build-status-row">
           <span class="folio">Son Düzeltme</span>
@@ -924,11 +929,8 @@ async function renderHomeBuildStatus() {
   if (!project) return;
   if (!remoteProject) setStatusNotice(root, 'Güncel aktivite verisi alınamadı; son yayınlanan bilgi gösteriliyor.');
   const slug = safeProjectSlug(project.slug);
-  root.innerHTML = `
-    <a href="projects/${slug}.html" class="build-status-home-link">
-      <p class="folio">${escapeHTML(project.display_name)} — ${escapeHTML(project.tagline)}</p>
-    </a>
-    ${homeBuildNoteHTML(project)}`;
+  if (!slug) return;
+  root.innerHTML = homeBuildNoteHTML(project);
 }
 
 async function renderProjectDetail() {
