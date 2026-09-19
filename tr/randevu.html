@@ -7,7 +7,7 @@
   <meta name="description" content="CizgiFikrim ile gerçek zamanlı bir görüşme planla.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="../assets/css/main.css?v=55">
+  <link rel="stylesheet" href="../assets/css/main.css?v=58">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -21,21 +21,26 @@
   <main>
     <section class="page randevu-section">
       <div class="randevu-head">
-        <p class="folio">RANDEVU</p>
+        <p class="folio">GÖRÜŞME</p>
         <h1 class="auth-h1">Bir görüşme planla</h1>
-        <p class="auth-sub">Aşağıdan uygun bir saat seç — takvim gerçek zamanlı, saniyeler içinde onaylanır.</p>
+        <p class="auth-sub">Takvimden sana uyan saati seç. Onay ve görüşme bağlantısı e-postana hemen gelir.</p>
+        <ul class="randevu-facts">
+          <li><span>SÜRE</span>15 veya 30 dakika</li>
+          <li><span>YER</span>Online görüntülü görüşme</li>
+          <li><span>SONRASI</span>Kapsam ve teklif</li>
+        </ul>
       </div>
-      <div id="my-cal-inline" class="randevu-embed"></div>
+      <div id="my-cal-inline" class="randevu-embed" aria-label="Randevu takvimi"></div>
+      <p class="randevu-alt">Takvimde uygun saat yoksa <a href="contact.html">bize yaz</a>, birlikte bir zaman bulalım.</p>
     </section>
   </main>
 
   <footer class="site-footer"><div class="page footer-inner">
     <div><p class="folio">CİZGİFİKRİM</p><p class="footer-big">Yapay zekâ, mobil ve veri ürünleri geliştiren teknoloji stüdyosu.</p><p class="footer-small">İstanbul, Türkiye</p></div>
-    <div><p class="folio">İLETİŞİM</p><a href="mailto:hello@cizgifikrim.net" class="footer-email">hello@cizgifikrim.net</a><a href="randevu.html" class="footer-cta">Görüşme planla →</a></div>
     <div class="footer-right"><p class="folio">© <span id="year">2026</span> CizgiFikrim</p><p class="footer-legal"><a href="gizlilik.html">Gizlilik</a> · <a href="kosullar.html">Koşullar</a></p></div>
   </div></footer>
 
-<script src="../assets/js/app.js?v=34"></script>
+<script src="../assets/js/app.js?v=35"></script>
 <script type="text/javascript">
   (function (C, A, L) {
     let p = function (a, ar) { a.q.push(ar); };
@@ -65,12 +70,49 @@
   })(window, "https://app.cal.com/embed/embed.js", "init");
 
   Cal("init", { origin: "https://cal.com" });
+
+  // Giriş yapmış ziyaretçinin adı/e-postası forma önceden doldurulur.
+  const calPrefill = (() => {
+    try {
+      const key = Object.keys(localStorage).find((k) => /^sb-.+-auth-token$/.test(k));
+      const user = key ? JSON.parse(localStorage.getItem(key))?.user : null;
+      if (!user) return {};
+      const meta = user.user_metadata || {};
+      const name = meta.full_name || meta.name || meta.user_name || '';
+      return { ...(name ? { name } : {}), ...(user.email ? { email: user.email } : {}) };
+    } catch (_) {
+      return {};
+    }
+  })();
+
   Cal("inline", {
     elementOrSelector: "#my-cal-inline",
     calLink: "cizgifikrim",
     layout: "month_view",
+    config: { theme: "light", layout: "month_view", ...calPrefill },
   });
-  Cal("ui", { cssVarsPerTheme: { light: { "cal-brand": "#2563eb" }, dark: { "cal-brand": "#2563eb" } }, hideEventTypeDetails: false, layout: "month_view" });
+
+  // Takvimi sitenin renk ve kart diline oturtur (tek çerçeve, aynı mavi,
+  // aynı açık yüzeyler) — bkz. cal.com/docs "customize embed css variables".
+  const calVars = {
+    "cal-brand": "#2563eb",
+    "cal-brand-emphasis": "#1d4ed8",
+    "cal-brand-text": "#ffffff",
+    "cal-bg": "#ffffff",
+    "cal-bg-emphasis": "#eff6ff",
+    "cal-bg-subtle": "#f8faff",
+    "cal-bg-muted": "#f8faff",
+    "cal-border": "#d9e2ef",
+    "cal-border-subtle": "#e6ecf5",
+    "cal-border-booker": "#d9e2ef",
+    "cal-border-booker-width": "1px",
+    "cal-text": "#172033",
+    "cal-text-emphasis": "#0f172a",
+    "cal-text-subtle": "#526176",
+    "cal-text-muted": "#64748b",
+    "radius": "12px",
+  };
+  Cal("ui", { theme: "light", cssVarsPerTheme: { light: calVars, dark: calVars }, hideEventTypeDetails: false, layout: "month_view" });
 </script>
 </body>
 </html>

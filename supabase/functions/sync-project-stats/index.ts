@@ -10,7 +10,7 @@ const supabase = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPAB
 
 const SLUG_RE = /^[a-z0-9._-]{1,64}$/i;
 // İstemci tarafı filtreden kaçan bir şey olursa burada ikinci kez elenir.
-const SENSITIVE_RE = /(token|secret|password|şifre|parola|api[ _-]?key|service[_ ]role|anon|rls|polic|izin|izni|grant|revoke|execute|auth|güvenlik|security|vuln|exploit|cve|leak|sızıntı|credential|\.env|revert)/i;
+const SENSITIVE_RE = /(token|secret|password|şifre|parola|api[ _-]?key|service[_ ]role|anon|rls|polic|izin|izni|grant|revoke|execute|auth|güvenlik|security|vuln|exploit|cve|leak|sızıntı|credential|\.env|revert|seed[ _-]?key|unlock|immo|bypass|kilit|sertleştir|harden|güvenli|rol kontrol|audit|debug|\b[A-Z]{2,}-\d+\b)/i;
 
 async function sha256Hex(value: string): Promise<string> {
   const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));

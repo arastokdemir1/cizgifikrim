@@ -164,76 +164,46 @@ function recentUpdatesHTML(p) {
       </div>`;
 }
 
+// Tüm projelerde tek düzen (CarLog'daki gibi): durum başlığı, aktivite satırı,
+// son geliştirmeler listesi. Notlar yalnızca show_commit_detail=true projelerde.
 function buildStatusHTML(p) {
-  const latestUpdate = escapeHTML(p.latest_update_text);
-  const testStatus = escapeHTML(p.test_status);
-  const liveURL = safeExternalURL(p.live_url);
-  if (p.status === 'live') {
-    return `
-      <div class="build-status build-status--live">
-        <div class="build-status-header">
-          <h3 class="build-status-headline">Canlı — yayında</h3>
-          ${statusBadgeHTML(p.status, p.status_label)}
-        </div>
-        ${!p.latest_update_text && !p.test_status ? `
-        <div class="build-status-row">
-          <span class="folio">Durum</span>
-          <p>Ürün yayında ve kullanıma açık. Yeni sürüm notları yayınlandıkça burada görünür.</p>
-        </div>` : ''}
-        ${Number(p.commit_count_30d) > 0 ? `
-        <div class="build-status-row">
-          <span class="folio">Aktivite</span>
-          <p>Son 30 günde ${Number(p.commit_count_30d)} geliştirme${Number(p.commit_count_7d) > 0 ? `, son 7 günde ${Number(p.commit_count_7d)}` : ''}.</p>
-        </div>` : ''}
-        ${recentUpdatesHTML(p) || (p.latest_update_text ? `
-        <div class="build-status-row">
-          <span class="folio">Son geliştirme${p.latest_update_at ? ' · ' + relativeTimeTR(p.latest_update_at) : ''}</span>
-          <p>${latestUpdate}</p>
-        </div>` : '')}
-        ${p.test_status ? `
-        <div class="build-status-row">
-          <span class="folio">Test Durumu</span>
-          <p>${testStatus}</p>
-        </div>` : ''}
-        ${liveURL ? `<a href="${liveURL}" target="_blank" rel="noopener" class="btn-primary build-status-cta">App Store'da Gör<span class="btn-arrow">→</span></a>` : ''}
-      </div>`;
-  }
-
+  const isLive = p.status === 'live';
   const total = Math.max(0, Number(p.commit_count_total) || 0);
   const d30 = Math.max(0, Number(p.commit_count_30d) || 0);
   const d7 = Math.max(0, Number(p.commit_count_7d) || 0);
-  const pct = (n) => (total > 0 ? Math.round((n / total) * 100) : 0);
+  const liveURL = safeExternalURL(p.live_url);
+  // cf-sync'in ürettiği genel "Son N günde…" cümlesi aktivite satırını tekrar eder.
+  const autoNote = /^Son (7|30) günde \d+ geliştirme yapıldı/.test(p.latest_update_text || '');
+
+  let activity;
+  if (d30 > 0) activity = `Son 30 günde ${d30} geliştirme${d7 > 0 ? `, son 7 günde ${d7}` : ''}.`;
+  else if (total > 0) activity = `Toplam ${total} geliştirme. Son 30 günde yeni bir değişiklik yok.`;
+  else activity = isLive ? 'Ürün yayında ve kullanıma açık.' : 'Aktivite verisi henüz senkronize edilmedi.';
+
+  const updates = recentUpdatesHTML(p) || (p.latest_update_text && !autoNote ? `
+      <div class="build-status-row">
+        <span class="folio">Son geliştirme${p.latest_update_at ? ' · ' + relativeTimeTR(p.latest_update_at) : ''}</span>
+        <p>${escapeHTML(p.latest_update_text)}</p>
+      </div>` : '');
 
   return `
-    <div class="build-status build-status--building">
+    <div class="build-status ${isLive ? 'build-status--live' : 'build-status--building'}">
       <div class="build-status-header">
-        <h3 class="build-status-headline">İnşa Durumu</h3>
+        <h3 class="build-status-headline">${isLive ? 'Canlı — yayında' : 'Geliştirme durumu'}</h3>
         ${statusBadgeHTML(p.status, p.status_label)}
       </div>
-      ${total ? `
-      <div class="build-graph">
-        <div class="build-graph-row">
-          <span class="build-graph-label">Son 7 gün</span>
-          <div class="build-graph-track"><div class="build-graph-fill" style="width:${pct(d7)}%"></div></div>
-          <span class="build-graph-value">${d7}</span>
-        </div>
-        <div class="build-graph-row">
-          <span class="build-graph-label">Son 30 gün</span>
-          <div class="build-graph-track"><div class="build-graph-fill" style="width:${pct(d30)}%"></div></div>
-          <span class="build-graph-value">${d30}</span>
-        </div>
-        <div class="build-graph-row">
-          <span class="build-graph-label">Toplam</span>
-          <div class="build-graph-track"><div class="build-graph-fill" style="width:100%"></div></div>
-          <span class="build-graph-value">${total}</span>
-        </div>
-      </div>` : `<p class="build-status-live-note">Aktivite verisi henüz senkronize edilmedi.</p>`}
-      ${recentUpdatesHTML(p) || (p.latest_update_text ? `
       <div class="build-status-row">
-        <span class="folio">Son Güncelleme${p.latest_update_at ? ' · ' + relativeTimeTR(p.latest_update_at) : ''}</span>
-        <p>${latestUpdate}</p>
-      </div>` : '')}
-      ${p.show_commit_detail === false ? `<p class="build-status-privacy-note">Detaylı commit kayıtları güvenlik protokolleri gereği paylaşılmıyor — sadece aktivite istatistikleri gösteriliyor.</p>` : ''}
+        <span class="folio">Aktivite${p.latest_update_at ? ' · son değişiklik ' + relativeTimeTR(p.latest_update_at) : ''}</span>
+        <p>${activity}</p>
+      </div>
+      ${updates}
+      ${p.test_status ? `
+      <div class="build-status-row">
+        <span class="folio">Test durumu</span>
+        <p>${escapeHTML(p.test_status)}</p>
+      </div>` : ''}
+      ${p.show_commit_detail === false ? `<p class="build-status-privacy-note">Bu projede kaynak kod ve değişiklik detayları paylaşılmıyor; yalnızca aktivite gösteriliyor.</p>` : ''}
+      ${isLive && liveURL ? `<a href="${liveURL}" target="_blank" rel="noopener" class="btn-primary build-status-cta">App Store'da gör<span class="btn-arrow">→</span></a>` : ''}
     </div>`;
 }
 
@@ -546,13 +516,15 @@ async function legacyRenderProjectOffice() {
 // UI, `project_activity_events` yayın akışını kullanır. Bu kaynak yoksa aynı
 // senaryoyu "yerel prototip" diye açıkça etiketleyerek sahnenin etkileşimini
 // gösterebilir; dekoratif hareket hiçbir zaman gerçek çalışma diye sunulmaz.
+// Koordinatlar drawOfficeCanvas'ın 1000×620'lik planından yüzdeye çevrilir
+// (x/10, y/6.2). Ajan noktası = karakterin ayak ucu; masaların hemen önünde durur.
 const OFFICE_STATIONS = [
-  { id: 'product', label: 'Ürün masası', x: 15, y: 27, visitX: 22, visitY: 29 },
-  { id: 'research', label: 'Araştırma masası', x: 47, y: 27, visitX: 54, visitY: 29 },
-  { id: 'build', label: 'Uygulama masası', x: 79, y: 27, visitX: 86, visitY: 29 },
-  { id: 'design', label: 'Tasarım masası', x: 15, y: 75, visitX: 22, visitY: 77 },
-  { id: 'meeting', label: 'Ortak alan', x: 47, y: 75, visitX: 55, visitY: 77 },
-  { id: 'review', label: 'İnceleme masası', x: 79, y: 75, visitX: 86, visitY: 77 },
+  { id: 'product', label: 'Ürün masası', x: 17.8, y: 32.3, visitX: 23.2, visitY: 32.3 },
+  { id: 'research', label: 'Araştırma masası', x: 50, y: 32.3, visitX: 55.4, visitY: 32.3 },
+  { id: 'build', label: 'Uygulama masası', x: 82.2, y: 32.3, visitX: 87.6, visitY: 32.3 },
+  { id: 'design', label: 'Tasarım masası', x: 17.8, y: 79.4, visitX: 23.2, visitY: 79.4 },
+  { id: 'meeting', label: 'Ortak alan', x: 42, y: 79.4, visitX: 47.4, visitY: 79.4 },
+  { id: 'review', label: 'İnceleme masası', x: 82.2, y: 79.4, visitX: 87.6, visitY: 79.4 },
 ];
 
 const OFFICE_ROOMS = [
@@ -801,28 +773,72 @@ function appendOfficeEvent(root, team, event, source) {
   dialog.dataset.source = source;
 }
 
+// Yürüme ağı — drawOfficeCanvas'taki gerçek kapı ve koridorlarla birebir:
+// odalar 3×2 ızgara; komşu odalar arasında kapılar (x 339 / 661; üst sıra y 172,
+// alt sıra y 448), dikey koridorlar kapı hattında, yatay koridor y 301'de.
+// Ajan önce odasının "yürüme çizgisinde" (masaların önü) kapıya yürür, kapıdan
+// koridora girer, koridor boyunca hedef odanın kapısına gider, sonra masaya.
+const OFFICE_NAV = {
+  colOf: (x) => (x < 339 ? 0 : x < 661 ? 1 : 2),
+  rowOf: (y) => (y < 301 ? 0 : 1),
+  doorsX: [[339], [339, 661], [661]],
+  doorY: [172, 448],
+  walkY: [200, 492],
+  corridorY: 301,
+  // Kapı ağzının oda içindeki karşılığı (duvarın 18 birim içi).
+  innerX: (doorX, col) => (doorX === 339 ? (col === 0 ? 310 : 368) : (col === 1 ? 632 : 690)),
+};
+
 function officeWalkPath(from, to) {
-  if (Math.abs(from.x - to.x) < .1 && Math.abs(from.y - to.y) < .1) return [to];
-  const points = [from];
-  const changingFloor = (from.y < 50) !== (to.y < 50);
-  if (changingFloor) {
-    const exitX = from.x < 33 ? 33 : from.x > 66 ? 66 : 50;
-    points.push({ x: exitX, y: from.y });
-    points.push({ x: exitX, y: 51 });
-    points.push({ x: to.x, y: 51 });
+  const toUnits = (p) => ({ x: p.x * 10, y: p.y * 6.2 });
+  const toPct = (p) => ({ x: +(p.x / 10).toFixed(2), y: +(p.y / 6.2).toFixed(2) });
+  const a = toUnits(from);
+  const b = toUnits(to);
+  const n = OFFICE_NAV;
+  const ca = n.colOf(a.x); const ra = n.rowOf(a.y);
+  const cb = n.colOf(b.x); const rb = n.rowOf(b.y);
+  const pts = [a];
+
+  if (ca === cb && ra === rb) {
+    // Aynı oda: masaların önündeki yürüme çizgisi üzerinden.
+    pts.push({ x: a.x, y: n.walkY[ra] }, { x: b.x, y: n.walkY[rb] }, b);
   } else {
-    const aisleY = from.y < 50 ? 31 : 73;
-    points.push({ x: from.x, y: aisleY });
-    points.push({ x: to.x, y: aisleY });
+    const dist = (p, q) => Math.abs(p.x - q.x) + Math.abs(p.y - q.y);
+    const corridor = (d1, d2) => {
+      if (d1.x === d2.x && d1.y === d2.y) return [];
+      if (d1.x === d2.x) return [d2];
+      return [{ x: d1.x, y: n.corridorY }, { x: d2.x, y: n.corridorY }, d2];
+    };
+    let best = null;
+    n.doorsX[ca].forEach((dxA) => n.doorsX[cb].forEach((dxB) => {
+      const dA = { x: dxA, y: n.doorY[ra] };
+      const dB = { x: dxB, y: n.doorY[rb] };
+      const route = [
+        { x: a.x, y: n.walkY[ra] },
+        { x: n.innerX(dxA, ca), y: n.walkY[ra] },
+        { x: n.innerX(dxA, ca), y: dA.y },
+        dA,
+        ...corridor(dA, dB),
+        { x: n.innerX(dxB, cb), y: dB.y },
+        { x: n.innerX(dxB, cb), y: n.walkY[rb] },
+        { x: b.x, y: n.walkY[rb] },
+        b,
+      ];
+      let len = 0; let prev = a;
+      route.forEach((p) => { len += dist(prev, p); prev = p; });
+      if (!best || len < best.len) best = { len, route };
+    }));
+    pts.push(...best.route);
   }
-  points.push(to);
-  return points.filter((point, index, all) => index === 0 || point.x !== all[index - 1].x || point.y !== all[index - 1].y);
+  return pts
+    .filter((p, i, all) => i === 0 || Math.abs(p.x - all[i - 1].x) > .5 || Math.abs(p.y - all[i - 1].y) > .5)
+    .map(toPct);
 }
 
 function walkOfficeAgent(moving, destination) {
   const from = {
-    x: Number.parseFloat(moving.dataset.officeX) || 15,
-    y: Number.parseFloat(moving.dataset.officeY) || 27,
+    x: Number.parseFloat(moving.dataset.officeX) || OFFICE_STATIONS[0].x,
+    y: Number.parseFloat(moving.dataset.officeY) || OFFICE_STATIONS[0].y,
   };
   const path = officeWalkPath(from, destination);
   moving.getAnimations().forEach((animation) => animation.cancel());
@@ -835,11 +851,16 @@ function walkOfficeAgent(moving, destination) {
     moving.classList.remove('is-walking');
     return;
   }
-  const animation = moving.animate(path.map((point, index) => ({
-    left: `${point.x}%`,
-    top: `${point.y}%`,
-    offset: index / (path.length - 1),
-  })), { duration: 2300, easing: 'linear', fill: 'none' });
+  // Sabit yürüme hızı: her ara noktanın zamanı, o ana kadar yürünen mesafeyle
+  // orantılı (plan birimi cinsinden; x ve y ölçekleri farklı olduğu için).
+  const seg = path.slice(1).map((p, i) => Math.hypot((p.x - path[i].x) * 10, (p.y - path[i].y) * 6.2));
+  const total = seg.reduce((sum, d) => sum + d, 0) || 1;
+  let walked = 0;
+  const frames = path.map((point, index) => {
+    if (index > 0) walked += seg[index - 1];
+    return { left: `${point.x}%`, top: `${point.y}%`, offset: Math.min(1, walked / total) };
+  });
+  const animation = moving.animate(frames, { duration: Math.max(900, total * 5.2), easing: 'linear', fill: 'none' });
   animation.addEventListener('finish', () => {
     moving.classList.remove('is-walking');
     moving.classList.add('is-moving');

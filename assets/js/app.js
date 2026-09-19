@@ -41,7 +41,18 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const authSlots = document.querySelectorAll('[data-auth-slot]');
   const guestMarkup = new Map([...authSlots].map((slot) => [slot, slot.innerHTML]));
+  // Sayfa içindeki "Hesap oluştur" gibi misafir çağrıları: girişte
+  // data-auth-alt-text / data-auth-alt-href değerleriyle değiştirilir.
+  const authAlts = [...document.querySelectorAll('[data-auth-alt-text], [data-auth-alt-href]')]
+    .map((el) => ({ el, text: el.textContent, href: el.getAttribute('href') }));
+  const renderAuthAlts = (user) => {
+    authAlts.forEach(({ el, text, href }) => {
+      el.textContent = user && el.dataset.authAltText ? el.dataset.authAltText : text;
+      if (href !== null) el.setAttribute('href', user && el.dataset.authAltHref ? el.dataset.authAltHref : href);
+    });
+  };
   const renderAuth = (user) => {
+    renderAuthAlts(user);
     authSlots.forEach((slot) => {
       if (!user) { slot.innerHTML = guestMarkup.get(slot); return; }
       const base = slot.dataset.base || '';
@@ -55,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slot.innerHTML = `<a href="${base}panel.html" class="${cls}" title="Panelim"${onPanel}><span class="nav-user-avatar" aria-hidden="true">${avatar}</span><span class="nav-user-name">${escapeText(label)}</span></a>`;
     });
   };
-  if (authSlots.length) {
+  if (authSlots.length || authAlts.length) {
     renderAuth(readStoredUser());
     // OAuth/magic link dönüşünde oturum sayfa yüklendikten sonra kurulur.
     if (typeof onAuthStateChange === 'function') onAuthStateChange((session) => renderAuth(session?.user || null));
