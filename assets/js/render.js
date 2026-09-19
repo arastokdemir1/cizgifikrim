@@ -731,9 +731,9 @@ function liveOfficeFrameHTML(project, team) {
       </header>
       <div class="lo-layout">
         <section class="lo-floor-wrap" aria-label="Etkileşimli proje ofisi">
+          <div class="lo-conversation" role="status" aria-live="polite"><span class="lo-conversation-dot" aria-hidden="true"></span><span data-office-dialog>Akış hazırlanıyor…</span></div>
             <div class="lo-floor" data-office-floor>
             <canvas class="lo-pixel-canvas" data-office-canvas aria-hidden="true"></canvas>
-            <div class="lo-conversation" data-office-dialog role="status" aria-live="polite">Akış hazırlanıyor…</div>
             ${team.map((agentId, index) => officePersonHTML(team, agentId, index)).join('')}
           </div>
           <p class="lo-floor-help">Bir ajana tıkla: görevini, bulunduğu alanı ve son sinyali öne çıkar.</p>
@@ -771,6 +771,9 @@ function appendOfficeEvent(root, team, event, source) {
   while (log.children.length > 5) log.lastElementChild.remove();
   dialog.textContent = officeEventText(team, event);
   dialog.dataset.source = source;
+  // Şerit her yeni olayda kısa bir vurguyla güncellenir (ofisin üstünü kapatmaz).
+  const bar = dialog.closest('.lo-conversation');
+  if (bar) { bar.classList.remove('is-new'); void bar.offsetWidth; bar.classList.add('is-new'); }
 }
 
 // Yürüme ağı — drawOfficeCanvas'taki gerçek kapı ve koridorlarla birebir:

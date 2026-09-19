@@ -2431,3 +2431,14 @@ button { color: inherit; }
 .build-status--building .build-status-headline { color: var(--live); }
 .build-status .status-badge .status-dot { background: var(--live); }
 .build-status .status-badge [class^="label-"] { color: var(--live); }
+/* Ofis konuşmaları: kat planının üstünü kapatan balon yerine planın hemen
+   üstünde tek satırlık canlı akış şeridi. */
+.live-office .lo-conversation { position: static; transform: none; display: flex; align-items: center; gap: .6rem; max-width: none; min-height: 2.6rem; margin: 0 0 .75rem; padding: .55rem .9rem; border: 1px solid #2c3f66; border-radius: .7rem; background: #0f1a30; box-shadow: none; color: #dbe4ff; font-size: .8rem; line-height: 1.4; text-align: left; }
+.live-office .lo-conversation-dot { flex-shrink: 0; width: .5rem; height: .5rem; border-radius: 50%; background: #6ee7bf; box-shadow: 0 0 0 3px rgba(110, 231, 191, .18); }
+.live-office .lo-conversation.is-new { animation: lo-strip-in .45s cubic-bezier(.16, 1, .3, 1); }
+@keyframes lo-strip-in { from { opacity: .35; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+@media (max-width: 780px) { .live-office .lo-conversation { top: auto; max-width: none; font-size: .72rem; } }
+@media (max-width: 460px) { .live-office .lo-conversation { font-size: .66rem; padding: .45rem .7rem; } }
+@media (prefers-reduced-motion: reduce) { .live-office .lo-conversation.is-new { animation: none; } }
+.live-office .lo-agent-label strong { color: #eef2ff; }
+.live-office .lo-agent-label small { color: #9fb0d8; }
