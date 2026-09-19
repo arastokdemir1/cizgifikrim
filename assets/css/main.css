@@ -2426,3 +2426,8 @@ button { color: inherit; }
 @media (max-width: 780px) { .live-office .lo-agent { --lo-agent-scale: .82; } }
 @media (max-width: 460px) { .live-office .lo-agent { --lo-agent-scale: .68; } }
 @media (min-width: 1024px) { .footer-inner { grid-template-columns: minmax(0, 1fr) auto; } }
+/* Proje aktivite kartı her projede CarLog'daki görünümle aynı: başlık ve
+   durum rozeti aynı yeşil tonda (metin projenin gerçek durumunu söyler). */
+.build-status--building .build-status-headline { color: var(--live); }
+.build-status .status-badge .status-dot { background: var(--live); }
+.build-status .status-badge [class^="label-"] { color: var(--live); }

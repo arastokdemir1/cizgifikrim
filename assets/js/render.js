@@ -189,11 +189,11 @@ function buildStatusHTML(p) {
   return `
     <div class="build-status ${isLive ? 'build-status--live' : 'build-status--building'}">
       <div class="build-status-header">
-        <h3 class="build-status-headline">${isLive ? 'Canlı — yayında' : 'Geliştirme durumu'}</h3>
+        <h3 class="build-status-headline">${isLive ? 'Canlı — yayında' : 'Geliştiriliyor'}</h3>
         ${statusBadgeHTML(p.status, p.status_label)}
       </div>
       <div class="build-status-row">
-        <span class="folio">Aktivite${p.latest_update_at ? ' · son değişiklik ' + relativeTimeTR(p.latest_update_at) : ''}</span>
+        <span class="folio">Aktivite</span>
         <p>${activity}</p>
       </div>
       ${updates}
