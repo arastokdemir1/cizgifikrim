@@ -2399,3 +2399,13 @@ button { color: inherit; }
 .home-service h3 { margin-top: 2.25rem; padding-top: 0; }
 .home-steps h3 { margin-top: .9rem; padding-top: 0; }
 .lab-hero-copy h1 { max-width: 18ch; }
+/* Commit senkronizasyonu: ana sayfa aktivite kartları + proje sayfası notları */
+.home-activity { display: grid; grid-template-columns: 1fr; gap: .9rem; }
+@media (min-width: 900px) { .home-activity { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.home-activity .lab-home-note { max-width: none; margin-top: 0; display: flex; flex-direction: column; }
+.home-activity .lab-home-note h3 { margin-top: 1.1rem; }
+.home-activity .lab-home-note p { flex: 1; }
+.build-updates { margin-top: .5rem; display: grid; gap: .55rem; }
+.build-updates li { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: .75rem; font-size: .9rem; line-height: 1.5; color: var(--fg); }
+.build-updates time { color: var(--muted-fg); font-family: var(--mono); font-size: .72rem; padding-top: .15rem; }
+@media (max-width: 480px) { .build-updates li { grid-template-columns: 1fr; gap: .1rem; } }

@@ -24,6 +24,13 @@ async function hmacHex(secret: string, body: string): Promise<string> {
   return Array.from(new Uint8Array(sig)).map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
+function timingSafeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
 // Webhook payload'ı bazen eksik/güncel olmayabilir; kanonik veriyi Cal.com
 // API v2'den doğrulamak için API key'i burada, sadece sunucu tarafında kullanıyoruz.
 async function fetchCanonicalBooking(uid: string) {
@@ -50,12 +57,15 @@ Deno.serve(async (req: Request) => {
 
   const rawBody = await req.text();
 
-  if (CAL_WEBHOOK_SECRET) {
-    const signature = req.headers.get("x-cal-signature-256") || "";
-    const expected = await hmacHex(CAL_WEBHOOK_SECRET, rawBody);
-    if (signature !== expected) {
-      return new Response("invalid signature", { status: 401 });
-    }
+  // Secret tanımlı değilse imzasız istekleri kabul etmek yerine reddet:
+  // aksi halde herkes bookings tablosuna sahte kayıt yazabilirdi.
+  if (!CAL_WEBHOOK_SECRET) {
+    return new Response("webhook secret not configured", { status: 503 });
+  }
+  const signature = req.headers.get("x-cal-signature-256") || "";
+  const expected = await hmacHex(CAL_WEBHOOK_SECRET, rawBody);
+  if (!timingSafeEqual(signature, expected)) {
+    return new Response("invalid signature", { status: 401 });
   }
 
   let payload: any;

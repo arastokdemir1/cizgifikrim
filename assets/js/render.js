@@ -150,6 +150,20 @@ function relativeTimeTR(dateStr) {
   return `${days} gün önce`;
 }
 
+// cf-sync'in yazdığı filtrelenmiş geliştirme notları (yalnızca
+// show_commit_detail=true projelerde dolu gelir).
+function recentUpdatesHTML(p) {
+  if (p.show_commit_detail === false || !Array.isArray(p.recent_updates) || !p.recent_updates.length) return '';
+  const items = p.recent_updates.slice(0, 6).map((u) => `
+        <li><time datetime="${escapeHTML(u.at)}">${escapeHTML(relativeTimeTR(u.at))}</time><span>${escapeHTML(u.text)}</span></li>`).join('');
+  return `
+      <div class="build-status-row">
+        <span class="folio">Son geliştirmeler</span>
+        <ol class="build-updates">${items}
+        </ol>
+      </div>`;
+}
+
 function buildStatusHTML(p) {
   const latestUpdate = escapeHTML(p.latest_update_text);
   const testStatus = escapeHTML(p.test_status);
@@ -166,11 +180,16 @@ function buildStatusHTML(p) {
           <span class="folio">Durum</span>
           <p>Ürün yayında ve kullanıma açık. Yeni sürüm notları yayınlandıkça burada görünür.</p>
         </div>` : ''}
-        ${p.latest_update_text ? `
+        ${Number(p.commit_count_30d) > 0 ? `
         <div class="build-status-row">
-          <span class="folio">Son Düzeltme</span>
-          <p>${latestUpdate}</p>
+          <span class="folio">Aktivite</span>
+          <p>Son 30 günde ${Number(p.commit_count_30d)} geliştirme${Number(p.commit_count_7d) > 0 ? `, son 7 günde ${Number(p.commit_count_7d)}` : ''}.</p>
         </div>` : ''}
+        ${recentUpdatesHTML(p) || (p.latest_update_text ? `
+        <div class="build-status-row">
+          <span class="folio">Son geliştirme${p.latest_update_at ? ' · ' + relativeTimeTR(p.latest_update_at) : ''}</span>
+          <p>${latestUpdate}</p>
+        </div>` : '')}
         ${p.test_status ? `
         <div class="build-status-row">
           <span class="folio">Test Durumu</span>
@@ -209,11 +228,11 @@ function buildStatusHTML(p) {
           <span class="build-graph-value">${total}</span>
         </div>
       </div>` : `<p class="build-status-live-note">Aktivite verisi henüz senkronize edilmedi.</p>`}
-      ${p.latest_update_text ? `
+      ${recentUpdatesHTML(p) || (p.latest_update_text ? `
       <div class="build-status-row">
         <span class="folio">Son Güncelleme${p.latest_update_at ? ' · ' + relativeTimeTR(p.latest_update_at) : ''}</span>
         <p>${latestUpdate}</p>
-      </div>` : ''}
+      </div>` : '')}
       ${p.show_commit_detail === false ? `<p class="build-status-privacy-note">Detaylı commit kayıtları güvenlik protokolleri gereği paylaşılmıyor — sadece aktivite istatistikleri gösteriliyor.</p>` : ''}
     </div>`;
 }
@@ -228,7 +247,7 @@ function homeBuildNoteHTML(p) {
     <article class="lab-home-note">
       <div class="lab-home-note-meta">
         <span>${category}</span>
-        <span>${status}</span>
+        <span>${p.latest_update_at ? escapeHTML(relativeTimeTR(p.latest_update_at)) : status}</span>
       </div>
       <h3>${escapeHTML(p.display_name || 'Çalışma notu')}</h3>
       <p>${update}</p>
@@ -924,13 +943,20 @@ async function renderProjectOffice() {
 async function renderHomeBuildStatus() {
   const root = document.getElementById('home-build-status');
   if (!root) return;
-  const remoteProject = await fetchProjectBySlug(root.dataset.slug || 'ersoy');
-  const project = remoteProject || STATIC_PROJECTS.find(p => p.slug === (root.dataset.slug || 'ersoy'));
-  if (!project) return;
-  if (!remoteProject) setStatusNotice(root, 'Güncel aktivite verisi alınamadı; son yayınlanan bilgi gösteriliyor.');
-  const slug = safeProjectSlug(project.slug);
-  if (!slug) return;
-  root.innerHTML = homeBuildNoteHTML(project);
+  // En son geliştirme yapılan 3 proje (cf-sync'in yazdığı latest_update_at'e göre).
+  const remote = await fetchAllProjects();
+  const active = (remote || [])
+    .filter((p) => p.latest_update_at && p.latest_update_text)
+    .sort((a, b) => new Date(b.latest_update_at) - new Date(a.latest_update_at))
+    .slice(0, 3);
+  if (!active.length) {
+    const fallback = STATIC_PROJECTS.find((p) => p.slug === (root.dataset.slug || 'ersoy'));
+    if (!fallback) return;
+    setStatusNotice(root, 'Güncel aktivite verisi alınamadı; son yayınlanan bilgi gösteriliyor.');
+    root.innerHTML = homeBuildNoteHTML(fallback);
+    return;
+  }
+  root.innerHTML = `<div class="home-activity">${active.map(homeBuildNoteHTML).join('')}</div>`;
 }
 
 async function renderProjectDetail() {
