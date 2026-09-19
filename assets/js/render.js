@@ -12,7 +12,7 @@ const STATIC_PROJECTS = [
   ['aka', 'ALP', 'Yerel Yapay Zekâ Asistanı', 'Tamamen yerel çalışan, gizlilik odaklı yapay zekâ asistanı.', 'otonom-ai', 'wip', 'Geliştiriliyor'],
   ['arda', 'Arda', 'Masaüstü & Ses Odaklı AI', 'Doğrudan etkileşim ve otomasyon için tasarlanan bilişsel asistan.', 'otonom-ai', 'wip', 'Geliştiriliyor'],
   ['carlog', 'CarLog', 'iOS Araç Maliyet Uygulaması', 'Araç maliyet yönetimi, yakıt takibi ve verimlilik analizi için mobil çözüm.', 'mobil', 'live', 'Canlı'],
-  ['piyasa', 'PiyasApp', 'Konum Tabanlı Sosyal Keşif', 'Çevrende şu an ne olduğunu canlı bir harita üzerinde gösteren sosyal keşif uygulaması.', 'mobil', 'wip', 'Geliştiriliyor'],
+  ['piyasa', 'PiyasApp', 'Konum Tabanlı Sosyal Keşif', 'Çevrende şu an ne olduğunu canlı bir harita üzerinde gösteren sosyal keşif uygulaması.', 'mobil', 'live', 'Canlı'],
   ['focusgrid', 'FocusGrid', 'Minimalist Odaklanma Aracı', 'Odaklanmayı destekleyen minimalist mobil araç.', 'mobil', 'live', 'Canlı'],
   ['flowgraph', 'FlowGraph', 'Kişisel Finans Akışı', 'Kişisel finans akışını görünür kılan mobil uygulama.', 'mobil', 'live', 'Canlı'],
   ['gnomon', 'Gnomon', 'macOS Proje Yönetimi', 'Bağımlılık-kilitleme motorlu proje yönetimi.', 'mobil', 'wip', 'Geliştiriliyor'],
