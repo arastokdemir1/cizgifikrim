@@ -8,8 +8,13 @@
   <meta name="robots" content="noindex">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="../assets/css/main.css?v=61">
+  <link rel="stylesheet" href="../assets/css/main.css?v=62">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <script>
+    // OAuth / e-posta linkiyle yeni girişten dönüldüğünde adreste token bulunur.
+    // Supabase istemcisi adresi temizlemeden önce bunu yakalıyoruz.
+    window.__cfFreshAuth = /(^|[#&?])access_token=/.test(location.hash + location.search);
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="page header-inner">
@@ -79,13 +84,18 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8/dist/umd/supabase.js" integrity="sha384-l7yJnh/cWKcqeTC5adHUdc5b+J4Kb2QTGRSkCQehn1YT5xEFlrgwnXOYuvrtI1F6" crossorigin="anonymous"></script>
 <script src="../assets/js/supabase-client.js?v=35"></script>
-<script src="../assets/js/app.js?v=35"></script>
+<script src="../assets/js/app.js?v=36"></script>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
   const session = await getSession();
   const loading = document.getElementById('panel-loading');
   const app = document.getElementById('panel-app');
   const guest = document.getElementById('panel-guest');
+  if (session && window.__cfFreshAuth) {
+    // Yeni giriş: kullanıcıyı geldiği sayfaya (yoksa ana sayfaya) döndür.
+    location.replace(window.cfTakeReturnTo ? (window.cfTakeReturnTo() || 'index.html') : 'index.html');
+    return;
+  }
   loading.hidden = true;
 
   if (!session) {

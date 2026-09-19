@@ -7,7 +7,7 @@
   <meta name="description" content="CizgiFikrim ile gerçek zamanlı bir görüşme planla.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="../assets/css/main.css?v=61">
+  <link rel="stylesheet" href="../assets/css/main.css?v=62">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -25,12 +25,18 @@
         <h1 class="auth-h1">Bir görüşme planla</h1>
         <p class="auth-sub">Takvimden sana uyan saati seç. Onay ve görüşme bağlantısı e-postana hemen gelir.</p>
         <ul class="randevu-facts">
-          <li><span>SÜRE</span>15 veya 30 dakika</li>
           <li><span>YER</span>Online görüntülü görüşme</li>
           <li><span>SONRASI</span>Kapsam ve teklif</li>
         </ul>
+        <div class="randevu-tabs" role="tablist" aria-label="Görüşme süresi">
+          <button type="button" role="tab" id="tab-30" aria-selected="true" aria-controls="cal-30" class="on" data-cal-tab="30">30 dakika</button>
+          <button type="button" role="tab" id="tab-15" aria-selected="false" aria-controls="cal-15" data-cal-tab="15">15 dakika</button>
+        </div>
       </div>
-      <div id="my-cal-inline" class="randevu-embed" aria-label="Randevu takvimi"></div>
+      <div class="randevu-embed">
+        <div id="cal-30" role="tabpanel" aria-labelledby="tab-30" aria-label="30 dakikalık görüşme takvimi"></div>
+        <div id="cal-15" role="tabpanel" aria-labelledby="tab-15" aria-label="15 dakikalık görüşme takvimi" hidden></div>
+      </div>
       <p class="randevu-alt">Takvimde uygun saat yoksa <a href="contact.html">bize yaz</a>, birlikte bir zaman bulalım.</p>
     </section>
   </main>
@@ -40,7 +46,7 @@
     <div class="footer-right"><p class="folio">© <span id="year">2026</span> CizgiFikrim</p><p class="footer-legal"><a href="gizlilik.html">Gizlilik</a> · <a href="kosullar.html">Koşullar</a></p></div>
   </div></footer>
 
-<script src="../assets/js/app.js?v=35"></script>
+<script src="../assets/js/app.js?v=36"></script>
 <script type="text/javascript">
   (function (C, A, L) {
     let p = function (a, ar) { a.q.push(ar); };
@@ -69,8 +75,6 @@
     };
   })(window, "https://app.cal.com/embed/embed.js", "init");
 
-  Cal("init", { origin: "https://cal.com" });
-
   // Giriş yapmış ziyaretçinin adı/e-postası forma önceden doldurulur.
   const calPrefill = (() => {
     try {
@@ -85,34 +89,46 @@
     }
   })();
 
-  Cal("inline", {
-    elementOrSelector: "#my-cal-inline",
-    calLink: "cizgifikrim",
-    layout: "month_view",
-    config: { theme: "light", layout: "month_view", ...calPrefill },
-  });
-
-  // Takvimi sitenin renk ve kart diline oturtur (tek çerçeve, aynı mavi,
-  // aynı açık yüzeyler) — bkz. cal.com/docs "customize embed css variables".
+  // Takvimi sitenin renk ve kart diline oturtur — bkz. cal.com/docs
+  // "customize embed css variables".
   const calVars = {
-    "cal-brand": "#2563eb",
-    "cal-brand-emphasis": "#1d4ed8",
-    "cal-brand-text": "#ffffff",
-    "cal-bg": "#ffffff",
-    "cal-bg-emphasis": "#eff6ff",
-    "cal-bg-subtle": "#f8faff",
-    "cal-bg-muted": "#f8faff",
-    "cal-border": "#d9e2ef",
-    "cal-border-subtle": "#e6ecf5",
-    "cal-border-booker": "#d9e2ef",
-    "cal-border-booker-width": "1px",
-    "cal-text": "#172033",
-    "cal-text-emphasis": "#0f172a",
-    "cal-text-subtle": "#526176",
-    "cal-text-muted": "#64748b",
+    "cal-brand": "#2563eb", "cal-brand-emphasis": "#1d4ed8", "cal-brand-text": "#ffffff",
+    "cal-bg": "#ffffff", "cal-bg-emphasis": "#eff6ff", "cal-bg-subtle": "#f8faff", "cal-bg-muted": "#f8faff",
+    "cal-border": "#d9e2ef", "cal-border-subtle": "#e6ecf5", "cal-border-booker": "#d9e2ef", "cal-border-booker-width": "1px",
+    "cal-text": "#172033", "cal-text-emphasis": "#0f172a", "cal-text-subtle": "#526176", "cal-text-muted": "#64748b",
     "radius": "12px",
   };
-  Cal("ui", { theme: "light", cssVarsPerTheme: { light: calVars, dark: calVars }, hideEventTypeDetails: false, layout: "month_view" });
+
+  // Cal'ın kendi "profil listesi" sayfası yerine doğrudan randevu takvimi
+  // açılır (tam genişlik, sayfayla aynı hiza). Süre seçimi bizim sekmelerimizde.
+  const CAL_SLOTS = { 30: "cizgifikrim/30min", 15: "cizgifikrim/15min" };
+  const started = {};
+  function startCal(minutes) {
+    if (started[minutes]) return;
+    started[minutes] = true;
+    const ns = `m${minutes}`;
+    Cal("init", ns, { origin: "https://cal.com" });
+    Cal.ns[ns]("inline", {
+      elementOrSelector: `#cal-${minutes}`,
+      calLink: CAL_SLOTS[minutes],
+      layout: "month_view",
+      config: { theme: "light", layout: "month_view", ...calPrefill },
+    });
+    Cal.ns[ns]("ui", { theme: "light", cssVarsPerTheme: { light: calVars, dark: calVars }, hideEventTypeDetails: false, layout: "month_view" });
+  }
+
+  const tabs = document.querySelectorAll("[data-cal-tab]");
+  function showTab(minutes) {
+    tabs.forEach((tab) => {
+      const on = tab.dataset.calTab === String(minutes);
+      tab.classList.toggle("on", on);
+      tab.setAttribute("aria-selected", String(on));
+    });
+    [30, 15].forEach((m) => { document.getElementById(`cal-${m}`).hidden = m !== minutes; });
+    startCal(minutes);
+  }
+  tabs.forEach((tab) => tab.addEventListener("click", () => showTab(Number(tab.dataset.calTab))));
+  showTab(30);
 </script>
 </body>
 </html>

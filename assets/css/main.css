@@ -2277,13 +2277,19 @@ button { color: inherit; }
 }
 .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
 
-.randevu-section { padding-block: clamp(2.5rem, 6vw, 4rem); }
-.randevu-head { max-width: 40rem; margin-bottom: 2rem; }
-.randevu-facts { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem; }
+.randevu-section { padding-block: clamp(2.5rem, 6vw, 4rem); text-align: center; }
+.randevu-head { max-width: 40rem; margin: 0 auto 2rem; }
+.randevu-head .auth-sub { margin-inline: auto; }
+.randevu-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin-top: 1.5rem; }
 .randevu-facts li { display: inline-flex; align-items: center; gap: .5rem; padding: .45rem .8rem; border: 1px solid var(--rule); border-radius: 999px; background: var(--card); font-size: .85rem; font-weight: 600; color: var(--ink); }
 .randevu-facts span { color: var(--muted-fg); font-family: var(--mono); font-size: .64rem; font-weight: 500; letter-spacing: .08em; }
-/* Cal.com kendi kart çerçevesini çiziyor; ikinci bir çerçeve eklemiyoruz. */
-.randevu-embed { width: 100%; min-height: 420px; }
+.randevu-tabs { display: inline-flex; gap: .25rem; margin-top: 1.5rem; padding: .25rem; border: 1px solid var(--rule); border-radius: 999px; background: var(--card); }
+.randevu-tabs button { padding: .5rem 1.15rem; border: 0; border-radius: 999px; background: none; color: var(--muted-fg); font-family: var(--sans); font-size: .88rem; font-weight: 600; cursor: pointer; transition: background-color .15s, color .15s; }
+.randevu-tabs button:hover { color: var(--ink); }
+.randevu-tabs button.on { background: var(--accent); color: #fff; }
+/* Takvim sayfayla aynı genişlikte; kendi çerçevesini Cal çiziyor. */
+.randevu-embed { width: 100%; min-height: 640px; text-align: left; }
+.randevu-embed > div[hidden] { display: none; }
 .randevu-alt { margin-top: 1.25rem; color: var(--muted-fg); font-size: .9rem; text-align: center; }
 .randevu-alt a { color: var(--accent-strong); font-weight: 600; }
 

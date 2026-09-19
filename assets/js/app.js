@@ -1,3 +1,32 @@
+// ── Girişten sonra geri dönüş ────────────────────────────────────────────────
+// Ziyaretçi hangi sayfadayken "Giriş yap"a bastıysa giriş bitince oraya döner.
+// Supabase yalnızca izinli adreslere (panel.html) yönlendirdiği için dönüş
+// adresi localStorage'da tutulur; panel.html oturumu kurulunca kullanıcıyı
+// oraya geçirir. Adres yalnızca /tr/*.html biçiminde kabul edilir.
+(() => {
+  const RETURN_TTL = 2 * 60 * 60 * 1000;
+  const SAFE_PATH = /^\/tr\/[A-Za-z0-9_\/.-]*\.html(\?[A-Za-z0-9_=&.%-]*)?$/;
+  const store = {
+    get(key) { try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch (_) { return null; } },
+    set(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (_) { /* gizli sekme */ } },
+    del(key) { try { localStorage.removeItem(key); } catch (_) { /* gizli sekme */ } },
+  };
+  const isAuthPage = /\/(giris|kayit)\.html$/.test(location.pathname);
+  if (!isAuthPage) store.set('cf_last_page', { path: location.pathname + location.search, at: Date.now() });
+
+  // giris/kayit sayfaları açılınca son gezilen sayfa "dönüş adresi" olur.
+  window.cfRememberReturn = () => {
+    const last = store.get('cf_last_page');
+    if (last && SAFE_PATH.test(last.path) && Date.now() - last.at < RETURN_TTL) store.set('cf_return_to', last);
+  };
+  // panel.html taze bir girişten sonra çağırır; adres bir kez kullanılır.
+  window.cfTakeReturnTo = () => {
+    const back = store.get('cf_return_to');
+    store.del('cf_return_to');
+    return back && SAFE_PATH.test(back.path) && Date.now() - back.at < RETURN_TTL ? back.path : null;
+  };
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // ── Mobile nav toggle ──────────────────────────────────────────────────────
