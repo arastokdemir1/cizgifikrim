@@ -2442,3 +2442,17 @@ button { color: inherit; }
 @media (prefers-reduced-motion: reduce) { .live-office .lo-conversation.is-new { animation: none; } }
 .live-office .lo-agent-label strong { color: #eef2ff; }
 .live-office .lo-agent-label small { color: #9fb0d8; }
+
+/* Uygulama web demoları (proje sayfaları): telefon çerçevesi içinde iframe. */
+.app-demo { display: grid; grid-template-columns: 1fr; gap: 1.75rem; align-items: center; margin-top: 2.5rem; padding: clamp(1.25rem, 3vw, 2rem); border: 1px solid var(--rule); border-radius: var(--radius-lg); background: var(--card); box-shadow: var(--shadow-sm); }
+@media (min-width: 900px) { .app-demo { grid-template-columns: minmax(0, 1fr) auto; } }
+.app-demo h2 { margin-top: .5rem; font-family: var(--serif); font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 700; letter-spacing: -0.02em; }
+.app-demo-copy > p:not(.folio) { margin-top: .75rem; color: var(--muted-fg); font-size: .95rem; line-height: 1.65; }
+.app-demo-points { margin-top: 1rem; display: grid; gap: .5rem; }
+.app-demo-points li { position: relative; padding-left: 1.2rem; color: var(--fg); font-size: .88rem; line-height: 1.5; }
+.app-demo-points li::before { content: ''; position: absolute; left: 0; top: .55em; width: .45rem; height: .45rem; border-radius: 50%; background: var(--accent); }
+.app-demo-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 1.5rem; }
+.app-demo-full { color: var(--accent-strong); font-size: .9rem; font-weight: 700; }
+.phone-frame { justify-self: center; width: min(360px, 100%); aspect-ratio: 9 / 19.2; padding: 10px; border-radius: 48px; background: #0f172a; box-shadow: 0 0 0 2px #334155 inset, 0 24px 60px -18px rgba(15, 23, 42, .45); }
+.phone-frame iframe { display: block; width: 100%; height: 100%; border: 0; border-radius: 38px; background: #F4F6FB; }
+@media (max-width: 480px) { .phone-frame { border-radius: 40px; padding: 8px; } .phone-frame iframe { border-radius: 32px; } }
