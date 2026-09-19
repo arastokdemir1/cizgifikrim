@@ -171,7 +171,6 @@ function buildStatusHTML(p) {
   const total = Math.max(0, Number(p.commit_count_total) || 0);
   const d30 = Math.max(0, Number(p.commit_count_30d) || 0);
   const d7 = Math.max(0, Number(p.commit_count_7d) || 0);
-  const liveURL = safeExternalURL(p.live_url);
   // cf-sync'in ürettiği genel "Son N günde…" cümlesi aktivite satırını tekrar eder.
   const autoNote = /^Son (7|30) günde \d+ geliştirme yapıldı/.test(p.latest_update_text || '');
 
@@ -203,7 +202,6 @@ function buildStatusHTML(p) {
         <p>${escapeHTML(p.test_status)}</p>
       </div>` : ''}
       ${p.show_commit_detail === false ? `<p class="build-status-privacy-note">Bu projede kaynak kod ve değişiklik detayları paylaşılmıyor; yalnızca aktivite gösteriliyor.</p>` : ''}
-      ${isLive && liveURL ? `<a href="${liveURL}" target="_blank" rel="noopener" class="btn-primary build-status-cta">App Store'da gör<span class="btn-arrow">→</span></a>` : ''}
     </div>`;
 }
 
