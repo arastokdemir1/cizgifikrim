@@ -103,7 +103,8 @@ async function renderProductsPage() {
 function serviceCardHTML(s, index) {
   const isFeatured = s.is_featured ? ' is-featured' : '';
   const delayClass = index === 1 ? ' reveal-d1' : (index >= 2 ? ' reveal-d2' : '');
-  const metaLabel = escapeHTML(s.meta_label || s.meta || `${String(index + 1).padStart(2, '0')} / HİZMET`);
+  const catUpper = s.category ? String(s.category).toLocaleUpperCase('tr-TR') : null;
+  const metaLabel = escapeHTML(s.meta_label || s.meta || (catUpper ? `${String(index + 1).padStart(2, '0')} / ${catUpper}` : `${String(index + 1).padStart(2, '0')} / HİZMET`));
   const statusBadge = escapeHTML(s.status_badge || s.badge || s.status_label || 'Hizmet');
   const title = escapeHTML(s.title || s.name || s.display_name || '');
   const desc = escapeHTML(s.description || s.desc || '');
@@ -113,16 +114,23 @@ function serviceCardHTML(s, index) {
   const pm = s.pricing_model || {};
   const priceTitle = pm.setup_fee || pm.starting_at || s.price_title || s.price || '';
   const priceSub = pm.monthly_fee ? `Kurulum + ${pm.monthly_fee}` : (pm.model || s.price_subtitle || '');
-  const pillText = pm.guarantee || s.price_pill_text || '';
+  const pillText = pm.guarantee || pm.support || pm.delivery || s.price_pill_text || '';
   const isGuarantee = Boolean(pm.guarantee || s.is_guarantee);
-  const priceDetail = s.price_detail || s.pricing_note || '';
-  const pillType = s.price_pill_type || (isGuarantee ? 'is-guarantee' : (s.is_featured ? 'is-guarantee' : (index === 1 ? 'is-speed' : 'is-verified')));
-
-  let pillHTML = '';
-  if (pillText) {
-    const guaranteeIcon = isGuarantee ? '<svg class="check-icon" width="14" height="14" aria-hidden="true"><use href="#check-icon"/></svg> ' : '';
-    pillHTML = `<div><span class="price-pill ${escapeHTML(pillType)}">${guaranteeIcon}${escapeHTML(pillText)}</span></div>`;
+  let pillClass = 'price-pill';
+  let pillIcon = '';
+  if (isGuarantee) {
+    pillClass += ' is-guarantee';
+    pillIcon = '<svg class="check-icon" width="14" height="14" aria-hidden="true"><use href="#check-icon"/></svg> ';
+  } else if (pm.support) {
+    pillClass += ' is-speed';
+    pillIcon = '⚡ ';
+  } else if (pm.delivery) {
+    pillClass += ' is-verified';
+    pillIcon = '🛡️ ';
   }
+  const priceDetail = s.price_detail || s.pricing_note || '';
+
+  const pillHTML = pillText ? `<div><span class="${pillClass}">${pillIcon}${escapeHTML(pillText)}</span></div>` : '';
 
   if (priceTitle || priceDetail) {
     pricingBoxHTML = `
