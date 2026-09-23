@@ -680,7 +680,7 @@
   }
 
   // --- Sektör Önayarı Yükleme ---
-  function applyPreset(presetKey) {
+  function applyPreset(presetKey, shouldRunScenario = true) {
     const p = PRESETS[presetKey];
     if (!p) return;
 
@@ -708,8 +708,30 @@
       }
     });
 
+    if (shouldRunScenario) {
+      runCurrentScenario();
+    }
+  }
+
+  // --- Mod Değiştirici (Switch Mode) ---
+  function switchMode(targetMode) {
+    const isMode2 = targetMode === 2 || targetMode === '2' || targetMode === 'mode_2' || targetMode === 'sales' || targetMode === 'growth';
+    const modeKey = isMode2 ? 'mode_2' : 'mode_1';
+
+    state.mode = modeKey;
+
+    elements.modeTabs.forEach(tab => {
+      const isTarget = tab.getAttribute('data-mode') === modeKey;
+      tab.classList.toggle('is-active', isTarget);
+      tab.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+      tab.setAttribute('aria-pressed', isTarget ? 'true' : 'false');
+    });
+
     runCurrentScenario();
   }
+
+  // Konsoldan veya dış testlerden erişim için dışa aktar
+  window.switchMode = switchMode;
 
   // --- Olay Dinleyicileri (Event Listeners) ---
   function initEvents() {
@@ -718,12 +740,7 @@
       tab.addEventListener('click', function () {
         const mode = this.getAttribute('data-mode');
         if (!mode || mode === state.mode) return;
-
-        state.mode = mode;
-        elements.modeTabs.forEach(t => t.classList.remove('is-active'));
-        this.classList.add('is-active');
-
-        runCurrentScenario();
+        switchMode(mode === 'mode_2' ? 2 : 1);
       });
     });
 
@@ -784,8 +801,20 @@
     updateClock();
     setInterval(updateClock, 30000);
 
-    applyPreset('fashion');
+    // Başlangıç form alanlarını senaryoyu çalıştırmadan doldur
+    applyPreset('fashion', false);
     updateROIDisplay();
+
+    // URL parametresinden modu tespit et (?mode=sales, ?mode=growth, ?mode=cart, ?mode=starter)
+    const urlParams = new URLSearchParams(window.location.search);
+    const modeParam = (urlParams.get('mode') || '').toLowerCase().trim();
+
+    if (['sales', 'growth', '2'].includes(modeParam)) {
+      switchMode(2);
+    } else {
+      switchMode(1);
+    }
+
     initEvents();
   }
 

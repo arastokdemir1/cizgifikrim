@@ -185,12 +185,16 @@ function serviceCardHTML(s, index) {
   // Butonlar / Aksiyonlar
   const secondaryHref = s.demo_url || s.cta_secondary_url || '';
   const isExternal = secondaryHref.startsWith('http');
-  const secondaryText = s.cta_secondary_text || (isExternal ? 'Canlı Demoyu İncele ↗' : 'Tüm Referanslar ↗');
+  const defaultSecondaryText = secondaryHref.includes('demo')
+    ? 'Demoyu İncele ➔'
+    : (isExternal ? 'Canlı Demoyu İncele ↗' : 'Tüm Referanslar ↗');
+  const secondaryText = s.cta_secondary_text || defaultSecondaryText;
   const primaryHref = s.cta_url || s.cta_primary_url || 'randevu.html';
   const primaryText = s.cta_text || s.cta_primary_text || 'Görüşme Planla';
 
+  const targetAttr = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
   const secondaryBtn = secondaryHref ? `
-    <a href="${escapeHTML(secondaryHref)}" ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''} class="service-cta-btn is-secondary">${escapeHTML(secondaryText)}</a>` : '';
+    <a href="${escapeHTML(secondaryHref)}"${targetAttr} class="service-cta-btn is-secondary">${escapeHTML(secondaryText)}</a>` : '';
   const primaryBtn = `
     <a href="${escapeHTML(primaryHref)}" class="service-cta-btn is-primary">${escapeHTML(primaryText)} <span aria-hidden="true">→</span></a>`;
 
