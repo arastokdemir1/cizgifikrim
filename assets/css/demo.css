@@ -1,0 +1,1214 @@
+/* ==========================================================================
+   CizgiFikrim — E-Ticaret & Shopify WhatsApp Büyüme Simülatörü CSS
+   Tasarım Dili: Apple / Stripe seviyesi sans-serif tipografi, minimalist & responsive
+   ========================================================================== */
+
+/* Demo Sayfa Kök Değişkenleri */
+:root {
+  --wa-bg: #efeae2;
+  --wa-header-bg: #f0f2f5;
+  --wa-incoming-bg: #ffffff;
+  --wa-outgoing-bg: #d9fdd3;
+  --wa-text: #111b21;
+  --wa-muted: #667781;
+  --wa-teal: #00a884;
+  --wa-teal-dark: #008069;
+  --wa-blue-tick: #53bdeb;
+  --wa-border: #e9edef;
+  --wa-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
+  --wa-yellow-info: #ffeecd;
+  --wa-yellow-border: #ffd279;
+}
+
+/* Sayfa Çatısı */
+.demo-page-wrapper {
+  padding-bottom: 5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Hero Bölümü
+   -------------------------------------------------------------------------- */
+.demo-hero {
+  padding-top: 3rem;
+  padding-bottom: 2.5rem;
+  text-align: center;
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.demo-hero .hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.demo-hero .hero-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.demo-hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+
+.demo-hero .demo-hero-lead {
+  font-family: var(--sans);
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  color: var(--muted-fg);
+  line-height: 1.55;
+  max-width: 44rem;
+  margin: 0 auto 1.5rem;
+}
+
+.demo-hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.demo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #0f766e;
+  background: #f0fdfa;
+  border: 1px solid #ccfbf1;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+}
+
+.demo-badge svg {
+  width: 14px;
+  height: 14px;
+  color: var(--wa-teal);
+}
+
+/* --------------------------------------------------------------------------
+   Stüdyo Alanı (2 Kolonlu Grid)
+   -------------------------------------------------------------------------- */
+.demo-studio {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 2.25rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .demo-studio {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Sol Kolon: Kontrol Paneli
+   -------------------------------------------------------------------------- */
+.demo-controls-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.demo-card {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 1.75rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Segmented Mod Değiştirici */
+.demo-mode-switcher-wrap {
+  margin-bottom: 1.5rem;
+}
+
+.demo-mode-switcher {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #f1f5f9;
+  padding: 0.3rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  gap: 0.3rem;
+}
+
+.demo-mode-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.65rem 0.85rem;
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #475569;
+  background: transparent;
+  border: none;
+  border-radius: 0.55rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+  line-height: 1.25;
+  user-select: none;
+}
+
+.demo-mode-tab:hover:not(.is-active) {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.demo-mode-tab.is-active {
+  background: #ffffff;
+  color: var(--accent);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.demo-mode-tab .tab-icon {
+  font-size: 1rem;
+}
+
+.demo-mode-tab .tab-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  font-family: var(--mono);
+  background: #dbeafe;
+  color: var(--accent);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.demo-mode-tab.is-active .tab-tag {
+  background: #eff6ff;
+}
+
+/* Sektör Önayarları (Presets) */
+.demo-preset-group {
+  margin-bottom: 1.5rem;
+}
+
+.demo-section-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.65rem;
+}
+
+.demo-section-label .hint {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  color: #64748b;
+  text-transform: none;
+  font-weight: 500;
+}
+
+.demo-presets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .demo-presets {
+    grid-template-columns: 1fr;
+  }
+}
+
+.demo-preset-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.5rem;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.demo-preset-btn:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: var(--ink);
+}
+
+.demo-preset-btn.is-active {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: var(--accent);
+  box-shadow: 0 0 0 1px #93c5fd;
+}
+
+/* Form Alanları */
+.demo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.demo-form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+@media (max-width: 540px) {
+  .demo-form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.demo-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.demo-field label {
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.demo-field input {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  padding: 0.6rem 0.75rem;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  width: 100%;
+}
+
+.demo-field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.demo-field .field-tip {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  margin-top: 0.15rem;
+}
+
+/* --------------------------------------------------------------------------
+   Canlı ROI & Gelir Kurtarma Hesaplayıcısı
+   -------------------------------------------------------------------------- */
+.demo-roi-card {
+  background: linear-gradient(155deg, #091222 0%, #0f1e36 60%, #122849 100%);
+  color: #f8fafc;
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 35px -5px rgba(15, 23, 42, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.demo-roi-card::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.demo-roi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.85rem;
+}
+
+.demo-roi-title {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.demo-roi-title .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+  display: inline-block;
+}
+
+.demo-roi-period {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: #94a3b8;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.roi-slider-group {
+  margin-bottom: 1.5rem;
+}
+
+.roi-slider-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.roi-slider-head label {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.roi-revenue-display {
+  font-family: var(--mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #38bdf8;
+}
+
+.roi-range-input {
+  width: 100%;
+  height: 7px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #1e293b;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.roi-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #38bdf8;
+  border: 3px solid #091222;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.7);
+  cursor: pointer;
+  transition: transform 0.1s, background-color 0.15s;
+}
+
+.roi-range-input::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  background: #7dd3fc;
+}
+
+.roi-range-input::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #38bdf8;
+  border: 3px solid #091222;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.7);
+  cursor: pointer;
+}
+
+.roi-slider-bounds {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: #64748b;
+  margin-top: 0.4rem;
+}
+
+/* ROI Metrik Çıktıları */
+.demo-roi-metrics {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 1.15rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 480px) {
+  .demo-roi-metrics {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+.roi-metric-primary {
+  display: flex;
+  flex-direction: column;
+}
+
+.roi-metric-label {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+  margin-bottom: 0.2rem;
+}
+
+.roi-metric-amount {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+  font-weight: 800;
+  color: #10b981;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.roi-metric-secondary {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  padding-left: 1rem;
+}
+
+@media (max-width: 480px) {
+  .roi-metric-secondary {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 0.75rem;
+  }
+}
+
+.roi-metric-annual {
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.roi-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.85rem;
+}
+
+.roi-amortization-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.7rem;
+  border-radius: 9999px;
+}
+
+.roi-guarantee-note {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  color: #94a3b8;
+  line-height: 1.4;
+  margin-top: 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   Sağ Kolon: iPhone & WhatsApp Simülatörü
+   -------------------------------------------------------------------------- */
+.demo-preview-col {
+  position: sticky;
+  top: 5.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .demo-preview-col {
+    position: static;
+  }
+}
+
+.iphone-frame {
+  width: 100%;
+  max-width: 390px;
+  background: #111827;
+  border-radius: 48px;
+  padding: 10px;
+  box-shadow: 
+    0 25px 50px -12px rgba(15, 23, 42, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 0 0 4px #1f2937,
+    0 15px 40px rgba(0, 0, 0, 0.2);
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.iphone-screen {
+  background-color: var(--wa-bg);
+  /* Hafif WhatsApp desen arka planı */
+  background-image: radial-gradient(#d1d7db 0.75px, transparent 0.75px), radial-gradient(#d1d7db 0.75px, var(--wa-bg) 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  border-radius: 40px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 690px;
+  position: relative;
+}
+
+/* Status Bar */
+.iphone-statusbar {
+  height: 40px;
+  background: var(--wa-header-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #0f172a;
+  z-index: 10;
+  position: relative;
+}
+
+.iphone-time {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.dynamic-island {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 7px;
+  width: 102px;
+  height: 25px;
+  background: #000000;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 9px;
+  box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.dynamic-island-lens {
+  width: 9px;
+  height: 9px;
+  background: #0d1624;
+  border: 1px solid #1a2333;
+  border-radius: 50%;
+}
+
+.iphone-status-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.iphone-status-icons svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* WhatsApp Üst Başlığı (Header) */
+.wa-header {
+  background: var(--wa-header-bg);
+  padding: 0.45rem 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  z-index: 9;
+}
+
+.wa-back-btn {
+  color: #007aff;
+  display: flex;
+  align-items: center;
+  padding-right: 0.2rem;
+  cursor: pointer;
+}
+
+.wa-profile-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb, #0d9488);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.wa-header-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.wa-header-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.wa-header-name {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--wa-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+.wa-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  color: #00a884;
+  flex-shrink: 0;
+}
+
+.wa-header-status {
+  font-size: 0.67rem;
+  color: #00a884;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wa-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.wa-control-btn {
+  background: transparent;
+  border: none;
+  color: #54656f;
+  cursor: pointer;
+  padding: 0.35rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+.wa-control-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--ink);
+}
+
+.wa-control-btn.is-active {
+  color: var(--accent);
+}
+
+/* Toast / Başarı Bildirimi (iPhone içinde tepeye düşer) */
+.wa-toast-alert {
+  position: absolute;
+  top: 85px;
+  left: 12px;
+  right: 12px;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.65rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  z-index: 30;
+  transform: translateY(-20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s;
+}
+
+.wa-toast-alert.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.wa-toast-alert .toast-icon {
+  font-size: 1rem;
+}
+
+/* WhatsApp Sohbet Gövdesi */
+.wa-chat-body {
+  flex: 1;
+  padding: 0.85rem 0.75rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  scroll-behavior: smooth;
+}
+
+/* Kaydırma çubuğu gizleme */
+.wa-chat-body::-webkit-scrollbar {
+  width: 4px;
+}
+.wa-chat-body::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+/* Güvenlik Bilgi Kutusu */
+.wa-security-box {
+  background: var(--wa-yellow-info);
+  border: 1px solid var(--wa-yellow-border);
+  border-radius: 0.5rem;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.65rem;
+  color: #54656f;
+  text-align: center;
+  line-height: 1.35;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  margin-bottom: 0.3rem;
+}
+
+.wa-date-divider {
+  align-self: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.45rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: #667781;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 1px 0.5px rgba(11, 20, 26, 0.13);
+  margin-bottom: 0.25rem;
+}
+
+/* Mesaj Balonları */
+.wa-bubble-wrap {
+  display: flex;
+  flex-direction: column;
+  max-width: 86%;
+  animation: bubbleFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes bubbleFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.wa-bubble-wrap.wa-incoming {
+  align-self: flex-start;
+}
+
+.wa-bubble-wrap.wa-outgoing {
+  align-self: flex-end;
+}
+
+.wa-bubble {
+  padding: 0.55rem 0.75rem 0.35rem;
+  border-radius: 0.65rem;
+  font-size: 0.81rem;
+  line-height: 1.4;
+  color: var(--wa-text);
+  box-shadow: var(--wa-shadow);
+  position: relative;
+  word-break: break-word;
+}
+
+.wa-incoming .wa-bubble {
+  background: var(--wa-incoming-bg);
+  border-top-left-radius: 0.2rem;
+}
+
+.wa-outgoing .wa-bubble {
+  background: var(--wa-outgoing-bg);
+  border-top-right-radius: 0.2rem;
+}
+
+.wa-bubble-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  margin-top: 0.2rem;
+  font-size: 0.64rem;
+  color: var(--wa-muted);
+}
+
+.wa-ticks-blue {
+  color: var(--wa-blue-tick);
+  display: inline-flex;
+}
+
+/* Balon İçindeki Ürün Kartı */
+.wa-product-card {
+  margin: 0.5rem 0 0.25rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.6rem;
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+}
+
+.wa-product-card-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 0.4rem;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.wa-product-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.wa-product-card-title {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wa-product-card-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin-top: 0.2rem;
+}
+
+.wa-price-old {
+  font-size: 0.7rem;
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+
+.wa-price-new {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #059669;
+}
+
+.wa-stock-tag {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: #d97706;
+  background: #fef3c7;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  margin-top: 0.2rem;
+}
+
+/* İnteraktif WhatsApp Aksiyon Butonları */
+.wa-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+}
+
+.wa-action-btn {
+  background: #ffffff;
+  color: var(--wa-teal);
+  border: 1px solid #e2e8f0;
+  border-radius: 0.55rem;
+  padding: 0.55rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  transition: all 0.15s ease;
+  user-select: none;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.wa-action-btn:hover:not(:disabled) {
+  background: #f0fdfa;
+  border-color: #99f6e4;
+  color: var(--wa-teal-dark);
+}
+
+.wa-action-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.wa-action-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.wa-action-btn.is-primary-action {
+  color: #0284c7;
+}
+
+.wa-action-btn.is-primary-action:hover:not(:disabled) {
+  background: #f0f9ff;
+  border-color: #bae6fd;
+}
+
+/* Yazıyor Animasyonu (Typing Indicator) */
+.wa-typing-bubble {
+  align-self: flex-start;
+  background: #ffffff;
+  padding: 0.55rem 0.85rem;
+  border-radius: 0.65rem;
+  border-top-left-radius: 0.2rem;
+  box-shadow: var(--wa-shadow);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+}
+
+.wa-typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--wa-teal);
+  animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.wa-typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.wa-typing-dot:nth-child(2) { animation-delay: -0.16s; }
+.wa-typing-dot:nth-child(3) { animation-delay: 0s; }
+
+@keyframes typingBounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.4;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* WhatsApp Alt Mesaj Çubuğu (Footer) */
+.wa-footer-bar {
+  background: var(--wa-header-bg);
+  padding: 0.45rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  z-index: 10;
+}
+
+.wa-footer-input {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 1.25rem;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.78rem;
+  color: #54656f;
+  user-select: none;
+}
+
+.wa-footer-icon {
+  color: #54656f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+.iphone-home-bar {
+  height: 18px;
+  background: var(--wa-header-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 2px;
+}
+
+.iphone-home-pill {
+  width: 120px;
+  height: 4px;
+  background: #000000;
+  border-radius: 4px;
+  opacity: 0.4;
+}
+
+/* Simülasyon Sıfırlama & Kontrol Butonları Barı */
+.demo-preview-controls {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.demo-replay-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: #ffffff;
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  transition: all 0.15s ease;
+}
+
+.demo-replay-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* --------------------------------------------------------------------------
+   Dönüşüm Alanı (Bottom CTA)
+   -------------------------------------------------------------------------- */
+.demo-closing-cta {
+  margin-top: 4rem;
+  background: #ffffff;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.demo-closing-cta h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.8vw, 2.25rem);
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.demo-closing-cta p {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  color: var(--muted-fg);
+  max-width: 38rem;
+  margin: 0 auto 1.75rem;
+}
+
+.demo-closing-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Responsive Taşma ve Mobil İyileştirmeler */
+@media (max-width: 768px) {
+  .demo-hero {
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+  }
+  .demo-card {
+    padding: 1.25rem;
+  }
+  .demo-roi-card {
+    padding: 1.25rem;
+  }
+  .iphone-frame {
+    max-width: 100%;
+    border-radius: 36px;
+    padding: 8px;
+  }
+  .iphone-screen {
+    border-radius: 28px;
+    height: 600px;
+  }
+  .demo-closing-cta {
+    padding: 2rem 1.25rem;
+    margin-top: 2.5rem;
+  }
+}
