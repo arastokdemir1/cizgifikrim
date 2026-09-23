@@ -9,38 +9,38 @@
   <meta name="theme-color" content="#F4F6FB">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap">
-  <link rel="stylesheet" href="app.css?v=2">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap">
+  <link rel="stylesheet" href="app.css?v=5">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
   <div class="app" id="app">
-    <div class="statusbar" aria-hidden="true">
-      <span class="clock" data-clock>09:41</span>
-      <span class="demo-chip">WEB DEMO</span>
-      <span class="icons">
-        <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
-        <svg width="26" height="12" viewBox="0 0 26 12" fill="none"><rect x=".5" y=".5" width="22" height="11" rx="3.5" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="17" height="8" rx="2" fill="#34C759"/><rect x="24" y="4" width="1.5" height="4" rx=".75" fill="currentColor" opacity=".4"/></svg>
+    <div class="status" aria-hidden="true">
+      <span data-clock>9:41</span>
+      <span class="r">
+        <svg width="19" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.500" width="3" height="9.500" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+        <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><path d="M8.500 2.200c2.300 0 4.400.9 6 2.400l1.100-1.200A10.300 10.300 0 0 0 8.500.5 10.300 10.300 0 0 0 1.400 3.400l1.100 1.200a8.600 8.600 0 0 1 6-2.400zm0 3.500c1.400 0 2.600.5 3.600 1.400l1.100-1.200a7.100 7.100 0 0 0-9.400 0l1.100 1.200a5.300 5.300 0 0 1 3.600-1.400zm0 3.400c.6 0 1.100.2 1.500.6L8.500 11.500 7 9.700c.4-.4.900-.6 1.500-.6z"/></svg>
+        <svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x=".5" y=".5" width="23" height="12" rx="3.800" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.500" fill="currentColor"/><rect x="24.500" y="4.200" width="1.500" height="4.600" rx=".8" fill="currentColor" opacity=".4"/></svg>
       </span>
     </div>
-    <header class="navbar" data-navbar></header>
-    <main class="screen" id="screen" aria-live="polite"></main>
+    <header class="navbar" id="navbar"></header>
+    <main class="scroll" id="screen" aria-live="polite"></main>
+    <div id="liveActions"></div>
     <nav class="tabbar" aria-label="Sekmeler">
-      <button type="button" data-tab="summary" class="on">
-        <svg width="26" height="22" viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2v18h22"/><path d="M6 15l5-6 4 4 7-8"/></svg>Özet</button>
-      <button type="button" data-tab="live">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 12l4-4"/><path d="M6 12h1M17 12h1M12 6v1M8 8l.6.6"/></svg>Canlı Sürüş</button>
-      <button type="button" data-tab="garage">
-        <svg width="30" height="22" viewBox="0 0 30 22" fill="currentColor"><path d="M6 8l2.4-5A3 3 0 0 1 11.1 1h7.8a3 3 0 0 1 2.7 2L24 8a3 3 0 0 1 3 3v6a2 2 0 0 1-2 2h-1a3 3 0 0 1-6 0h-6a3 3 0 0 1-6 0H5a2 2 0 0 1-2-2v-6a3 3 0 0 1 3-3zm3.3-.2h11.4l-1.7-3.7a1 1 0 0 0-.9-.6h-6.2a1 1 0 0 0-.9.6z"/></svg>Garajım</button>
+      <button type="button" data-v="ozet" class="on"><svg class="ic" width="26" height="22" viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round"><path d="M2 1v18a1 1 0 0 0 1 1h21"/><path d="M6 14.500l5-5.500 3.500 3.500L21 6"/><circle cx="11" cy="9" r="1.800" fill="currentColor"/><circle cx="21" cy="6" r="1.800" fill="currentColor"/></svg>Özet</button>
+      <button type="button" data-v="live"><svg class="ic" width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round"><circle cx="13" cy="13" r="11"/><path d="M13 14l4-5"/><path d="M7 13h.01M13 7v.01M19 13h.01M8.800 8.800l.01.01M17.200 8.800l.01.01M9 18h.01M17 18h.01" stroke-width="2"/></svg>Canlı Sürüş</button>
+      <button type="button" data-v="garage"><svg class="ic" width="34" height="24" viewBox="-2 -2 34 26" fill="currentColor"><path d="M6 8l2.400-5A3 3 0 0 1 11.100 1h7.800a3 3 0 0 1 2.700 2L24 8a3 3 0 0 1 3 3v6a2 2 0 0 1-2 2h-1a3 3 0 0 1-6 0h-6a3 3 0 0 1-6 0H5a2 2 0 0 1-2-2v-6a3 3 0 0 1 3-3zm3.600-.2h10.800l-1.500-3.400a1 1 0 0 0-.9-.6h-6a1 1 0 0 0-.9.6z"/></svg>Garajım</button>
     </nav>
-    <div class="sheet-wrap" data-sheet-wrap>
-      <section class="sheet" role="dialog" aria-modal="true" data-sheet>
-        <div class="sheet-bar"><button type="button" class="pill-btn" data-close>Kapat</button><h2 data-sheet-title></h2><span></span></div>
-        <div class="screen" data-sheet-body></div>
-      </section>
-    </div>
-    <div class="toast" role="status" data-toast></div>
+    <div class="dim" id="dim"></div>
+    <div id="sheets"></div>
+    <aside class="menu-panel" id="menu" aria-label="Menü"></aside>
+    <div class="toast" id="toast" role="status"></div>
   </div>
-  <script src="app.js?v=1"></script>
+  <script src="icons.js?v=3"></script>
+  <script src="core.js?v=3"></script>
+  <script src="views-a.js?v=3"></script>
+  <script src="views-b.js?v=3"></script>
+  <script src="views-c.js?v=3"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>

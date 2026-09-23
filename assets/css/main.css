@@ -2451,7 +2451,12 @@ button { color: inherit; }
 
 /* Uygulama web demoları (proje sayfaları): telefon çerçevesi içinde iframe. */
 .app-demo { display: grid; grid-template-columns: 1fr; gap: 1.75rem; align-items: center; margin-top: 2.5rem; padding: clamp(1.25rem, 3vw, 2rem); border: 1px solid var(--rule); border-radius: var(--radius-lg); background: var(--card); box-shadow: var(--shadow-sm); }
-@media (min-width: 900px) { .app-demo { grid-template-columns: minmax(0, 1fr) auto; } }
+/* İkinci sütun "auto" bırakılırsa bazı tarayıcılarda aspect-ratio'lu
+   .phone-frame'in içerik-tabanlı boyutlandırması yüzde içeren genişliğini
+   360px yerine ~320px'e düşürüyor (grid'in intrinsic sizing geçişi
+   min(360px,100%) içindeki yüzdeyi belirsiz sayıyor). Sabit bir üst sınır
+   vermek bunu önlüyor. */
+@media (min-width: 900px) { .app-demo { grid-template-columns: minmax(0, 1fr) min(360px, 42vw); } }
 .app-demo h2 { margin-top: .5rem; font-family: var(--serif); font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 700; letter-spacing: -0.02em; }
 .app-demo-copy > p:not(.folio) { margin-top: .75rem; color: var(--muted-fg); font-size: .95rem; line-height: 1.65; }
 .app-demo-points { margin-top: 1rem; display: grid; gap: .5rem; }
