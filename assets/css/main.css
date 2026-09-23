@@ -2769,3 +2769,11 @@ button { color: inherit; }
 .services-closing-cta {
   margin-bottom: clamp(3.5rem, 8vw, 6.5rem);
 }
+
+.services-section-head { margin-top: 3.5rem; margin-bottom: 1.5rem; }
+.services-section-head h2 { font-family: var(--serif); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: .4rem; }
+.services-section-head p { max-width: 38rem; color: var(--muted-fg); font-size: .95rem; line-height: 1.6; margin-top: .3rem; }
+@media (min-width: 1024px) {
+  .services-grid-2col { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; max-width: 64rem; margin-inline: auto; }
+}
+

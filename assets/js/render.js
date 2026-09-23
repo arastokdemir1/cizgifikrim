@@ -213,8 +213,11 @@ function serviceCardHTML(s, index) {
 }
 
 async function renderServicesPage() {
-  const root = document.getElementById('services-grid') || document.querySelector('.services-grid');
-  if (!root) return;
+  const ecomRoot = document.getElementById('services-grid-ecommerce');
+  const customRoot = document.getElementById('services-grid-custom');
+  const singleRoot = document.getElementById('services-grid') || document.querySelector('.services-grid');
+
+  if (!ecomRoot && !customRoot && !singleRoot) return;
 
   if (typeof fetchActiveServices !== 'function') return;
 
@@ -224,9 +227,16 @@ async function renderServicesPage() {
     return;
   }
 
-  root.innerHTML = remoteServices
-    .map((s, i) => serviceCardHTML(s, i))
-    .join('');
+  if (ecomRoot || customRoot) {
+    const ecom = remoteServices.filter(s => s.category === 'E-Ticaret WhatsApp Sistemleri');
+    const custom = remoteServices.filter(s => s.category !== 'E-Ticaret WhatsApp Sistemleri');
+    if (ecomRoot) ecomRoot.innerHTML = ecom.map((s, i) => serviceCardHTML(s, i)).join('');
+    if (customRoot) customRoot.innerHTML = custom.map((s, i) => serviceCardHTML(s, i + ecom.length)).join('');
+  } else if (singleRoot) {
+    singleRoot.innerHTML = remoteServices
+      .map((s, i) => serviceCardHTML(s, i))
+      .join('');
+  }
 
   if (window.initReveal) window.initReveal();
 }
