@@ -40,20 +40,18 @@
   };
   const viewport = () => (matchMedia('(max-width: 767px)').matches ? 'mobile' : 'desktop');
 
-  const send = (table, body, useBeacon) => {
-    const url = `${REST}/${table}`;
-    const payload = JSON.stringify(body);
-    if (useBeacon && navigator.sendBeacon) {
-      // sendBeacon özel başlık taşıyamaz; apikey'i sorgu dizesine ekliyoruz
-      // (anon key zaten herkese açık, tarayıcıda gömülü — bkz. supabase-client.js).
-      const ok = navigator.sendBeacon(`${url}?apikey=${KEY}`, new Blob([payload], { type: 'application/json' }));
-      if (ok) return;
-    }
-    fetch(url, {
+  const send = (table, body) => {
+    // navigator.sendBeacon burada kullanılmıyor: Content-Type: application/json
+    // çapraz-kaynak (cross-origin) isteklerde CORS-safelisted değil, tarayıcı
+    // beacon'u sessizce iptal ediyor (sendBeacon() true dönse bile) ve bunu
+    // fark edip fetch'e düşecek bir yol yok. fetch + keepalive hem sayfa
+    // kapanırken hayatta kalıyor hem de gerçek CORS ön-uçuşunu (preflight)
+    // düzgün yürütüyor.
+    fetch(`${REST}/${table}`, {
       method: 'POST',
       keepalive: true,
       headers: { 'Content-Type': 'application/json', apikey: KEY, Authorization: `Bearer ${KEY}`, Prefer: 'return=minimal' },
-      body: payload,
+      body: JSON.stringify(body),
     }).catch(() => {});
   };
 
@@ -73,7 +71,7 @@
     send('site_visits', {
       visitor_id: visitorId, session_id: sessionId, page: currentPage,
       referrer: currentReferrer, duration_seconds: duration, viewport: currentViewport,
-    }, true);
+    });
   };
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') finish(); });
   addEventListener('pagehide', finish);
@@ -93,6 +91,6 @@
   document.addEventListener('click', (event) => {
     const el = event.target.closest('a, button');
     if (!el || el.closest('[data-no-track]')) return;
-    send('site_clicks', { visitor_id: visitorId, session_id: sessionId, page: currentPage, label: labelOf(el) }, false);
+    send('site_clicks', { visitor_id: visitorId, session_id: sessionId, page: currentPage, label: labelOf(el) });
   }, { capture: true });
 })();
