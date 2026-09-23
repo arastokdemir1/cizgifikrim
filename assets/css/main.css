@@ -2334,6 +2334,21 @@ button { color: inherit; }
 }
 .panel-message-form .btn-primary { align-self: flex-start; }
 
+.admin-caption { color: var(--muted-fg); font-size: .85rem; margin-bottom: 1.5rem; }
+.admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.admin-stat { border: 1px solid var(--rule); border-radius: var(--radius-md); padding: 1rem 1.25rem; background: var(--card); }
+.admin-stat .folio { margin-bottom: .4rem; }
+.admin-stat strong { display: block; font-family: var(--serif); font-size: 1.7rem; font-weight: 700; letter-spacing: -.02em; }
+.admin-stat span { color: var(--muted-fg); font-size: .8rem; }
+
+.admin-block { border: 1px solid var(--rule); border-radius: var(--radius-md); padding: 1.5rem; background: var(--card); margin-bottom: 1.5rem; overflow-x: auto; }
+.admin-block h2 { font-family: var(--serif); font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; }
+.admin-table { width: 100%; border-collapse: collapse; font-size: .88rem; white-space: nowrap; }
+.admin-table th { text-align: left; color: var(--muted-fg); font-weight: 600; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; padding: .4rem .6rem; border-bottom: 1px solid var(--rule); }
+.admin-table td { padding: .5rem .6rem; border-bottom: 1px dashed var(--rule); overflow: hidden; text-overflow: ellipsis; max-width: 22rem; }
+.admin-table tr:last-child td { border-bottom: none; }
+.admin-table td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
 /* ======================================================
    YASAL SAYFALAR (gizlilik + koşullar)
    ====================================================== */

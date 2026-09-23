@@ -291,6 +291,40 @@ async function listEngagementFiles(engagementId) {
   }
 }
 
+// ── Site analitiği (yalnızca is_admin=true olan hesap okuyabilir; RLS bkz.
+// 20260923120000_add_site_analytics.sql) ────────────────────────────────────
+async function fetchSiteVisits(limit = 5000) {
+  if (!sb) return [];
+  try {
+    const { data, error } = await sb
+      .from('site_visits')
+      .select('visitor_id,page,referrer,duration_seconds,viewport,created_at')
+      .order('created_at', { ascending: false })
+      .limit(limit);
+    if (error) { console.error('fetchSiteVisits', error); return []; }
+    return data || [];
+  } catch (error) {
+    console.error('fetchSiteVisits', error);
+    return [];
+  }
+}
+
+async function fetchSiteClicks(limit = 5000) {
+  if (!sb) return [];
+  try {
+    const { data, error } = await sb
+      .from('site_clicks')
+      .select('visitor_id,page,label,created_at')
+      .order('created_at', { ascending: false })
+      .limit(limit);
+    if (error) { console.error('fetchSiteClicks', error); return []; }
+    return data || [];
+  } catch (error) {
+    console.error('fetchSiteClicks', error);
+    return [];
+  }
+}
+
 function statusBadgeHTML(status, statusLabel) {
   const meta = STATUS_META[status] || STATUS_META.wip;
   return `<span class="status-badge"><span class="status-dot ${meta.dotClass}"></span><span class="${meta.labelClass}">${escapeHTML(statusLabel || 'Geliştiriliyor')}</span></span>`;
