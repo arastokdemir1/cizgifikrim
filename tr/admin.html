@@ -113,26 +113,26 @@ document.addEventListener('DOMContentLoaded', async () => {
   const [visits, clicks] = await Promise.all([fetchSiteVisits(5000), fetchSiteClicks(5000)]);
 
   const uniqueVisitors = new Set(visits.map(v => v.visitor_id)).size;
-  const totalDuration = visits.reduce((sum, v) => sum + (Number(v.duration_seconds) || 0), 0);
-  const avgDuration = visits.length ? totalDuration / visits.length : 0;
+  const withDuration = visits.filter(v => v.duration_seconds != null);
+  const avgDuration = withDuration.length ? withDuration.reduce((sum, v) => sum + Number(v.duration_seconds), 0) / withDuration.length : null;
 
   document.getElementById('admin-stats').innerHTML = `
     <div class="admin-stat"><p class="folio">Ziyaret</p><strong>${visits.length}</strong><span>toplam sayfa görüntüleme</span></div>
     <div class="admin-stat"><p class="folio">Tekil ziyaretçi</p><strong>${uniqueVisitors}</strong><span>farklı tarayıcı</span></div>
-    <div class="admin-stat"><p class="folio">Ort. süre</p><strong>${fmtDuration(avgDuration)}</strong><span>sayfa başına</span></div>
+    <div class="admin-stat"><p class="folio">Ort. süre</p><strong>${avgDuration != null ? fmtDuration(avgDuration) : '—'}</strong><span>ölçülen ${withDuration.length} sayfada</span></div>
     <div class="admin-stat"><p class="folio">Tıklama</p><strong>${clicks.length}</strong><span>bağlantı/düğme</span></div>
   `;
 
   const byPage = new Map();
   visits.forEach((v) => {
-    const row = byPage.get(v.page) || { views: 0, duration: 0 };
+    const row = byPage.get(v.page) || { views: 0, durationSum: 0, durationCount: 0 };
     row.views += 1;
-    row.duration += Number(v.duration_seconds) || 0;
+    if (v.duration_seconds != null) { row.durationSum += Number(v.duration_seconds); row.durationCount += 1; }
     byPage.set(v.page, row);
   });
   const topPages = [...byPage.entries()].sort((a, b) => b[1].views - a[1].views).slice(0, 15);
   document.getElementById('admin-top-pages').innerHTML = topPages.length
-    ? topPages.map(([page, row]) => `<tr><td>${escapeHTML(page)}</td><td class="num">${row.views}</td><td class="num">${fmtDuration(row.duration / row.views)}</td></tr>`).join('')
+    ? topPages.map(([page, row]) => `<tr><td>${escapeHTML(page)}</td><td class="num">${row.views}</td><td class="num">${row.durationCount ? fmtDuration(row.durationSum / row.durationCount) : '—'}</td></tr>`).join('')
     : '<tr><td colspan="3" class="panel-empty">Henüz kayıt yok.</td></tr>';
 
   const byClick = new Map();
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const recent = visits.slice(0, 50);
   document.getElementById('admin-recent-visits').innerHTML = recent.length
-    ? recent.map(v => `<tr><td>${fmtTime(v.created_at)}</td><td>${escapeHTML(v.page)}</td><td>${escapeHTML(v.viewport || '—')}</td><td class="num">${fmtDuration(v.duration_seconds)}</td></tr>`).join('')
+    ? recent.map(v => `<tr><td>${fmtTime(v.created_at)}</td><td>${escapeHTML(v.page)}</td><td>${escapeHTML(v.viewport || '—')}</td><td class="num">${v.duration_seconds != null ? fmtDuration(v.duration_seconds) : '—'}</td></tr>`).join('')
     : '<tr><td colspan="4" class="panel-empty">Henüz kayıt yok.</td></tr>';
 });
 </script>

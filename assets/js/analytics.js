@@ -40,41 +40,42 @@
   };
   const viewport = () => (matchMedia('(max-width: 767px)').matches ? 'mobile' : 'desktop');
 
-  const send = (table, body) => {
-    // navigator.sendBeacon burada kullanılmıyor: Content-Type: application/json
-    // çapraz-kaynak (cross-origin) isteklerde CORS-safelisted değil, tarayıcı
-    // beacon'u sessizce iptal ediyor (sendBeacon() true dönse bile) ve bunu
-    // fark edip fetch'e düşecek bir yol yok. fetch + keepalive hem sayfa
-    // kapanırken hayatta kalıyor hem de gerçek CORS ön-uçuşunu (preflight)
-    // düzgün yürütüyor.
-    fetch(`${REST}/${table}`, {
-      method: 'POST',
-      keepalive: true,
-      headers: { 'Content-Type': 'application/json', apikey: KEY, Authorization: `Bearer ${KEY}`, Prefer: 'return=minimal' },
-      body: JSON.stringify(body),
-    }).catch(() => {});
-  };
+  const send = (method, path, body) => fetch(`${REST}/${path}`, {
+    method,
+    keepalive: true,
+    headers: { 'Content-Type': 'application/json', apikey: KEY, Authorization: `Bearer ${KEY}`, Prefer: 'return=minimal' },
+    body: JSON.stringify(body),
+  });
 
   // ── Sayfa görüntüleme + süre ────────────────────────────────────────────
-  // Tek satır: sayfadan ayrılınca (sekme gizlenince/kapanınca) o ana kadar
-  // geçen süreyle birlikte gönderilir. Böylece "hangi sayfada ne kadar
-  // kaldı" tek kayıtta netleşir; ara güncelleme/UPDATE izni gerekmez.
-  const start = Date.now();
+  // Görüntüleme satırı sayfa yüklenir yüklenmez eklenir (page kesin canlı,
+  // bu yüzden garanti ulaşır). Süre ise ancak sayfadan AYRILIRKEN belli olur;
+  // o an başlatılan istekler tarayıcı tarafından güvenilir şekilde
+  // tamamlanmayabilir (ölçüldü), bu yüzden süreyi ayrı bir UPDATE olarak,
+  // en iyi çaba ile deniyoruz — başarısız olursa yalnızca o satırın süresi
+  // boş kalır, görüntüleme kaydı hiçbir zaman kaybolmaz veya çiftlenmez.
+  // id'yi kendimiz üretiyoruz (id: rid() ile insert ediyoruz) ki PATCH için
+  // sunucudan geri okumaya (return=representation → SELECT izni gerektirir,
+  // anon'a bunu vermek istemiyoruz — sadece admin okuyabilsin) ihtiyaç olmasın.
   const currentPage = page();
   const currentReferrer = referrer();
   const currentViewport = viewport();
-  let sent = false;
-  const finish = () => {
-    if (sent) return;
-    sent = true;
+  const visitId = rid();
+  send('POST', 'site_visits', {
+    id: visitId, visitor_id: visitorId, session_id: sessionId, page: currentPage,
+    referrer: currentReferrer, viewport: currentViewport,
+  }).catch(() => {});
+
+  const start = Date.now();
+  let durationSent = false;
+  const sendDuration = () => {
+    if (durationSent) return;
+    durationSent = true;
     const duration = Math.min(14400, Math.max(0, Math.round((Date.now() - start) / 1000)));
-    send('site_visits', {
-      visitor_id: visitorId, session_id: sessionId, page: currentPage,
-      referrer: currentReferrer, duration_seconds: duration, viewport: currentViewport,
-    });
+    send('PATCH', `site_visits?id=eq.${visitId}`, { duration_seconds: duration }).catch(() => {});
   };
-  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') finish(); });
-  addEventListener('pagehide', finish);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') sendDuration(); });
+  addEventListener('pagehide', sendDuration);
 
   // ── Tıklamalar ──────────────────────────────────────────────────────────
   // Yalnızca bağlantı ve düğmeler; form alanlarına ya da serbest metne hiç
@@ -91,6 +92,6 @@
   document.addEventListener('click', (event) => {
     const el = event.target.closest('a, button');
     if (!el || el.closest('[data-no-track]')) return;
-    send('site_clicks', { visitor_id: visitorId, session_id: sessionId, page: currentPage, label: labelOf(el) });
+    send('POST', 'site_clicks', { visitor_id: visitorId, session_id: sessionId, page: currentPage, label: labelOf(el) }).catch(() => {});
   }, { capture: true });
 })();
