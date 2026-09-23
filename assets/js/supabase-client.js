@@ -65,6 +65,22 @@ async function fetchFeaturedProjects() {
   }
 }
 
+async function fetchActiveServices() {
+  if (!sb) return null;
+  try {
+    const { data, error } = await sb
+      .from('services')
+      .select('*')
+      .eq('is_active', true)
+      .order('order_index', { ascending: true });
+    if (error) { console.error('fetchActiveServices', error); return null; }
+    return data || [];
+  } catch (error) {
+    console.error('fetchActiveServices', error);
+    return null;
+  }
+}
+
 async function fetchProjectBySlug(slug) {
   if (!sb) return null;
   try {

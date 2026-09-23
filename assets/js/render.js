@@ -100,6 +100,129 @@ async function renderProductsPage() {
   if (window.initReveal) window.initReveal();
 }
 
+function serviceCardHTML(s, index) {
+  const isFeatured = s.is_featured ? ' is-featured' : '';
+  const delayClass = index === 1 ? ' reveal-d1' : (index >= 2 ? ' reveal-d2' : '');
+  const metaLabel = escapeHTML(s.meta_label || s.meta || `${String(index + 1).padStart(2, '0')} / HİZMET`);
+  const statusBadge = escapeHTML(s.status_badge || s.badge || s.status_label || 'Hizmet');
+  const title = escapeHTML(s.title || s.name || s.display_name || '');
+  const desc = escapeHTML(s.description || s.desc || '');
+
+  // Fiyatlandırma kutusu
+  let pricingBoxHTML = '';
+  const pm = s.pricing_model || {};
+  const priceTitle = pm.setup_fee || pm.starting_at || s.price_title || s.price || '';
+  const priceSub = pm.monthly_fee ? `Kurulum + ${pm.monthly_fee}` : (pm.model || s.price_subtitle || '');
+  const pillText = pm.guarantee || s.price_pill_text || '';
+  const isGuarantee = Boolean(pm.guarantee || s.is_guarantee);
+  const priceDetail = s.price_detail || s.pricing_note || '';
+  const pillType = s.price_pill_type || (isGuarantee ? 'is-guarantee' : (s.is_featured ? 'is-guarantee' : (index === 1 ? 'is-speed' : 'is-verified')));
+
+  let pillHTML = '';
+  if (pillText) {
+    const guaranteeIcon = isGuarantee ? '<svg class="check-icon" width="14" height="14" aria-hidden="true"><use href="#check-icon"/></svg> ' : '';
+    pillHTML = `<div><span class="price-pill ${escapeHTML(pillType)}">${guaranteeIcon}${escapeHTML(pillText)}</span></div>`;
+  }
+
+  if (priceTitle || priceDetail) {
+    pricingBoxHTML = `
+      <div class="service-pricing-box">
+        <div class="price-main">
+          <strong>${escapeHTML(priceTitle)}</strong>
+          ${priceSub ? `<span>${escapeHTML(priceSub)}</span>` : ''}
+        </div>
+        ${priceDetail ? `<p class="price-detail">${escapeHTML(priceDetail)}</p>` : ''}
+        ${pillHTML}
+      </div>`;
+  }
+
+  // Referanslar (ör. CarLog, PiyasApp, FocusGrid)
+  let refsHTML = '';
+  const rawRefs = s.references || s.refs;
+  let refs = [];
+  if (Array.isArray(rawRefs)) {
+    refs = rawRefs;
+  } else if (typeof rawRefs === 'string') {
+    try { refs = JSON.parse(rawRefs); } catch (_) { refs = []; }
+  }
+  if (refs.length > 0) {
+    const chips = refs.map(r => {
+      const href = escapeHTML(r.url || r.path || r.href || '#');
+      const name = escapeHTML(r.name || r.title || '');
+      const sub = (r.sub || r.tag || r.desc) ? `<small>${escapeHTML(r.sub || r.tag || r.desc)}</small>` : '';
+      return `<a href="${href}" class="ref-chip"><span>${name}</span> ${sub}</a>`;
+    }).join('');
+    refsHTML = `
+      <div class="service-refs">
+        <p class="refs-title">${escapeHTML(s.refs_title || 'Canlı Referans Ürünlerimiz')}</p>
+        <div class="ref-chips">${chips}</div>
+      </div>`;
+  }
+
+  // Kapsam / Yetenekler (features)
+  let featuresHTML = '';
+  const features = Array.isArray(s.features) ? s.features : [];
+  if (features.length > 0) {
+    const items = features.map(f => {
+      const text = typeof f === 'string' ? f : (f.text || f.title || '');
+      return `<li><svg class="check-icon" aria-hidden="true"><use href="#check-icon"/></svg><span>${escapeHTML(text)}</span></li>`;
+    }).join('');
+    featuresHTML = `
+      <div class="service-features-wrap">
+        <p class="features-heading">${escapeHTML(s.features_heading || 'Kapsam ve Yetenekler')}</p>
+        <ul class="service-feature-list">${items}</ul>
+      </div>`;
+  }
+
+  // Butonlar / Aksiyonlar
+  const secondaryHref = s.demo_url || s.cta_secondary_url || '';
+  const isExternal = secondaryHref.startsWith('http');
+  const secondaryText = s.cta_secondary_text || (isExternal ? 'Canlı Demoyu İncele ↗' : 'Tüm Referanslar ↗');
+  const primaryHref = s.cta_url || s.cta_primary_url || 'randevu.html';
+  const primaryText = s.cta_text || s.cta_primary_text || 'Görüşme Planla';
+
+  const secondaryBtn = secondaryHref ? `
+    <a href="${escapeHTML(secondaryHref)}" ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''} class="service-cta-btn is-secondary">${escapeHTML(secondaryText)}</a>` : '';
+  const primaryBtn = `
+    <a href="${escapeHTML(primaryHref)}" class="service-cta-btn is-primary">${escapeHTML(primaryText)} <span aria-hidden="true">→</span></a>`;
+
+  return `
+    <article class="service-card${isFeatured} reveal${delayClass}">
+      <div class="service-card-top">
+        <span class="service-card-meta">${metaLabel}</span>
+        <span class="service-status-pill">${statusBadge}</span>
+      </div>
+      <h2>${title}</h2>
+      <p class="service-card-desc">${desc}</p>
+      ${pricingBoxHTML}
+      ${refsHTML}
+      ${featuresHTML}
+      <div class="service-card-actions">
+        ${secondaryBtn}
+        ${primaryBtn}
+      </div>
+    </article>`;
+}
+
+async function renderServicesPage() {
+  const root = document.getElementById('services-grid') || document.querySelector('.services-grid');
+  if (!root) return;
+
+  if (typeof fetchActiveServices !== 'function') return;
+
+  const remoteServices = await fetchActiveServices();
+  // Statik HTML'i SEO ve anlık yükleme için koru. Supabase'den geçerli veri geldiğinde senkronize et/hydrate et.
+  if (!remoteServices || !Array.isArray(remoteServices) || remoteServices.length === 0) {
+    return;
+  }
+
+  root.innerHTML = remoteServices
+    .map((s, i) => serviceCardHTML(s, i))
+    .join('');
+
+  if (window.initReveal) window.initReveal();
+}
+
 function featuredCardHTML(p, num) {
   const slug = safeProjectSlug(p.slug);
   if (!slug) return '';
@@ -1099,6 +1222,7 @@ function initContactFormSupabase() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  renderServicesPage();
   renderProductsPage();
   renderFeaturedProjects();
   renderProjectDetail();
