@@ -2728,6 +2728,7 @@ button { color: inherit; }
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+  width: 100%;
 }
 .service-cta-btn {
   display: inline-flex;
@@ -2742,6 +2743,8 @@ button { color: inherit; }
   font-weight: 700;
   text-align: center;
   transition: background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 .service-cta-btn.is-primary {
   background: var(--accent);
@@ -2765,6 +2768,38 @@ button { color: inherit; }
   background: var(--card);
   border-color: var(--accent);
   color: var(--accent-strong);
+}
+
+@media (max-width: 480px) {
+  .service-card-actions {
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    width: 100%;
+  }
+  .service-cta-btn {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.25;
+  }
+  .service-cta-btn.is-primary {
+    order: 1;
+  }
+  .service-cta-btn.is-secondary {
+    order: 2;
+  }
+}
+
+@media (max-width: 375px) {
+  .service-cta-btn {
+    font-size: 0.82rem;
+    padding: 0.7rem 0.65rem;
+    letter-spacing: -0.01em;
+  }
 }
 .services-closing-cta {
   margin-bottom: clamp(3.5rem, 8vw, 6.5rem);

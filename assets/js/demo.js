@@ -63,6 +63,7 @@
   // --- Uygulama Durumu (State) ---
   const state = {
     mode: 'mode_1', // 'mode_1' (Starter: Sepet) | 'mode_2' (Growth: Satış Botu)
+    mobileView: 'preview', // 'preview' | 'controls'
     activePreset: 'fashion',
     store: PRESETS.fashion.store,
     customer: PRESETS.fashion.customer,
@@ -79,6 +80,10 @@
 
   // --- DOM Elemanları ---
   const elements = {
+    demoStudio: document.querySelector('.demo-studio'),
+    mobileViewTabs: document.querySelectorAll('.demo-view-tab'),
+    btnGotoPreview: document.getElementById('btn-goto-preview'),
+    btnGotoSettings: document.getElementById('btn-goto-settings'),
     modeTabs: document.querySelectorAll('.demo-mode-tab'),
     presetBtns: document.querySelectorAll('.demo-preset-btn'),
     inputStore: document.getElementById('input-store'),
@@ -92,6 +97,7 @@
     roiMonthlyRecovered: document.getElementById('roi-monthly-recovered'),
     roiAnnualRecovered: document.getElementById('roi-annual-recovered'),
     roiAmortizationBadge: document.getElementById('roi-amortization-badge'),
+    roiPillBtns: document.querySelectorAll('.roi-pill-btn'),
     // Mockup
     waHeaderAvatar: document.getElementById('wa-header-avatar'),
     waHeaderName: document.getElementById('wa-header-name'),
@@ -218,6 +224,15 @@
     };
   }
 
+  function updateActiveROIPill(revenue) {
+    if (!elements.roiPillBtns) return;
+    const rev = Number(revenue);
+    elements.roiPillBtns.forEach(pill => {
+      const val = Number(pill.getAttribute('data-value'));
+      pill.classList.toggle('is-active', val === rev);
+    });
+  }
+
   function updateROIDisplay() {
     const roi = calculateROI(state.monthlyRevenue);
 
@@ -237,6 +252,7 @@
         elements.roiAmortizationBadge.textContent = `⚡ İlk ${roi.daysToAmortize} Günde Kendini Amorti Eder`;
       }
     }
+    updateActiveROIPill(state.monthlyRevenue);
   }
 
   // --- Toast Bildirimi Gösterimi ---
@@ -730,8 +746,49 @@
     runCurrentScenario();
   }
 
+  // --- Mobil Segmentli Görünüm Değiştirici (< 1024px) ---
+  function switchMobileView(targetView) {
+    const validView = targetView === 'controls' ? 'controls' : 'preview';
+    state.mobileView = validView;
+
+    if (!elements.demoStudio) {
+      elements.demoStudio = document.querySelector('.demo-studio');
+    }
+    if (!elements.mobileViewTabs || elements.mobileViewTabs.length === 0) {
+      elements.mobileViewTabs = document.querySelectorAll('.demo-view-tab');
+    }
+
+    if (elements.demoStudio) {
+      elements.demoStudio.setAttribute('data-mobile-view', validView);
+    }
+
+    if (elements.mobileViewTabs && elements.mobileViewTabs.length > 0) {
+      elements.mobileViewTabs.forEach(tab => {
+        const isTarget = tab.getAttribute('data-target') === validView;
+        tab.classList.toggle('is-active', isTarget);
+        tab.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+      });
+    }
+
+    // Önizleme ekranına geçildiğinde son form verilerini yansıt
+    if (validView === 'preview') {
+      syncInputsToPreview();
+    }
+
+    // Mobilde stüdyo başlangıcına akıcı kaydır
+    if (window.innerWidth < 1024 && elements.demoStudio) {
+      const studioRect = elements.demoStudio.getBoundingClientRect();
+      const offsetTop = window.pageYOffset + studioRect.top - 80;
+      window.scrollTo({
+        top: Math.max(0, offsetTop),
+        behavior: 'smooth'
+      });
+    }
+  }
+
   // Konsoldan veya dış testlerden erişim için dışa aktar
   window.switchMode = switchMode;
+  window.switchMobileView = switchMobileView;
 
   // --- Olay Dinleyicileri (Event Listeners) ---
   function initEvents() {
@@ -794,6 +851,44 @@
         }
       });
     }
+
+    // 7. Mobil Görünüm Sekmeleri (< 1024px)
+    if (elements.mobileViewTabs) {
+      elements.mobileViewTabs.forEach(tab => {
+        tab.addEventListener('click', function () {
+          const target = this.getAttribute('data-target');
+          switchMobileView(target);
+        });
+      });
+    }
+
+    // 8. Mobilde Önizleme ve Ayar Yönlendirme Butonları
+    if (elements.btnGotoPreview) {
+      elements.btnGotoPreview.addEventListener('click', function () {
+        switchMobileView('preview');
+      });
+    }
+
+    if (elements.btnGotoSettings) {
+      elements.btnGotoSettings.addEventListener('click', function () {
+        switchMobileView('controls');
+      });
+    }
+
+    // 9. ROI Hızlı Bütçe Hapları (Quick Budget Pills)
+    if (elements.roiPillBtns) {
+      elements.roiPillBtns.forEach(pill => {
+        pill.addEventListener('click', function () {
+          const val = Number(this.getAttribute('data-value'));
+          if (!val) return;
+          state.monthlyRevenue = val;
+          if (elements.roiSlider) {
+            elements.roiSlider.value = val;
+          }
+          updateROIDisplay();
+        });
+      });
+    }
   }
 
   // --- Başlatıcı (Init) ---
@@ -816,6 +911,7 @@
     }
 
     initEvents();
+    switchMobileView('preview');
   }
 
   if (document.readyState === 'loading') {
