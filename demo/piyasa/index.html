@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PiyasApp Web Demosu — CizgiFikrim</title>
+  <meta name="description" content="PiyasApp iOS uygulamasının konum tabanlı radar, harita ve garaj ekranlarını canlı test edin.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0B0F17">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --bg: #0B0F17;
+      --surface: #151A23;
+      --card-bg: rgba(21, 26, 35, 0.85);
+      --primary: #0A84FF;
+      --primary-glow: rgba(10, 132, 255, 0.35);
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --glass: rgba(15, 23, 42, 0.72);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --tabbar-bg: rgba(21, 26, 35, 0.82);
+      --sat: 44px;
+      --sab: 28px;
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.4;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Ana Uygulama Kabuğu (iPhone mockup boyutu) */
+    .app {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 440px;
+      background: #000000;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (min-width: 600px) {
+      body {
+        background: radial-gradient(circle at 50% 20%, #1e293b 0%, #0b0f17 100%);
+      }
+      .app {
+        height: min(92vh, 880px);
+        border-radius: 46px;
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 25px 70px rgba(0, 0, 0, 0.6);
+      }
+    }
+
+    /* iOS Durum Çubuğu (Status Bar) */
+    .status {
+      position: absolute;
+      z-index: 50;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--sat);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 24px 0 28px;
+      pointer-events: none;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    .status .r {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    /* iOS Dinamik Ada / Çentik */
+    .dynamic-island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 105px;
+      height: 26px;
+      background: #000000;
+      border-radius: 20px;
+      z-index: 55;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 9px;
+      pointer-events: none;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .dynamic-island-camera {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, #1e293b 0%, #05070a 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Üst Navigasyon Çubuğu */
+    .navbar {
+      position: absolute;
+      z-index: 40;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: calc(var(--sat) + 44px);
+      padding-top: var(--sat);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 20px;
+      padding-right: 20px;
+      background: linear-gradient(to bottom, rgba(11, 15, 23, 0.88) 0%, rgba(11, 15, 23, 0.4) 65%, transparent 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      pointer-events: none;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 17px;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-brand-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 8px var(--primary);
+    }
+
+    .nav-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(10, 132, 255, 0.18);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-badge-live {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 6px #10B981;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* Ekran Alanı (Screen Canvas) */
+    .screen-container {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #000000;
+    }
+
+    .screen-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.97);
+      transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1), transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.32s;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .screen-slide::-webkit-scrollbar {
+      display: none;
+    }
+
+    .screen-slide.is-active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+
+    .screen-img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* İnteraktif Radar Animasyonu Katmanı (Radar Pulse Overlay) */
+    .radar-overlay {
+      position: absolute;
+      top: 36%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 220px;
+      height: 220px;
+      pointer-events: none;
+      border-radius: 50%;
+    }
+
+    .radar-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1.5px solid rgba(10, 132, 255, 0.45);
+      animation: radarExpand 3s cubic-bezier(0.1, 0.7, 0.1, 1) infinite;
+    }
+
+    .radar-ring:nth-child(2) {
+      animation-delay: 1s;
+    }
+
+    .radar-ring:nth-child(3) {
+      animation-delay: 2s;
+    }
+
+    @keyframes radarExpand {
+      0% { transform: scale(0.2); opacity: 0.9; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+
+    /* İnteraktif Tıklanabilir İpucu Rozeti (Floating Toast) */
+    .demo-hint-chip {
+      position: absolute;
+      top: calc(var(--sat) + 52px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 35;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      color: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      white-space: nowrap;
+    }
+
+    /* iOS Alt Sekme Barı (Tabbar) */
+    .tabbar {
+      position: absolute;
+      z-index: 45;
+      left: 50%;
+      bottom: calc(var(--sab) + 4px);
+      transform: translateX(-50%);
+      width: calc(100% - 36px);
+      max-width: 320px;
+      height: 60px;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      border-radius: 30px;
+      background: var(--tabbar-bg);
+      box-shadow: 0 0 0 1px var(--glass-border), 0 12px 36px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(24px) saturate(1.7);
+      -webkit-backdrop-filter: blur(24px) saturate(1.7);
+    }
+
+    .tabbar-btn {
+      flex: 1;
+      height: 100%;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+
+    .tabbar-btn .tab-icon {
+      font-size: 19px;
+      line-height: 1;
+      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tabbar-btn .tab-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      transition: color 0.22s;
+    }
+
+    .tabbar-btn:hover:not(.on) {
+      color: #e2e8f0;
+    }
+
+    .tabbar-btn.on {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .tabbar-btn.on .tab-icon {
+      transform: scale(1.12);
+    }
+
+    .tabbar-btn.on .tab-title {
+      color: var(--primary);
+    }
+
+    /* iOS Home Indicator Bar */
+    .home-indicator {
+      position: absolute;
+      z-index: 50;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 134px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 3px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app" id="app" role="region" aria-label="PiyasApp Web Demosu">
+    <!-- Dinamik Ada (iPhone 15/16 Pro Dynamic Island) -->
+    <div class="dynamic-island" aria-hidden="true">
+      <span class="dynamic-island-camera"></span>
+    </div>
+
+    <!-- iOS Durum Çubuğu -->
+    <div class="status" aria-hidden="true">
+      <span id="status-clock">9:41</span>
+      <span class="r">
+        <!-- Sinyal -->
+        <svg width="19" height="12" viewBox="0 0 18 12" fill="currentColor">
+          <rect x="0" y="8" width="3" height="4" rx="1"/>
+          <rect x="5" y="5" width="3" height="7" rx="1"/>
+          <rect x="10" y="2.5" width="3" height="9.5" rx="1"/>
+          <rect x="15" y="0" width="3" height="12" rx="1"/>
+        </svg>
+        <!-- Wi-Fi -->
+        <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor">
+          <path d="M8.500 2.200c2.300 0 4.400.9 6 2.400l1.100-1.200A10.300 10.300 0 0 0 8.500.5 10.300 10.300 0 0 0 1.400 3.400l1.100 1.200a8.600 8.600 0 0 1 6-2.400zm0 3.500c1.400 0 2.600.5 3.600 1.400l1.100-1.200a7.100 7.100 0 0 0-9.400 0l1.100 1.200a5.300 5.300 0 0 1 3.600-1.400zm0 3.400c.6 0 1.100.2 1.500.6L8.500 11.500 7 9.700c.4-.4.900-.6 1.500-.6z"/>
+        </svg>
+        <!-- Pil -->
+        <svg width="27" height="13" viewBox="0 0 27 13" fill="none">
+          <rect x=".5" y=".5" width="23" height="12" rx="3.8" stroke="currentColor" opacity=".4"/>
+          <rect x="2" y="2" width="20" height="9" rx="2.5" fill="currentColor"/>
+          <rect x="24.5" y="4.2" width="1.5" height="4.6" rx=".8" fill="currentColor" opacity=".4"/>
+        </svg>
+      </span>
+    </div>
+
+    <!-- Üst Başlık (Navbar) -->
+    <header class="navbar" id="navbar" aria-label="Uygulama Başlığı">
+      <div class="nav-brand">
+        <span class="nav-brand-dot"></span>
+        <span id="nav-title">PiyasApp</span>
+      </div>
+      <span class="nav-badge">
+        <span class="nav-badge-live"></span>
+        <span id="nav-screen-mode">📡 Radar</span>
+      </span>
+    </header>
+
+    <!-- Bilgilendirici İpucu Çipi -->
+    <div class="demo-hint-chip" id="demo-hint" aria-live="polite">
+      <span>Radar aktif: Çevrendeki araçlar taranıyor</span>
+    </div>
+
+    <!-- Ekran Alanı (Screen Container) -->
+    <main class="screen-container" id="screen-container" aria-live="polite">
+      <!-- 1. Sekme: RADAR -->
+      <section class="screen-slide is-active" id="pane-radar" data-pane="radar" role="tabpanel" aria-label="Radar Ekranı">
+        <img src="assets/screen-radar.png" alt="PiyasApp Radar Ekranı" class="screen-img" loading="eager">
+        <div class="radar-overlay" aria-hidden="true">
+          <div class="radar-ring"></div>
+          <div class="radar-ring"></div>
+          <div class="radar-ring"></div>
+        </div>
+      </section>
+
+      <!-- 2. Sekme: HARİTA -->
+      <section class="screen-slide" id="pane-map" data-pane="map" role="tabpanel" aria-label="Harita Ekranı" aria-hidden="true">
+        <img src="assets/screen-map.png" alt="PiyasApp Canlı Harita Ekranı" class="screen-img" loading="lazy">
+      </section>
+
+      <!-- 3. Sekme: GARAJ -->
+      <section class="screen-slide" id="pane-garage" data-pane="garage" role="tabpanel" aria-label="Garaj Ekranı" aria-hidden="true">
+        <img src="assets/screen-garage.png" alt="PiyasApp Garaj Ekranı" class="screen-img" loading="lazy">
+      </section>
+    </main>
+
+    <!-- Alt Sekme Barı (Tabbar: 3 sekme) -->
+    <nav class="tabbar" role="tablist" aria-label="Ana Sekmeler">
+      <button type="button" role="tab" class="tabbar-btn on" data-tab="radar" id="tab-radar" aria-selected="true" aria-controls="pane-radar">
+        <span class="tab-icon">📡</span>
+        <span class="tab-title">Radar</span>
+      </button>
+      <button type="button" role="tab" class="tabbar-btn" data-tab="map" id="tab-map" aria-selected="false" aria-controls="pane-map">
+        <span class="tab-icon">🗺️</span>
+        <span class="tab-title">Harita</span>
+      </button>
+      <button type="button" role="tab" class="tabbar-btn" data-tab="garage" id="tab-garage" aria-selected="false" aria-controls="pane-garage">
+        <span class="tab-icon">🏎️</span>
+        <span class="tab-title">Garaj</span>
+      </button>
+    </nav>
+
+    <!-- iOS Home Indicator -->
+    <div class="home-indicator" aria-hidden="true"></div>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // Sekme Veritabanı
+      var TABS = {
+        radar: {
+          id: 'radar',
+          title: 'PiyasApp',
+          badge: '📡 Radar',
+          hint: 'Radar aktif: Çevrendeki araçlar taranıyor'
+        },
+        map: {
+          id: 'map',
+          title: 'Canlı Harita',
+          badge: '🗺️ Harita',
+          hint: 'Canlı harita: Şehirdeki araç hareketleri'
+        },
+        garage: {
+          id: 'garage',
+          title: 'Garajım',
+          badge: '🏎️ Garaj',
+          hint: 'Garaj: Araç koleksiyonu ve teknik kartlar'
+        }
+      };
+
+      var activeTab = 'radar';
+      var tabs = ['radar', 'map', 'garage'];
+
+      // DOM Elemanları
+      var statusClock = document.getElementById('status-clock');
+      var navTitle = document.getElementById('nav-title');
+      var navScreenMode = document.getElementById('nav-screen-mode');
+      var demoHint = document.getElementById('demo-hint');
+      var tabButtons = document.querySelectorAll('.tabbar-btn');
+      var panes = {
+        radar: document.getElementById('pane-radar'),
+        map: document.getElementById('pane-map'),
+        garage: document.getElementById('pane-garage')
+      };
+
+      // Saat Güncelleyici
+      function updateClock() {
+        if (!statusClock) return;
+        var now = new Date();
+        var h = String(now.getHours()).padStart(2, '0');
+        var m = String(now.getMinutes()).padStart(2, '0');
+        statusClock.textContent = h + ':' + m;
+      }
+      updateClock();
+      setInterval(updateClock, 30000);
+
+      // Sekme Değiştirici Fonksiyon
+      function switchTab(targetId) {
+        if (!TABS[targetId]) return;
+        activeTab = targetId;
+        var meta = TABS[targetId];
+
+        // 1. Tabbar Butonlarını Güncelle
+        tabButtons.forEach(function(btn) {
+          var isTarget = btn.getAttribute('data-tab') === targetId;
+          btn.classList.toggle('on', isTarget);
+          btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+        });
+
+        // 2. Ekran Panellerini Yumuşak Geçişle Değiştir
+        Object.keys(panes).forEach(function(key) {
+          var pane = panes[key];
+          if (!pane) return;
+          var isCurrent = key === targetId;
+          pane.classList.toggle('is-active', isCurrent);
+          pane.setAttribute('aria-hidden', isCurrent ? 'false' : 'true');
+        });
+
+        // 3. Üst Bar ve İpuçlarını Güncelle
+        if (navTitle) navTitle.textContent = meta.title;
+        if (navScreenMode) navScreenMode.textContent = meta.badge;
+        if (demoHint) {
+          demoHint.textContent = meta.hint;
+          demoHint.style.opacity = '1';
+        }
+
+        // Haptik Titreşim (varsa)
+        if (navigator.vibrate) {
+          try { navigator.vibrate(10); } catch(e) {}
+        }
+      }
+
+      // Buton Dinleyicileri
+      tabButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var tabId = this.getAttribute('data-tab');
+          switchTab(tabId);
+        });
+      });
+
+      // Dokunmatik Swipe (Sağa / Sola Kaydırma)
+      var touchStartX = 0;
+      var touchStartY = 0;
+      var container = document.getElementById('screen-container');
+
+      if (container) {
+        container.addEventListener('touchstart', function(e) {
+          if (e.touches.length === 1) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+          }
+        }, { passive: true });
+
+        container.addEventListener('touchend', function(e) {
+          if (e.changedTouches.length === 1) {
+            var diffX = e.changedTouches[0].clientX - touchStartX;
+            var diffY = e.changedTouches[0].clientY - touchStartY;
+            // Yatay kaydırma dikeyden baskınsa ve min 45px ise
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 45) {
+              var currentIndex = tabs.indexOf(activeTab);
+              if (diffX < 0 && currentIndex < tabs.length - 1) {
+                // Sola çekildi -> Sonraki sekme
+                switchTab(tabs[currentIndex + 1]);
+              } else if (diffX > 0 && currentIndex > 0) {
+                // Sağa çekildi -> Önceki sekme
+                switchTab(tabs[currentIndex - 1]);
+              }
+            }
+          }
+        }, { passive: true });
+      }
+
+      // Klavye Erişilebilirliği (Sol / Sağ Ok Tuşları)
+      window.addEventListener('keydown', function(e) {
+        var currentIndex = tabs.indexOf(activeTab);
+        if (e.key === 'ArrowRight' && currentIndex < tabs.length - 1) {
+          switchTab(tabs[currentIndex + 1]);
+        } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+          switchTab(tabs[currentIndex - 1]);
+        }
+      });
+
+      // URL Hash desteği (#radar, #map, #garage)
+      if (window.location.hash) {
+        var hashTab = window.location.hash.replace('#', '').toLowerCase();
+        if (TABS[hashTab]) {
+          switchTab(hashTab);
+        }
+      }
+
+      // Dışarıdan kontrol için pencereye aktar
+      window.switchPiyasaTab = switchTab;
+    })();
+  </script>
+</body>
+</html>

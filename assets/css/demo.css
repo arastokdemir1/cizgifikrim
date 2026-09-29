@@ -272,9 +272,15 @@
   margin-bottom: 1.5rem;
 }
 
+.whatsapp-simulator-section {
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+  border-top: 1px solid var(--line, #e2e8f0);
+}
+
 .demo-mode-switcher {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   background: #f1f5f9;
   padding: 0.3rem;
   border-radius: 0.75rem;

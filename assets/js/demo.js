@@ -648,10 +648,157 @@
     }
   }
 
+  // MOD 3: VIP & Sadakat (Scale / VIP)
+  function renderMode3Chat() {
+    clearTimeout(state.timer);
+    resetChatBody();
+    state.isFlowInProgress = true;
+
+    updateWhatsAppHeader();
+
+    const safeStore = escapeHTML(getSafeStoreName());
+    const safeProduct = escapeHTML(getSafeProductName());
+    const safeCustomer = escapeHTML(getSafeCustomerName());
+    const timeStr = getTimeString();
+
+    // 1. Adım: Teslimat bildirimi ve botun otomatik memnuniyet/yorum talebi
+    showTypingIndicator();
+
+    state.timer = setTimeout(() => {
+      removeTypingIndicator();
+      playBeep('pop');
+
+      const botWrap = document.createElement('div');
+      botWrap.className = 'wa-bubble-wrap wa-incoming js-primary-bubble';
+      botWrap.innerHTML = `
+        <div class="wa-bubble">
+          <div>Merhaba <strong>${safeCustomer}</strong>! 🌸 <strong>${safeStore}</strong> mağazamızdan aldığınız <strong>${safeProduct}</strong> az önce teslim edildi. Ürününüzü keyifle kullanmanızı dileriz! Deneyiminizi bizimle paylaşıp fotoğraflı değerlendirme bırakırsanız bir sonraki alışverişinizde geçerli <strong>%15 VIP İndirim</strong> hesabınıza tanımlanacaktır ✨</div>
+          <div class="wa-bubble-meta">
+            <span>${timeStr}</span>
+          </div>
+        </div>
+
+        <div class="wa-action-buttons js-actions-mode3">
+          <button type="button" class="wa-action-btn is-primary-action js-btn-review-5star">
+            ⭐ 5 Yıldız &amp; Fotoğraflı Yorum Bırak
+          </button>
+          <button type="button" class="wa-action-btn js-btn-repeat-order">
+            🔄 Otomatik Tüketim / Yenileme Döngüsüne Katıl
+          </button>
+        </div>
+      `;
+
+      elements.waChatBody.appendChild(botWrap);
+      elements.waChatBody.scrollTop = elements.waChatBody.scrollHeight;
+      state.isFlowInProgress = false;
+
+      bindMode3Actions();
+    }, 400);
+  }
+
+  function bindMode3Actions() {
+    const btnReview = elements.waChatBody.querySelector('.js-btn-review-5star');
+    const btnRepeat = elements.waChatBody.querySelector('.js-btn-repeat-order');
+
+    if (btnReview) {
+      btnReview.addEventListener('click', function () {
+        if (this.disabled) return;
+        this.disabled = true;
+        this.textContent = 'Yorum Gönderiliyor...';
+        if (btnRepeat) btnRepeat.disabled = true;
+
+        const userWrap = document.createElement('div');
+        userWrap.className = 'wa-bubble-wrap wa-outgoing';
+        userWrap.innerHTML = `
+          <div class="wa-bubble">
+            <div>Ürüne bayıldım! Kumaşı ve kalıbı kusursuz, beklediğimden de kaliteli geldi. 5 yıldız veriyorum! 📸⭐</div>
+            <div class="wa-bubble-meta">
+              <span>${getTimeString()}</span>
+              <span class="wa-ticks-blue">✓✓</span>
+            </div>
+          </div>
+        `;
+        elements.waChatBody.appendChild(userWrap);
+        elements.waChatBody.scrollTop = elements.waChatBody.scrollHeight;
+        playBeep('pop');
+
+        showToast('💎 Sosyal Kanıt & VIP Sadakat Puanı Kazanıldı!');
+
+        setTimeout(() => {
+          showTypingIndicator();
+          setTimeout(() => {
+            removeTypingIndicator();
+            playBeep('success');
+
+            const safeCustomer = escapeHTML(getSafeCustomerName());
+            const rewardWrap = document.createElement('div');
+            rewardWrap.className = 'wa-bubble-wrap wa-incoming';
+            rewardWrap.innerHTML = `
+              <div class="wa-bubble">
+                <div>Harika geri bildiriminiz için teşekkürler <strong>${safeCustomer}</strong>! Fotoğraflı yorumunuz onaylandı ve mağazamızda yayınlandı 🎉<br><br>Size özel <strong>VIP15</strong> indirim kuponunuz tanımlandı. 30 gün içinde tüm ürünlerde kullanabilirsiniz.</div>
+                <div class="wa-bubble-meta">
+                  <span>${getTimeString()}</span>
+                </div>
+              </div>
+            `;
+            elements.waChatBody.appendChild(rewardWrap);
+            elements.waChatBody.scrollTop = elements.waChatBody.scrollHeight;
+          }, 350);
+        }, 300);
+      });
+    }
+
+    if (btnRepeat) {
+      btnRepeat.addEventListener('click', function () {
+        if (this.disabled) return;
+        this.disabled = true;
+        if (btnReview) btnReview.disabled = true;
+
+        const userWrap = document.createElement('div');
+        userWrap.className = 'wa-bubble-wrap wa-outgoing';
+        userWrap.innerHTML = `
+          <div class="wa-bubble">
+            <div>Ürünüm bittiğinde otomatik hatırlatma ve tek tıkla yenileme almak istiyorum 🔄</div>
+            <div class="wa-bubble-meta">
+              <span>${getTimeString()}</span>
+              <span class="wa-ticks-blue">✓✓</span>
+            </div>
+          </div>
+        `;
+        elements.waChatBody.appendChild(userWrap);
+        elements.waChatBody.scrollTop = elements.waChatBody.scrollHeight;
+        playBeep('pop');
+
+        setTimeout(() => {
+          showTypingIndicator();
+          setTimeout(() => {
+            removeTypingIndicator();
+            playBeep('pop');
+
+            const repeatWrap = document.createElement('div');
+            repeatWrap.className = 'wa-bubble-wrap wa-incoming';
+            repeatWrap.innerHTML = `
+              <div class="wa-bubble">
+                <div>Tüketim döngüsü hatırlatıcınız kuruldu! Ürününüzün tahmini tükenme süresinden 5 gün önce size özel tek tıkla hızlı sipariş linki ileteceğiz 📦</div>
+                <div class="wa-bubble-meta">
+                  <span>${getTimeString()}</span>
+                </div>
+              </div>
+            `;
+            elements.waChatBody.appendChild(repeatWrap);
+            elements.waChatBody.scrollTop = elements.waChatBody.scrollHeight;
+          }, 350);
+        }, 300);
+      });
+    }
+  }
+
   // --- Genel Senaryo Başlatıcı ---
   function runCurrentScenario() {
     if (state.mode === 'mode_1') {
       renderMode1Chat();
+    } else if (state.mode === 'mode_3') {
+      renderMode3Chat();
     } else {
       renderMode2Chat();
     }
@@ -687,6 +834,11 @@
       if (oldPrice) oldPrice.textContent = safeAmount;
       const newPrice = primaryBubble.querySelector('.wa-price-new');
       if (newPrice) newPrice.textContent = discounted;
+    } else if (state.mode === 'mode_3') {
+      const bubbleText = primaryBubble.querySelector('.wa-bubble > div:first-child');
+      if (bubbleText) {
+        bubbleText.innerHTML = `Merhaba <strong>${safeCustomer}</strong>! 🌸 <strong>${safeStore}</strong> mağazamızdan aldığınız <strong>${safeProduct}</strong> az önce teslim edildi. Ürününüzü keyifle kullanmanızı dileriz! Deneyiminizi bizimle paylaşıp fotoğraflı değerlendirme bırakırsanız bir sonraki alışverişinizde geçerli <strong>%15 VIP İndirim</strong> hesabınıza tanımlanacaktır ✨`;
+      }
     } else {
       const bubbleText = primaryBubble.querySelector('.wa-bubble > div:first-child');
       if (bubbleText) {
@@ -731,10 +883,20 @@
 
   // --- Mod Değiştirici (Switch Mode) ---
   function switchMode(targetMode) {
-    const isMode2 = targetMode === 2 || targetMode === '2' || targetMode === 'mode_2' || targetMode === 'sales' || targetMode === 'growth';
-    const modeKey = isMode2 ? 'mode_2' : 'mode_1';
+    let modeKey = 'mode_1';
+    if (targetMode === 3 || targetMode === '3' || targetMode === 'mode_3' || targetMode === 'vip' || targetMode === 'scale') {
+      modeKey = 'mode_3';
+    } else if (targetMode === 2 || targetMode === '2' || targetMode === 'mode_2' || targetMode === 'sales' || targetMode === 'growth') {
+      modeKey = 'mode_2';
+    } else {
+      modeKey = 'mode_1';
+    }
 
     state.mode = modeKey;
+
+    if (!elements.modeTabs || elements.modeTabs.length === 0) {
+      elements.modeTabs = document.querySelectorAll('.demo-mode-tab');
+    }
 
     elements.modeTabs.forEach(tab => {
       const isTarget = tab.getAttribute('data-mode') === modeKey;
@@ -793,11 +955,14 @@
   // --- Olay Dinleyicileri (Event Listeners) ---
   function initEvents() {
     // 1. Mod Seçici Sekmeler
+    if (!elements.modeTabs || elements.modeTabs.length === 0) {
+      elements.modeTabs = document.querySelectorAll('.demo-mode-tab');
+    }
     elements.modeTabs.forEach(tab => {
       tab.addEventListener('click', function () {
         const mode = this.getAttribute('data-mode');
         if (!mode || mode === state.mode) return;
-        switchMode(mode === 'mode_2' ? 2 : 1);
+        switchMode(mode);
       });
     });
 
@@ -889,6 +1054,19 @@
         });
       });
     }
+
+    // 10. Paket Kartlarındaki "Demoyu İncele" Bağlantıları (data-scenario)
+    document.querySelectorAll('[data-scenario]').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const scenario = this.getAttribute('data-scenario');
+        if (scenario) {
+          switchMode(scenario);
+          if (window.innerWidth < 1024) {
+            switchMobileView('preview');
+          }
+        }
+      });
+    });
   }
 
   // --- Başlatıcı (Init) ---
@@ -900,12 +1078,14 @@
     applyPreset('fashion', false);
     updateROIDisplay();
 
-    // URL parametresinden modu tespit et (?mode=sales, ?mode=growth, ?mode=cart, ?mode=starter)
+    // URL parametresinden modu tespit et (?mode=sales, ?mode=growth, ?mode=cart, ?mode=starter, ?mode=vip, ?mode=scale)
     const urlParams = new URLSearchParams(window.location.search);
     const modeParam = (urlParams.get('mode') || '').toLowerCase().trim();
 
-    if (['sales', 'growth', '2'].includes(modeParam)) {
+    if (['sales', 'growth', '2', 'mode_2'].includes(modeParam)) {
       switchMode(2);
+    } else if (['vip', 'scale', '3', 'mode_3'].includes(modeParam)) {
+      switchMode(3);
     } else {
       switchMode(1);
     }
