@@ -288,7 +288,7 @@
     if (!elements.waChatBody) return;
     elements.waChatBody.innerHTML = `
       <div class="wa-security-box">
-        🔒 Bu işletme CizgiFikrim resmi WhatsApp Business API kullanmaktadır. Mesajlar uçtan uca şifrelidir.
+        Bu ekran kurgusal bir prototiptir. WhatsApp veya mağaza hesabına bağlı değildir; gerçek mesaj ya da işlem göndermez.
       </div>
       <div class="wa-date-divider">BUGÜN</div>
     `;
@@ -343,7 +343,7 @@
       bubbleWrap.className = 'wa-bubble-wrap wa-incoming js-primary-bubble';
       bubbleWrap.innerHTML = `
         <div class="wa-bubble">
-          <div>Merhaba <strong>${safeCustomer}</strong>! 🌸 <strong>${safeStore}</strong> sepetinizde unuttuğunuz <strong>${safeProduct}</strong> tükenmek üzere. Sizin için sepetinizi 2 saatliğine ayırdık ve sepetinize özel <strong>${safeDiscountCode}</strong> kodu ile ekstra indirim tanımladık.</div>
+          <div>Merhaba <strong>${safeCustomer}</strong>! Bu, <strong>${safeStore}</strong> için terk edilmiş sepet fikrini anlatan örnek bir mesajdır. <strong>${safeProduct}</strong>, stok, fiyat ve <strong>${safeDiscountCode}</strong> bilgileri temsili veridir; ürün ayrılmadı ve indirim uygulanmadı.</div>
           
           <div class="wa-product-card">
             <div class="wa-product-card-thumb">${state.productIcon || '🛍️'}</div>
@@ -353,7 +353,7 @@
                 <span class="wa-price-old">${safeAmount}</span>
                 <span class="wa-price-new">${discounted}</span>
               </div>
-              <span class="wa-stock-tag">⚡ Son 2 Adet</span>
+          <span class="wa-stock-tag">ÖRNEK STOK ETİKETİ</span>
             </div>
           </div>
 
@@ -364,7 +364,7 @@
 
         <div class="wa-action-buttons js-actions-mode1">
           <button type="button" class="wa-action-btn is-primary-action js-btn-complete-cart">
-            🛒 Sepeti Tek Tıkla Tamamla ➔
+            🛒 Örnek sepet adımını göster ➔
           </button>
           <button type="button" class="wa-action-btn js-btn-ask-size">
             💬 Beden / Kargo Danış
@@ -389,7 +389,7 @@
       btnComplete.addEventListener('click', function () {
         if (this.disabled) return;
         this.disabled = true;
-        this.textContent = 'Yönlendiriliyor...';
+        this.textContent = 'Örnek adım gösteriliyor...';
         if (btnAskSize) btnAskSize.disabled = true;
 
         // Kullanıcı yanıt balonu (giden)
@@ -397,7 +397,7 @@
         userWrap.className = 'wa-bubble-wrap wa-outgoing';
         userWrap.innerHTML = `
           <div class="wa-bubble">
-            <div>Siparişimi tamamlamak istiyorum 🛍️</div>
+            <div>Örnek sepet akışının devamını görmek istiyorum 🛍️</div>
             <div class="wa-bubble-meta">
               <span>${getTimeString()}</span>
               <span class="wa-ticks-blue">✓✓</span>
@@ -409,7 +409,7 @@
         playBeep('pop');
 
         // Toast bildirimi
-        showToast('🎉 Sepet Kilitlendi! %10 İndirim Shopify Checkout\'a uygulandı.');
+        showToast('Bu prototipte örnek sepet adımı gösterildi; gerçek sipariş veya indirim yapılmadı.');
 
         // 450ms sonra teyit mesajı
         setTimeout(() => {
@@ -425,7 +425,7 @@
             confirmWrap.className = 'wa-bubble-wrap wa-incoming';
             confirmWrap.innerHTML = `
               <div class="wa-bubble">
-                <div>🎉 Tebrikler <strong>${safeCustomer}</strong>! <strong>${safeDiscount}</strong> kuponu başarıyla uygulandı.<br><br>Siparişiniz alındı (#CF-84920). Kargonuz yarın yola çıkıyor. Bizi tercih ettiğiniz için teşekkür ederiz!</div>
+                <div>Bu yalnızca örnek onay ekranıdır, <strong>${safeCustomer}</strong>. <strong>${safeDiscount}</strong> kodu ve sipariş bilgileri temsili içeriktir; gerçek indirim, sipariş veya kargo işlemi yapılmadı.</div>
                 <div class="wa-bubble-meta">
                   <span>${getTimeString()}</span>
                 </div>
@@ -470,7 +470,7 @@
             answerWrap.className = 'wa-bubble-wrap wa-incoming';
             answerWrap.innerHTML = `
               <div class="wa-bubble">
-                <div>Tabii ki <strong>${safeCustomer}</strong>! Siparişleriniz aynı gün Yurtiçi Kargo ile yola çıkar ve 1-2 iş gününde teslim edilir. Tüm bedenlerde 14 gün ücretsiz değişim mevcuttur. Dilerseniz siparişinizi hemen onaylayabilirsiniz.</div>
+                <div>Bu örnek yanıt alanı; beden, kargo ve değişim bilgileri gerçek işletmenin doğrulanmış koşullarıyla doldurulmalıdır. Bu prototipte mağaza politikası veya kargo sağlayıcısı bilgisi bulunmuyor.</div>
                 <div class="wa-bubble-meta">
                   <span>${getTimeString()}</span>
                 </div>
@@ -502,7 +502,7 @@
     clientWrap.className = 'wa-bubble-wrap wa-outgoing';
     clientWrap.innerHTML = `
       <div class="wa-bubble">
-        <div>Merhaba! Instagram reklamındaki <strong>${safeProduct}</strong> için yazıyorum. Boyum 1.68, kilom 60. Hangi beden almalıyım ve stokta var mı acaba?</div>
+        <div>Örnek müşteri mesajı: Instagram reklamında gördüğüm <strong>${safeProduct}</strong> için bilgi alabilir miyim? Beden ve stok durumu nedir?</div>
         <div class="wa-bubble-meta">
           <span>${timeStr}</span>
           <span class="wa-ticks-blue">✓✓</span>
@@ -523,7 +523,7 @@
       botWrap.className = 'wa-bubble-wrap wa-incoming js-primary-bubble';
       botWrap.innerHTML = `
         <div class="wa-bubble">
-          <div>Merhaba <strong>${safeCustomer}</strong>! Harika bir tercih ✨ Ölçülerinize göre en dökümlü ve rahat kalıp <strong>M Beden</strong> olacaktır. Şu anda merkez depomuzda son 3 adet kaldı! Sizin adınıza 1 adet ayırıp anlık güvenli ödeme bağlantısı oluşturalım mı?</div>
+          <div>Merhaba <strong>${safeCustomer}</strong>! Bu prototipte beden ve stok metni örnektir; gerçek ürün kataloğundan doğrulanmaz. Canlı bir kullanımda doğru beden önerisi ve stok bilgisi mağazanın onaylı verisinden gelmelidir. Örnek ödeme adımını görüntüleyelim mi?</div>
           <div class="wa-bubble-meta">
             <span>${getTimeString()}</span>
           </div>
@@ -531,7 +531,7 @@
 
         <div class="wa-action-buttons js-actions-mode2">
           <button type="button" class="wa-action-btn is-primary-action js-btn-buy-instant">
-            ⚡ Hemen M Beden Satın Al (Hızlı Ödeme)
+            ⚡ Örnek ödeme adımını göster
           </button>
           <button type="button" class="wa-action-btn js-btn-view-terms">
             📏 Kumaş &amp; Değişim Koşullarını Gör
@@ -555,14 +555,14 @@
       btnBuy.addEventListener('click', function () {
         if (this.disabled) return;
         this.disabled = true;
-        this.textContent = 'Ödeme Linki Hazırlanıyor...';
+        this.textContent = 'Örnek ekran açılıyor...';
         if (btnTerms) btnTerms.disabled = true;
 
         const userWrap = document.createElement('div');
         userWrap.className = 'wa-bubble-wrap wa-outgoing';
         userWrap.innerHTML = `
           <div class="wa-bubble">
-            <div>Evet lütfen, M Beden için hemen ödeme linki alabilir miyim? 💳</div>
+            <div>Örnek ödeme adımını görmek istiyorum 💳</div>
             <div class="wa-bubble-meta">
               <span>${getTimeString()}</span>
               <span class="wa-ticks-blue">✓✓</span>
@@ -573,7 +573,7 @@
         elements.waChatBody.scrollTop = elements.waChatBody.scrollHeight;
         playBeep('pop');
 
-        showToast('🎯 Sıcak Reklam Satışa Döndü! Yanıt süresi: 3 saniye.');
+        showToast('Prototipte örnek ödeme adımı gösteriliyor; gerçek ödeme veya satış yapılmıyor.');
 
         setTimeout(() => {
           showTypingIndicator();
@@ -586,9 +586,8 @@
             payWrap.className = 'wa-bubble-wrap wa-incoming';
             payWrap.innerHTML = `
               <div class="wa-bubble">
-                <div>Ödeme linkiniz hazırlandı 💳 PayTR 3D Secure güvencesiyle tek tıkla siparişinizi tamamlayabilirsiniz:<br><br>
-                🔗 <strong>pay.cizgifikrim.net/checkout/m-beden-siparis</strong><br>
-                Tutar: <strong>${safeAmount}</strong> (Kargo Ücretsiz)</div>
+                <div>Bu, gerçek olmayan örnek ödeme ekranıdır. Ödeme sağlayıcısı, checkout bağlantısı, kargo ve tutar bilgileri canlı bir kurulumda doğrulanmadan gösterilmemelidir.<br><br>
+                Temsili ürün tutarı: <strong>${safeAmount}</strong><br>Gerçek ödeme başlatılmaz.</div>
                 <div class="wa-bubble-meta">
                   <span>${getTimeString()}</span>
                 </div>
@@ -632,7 +631,7 @@
             termsWrap.className = 'wa-bubble-wrap wa-incoming';
             termsWrap.innerHTML = `
               <div class="wa-bubble">
-                <div>Ürünümüz %100 birinci sınıf doğal içerikli olup alerjen içermez. Beden uymaması halinde WhatsApp üzerinden kapınızdan kurye ile 14 gün ücretsiz değişim imkanı sunuyoruz. Dilerseniz siparişinizi hemen oluşturabiliriz!</div>
+                <div>Ürün içeriği, beden, teslimat ve değişim koşulları bu prototipte doğrulanmaz. Örnek bir sayfada bu bilgiler işletmenin onayladığı gerçek ürün ve politika metinleriyle doldurulmalıdır.</div>
                 <div class="wa-bubble-meta">
                   <span>${getTimeString()}</span>
                 </div>
@@ -670,7 +669,7 @@
       botWrap.className = 'wa-bubble-wrap wa-incoming js-primary-bubble';
       botWrap.innerHTML = `
         <div class="wa-bubble">
-          <div>Merhaba <strong>${safeCustomer}</strong>! 🌸 <strong>${safeStore}</strong> mağazamızdan aldığınız <strong>${safeProduct}</strong> az önce teslim edildi. Ürününüzü keyifle kullanmanızı dileriz! Deneyiminizi bizimle paylaşıp fotoğraflı değerlendirme bırakırsanız bir sonraki alışverişinizde geçerli <strong>%15 VIP İndirim</strong> hesabınıza tanımlanacaktır ✨</div>
+            <div>Merhaba <strong>${safeCustomer}</strong>! Bu ekran, <strong>${safeStore}</strong> için teslimat sonrası iletişim fikrini gösteren kurgusal bir akıştır. <strong>${safeProduct}</strong> ve teslimat bilgisi temsili veridir; gerçek sipariş veya müşteri kaydı yoktur.</div>
           <div class="wa-bubble-meta">
             <span>${timeStr}</span>
           </div>
@@ -678,10 +677,10 @@
 
         <div class="wa-action-buttons js-actions-mode3">
           <button type="button" class="wa-action-btn is-primary-action js-btn-review-5star">
-            ⭐ 5 Yıldız &amp; Fotoğraflı Yorum Bırak
+            Geri bildirim adımını görüntüle
           </button>
           <button type="button" class="wa-action-btn js-btn-repeat-order">
-            🔄 Otomatik Tüketim / Yenileme Döngüsüne Katıl
+            Örnek yeniden sipariş hatırlatmasını görüntüle
           </button>
         </div>
       `;
@@ -702,14 +701,14 @@
       btnReview.addEventListener('click', function () {
         if (this.disabled) return;
         this.disabled = true;
-        this.textContent = 'Yorum Gönderiliyor...';
+        this.textContent = 'Örnek adım açılıyor...';
         if (btnRepeat) btnRepeat.disabled = true;
 
         const userWrap = document.createElement('div');
         userWrap.className = 'wa-bubble-wrap wa-outgoing';
         userWrap.innerHTML = `
           <div class="wa-bubble">
-            <div>Ürüne bayıldım! Kumaşı ve kalıbı kusursuz, beklediğimden de kaliteli geldi. 5 yıldız veriyorum! 📸⭐</div>
+            <div>Deneyimimi paylaşmak istiyorum. (Örnek kullanıcı yanıtı)</div>
             <div class="wa-bubble-meta">
               <span>${getTimeString()}</span>
               <span class="wa-ticks-blue">✓✓</span>
@@ -720,7 +719,7 @@
         elements.waChatBody.scrollTop = elements.waChatBody.scrollHeight;
         playBeep('pop');
 
-        showToast('💎 Sosyal Kanıt & VIP Sadakat Puanı Kazanıldı!');
+        showToast('Örnek geri bildirim adımı gösterildi; herhangi bir platforma yorum gönderilmedi.');
 
         setTimeout(() => {
           showTypingIndicator();
@@ -733,7 +732,7 @@
             rewardWrap.className = 'wa-bubble-wrap wa-incoming';
             rewardWrap.innerHTML = `
               <div class="wa-bubble">
-                <div>Harika geri bildiriminiz için teşekkürler <strong>${safeCustomer}</strong>! Fotoğraflı yorumunuz onaylandı ve mağazamızda yayınlandı 🎉<br><br>Size özel <strong>VIP15</strong> indirim kuponunuz tanımlandı. 30 gün içinde tüm ürünlerde kullanabilirsiniz.</div>
+                <div>Bu prototipteki geri bildirim ekranı yalnızca örnektir, <strong>${safeCustomer}</strong>. Yorum gönderilmedi, yayınlanmadı veya bir ödüle bağlanmadı.</div>
                 <div class="wa-bubble-meta">
                   <span>${getTimeString()}</span>
                 </div>
@@ -756,7 +755,7 @@
         userWrap.className = 'wa-bubble-wrap wa-outgoing';
         userWrap.innerHTML = `
           <div class="wa-bubble">
-            <div>Ürünüm bittiğinde otomatik hatırlatma ve tek tıkla yenileme almak istiyorum 🔄</div>
+            <div>Örnek yeniden sipariş hatırlatmasını görmek istiyorum 🔄</div>
             <div class="wa-bubble-meta">
               <span>${getTimeString()}</span>
               <span class="wa-ticks-blue">✓✓</span>
@@ -777,7 +776,7 @@
             repeatWrap.className = 'wa-bubble-wrap wa-incoming';
             repeatWrap.innerHTML = `
               <div class="wa-bubble">
-                <div>Tüketim döngüsü hatırlatıcınız kuruldu! Ürününüzün tahmini tükenme süresinden 5 gün önce size özel tek tıkla hızlı sipariş linki ileteceğiz 📦</div>
+                <div>Bu prototip herhangi bir hatırlatma kurmaz veya mesaj göndermez. Gerçek yenileme akışı için ürün, sipariş ve müşteri izin verilerinin ayrıca doğrulanması gerekir.</div>
                 <div class="wa-bubble-meta">
                   <span>${getTimeString()}</span>
                 </div>
@@ -824,7 +823,7 @@
     if (state.mode === 'mode_1') {
       const bubbleText = primaryBubble.querySelector('.wa-bubble > div:first-child');
       if (bubbleText) {
-        bubbleText.innerHTML = `Merhaba <strong>${safeCustomer}</strong>! 🌸 <strong>${safeStore}</strong> sepetinizde unuttuğunuz <strong>${safeProduct}</strong> tükenmek üzere. Sizin için sepetinizi 2 saatliğine ayırdık ve sepetinize özel <strong>${safeDiscountCode}</strong> kodu ile ekstra indirim tanımladık.`;
+        bubbleText.innerHTML = `Merhaba <strong>${safeCustomer}</strong>! Bu, <strong>${safeStore}</strong> için terk edilmiş sepet fikrini anlatan örnek bir mesajdır. <strong>${safeProduct}</strong>, stok, fiyat ve <strong>${safeDiscountCode}</strong> bilgileri temsili veridir; ürün ayrılmadı ve indirim uygulanmadı.`;
       }
       const productTitle = primaryBubble.querySelector('.wa-product-card-title');
       if (productTitle) productTitle.textContent = getSafeProductName();
@@ -840,7 +839,7 @@
     } else {
       const bubbleText = primaryBubble.querySelector('.wa-bubble > div:first-child');
       if (bubbleText) {
-        bubbleText.innerHTML = `Merhaba <strong>${safeCustomer}</strong>! Harika bir tercih ✨ Ölçülerinize göre en dökümlü ve rahat kalıp <strong>M Beden</strong> olacaktır. Şu anda merkez depomuzda son 3 adet kaldı! Sizin adınıza 1 adet ayırıp anlık güvenli ödeme bağlantısı oluşturalım mı?`;
+        bubbleText.innerHTML = `Merhaba <strong>${safeCustomer}</strong>! Bu prototipte beden ve stok metni örnektir; gerçek ürün kataloğundan doğrulanmaz. Canlı bir kullanımda doğru beden önerisi ve stok bilgisi mağazanın onaylı verisinden gelmelidir. Örnek ödeme adımını görüntüleyelim mi?`;
       }
     }
   }
@@ -1104,7 +1103,7 @@
 
     // URL parametresinden modu tespit et (?mode=sales, ?mode=growth, ?mode=cart, ?mode=starter, ?mode=vip, ?mode=scale)
     const urlParams = new URLSearchParams(window.location.search);
-    const modeParam = (urlParams.get('mode') || '').toLowerCase().trim();
+    const modeParam = (urlParams.get('mode') || document.body.dataset.demoMode || '').toLowerCase().trim();
 
     if (['sales', 'growth', '2', 'mode_2'].includes(modeParam)) {
       switchMode(2);
