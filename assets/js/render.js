@@ -223,6 +223,10 @@ async function renderServicesPage() {
 
   if (!ecomRoot && !customRoot && !singleRoot) return;
 
+  // Keep the service page's verified, source-controlled copy visible until
+  // Supabase service records are reconciled with the delivery scope.
+  if (ecomRoot?.hasAttribute('data-static-services') || customRoot?.hasAttribute('data-static-services')) return;
+
   if (typeof fetchActiveServices !== 'function') return;
 
   const remoteServices = await fetchActiveServices();

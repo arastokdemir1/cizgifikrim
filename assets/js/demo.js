@@ -1,5 +1,5 @@
 /**
- * CizgiFikrim — E-Ticaret & Shopify WhatsApp Büyüme Simülatörü Motoru
+ * CizgiFikrim — E-Ticaret Mesajlaşma Prototipi
  * Pure Vanilla JS (ES6+) — 0 Bağımlılık, < 50ms Reaktivite, XSS Korumalı
  */
 
@@ -209,7 +209,7 @@
     if (rev > 2500000) rev = 2500000;
 
     // Spesifikasyon Formülü:
-    // Ciro 350.000 ₺ iken aylık kurtarılan ek ciro = 70.000 ₺ (Ciro * 0.20)
+    // Illustrative scenario only; this 20% assumption is not measured performance.
     const monthlyRecovered = Math.round(rev * 0.20);
     const annualRecovered = monthlyRecovered * 12;
 
@@ -248,11 +248,7 @@
       elements.roiAnnualRecovered.textContent = '+' + formatMoney(roi.annualRecovered) + ' / yıl';
     }
     if (elements.roiAmortizationBadge) {
-      if (roi.daysToAmortize <= 4) {
-        elements.roiAmortizationBadge.textContent = '⚡ İlk 4 Günde Kendini Amorti Eder';
-      } else {
-        elements.roiAmortizationBadge.textContent = `⚡ İlk ${roi.daysToAmortize} Günde Kendini Amorti Eder`;
-      }
+      elements.roiAmortizationBadge.textContent = 'Örnek varsayım, gerçek sonuç değildir';
     }
     updateActiveROIPill(state.monthlyRevenue);
   }
