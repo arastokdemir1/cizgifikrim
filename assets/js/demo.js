@@ -81,6 +81,8 @@
   // --- DOM Elemanları ---
   const elements = {
     demoStudio: document.querySelector('.demo-studio'),
+    whatsappDemo: document.getElementById('whatsapp-demo'),
+    closeWhatsappDemo: document.getElementById('btn-close-whatsapp-demo'),
     mobileViewTabs: document.querySelectorAll('.demo-view-tab'),
     btnGotoPreview: document.getElementById('btn-goto-preview'),
     btnGotoSettings: document.getElementById('btn-goto-settings'),
@@ -1056,17 +1058,43 @@
     }
 
     // 10. Paket Kartlarındaki "Demoyu İncele" Bağlantıları (data-scenario)
+    let lastDemoTrigger = null;
     document.querySelectorAll('[data-scenario]').forEach(btn => {
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', function (event) {
+        if (!elements.whatsappDemo) return;
+        event.preventDefault();
+
         const scenario = this.getAttribute('data-scenario');
+        lastDemoTrigger = this;
+        elements.whatsappDemo.hidden = false;
         if (scenario) {
           switchMode(scenario);
           if (window.innerWidth < 1024) {
             switchMobileView('preview');
           }
         }
+
+        const demoUrl = new URL(window.location.href);
+        demoUrl.hash = 'whatsapp-demo';
+        window.history.replaceState(null, '', demoUrl);
+        window.requestAnimationFrame(() => {
+          elements.whatsappDemo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.getElementById('whatsapp-demo-title')?.focus({ preventScroll: true });
+        });
       });
     });
+
+    if (elements.closeWhatsappDemo) {
+      elements.closeWhatsappDemo.addEventListener('click', function () {
+        if (!elements.whatsappDemo) return;
+        elements.whatsappDemo.hidden = true;
+
+        const pageUrl = new URL(window.location.href);
+        pageUrl.hash = '';
+        window.history.replaceState(null, '', pageUrl);
+        lastDemoTrigger?.focus();
+      });
+    }
   }
 
   // --- Başlatıcı (Init) ---
@@ -1092,6 +1120,11 @@
 
     initEvents();
     switchMobileView('preview');
+
+    if (window.location.hash === '#whatsapp-demo' && elements.whatsappDemo) {
+      elements.whatsappDemo.hidden = false;
+      window.requestAnimationFrame(() => elements.whatsappDemo.scrollIntoView({ block: 'start' }));
+    }
   }
 
   if (document.readyState === 'loading') {
