@@ -235,7 +235,13 @@ async function renderServicesPage() {
     const ecom = remoteServices.filter(s => s.category === 'E-Ticaret WhatsApp Sistemleri');
     const custom = remoteServices.filter(s => s.category !== 'E-Ticaret WhatsApp Sistemleri');
     if (ecomRoot) ecomRoot.innerHTML = ecom.map((s, i) => serviceCardHTML(s, i)).join('');
-    if (customRoot) customRoot.innerHTML = custom.map((s, i) => serviceCardHTML(s, i + ecom.length)).join('');
+    if (customRoot) {
+      const staticCards = [...customRoot.querySelectorAll('[data-static-service]')]
+        .map(card => card.outerHTML)
+        .join('');
+      const remoteCards = custom.map((s, i) => serviceCardHTML(s, i + ecom.length)).join('');
+      customRoot.innerHTML = remoteCards + staticCards;
+    }
   } else if (singleRoot) {
     singleRoot.innerHTML = remoteServices
       .map((s, i) => serviceCardHTML(s, i))
