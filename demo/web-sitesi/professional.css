@@ -107,6 +107,33 @@
 @media(max-width:760px){.demo-image{min-height:210px}.demo-image .demo-open{font-size:.48rem;padding:.45rem .55rem}}
 .demo-card-action{display:flex;align-items:center;justify-content:space-between;margin-top:.8rem;padding:.78rem 1rem;border:1px solid #273b30;border-radius:2px;background:#273b30;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.01em;transition:background .18s ease,color .18s ease,transform .18s ease}.demo-card-action i{font-size:1rem;font-style:normal}.demo-card:hover .demo-card-action,.demo-card:focus-visible .demo-card-action{background:#f7f6f2;color:#273b30;transform:translateY(-2px)}.demo-card:focus-visible{outline:none}.demo-card:focus-visible .demo-card-action{outline:3px solid #bd674e;outline-offset:3px}
 @media(max-width:760px){.demo-card-action{font-size:.68rem;padding:.72rem .85rem}}
+/* Gallery-only visual identities: each thumbnail reads as its own industry demo. */
+.gallery .demo-card{--demo-accent:#52705c}
+.gallery .identity-portfolio{--demo-accent:#a65f43}
+.gallery .identity-career{--demo-accent:#54738b}
+.gallery .identity-photo{--demo-accent:#bb8f46}
+.gallery .identity-consult{--demo-accent:#52758a}
+.gallery .identity-architecture{--demo-accent:#727c63}
+.gallery .identity-clinic{--demo-accent:#397a70}
+.gallery .identity-stay{--demo-accent:#ad7652}
+.gallery .identity-cafe{--demo-accent:#a85035}
+.gallery .identity-local{--demo-accent:#80694b}
+.gallery .demo-image{border-bottom:5px solid var(--demo-accent);background:color-mix(in srgb,var(--demo-accent) 16%,#f7f6f2)}
+.gallery .demo-image:before{content:"";position:absolute;z-index:1;inset:12px;border:1px solid #ffffff72;pointer-events:none}
+.gallery .demo-image .demo-open{background:var(--demo-accent);border-color:#ffffffb0}
+.gallery .demo-card-action{background:var(--demo-accent);border-color:var(--demo-accent)}
+.gallery .demo-card:hover .demo-card-action,.gallery .demo-card:focus-visible .demo-card-action{background:#f7f6f2;color:var(--demo-accent)}
+.gallery .identity-portfolio .demo-image:before{inset:0;border:0;box-shadow:inset 10px 0 0 var(--demo-accent),inset 0 0 0 1px #ffffff48}
+.gallery .identity-career .demo-image:before{inset:12px 12px 12px auto;width:22%;border:0;border-left:1px solid #ffffffbb;background:#19344622}
+.gallery .identity-photo .demo-image{background:#171a18;border-bottom-width:8px}
+.gallery .identity-photo .demo-image:before{inset:18px;border:1px solid #e7c982a8}
+.gallery .identity-consult .demo-image:before{inset:12px 12px 12px 34px;border:0;border-left:3px solid #ffffffc4}
+.gallery .identity-architecture .demo-image:before{inset:0;border:0;box-shadow:inset 0 0 0 12px #f2f0e8b8,inset 0 0 0 13px var(--demo-accent)}
+.gallery .identity-clinic .demo-image:before{inset:0 18% 0;border:0;border-inline:1px solid #ffffffa6;border-radius:48% 48% 0 0}
+.gallery .identity-stay .demo-image:before{inset:9px;border:1px solid #ffffffa0;border-radius:18px}
+.gallery .identity-cafe .demo-image:before{inset:auto 0 0;width:40%;height:18%;border:0;border-top:4px solid var(--demo-accent);background:#a85035c9}
+.gallery .identity-local .demo-image:before{inset:0 0 0 auto;width:13%;border:0;border-left:4px solid var(--demo-accent);background:#ffffff16}
+@media(prefers-reduced-motion:reduce){.gallery .demo-image img,.gallery .demo-info>i,.gallery .demo-card-action{transition:none}}
 @media(max-width:760px){.concept-bar{height:auto;min-height:32px;padding:.42rem 1rem;flex-wrap:wrap;line-height:1.45;font-size:.54rem}}
 
 /* Field-specific page systems. The gallery concepts now use different information architectures. */

@@ -4,6 +4,19 @@ const host = document.querySelector("#arch-model");
 const cue = document.querySelector("#model-cue");
 const reset = document.querySelector(".model-reset");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const revealSections = document.querySelectorAll("[data-reveal]");
+
+if (!reducedMotion.matches && "IntersectionObserver" in window && revealSections.length) {
+  document.documentElement.classList.add("architecture-reveal-ready");
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-revealed");
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.08, rootMargin: "0px 0px -4% 0px" });
+  revealSections.forEach((section) => revealObserver.observe(section));
+}
 
 if (host) {
   const scene = new THREE.Scene();
@@ -114,6 +127,9 @@ if (host) {
     const bounds = host.getBoundingClientRect();
     renderer.setSize(bounds.width, bounds.height, false);
     camera.aspect = bounds.width / Math.max(1, bounds.height);
+    const viewDistance = bounds.width >= 1500 ? 16.5 : bounds.width >= 1250 ? 18 : 20;
+    camera.position.set(0.8, viewDistance * 0.48, viewDistance);
+    camera.lookAt(0, 1.1, 0);
     camera.updateProjectionMatrix();
     renderer.render(scene, camera);
   };
@@ -171,7 +187,7 @@ if (host) {
     yaw = 0.12;
     pitch = 0;
     updateModel();
-    cue.textContent = "SÜRÜKLEYEREK VEYA OK TUŞLARIYLA DÖNDÜR · ETKİLEŞİMLİ 3D MAKET";
+    cue.textContent = "SÜRÜKLEYEREK VEYA OK TUŞLARIYLA DÖNDÜR · KONSEPT 3D MAKETİ";
     host.focus({ preventScroll: true });
   });
 
