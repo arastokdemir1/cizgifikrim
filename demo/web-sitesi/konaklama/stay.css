@@ -10,3 +10,52 @@
 /* The booking card is an illustration, not form controls; keep its field-like rows semantically static. */
 .stay-page .inquiry-detail{display:flex;justify-content:space-between;gap:1rem;padding:.85rem 0;border-top:1px solid #39493b35;font-size:.62rem;color:#697065}.stay-page .inquiry-detail b{font-weight:600;color:#30372e;text-align:right}
 @media(max-width:390px){.stay-page .inquiry-detail{align-items:flex-start;flex-direction:column;gap:.25rem}.stay-page .inquiry-detail b{text-align:left}}
+
+/* Guest-facing clarity: compare stays first, verify terms, then leave to the host's real channel. */
+.stay-page{font-size:16px;overflow-x:hidden}
+.stay-page .stay-header{position:sticky;top:0;z-index:10;padding-inline:max(5vw,calc((100vw - 1440px)/2));height:90px}
+.stay-page .stay-hero{min-height:min(780px,calc(100svh - 90px));grid-template-columns:minmax(0,1fr) minmax(0,1fr);overflow:hidden}
+.stay-page .stay-hero-copy{padding-left:max(7vw,calc((100vw - 1440px)/2))}
+.stay-page .stay-landscape{position:relative;isolation:isolate;overflow:hidden;background:#c5d3c1;animation:stay-landscape-arrive .9s ease-out both}
+.stay-page .stay-hero-copy .eyebrow{font-size:.68rem;line-height:1.65}
+.stay-page .stay-hero-copy>p:not(.eyebrow){font-size:.95rem;line-height:1.85}
+.stay-page .stay-hero-copy small{font-size:.62rem}
+.stay-page .stay-intro{grid-template-columns:.65fr 1.1fr .9fr;gap:4vw;padding-block:clamp(4.5rem,8vw,7.5rem)}
+.stay-page .stay-intro h2{font-size:clamp(3rem,5vw,5rem)}
+.stay-page .stay-section-head{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;margin-bottom:2.6rem}
+.stay-page .stay-section-head>p{max-width:440px;margin:0 0 .3rem;color:#676d62;font-size:.85rem;line-height:1.8}
+.stay-page .stay-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(1rem,3vw,3rem)}
+.stay-page .stay-card-art{min-height:clamp(300px,34vw,480px)}
+.stay-page .stay-cards article h3{font:500 1.5rem var(--serif)}
+.stay-page .stay-cards article>p,.stay-page .stay-amenities{font-size:.82rem;line-height:1.75}
+.stay-page .stay-rate{display:flex;justify-content:space-between;gap:1rem;padding-top:.9rem;border-top:1px solid #766e5e55;font-size:.9rem}
+.stay-page .stay-rate small{font-size:.62rem;text-align:right}
+.stay-page .stay-area{grid-template-columns:.45fr 1.55fr;gap:5vw;padding-block:clamp(4.5rem,8vw,7rem)}
+.stay-page .stay-area h2{font-size:clamp(3.3rem,5.5vw,5.4rem)}
+.stay-page .stay-area>div:last-child>p:not(.eyebrow){max-width:720px;color:#676d62;font-size:.9rem;line-height:1.85}
+.stay-page .stay-area-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin:1.7rem 0}
+.stay-page .stay-area-facts article{min-height:104px;padding:1rem;border-top:2px solid #395145;background:#f0e7d7}
+.stay-page .stay-area-facts span,.stay-page .stay-area-facts b{display:block}
+.stay-page .stay-area-facts span{font:600 .57rem var(--mono);letter-spacing:.04em;text-transform:uppercase;color:#707569}
+.stay-page .stay-area-facts b{margin-top:.8rem;font:600 .78rem var(--display);line-height:1.5}
+.stay-page .stay-inquiry{grid-template-columns:minmax(0,1.05fr) minmax(330px,.8fr);gap:clamp(2rem,6vw,6rem);padding:clamp(4.5rem,8vw,7.5rem) max(8vw,calc((100vw - 1380px)/2))}
+.stay-page .stay-inquiry h2{font-size:clamp(3.4rem,6vw,6rem)}
+.stay-page .stay-booking-copy>p:not(.eyebrow){max-width:580px;color:#d8dfd4;font-size:.9rem;line-height:1.85}
+.stay-page .stay-booking-steps{display:grid;gap:0;margin:1.7rem 0 0;padding:0;list-style:none;border-top:1px solid #ffffff45}
+.stay-page .stay-booking-steps li{display:grid;grid-template-columns:40px 1fr;gap:.8rem;padding:1rem 0;border-bottom:1px solid #ffffff45}
+.stay-page .stay-booking-steps li>span{font:600 .58rem var(--mono);color:#e3b78e}
+.stay-page .stay-booking-steps b{font-size:.8rem}
+.stay-page .stay-booking-steps p{margin:.3rem 0 0;color:#d8dfd4;font-size:.7rem;line-height:1.7}
+.stay-page .inquiry-card{width:100%;max-width:560px;justify-self:end;padding:clamp(1.25rem,3vw,2rem);box-shadow:12px 12px 0 #263b30}
+.stay-page .inquiry-card>span{font-size:.58rem;line-height:1.5}
+.stay-page .inquiry-detail{font-size:.75rem;line-height:1.5}
+.stay-page .inquiry-detail b{max-width:58%;font-size:.75rem}
+.stay-page .stay-inquiry-note{margin:.8rem 0;color:#74786c;font-size:.67rem;line-height:1.7}
+.stay-page .stay-inquiry-note+a{margin-top:1rem}
+.stay-page [data-reveal].reveal-pending{opacity:0;transform:translateY(24px)}
+.stay-page [data-reveal].reveal-visible{opacity:1;transform:translateY(0);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1)}
+@keyframes stay-landscape-arrive{from{opacity:.68;transform:scale(1.025)}to{opacity:1;transform:scale(1)}}
+@media(max-width:1000px){.stay-page .stay-area{grid-template-columns:1fr}.stay-page .area-mark{width:120px}.stay-page .stay-inquiry{grid-template-columns:minmax(0,1fr) minmax(280px,.8fr);padding-inline:7vw}}
+@media(max-width:760px){.stay-page{font-size:16px}.stay-page .stay-header{position:relative;height:auto;min-height:80px;padding:.75rem 1rem;gap:.8rem}.stay-page .stay-header nav{gap:.7rem;flex-wrap:wrap;justify-content:center}.stay-page .stay-header nav a{font-size:.54rem}.stay-page .stay-contact{font-size:.55rem}.stay-page .stay-hero{min-height:0;grid-template-columns:1fr}.stay-page .stay-hero-copy{grid-column:1;grid-row:1;padding:3.5rem 1.2rem 2.5rem}.stay-page .stay-landscape{grid-column:1;grid-row:2;min-height:360px}.stay-page .stay-intro{grid-template-columns:1fr;gap:.75rem;padding-block:3.8rem}.stay-page .stay-section-head{grid-template-columns:1fr;gap:.6rem}.stay-page .stay-cards{grid-template-columns:1fr}.stay-page .stay-card-art{min-height:340px}.stay-page .stay-area{padding-block:3.8rem}.stay-page .stay-area-facts{grid-template-columns:1fr;gap:.55rem}.stay-page .stay-area-facts article{min-height:0}.stay-page .stay-inquiry{grid-template-columns:1fr;padding:3.8rem 1.2rem;gap:1.8rem}.stay-page .inquiry-card{justify-self:start}.stay-page .stay-booking-steps p{font-size:.78rem}}
+@media(max-width:420px){.stay-page .stay-header{flex-wrap:wrap}.stay-page .stay-header nav{order:3;width:100%;justify-content:flex-start}.stay-page .stay-brand{font-size:.8rem}.stay-page .stay-brand small{font-size:.39rem}.stay-page .stay-contact{margin-left:auto}.stay-page .stay-landscape{min-height:300px}.stay-page .stay-card-art{min-height:280px}.stay-page .inquiry-detail{flex-direction:column;gap:.2rem}.stay-page .inquiry-detail b{max-width:none;text-align:left}}
+@media(prefers-reduced-motion:reduce){.stay-page .stay-landscape{animation:none}.stay-page [data-reveal].reveal-pending{opacity:1;transform:none}.stay-page [data-reveal].reveal-visible{transition:none}}

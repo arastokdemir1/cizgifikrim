@@ -36,3 +36,17 @@
 @media(prefers-reduced-motion:reduce){.page-architecture .model-reset{transition:none}.page-architecture .arch-model{scroll-behavior:auto}.page-architecture .architecture-reveal-ready [data-reveal],.page-architecture [data-reveal]{opacity:1;transform:none;transition:none}}
 .architecture-reveal-ready .page-architecture [data-reveal]:not(.is-revealed){opacity:.01;transform:translateY(20px)}.architecture-reveal-ready .page-architecture [data-reveal]{transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1)}.architecture-reveal-ready .page-architecture [data-reveal].is-revealed{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.architecture-reveal-ready .page-architecture [data-reveal],.architecture-reveal-ready .page-architecture [data-reveal]:not(.is-revealed){opacity:1;transform:none;transition:none}}
+
+/* Buyer-oriented story and project journey, kept inside the five-part static offer. */
+.page-architecture .arch-process{max-width:1680px;margin:0 auto;padding:clamp(4.5rem,7vw,7.5rem) clamp(4rem,7vw,8rem);display:grid;grid-template-columns:.78fr 1.22fr;gap:clamp(3rem,7vw,8rem);background:#e9e7df;color:#28342d;border-bottom:1px solid #28342d28}
+.page-architecture .arch-process-intro h2{margin:0;font:500 clamp(3.2rem,6vw,6.3rem)/.9 var(--serif);letter-spacing:-.08em}
+.page-architecture .arch-process-intro>p:last-child{max-width:470px;margin:1.2rem 0 0;color:#60695f;font-size:.82rem;line-height:1.85}
+.page-architecture .arch-process-steps{list-style:none;margin:0;padding:0;border-top:1px solid #28342d35}
+.page-architecture .arch-process-steps li{display:grid;grid-template-columns:58px 1fr;gap:1.15rem;padding:1.2rem .2rem;border-bottom:1px solid #28342d35}
+.page-architecture .arch-process-steps li>span{display:grid;place-items:center;width:38px;height:38px;border:1px solid #a26946;border-radius:50%;color:#8d5b3e;font:600 .62rem var(--mono)}
+.page-architecture .arch-process-steps h3{margin:.15rem 0 .35rem;font:600 1.05rem var(--display);letter-spacing:-.03em}
+.page-architecture .arch-process-steps p{max-width:600px;margin:0;color:#60695f;font-size:.75rem;line-height:1.75}
+.page-architecture .arch-drawing p{max-width:36rem;margin:.65rem 0 0;color:#657064;font-size:.66rem;line-height:1.65}
+.page-architecture .sample-disclosure{max-width:780px;border-left:2px solid #b2764e;padding-left:1rem;font-size:.88rem;line-height:1.8}
+@media(min-width:1440px){.page-architecture .arch-process{padding-block:7rem}.page-architecture .arch-process-steps li{padding:1.55rem .3rem}.page-architecture .arch-process-steps h3{font-size:1.2rem}.page-architecture .arch-process-steps p{font-size:.84rem}.page-architecture .arch-drawing p{font-size:.75rem}}
+@media(max-width:760px){.page-architecture .sample-nav{overflow-x:auto;justify-content:flex-start}.page-architecture .arch-process{grid-template-columns:1fr;padding:3.5rem 7vw;gap:2rem}.page-architecture .arch-process-intro h2{font-size:3.6rem}.page-architecture .arch-process-steps li{grid-template-columns:44px 1fr;gap:.8rem;padding:1rem 0}.page-architecture .arch-process-steps p{font-size:.7rem}.page-architecture .sample-disclosure{font-size:.76rem}}

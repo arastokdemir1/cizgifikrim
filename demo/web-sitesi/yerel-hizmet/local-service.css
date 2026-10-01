@@ -8,3 +8,50 @@
 @media(max-width:420px){.page-local .local-proof-cards{grid-template-columns:1fr}.page-local .local-proof-cards article{min-height:180px}}
 .page-local .service-area{grid-column:1/-1;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;padding-top:1.2rem;border-top:1px solid #25292338}.page-local .service-area b{margin-right:.7rem;font:600 .52rem var(--mono);letter-spacing:.08em;color:#a94e34}.page-local .service-area span{padding:.4rem .6rem;background:#e2d6c2;font-size:.61rem}.page-local .service-area small{flex-basis:100%;color:#6a6b62;font-size:.57rem}
 @media(max-width:760px){.page-local .sample-head{height:auto;min-height:74px;flex-wrap:wrap;gap:.55rem;padding:.8rem 5vw}.page-local .sample-nav{width:100%;justify-content:space-between;gap:.45rem;flex-wrap:nowrap}.page-local .sample-nav a{font-size:.56rem;white-space:nowrap}.page-local .sample-nav .nav-cta{padding:.55rem .65rem}}
+
+/* Buyer-facing service area, quote inputs and motion-safe section reveals. */
+.page-local .local-hero,.page-local .local-scope,.page-local .local-quote,.page-local .local-proof,.page-local .sample-cta{overflow:hidden}
+.page-local .local-hero{min-height:610px;align-items:center}
+.page-local .local-hero>div{max-width:680px}
+.page-local .local-hero>div>p:not(.b-kicker){max-width:52ch;font-size:.84rem;line-height:1.9}
+.page-local .local-visual{background-position:center;background-size:cover}
+.page-local .local-scope{padding-top:6rem;padding-bottom:6rem;column-gap:7vw}
+.page-local .local-scope>div:first-child{max-width:440px}
+.page-local .local-list article{display:grid;grid-template-columns:2.2rem 1fr auto;align-items:start;gap:.9rem;border-bottom:1px solid #2529232c}
+.page-local .local-list article h3{margin:0 0 .3rem;font:700 1.05rem var(--display)}
+.page-local .local-list article p{margin:0;color:#6a6b62;font-size:.66rem;line-height:1.7}
+.page-local .local-list article em{padding:.35rem .45rem;border:1px solid #a94e3460;color:#88412d;font-style:normal}
+.page-local .service-area{margin-top:.6rem}
+.page-local .service-area span{border:1px solid #25292325;font-size:.66rem}
+.page-local .local-quote{max-width:none;margin:0;padding:5rem max(8vw,calc((100vw - 1240px)/2));grid-template-columns:.8fr 1.2fr;gap:6vw;border-left:0;position:relative}
+.page-local .local-quote:before{content:"03";position:absolute;right:7vw;top:1rem;color:#ffffff12;font:700 clamp(7rem,15vw,15rem)/1 var(--display)}
+.page-local .local-quote>div{position:relative;z-index:1}
+.page-local .local-quote p{max-width:68ch;font-size:.78rem}
+.page-local .estimate-factors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem;margin:1.25rem 0;padding:1rem;border:1px solid #f4d2b64a;background:#ffffff08}
+.page-local .estimate-factors b{grid-column:1/-1;margin-bottom:.25rem;color:#e2ae83;font:600 .53rem var(--mono);letter-spacing:.09em}
+.page-local .estimate-factors span{padding:.65rem .7rem;border-left:2px solid #e2ae83;background:#ffffff08;color:#fff3e6;font-size:.66rem;line-height:1.5}
+.page-local .estimate-note{color:#d7d8cb;font-size:.66rem!important}
+.page-local .local-proof{padding-top:6rem;padding-bottom:6rem;column-gap:7vw}
+.page-local .local-proof-head>p:last-child{max-width:42ch}
+.page-local .local-proof-cards article{min-height:250px;padding:1.4rem;transition:transform .25s ease,box-shadow .25s ease}
+.page-local .local-proof-cards article:hover{transform:translateY(-4px);box-shadow:0 12px 26px #30281d20}
+.page-local .sample-cta .sample-wrap{max-width:1180px}
+.page-local [data-reveal].reveal-pending{opacity:0;transform:translateY(18px)}
+.page-local [data-reveal].reveal-visible{opacity:1;transform:none;transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1)}
+.page-local :focus-visible{outline:3px solid #a94e34;outline-offset:4px}
+@media(max-width:760px){
+ .page-local .local-hero{min-height:0}
+ .page-local .local-list article{grid-template-columns:1.8rem 1fr;gap:.65rem}
+ .page-local .local-list article em{grid-column:2;justify-self:start}
+ .page-local .local-quote{padding:3.2rem 7vw;gap:1.2rem}
+ .page-local .local-quote:before{right:0;top:.5rem}
+ .page-local .estimate-factors{grid-template-columns:1fr}
+ .page-local .estimate-factors b{grid-column:1}
+ .page-local .local-proof{padding-top:3.5rem;padding-bottom:3.5rem}
+ .page-local .local-proof-cards article{min-height:210px}
+}
+@media(prefers-reduced-motion:reduce){
+ .page-local [data-reveal].reveal-pending,.page-local [data-reveal].reveal-visible{opacity:1;transform:none;transition:none}
+ .page-local .local-proof-cards article{transition:none}
+ .page-local .local-proof-cards article:hover{transform:none}
+}
