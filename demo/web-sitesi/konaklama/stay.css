@@ -59,3 +59,33 @@
 @media(max-width:760px){.stay-page{font-size:16px}.stay-page .stay-header{position:relative;height:auto;min-height:80px;padding:.75rem 1rem;gap:.8rem}.stay-page .stay-header nav{gap:.7rem;flex-wrap:wrap;justify-content:center}.stay-page .stay-header nav a{font-size:.54rem}.stay-page .stay-contact{font-size:.55rem}.stay-page .stay-hero{min-height:0;grid-template-columns:1fr}.stay-page .stay-hero-copy{grid-column:1;grid-row:1;padding:3.5rem 1.2rem 2.5rem}.stay-page .stay-landscape{grid-column:1;grid-row:2;min-height:360px}.stay-page .stay-intro{grid-template-columns:1fr;gap:.75rem;padding-block:3.8rem}.stay-page .stay-section-head{grid-template-columns:1fr;gap:.6rem}.stay-page .stay-cards{grid-template-columns:1fr}.stay-page .stay-card-art{min-height:340px}.stay-page .stay-area{padding-block:3.8rem}.stay-page .stay-area-facts{grid-template-columns:1fr;gap:.55rem}.stay-page .stay-area-facts article{min-height:0}.stay-page .stay-inquiry{grid-template-columns:1fr;padding:3.8rem 1.2rem;gap:1.8rem}.stay-page .inquiry-card{justify-self:start}.stay-page .stay-booking-steps p{font-size:.78rem}}
 @media(max-width:420px){.stay-page .stay-header{flex-wrap:wrap}.stay-page .stay-header nav{order:3;width:100%;justify-content:flex-start}.stay-page .stay-brand{font-size:.8rem}.stay-page .stay-brand small{font-size:.39rem}.stay-page .stay-contact{margin-left:auto}.stay-page .stay-landscape{min-height:300px}.stay-page .stay-card-art{min-height:280px}.stay-page .inquiry-detail{flex-direction:column;gap:.2rem}.stay-page .inquiry-detail b{max-width:none;text-align:left}}
 @media(prefers-reduced-motion:reduce){.stay-page .stay-landscape{animation:none}.stay-page [data-reveal].reveal-pending{opacity:1;transform:none}.stay-page [data-reveal].reveal-visible{transition:none}}
+
+/* A local-only inquiry preview helps guests understand which details a real stay request needs. */
+.stay-page .inquiry-intro{margin:.25rem 0 1rem;color:#697065;font-size:.76rem;line-height:1.7}
+.stay-page .stay-request-form{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.stay-page .stay-form-row{display:grid;gap:.35rem;min-width:0}
+.stay-page .stay-form-row label{color:#697065;font:600 .61rem var(--mono);letter-spacing:.015em}
+.stay-page .stay-form-row input,.stay-page .stay-form-row select{width:100%;min-height:46px;padding:.65rem .7rem;border:1px solid #39493b5c;border-radius:0;background:#fffdf7;color:#30372e;font:500 .75rem var(--display)}
+.stay-page .stay-form-row input:focus-visible,.stay-page .stay-form-row select:focus-visible,.stay-page .stay-request-button:focus-visible,.stay-page .inquiry-card>a:focus-visible{outline:3px solid #a65e46;outline-offset:3px}
+.stay-page .stay-request-button{grid-column:1/-1;min-height:48px;padding:.75rem 1rem;border:0;background:#395145;color:#fff7e7;font:700 .7rem var(--display);cursor:pointer}
+.stay-page .stay-request-button:hover{background:#293e33}
+.stay-page .stay-request-result{margin-top:1rem;padding:.8rem .9rem;border:1px solid #a65e4666;background:#f8f2e7;color:#50594e;font-size:.7rem;line-height:1.7}
+.stay-page .stay-request-result.is-ready{border-color:#395145;background:#e8eee4;color:#293e33}
+.stay-page .stay-terms{margin-top:1rem;padding-top:.85rem;border-top:1px solid #39493b35}
+.stay-page .stay-terms>b{color:#9e563f;font:700 .54rem var(--mono);letter-spacing:.045em}
+.stay-page .stay-terms ul{display:grid;gap:.35rem;margin:.65rem 0 0;padding-left:1rem;color:#596257;font-size:.65rem;line-height:1.6}
+.stay-page .stay-terms li::marker{color:#a65e46}
+.stay-page .stay-inquiry-note{margin-top:.9rem}
+.stay-page .stay-offer{padding-block:clamp(3.8rem,7vw,6.5rem);background:#e9ddc9;color:#2f352c}
+.stay-page .stay-offer .eyebrow{color:#8d523d}
+.stay-page .stay-offer h2{max-width:960px;margin:.8rem 0;font:500 clamp(2.8rem,6vw,5.8rem)/.94 var(--serif);letter-spacing:-.065em}
+.stay-page .stay-offer h2 em{color:#9e563f}
+.stay-page .stay-offer .sample-wrap>p:not(.eyebrow){max-width:660px;color:#596257;font-size:.88rem;line-height:1.8}
+.stay-page .stay-offer-note{max-width:820px;margin:1.3rem 0;padding:1rem 1.1rem;border-left:3px solid #a65e46;background:#f3eadb}
+.stay-page .stay-offer-note b,.stay-page .stay-offer-note span{display:block}
+.stay-page .stay-offer-note b{margin-bottom:.4rem;color:#395145;font-size:.85rem}
+.stay-page .stay-offer-note span{color:#596257;font-size:.83rem;line-height:1.8}
+.stay-page .stay-offer-note span+span{margin-top:.5rem}
+.stay-page .stay-offer .sample-action{display:inline-block;margin-top:.35rem;padding:.85rem 1.1rem;background:#395145;color:#fff7e7;font-size:.72rem;font-weight:700}
+.stay-page .stay-offer .sample-action:focus-visible{outline:3px solid #a65e46;outline-offset:3px}
+@media(max-width:390px){.stay-page .stay-request-form{grid-template-columns:1fr}.stay-page .stay-request-button{grid-column:auto}}

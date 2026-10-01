@@ -22,3 +22,11 @@
 @media(max-width:420px){.resume-head nav{flex-wrap:wrap;justify-content:flex-start!important}.resume-head nav a{font-size:.52rem!important}.resume-approach li{grid-template-columns:1fr;gap:.25rem}.resume-approach li>span{grid-row:auto}}
 @media(prefers-reduced-motion:reduce){.resume-approach li,.credential-fields span{animation:none!important}}
 .resume-offer-note b{font-size:.72rem}.resume-offer-note span{font-size:.66rem}
+.resume-experience{padding-bottom:0}
+.resume-experience .resume-work{grid-column:1/-1;margin-inline:-9vw}
+.resume-practice .resume-skills{margin-block:0}
+@media(min-width:1440px){.resume-experience .resume-work{margin-inline:calc(clamp(130px,9vw,185px) * -1)}}
+@media(max-width:760px){.resume-experience{padding-bottom:0}.resume-experience .resume-work{margin-inline:-7vw}}
+
+.resume-offer-note span{font-size:.82rem;line-height:1.8}
+@media(max-width:760px){.resume-offer-note span{font-size:.8rem}}

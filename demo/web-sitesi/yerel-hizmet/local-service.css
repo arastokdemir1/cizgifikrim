@@ -55,3 +55,47 @@
  .page-local .local-proof-cards article{transition:none}
  .page-local .local-proof-cards article:hover{transform:none}
 }
+
+/* Quote transparency and day-of-work readiness for a local service buyer. */
+.page-local .local-quote-detail{padding:6rem 8vw;background:#eee6d7;display:grid;grid-template-columns:.8fr 1.2fr;gap:1rem 7vw;align-items:start}
+.page-local .quote-detail-heading{max-width:480px}
+.page-local .quote-detail-heading h2,.page-local .local-expectations h2,.page-local .local-faq h2{margin:.7rem 0;font:700 clamp(2.7rem,5vw,4.8rem)/.92 var(--display);letter-spacing:-.08em}
+.page-local .quote-detail-heading>p:last-child,.page-local .local-expectations>div:first-child>p:last-child,.page-local .local-faq>div:first-child>p:last-child{max-width:52ch;color:#626257;font-size:.84rem;line-height:1.85}
+.page-local .quote-detail-list{border-top:1px solid #25292345}
+.page-local .quote-detail-list article{display:grid;grid-template-columns:2.4rem 1fr;gap:1rem;padding:1rem 0;border-bottom:1px solid #25292345}
+.page-local .quote-detail-list article>span{color:#a94e34;font:700 .59rem var(--mono)}
+.page-local .quote-detail-list h3{margin:0;font:700 .83rem var(--display)}
+.page-local .quote-detail-list p{margin:.3rem 0 0;color:#5e6058;font-size:.82rem;line-height:1.75}
+.page-local .quote-detail-disclosure{grid-column:2;margin:0;padding:.9rem 1rem;background:#dfd5c3;color:#55574e;font-size:.82rem;line-height:1.8}
+.page-local .local-expectations{padding:5.5rem 8vw;background:#293a32;color:#f4eee2;display:grid;grid-template-columns:.8fr 1.2fr;gap:6vw;align-items:start}
+.page-local .local-expectations .b-kicker{color:#e2ae83}
+.page-local .local-expectations>div:first-child>p:last-child{color:#d3dacf}
+.page-local .expectation-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}
+.page-local .expectation-cards article{min-height:145px;padding:1rem;background:#ffffff0c;border:1px solid #ffffff32}
+.page-local .expectation-cards b{font:700 .75rem var(--display);color:#f5d8bf}
+.page-local .expectation-cards p{margin:.45rem 0 0;color:#e0e1d8;font-size:.82rem;line-height:1.8}
+.page-local .local-faq{padding:6rem 8vw;display:grid;grid-template-columns:.8fr 1.2fr;gap:7vw;align-items:start}
+.page-local .local-faq-list{border-top:1px solid #25292345}
+.page-local .local-faq-list details{border-bottom:1px solid #25292345}
+.page-local .local-faq-list summary{position:relative;padding:1.05rem 2rem 1.05rem 0;cursor:pointer;list-style:none;font:700 .84rem var(--display)}
+.page-local .local-faq-list summary::-webkit-details-marker{display:none}
+.page-local .local-faq-list summary:after{content:"+";position:absolute;right:.2rem;color:#a94e34;font-size:1.15rem}
+.page-local .local-faq-list details[open] summary:after{content:"−"}
+.page-local .local-faq-list details p{max-width:68ch;margin:0;padding:0 1.7rem 1rem 0;color:#5e6058;font-size:.82rem;line-height:1.85}
+.page-local .local-faq-list summary:focus-visible{outline:3px solid #a94e34;outline-offset:3px}
+@media(min-width:1440px){.page-local .local-quote-detail,.page-local .local-faq{padding-inline:clamp(140px,10vw,220px);padding-block:7rem}.page-local .local-expectations{padding-inline:clamp(140px,10vw,220px);padding-block:6.5rem}.page-local .quote-detail-list p,.page-local .expectation-cards p,.page-local .local-faq-list details p{font-size:.84rem}.page-local .expectation-cards article{min-height:170px;padding:1.25rem}}
+@media(max-width:760px){.page-local .local-quote-detail,.page-local .local-faq{grid-template-columns:1fr;padding:3.5rem 7vw;gap:1rem}.page-local .quote-detail-disclosure{grid-column:1}.page-local .local-expectations{grid-template-columns:1fr;padding:3.5rem 7vw;gap:1.2rem}}
+@media(max-width:480px){.page-local .expectation-cards{grid-template-columns:1fr}.page-local .expectation-cards article{min-height:0}.page-local .local-quote-detail,.page-local .local-faq,.page-local .local-expectations{padding-inline:6vw}.page-local .sample-nav{overflow-x:auto;scrollbar-width:thin;justify-content:flex-start}.page-local .sample-nav a{flex:none}}
+.page-local .local-primary-action{display:inline-flex;align-items:center;gap:1.1rem;margin-top:1.1rem;padding:.8rem 1rem;background:#252923;color:#fff4e8;font-size:.68rem;font-weight:700}
+.page-local .local-primary-action b{color:#f0bd94;font-size:1rem}
+.page-local .local-skip{position:fixed;z-index:999;top:-4rem;left:1rem;padding:.8rem 1rem;background:#fff;color:#252923;font-size:.8rem}
+.page-local .local-skip:focus{top:1rem;outline:3px solid #a94e34;outline-offset:3px}
+
+@media(max-width:760px){.page-local .sample-nav{min-width:0;overflow-x:auto;scrollbar-width:thin;justify-content:flex-start;gap:.75rem}.page-local .sample-nav a{flex:none;white-space:nowrap}}
+
+.page-local .local-scope>div:first-child>p:not(.b-kicker),.page-local .local-list article p,.page-local .local-quote p,.page-local .estimate-note,.page-local .local-proof-head>p:last-child,.page-local .local-proof-note{font-size:.82rem!important;line-height:1.8}
+.page-local .local-web-offer{max-width:980px;margin:1.3rem 0;padding:1rem 1.1rem;background:#f4eadb;border-left:3px solid #e2ae83;color:#252923;text-align:left}
+.page-local .local-web-offer b,.page-local .local-web-offer span{display:block}
+.page-local .local-web-offer b{margin-bottom:.45rem;color:#88412d;font-size:.88rem}
+.page-local .local-web-offer span{color:#55574e;font-size:.82rem;line-height:1.8}
+.page-local .local-web-offer span+span{margin-top:.5rem}

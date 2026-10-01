@@ -50,3 +50,26 @@
 .page-architecture .sample-disclosure{max-width:780px;border-left:2px solid #b2764e;padding-left:1rem;font-size:.88rem;line-height:1.8}
 @media(min-width:1440px){.page-architecture .arch-process{padding-block:7rem}.page-architecture .arch-process-steps li{padding:1.55rem .3rem}.page-architecture .arch-process-steps h3{font-size:1.2rem}.page-architecture .arch-process-steps p{font-size:.84rem}.page-architecture .arch-drawing p{font-size:.75rem}}
 @media(max-width:760px){.page-architecture .sample-nav{overflow-x:auto;justify-content:flex-start}.page-architecture .arch-process{grid-template-columns:1fr;padding:3.5rem 7vw;gap:2rem}.page-architecture .arch-process-intro h2{font-size:3.6rem}.page-architecture .arch-process-steps li{grid-template-columns:44px 1fr;gap:.8rem;padding:1rem 0}.page-architecture .arch-process-steps p{font-size:.7rem}.page-architecture .sample-disclosure{font-size:.76rem}}
+
+/* Buyer-facing reading guide: separates spatial concept graphics from professional deliverables. */
+.page-architecture .arch-buyer-notes{grid-column:1/-1;display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,5vw,5rem);margin-top:2.4rem;padding:2rem 0 0;border-top:1px solid #28342d35}
+.page-architecture .arch-buyer-notes h3{margin:.35rem 0 1.1rem;color:#28342d;font:500 clamp(1.5rem,2.5vw,2.25rem)/1.1 var(--serif);letter-spacing:-.04em}
+.page-architecture .drawing-key-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
+.page-architecture .drawing-key-grid article{padding:1rem;background:#e6e4dc;border-top:2px solid #9c6946}
+.page-architecture .drawing-key-grid b,.page-architecture .arch-brief-check .b-kicker{font:700 .55rem var(--mono);letter-spacing:.08em;color:#8d5b3e}
+.page-architecture .drawing-key-grid p,.page-architecture .arch-brief-check p:last-child{margin:.65rem 0 0;color:#60695f;font-size:.68rem;line-height:1.75}
+.page-architecture .arch-brief-check ul{margin:.7rem 0 0;padding-left:1.1rem;color:#465248;font-size:.7rem;line-height:1.8}
+.page-architecture .arch-brief-check li+li{margin-top:.3rem}
+.page-architecture .arch-brief-check p:last-child{padding-left:.8rem;border-left:2px solid #a26946}
+.page-architecture .arch-web-offer{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:1.6rem 0;background:#ffffff45;border:1px solid #ffffff45}
+.page-architecture .arch-web-offer>div{padding:1.15rem;background:#29372f}
+.page-architecture .arch-web-offer b{font:700 .62rem var(--mono);letter-spacing:.06em;color:#e3b58f}
+.page-architecture .arch-web-offer p{margin:.6rem 0 0;color:#e1e4dc;font-size:.72rem;line-height:1.8}
+.page-architecture .arch-process-steps h3{font-size:1.05rem}
+.page-architecture .arch-process-steps p{max-width:680px}
+@media(min-width:1440px){.page-architecture .arch-buyer-notes{margin-top:3rem;padding-top:2.6rem}.page-architecture .drawing-key-grid article{padding:1.25rem}.page-architecture .drawing-key-grid p,.page-architecture .arch-brief-check ul,.page-architecture .arch-brief-check p:last-child{font-size:.78rem}.page-architecture .arch-web-offer p{font-size:.82rem}}
+@media(max-width:760px){.page-architecture .arch-buyer-notes{grid-template-columns:1fr;gap:1.8rem;margin-top:1.5rem;padding-top:1.5rem}.page-architecture .drawing-key-grid{grid-template-columns:1fr}.page-architecture .drawing-key-grid article{padding:.9rem}.page-architecture .arch-web-offer{grid-template-columns:1fr}.page-architecture .arch-web-offer p{font-size:.68rem}}
+
+/* Keep buyer explanations readable while retaining compact mono labels. */
+.page-architecture .drawing-key-grid p,.page-architecture .arch-brief-check ul,.page-architecture .arch-brief-check p:last-child,.page-architecture .arch-web-offer p{font-size:.84rem}
+@media(max-width:760px){.page-architecture .drawing-key-grid p,.page-architecture .arch-brief-check ul,.page-architecture .arch-brief-check p:last-child,.page-architecture .arch-web-offer p{font-size:.8rem}}

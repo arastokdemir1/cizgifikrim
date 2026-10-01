@@ -74,6 +74,11 @@
 .page-cafe .cafe-qr{padding:clamp(5rem,8vw,9rem) max(8vw,calc((100vw - 1440px)/2))}.page-cafe .qr-copy>p:not(.b-kicker){font-size:.92rem;line-height:1.9}.page-cafe .qr-text-link{font-size:.78rem}.page-cafe .qr-card{width:min(100%,390px);padding:1.35rem}.page-cafe .qr-card img{width:min(100%,275px)}.page-cafe .qr-card figcaption b{font-size:.62rem}.page-cafe .qr-card figcaption span{font-size:.7rem}
 .page-cafe .cafe-visit{padding:clamp(4.5rem,7vw,7rem) max(8vw,calc((100vw - 1440px)/2));gap:clamp(3rem,7vw,7rem)}.page-cafe .cafe-visit h2{font-size:clamp(3.5rem,5.6vw,5.6rem)}.page-cafe .cafe-visit>div>p:not(.visit-address){font-size:.9rem;line-height:1.9}.page-cafe .visit-address{font-size:.85rem}.page-cafe .visit-address b{font-size:.64rem}.page-cafe .visit-link{font-size:.78rem}.page-cafe .sample-cta .sample-wrap>p:not(.kicker):not(.sample-disclosure){font-size:.95rem;line-height:1.85}.page-cafe .sample-cta .sample-disclosure{font-size:.68rem}
 .page-cafe .cafe-service [data-reveal]{opacity:1}
+.page-cafe .cafe-offer-note{max-width:780px;margin:1.6rem 0;padding:1rem 1.1rem;border-left:3px solid #d8a477;background:#ffffff12;text-align:left}
+.page-cafe .cafe-offer-note b,.page-cafe .cafe-offer-note span{display:block}
+.page-cafe .cafe-offer-note b{margin-bottom:.45rem;color:#fff2df;font-size:.85rem}
+.page-cafe .cafe-offer-note span{color:#e2d5c5;font-size:.83rem;line-height:1.8}
+.page-cafe .cafe-offer-note span+span{margin-top:.5rem}
 .page-cafe [data-reveal].reveal-pending{opacity:0;transform:translateY(32px)}.page-cafe [data-reveal].reveal-visible{opacity:1;transform:translateY(0);transition:opacity .75s ease,transform .75s cubic-bezier(.2,.7,.2,1)}.page-cafe .ritual-card{transition:box-shadow .35s ease}.page-cafe .ritual-card:hover{box-shadow:0 24px 55px #3b26101c}
 @keyframes cafe-hero-settle{from{transform:scale(1.07);opacity:.7}to{transform:scale(1.025);opacity:1}}
 @media(min-width:1800px){.page-cafe .cafe-hero{min-height:900px}.page-cafe .cafe-menu{max-width:1640px}.page-cafe .cafe-rituals{max-width:1800px}}

@@ -28,3 +28,6 @@
 @media(max-width:760px){.designer-header nav{max-width:100%;overflow-x:auto;white-space:nowrap;scrollbar-width:thin}}
 @media(max-width:420px){.designer-header nav{gap:.5rem}.designer-header nav a{font-size:.51rem}.designer-header .header-contact{padding:.5rem}.hero-composition{min-height:260px}.case-art{min-height:290px}.phone-card{width:62%;min-height:240px}.paper-sheet{width:65%;min-height:270px}.art-form strong{font-size:2.6rem}}
 @media(prefers-reduced-motion:reduce){.designer-page{scroll-behavior:auto}}
+
+.offer-boundary span{font-size:.82rem;line-height:1.8}
+@media(max-width:760px){.offer-boundary span{font-size:.8rem}}

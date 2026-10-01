@@ -72,3 +72,14 @@
 @media(min-width:1440px){.clinic-hero-photo{height:clamp(650px,42vw,820px)}.clinic-offer .clinic-audience{padding-inline:clamp(4rem,8vw,9rem)}.clinic-offer .clinic-services-heading,.clinic-offer .service-cards,.clinic-offer .services-caveat{margin-inline:clamp(4rem,8vw,9rem)}.visit-faq{max-width:1240px}.visit-faq>p,.clinic-package-note{font-size:.82rem}}
 @media(max-width:760px){.clinic-offer{padding:0}.clinic-offer .clinic-audience{padding:3.7rem 1.2rem}.clinic-offer .clinic-services-heading,.clinic-offer .service-cards,.clinic-offer .services-caveat{margin-inline:1.2rem}.clinic-offer .clinic-services-heading{margin-top:3rem}.clinic-offer .services-caveat{margin-bottom:3.7rem}.clinic-visit{grid-template-columns:1fr}.visit-faq{grid-column:1;padding-top:1.4rem}.clinic-contact .medical-disclaimer{margin:0}.clinic-package-note{font-size:.7rem}.clinic-hero-photo{height:clamp(430px,112vw,650px)}}
 @media(prefers-reduced-motion:reduce){.clinic-hero-photo img{animation:none}}
+
+/* Visit preparation answers practical questions without inventing clinic operations. */
+.clinic-previsit{grid-column:1/-1;display:grid;grid-template-columns:.72fr 1.28fr;gap:1rem 3rem;margin:1.2rem 0 0;padding:clamp(1.3rem,3vw,2.3rem);background:#fff;border:1px solid #d9e2dc;border-left:4px solid #28746b}
+.clinic-previsit>div:first-child{grid-row:span 2}.clinic-previsit h3{margin:.3rem 0 .6rem;font:500 clamp(1.55rem,2.5vw,2.2rem)/1.1 var(--serif);letter-spacing:-.04em}.clinic-previsit>div:first-child>p:last-child{max-width:350px;margin:0;color:#65736c;font-size:.78rem;line-height:1.8}
+.clinic-previsit ul{margin:0;padding:0;list-style:none;border-top:1px solid #d9e2dc}.clinic-previsit li{padding:.7rem .2rem;border-bottom:1px solid #d9e2dc;color:#596a61;font-size:.76rem;line-height:1.7}.clinic-previsit li b{color:#214b45}.clinic-verify-note{grid-column:2;margin:0;color:#718078;font-size:.68rem;line-height:1.7}
+.clinic-profile-columns article:first-child{background:#f1f5f0}.clinic-profile-disclosure{padding-top:.8rem;border-top:1px solid #d9e2dc}
+@media(min-width:1440px){.clinic-previsit{gap:1rem 4rem;padding:2.5rem 3rem}.clinic-previsit>div:first-child>p:last-child{font-size:.86rem}.clinic-previsit li{font-size:.86rem;padding:.85rem .2rem}.clinic-verify-note{font-size:.76rem}}
+@media(max-width:760px){.clinic-previsit{grid-template-columns:1fr;gap:1rem;margin-top:.4rem;padding:1.15rem}.clinic-previsit>div:first-child{grid-row:auto}.clinic-previsit>div:first-child>p:last-child{font-size:.78rem}.clinic-previsit li{font-size:.75rem}.clinic-verify-note{grid-column:1;font-size:.66rem}}
+
+.clinic-contact .clinic-package-note{font-size:.84rem;line-height:1.8}
+@media(max-width:760px){.clinic-contact .clinic-package-note{font-size:.8rem}}

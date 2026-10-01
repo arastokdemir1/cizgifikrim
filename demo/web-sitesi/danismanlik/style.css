@@ -19,7 +19,7 @@
 @supports (animation-timeline:view()){.package-option{animation:consult-reveal linear both;animation-timeline:view();animation-range:entry 0% cover 25%}}
 @media(max-width:760px){.consult-package-map{padding:3.5rem 7vw}.package-map-head{text-align:left;margin-bottom:1.3rem}.package-options{grid-template-columns:1fr;gap:.8rem}.package-option{padding:1.1rem}.package-option>p{min-height:0}}
 @media(prefers-reduced-motion:reduce){.package-option{animation:none!important}}
-.consult-site-offer b{font-size:.72rem}.consult-site-offer span{font-size:.66rem}
+.consult-site-offer b{font-size:.78rem}.consult-site-offer span{font-size:.82rem;line-height:1.75}
 @media(max-width:760px){.consult-head nav{justify-content:flex-start;overflow-x:auto;scrollbar-width:thin;padding-bottom:.2rem}.consult-head nav a{font-size:.61rem}}
 .skip-link{position:fixed;top:-4rem;left:1rem;z-index:10000;padding:.8rem 1rem;background:#fff;color:#282a20;font-size:.8rem}.skip-link:focus{top:1rem}
 .consult-hero-copy{color:var(--c-ink)}
@@ -28,3 +28,27 @@
 .consult-hero-copy{color:var(--c-ink)}
 .consult-hero-link{color:var(--c-ink)}
 @media(max-width:760px){.consult-head{height:auto;min-height:70px;flex-wrap:wrap;gap:.5rem;padding:.75rem 5vw}.consult-head nav{width:100%;justify-content:space-between;gap:.5rem}.consult-head nav a{font-size:.6rem;white-space:nowrap}.consult-head .consult-cta{padding:.55rem .65rem}}
+
+/* Buyer decision guide: visible criteria without inventing a consultant biography. */
+.consult-buyer-guide{padding:5.4rem 10vw;background:#e7dfca;display:grid;grid-template-columns:.72fr 1.28fr;gap:1.5rem 7vw;align-items:start}
+.buyer-guide-intro h2,.consult-delivery h2{margin:.8rem 0;font:650 clamp(2.8rem,5vw,5rem)/.92 Manrope,sans-serif;letter-spacing:-.09em}
+.buyer-guide-intro>p:last-child,.consult-delivery>div>p:last-child{max-width:46ch;color:#626257;font-size:.84rem;line-height:1.85}
+.buyer-guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+.buyer-guide-grid article{padding:1.15rem;background:#f4f0e5;border-top:2px solid #c54d2b}
+.buyer-guide-grid article>span{color:#a24d2f;font:700 .47rem monospace;letter-spacing:.09em}
+.buyer-guide-grid h3{margin:.85rem 0 .35rem;font:650 .87rem Manrope,sans-serif}
+.buyer-guide-grid p{margin:0;color:#595a50;font-size:.84rem;line-height:1.8}
+.buyer-guide-note{grid-column:2;margin:0;padding:.9rem 1rem;border-left:3px solid #c54d2b;background:#f4f0e5;color:#55574d;font-size:.82rem;line-height:1.8}
+.consult-delivery{padding:5.2rem 10vw;background:#f3eddf;display:grid;grid-template-columns:.72fr 1.28fr;gap:1rem 7vw;align-items:start}
+.delivery-steps{margin:0;padding:0;list-style:none;border-top:1px solid #282a2045;counter-reset:delivery}
+.delivery-steps li{counter-increment:delivery;display:grid;grid-template-columns:2.2rem 1fr;gap:.8rem;padding:1rem 0;border-bottom:1px solid #282a2045}
+.delivery-steps li:before{content:"0" counter(delivery);color:#a24d2f;font:700 .52rem monospace}
+.delivery-steps li b{font:700 .7rem Manrope,sans-serif}
+.delivery-steps li span{grid-column:2;color:#595a50;font-size:.82rem;line-height:1.75}
+.delivery-boundary{grid-column:2;display:grid;grid-template-columns:150px 1fr;gap:1rem;padding:.95rem;background:#e7dfca;color:#53544b;font-size:.82rem;line-height:1.75}
+.delivery-boundary b{color:#a24d2f;font:700 .49rem monospace;letter-spacing:.06em}
+@media(min-width:1440px){.consult-buyer-guide,.consult-delivery{padding-inline:clamp(140px,10vw,220px);padding-block:6.4rem}.buyer-guide-grid{gap:1rem}.buyer-guide-grid article{padding:1.45rem}.buyer-guide-grid p,.delivery-steps li span{font-size:.84rem}.delivery-steps li{padding:1.2rem 0}.delivery-boundary{padding:1.2rem;font-size:.84rem}}
+@media(max-width:900px){.consult-buyer-guide,.consult-delivery{grid-template-columns:1fr;padding:3.8rem 7vw;gap:1.2rem}.buyer-guide-intro>p:last-child,.consult-delivery>div>p:last-child{max-width:65ch}.buyer-guide-note,.delivery-boundary{grid-column:1}.consult-head nav{max-width:70vw;overflow-x:auto;scrollbar-width:thin}.consult-head nav a{white-space:nowrap}}
+@media(max-width:560px){.buyer-guide-grid{grid-template-columns:1fr}.buyer-guide-grid article{padding:1rem}.delivery-boundary{grid-template-columns:1fr;gap:.35rem}.consult-buyer-guide,.consult-delivery{padding:3.2rem 6vw}}
+@supports (animation-timeline:view()){.buyer-guide-grid article,.delivery-steps li,.delivery-boundary{animation:consult-reveal linear both;animation-timeline:view();animation-range:entry 0% cover 25%}}
+@media(prefers-reduced-motion:reduce){.buyer-guide-grid article,.delivery-steps li,.delivery-boundary{animation:none!important}}
