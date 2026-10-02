@@ -99,3 +99,27 @@
 .page-local .local-web-offer b{margin-bottom:.45rem;color:#88412d;font-size:.88rem}
 .page-local .local-web-offer span{color:#55574e;font-size:.82rem;line-height:1.8}
 .page-local .local-web-offer span+span{margin-top:.5rem}
+
+
+/* Job-type brief cards help the visitor prepare useful quote information. */
+.page-local .local-job-guide{padding:5.7rem 8vw;background:#e6ddca;display:grid;grid-template-columns:.78fr 1.22fr;gap:1rem 6vw;align-items:start}
+.page-local .job-guide-intro{max-width:480px}
+.page-local .job-guide-intro h2{margin:.7rem 0;font:700 clamp(2.7rem,5vw,4.8rem)/.92 var(--display);letter-spacing:-.08em}
+.page-local .job-guide-intro>p:last-child{color:#626257;font-size:.84rem;line-height:1.85}
+.page-local .job-guide-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem}
+.page-local .job-guide-cards article{min-width:0;padding:1rem;background:#f4eee2;border-top:3px solid #a94e34}
+.page-local .job-guide-cards article>span{color:#91432e;font:700 .52rem var(--mono);letter-spacing:.06em}
+.page-local .job-guide-cards h3{margin:1rem 0 .45rem;font:700 .95rem var(--display)}
+.page-local .job-guide-cards p{color:#565950;font-size:.82rem;line-height:1.75}
+.page-local .job-guide-cards article>b{display:block;margin-top:.9rem;padding-top:.7rem;border-top:1px solid #25292335;color:#88412d;font:700 .67rem var(--mono);line-height:1.6}
+.page-local .job-guide-disclosure{grid-column:2;margin:0;padding:.9rem 1rem;background:#f4eee2;color:#55574e;font-size:.82rem;line-height:1.8}
+@media(min-width:1440px){.page-local .local-job-guide{padding-block:6.5rem;gap:1rem 7vw}.page-local .job-guide-cards{gap:1rem}.page-local .job-guide-cards article{padding:1.25rem}.page-local .job-guide-cards p{font-size:.86rem}}
+@media(max-width:900px){.page-local .local-job-guide{grid-template-columns:1fr;padding:4rem 7vw;gap:1.2rem}.page-local .job-guide-intro{max-width:65ch}.page-local .job-guide-disclosure{grid-column:1}}
+@media(max-width:760px){.page-local .job-guide-cards{grid-template-columns:1fr}.page-local .job-guide-cards article{padding:1rem}.page-local .job-guide-cards h3{margin:.7rem 0 .3rem}.page-local .job-guide-cards article>b{margin-top:.55rem;padding-top:.5rem}}
+@media(min-width:2000px){.page-local .local-hero,.page-local .local-quote,.page-local .local-proof,.page-local .local-quote-detail,.page-local .local-expectations,.page-local .local-faq,.page-local .local-job-guide{padding-inline:max(220px,calc((100vw - 1660px)/2))}}
+.page-local [data-reveal].reveal-visible .job-guide-cards article,.page-local [data-reveal].reveal-visible .quote-detail-list article{animation:local-card-in .55s cubic-bezier(.2,.7,.2,1) both}
+.page-local [data-reveal].reveal-visible .job-guide-cards article:nth-child(2),.page-local [data-reveal].reveal-visible .quote-detail-list article:nth-child(2){animation-delay:.08s}
+.page-local [data-reveal].reveal-visible .job-guide-cards article:nth-child(3),.page-local [data-reveal].reveal-visible .quote-detail-list article:nth-child(3){animation-delay:.16s}
+.page-local [data-reveal].reveal-visible .job-guide-cards article:nth-child(4),.page-local [data-reveal].reveal-visible .quote-detail-list article:nth-child(4){animation-delay:.24s}
+@keyframes local-card-in{from{opacity:0;translate:0 14px}to{opacity:1;translate:0 0}}
+@media(prefers-reduced-motion:reduce){.page-local [data-reveal].reveal-visible .job-guide-cards article,.page-local [data-reveal].reveal-visible .quote-detail-list article{animation:none!important}}

@@ -73,3 +73,15 @@
 /* Keep buyer explanations readable while retaining compact mono labels. */
 .page-architecture .drawing-key-grid p,.page-architecture .arch-brief-check ul,.page-architecture .arch-brief-check p:last-child,.page-architecture .arch-web-offer p{font-size:.84rem}
 @media(max-width:760px){.page-architecture .drawing-key-grid p,.page-architecture .arch-brief-check ul,.page-architecture .arch-brief-check p:last-child,.page-architecture .arch-web-offer p{font-size:.8rem}}
+
+/* A concise architecture-specific decision checklist sits after the sample process. */
+.page-architecture .arch-client-gates{grid-column:1/-1;display:grid;grid-template-columns:.68fr 1.32fr;gap:clamp(2rem,6vw,6rem);margin-top:2rem;padding:2rem;background:#f1efe8;border:1px solid #28342d35}
+.page-architecture .arch-client-gates h3{margin:.45rem 0 .7rem;color:#28342d;font:500 clamp(1.7rem,3vw,2.6rem)/1.05 var(--serif);letter-spacing:-.045em}
+.page-architecture .arch-client-gates>div:first-child>p:last-child{max-width:380px;margin:0;color:#60695f;font-size:.84rem;line-height:1.8}
+.page-architecture .arch-gate-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#28342d35;border:1px solid #28342d35}
+.page-architecture .arch-gate-grid article{padding:1.1rem;background:#e9e7df}
+.page-architecture .arch-gate-grid article>b{font:700 .54rem var(--mono);letter-spacing:.08em;color:#8d5b3e}
+.page-architecture .arch-gate-grid h4{margin:.8rem 0 .5rem;color:#28342d;font:650 .95rem var(--display)}
+.page-architecture .arch-gate-grid p{margin:0;color:#60695f;font-size:.8rem;line-height:1.75}
+@media(min-width:1440px){.page-architecture .arch-client-gates{padding:2.5rem 3rem}.page-architecture .arch-gate-grid article{padding:1.35rem}.page-architecture .arch-gate-grid p{font-size:.86rem}}
+@media(max-width:760px){.page-architecture .arch-client-gates{grid-template-columns:1fr;gap:1.3rem;margin-top:1.4rem;padding:1.2rem}.page-architecture .arch-gate-grid{grid-template-columns:1fr}.page-architecture .arch-gate-grid article{padding:.9rem}}

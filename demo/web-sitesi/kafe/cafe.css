@@ -111,5 +111,23 @@
 @media(max-width:760px){.page-cafe .cafe-hero{padding:3.5rem 1.2rem 0;min-height:0}.page-cafe .cafe-hero-stamp{bottom:11rem}.page-cafe .cafe-hero .cafe-facts{position:relative;left:auto;right:auto;bottom:auto;width:calc(100% + 2.4rem);margin:2rem -1.2rem 0;padding:1rem 1.2rem;grid-template-columns:1fr;gap:.45rem;backdrop-filter:none}.page-cafe .cafe-facts>div{padding:.65rem 0 .65rem .8rem}.page-cafe .cafe-menu .cafe-qr{margin:3rem -1.2rem -3.8rem}.page-cafe .menu-item{grid-template-columns:minmax(0,1fr) auto}.page-cafe .menu-item span{max-width:10rem;font-size:.61rem}.page-cafe .visit-details>div{grid-template-columns:1fr;gap:.35rem}.page-cafe .channel-grid{grid-template-columns:1fr}.page-cafe .cafe-visit{padding:3.5rem 1.2rem}}
 @media(max-width:420px){.page-cafe .menu-item{grid-template-columns:1fr}.page-cafe .menu-item span{text-align:left;max-width:none}.page-cafe .cafe-menu .cafe-qr{margin-inline:-1.2rem}}
 
+/* Guest questions: visible answers about verified menu facts and real service channels. */
+.page-cafe .cafe-faq{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(0,1.2fr);gap:clamp(2rem,7vw,7rem);align-items:start;padding:clamp(4rem,8vw,8rem) max(8vw,calc((100vw - 1420px)/2));background:#e9ddca;color:#2c211b}
+.page-cafe .faq-intro h2{margin:.65rem 0 1rem;font:500 clamp(3.3rem,6.3vw,6rem)/.88 var(--serif);letter-spacing:-.07em}
+.page-cafe .faq-intro h2 em{color:#a7462f}
+.page-cafe .faq-intro>p:last-child{max-width:440px;color:#766457;font-size:.88rem;line-height:1.8}
+.page-cafe .faq-list{border-top:1px solid #4a332866}
+.page-cafe .faq-card{border-bottom:1px solid #4a332866}
+.page-cafe .faq-card summary{position:relative;padding:1.2rem 2.5rem 1.2rem 0;cursor:pointer;list-style:none;font:600 clamp(.9rem,1.1vw,1.05rem)/1.5 var(--display)}
+.page-cafe .faq-card summary::-webkit-details-marker{display:none}
+.page-cafe .faq-card summary:after{content:"+";position:absolute;right:.25rem;top:50%;translate:0 -50%;color:#a7462f;font:400 1.5rem var(--display);transition:rotate .22s ease}
+.page-cafe .faq-card[open] summary:after{rotate:45deg}
+.page-cafe .faq-card summary:focus-visible{outline:3px solid #a7462f;outline-offset:3px}
+.page-cafe .faq-card p{max-width:740px;margin:0;padding:0 2rem 1.25rem 0;color:#66564a;font-size:.85rem;line-height:1.85}
+.page-cafe .faq-card p a{color:#8e3e29;text-decoration:underline;text-underline-offset:.2em}
+@media(max-width:900px){.page-cafe .cafe-faq{padding-inline:7vw;gap:3vw}}
+@media(max-width:760px){.page-cafe .cafe-faq{grid-template-columns:1fr;padding:3.8rem 1.2rem;gap:1rem}.page-cafe .faq-intro h2{font-size:3.7rem}.page-cafe .faq-card summary{padding-block:1rem}.page-cafe .faq-card p{font-size:.84rem}}
+@media(prefers-reduced-motion:reduce){.page-cafe .faq-card summary:after{transition:none}}
+
 /* Stack the hero copy, facts and stamp instead of squeezing them side by side on phones. */
 @media(max-width:760px){.page-cafe .cafe-hero{flex-direction:column;align-items:stretch}.page-cafe .cafe-hero>div{width:100%;max-width:none;position:relative;z-index:1}.page-cafe .cafe-hero .cafe-facts{flex:0 0 auto}.page-cafe .cafe-hero-stamp{z-index:2}}

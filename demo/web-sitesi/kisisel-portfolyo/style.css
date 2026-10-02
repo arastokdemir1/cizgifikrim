@@ -31,3 +31,15 @@
 
 .offer-boundary span{font-size:.82rem;line-height:1.8}
 @media(max-width:760px){.offer-boundary span{font-size:.8rem}}
+
+/* Client-input checklist keeps the portfolio proposal grounded in the owner's real material. */
+.portfolio-inputs{max-width:760px;margin:1.6rem 0 0;padding:1.2rem 1.35rem;background:#e4e1d7;border-left:3px solid #a8422c}
+.portfolio-inputs h3{margin:.35rem 0 .7rem;font:650 clamp(1.2rem,2vw,1.7rem)/1.15 Manrope,sans-serif;letter-spacing:-.05em}
+.portfolio-inputs ul{margin:0;padding-left:1.1rem;color:#51594f;font-size:.82rem;line-height:1.8}.portfolio-inputs li+li{margin-top:.2rem}
+.portfolio-inputs>p:last-child{margin:.8rem 0 0;color:#656b62;font-size:.8rem;line-height:1.75}
+.designer-reveal-enabled [data-reveal]:not(.is-visible){opacity:0;transform:translateY(20px)}
+.designer-reveal-enabled [data-reveal]{transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1)}
+.designer-reveal-enabled [data-reveal].is-visible{opacity:1;transform:none}
+@media(min-width:1440px){.designer-hero{min-height:clamp(680px,45vw,860px);padding-inline:clamp(130px,8vw,190px);gap:clamp(90px,7vw,150px)}.hero-composition{min-height:clamp(470px,31vw,620px)}.case-study{grid-template-columns:1.08fr .92fr;gap:clamp(90px,7vw,150px);padding-inline:clamp(150px,10vw,230px)}.case-art{min-height:clamp(470px,32vw,620px)}.designer-capabilities,.designer-resume,.designer-contact{padding-inline:clamp(150px,10vw,230px)}}
+@media(max-width:760px){.portfolio-inputs{padding:1rem}.portfolio-inputs ul,.portfolio-inputs>p:last-child{font-size:.8rem}}
+@media(prefers-reduced-motion:reduce){.designer-reveal-enabled [data-reveal],.designer-reveal-enabled [data-reveal]:not(.is-visible){opacity:1;transform:none;transition:none}}

@@ -89,3 +89,25 @@
 .stay-page .stay-offer .sample-action{display:inline-block;margin-top:.35rem;padding:.85rem 1.1rem;background:#395145;color:#fff7e7;font-size:.72rem;font-weight:700}
 .stay-page .stay-offer .sample-action:focus-visible{outline:3px solid #a65e46;outline-offset:3px}
 @media(max-width:390px){.stay-page .stay-request-form{grid-template-columns:1fr}.stay-page .stay-request-button{grid-column:auto}}
+
+/* Guest journey: surface the practical details people need from booking through departure. */
+.stay-page .stay-journey{padding:clamp(4.5rem,8vw,8rem) max(7vw,calc((100vw - 1480px)/2));background:#d8c8aa;color:#2f352c}
+.stay-page .stay-journey-head{display:grid;grid-template-columns:1.1fr .9fr;gap:0 5vw;align-items:end;margin-bottom:3rem}
+.stay-page .stay-journey-head .eyebrow{grid-column:1/-1;color:#8d523d}
+.stay-page .stay-journey-head h2{margin:.75rem 0 0;font:500 clamp(3.5rem,6.5vw,6.7rem)/.87 var(--serif);letter-spacing:-.07em}
+.stay-page .stay-journey-head h2 em{color:#9e563f}
+.stay-page .stay-journey-head>p:last-child{max-width:480px;margin:0 0 .4rem;color:#596257;font-size:.9rem;line-height:1.85}
+.stay-page .stay-journey-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:0;padding:0;border-top:1px solid #39493b70;border-bottom:1px solid #39493b70;list-style:none}
+.stay-page .stay-journey-steps li{position:relative;min-height:270px;padding:1.5rem 1.3rem;border-right:1px solid #39493b55;transition:background .25s ease,translate .25s ease}
+.stay-page .stay-journey-steps li:first-child{padding-left:0}
+.stay-page .stay-journey-steps li:last-child{border-right:0}
+.stay-page .stay-journey-steps li:hover{background:#f3eadb66;translate:0 -3px}
+.stay-page .stay-journey-steps li>span{color:#8d523d;font:700 .62rem var(--mono);letter-spacing:.08em}
+.stay-page .stay-journey-steps h3{margin:2rem 0 .65rem;font:500 clamp(1.35rem,1.65vw,1.8rem)/1.1 var(--serif)}
+.stay-page .stay-journey-steps p{margin:0;color:#596257;font-size:.84rem;line-height:1.8}
+.stay-page .stay-journey-disclosure{max-width:680px;margin:1.1rem 0 0;color:#596257;font-size:.78rem;line-height:1.7}
+@media(min-width:1700px){.stay-page .stay-journey-steps li{min-height:300px;padding:1.8rem}}
+@media(max-width:1050px){.stay-page .stay-journey-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.stay-page .stay-journey-steps li:nth-child(2){border-right:0}.stay-page .stay-journey-steps li:nth-child(-n+2){border-bottom:1px solid #39493b55}.stay-page .stay-journey-steps li:nth-child(3){padding-left:0}}
+@media(max-width:760px){.stay-page .stay-journey{padding:3.8rem 1.2rem}.stay-page .stay-journey-head{grid-template-columns:1fr;gap:.8rem;margin-bottom:1.6rem}.stay-page .stay-journey-head .eyebrow{grid-column:1}.stay-page .stay-journey-head h2{font-size:3.8rem}.stay-page .stay-journey-head>p:last-child{font-size:.86rem}.stay-page .stay-journey-steps li{min-height:230px;padding:1.2rem}.stay-page .stay-journey-steps h3{margin:1.35rem 0 .5rem}.stay-page .stay-journey-steps p{font-size:.82rem}}
+@media(max-width:500px){.stay-page .stay-journey-steps{grid-template-columns:1fr}.stay-page .stay-journey-steps li,.stay-page .stay-journey-steps li:first-child,.stay-page .stay-journey-steps li:nth-child(3){min-height:0;padding:1.2rem 0;border-right:0;border-bottom:1px solid #39493b55}.stay-page .stay-journey-steps li:last-child{border-bottom:0}.stay-page .stay-journey-steps h3{margin:.8rem 0 .4rem}.stay-page .stay-journey-steps p{font-size:.84rem}}
+@media(prefers-reduced-motion:reduce){.stay-page .stay-journey-steps li{transition:none}.stay-page .stay-journey-steps li:hover{translate:0}}

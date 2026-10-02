@@ -30,3 +30,16 @@
 
 .resume-offer-note span{font-size:.82rem;line-height:1.8}
 @media(max-width:760px){.resume-offer-note span{font-size:.8rem}}
+
+/* Recruiter checklist complements the fictional case studies with a verification path. */
+.resume-review-signals{margin-top:2.2rem;padding:1.6rem;background:#edf3f5;border-left:3px solid #2d7692;display:grid;grid-template-columns:.7fr 1.3fr;gap:.8rem 2rem}
+.resume-review-signals h3{margin:.4rem 0 0;font:650 clamp(1.35rem,2.4vw,2rem)/1.1 Manrope,sans-serif;letter-spacing:-.05em}
+.resume-review-signals ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:.55rem 1.2rem}
+.resume-review-signals li{color:#536976;font-size:.82rem;line-height:1.7}.resume-review-signals li b{color:#142d42}
+.resume-review-signals>p{grid-column:2;margin:0;color:#667a86;font-size:.8rem;line-height:1.7}
+.resume-reveal-enabled [data-reveal]:not(.is-visible){opacity:0;transform:translateY(18px)}
+.resume-reveal-enabled [data-reveal]{transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.resume-reveal-enabled [data-reveal].is-visible{opacity:1;transform:none}
+@media(min-width:1440px){.resume-review-signals{padding:2rem 2.2rem;gap:1rem 3rem}.resume-review-signals li{font-size:.88rem}.resume-review-signals>p{font-size:.84rem}}
+@media(max-width:760px){.resume-review-signals{grid-template-columns:1fr;gap:.8rem;margin-top:1.4rem;padding:1.1rem}.resume-review-signals ul{grid-template-columns:1fr}.resume-review-signals>p{grid-column:1;font-size:.78rem}}
+@media(prefers-reduced-motion:reduce){.resume-reveal-enabled [data-reveal],.resume-reveal-enabled [data-reveal]:not(.is-visible){opacity:1;transform:none;transition:none}}

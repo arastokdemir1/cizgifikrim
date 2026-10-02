@@ -83,3 +83,7 @@
 
 .clinic-contact .clinic-package-note{font-size:.84rem;line-height:1.8}
 @media(max-width:760px){.clinic-contact .clinic-package-note{font-size:.8rem}}
+
+/* Keep anchor destinations visible beneath the sticky clinic navigation. */
+.clinic-rebuild main section[id]{scroll-margin-top:104px}
+.clinic-visit #sik-sorulanlar{scroll-margin-top:104px}

@@ -52,3 +52,31 @@
 @media(max-width:560px){.buyer-guide-grid{grid-template-columns:1fr}.buyer-guide-grid article{padding:1rem}.delivery-boundary{grid-template-columns:1fr;gap:.35rem}.consult-buyer-guide,.consult-delivery{padding:3.2rem 6vw}}
 @supports (animation-timeline:view()){.buyer-guide-grid article,.delivery-steps li,.delivery-boundary{animation:consult-reveal linear both;animation-timeline:view();animation-range:entry 0% cover 25%}}
 @media(prefers-reduced-motion:reduce){.buyer-guide-grid article,.delivery-steps li,.delivery-boundary{animation:none!important}}
+
+
+/* A transparent, fictional decision exercise lets a buyer inspect the method. */
+.decision-comparison{padding:5.2rem 10vw;background:#f7f3e8;color:var(--c-ink)}
+.comparison-heading{max-width:900px;margin:0 auto 2rem}
+.comparison-heading h2{max-width:780px;margin:.8rem 0;font:650 clamp(2.7rem,5vw,5rem)/.94 Manrope,sans-serif;letter-spacing:-.09em}
+.comparison-heading>p:last-child{max-width:68ch;color:#595a50;font-size:.84rem;line-height:1.85}
+.comparison-table-wrap{overflow-x:auto;border-top:1px solid #282a2050}
+.decision-table{width:100%;border-collapse:collapse;text-align:left;font-size:.84rem;line-height:1.7}
+.decision-table caption{padding:.85rem 0;text-align:left;color:#9c4b2e;font-weight:700}
+.decision-table th,.decision-table td{min-width:180px;padding:1rem .8rem;border-bottom:1px solid #282a2035;vertical-align:top}
+.decision-table thead th{color:#9c4b2e;font:700 .58rem monospace;letter-spacing:.09em;text-transform:uppercase}
+.decision-table tbody th{width:25%;font:700 .88rem Manrope,sans-serif}
+.decision-table td{color:#55574e}
+.status-to-verify{display:inline-block;padding:.15rem .4rem;background:#e8dfcb;color:#82432e;font-size:.76rem;font-weight:700}
+.comparison-boundary{max-width:1040px;margin:1.2rem auto 0;padding:1rem 1.2rem;background:#e8dfcb;display:grid;grid-template-columns:150px 1fr;gap:1rem;color:#53544b;font-size:.82rem;line-height:1.8}
+.comparison-boundary b{color:#a24d2f;font:700 .52rem monospace;letter-spacing:.08em}
+@media(min-width:1440px){.decision-comparison{padding-inline:clamp(140px,10vw,220px);padding-block:6.5rem}.decision-table th,.decision-table td{padding:1.2rem 1rem}.comparison-table-wrap{max-width:1400px;margin:auto}}
+@media(max-width:760px){.decision-comparison{padding:3.5rem 7vw}.decision-table th,.decision-table td{min-width:210px;padding:.85rem .65rem}.comparison-boundary{grid-template-columns:1fr;gap:.4rem}}
+@media(min-width:2000px){.consult-hero,.consult-principle,.session-section,.output-section,.consult-package-map,.qualification,.process-strip,.prep-sheet,.consult-questions,.consult-buyer-guide,.consult-delivery,.decision-comparison,.consult-contact{padding-inline:max(220px,calc((100vw - 1660px)/2))}}
+.consult-hero-copy{animation:consult-intro-copy .72s cubic-bezier(.2,.7,.2,1) both}
+.hero-note{animation:consult-intro-note .8s .12s cubic-bezier(.2,.7,.2,1) both}
+@keyframes consult-intro-copy{from{opacity:0;translate:0 18px}to{opacity:1;translate:0 0}}
+@keyframes consult-intro-note{from{opacity:0;scale:.96;translate:0 14px}to{opacity:1;scale:1;translate:0 0}}
+@supports (animation-timeline:view()){.decision-table tbody tr,.comparison-boundary{animation:consult-reveal linear both;animation-timeline:view();animation-range:entry 0% cover 24%}}
+@media(prefers-reduced-motion:reduce){.consult-hero-copy,.hero-note,.decision-table tbody tr,.comparison-boundary{animation:none!important;translate:none;scale:none}}
+
+.comparison-table-wrap:focus-visible{outline:3px solid #a24d2f;outline-offset:4px}
