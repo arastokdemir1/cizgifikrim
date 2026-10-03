@@ -9,6 +9,126 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../assets/css/main.css?v=65">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <style>
+    .randevu-choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      max-width: 42rem;
+      margin: 1.5rem auto 0;
+      text-align: left;
+    }
+    .randevu-choice-block {
+      min-width: 0;
+      margin: 0;
+      padding: 1rem;
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      background: var(--card);
+    }
+    .randevu-choice-title {
+      display: block;
+      margin-bottom: .75rem;
+      color: var(--muted-fg);
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    .randevu-channel-options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .5rem;
+    }
+    .randevu-channel-option {
+      position: relative;
+      display: grid;
+      min-height: 44px;
+      place-items: center;
+      padding: .6rem .7rem;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      color: var(--muted-fg);
+      font-family: var(--sans);
+      font-size: .86rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color .15s, color .15s, border-color .15s;
+    }
+    .randevu-channel-option input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+    .randevu-channel-option:hover { color: var(--ink); }
+    .randevu-channel-option.on {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+    .randevu-channel-option:focus-within {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+    .randevu-duration-tabs { margin-top: 0; }
+    .randevu-duration-tabs button:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+    .randevu-selected-meeting {
+      margin: 1.25rem 0 .25rem;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      font-weight: 700;
+    }
+    .randevu-phone-note {
+      max-width: 42rem;
+      margin: .75rem auto 1rem;
+      padding: .75rem 1rem;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-soft);
+      color: var(--fg);
+      font-size: .86rem;
+      line-height: 1.55;
+      text-align: left;
+    }
+    .randevu-phone-note[hidden], .randevu-cal-loading[hidden],
+    .randevu-cal-fallback[hidden] { display: none; }
+    .randevu-cal-loading {
+      max-width: 42rem;
+      margin: 1rem auto;
+      color: var(--muted-fg);
+      font-size: .9rem;
+      text-align: center;
+    }
+    .randevu-cal-fallback {
+      display: block;
+      margin: .75rem auto 1rem;
+      color: var(--accent-strong);
+      font-weight: 600;
+      text-align: center;
+    }
+    .randevu-embed [role="tabpanel"]:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 4px;
+    }
+    @media (max-width: 680px) {
+      .randevu-choice-grid { grid-template-columns: 1fr; max-width: 30rem; }
+      .randevu-choice-block { padding: .85rem; }
+      .randevu-duration-tabs { display: flex; width: 100%; }
+      .randevu-duration-tabs button { flex: 1; padding-inline: .65rem; }
+      .randevu-selected-meeting { margin-top: 1rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .randevu-channel-option { transition: none; }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header"><div class="page header-inner">
@@ -23,19 +143,54 @@
       <div class="randevu-head">
         <p class="folio">GÖRÜŞME</p>
         <h1 class="auth-h1">Bir görüşme planla</h1>
-        <p class="auth-sub">Takvimden sana uyan saati seç. Onay ve görüşme bağlantısı e-postana hemen gelir.</p>
+        <p class="auth-sub">Önce görüşme yöntemini, sonra süreyi seç. Randevu onayı ve katılım ya da arama ayrıntıları e-postana gelir.</p>
         <ul class="randevu-facts">
-          <li><span>YER</span>Online görüntülü görüşme</li>
+          <li><span>YÖNTEM</span><span id="summary-channel">Görüntülü</span></li>
+          <li><span>SÜRE</span><span id="summary-duration">30 dakika</span></li>
           <li><span>SONRASI</span>Kapsam ve teklif</li>
         </ul>
-        <div class="randevu-tabs" role="tablist" aria-label="Görüşme süresi">
-          <button type="button" role="tab" id="tab-30" aria-selected="true" aria-controls="cal-30" class="on" data-cal-tab="30">30 dakika</button>
-          <button type="button" role="tab" id="tab-15" aria-selected="false" aria-controls="cal-15" data-cal-tab="15">15 dakika</button>
+        <div class="randevu-choice-grid">
+          <fieldset class="randevu-choice-block">
+            <legend class="randevu-choice-title">1 · Görüşme türü</legend>
+            <div class="randevu-channel-options">
+              <label class="randevu-channel-option on" id="channel-video-label">
+                <input type="radio" name="meeting-type" value="video" checked>
+                <span>Görüntülü</span>
+              </label>
+              <label class="randevu-channel-option" id="channel-phone-label">
+                <input type="radio" name="meeting-type" value="phone">
+                <span>Telefon</span>
+              </label>
+            </div>
+          </fieldset>
+          <div class="randevu-choice-block">
+            <span class="randevu-choice-title" id="duration-heading">2 · Görüşme süresi</span>
+            <div class="randevu-tabs randevu-duration-tabs" role="tablist" aria-labelledby="duration-heading">
+              <button type="button" role="tab" id="tab-30" aria-selected="true" aria-controls="cal-video-30" tabindex="0" class="on" data-cal-tab="30">30 dakika</button>
+              <button type="button" role="tab" id="tab-15" aria-selected="false" aria-controls="cal-video-15" tabindex="-1" data-cal-tab="15">15 dakika</button>
+            </div>
+          </div>
         </div>
+        <h2 class="randevu-selected-meeting" id="selected-meeting-title" aria-live="polite">30 dakika görüntülü görüşme</h2>
+        <p class="randevu-phone-note" id="phone-call-details" hidden>Telefon görüşmesinde, takvim formunda katılımcı telefonunu ve arama yönü tercihini belirt. Arama ayrıntıları onay e-postasında netleşir.</p>
       </div>
       <div class="randevu-embed">
-        <div id="cal-30" role="tabpanel" aria-labelledby="tab-30" aria-label="30 dakikalık görüşme takvimi"></div>
-        <div id="cal-15" role="tabpanel" aria-labelledby="tab-15" aria-label="15 dakikalık görüşme takvimi" hidden></div>
+        <div id="cal-video-30" role="tabpanel" aria-labelledby="channel-video-label tab-30" tabindex="0">
+          <p class="randevu-cal-loading" role="status" data-cal-loading>Cal.com takvimi yükleniyor…</p>
+          <a class="randevu-cal-fallback" data-cal-fallback hidden target="_blank" rel="noopener">Takvimi Cal.com'da aç ↗</a>
+        </div>
+        <div id="cal-video-15" role="tabpanel" aria-labelledby="channel-video-label tab-15" tabindex="0" hidden>
+          <p class="randevu-cal-loading" role="status" data-cal-loading>Cal.com takvimi yükleniyor…</p>
+          <a class="randevu-cal-fallback" data-cal-fallback hidden target="_blank" rel="noopener">Takvimi Cal.com'da aç ↗</a>
+        </div>
+        <div id="cal-phone-30" role="tabpanel" aria-labelledby="channel-phone-label tab-30" tabindex="0" hidden>
+          <p class="randevu-cal-loading" role="status" data-cal-loading>Cal.com takvimi yükleniyor…</p>
+          <a class="randevu-cal-fallback" data-cal-fallback hidden target="_blank" rel="noopener">Takvimi Cal.com'da aç ↗</a>
+        </div>
+        <div id="cal-phone-15" role="tabpanel" aria-labelledby="channel-phone-label tab-15" tabindex="0" hidden>
+          <p class="randevu-cal-loading" role="status" data-cal-loading>Cal.com takvimi yükleniyor…</p>
+          <a class="randevu-cal-fallback" data-cal-fallback hidden target="_blank" rel="noopener">Takvimi Cal.com'da aç ↗</a>
+        </div>
       </div>
       <p class="randevu-alt">Takvimde uygun saat yoksa <a href="contact.html">bize yaz</a>, birlikte bir zaman bulalım.</p>
     </section>
@@ -99,36 +254,106 @@
     "radius": "12px",
   };
 
-  // Cal'ın kendi "profil listesi" sayfası yerine doğrudan randevu takvimi
-  // açılır (tam genişlik, sayfayla aynı hiza). Süre seçimi bizim sekmelerimizde.
-  const CAL_SLOTS = { 30: "cizgifikrim/30min", 15: "cizgifikrim/15min" };
+  // Dört randevu türü de Cal.com'un kayıtlı etkinliklerine gider.
+  const CAL_SLOTS = {
+    video: { 15: "cizgifikrim/15min", 30: "cizgifikrim/30min" },
+    phone: { 15: "cizgifikrim/15dk-telefon", 30: "cizgifikrim/30dk-telefon" },
+  };
   const started = {};
-  function startCal(minutes) {
-    if (started[minutes]) return;
-    started[minutes] = true;
-    const ns = `m${minutes}`;
+  const calPanels = document.querySelectorAll('.randevu-embed [role="tabpanel"]');
+  function startCal(type, minutes) {
+    const key = `${type}-${minutes}`;
+    if (started[key]) return;
+    started[key] = true;
+    const ns = `${type}${minutes}`;
+    const panel = document.getElementById(`cal-${key}`);
+    const loading = panel.querySelector("[data-cal-loading]");
+    const fallback = panel.querySelector("[data-cal-fallback]");
+    fallback.href = `https://cal.com/${CAL_SLOTS[type][minutes]}`;
+    const embedObserver = new MutationObserver(() => {
+      if (!panel.querySelector("iframe")) return;
+      loading.hidden = true;
+      fallback.hidden = true;
+      window.clearTimeout(loadTimeout);
+      embedObserver.disconnect();
+    });
+    embedObserver.observe(panel, { childList: true, subtree: true });
+    const loadTimeout = window.setTimeout(() => {
+      if (panel.querySelector("iframe")) return;
+      loading.textContent = "Takvim şu anda yüklenemedi.";
+      fallback.hidden = false;
+      embedObserver.disconnect();
+    }, 12000);
     Cal("init", ns, { origin: "https://cal.com" });
     Cal.ns[ns]("inline", {
-      elementOrSelector: `#cal-${minutes}`,
-      calLink: CAL_SLOTS[minutes],
+      elementOrSelector: `#cal-${key}`,
+      calLink: CAL_SLOTS[type][minutes],
       layout: "month_view",
       config: { theme: "light", layout: "month_view", ...calPrefill },
     });
     Cal.ns[ns]("ui", { theme: "light", cssVarsPerTheme: { light: calVars, dark: calVars }, hideEventTypeDetails: false, layout: "month_view" });
   }
 
-  const tabs = document.querySelectorAll("[data-cal-tab]");
-  function showTab(minutes) {
-    tabs.forEach((tab) => {
+  const durationTabs = Array.from(document.querySelectorAll("[data-cal-tab]"));
+  const meetingTypeRadios = Array.from(document.querySelectorAll('input[name="meeting-type"]'));
+  const summaryChannel = document.getElementById("summary-channel");
+  const summaryDuration = document.getElementById("summary-duration");
+  const selectedTitle = document.getElementById("selected-meeting-title");
+  const phoneCallDetails = document.getElementById("phone-call-details");
+  let selectedType = "video";
+  let selectedMinutes = 30;
+
+  function showSelection(type, minutes) {
+    selectedType = type;
+    selectedMinutes = minutes;
+    const channelLabel = type === "phone" ? "Telefon" : "Görüntülü";
+    const channelDescription = type === "phone" ? "telefon görüşmesi" : "görüntülü görüşme";
+    meetingTypeRadios.forEach((radio) => {
+      const on = radio.value === type;
+      radio.checked = on;
+      radio.closest(".randevu-channel-option").classList.toggle("on", on);
+    });
+    durationTabs.forEach((tab) => {
       const on = tab.dataset.calTab === String(minutes);
       tab.classList.toggle("on", on);
       tab.setAttribute("aria-selected", String(on));
+      tab.tabIndex = on ? 0 : -1;
+      tab.setAttribute("aria-controls", `cal-${type}-${tab.dataset.calTab}`);
     });
-    [30, 15].forEach((m) => { document.getElementById(`cal-${m}`).hidden = m !== minutes; });
-    startCal(minutes);
+    calPanels.forEach((panel) => {
+      const on = panel.id === `cal-${type}-${minutes}`;
+      panel.hidden = !on;
+      if (on) {
+        panel.setAttribute("aria-labelledby", `${type === "phone" ? "channel-phone-label" : "channel-video-label"} tab-${minutes}`);
+        panel.setAttribute("aria-label", `${minutes} dakikalık ${channelDescription} takvimi`);
+      }
+    });
+    summaryChannel.textContent = channelLabel;
+    summaryDuration.textContent = `${minutes} dakika`;
+    selectedTitle.textContent = `${minutes} dakikalık ${channelDescription}`;
+    phoneCallDetails.hidden = type !== "phone";
+    startCal(type, minutes);
   }
-  tabs.forEach((tab) => tab.addEventListener("click", () => showTab(Number(tab.dataset.calTab))));
-  showTab(30);
+
+  meetingTypeRadios.forEach((radio) => radio.addEventListener("change", () => {
+    if (radio.checked) showSelection(radio.value, selectedMinutes);
+  }));
+  durationTabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => showSelection(selectedType, Number(tab.dataset.calTab)));
+    tab.addEventListener("keydown", (event) => {
+      let nextIndex = index;
+      if (event.key === "ArrowRight") nextIndex = (index + 1) % durationTabs.length;
+      else if (event.key === "ArrowLeft") nextIndex = (index - 1 + durationTabs.length) % durationTabs.length;
+      else if (event.key === "Home") nextIndex = 0;
+      else if (event.key === "End") nextIndex = durationTabs.length - 1;
+      else return;
+      event.preventDefault();
+      const nextTab = durationTabs[nextIndex];
+      showSelection(selectedType, Number(nextTab.dataset.calTab));
+      nextTab.focus();
+    });
+  });
+  showSelection("video", 30);
 </script>
   <script src="../assets/js/analytics.js?v=3"></script>
 </body>
