@@ -27,41 +27,55 @@
 
   <p>CarLog ("uygulama"), Aras Tokdemir / CizgiFikrim ("biz") tarafından geliştirilen, Türkiye'ye özel seyahat maliyeti hesaplama uygulamasıdır. Gizliliğinize önem veriyoruz. Bu politika, hangi verilerin nasıl işlendiğini açıklar.</p>
 
-  <div class="box"><strong>Özet:</strong> CarLog sunucusuz çalışır. Hesap oluşturmanız gerekmez. Araçlarınız ve yolculuk kayıtlarınız <strong>yalnızca cihazınızda</strong> saklanır; bizim sunucularımıza gönderilmez.</div>
+  <div class="box"><strong>Özet:</strong> CarLog sunucusuz çalışır. Hesap oluşturmanız gerekmez. Araçlarınız, yolculuk kayıtlarınız ve konum geçmişiniz <strong>yalnızca cihazınızda</strong> saklanır; bizim sunucularımıza gönderilmez. Uygulama, işlevlerini yerine getirmek için aşağıda sayılan Apple servislerini kullanır.</div>
 
   <h2>1. Topladığımız Veriler</h2>
   <ul>
     <li><strong>Cihazda saklanan veriler:</strong> Eklediğiniz araçlar, yolculuk planları ve geçmiş kayıtlar cihazınızın yerel deposunda tutulur. Bu verilere bizim erişimimiz yoktur.</li>
-    <li><strong>Konum:</strong> Rota ve maliyet hesabı için başlangıç/varış noktaları ve rota bilgisi cihaz üzerinde işlenir. Konum verisi sunucularımızda saklanmaz.</li>
+    <li><strong>Konum:</strong> Rota ve maliyet hesabı için başlangıç/varış noktaları ve rota bilgisi, ayrıca otomatik yolculuk algılama için arka plandaki konum (bkz. Bölüm 2) cihaz üzerinde işlenir. Konum verisi sunucularımızda saklanmaz.</li>
+    <li><strong>Hareket verisi:</strong> Araca bindiğinizi anlamak için cihazın Hareket ve Fitness (CoreMotion) verisi kullanılır. Bu veri cihazdan çıkmaz.</li>
     <li><strong>Deniz (vapur) kontrolü:</strong> Otomatik algılanan bir yolculuk bittiğinde, vapur gibi deniz üstünde giden bir bölüm olup olmadığını anlamak için rotadan birkaç dakikada bir seçilen birkaç nokta, hesap ya da kimlik bilgisi olmadan Apple'ın konum çözümleme servisine gönderilir. Rotanın tamamı gönderilmez; yanıt yalnızca noktanın su üstünde olup olmadığını belirler. Bu kontrol Ayarlar &rsaquo; Otomatik Yolculuk &rsaquo; Deniz Yolculukları bölümünden kapatılabilir. Konum verisi sunucularımızda saklanmaz.</li>
     <li><strong>Hesap / kişisel kimlik:</strong> Toplamıyoruz. Uygulama giriş veya kayıt gerektirmez.</li>
   </ul>
 
-  <h2>2. Üçüncü Taraf Servisler</h2>
-  <p>Uygulama bazı işlevler için Apple ve açık veri kaynaklarını kullanır:</p>
+  <h2>2. Otomatik Yolculuk Algılama ve Arka Plan Konumu</h2>
+  <p>CarLog, siz izin verirseniz araca bindiğinizi kendiliğinden algılayıp yolculuğunuzu kaydeder. Bunun için:</p>
   <ul>
-    <li><strong>Apple Konum Servisleri (konum çözümleme):</strong> Yukarıda anlatılan deniz kontrolünde seçilen noktaların su üstünde olup olmadığını öğrenmek için kullanılır. Apple'ın gizlilik politikasına tabidir.</li>
-    <li><strong>Apple MapKit:</strong> Rota ve harita hesaplaması. Apple'ın gizlilik politikasına tabidir.</li>
-    <li><strong>Apple App Store / StoreKit:</strong> CarLog Pro aboneliği Apple üzerinden işlenir. Ödeme ve fatura bilgilerinizi <strong>biz görmez ve saklamayız</strong>; bunları Apple yönetir.</li>
-    <li><strong>Trafik ve yakıt fiyatı verileri:</strong> Güncel yakıt fiyatları ve (İstanbul için) trafik yoğunluğu, kişisel bilginizi içermeyen genel/açık veri kaynaklarından alınır.</li>
+    <li><strong>İzinler:</strong> Konum (en iyi sonuç için "Her Zaman"; "Uygulamayı Kullanırken" ile sınırlı çalışır), Hareket ve Fitness, isteğe bağlı olarak Bildirimler. İzinleri iOS Ayarları'ndan istediğiniz zaman kapatabilirsiniz.</li>
+    <li><strong>Arka planda ne olur:</strong> Uygulama kapalı olsa bile iOS, yolculuğunuzun başladığını anlamak için konum olaylarıyla (park yerinizin çevresinde bir bölge izleme ve iOS'un önemli konum değişikliği bildirimi) uygulamayı uyandırabilir. Yolculuk sürerken konum sürekli alınır; yolculuk yokken GPS kapalı tutulur. Sürüşte iOS konum göstergesini (mavi çubuk) gösterebilir.</li>
+    <li><strong>Neler kaydedilir:</strong> Yolculuğun başlangıç/bitiş saati, mesafesi, ortalama ve en yüksek hızı, hız çizelgesi, durma sayısı, geçilen gişeler ve tahmini maliyet. "Yolculuklarımı öğren" seçeneği açıksa ayrıca başlangıç/bitiş noktası ve en çok 300 noktaya indirgenmiş rota saklanır; bu seçenek kapalıyken rota ve koordinatlar saklanmaz.</li>
+    <li><strong>Nerede saklanır:</strong> Yalnızca cihazınızda (ve aynı cihazdaki widget ile paylaşım eklentisinin eriştiği uygulama grubu alanında). Bizim sunucularımıza gönderilmez; hesap yoktur.</li>
+    <li><strong>Araç bağlantısı:</strong> CarPlay ya da Bluetooth ses bağlantısı olup olmadığına bakılır (araca bindiğinizi daha erken anlamak için); bu bilgi cihazdan çıkmaz.</li>
+    <li><strong>Kilit ekranı ve widget:</strong> Süren yolculuğun hızı ve maliyeti kilit ekranında/Dynamic Island'da ve ana ekran widget'ında gösterilebilir; veriler cihazda kalır.</li>
+    <li><strong>Kapatma ve silme:</strong> Ayarlar &rsaquo; Otomatik Yolculuk'tan algılamayı kapatabilir, "Yolculuklarımı öğren"i kapatarak kayıtlı rota ve koordinatları temizleyebilir, yolculukları geçmişten silebilir ya da uygulamayı kaldırarak her şeyi silebilirsiniz.</li>
   </ul>
 
-  <h2>3. Verilerin Saklanması ve Silinmesi</h2>
+  <h2>3. Üçüncü Taraf Servisler</h2>
+  <p>Uygulama bazı işlevler için Apple ve açık veri kaynaklarını kullanır:</p>
+  <ul>
+    <li><strong>Apple Konum Servisleri (konum çözümleme):</strong> Yukarıda (Bölüm 1) anlatılan deniz kontrolünde seçilen noktaların su üstünde olup olmadığını öğrenmek için kullanılır. Apple'ın gizlilik politikasına tabidir.</li>
+    <li><strong>Apple MapKit:</strong> Rota ve harita hesaplaması. Apple'ın gizlilik politikasına tabidir.</li>
+    <li><strong>Apple WeatherKit:</strong> Rota planlarken hava durumu (sıcaklık, rüzgâr, yağış) için seçtiğiniz konumun koordinatı Apple'a gönderilir. Apple'ın gizlilik politikasına tabidir.</li>
+    <li><strong>Apple App Store / StoreKit:</strong> CarLog Pro aboneliği Apple üzerinden işlenir. Ödeme ve fatura bilgilerinizi <strong>biz görmez ve saklamayız</strong>; bunları Apple yönetir.</li>
+    <li><strong>Trafik, yakıt fiyatı, gişe ve araç verileri:</strong> Güncel yakıt fiyatları, otoyol/köprü tarifeleri, araç tüketim kataloğu ve (İstanbul için) trafik yoğunluğu, kişisel bilginizi içermeyen genel/açık veri kaynaklarından indirilir. Bu isteklerde konumunuz ya da kişisel bilginiz gönderilmez.</li>
+  </ul>
+
+  <h2>4. Verilerin Saklanması ve Silinmesi</h2>
   <p>Verileriniz cihazınızda kalır. Uygulamayı sildiğinizde uygulamaya ait yerel veriler de cihazınızdan kaldırılır. Veriler sizin kontrolünüzdedir.</p>
 
-  <h2>4. Reklam ve Takip</h2>
+  <h2>5. Reklam ve Takip</h2>
   <p>CarLog, reklam amaçlı kişisel veri toplamaz ve sizi cihazlar/uygulamalar arasında takip etmez.</p>
 
-  <h2>5. Çocukların Gizliliği</h2>
+  <h2>6. Çocukların Gizliliği</h2>
   <p>Uygulama çocuklara yönelik değildir ve bilerek çocuklardan kişisel veri toplamaz.</p>
 
-  <h2>6. Haklarınız (KVKK)</h2>
+  <h2>7. Haklarınız (KVKK)</h2>
   <p>6698 sayılı KVKK kapsamında verilerinize ilişkin haklarınız saklıdır. Verileriniz cihazınızda tutulduğundan, bunları doğrudan uygulama içinden yönetebilir veya uygulamayı kaldırarak silebilirsiniz. Sorularınız için bizimle iletişime geçebilirsiniz.</p>
 
-  <h2>7. Değişiklikler</h2>
+  <h2>8. Değişiklikler</h2>
   <p>Bu politikayı zaman zaman güncelleyebiliriz. Güncel sürüm her zaman bu sayfada yayınlanır.</p>
 
-  <h2>8. İletişim</h2>
+  <h2>9. İletişim</h2>
   <p>Sorularınız için: <a href="mailto:hello@cizgifikrim.net">hello@cizgifikrim.net</a></p>
 
   <footer>
