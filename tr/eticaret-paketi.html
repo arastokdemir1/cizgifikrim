@@ -35,7 +35,7 @@
 
   <main>
     <!-- TASLAK İSKELET: noindex, menüde ve sitemap'te yok. Metin: pazarlama/landing-eticaret.md (taslak, yayın onayı yok).
-         Form henüz hiçbir yere bağlı değil (action yok, gönder düğmesi pasif). Backend bağlama: ayrı onay. -->
+         Form yok; bekleme listesi mailto ile. Backend bağlama: ayrı onay. -->
     <section class="page page-hero services-hero" aria-labelledby="ec-title">
       <div>
         <p class="hero-eyebrow">CİZGİFİKRİM / E-TİCARET İÇERİĞİ</p>
@@ -75,21 +75,23 @@
 
     <section class="page" id="bekleme-listesi" aria-labelledby="ec-form-title">
       <div class="services-section-head reveal"><h2 id="ec-form-title">Ücretsiz örnek için sıraya gir</h2></div>
-      <!-- YER TUTUCU FORM: action/method bilerek yok; hiçbir veri gönderilmez. -->
-      <form class="contact-form" id="waitlist-form" onsubmit="return false">
-        <div class="input-2col">
-          <label class="form-field"><span class="folio">AD</span><input type="text" name="name" class="form-input" autocomplete="name" required></label>
-          <label class="form-field"><span class="folio">E-POSTA</span><input type="email" name="email" class="form-input" autocomplete="email" required></label>
-        </div>
-        <label class="form-field"><span class="folio">MAĞAZA LİNKİ (TRENDYOL, HEPSİBURADA, ETSY, KENDİ SİTEN, INSTAGRAM)</span><input type="url" name="store" class="form-input" inputmode="url"></label>
-        <label class="form-field"><span class="folio">SATIŞ YAPTIĞIN ÜRÜN TÜRÜ</span><input type="text" name="category" class="form-input"></label>
-        <label class="form-field"><input type="checkbox" name="consent" required> <span>Aydınlatma metnini okudum; bekleme listesi ve örnek çalışma için iletişim kurulmasını kabul ediyorum.</span></label>
-        <div class="form-actions">
-          <button type="submit" class="btn-primary" disabled aria-describedby="waitlist-note">Sıraya gir <span class="btn-arrow">→</span></button>
-          <span class="folio" id="waitlist-note">Form henüz etkin değil.</span>
-        </div>
-      </form>
-      <!-- TODO-ARAS: KVKK aydınlatma metni (veri sorumlusu, iletişim e-postası, form altyapısı sağlayıcısı) hukuki inceleme sonrası eklenecek. Taslak: pazarlama/landing-eticaret.md -->
+      <!-- Form yok, backend bağlanmadı: bekleme listesi şimdilik e-posta ile. -->
+      <p>Şimdilik bekleme listesi e-posta ile yürüyor. Aşağıdaki adrese <strong>adını, mağaza linkini (Trendyol, Hepsiburada, Etsy, kendi siten veya Instagram) ve satış yaptığın ürün türünü</strong> yaz; 3 ürününü belirtirsen örneği ona göre hazırlarız.</p>
+      <p><a class="lab-button" href="mailto:cizgifikrimnet@gmail.com?subject=%C3%9Ccretsiz%20%C3%B6rnek%20s%C4%B1ras%C4%B1&amp;body=Ad%3A%0AMa%C4%9Faza%20linki%3A%0A%C3%9Cr%C3%BCn%20t%C3%BCr%C3%BC%3A%0A3%20%C3%BCr%C3%BCn%3A%0A">cizgifikrimnet@gmail.com'a yaz <span aria-hidden="true">→</span></a></p>
+      <p class="folio">E-posta göndererek aşağıdaki aydınlatma notunu okuduğunu kabul etmiş olursun.</p>
+      <aside class="contact-trust-list" aria-labelledby="ec-kvkk-title">
+        <h3 id="ec-kvkk-title">KVKK aydınlatma notu <span class="folio">TASLAK, HUKUKİ KONTROL ŞART</span></h3>
+        <ul>
+          <li><strong>Veri sorumlusu:</strong> [belirlenmedi]</li>
+          <li><strong>İşlenen veriler:</strong> Ad, e-posta, mağaza bağlantısı, ürün türü.</li>
+          <li><strong>Amaç:</strong> Bekleme listesi yönetimi ve ücretsiz örnek çalışmanın hazırlanması için sizinle iletişim kurmak.</li>
+          <li><strong>Hukuki sebep:</strong> [hukuki görüşle netleşecek]</li>
+          <li><strong>Aktarım:</strong> Verileriniz üçüncü kişilere satılmaz. E-posta sağlayıcısı (Gmail) üzerinden iletişim kurulur.</li>
+          <li><strong>Saklama:</strong> Bekleme listesi süresince; talebiniz üzerine silinir.</li>
+          <li><strong>Haklarınız:</strong> KVKK m.11 kapsamında bilgi isteme, düzeltme, silme vb. Başvuru: cizgifikrimnet@gmail.com</li>
+        </ul>
+        <p>Bu metin taslaktır, hukuki görüş değildir; yayından önce kontrol edilmelidir.</p>
+      </aside>
     </section>
 
     <section class="page services-faq" aria-labelledby="ec-faq-title">
