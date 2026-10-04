@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>PPL Flight Sim – Sınav Simülatörü</title>
+<title>PPL Flight Simulator – Theory & Radiotelephony Exam</title>
 <meta name="robots" content="noindex,nofollow">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
@@ -27,6 +27,7 @@ canvas{position:fixed;left:0;display:block}
 .score-wrap{white-space:nowrap;font-size:12px}
 .streak-badge{color:#ff9d3b;font-weight:700}
 .btn-group{display:flex;gap:4px;align-items:center}
+#lang-btn{font-weight:700;color:#9bc0ff;border-color:#3a589e}
 .tg{background:#121a30;border:1px solid #2a3a63;color:#cfe0ff;border-radius:7px;padding:4px 8px;cursor:pointer;font-size:12px;min-height:28px;line-height:1;display:inline-flex;align-items:center;justify-content:center}
 .tg.off{opacity:.4}
 
@@ -170,7 +171,8 @@ canvas{position:fixed;left:0;display:block}
   <div class="hp-wrap"><span>HP</span> <span class="bar"><i id="hp"></i></span></div>
   <div class="score-wrap"><b id="score">0</b> <span class="streak-badge">🔥<b id="streak">0</b></span></div>
   <div class="btn-group">
-    <button class="tg off" id="tst" title="Test Modu">🧪<span class="btn-txt"> Test</span></button>
+    <button class="tg" id="lang-btn" title="Switch Language / Dili Değiştir">🇬🇧 EN</button>
+    <button class="tg off" id="tst" title="Test Mode">🧪<span class="btn-txt"> Test</span></button>
     <button class="tg" id="snd" title="Ses">🔊</button>
     <button class="tg" id="voc" title="ATC Sesi">🗣️</button>
   </div>
@@ -538,275 +540,2516 @@ function squelch(){if(!AC||!sndOn)return;const n=AC.sampleRate*.18,b=AC.createBu
 function say(t){if(!vocOn||!sndOn||!('speechSynthesis' in window))return;speechSynthesis.cancel();
  const u=new SpeechSynthesisUtterance(t.replace(/TC-FLY/g,'Tango Charlie Foxtrot Lima Yankee'));u.lang='en-US';u.rate=.92;u.pitch=.85;speechSynthesis.speak(u)}
 let TEST=new URLSearchParams(location.search).get('test')==='1';
-$('tst').onclick=e=>{TEST=!TEST;e.target.classList.toggle('off',!TEST);const b=document.querySelector('.opt[data-c]');if(b&&!b.disabled){b.classList.toggle('hint',TEST);b.textContent=(TEST?'✔ ':'')+b.textContent.replace(/^✔ /,'')}};
+if(TEST)$('tst').classList.remove('off');
+$('tst').onclick=()=>{TEST=!TEST;$('tst').classList.toggle('off',!TEST);const b=document.querySelector('.opt[data-c]');if(b&&!b.disabled){b.classList.toggle('hint',TEST);b.textContent=(TEST?'✔ ':'')+b.textContent.replace(/^✔ /,'')}};
 $('snd').onclick=e=>{sndOn=!sndOn;e.target.classList.toggle('off',!sndOn);if(!sndOn&&window.speechSynthesis)speechSynthesis.cancel()};
 $('voc').onclick=e=>{vocOn=!vocOn;e.target.classList.toggle('off',!vocOn);if(!vocOn&&window.speechSynthesis)speechSynthesis.cancel()};
 
 /* ================= SORULAR / SENARYO ================= */
-const PH=['Park','Taksi','Kalkış','Seyir','Yaklaşma','İniş'];
-const CS='TC-FLY';
-// o[0] her zaman doğru cevaptır (gösterimde karıştırılır)
-const ST=[
-{ph:0,cat:'Uçuş Öncesi',q:'Dış kontrolde yakıt numunesi (fuel sample) aldın. Hangi durumda uçuştan vazgeçmelisin?',
- o:['Numune bulanık veya dibinde su damlacıkları var','Numune mavi (Avgas 100LL) ve berrak','Numunede yakıt kokusu var','Numune sıcaklığı hava sıcaklığına yakın'],
- e:'Avgas 100LL mavidir. Bulanıklık veya su motoru durdurabilir (su yakıttan ağırdır, dibe çöker). Su temizlenene kadar tekrar numune alınır, temizlenmezse uçulmaz.'},
-{ph:0,cat:'Prosedürler',q:'Starter\'a basmadan önce pervane yönüne "CLEAR PROP!" diye bağırmanın amacı nedir?',
- o:['Çevredekileri uyarıp pervane alanının boş olduğundan emin olmak','Motoru ısıtmak','Kuleye çağrı yapmak','Yakıt pompasını açmak'],
- e:'Pervane çok tehlikelidir. Çalıştırmadan önce çevre kontrol edilir ve sesli uyarı verilir.',
- after:()=>{S.tRpm=1000}},
-{ph:0,cat:'Uçak Bilgisi',q:'Motor çalıştı. İlk saniyelerde hangi göstergeyi mutlaka kontrol etmelisin?',
- o:['Yağ basıncı – yeşil aralığa çıkmalı','Altimetre','Hız göstergesi','Heading indicator'],
- e:'Yağ basıncı ~30 sn içinde (soğuk havada biraz daha uzun) yükselmezse motor hemen kapatılır; yağsız motor dakikalar içinde hasar görür.'},
-{ph:0,cat:'Meteoroloji',freq:'ATIS 127.250',atc:'Skyline Information Alpha. Runway in use 36. Wind 340 degrees 8 knots. CAVOK. Temperature 18, dew point 9. QNH 1018.',
- tr:'Skyline bilgi Alfa. Kullanılan pist 36. Rüzgâr 340° 8 kt. CAVOK. Sıcaklık 18, çiğ noktası 9. QNH 1018.',
- q:'ATIS\'teki "CAVOK" ne anlama gelir?',
- o:['Görüş ≥10 km, 5000 ft/MSA altında bulut yok, CB/TCU yok, önemli hava olayı yok','Tamamen bulutsuz gökyüzü','Görüş 5 km, hafif yağmur','Pist kuru ve frenleme iyi'],
- e:'CAVOK = Ceiling And Visibility OK. Sadece "bulutsuz" demek değildir; yukarıdaki üç şartın hepsi sağlanmalıdır.'},
-{ph:0,cat:'Seyrüsefer',q:'ATIS: pist 36, rüzgâr 340°/08 kt. Rüzgâr hangi yönden ve nasıl bileşenlere sahip?',
- o:['Kuzey-kuzeybatıdan; neredeyse tam kafa rüzgârı (~7 kt kafa, ~3 kt yan)','Güneydoğudan; kuyruk rüzgârı','Batıdan; tam yan rüzgâr','Doğudan; tam yan rüzgâr'],
- e:'Rüzgâr yönü "geldiği" yöndür. 340° ile pist yönü 360° arası 20° fark: 8×cos20° ≈ 7.5 kt kafa, 8×sin20° ≈ 2.7 kt yan rüzgâr.'},
-{ph:0,cat:'Telsiz',freq:'GND 121.700',q:'Taksi izni için Ground\'u ilk kez çağırıyorsun. En doğru çağrı hangisi?',
- o:['Skyline Ground, TC-FLY, Cessna 172, at the apron, information Alpha, request taxi, VFR local.','TC-FLY requesting taxi, over and out.','Hello Skyline, can I go now?','Ground, we are ready, please advise.'],
- e:'Format: Kime – Kimden – Tip – Konum – Bilgi (ATIS) – Niyet. "Over and out" birlikte kullanılmaz (çelişir).',radio:true,
- start:()=>{S.tRpm=1000}},
-{ph:1,cat:'Telsiz',radio:true,atc:'TC-FLY, Skyline Ground, taxi to holding point runway 36 via Alpha. QNH 1018.',
- tr:'TC-FLY, pist 36 bekleme noktasına Alpha üzerinden taksi yap. QNH 1018.',q:'Doğru readback hangisi?',
- o:['Taxi to holding point runway 36 via Alpha, QNH 1018, TC-FLY.','Roger.','Taxi to holding point runway 18 via Alpha, QNH 1018, TC-FLY.','Taxi via Bravo, QNH 1013, TC-FLY.'],
- e:'Pist, taksi yolu ve QNH eksiksiz readback edilir. Sadece "Roger" yeterli değildir; yanlış pist/QNH ise hemen düzeltilir.',
- after:()=>{S.tRpm=1100;S.zMax=-45;S.tIas=15}},
-{ph:1,cat:'Prosedürler',q:'Bekleme noktasında run-up yapıyorsun. Magneto kontrolünde izin verilen düşüş nedir?',
- o:['Her magnetoda en fazla 150 RPM düşüş; ikisi arasındaki fark en fazla 50 RPM','500 RPM düşüş normaldir','RPM hiç düşmemeli','Tek magnetoda 300 RPM düşüş yeterli'],
- e:'Cessna 172: ~1800 RPM\'de her magneto için maks. 150 RPM düşüş, aradaki fark ≤50 RPM. Aksi halde kalkış yapılmaz.',
- start:()=>{S.tRpm=1800}},
-{ph:1,cat:'Telsiz',radio:true,freq:'TWR 118.100',atc:'TC-FLY, Skyline Tower, line up runway 36 and wait.',tr:'TC-FLY, pist 36\'ya hizalan ve bekle.',
- q:'Doğru readback hangisi? (Bu bir kalkış izni midir?)',
- o:['Line up runway 36 and wait, TC-FLY. (Kalkış izni DEĞİL)','Cleared for takeoff runway 36, TC-FLY.','Rolling, TC-FLY.','Roger, taking off.'],
- e:'"Line up and wait" sadece pist başına girip beklemektir. Kalkış ancak "cleared for takeoff" ile yapılır; bu karışıklık pist ihlallerinin ve çarpışmaların klasik sebebidir.',
- start:()=>{S.tRpm=900},after:()=>{S.zMax=12;S.tIas=8}},
-{ph:2,cat:'Telsiz',radio:true,atc:'TC-FLY, wind 340 degrees 8 knots, runway 36, cleared for takeoff.',tr:'TC-FLY, rüzgâr 340° 8 kt, pist 36, kalkış izni verildi.',
- q:'Doğru readback hangisi?',
- o:['Cleared for takeoff runway 36, TC-FLY.','Wilco.','Rolling.','Roger, wind 340.'],
- e:'Pistten kalkış/iniş izinleri ve pist kullanım talimatları mutlaka readback edilir (ICAO). Roger/Wilco yeterli değildir.',
- after:()=>{S.zMax=null;S.tRpm=2400;S.tIas=56}},
-{ph:2,cat:'Uçuş Prensipleri',q:'Tam güçle pist koşusundasın; hız göstergesi Vr (≈55 kt) gösteriyor. Ne yaparsın?',
- o:['Yoke\'u yumuşakça geri çekip burnu ~7° kaldırırım (rotate)','Flap\'ı tamamen açarım','Gazı keserim','Yoke\'u ileri iterim'],
- e:'Vr\'de burun kaldırılır, uçak ~60 kt\'ta havalanır, sonra Vy (~74 kt) ile tırmanılır.',
- after:()=>{S.gnd=false;S.tAlt=600;S.tIas=74}},
-{ph:2,cat:'Acil Durumlar',q:'300 ft yükseklikte motor aniden güç kaybetti! İlk ve en doğru aksiyon?',
- o:['Burnu hemen indirip süzülüş hızını (~65 kt) tut, öndeki araziye iniş planla','Pistte geri dönmek için sert dönüş yap','Burnu kaldırıp tırmanmaya çalış','Önce kuleyle konuş, uçağı bırak'],
- e:'Düşük irtifada geri dönüş ("impossible turn") ölümcül olabilir: hız kaybı ve stall/spin riski. Önce uçağı uç (Aviate), burnu indir, öndeki ±30° içindeki en iyi araziyi seç. (Simülasyonda motor tekrar çalıştı.)',
- start:()=>{S.gnd=false;S.alt=Math.max(S.alt,300);S.tAlt=300;S.tIas=74;D.eFail=true},after:()=>{D.eFail=false;S.tAlt=1500;S.tIas=80;S.tRpm=2400}},
-{ph:2,cat:'Telsiz',radio:true,freq:'TWR 118.100',atc:'TC-FLY, contact Skyline Departure 124.500, good day.',tr:'TC-FLY, Skyline Departure 124.500\'e geç, iyi günler.',
- q:'Doğru readback hangisi?',
- o:['Contact Departure 124.5, TC-FLY, good day.','Roger.','Contact Ground 121.7, TC-FLY.','Wilco, bye.'],
- e:'Frekans değişikliği talimatı frekans ve çağrı işaretiyle readback edilir.',
- after:()=>{setFreq('DEP 124.500');S.tAlt=2500;S.tIas=85}},
-{ph:2,cat:'Uçuş Prensipleri',q:'Tırmanışta Vy hızıyla uçmak neyi sağlar?',
- o:['Birim zamanda en fazla irtifa kazancı (en iyi tırmanma oranı)','En kısa mesafede engeli aşmayı','En düşük yakıt tüketimini','En düşük stall hızını'],
- e:'Vx = en dik tırmanma açısı (engel aşma). Vy = en yüksek tırmanma oranı (en hızlı irtifa kazanımı).',
- start:()=>{S.tAlt=3500;S.tHdg=90;S.tRpm=2400}},
-{ph:3,cat:'Hava Hukuku',q:'3500 ft AMSL\'de G sınıfı hava sahasında VFR uçuyorsun (≤140 kt, FL100 altı). Minimum VFR şartları nedir?',
- o:['Görüş 5 km; bulutlardan yatayda 1500 m, düşeyde 1000 ft uzakta','Görüş 1 km; bulut içinde uçulabilir','Görüş 8 km; bulutlardan yatayda 500 m','Görüş 800 m; bulutlardan uzak'],
- e:'SERA.5001: G sınıfı, 3000 ft AMSL / 1000 ft AGL üzerinde ve FL100 altında 5 km, 1500 m yatay, 1000 ft dikey. Ulusal farklılıklar olabilir; okulunun materyaliyle teyit et.',
- start:()=>{S.tRpm=2300;S.tIas=100}},
-{ph:3,cat:'Meteoroloji',info:'METAR LTXX 041150Z 29012G22KT 6000 -RA BKN012 14/12 Q1008',q:'Bu METAR\'a göre doğru çıkarım hangisi?',
- o:['Rüzgâr 290° 12 kt (hamle 22), görüş 6 km, hafif yağmur, 1200 ft\'te parçalı/kapalı bulut','Rüzgâr 120° 29 kt, görüş 600 m','CAVOK, rüzgâr sakin','Rüzgâr 290° 12 kt, görüş 12 km, bulutsuz'],
- e:'29012G22KT: 290°/12 kt hamle 22. 6000: görüş 6 km. -RA hafif yağmur. BKN012: 5–7 okta, 1200 ft AGL. 14/12 sıcaklık/çiğ noktası (yakın → sis/bulut riski). Q1008: QNH.'},
-{ph:3,cat:'Acil Durumlar',q:'Seyirde nemli havada RPM kendiliğinden yavaşça düşüyor ve motor pürüzlü. En olası sebep ve ilk aksiyon?',
- o:['Karbüratör buzlanması – carb heat\'i tam aç','Yakıt bitti – kuleyi ara','Magneto arızası – motoru kapat','Pervane arızası – flap indir'],
- e:'Nemli havada (yaz bile olsa) karbüratör buzlanabilir. Carb heat tam açılır; RPM önce biraz düşüp sonra toparlar. Sorun bitince carb heat kapatılır.',
- start:()=>{D.carb=true;D.carbT=tt},after:()=>{D.carb=false}},
-{ph:3,cat:'Acil Durumlar',q:'Yağ basıncı hızla düşüyor, yağ sıcaklığı yükseliyor. Ne yaparsın?',
- o:['Gücü azalt, en yakın uygun yere yönel, iniş hazırlığı yap ve ATC\'ye bildir','Gücü artırıp hızlıca varış yerine uç','Göstergeler arızalıdır, hiçbir şey yapma','Motoru hemen kapatıp dalışa geç'],
- e:'Yağ kaybı motoru dakikalar içinde kilitleyebilir. Gücü azalt, en yakın havaalanına/araziye yönel (precautionary landing), durumu bildir.',
- start:()=>{D.oil=true},after:()=>{D.oil=false}},
-{ph:3,cat:'Seyrüsefer',q:'Rotan 090°, rüzgâr 360°/20 kt (kuzeyden). Rotada kalmak için burnu nereye çevirirsin?',
- o:['Rüzgâra doğru: yaklaşık 080°','Rüzgârdan uzağa: yaklaşık 100°','090° yeterli','270°'],
- e:'Kuzeyden esen rüzgâr uçağı güneye sürükler; rüzgâra doğru crab açısı verilir → heading < 090°.',
- after:()=>{S.tHdg=80}},
-{ph:3,cat:'Telsiz',q:'Ciddi bir acil durumda MAYDAY çağrısı nasıl yapılır?',
- o:['"MAYDAY MAYDAY MAYDAY", istasyon, çağrı işareti, acil durumun türü, niyet, konum ve irtifa','"Pan-pan" tek kez, sonra detaylar','Sadece transponderi 7700 yap','Önce haritaya bak, sonra telsiz'],
- e:'MAYDAY (3 kez) = ciddi ve yakın tehlike. Sıra: Aviate – Navigate – Communicate. Transponder 7700 ve frekansta sessizlik talebi de uygulanır.'},
-{ph:4,cat:'Telsiz',radio:true,freq:'APP 124.500',atc:'TC-FLY, Skyline Approach, rejoin via western VRP, join left-hand downwind runway 36, QNH 1018, report downwind.',
- tr:'TC-FLY, batı VRP\'den katıl; pist 36 sol devre downwind\'e gir, QNH 1018, downwind\'de bildir.',q:'Doğru readback hangisi?',
- o:['Join left-hand downwind runway 36, QNH 1018, will report downwind, TC-FLY.','Roger.','Join right-hand base runway 18, QNH 1013, TC-FLY.','Wilco, will report final.'],
- e:'Katılma talimatı, pist, QNH ve rapor talebiyle birlikte readback edilir.',
- after:()=>{jump(()=>{S.appr=true;S.gnd=false;S.z=-3200;S.apprCap=-250;S.tIas=70;S.tRpm=1700;S.hdg=360;S.tHdg=360})}},
-{ph:4,cat:'Hava Hukuku',q:'Standart sol devre (left-hand circuit) için doğru sıra hangisi?',
- o:['Upwind → Crosswind → Downwind → Base → Final (hepsi sola dönüşlerle)','Upwind → Base → Crosswind → Final','Downwind → Upwind → Final → Base','Final → Base → Downwind (sağa dönüşlerle)'],
- e:'Sol devrede tüm dönüşler sola yapılır, devre irtifası genellikle 1000 ft AGL\'dir. Ayrıca devre boyunca diğer trafikle görsel ayrım sağlanır.',
- start:()=>{S.tIas=70}},
-{ph:4,cat:'Telsiz',radio:true,freq:'TWR 118.100',atc:'TC-FLY, Skyline Tower, wind 350 degrees 14 gusting 22 knots, runway 36, cleared to land.',
- tr:'TC-FLY, rüzgâr 350° 14 kt hamle 22, pist 36, iniş izni verildi.',q:'Doğru readback hangisi?',
- o:['Cleared to land runway 36, TC-FLY.','Roger, wind 350.','Wilco.','Landing, TC-FLY.'],
- e:'İniş izni pist ve çağrı işaretiyle readback edilir.'},
-{ph:4,cat:'Uçuş Prensipleri',q:'Hamleli rüzgârda (14 gusting 22) final yaklaşma hızını nasıl ayarlarsın?',
- o:['Normal yaklaşma hızına hamle farkının yarısını (22−14)/2 = 4 kt eklerim','Yaklaşma hızını belirgin düşürürüm','Hızı değiştirmem','Flap\'ı tam açıp yavaşlarım'],
- e:'Gust factor: (hamle − ortalama)/2 kadar hız eklenir. Daha yüksek hız kontrol yetkisi ve stall marjı sağlar; çok yavaş yaklaşma hamlede tehlikelidir.'},
-{ph:4,cat:'Acil Durumlar',radio:true,atc:'TC-FLY, go around, go around! Aircraft on the runway!',tr:'TC-FLY, pas geç! Pistte uçak var!',
- q:'Pas geçme (go-around) için doğru aksiyon sırası?',
- o:['Tam güç, carb heat soğuk, burnu kaldır, pozitif tırmanışta flap\'ı kademeli kıs, kuleye bildir','Gazı kes ve inişe devam et','Flap\'ı hemen tamamen içeri al, burnu aşağı çek','Sert sola dön ve gazı azalt'],
- e:'Go-around: Full power → Carb heat cold → Pitch (burun yukarı) → Flap\'ı kademeli kıs → Pozitif tırmanış → Bildir. Karar vermekte tereddüt etme, pas geçmek her zaman güvenlidir.',
- start:()=>{S.shake=4},lockNext:4800,
- after:()=>{S.appr=false;S.gnd=false;S.tAlt=Math.max(S.alt+500,600);S.tIas=75;S.tRpm=2400;setTimeout(()=>jump(()=>{S.appr=true;S.gnd=false;S.z=-2400;S.apprCap=-250;S.tIas=70;S.tRpm=1700}),3800)}},
-{ph:5,cat:'Uçuş Prensipleri',freq:'TWR 118.100',atc:'TC-FLY, runway clear now. Continue approach, cleared to land runway 36.',tr:'TC-FLY, pist boş. Yaklaşmaya devam et, pist 36 iniş izni.',
- q:'Piste yaklaşırken flare (round-out) nasıl yapılır?',
- o:['Gazı kapat, burnu yavaşça kaldırıp sink oranını azalt, ana tekerleklerle yumuşak temas et','Burnu hızla aşağı itip pist başına dal','Tam güçle burnu fırlat','Flap\'ı indirip gazı yükselt'],
- e:'Flare: pist üzerinde ~1 m yükseklikte gazı kıs, burnu yavaşça kaldırarak sink oranını azalt; uçak minimum hızda ana tekerleklerle temas etmeli (burun tekerleği en son).',
- after:()=>{S.apprCap=null;S.tIas=65;S.tRpm=1300}},
-{ph:5,cat:'Telsiz',radio:true,needGnd:true,atc:'TC-FLY, vacate right via Bravo, contact Ground 121.700.',tr:'TC-FLY, Bravo\'dan sağa pistten çık, Ground 121.700\'e geç.',
- q:'Doğru readback hangisi?',
- o:['Vacate right via Bravo, contact Ground 121.7, TC-FLY.','Roger.','Vacate left, contact Tower, TC-FLY.','Wilco, bye.'],
- e:'Pistten çıkış talimatı ve frekans değişimi readback edilir. Pist boşalmadan flap/carb heat gibi işlemleri yapma, önce pisti boşalt.',
- after:()=>{setFreq('GND 121.700');S.tIas=12;S.zMax=S.z+120;S.tRpm=1000}},
-{ph:5,cat:'Prosedürler',needGnd:true,q:'Park ettin. Motoru normal şekilde nasıl durdurursun?',
- o:['Mixture\'ı idle cut-off\'a çek, motor durunca magnetoları ve master\'ı kapat','Önce master\'ı kapat, motoru kendi haline bırak','Magnetoları kapat, mixture full kalsın','Gazı tam açıp motoru boğ'],
- e:'Mixture idle cut-off yakıtı keser; motor durur, sonra magnetolar OFF ve master OFF. Hâlâ yakıt varken magnetoyu kapatmak motorun atış yapmasına sebep olabilir.',
- after:()=>{S.tRpm=0;S.tIas=0}}
+
+/* ================= I18N & SYLLABUS ================= */
+let lang = 'en';
+try {
+  const saved = localStorage.getItem('ppl_sim_lang');
+  if (saved === 'tr' || saved === 'en') lang = saved;
+} catch (e) {}
+
+const I18N = {
+  en: {
+    title: "PPL Flight Simulator – Theory & Radiotelephony Exam",
+    langBtn: "🇬🇧 EN",
+    langTitle: "Switch Language / Dili Değiştir",
+    tabFlt: "✈️ Flight Dials",
+    tabEng: "⚙️ Engine/Radios",
+    testTitle: "Test Mode",
+    testBtn: " Test",
+    sndTitle: "Sound Effects",
+    vocTitle: "ATC Radio Voice",
+    phases: ['Parking', 'Taxi', 'Takeoff', 'Cruise', 'Approach', 'Landing'],
+    sysInit: "Cessna 172 TC-FLY · Skyline Airport (LTXX), Runway 36. Have a great flight!",
+    sysTag: "SYSTEM",
+    towerTag: "TOWER",
+    youTag: "YOU",
+    qLabel: (curr, total) => `Question ${curr}/${total}`,
+    continueBtn: "Continue ➜",
+    finishBtn: "Complete Flight 🏁",
+    toastCorrect: "✅ Correct!",
+    streakBadge: "streak",
+    cautions: [
+      "",
+      "⚠️ MASTER CAUTION – Engine running rough",
+      "🛢️ Oil pressure dropping, smoke from cowl!",
+      "🔥 ENGINE FIRE – Severe power loss!",
+      "🚨 MAYDAY – Emergency forced landing!",
+      "🚨 CRITICAL AIRFRAME FAILURE"
+    ],
+    systemsRecover: "🔧 Systems stabilizing",
+    needReview: "📚 Topics to review: ",
+    allSolid: "🎯 Outstanding theoretical knowledge across all subjects!",
+    welcomeTitle: "✈️ PPL Flight Simulator",
+    welcomeP1: "Realistic Cessna 172 PPL theoretical exam flight simulation from Skyline Airport: Parking → Taxi → Takeoff → Cruise → Approach → Landing.",
+    welcomeP2: "Practice <b>official ICAO radiotelephony readbacks</b> with Ground, Tower, and Departure while solving real EASA ECQB exam questions. Incorrect answers trigger actual in-flight failures: carb icing, oil pressure loss, engine fire, or forced landings!",
+    welcomeP3: "🔊 ATC radio transmissions are voiced in standard ICAO aviation English. Toggle 🇬🇧 EN / 🇹🇷 TR anytime during flight.",
+    startBtn: "Start Engine & Fly 🛫",
+    flyAgainBtn: "Fly Again ✈️",
+    newFlightBtn: "New Flight ✈️",
+    scoreLabel: "Score",
+    aircraftHealth: "Aircraft Health",
+    winPerfect: "🏆 Flawless flight! Check-ride ready!",
+    winGood: "🛬 Safe landing. Ready for cross-country!",
+    winRough: "🛬 Rough landing! Review weak subjects.",
+    failGndFireTitle: "🔥 Ground Engine Fire!",
+    failGndFireDesc: "Engine fire on ground during run-up; flight aborted safely.",
+    failCrashTitle: "💥 Crash Landing!",
+    failCrashDesc: "Aircraft lost control and impacted ground. In real aviation, thorough CRM, theory, and checklists prevent this!",
+    failAirFireTitle: "🔥 In-Flight Engine Fire!",
+    failAirFireDesc: "Catastrophic engine fire forced landing off-field."
+  },
+  tr: {
+    title: "PPL Uçuş Simülatörü – Teori ve Telsiz Sınavı",
+    langBtn: "🇹🇷 TR",
+    langTitle: "Dili Değiştir / Switch Language",
+    tabFlt: "✈️ Göstergeler",
+    tabEng: "⚙️ Motor/Telsiz",
+    testTitle: "Test Modu",
+    testBtn: " Test",
+    sndTitle: "Ses Efektleri",
+    vocTitle: "ATC Telsiz Sesi",
+    phases: ['Park', 'Taksi', 'Kalkış', 'Seyir', 'Yaklaşma', 'İniş'],
+    sysInit: "Cessna 172 TC-FLY · Skyline Havaalanı (LTXX), pist 36. İyi uçuşlar!",
+    sysTag: "SİSTEM",
+    towerTag: "KULE",
+    youTag: "SEN",
+    qLabel: (curr, total) => `Soru ${curr}/${total}`,
+    continueBtn: "Devam ➜",
+    finishBtn: "Uçuşu Bitir 🏁",
+    toastCorrect: "✅ Doğru!",
+    streakBadge: "seri",
+    cautions: [
+      "",
+      "⚠️ MASTER CAUTION – Motor düzensiz çalışıyor",
+      "🛢️ Yağ basıncı düşüyor, motordan duman!",
+      "🔥 MOTOR YANGINI – güç kaybı!",
+      "🚨 MAYDAY – acil iniş!",
+      "🚨 KRİTİK"
+    ],
+    systemsRecover: "🔧 Sistemler toparlanıyor",
+    needReview: "📚 Tekrar et: ",
+    allSolid: "🎯 Tüm konularda sağlam görünüyorsun!",
+    welcomeTitle: "✈️ PPL Uçuş Simülatörü",
+    welcomeP1: "Cessna 172 kokpitinde, Skyline Havaalanı'ndan kalkıp aynı alana inen gerçekçi bir PPL sınav simülasyonu: park → taksi → kalkış → seyir → yaklaşma → iniş.",
+    welcomeP2: "Kule/Ground/Departure ile <b>telsiz readback</b> yap, EASA ECQB müfredatındaki teori sorularını doğru cevapla. Yanlış cevaplarda uçakta arızalar çıkar: motor pürüzü, yağ kaybı, yangın… ve sağlık biterse kaza!",
+    welcomeP3: "🔊 ATC mesajları İngilizce (gerçek ICAO phraseology) sesli okunur, Türkçe karşılığı altında yazar. 🇬🇧 EN / 🇹🇷 TR dilini dilediğin an değiştirebilirsin.",
+    startBtn: "Motoru Çalıştır 🛫",
+    flyAgainBtn: "Tekrar Uç ✈️",
+    newFlightBtn: "Yeni Uçuş ✈️",
+    scoreLabel: "Skor",
+    aircraftHealth: "Uçak Sağlığı",
+    winPerfect: "🏆 Kusursuz uçuş! Check-ride hazır!",
+    winGood: "🛬 Güvenli iniş. Biraz daha tekrar!",
+    winRough: "🛬 Zor da olsa indin! Konuları tekrar et.",
+    failGndFireTitle: "🔥 Motor Yangını!",
+    failGndFireDesc: "Yerde motor yangını çıktı; uçuş iptal edildi.",
+    failCrashTitle: "💥 Kaza!",
+    failCrashDesc: "Uçak kontrolden çıkıp yere çakıldı. Gerçek hayatta bunu önleyen şey sağlam teori ve acil durum prosedürleridir.",
+    failAirFireTitle: "🔥 Havada Motor Yangını!",
+    failAirFireDesc: "Motor yangını sebebiyle tarlaya mecburi iniş."
+  }
+};
+
+const CAT_MAP = {
+  "010 Air Law": "010 Hava Hukuku",
+  "020 Aircraft Knowledge": "020 Uçak Genel Bilgisi",
+  "030 Flight Planning & Perf": "030 Uçuş Planlama & Performans",
+  "040 Human Performance": "040 İnsan Performansı",
+  "050 Meteorology": "050 Meteoroloji",
+  "060 Navigation": "060 Seyrüsefer",
+  "070 Operational Procedures": "070 Operasyonel Prosedürler",
+  "080 Principles of Flight": "080 Uçuş Prensipleri",
+  "090 Communications": "090 Haberleşme & Telsiz"
+};
+
+const PH_I18N = {
+  en: ['Parking', 'Taxi', 'Takeoff', 'Cruise', 'Approach', 'Landing'],
+  tr: ['Park', 'Taksi', 'Kalkış', 'Seyir', 'Yaklaşma', 'İniş']
+};
+
+/* ================= 91 BILINGUAL QUESTIONS (EASA ECQB) ================= */
+const ST = [
+  {
+    "ph": 0,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "Which documents must be carried on board and valid prior to conducting a flight?",
+    "q_tr": "Uçuştan önce uçakta hangi belgelerin bulunması/geçerli olması gerekir?",
+    "o": [
+      "Certificate of Registration, Certificate of Airworthiness, Noise Certificate (if applicable), Aircraft Radio Licence, Insurance; pilot flight crew licence, medical certificate, and photo ID",
+      "Only the pilot flight crew licence",
+      "Only the aircraft registration document and fuel invoice",
+      "Weather briefing sheet and flying club membership card"
+    ],
+    "o_tr": [
+      "Tescil belgesi, uçuşa elverişlilik (airworthiness) belgesi, sigorta, telsiz ruhsatı; pilotta ise lisans, sağlık belgesi ve kimlik",
+      "Sadece pilot lisansı",
+      "Sadece uçak ruhsatı ve yakıt faturası",
+      "Hava durumu raporu ve uçuş okulu üyelik kartı"
+    ],
+    "e": "Under Part-NCO.GEN.135, all mandatory aircraft certificates (Registration, Airworthiness, Radio, Insurance) and pilot credentials (valid licence, medical certificate, and photo ID) must be on board before flight.",
+    "e_tr": "Uçak belgeleri (tescil, uçuşa elverişlilik, sigorta, telsiz ruhsatı) ve pilot belgeleri (lisans, medikal, kimlik) uçuş öncesi kontrol edilir. Eksik veya süresi dolmuş belgeyle uçulmaz.",
+    "pos": "start"
+  },
+  {
+    "ph": 0,
+    "cat": "070 Operational Procedures",
+    "cat_tr": "Operasyonel Prosedürler",
+    "q": "What is the minimum fuel required for a VFR flight by day under EASA NCO.OP.125?",
+    "q_tr": "Gündüz VFR uçuş için yakıt planlamasında asgari kural nedir (EASA NCO.OP.125)?",
+    "o": [
+      "Fuel to reach the destination aerodrome plus a final reserve of at least 30 minutes at normal cruising speed",
+      "Only the exact fuel required to reach the destination aerodrome",
+      "Half of the fuel required to reach the destination",
+      "Filling the tanks halfway is always legally sufficient"
+    ],
+    "o_tr": [
+      "Hedefe kadar gereken yakıt + en az 30 dakikalık nihai rezerv",
+      "Sadece hedefe yetecek kadar yakıt",
+      "Hedefe yetecek yakıtın yarısı",
+      "Depoyu yarıya kadar doldurmak yeterlidir"
+    ],
+    "e": "Under EASA NCO.OP.125, daytime VFR operations require fuel to the destination plus a 30-minute final reserve at normal cruising speed (45 minutes for night VFR).",
+    "e_tr": "Gündüz VFR için hedef havaalanına kadar yakıt + normal seyir irtifasında en az 30 dk rezerv gerekir (gece VFR 45 dk). Pratikte ek emniyet payı (rüzgâr, pas geçme, alternatif) eklenir.",
+    "pos": "start"
+  },
+  {
+    "ph": 0,
+    "cat": "010 Air Law",
+    "cat_tr": "NOTAM & Hava Hukuku",
+    "q": "Why is reviewing NOTAMs essential during pre-flight briefing?",
+    "q_tr": "Uçuş öncesi NOTAM kontrolü neden önemlidir?",
+    "o": [
+      "They notify temporary changes such as runway closures, restricted airspace, cranes/obstacles, and nav aid unserviceabilities",
+      "They only provide weather forecasts",
+      "They announce aircraft rental rates and promotions",
+      "They only list landing fee charges"
+    ],
+    "o_tr": [
+      "Pist kapanması, kısıtlı/tehlikeli bölge, vinç/engel ve cihaz arızası gibi geçici değişiklikleri bildirir",
+      "Sadece hava durumunu bildirir",
+      "Uçak fiyatlarını duyurur",
+      "Yalnızca uçuş ücretlerini içerir"
+    ],
+    "e": "A Notice to Airmen (NOTAM) alerts pilots to critical operational information: runway maintenance, temporary danger/restricted areas, unserviceable navigational aids, and uncharted obstacles.",
+    "e_tr": "NOTAM; altyapı, hizmet ve hava sahası değişikliklerini (pist kapalı, aktif kısıtlı bölge, ışık arızası vb.) içerir. Uçuş öncesi bilgilendirme (PIB) bunun bir parçasıdır.",
+    "pos": "start"
+  },
+  {
+    "ph": 0,
+    "cat": "030 Flight Performance & Planning",
+    "cat_tr": "Ağırlık ve Denge",
+    "q": "What is the primary danger if the Center of Gravity (CG) is located aft of the aft limit?",
+    "q_tr": "Uçağın ağırlık merkezi (CG) arka limitin ötesindeyse en tehlikeli sonuç hangisidir?",
+    "o": [
+      "Longitudinal stability decreases; recovery from stalls and spins becomes difficult or impossible",
+      "Stall speed decreases and the aircraft becomes overly stable",
+      "Fuel consumption drops to zero",
+      "Aircraft elevator control becomes significantly easier in all flight phases"
+    ],
+    "o_tr": [
+      "Boyuna stabilite azalır; stall/spin'den çıkış zorlaşır",
+      "Stall hızı azalır ve uçak çok sağlamlaşır",
+      "Yakıt tüketimi sıfırlanır",
+      "Uçak kontrolü kolaylaşır"
+    ],
+    "e": "An aft CG reduces longitudinal static and dynamic stability. The tail moment arm is reduced, making elevator authority insufficient to lower the nose during stall/spin recovery.",
+    "e_tr": "CG arkada ise uçak daha az stabil olur ve burnu kolayca yukarı kalkar; stall'dan çıkış zorlaşır. CG çok önde ise flare için yeterli elevatör gücü olmayabilir. Her zaman W&B hesapla.",
+    "pos": "start"
+  },
+  {
+    "ph": 0,
+    "cat": "030 Flight Performance & Planning",
+    "cat_tr": "Uçuş Performansı",
+    "q": "How does an increase in density altitude affect takeoff performance?",
+    "q_tr": "Yoğunluk irtifası (density altitude) arttığında kalkış performansı nasıl değişir?",
+    "o": [
+      "Takeoff ground roll increases and rate of climb decreases",
+      "Takeoff ground roll decreases",
+      "Performance remains unchanged",
+      "Only fuel consumption is affected"
+    ],
+    "o_tr": [
+      "Kalkış koşusu uzar, tırmanma performansı düşer",
+      "Kalkış koşusu kısalır",
+      "Hiç değişmez",
+      "Sadece yakıt tüketimi etkilenir"
+    ],
+    "e": "High density altitude (caused by high elevation, high ambient temperature, and low barometric pressure) reduces air density, resulting in reduced engine power, reduced propeller thrust, and reduced wing lift.",
+    "e_tr": "Sıcak, yüksek ve nemli havada hava yoğunluğu düşer: motor gücü, pervane verimi ve kanat lifti azalır. Yaz sıcağında ve yüksek pistlerde dikkat edilmelidir.",
+    "pos": "start"
+  },
+  {
+    "ph": 0,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "What is the correct ICAO phonetic pronunciation for the callsign TC-FLY?",
+    "q_tr": "TC-FLY çağrı işaretinin ICAO fonetik okunuşu hangisidir?",
+    "o": [
+      "Tango Charlie Foxtrot Lima Yankee",
+      "Tango Charlie Fox Love Yellow",
+      "Tom Charlie Fred Larry Yellow",
+      "Tango Cuba Foxtrot Lima Yankee"
+    ],
+    "o_tr": [
+      "Tango Charlie Foxtrot Lima Yankee",
+      "Tango Charlie Fox Love Yellow",
+      "Tom Charlie Fred Larry Yellow",
+      "Tango Cuba Foxtrot Lima Yankee"
+    ],
+    "e": "ICAO standard phonetic alphabet: T = Tango, C = Charlie, F = Foxtrot, L = Lima, Y = Yankee.",
+    "e_tr": "ICAO fonetik alfabesi: T=Tango, C=Charlie, F=Foxtrot, L=Lima, Y=Yankee. Telsizde harfler fonetik okunur.",
+    "pos": "start"
+  },
+  {
+    "ph": 0,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "How are the number '9' and frequency '118.1' transmitted in standard ICAO radiotelephony?",
+    "q_tr": "Telsizde \"9\" rakamı ve \"118.1\" frekansı nasıl okunur?",
+    "o": [
+      "'Niner' and 'one one eight decimal one'",
+      "'Nine' and 'one eighteen point one'",
+      "'Nein' and 'hundred eighteen one'",
+      "'Nigh-nine' and 'one eight point one'"
+    ],
+    "o_tr": [
+      "\"Niner\" ve \"one one eight decimal one\"",
+      "\"Nine\" ve \"one eighteen point one\"",
+      "\"Nein\" ve \"hundred eighteen one\"",
+      "\"Nigh-nine\" ve \"one eight point one\""
+    ],
+    "e": "Under ICAO Doc 9432: 3 is pronounced 'tree', 5 is 'fife', 9 is 'niner'. Frequencies are transmitted as separate digits, with the decimal point spoken as 'decimal'.",
+    "e_tr": "ICAO: 3=tree, 5=fife, 9=niner. Frekans rakam rakam okunur, ondalık \"decimal\" denir.",
+    "pos": "start"
+  },
+  {
+    "ph": 0,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "What does the registration prefix 'TC-' signify on an aircraft?",
+    "q_tr": "Uçak çağrı işaretindeki \"TC-\" ön eki neyi gösterir?",
+    "o": [
+      "The nationality mark for aircraft registered in Turkey",
+      "The aircraft manufacturer model code",
+      "The engine type identifier",
+      "The ICAO airport reference code"
+    ],
+    "o_tr": [
+      "Uçağın tescil edildiği ülkenin ulusal işareti (Türkiye)",
+      "Uçağın modelini",
+      "Uçağın motor tipini",
+      "Havaalanının ICAO kodunu"
+    ],
+    "e": "In accordance with ICAO Annex 7 and the Chicago Convention, the nationality mark (e.g. TC- for Turkey, D- for Germany, G- for the UK) identifies the state of registry.",
+    "e_tr": "Tescil işareti ulusal ön ekle başlar (TC=Türkiye, D=Almanya, G=Birleşik Krallık). Chicago Sözleşmesi Annex 7 ile belirlenir.",
+    "pos": "start"
+  },
+  {
+    "ph": 0,
+    "cat": "020 Aircraft General Knowledge",
+    "cat_tr": "Uçuş Öncesi & Yakıt",
+    "q": "During pre-flight fuel sumping, which finding mandates postponing or canceling the flight?",
+    "q_tr": "Dış kontrolde yakıt numunesi (fuel sample) aldın. Hangi durumda uçuştan vazgeçmelisin?",
+    "o": [
+      "The fuel sample is cloudy or contains visible water droplets at the bottom",
+      "The sample is blue (Avgas 100LL) and completely clear",
+      "The sample has a typical gasoline odor",
+      "The sample temperature is close to ambient air temperature"
+    ],
+    "o_tr": [
+      "Numune bulanık veya dibinde su damlacıkları var",
+      "Numune mavi (Avgas 100LL) ve berrak",
+      "Numunede yakıt kokusu var",
+      "Numune sıcaklığı hava sıcaklığına yakın"
+    ],
+    "e": "Water is denser than aviation gasoline and settles at the bottom of the fuel sumps. Cloudiness indicates suspended water. Fuel must be drained until free of contaminants; never fly with water in the fuel system.",
+    "e_tr": "Avgas 100LL mavidir. Bulanıklık veya su motoru durdurabilir (su yakıttan ağırdır, dibe çöker). Su temizlenene kadar tekrar numune alınır, temizlenmezse uçulmaz."
+  },
+  {
+    "ph": 0,
+    "cat": "070 Operational Procedures",
+    "cat_tr": "Prosedürler",
+    "q": "What is the vital purpose of shouting 'CLEAR PROP!' out the window before engaging the starter?",
+    "q_tr": "Starter'a basmadan önce pervane yönüne \"CLEAR PROP!\" diye bağırmanın amacı nedir?",
+    "o": [
+      "To warn anyone nearby to stay clear of the hazardous propeller arc",
+      "To warm up the engine cylinders",
+      "To notify Air Traffic Control",
+      "To prime the electric auxiliary fuel pump"
+    ],
+    "o_tr": [
+      "Çevredekileri uyarıp pervane alanının boş olduğundan emin olmak",
+      "Motoru ısıtmak",
+      "Kuleye çağrı yapmak",
+      "Yakıt pompasını açmak"
+    ],
+    "e": "Rotating propellers are lethal. Shouting 'CLEAR PROP' while visually scanning the propeller arc ensures ground personnel and bystanders remain well clear before engine start.",
+    "e_tr": "Pervane çok tehlikelidir. Çalıştırmadan önce çevre kontrol edilir ve sesli uyarı verilir."
+  },
+  {
+    "ph": 0,
+    "cat": "020 Aircraft General Knowledge",
+    "cat_tr": "Uçak Bilgisi",
+    "q": "Engine has started. In the first few seconds, which gauge must you verify immediately?",
+    "q_tr": "Motor çalıştı. İlk saniyelerde hangi göstergeyi mutlaka kontrol etmelisin?",
+    "o": [
+      "Oil pressure – must rise into the green arc within 30 seconds",
+      "Altimeter",
+      "Airspeed indicator",
+      "Directional gyro / Heading indicator"
+    ],
+    "o_tr": [
+      "Yağ basıncı – yeşil aralığa çıkmalı",
+      "Altimetre",
+      "Hız göstergesi",
+      "Heading indicator"
+    ],
+    "e": "If oil pressure does not rise within 30 seconds (longer in cold weather), shut down the engine immediately to prevent catastrophic internal friction and bearing damage.",
+    "e_tr": "Yağ basıncı ~30 sn içinde (soğuk havada biraz daha uzun) yükselmezse motor hemen kapatılır; yağsız motor dakikalar içinde hasar görür."
+  },
+  {
+    "ph": 0,
+    "cat": "050 Meteorology",
+    "cat_tr": "Meteoroloji",
+    "q": "What does the term 'CAVOK' indicate in an ATIS or METAR broadcast?",
+    "q_tr": "ATIS'teki \"CAVOK\" ne anlama gelir?",
+    "o": [
+      "Visibility ≥ 10 km, no cloud below 5000 ft or MSA (whichever is greater), no CB or TCU, and no significant weather",
+      "Completely clear blue sky with zero clouds at all levels",
+      "Visibility 5 km with light rain",
+      "Runway surface is dry and braking action is good"
+    ],
+    "o_tr": [
+      "Görüş ≥10 km, 5000 ft/MSA altında bulut yok, CB/TCU yok, önemli hava olayı yok",
+      "Tamamen bulutsuz gökyüzü",
+      "Görüş 5 km, hafif yağmur",
+      "Pist kuru ve frenleme iyi"
+    ],
+    "e": "CAVOK stands for 'Ceiling And Visibility OK'. All three criteria must be met: visibility 10 km or more, no clouds below 5000 ft/MSA, no cumulonimbus/towering cumulus, and no significant weather.",
+    "e_tr": "CAVOK = Ceiling And Visibility OK. Sadece \"bulutsuz\" demek değildir; yukarıdaki üç şartın hepsi sağlanmalıdır.",
+    "freq": "ATIS 127.250",
+    "atc": "Skyline Information Alpha. Runway in use 36. Wind 340 degrees 8 knots. CAVOK. Temperature 18, dew point 9. QNH 1018.",
+    "tr": "Skyline bilgi Alfa. Kullanılan pist 36. Rüzgâr 340° 8 kt. CAVOK. Sıcaklık 18, çiğ noktası 9. QNH 1018."
+  },
+  {
+    "ph": 0,
+    "cat": "060 Navigation",
+    "cat_tr": "Seyrüsefer",
+    "q": "ATIS reports runway 36 in use, wind 340° at 8 kt. What are the headwind and crosswind components?",
+    "q_tr": "ATIS: pist 36, rüzgâr 340°/08 kt. Rüzgâr hangi yönden ve nasıl bileşenlere sahip?",
+    "o": [
+      "Wind from north-northwest; predominantly headwind (~7.5 kt headwind, ~2.7 kt left crosswind)",
+      "Wind from southeast; pure tailwind component",
+      "Pure 90° direct crosswind from the west",
+      "Pure 90° direct crosswind from the east"
+    ],
+    "o_tr": [
+      "Kuzey-kuzeybatıdan; neredeyse tam kafa rüzgârı (~7 kt kafa, ~3 kt yan)",
+      "Güneydoğudan; kuyruk rüzgârı",
+      "Batıdan; tam yan rüzgâr",
+      "Doğudan; tam yan rüzgâr"
+    ],
+    "e": "Runway heading is 360°. Angular difference is 360° - 340° = 20°. Headwind = 8 × cos(20°) ≈ 7.5 kt; Crosswind = 8 × sin(20°) ≈ 2.7 kt from the left.",
+    "e_tr": "Rüzgâr yönü \"geldiği\" yöndür. 340° ile pist yönü 360° arası 20° fark: 8×cos20° ≈ 7.5 kt kafa, 8×sin20° ≈ 2.7 kt yan rüzgâr."
+  },
+  {
+    "ph": 0,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "You are calling Ground for initial taxi clearance. Which transmission conforms to ICAO standards?",
+    "q_tr": "Taksi izni için Ground'u ilk kez çağırıyorsun. En doğru çağrı hangisi?",
+    "o": [
+      "'Skyline Ground, TC-FLY, Cessna 172, at the apron, information Alpha, request taxi, VFR local.'",
+      "'TC-FLY requesting taxi, over and out.'",
+      "'Hello Skyline, can I go now?'",
+      "'Ground, we are ready, please advise.'"
+    ],
+    "o_tr": [
+      "Skyline Ground, TC-FLY, Cessna 172, at the apron, information Alpha, request taxi, VFR local.",
+      "TC-FLY requesting taxi, over and out.",
+      "Hello Skyline, can I go now?",
+      "Ground, we are ready, please advise."
+    ],
+    "e": "Standard ICAO initial contact: Agency called - Callsign - Aircraft type - Position - ATIS code received - Intentions. 'Over and out' is contradictory and never used in aviation.",
+    "e_tr": "Format: Kime – Kimden – Tip – Konum – Bilgi (ATIS) – Niyet. \"Over and out\" birlikte kullanılmaz (çelişir).",
+    "freq": "GND 121.700",
+    "radio": true
+  },
+  {
+    "ph": 1,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "ATC: 'TC-FLY, taxi to holding point runway 36 via Alpha. QNH 1018.' What is the mandatory readback?",
+    "q_tr": "Doğru readback hangisi?",
+    "o": [
+      "'Taxi to holding point runway 36 via Alpha, QNH 1018, TC-FLY.'",
+      "'Roger.'",
+      "'Taxi to holding point runway 18 via Alpha, QNH 1018, TC-FLY.'",
+      "'Taxi via Bravo, QNH 1013, TC-FLY.'"
+    ],
+    "o_tr": [
+      "Taxi to holding point runway 36 via Alpha, QNH 1018, TC-FLY.",
+      "Roger.",
+      "Taxi to holding point runway 18 via Alpha, QNH 1018, TC-FLY.",
+      "Taxi via Bravo, QNH 1013, TC-FLY."
+    ],
+    "e": "Runway designators, taxi routes, holding points, and altimeter settings (QNH) require full verbatim readback under ICAO Doc 9432. 'Roger' is strictly prohibited for clearances.",
+    "e_tr": "Pist, taksi yolu ve QNH eksiksiz readback edilir. Sadece \"Roger\" yeterli değildir; yanlış pist/QNH ise hemen düzeltilir.",
+    "radio": true,
+    "atc": "TC-FLY, Skyline Ground, taxi to holding point runway 36 via Alpha. QNH 1018.",
+    "tr": "TC-FLY, pist 36 bekleme noktasına Alpha üzerinden taksi yap. QNH 1018."
+  },
+  {
+    "ph": 1,
+    "cat": "070 Operational Procedures",
+    "cat_tr": "Prosedürler",
+    "q": "During run-up at the holding point, what is the maximum permissible magneto RPM drop (C172)?",
+    "q_tr": "Bekleme noktasında run-up yapıyorsun. Magneto kontrolünde izin verilen düşüş nedir?",
+    "o": [
+      "Maximum 150 RPM drop on either magneto; difference between magnetos not exceeding 50 RPM",
+      "500 RPM drop is acceptable",
+      "RPM must not drop at all when grounding a magneto",
+      "Single magneto drop up to 300 RPM is normal"
+    ],
+    "o_tr": [
+      "Her magnetoda en fazla 150 RPM düşüş; ikisi arasındaki fark en fazla 50 RPM",
+      "500 RPM düşüş normaldir",
+      "RPM hiç düşmemeli",
+      "Tek magnetoda 300 RPM düşüş yeterli"
+    ],
+    "e": "Cessna 172 POH specifies run-up at 1800 RPM: maximum allowable drop on either LEFT or RIGHT magneto is 150 RPM, with maximum differential between magnetos not exceeding 50 RPM.",
+    "e_tr": "Cessna 172: ~1800 RPM'de her magneto için maks. 150 RPM düşüş, aradaki fark ≤50 RPM. Aksi halde kalkış yapılmaz."
+  },
+  {
+    "ph": 1,
+    "cat": "070 Operational Procedures",
+    "cat_tr": "Prosedürler",
+    "q": "Immediately after starting taxi roll, which essential check must the pilot perform?",
+    "q_tr": "Taksi hareketine başlar başlamaz ilk yapılacak kontrol hangisidir?",
+    "o": [
+      "Test the wheel brakes and steering response at walking pace",
+      "Deploy full flaps",
+      "Switch off the transponder",
+      "Pull mixture to idle cut-off"
+    ],
+    "o_tr": [
+      "Frenleri test etmek",
+      "Flap'ı tam açmak",
+      "Transponderi kapatmak",
+      "Mixture'ı idle cut-off'a çekmek"
+    ],
+    "e": "Immediately after moving, verify brakes function symmetrically and nosewheel steering responds smoothly before picking up taxi speed.",
+    "e_tr": "Taksinin başında frenler (ve yönlendirme) test edilir; hız yürüme hızından hızlı olmamalıdır.",
+    "pos": "end"
+  },
+  {
+    "ph": 1,
+    "cat": "010 Air Law",
+    "cat_tr": "Pist İşaretleri",
+    "q": "What does runway designator '36' signify?",
+    "q_tr": "Pist numarası \"36\" neyi ifade eder?",
+    "o": [
+      "Magnetic centerline bearing of approximately 360° (rounded to the nearest 10 degrees)",
+      "Runway length of 3600 meters",
+      "Runway width of 36 meters",
+      "Apron parking stand number 36"
+    ],
+    "o_tr": [
+      "Manyetik pist yönü 360° (pist yönünün 10'a bölünmüş yuvarlanmış hali)",
+      "Pist uzunluğu 3600 m",
+      "Pist genişliği 36 m",
+      "Pistin 36. numaralı park alanı"
+    ],
+    "e": "Runway designators represent the magnetic azimuth of the runway centerline to the nearest 10 degrees (e.g. 360° = 36, 180° = 18, 090° = 09).",
+    "e_tr": "Pist numarası, manyetik yönün 10'a bölünüp yuvarlanmasıyla bulunur. 36 → 360° (kuzey), 18 → 180° (güney).",
+    "pos": "end"
+  },
+  {
+    "ph": 1,
+    "cat": "020 Aircraft General Knowledge",
+    "cat_tr": "Uçak Bilgisi",
+    "q": "During run-up, selecting Carb Heat ON causes a slight drop in engine RPM. What does this indicate?",
+    "q_tr": "Run-up sırasında carb heat'i açınca RPM'in hafif düşmesi neyi gösterir?",
+    "o": [
+      "Normal operation: warm, less dense air enriches the fuel/air mixture, proving the system works",
+      "Internal engine failure",
+      "Imminent oil pressure loss",
+      "Damaged propeller blade"
+    ],
+    "o_tr": [
+      "Normal: sıcak hava karışımı zenginleştirir, sistem çalışıyor",
+      "Motor arızası",
+      "Yağ basıncı sorunu",
+      "Pervane hasarı"
+    ],
+    "e": "Carb heat draws unfiltered air heated by the exhaust shroud. Warm air is less dense, creating a richer mixture and resulting in a normal 50-100 RPM drop. If no drop occurs, the carb heat valve may be inoperative.",
+    "e_tr": "Carb heat sıcak hava verir ve karışımı hafif zenginleştirir, bu yüzden RPM düşer. RPM hiç düşmüyorsa sistem çalışmıyor olabilir. Buz varsa önce düşer sonra toparlar.",
+    "pos": "end"
+  },
+  {
+    "ph": 1,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "Tower instructs: 'TC-FLY, hold short of runway 36.' What must you do?",
+    "q_tr": "ATC \"hold short of runway 36\" dediğinde ne yaparsın?",
+    "o": [
+      "Stop before the runway holding point line and transmit full readback with callsign",
+      "Enter the runway and line up",
+      "Cross the runway quickly without clearance",
+      "Simply reply 'Roger' and proceed onto the threshold"
+    ],
+    "o_tr": [
+      "Bekleme çizgisinin (holding point) önünde durup readback yaparım",
+      "Pist başına girip beklerim",
+      "İzin gelmeden pisti geçerim",
+      "Sadece \"Roger\" derim ve devam ederim"
+    ],
+    "e": "Hold short markings separate taxiways from protected runway environments. You must remain behind the holding point line until explicit clearance is received and read back. Runway incursions are serious incidents.",
+    "e_tr": "Bekleme noktası pist ihlallerini önlemek için kritiktir. Hold short talimatı mutlaka readback edilir ve çizgi izinsiz geçilmez.",
+    "pos": "end"
+  },
+  {
+    "ph": 1,
+    "cat": "050 Meteorology",
+    "cat_tr": "Meteoroloji & Limitler",
+    "q": "What is the maximum demonstrated crosswind velocity published for a standard Cessna 172?",
+    "q_tr": "Cessna 172'nin kitapta belirtilen gösterilmiş maksimum yan rüzgâr hızı (demonstrated crosswind) yaklaşık nedir?",
+    "o": [
+      "Approximately 15 knots",
+      "5 knots",
+      "35 knots",
+      "50 knots"
+    ],
+    "o_tr": [
+      "15 kt",
+      "5 kt",
+      "35 kt",
+      "50 kt"
+    ],
+    "e": "The demonstrated crosswind component for a C172 is 15 kt. While not an airworthiness limitation, it is the maximum crosswind tested by factory test pilots during certification.",
+    "e_tr": "C172 için yaklaşık 15 kt gösterilmiş yan rüzgâr değeri vardır. Bu limit değil, test pilotunun gösterdiği değerdir; kendi tecrüben ve okulunun limitleri esas alınır.",
+    "pos": "end"
+  },
+  {
+    "ph": 1,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "An aircraft on the ground receives a 'steady green' light signal from the control tower. What does it mean?",
+    "q_tr": "Yerdeki uçağa kuleden \"sabit yeşil ışık\" verilirse ne anlama gelir?",
+    "o": [
+      "Cleared for takeoff",
+      "Stop immediately",
+      "Return to apron parking",
+      "Vacate the runway immediately"
+    ],
+    "o_tr": [
+      "Kalkış izni",
+      "Dur",
+      "Park alanına dön",
+      "Pistten çık ve bekle"
+    ],
+    "e": "ICAO Aerodrome light signals: To aircraft on the ground, steady green means 'Cleared for takeoff'; steady red means 'Stop'; flashing green means 'Cleared to taxi'.",
+    "e_tr": "Yerde: sabit yeşil = kalkış izni, sabit kırmızı = dur, yanıp sönen yeşil = taksi izni, yanıp sönen kırmızı = taksi yolunu boşalt, yanıp sönen beyaz = başladığın yere dön.",
+    "pos": "end"
+  },
+  {
+    "ph": 1,
+    "cat": "080 Principles of Flight",
+    "cat_tr": "Uçuş Prensipleri",
+    "q": "During full-power takeoff ground roll, a single-engine tractor aircraft (clockwise rotating prop) yaws in which direction, and how is it corrected?",
+    "q_tr": "Tam güç kalkış koşusunda tek pervaneli uçak (saat yönü dönen pervane, pilottan bakış) hangi yöne sapma eğilimindedir ve nasıl düzeltilir?",
+    "o": [
+      "Yaws to the left; corrected with right rudder pressure",
+      "Yaws to the right; corrected with left rudder pressure",
+      "No yawing tendency exists",
+      "Pitches violently up; corrected with forward elevator"
+    ],
+    "o_tr": [
+      "Sola sapar; sağ rudder ile düzeltilir",
+      "Sağa sapar; sol rudder ile düzeltilir",
+      "Sapma olmaz",
+      "Yukarı kalkar; elevatör ileri"
+    ],
+    "e": "Left-turning tendencies (torque reaction, spiraling slipstream, P-factor, and gyroscopic precession) cause a left yaw on takeoff roll, requiring coordinated right rudder application.",
+    "e_tr": "Tork, slipstream ve P-faktörü yüzünden uçak sola sapar. Sağ rudder pedalına basarak düzeltilir.",
+    "pos": "end"
+  },
+  {
+    "ph": 1,
+    "cat": "070 Operational Procedures",
+    "cat_tr": "Acil Durumlar",
+    "q": "If the engine fails during takeoff ground roll before rotation, what is the mandatory immediate action?",
+    "q_tr": "Kalkış koşusunda (henüz havalanmadan) motor arızası olursa yapılacak hareket nedir?",
+    "o": [
+      "Close throttle immediately, maintain runway centerline, and apply maximum braking",
+      "Attempt to rotate and climb out on remaining inertia",
+      "Extend full flaps and continue takeoff",
+      "Turn sharply off the runway at high speed"
+    ],
+    "o_tr": [
+      "Gazı kapat, uçağı pist yönünde frenleyerek durdur",
+      "Havalanıp tırmanmaya çalış",
+      "Flap'ı indir ve devam et",
+      "Sert dönüş yap"
+    ],
+    "e": "Rejected takeoff: Throttle to idle immediately, maintain direction with rudder, and apply firm, progressive braking to stop on the remaining runway.",
+    "e_tr": "Havalanmadan önceki arızada kalkış iptal edilir (rejected takeoff): gaz idle, direksiyon ve fren ile pistte durdur.",
+    "pos": "end"
+  },
+  {
+    "ph": 1,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "Tower: 'TC-FLY, line up runway 36 and wait.' What is the correct readback? Is this a takeoff clearance?",
+    "q_tr": "Doğru readback hangisi? (Bu bir kalkış izni midir?)",
+    "o": [
+      "'Line up runway 36 and wait, TC-FLY.' (NOT a takeoff clearance)",
+      "'Cleared for takeoff runway 36, TC-FLY.'",
+      "'Rolling, TC-FLY.'",
+      "'Roger, taking off now.'"
+    ],
+    "o_tr": [
+      "Line up runway 36 and wait, TC-FLY. (Kalkış izni DEĞİL)",
+      "Cleared for takeoff runway 36, TC-FLY.",
+      "Rolling, TC-FLY.",
+      "Roger, taking off."
+    ],
+    "e": "'Line up and wait' authorizes you only to taxi onto the runway and align with the centerline. You must await explicit 'cleared for takeoff' clearance before advancing the throttle.",
+    "e_tr": "\"Line up and wait\" sadece pist başına girip beklemektir. Kalkış ancak \"cleared for takeoff\" ile yapılır; bu karışıklık pist ihlallerinin ve çarpışmaların klasik sebebidir.",
+    "freq": "TWR 118.100",
+    "radio": true,
+    "atc": "TC-FLY, Skyline Tower, line up runway 36 and wait.",
+    "tr": "TC-FLY, pist 36'ya hizalan ve bekle."
+  },
+  {
+    "ph": 2,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "Tower: 'TC-FLY, wind 340 degrees 8 knots, runway 36, cleared for takeoff.' What is the required readback?",
+    "q_tr": "Doğru readback hangisi?",
+    "o": [
+      "'Cleared for takeoff runway 36, TC-FLY.'",
+      "'Wilco.'",
+      "'Rolling now.'",
+      "'Roger, wind 340.'"
+    ],
+    "o_tr": [
+      "Cleared for takeoff runway 36, TC-FLY.",
+      "Wilco.",
+      "Rolling.",
+      "Roger, wind 340."
+    ],
+    "e": "Takeoff and landing clearances require verbatim readback including runway designator and aircraft callsign. 'Wilco' or 'Roger' is non-compliant.",
+    "e_tr": "Pistten kalkış/iniş izinleri ve pist kullanım talimatları mutlaka readback edilir (ICAO). Roger/Wilco yeterli değildir.",
+    "radio": true,
+    "atc": "TC-FLY, wind 340 degrees 8 knots, runway 36, cleared for takeoff.",
+    "tr": "TC-FLY, rüzgâr 340° 8 kt, pist 36, kalkış izni verildi."
+  },
+  {
+    "ph": 2,
+    "cat": "080 Principles of Flight",
+    "cat_tr": "Uçuş Prensipleri",
+    "q": "On takeoff ground roll, airspeed reaches rotation speed Vr (≈55 kt). What is the proper piloting action?",
+    "q_tr": "Tam güçle pist koşusundasın; hız göstergesi Vr (≈55 kt) gösteriyor. Ne yaparsın?",
+    "o": [
+      "Apply smooth back-pressure on the yoke to raise the nose to takeoff attitude (~7°)",
+      "Extend full flaps",
+      "Retard throttle to idle",
+      "Push yoke forward firmly"
+    ],
+    "o_tr": [
+      "Yoke'u yumuşakça geri çekip burnu ~7° kaldırırım (rotate)",
+      "Flap'ı tamamen açarım",
+      "Gazı keserim",
+      "Yoke'u ileri iterim"
+    ],
+    "e": "At Vr, smoothly ease the yoke back to establish the initial pitch attitude. The aircraft flies off the ground around 60 kt, then accelerates to Vy (74 kt) for best climb.",
+    "e_tr": "Vr'de burun kaldırılır, uçak ~60 kt'ta havalanır, sonra Vy (~74 kt) ile tırmanılır."
+  },
+  {
+    "ph": 2,
+    "cat": "070 Operational Procedures",
+    "cat_tr": "Acil Durumlar",
+    "q": "Engine fails suddenly at 300 ft AGL after takeoff! What is your immediate and vital priority?",
+    "q_tr": "300 ft yükseklikte motor aniden güç kaybetti! İlk ve en doğru aksiyon?",
+    "o": [
+      "Lower the nose immediately to maintain glide speed (~65 kt) and land in the best terrain within ±30° ahead",
+      "Attempt a steep 180° turn back to the runway ('the impossible turn')",
+      "Pull back on the yoke to maintain altitude",
+      "Drop controls and immediately transmit a Mayday call"
+    ],
+    "o_tr": [
+      "Burnu hemen indirip süzülüş hızını (~65 kt) tut, öndeki araziye iniş planla",
+      "Pistte geri dönmek için sert dönüş yap",
+      "Burnu kaldırıp tırmanmaya çalış",
+      "Önce kuleyle konuş, uçağı bırak"
+    ],
+    "e": "Aviate first: Push nose down immediately to prevent stall/spin. Never attempt a 180° turn back at low altitude ('impossible turn'). Select landing terrain within ±30° ahead.",
+    "e_tr": "Düşük irtifada geri dönüş (\"impossible turn\") ölümcül olabilir: hız kaybı ve stall/spin riski. Önce uçağı uç (Aviate), burnu indir, öndeki ±30° içindeki en iyi araziyi seç. (Simülasyonda motor tekrar çalıştı.)"
+  },
+  {
+    "ph": 2,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "Tower: 'TC-FLY, contact Skyline Departure 124.500, good day.' What is the required readback?",
+    "q_tr": "Doğru readback hangisi?",
+    "o": [
+      "'Contact Departure 124.5, TC-FLY, good day.'",
+      "'Roger.'",
+      "'Contact Ground 121.7, TC-FLY.'",
+      "'Wilco, bye.'"
+    ],
+    "o_tr": [
+      "Contact Departure 124.5, TC-FLY, good day.",
+      "Roger.",
+      "Contact Ground 121.7, TC-FLY.",
+      "Wilco, bye."
+    ],
+    "e": "Frequency changes must always be read back with the new frequency and aircraft callsign.",
+    "e_tr": "Frekans değişikliği talimatı frekans ve çağrı işaretiyle readback edilir.",
+    "freq": "TWR 118.100",
+    "radio": true,
+    "atc": "TC-FLY, contact Skyline Departure 124.500, good day.",
+    "tr": "TC-FLY, Skyline Departure 124.500'e geç, iyi günler."
+  },
+  {
+    "ph": 2,
+    "cat": "080 Principles of Flight",
+    "cat_tr": "Uçuş Prensipleri",
+    "q": "In a 60° coordinated steep turn, how do load factor and stall speed change?",
+    "q_tr": "60° yatışlı koordineli dönüşte yük faktörü ve stall hızı nasıl değişir?",
+    "o": [
+      "Load factor is 2.0 G, and stall speed increases by approximately 41%",
+      "Load factor remains 1.0 G, and stall speed does not change",
+      "Load factor is 2.0 G, and stall speed decreases",
+      "Load factor is 3.0 G, and stall speed doubles"
+    ],
+    "o_tr": [
+      "2 G ve stall hızı yaklaşık %41 artar",
+      "1 G ve stall hızı değişmez",
+      "2 G ve stall hızı azalır",
+      "3 G ve stall hızı iki katı artar"
+    ],
+    "e": "Load factor n = 1 / cos(bank angle). At 60°, n = 2.0 G. Accelerated stall speed increases by √n = √2 ≈ 1.41 (+41%).",
+    "e_tr": "Yük faktörü = 1/cos(yatış açısı). 60° → 2 G; stall hızı artış katsayısı √2 ≈ 1.41. Bu yüzden dik yatışlarda stall riski büyür.",
+    "pos": "end"
+  },
+  {
+    "ph": 2,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "What is the core principle of 'see and avoid' under Visual Flight Rules (VFR)?",
+    "q_tr": "VFR uçuşta \"see and avoid\" prensibi ne anlama gelir?",
+    "o": [
+      "The pilot-in-command maintains continuous visual lookout and is primarily responsible for collision avoidance",
+      "Air Traffic Control is solely responsible for separating VFR flights",
+      "Lookout is unnecessary when operating outside controlled airspace",
+      "Collision avoidance relies exclusively on onboard transponders"
+    ],
+    "o_tr": [
+      "Pilot, hava durumuna ve trafiğe görsel olarak dikkat eder, çarpışmayı önlemekten sorumludur",
+      "Çarpışmayı yalnızca ATC önler",
+      "VFR'de çevre izlemeye gerek yoktur",
+      "Sadece transponderle trafik takip edilir"
+    ],
+    "e": "Under VFR, the primary defense against mid-air collisions is the continuous visual scan by the pilot ('see and avoid'), regardless of ATC radar services.",
+    "e_tr": "VFR'de ayrım sorumluluğu pilota aittir. Sürekli dış gözlem (scan) ve doğru bildirim şarttır.",
+    "pos": "end"
+  },
+  {
+    "ph": 2,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "Under SERA.5005, what is the minimum VFR flight height over congested areas of cities, towns, or open-air assemblies?",
+    "q_tr": "Yerleşim alanı üzerinde minimum uçuş yüksekliği nedir (SERA.5005)?",
+    "o": [
+      "At least 300 m (1000 ft) above the highest obstacle within a 600 m radius of the aircraft",
+      "50 ft AGL",
+      "500 ft AGL regardless of obstacles",
+      "VFR low passes are unrestricted over towns"
+    ],
+    "o_tr": [
+      "Bir yarıçapı 600 m içindeki en yüksek engelin 300 m (1000 ft) üzerinde",
+      "50 ft",
+      "Sadece 500 ft AGL, engel fark etmez",
+      "Yerleşim üzerinde alçalmak serbesttir"
+    ],
+    "e": "SERA.5005(f): Over congested areas of cities, towns or settlements, minimum height is 1000 ft (300 m) above the highest obstacle within 600 m of the aircraft.",
+    "e_tr": "Yoğun yerleşim üzerinde: 600 m yarıçap içindeki en yüksek engelin en az 300 m (1000 ft) üstünde. Diğer yerlerde en az 150 m (500 ft) AGL/AMSL.",
+    "pos": "end"
+  },
+  {
+    "ph": 2,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "What is the standard conspicuity transponder code (squawk) for VFR flights in European airspace when not assigned an individual code?",
+    "q_tr": "Avrupa'da VFR uçuşta yaygın kullanılan transponder (squawk) kodu hangisidir?",
+    "o": [
+      "7000",
+      "7700",
+      "7500",
+      "0000"
+    ],
+    "o_tr": [
+      "7000",
+      "7700",
+      "7500",
+      "0000"
+    ],
+    "e": "Under ICAO European region standards, squawk 7000 is the standard VFR conspicuity code (FAA uses 1200). 7500 is unlawful interference, 7600 radio loss, 7700 emergency.",
+    "e_tr": "7000 genel VFR kodudur (ATC başka kod verene kadar). 7500, 7600 ve 7700 acil kodlardır. Ulusal kurallar değişebilir.",
+    "pos": "end"
+  },
+  {
+    "ph": 2,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "When operating at or below the transition altitude, what pressure setting is set on the altimeter subscale?",
+    "q_tr": "Transition altitude'un altında altimetre hangi ayarla uçulur?",
+    "o": [
+      "QNH (altimeter indicates altitude above mean sea level)",
+      "Standard pressure 1013.25 hPa",
+      "QFE (height above aerodrome elevation)",
+      "Random regional ambient setting"
+    ],
+    "o_tr": [
+      "QNH (deniz seviyesi basıncı)",
+      "Standart 1013.25 hPa",
+      "Gerçek yer yüksekliği (QFE)",
+      "Sıcaklığa göre rastgele ayar"
+    ],
+    "e": "At or below transition altitude, fly with current QNH (altimeter displays altitude AMSL). Above transition level, fly at Flight Levels with standard pressure 1013.25 hPa.",
+    "e_tr": "Transition altitude altında QNH ile irtifa (altitude), transition level üstünde 1013.25 hPa ile uçuş seviyesi (FL) kullanılır.",
+    "pos": "end"
+  },
+  {
+    "ph": 2,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "What are the standard navigation position lights on an aircraft?",
+    "q_tr": "Gece uçan bir uçağın seyir ışıkları nasıldır?",
+    "o": [
+      "Port (left wing) red, starboard (right wing) green, tail white",
+      "Port green, starboard red, tail white",
+      "All navigation lights are white",
+      "Port blue, starboard amber, tail green"
+    ],
+    "o_tr": [
+      "Sol kanat kırmızı, sağ kanat yeşil, kuyruk beyaz",
+      "Sol yeşil, sağ kırmızı, kuyruk beyaz",
+      "Hepsi beyaz",
+      "Sol mavi, sağ sarı"
+    ],
+    "e": "Standard aviation navigation lights: Left wingtip = RED (110° arc), Right wingtip = GREEN (110° arc), Tail = WHITE (140° aft arc).",
+    "e_tr": "Sol (port) kırmızı, sağ (starboard) yeşil, kuyruk beyaz. Bu ışıklardan yön ve trafik durumu anlaşılır.",
+    "pos": "end"
+  },
+  {
+    "ph": 2,
+    "cat": "080 Principles of Flight",
+    "cat_tr": "Uçuş Prensipleri",
+    "q": "What does flying at the Best Rate of Climb speed (Vy) achieve?",
+    "q_tr": "Tırmanışta Vy hızıyla uçmak neyi sağlar?",
+    "o": [
+      "The greatest gain in altitude in a given period of time (maximum climb rate)",
+      "The greatest gain in altitude over a given horizontal distance (steepest angle)",
+      "The lowest possible fuel burn per hour",
+      "The minimum calibrated stall speed"
+    ],
+    "o_tr": [
+      "Birim zamanda en fazla irtifa kazancı (en iyi tırmanma oranı)",
+      "En kısa mesafede engeli aşmayı",
+      "En düşük yakıt tüketimini",
+      "En düşük stall hızını"
+    ],
+    "e": "Vy delivers maximum altitude gain per unit time (best rate of climb). Vx provides maximum altitude gain over horizontal distance (best angle of climb, for obstacle clearance).",
+    "e_tr": "Vx = en dik tırmanma açısı (engel aşma). Vy = en yüksek tırmanma oranı (en hızlı irtifa kazanımı)."
+  },
+  {
+    "ph": 3,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "In Class G airspace at 3500 ft AMSL (above 1000 ft AGL and below FL100), what are the minimum VFR weather criteria (SERA.5001)?",
+    "q_tr": "3500 ft AMSL'de G sınıfı hava sahasında VFR uçuyorsun (≤140 kt, FL100 altı). Minimum VFR şartları nedir?",
+    "o": [
+      "Flight visibility 5 km; distance from cloud: 1500 m horizontally and 1000 ft (300 m) vertically",
+      "Flight visibility 1 km; flight inside cloud allowed",
+      "Flight visibility 8 km; 500 m horizontal cloud clearance",
+      "Flight visibility 800 m clear of cloud"
+    ],
+    "o_tr": [
+      "Görüş 5 km; bulutlardan yatayda 1500 m, düşeyde 1000 ft uzakta",
+      "Görüş 1 km; bulut içinde uçulabilir",
+      "Görüş 8 km; bulutlardan yatayda 500 m",
+      "Görüş 800 m; bulutlardan uzak"
+    ],
+    "e": "Under SERA Table S5-1: At and above 3000 ft AMSL (or 1000 ft AGL) up to FL100 in Class G, VFR minima are 5 km flight visibility, 1500 m horizontal and 1000 ft vertical cloud separation.",
+    "e_tr": "SERA.5001: G sınıfı, 3000 ft AMSL / 1000 ft AGL üzerinde ve FL100 altında 5 km, 1500 m yatay, 1000 ft dikey. Ulusal farklılıklar olabilir; okulunun materyaliyle teyit et."
+  },
+  {
+    "ph": 3,
+    "cat": "050 Meteorology",
+    "cat_tr": "Meteoroloji",
+    "q": "METAR LTXX 041150Z 29012G22KT 6000 -RA BKN012 14/12 Q1008. What is the correct interpretation?",
+    "q_tr": "Bu METAR'a göre doğru çıkarım hangisi?",
+    "o": [
+      "Wind 290° at 12 kt gusting 22 kt, visibility 6 km, light rain, broken cloud at 1200 ft AGL, temp 14°C, dew point 12°C, QNH 1008 hPa",
+      "Wind 120° at 29 kt, visibility 600 m, heavy snow",
+      "CAVOK, calm winds",
+      "Wind 290° at 12 kt, visibility 12 km, clear skies"
+    ],
+    "o_tr": [
+      "Rüzgâr 290° 12 kt (hamle 22), görüş 6 km, hafif yağmur, 1200 ft'te parçalı/kapalı bulut",
+      "Rüzgâr 120° 29 kt, görüş 600 m",
+      "CAVOK, rüzgâr sakin",
+      "Rüzgâr 290° 12 kt, görüş 12 km, bulutsuz"
+    ],
+    "e": "29012G22KT = wind 290° 12 kt gusts 22 kt. 6000 = visibility 6 km. -RA = light rain. BKN012 = 5-7 oktas at 1200 ft AGL. 14/12 = T 14°C, DP 12°C. Q1008 = QNH 1008 hPa.",
+    "e_tr": "29012G22KT: 290°/12 kt hamle 22. 6000: görüş 6 km. -RA hafif yağmur. BKN012: 5–7 okta, 1200 ft AGL. 14/12 sıcaklık/çiğ noktası (yakın → sis/bulut riski). Q1008: QNH.",
+    "info": "METAR LTXX 041150Z 29012G22KT 6000 -RA BKN012 14/12 Q1008"
+  },
+  {
+    "ph": 3,
+    "cat": "020 Aircraft General Knowledge",
+    "cat_tr": "Acil Durumlar",
+    "q": "In cruise through moist air, engine RPM drops gradually and the engine runs rough. Most probable cause and first action?",
+    "q_tr": "Seyirde nemli havada RPM kendiliğinden yavaşça düşüyor ve motor pürüzlü. En olası sebep ve ilk aksiyon?",
+    "o": [
+      "Carburetor icing – apply full Carb Heat ON immediately",
+      "Exhausted fuel – transmit Mayday",
+      "Dual magneto failure – shut down engine",
+      "Propeller governor failure – extend flaps"
+    ],
+    "o_tr": [
+      "Karbüratör buzlanması – carb heat'i tam aç",
+      "Yakıt bitti – kuleyi ara",
+      "Magneto arızası – motoru kapat",
+      "Pervane arızası – flap indir"
+    ],
+    "e": "Carb ice forms in moist air (even up to +25°C). Throttle venturi cooling causes ice accumulation, choking airflow. Apply full Carb Heat ON; expect an initial RPM drop followed by recovery as ice melts.",
+    "e_tr": "Nemli havada (yaz bile olsa) karbüratör buzlanabilir. Carb heat tam açılır; RPM önce biraz düşüp sonra toparlar. Sorun bitince carb heat kapatılır."
+  },
+  {
+    "ph": 3,
+    "cat": "020 Aircraft General Knowledge",
+    "cat_tr": "Acil Durumlar",
+    "q": "Oil pressure drops sharply into the red arc while oil temperature steadily rises toward the redline. What action should you take?",
+    "q_tr": "Yağ basıncı hızla düşüyor, yağ sıcaklığı yükseliyor. Ne yaparsın?",
+    "o": [
+      "Reduce power, head immediately for the nearest suitable aerodrome/landing site, prepare for forced landing and declare emergency",
+      "Increase throttle to maximum to fly faster to your destination",
+      "Assume faulty gauges and take no action",
+      "Shut down engine immediately and pitch into a steep dive"
+    ],
+    "o_tr": [
+      "Gücü azalt, en yakın uygun yere yönel, iniş hazırlığı yap ve ATC'ye bildir",
+      "Gücü artırıp hızlıca varış yerine uç",
+      "Göstergeler arızalıdır, hiçbir şey yapma",
+      "Motoru hemen kapatıp dalışa geç"
+    ],
+    "e": "Low oil pressure accompanied by high oil temperature indicates active loss of engine lubrication. Engine seizure is imminent within minutes. Reduce power, head for nearest landing area, and alert ATC.",
+    "e_tr": "Yağ kaybı motoru dakikalar içinde kilitleyebilir. Gücü azalt, en yakın havaalanına/araziye yönel (precautionary landing), durumu bildir."
+  },
+  {
+    "ph": 3,
+    "cat": "060 Navigation",
+    "cat_tr": "Seyrüsefer",
+    "q": "Your desired track is 090°, wind is 360° at 20 kt (from the north). Which heading should you fly to maintain track?",
+    "q_tr": "Rotan 090°, rüzgâr 360°/20 kt (kuzeyden). Rotada kalmak için burnu nereye çevirirsin?",
+    "o": [
+      "Crab into the wind: fly a heading of approximately 080°",
+      "Fly with the drift: heading of approximately 100°",
+      "Heading 090° requires no correction",
+      "Heading 270°"
+    ],
+    "o_tr": [
+      "Rüzgâra doğru: yaklaşık 080°",
+      "Rüzgârdan uzağa: yaklaşık 100°",
+      "090° yeterli",
+      "270°"
+    ],
+    "e": "Wind from 360° blows the aircraft to the south (right drift). The pilot must turn into the wind (left), establishing a wind correction angle (heading ≈ 080°).",
+    "e_tr": "Kuzeyden esen rüzgâr uçağı güneye sürükler; rüzgâra doğru crab açısı verilir → heading < 090°."
+  },
+  {
+    "ph": 3,
+    "cat": "080 Principles of Flight",
+    "cat_tr": "Uçuş Prensipleri",
+    "q": "What is the standard step-by-step spin recovery procedure (PARE)?",
+    "q_tr": "Spin kurtarmada standart adım sırası nedir (PARE)?",
+    "o": [
+      "Power to idle, Ailerons neutral, Rudder opposite spin direction, Elevator briskly forward; recover smoothly once rotation stops",
+      "Power full, yoke full back, rudder in direction of spin",
+      "Extend full flaps, pull nose up into stall",
+      "Transmit Mayday to ATC while letting go of controls"
+    ],
+    "o_tr": [
+      "Gaz idle, aileron nötr, spin yönünün tersine rudder, elevatörü ileri; dönme durunca yumuşak çekiş",
+      "Gaz tam, yoke tam geri, rudder spin yönüne",
+      "Flap tam açık, burun yukarı",
+      "Önce kuleye bildir, sonra bekle"
+    ],
+    "e": "Standard spin recovery (PARE): Power Idle -> Ailerons Neutral -> Rudder Full Opposite rotation -> Elevator Forward to break stall. As rotation stops, neutralize rudder and pull up smoothly.",
+    "e_tr": "Spin'de önce stall'ı kır: power idle, ailerons neutral, rudder opposite, elevator forward. Kurtarmada flap ve yük faktörüne dikkat edilir; ilk eğitimde eğitmenle uygulanır.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "050 Meteorology",
+    "cat_tr": "Meteoroloji",
+    "q": "In a METAR report, how many oktas of cloud cover does the contraction 'BKN' represent?",
+    "q_tr": "METAR'da \"BKN\" bulut miktarı kaç okta demektir?",
+    "o": [
+      "5 to 7 oktas (broken cloud)",
+      "1 to 2 oktas",
+      "3 to 4 oktas",
+      "8 oktas (overcast)"
+    ],
+    "o_tr": [
+      "5–7 okta (parçalı/kapalı)",
+      "1–2 okta",
+      "3–4 okta",
+      "8 okta"
+    ],
+    "e": "Cloud amount oktas: FEW = 1-2, SCT = 3-4, BKN = 5-7, OVC = 8 oktas. Cloud ceiling is defined as the height of the lowest layer covering more than 4 oktas (BKN or OVC).",
+    "e_tr": "FEW=1–2, SCT=3–4, BKN=5–7, OVC=8 okta. Tavan (ceiling) BKN veya OVC en alçak tabaka olarak tanımlanır.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "050 Meteorology",
+    "cat_tr": "Meteoroloji",
+    "q": "Under which meteorological conditions does radiation fog typically form?",
+    "q_tr": "Radyasyon sisi (radiation fog) hangi koşullarda oluşur?",
+    "o": [
+      "Clear skies, light winds (2-5 kt), and high relative humidity on a long night as ground radiational cooling drops temp to dewpoint",
+      "Strong gusty winds on a hot summer afternoon",
+      "Fast-moving cold frontal passage",
+      "High altitude dry air mass"
+    ],
+    "o_tr": [
+      "Açık, sakin ve nemli bir gecede yer soğuyup sıcaklık çiğ noktasına yaklaştığında",
+      "Güçlü rüzgârlı sıcak öğleden sonra",
+      "Soğuk cephe geçişinde",
+      "Yüksek irtifada kuru havada"
+    ],
+    "e": "Radiation fog occurs on clear, calm nights with moist air. Terrestrial radiation cools the ground; light breeze mixes the shallow air layer, cooling air to its dewpoint.",
+    "e_tr": "Hafif rüzgâr, açık gökyüzü, yüksek nem ve uzun gece koşulları sis oluşturur. Sabah güneşle dağılır, ama ilk saatlerde görüşü ciddi düşürebilir.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "050 Meteorology",
+    "cat_tr": "Meteoroloji",
+    "q": "Following the passage of a classic cold front, what typical weather changes occur?",
+    "q_tr": "Soğuk cephe geçtikten sonra tipik değişimler nelerdir?",
+    "o": [
+      "Temperature drops, atmospheric pressure rises, wind veers (turns clockwise in Northern Hemisphere), and visibility improves markedly",
+      "Temperature rises, pressure drops, visibility worsens",
+      "Wind backs and speed drops to zero",
+      "No change in pressure or temperature"
+    ],
+    "o_tr": [
+      "Sıcaklık düşer, basınç yükselir, rüzgâr sağa döner (kuzey yarım küre), görüş genelde iyileşir",
+      "Sıcaklık artar, basınç düşer",
+      "Rüzgâr sola döner ve hava durgunlaşır",
+      "Hiçbir şey değişmez"
+    ],
+    "e": "After a cold front passes, cooler dense air moves in: surface pressure rises, temperature drops, wind veers (e.g. from SW to NW), and visibility improves dramatically.",
+    "e_tr": "Soğuk cephe önünde ve geçişinde CB, sağanak ve türbülans olabilir; geçişten sonra görüş genelde iyidir, basınç yükselir ve rüzgâr (kuzey yarım kürede) sağa döner.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "050 Meteorology",
+    "cat_tr": "Meteoroloji",
+    "q": "At what time of day is thermal turbulence usually most severe?",
+    "q_tr": "Termal türbülans günün hangi saatlerinde en şiddetlidir?",
+    "o": [
+      "During sunny afternoons when solar surface heating reaches maximum",
+      "Around midnight",
+      "At dawn",
+      "Just after sunset"
+    ],
+    "o_tr": [
+      "Güneşli günlerde öğleden sonra",
+      "Gece yarısı",
+      "Şafak vakti",
+      "Gün batımından sonra"
+    ],
+    "e": "Thermal turbulence results from convective heating of the Earth's surface, reaching peak intensity during mid-to-late afternoon on sunny days.",
+    "e_tr": "Yerin ısınmasıyla yükselen hava (termal) en güçlü olarak öğleden sonra gelişir; bu saatlerde cumulus bulutları artar.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "050 Meteorology",
+    "cat_tr": "Meteoroloji",
+    "q": "If you fly from an area of high pressure into an area of low pressure without resetting your altimeter subscale, what error occurs?",
+    "q_tr": "Yüksek basınçlı bir bölgeden alçak basınçlı bölgeye altimetre ayarını değiştirmeden uçarsan ne olur?",
+    "o": [
+      "The altimeter indicates HIGHER than true altitude (the aircraft is lower than indicated)",
+      "The altimeter indicates lower than true altitude",
+      "No error occurs",
+      "The altimeter pointer freezes"
+    ],
+    "o_tr": [
+      "Altimetre gerçek irtifadan daha YÜKSEK gösterir; uçak aslında daha alçaktır",
+      "Altimetre gerçek irtifadan daha düşük gösterir",
+      "Hiçbir fark olmaz",
+      "Altimetre durur"
+    ],
+    "e": "Aviation rule of thumb: 'High to low, look out below'. Flying into lower pressure causes the altimeter to over-read; true altitude is lower than indicated.",
+    "e_tr": "\"High to low, look out below\": basınç düşüyorsa altimetre fazla okur. Bu yüzden QNH sık güncellenir.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "060 Navigation",
+    "cat_tr": "Seyrüsefer",
+    "q": "You have flown 60 NM and find yourself 3 NM off planned track. What is your track error angle?",
+    "q_tr": "60 NM uçtun ve rotandan 3 NM saptın. İzleme hatası (track error) yaklaşık kaç derecedir?",
+    "o": [
+      "3° (using the 1:60 rule)",
+      "6°",
+      "1°",
+      "30°"
+    ],
+    "o_tr": [
+      "3° (1:60 kuralı)",
+      "6°",
+      "1°",
+      "30°"
+    ],
+    "e": "1:60 rule: At 60 NM distance, 1 NM off-track represents a 1° track error. Thus, 3 NM off-track at 60 NM equals 3° track error.",
+    "e_tr": "1:60 kuralı: 60 NM'de 1 NM sapma yaklaşık 1°'dir. 3 NM → 3°. Düzeltme için kalan mesafe de hesaba katılır.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "060 Navigation",
+    "cat_tr": "Seyrüsefer",
+    "q": "True Airspeed (TAS) is 100 kt, direct tailwind is 20 kt. What is your Groundspeed (GS)?",
+    "q_tr": "TAS 100 kt, rüzgâr tam kuyruktan 20 kt ise yer hızı (GS) nedir?",
+    "o": [
+      "120 knots",
+      "80 knots",
+      "100 knots",
+      "20 knots"
+    ],
+    "o_tr": [
+      "120 kt",
+      "80 kt",
+      "100 kt",
+      "20 kt"
+    ],
+    "e": "Groundspeed = TAS + Tailwind (or TAS - Headwind). 100 kt + 20 kt = 120 kt.",
+    "e_tr": "Kuyruk rüzgârı GS'yi artırır: 100 + 20 = 120 kt. Kafa rüzgârında GS azalır.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "030 Flight Performance & Planning",
+    "cat_tr": "Seyrüsefer",
+    "q": "Fuel consumption is 36 L/hour. Groundspeed is 100 kt. How much trip fuel is needed for a 150 NM flight?",
+    "q_tr": "Yakıt tüketimi 36 L/saat. GS 100 kt ile 150 NM uçacaksın. Gereken yakıt yaklaşık ne kadardır?",
+    "o": [
+      "54 Liters",
+      "36 Liters",
+      "72 Liters",
+      "150 Liters"
+    ],
+    "o_tr": [
+      "54 L",
+      "36 L",
+      "72 L",
+      "150 L"
+    ],
+    "e": "Flight time = 150 NM / 100 kt = 1.5 hours. Trip fuel = 1.5 hr × 36 L/hr = 54 Liters (excluding reserves).",
+    "e_tr": "Süre = 150/100 = 1.5 saat. Yakıt = 36 × 1.5 = 54 L (rezerv hariç).",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "060 Navigation",
+    "cat_tr": "Seyrüsefer",
+    "q": "What is 1150Z in local Turkish time (UTC+3)?",
+    "q_tr": "UTC 1150Z saat Türkiye yerel saatiyle kaçtır? (UTC+3)",
+    "o": [
+      "14:50 local",
+      "08:50 local",
+      "11:50 local",
+      "12:50 local"
+    ],
+    "o_tr": [
+      "14:50",
+      "08:50",
+      "11:50",
+      "12:50"
+    ],
+    "e": "Turkey operates on UTC+3 year-round: 11:50 UTC + 3 hours = 14:50 local time. Aviation flight plans, METARs, and NOTAMs always use UTC (Zulu).",
+    "e_tr": "Türkiye UTC+3 kullanır: 11:50 + 3 saat = 14:50. Uçuş planı ve NOTAM'larda saatler UTC (Z) verilir.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "060 Navigation",
+    "cat_tr": "Seyrüsefer",
+    "q": "On a 1:500,000 aeronautical chart, how many kilometers does 1 cm represent on the ground?",
+    "q_tr": "1:500.000 ölçekli haritada 1 cm gerçekte kaç km'dir?",
+    "o": [
+      "5 km",
+      "500 m",
+      "50 km",
+      "0.5 km"
+    ],
+    "o_tr": [
+      "5 km",
+      "500 m",
+      "50 km",
+      "0,5 km"
+    ],
+    "e": "1:500,000 scale: 1 cm on chart = 500,000 cm in reality = 5,000 meters = 5 kilometers (approx. 2.7 NM).",
+    "e_tr": "1:500.000 → 1 cm = 500.000 cm = 5.000 m = 5 km.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "060 Navigation",
+    "cat_tr": "Seyrüsefer",
+    "q": "In the Northern Hemisphere, turning through North causes magnetic compass dip error. How should the turn be rolled out (UNOS)?",
+    "q_tr": "Kuzey yarım kürede kuzeye dönüş sırasında manyetik pusula hatası nasıl uygulanır (UNOS)?",
+    "o": [
+      "Roll out BEFORE reaching magnetic North (Undershoot North)",
+      "Overshoot past magnetic North",
+      "No compass turning error exists",
+      "Compass error only occurs when turning West"
+    ],
+    "o_tr": [
+      "Hedeften ÖNCE toparlanır (undershoot north)",
+      "Hedefi geçip toparlanır",
+      "Hiçbir hata olmaz",
+      "Pusula yalnızca batıya dönüşte hata yapar"
+    ],
+    "e": "Rule: UNOS (Undershoot North, Overshoot South). When turning towards North in Northern Hemisphere, compass leads the turn; roll out before reaching the heading.",
+    "e_tr": "UNOS: Undershoot North, Overshoot South. Kuzeye dönerken pusula geç tepki verir, hedef heading'e varmadan önce yatışı topla.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "020 Aircraft General Knowledge",
+    "cat_tr": "Uçak Bilgisi",
+    "q": "What causes the Heading Indicator (Directional Gyro) to drift, and how often should it be reset?",
+    "q_tr": "Heading indicator (DI/gyro) zamanla ne yapar ve ne sıklıkla düzeltilmelidir?",
+    "o": [
+      "Mechanical friction and Earth rotation cause gyroscopic precession; align with magnetic compass every 10-15 minutes in straight and level flight",
+      "It never drifts and requires no reset",
+      "It only drifts in heavy rain",
+      "Reset once per day before engine shutdown"
+    ],
+    "o_tr": [
+      "Presesyon yapar; düz uçuşta yaklaşık her 15 dakikada manyetik pusulayla eşitlenmelidir",
+      "Asla sapma yapmaz",
+      "Sadece yağmurda bozulur",
+      "Her gün bir kez düzeltilir"
+    ],
+    "e": "Real precession and apparent wander cause the directional gyro to drift up to 15° per hour. Re-align with the magnetic compass in straight, unaccelerated flight every 15 minutes.",
+    "e_tr": "Gyro tabanlı gösterge sürtünme/presesyon nedeniyle kayar; manyetik pusulayla periyodik olarak senkronize edilir.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "040 Human Performance",
+    "cat_tr": "İnsan Performansı",
+    "q": "What are the primary symptoms and corrective action for hyperventilation?",
+    "q_tr": "Hiperventilasyonun belirtisi ve düzeltme yöntemi nedir?",
+    "o": [
+      "Dizziness, tingling fingers, muscle cramps; breathe slowly and rhythmically (or speak/count aloud)",
+      "Blue lips; breathe faster and deeper",
+      "Sudden euphoria; take rapid deep breaths",
+      "Vision clarity improves; take no action"
+    ],
+    "o_tr": [
+      "Baş dönmesi, karıncalanma, kas kasılması; yavaş ve kontrollü nefes (konuşma/sayma)",
+      "Mavi dudak; hızlı nefes almaya devam et",
+      "Uyuşukluk; derin hızlı soluk",
+      "Görüş artar; hiçbir şey yapma"
+    ],
+    "e": "Hyperventilation expels excessive CO2 from the bloodstream. Symptoms include lightheadedness, tingling sensations, and tetany. Treatment: calm breathing, slow breathing rate, or talk aloud.",
+    "e_tr": "Aşırı hızlı nefes CO2'yi düşürür. Stres/panik tetikler. Nefesi yavaşlat, sakin ol, gerekirse yüksek sesle say.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "040 Human Performance",
+    "cat_tr": "İnsan Performansı",
+    "q": "In the pilot pre-flight personal fitness checklist 'IMSAFE', what does 'A' stand for?",
+    "q_tr": "IMSAFE kontrol listesindeki \"A\" harfi neyi ifade eder?",
+    "o": [
+      "Alcohol (never fly under the influence; adhere to strict 8+ hour and BAC limits)",
+      "Altimeter setting",
+      "Aircraft airworthiness",
+      "Aerodrome conditions"
+    ],
+    "o_tr": [
+      "Alkol: alkol/ilaç etkisi altında uçulmaz; ulusal kural ve \"8 saat\" gibi eşikler uygulanır",
+      "Altimetre ayarı",
+      "Pilot kondisyonu",
+      "Hava durumu"
+    ],
+    "e": "IMSAFE: Illness, Medication, Stress, Alcohol, Fatigue, Emotion / Eating. Used by pilots to evaluate personal fitness to fly.",
+    "e_tr": "IMSAFE: Illness, Medication, Stress, Alcohol, Fatigue, Emotion (veya Eating). Pilotun uçuşa uygunluğunu uçuş öncesi sorgulamak için kullanılır.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "040 Human Performance",
+    "cat_tr": "İnsan Performansı",
+    "q": "When entering inadvertent IMC or cloud and experiencing vestibular illusions ('the leans'), what must the pilot do?",
+    "q_tr": "Bulutta/görüşün kaybolduğu anda \"leans\" gibi yanlış duyularla karşılaşan pilot ne yapmalıdır?",
+    "o": [
+      "Trust the flight instruments (especially attitude indicator) completely and disregard contradictory sensory feelings",
+      "Trust physical sensations and turn rapidly",
+      "Close eyes to relax the vestibular system",
+      "Apply full power and pull back into a climb"
+    ],
+    "o_tr": [
+      "Enstrümanlara (özellikle yapay ufuk) güvenmeli ve duyularına değil göstergelere göre uçmalı",
+      "Duyularına güvenip hızlıca dönüş yapmalı",
+      "Gözlerini kapatıp dinlenmeli",
+      "Gazı tam açmalı"
+    ],
+    "e": "Spatial disorientation occurs when visual references are lost and the inner ear gives false cues. The only survival rule: ignore bodily sensations and fly strictly by instrument cross-check.",
+    "e_tr": "Uzamsal yönelim bozukluğunda (spatial disorientation) iç kulak yanıltır. Çare: göstergelere güven, ani hareketlerden kaçın, yardım iste, VMC'ye dön.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "040 Human Performance",
+    "cat_tr": "İnsan Performansı",
+    "q": "If carbon monoxide (CO) poisoning is suspected in the cockpit, what are the immediate corrective actions?",
+    "q_tr": "Kokpitte karbon monoksit (CO) zehirlenmesinden şüphelenirsen ne yaparsın?",
+    "o": [
+      "Shut cabin heat OFF, open fresh air vents fully, land at the nearest suitable aerodrome, and notify ATC",
+      "Turn cabin heat to maximum",
+      "Take no action and continue to destination",
+      "Cut throttle and perform a steep dive"
+    ],
+    "o_tr": [
+      "Kabin ısıtmasını kapat, havalandırmayı aç, en yakın uygun yere iniş yap ve ATC'ye bildir",
+      "Isıtmayı daha çok aç",
+      "Hiçbir şey yapmadan devam et",
+      "Gaz kes ve dal"
+    ],
+    "e": "Cabin heat in piston aircraft comes from an exhaust shroud. Cracks allow colorless, odorless CO into the cockpit. Shut cabin heat OFF, open fresh air, land immediately.",
+    "e_tr": "CO egzozdan kabin ısıtmasına sızabilir; belirtiler baş ağrısı, bulantı, uyuşukluk. Isıtmayı kapat, hava ver, en yakın yere in. Gerekirse tıbbi kontrol yaptır.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "040 Human Performance",
+    "cat_tr": "İnsan Performansı",
+    "q": "A pilot thinking 'Accidents only happen to others, it won't happen to me' exhibits which hazardous attitude?",
+    "q_tr": "\"Bana bir şey olmaz\" tavrı hangi tehlikeli tutuma örnektir?",
+    "o": [
+      "Invulnerability (Antidote: 'It could happen to me')",
+      "Macho",
+      "Impulsivity",
+      "Resignation"
+    ],
+    "o_tr": [
+      "Yenilmezlik (invulnerability)",
+      "Macho",
+      "Dürtüsellik",
+      "Boyun eğme"
+    ],
+    "e": "The 5 hazardous attitudes: Anti-authority, Impulsivity, Invulnerability, Macho, Resignation. Invulnerability antidote: 'It could happen to me.'",
+    "e_tr": "Tehlikeli tutumlar: Anti-authority, Impulsivity, Invulnerability, Macho, Resignation. Karşı tedbir: \"Bu bana da olabilir.\"",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "040 Human Performance",
+    "cat_tr": "İnsan Performansı",
+    "q": "Why is flying with an active head cold or sinus congestion dangerous?",
+    "q_tr": "Nezle veya sinüs tıkanıklığı varken uçmak neden risklidir?",
+    "o": [
+      "Pressure differentials cannot equalize during descent, causing severe ear/sinus barotrauma, incapacitating pain, and tympanic rupture",
+      "Aircraft climb performance is impaired",
+      "There is no operational risk",
+      "It only affects passengers in the rear"
+    ],
+    "o_tr": [
+      "Basınç değişimlerinde kulak/sinüs ağrısı ve işitme kaybı, dikkat bozukluğu doğurabilir",
+      "Uçak performansı artar",
+      "Hiçbir risk yoktur",
+      "Sadece yolcuları etkiler"
+    ],
+    "e": "Blocked Eustachian tubes prevent pressure equalization during descent. Trapped air causes extreme pain, vertigo, or eardrum rupture (barotrauma). Never fly when congested.",
+    "e_tr": "Alçalma sırasında kulak/sinüs basıncı dengelenemeyebilir (barotrawma). Hasta pilot uçmamalıdır.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "020 Aircraft General Knowledge",
+    "cat_tr": "Uçak Bilgisi",
+    "q": "What happens if Jet-A turbine fuel is accidentally loaded into a piston engine designed for Avgas 100LL?",
+    "q_tr": "Avgas 100LL yerine yanlışlıkla Jet-A yakıt doldurulursa ne olur?",
+    "o": [
+      "Severe detonation, loss of power, and complete catastrophic engine failure within minutes",
+      "The engine produces slightly more horsepower",
+      "No adverse effect occurs",
+      "Only exhaust smoke color changes"
+    ],
+    "o_tr": [
+      "Motor detonasyon yapabilir, güç kaybı ve ciddi hasar oluşabilir",
+      "Motor daha güçlü çalışır",
+      "Hiçbir şey olmaz",
+      "Sadece renk değişir"
+    ],
+    "e": "Kerosene (Jet-A) has a low octane rating. In a high-compression spark-ignition piston engine, it causes violent detonation and rapid engine destruction.",
+    "e_tr": "Jet-A kerosendir; pistonlu motorda sorun çıkarır. Doğru yakıtı ve renk/kokuyu kontrol et; şüphe varsa uçma.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "What is mandatory for a VFR flight operating within Class D controlled airspace?",
+    "q_tr": "D sınıfı hava sahasında VFR uçuş için ne gereklidir?",
+    "o": [
+      "ATC clearance prior to entry and continuous two-way radio communication",
+      "No clearance or radio required",
+      "Only a transponder is required",
+      "Only a filed IFR flight plan"
+    ],
+    "o_tr": [
+      "ATC izni (clearance) ve iki yönlü telsiz haberleşmesi",
+      "Hiçbir şey gerekmez",
+      "Sadece transponder",
+      "Sadece uçuş planı"
+    ],
+    "e": "In Class D airspace, VFR flights require explicit ATC clearance to enter and must maintain continuous two-way communications. ATC provides traffic information between VFR flights.",
+    "e_tr": "D sınıfında VFR uçuşlar için ATC izni ve sürekli iki yönlü telsiz gerekir. VFR'ler birbirinden ayrılmaz, ancak trafik bilgisi verilir.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "In the event of complete radio communication failure during VFR flight in good weather (VMC), what procedure applies?",
+    "q_tr": "Telsiz arızasında (VFR, hava iyi) ne yapılır?",
+    "o": [
+      "Squawk 7600, remain in VMC, land at the nearest suitable aerodrome, and watch for tower light signals",
+      "Squawk 7700 and dive immediately",
+      "Circle low over the tower and dive",
+      "Change frequency randomly until someone answers"
+    ],
+    "o_tr": [
+      "7600 kodunu gir, VMC'de kal, en yakın uygun havaalanına in ve ışık sinyallerini izle",
+      "7700'e geç ve hemen dal",
+      "Alçalıp kule üzerine dalış yap",
+      "Frekansı sessizce sürekli değiştir"
+    ],
+    "e": "SERA.14050: Squawk 7600 (communications failure), remain in VMC, land at the nearest suitable aerodrome, and watch for optical light signals from the control tower.",
+    "e_tr": "Telsiz arızasında 7600 kodu girilir, mümkünse VMC'de kalınır, ışık sinyalleri izlenir ve uygun bir havaalanına inilir.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "When is an urgency call ('PAN PAN') transmitted instead of a distress call ('MAYDAY')?",
+    "q_tr": "PAN PAN çağrısı ne zaman kullanılır?",
+    "o": [
+      "When a condition concerning safety exists that does not require immediate assistance (e.g. becoming lost, medical issue, low fuel)",
+      "When facing immediate, grave, and imminent danger",
+      "During routine position reporting",
+      "When requesting taxi instructions"
+    ],
+    "o_tr": [
+      "Acil değil ama güvenliği etkileyen acil/urgent durum (ör. yön kaybı, yakıt azlığı)",
+      "Anında hayati tehlike",
+      "Rutin konum bildirimi",
+      "Selamlama"
+    ],
+    "e": "'MAYDAY' = Distress (grave and imminent danger requiring immediate assistance). 'PAN PAN' = Urgency (condition concerning the safety of an aircraft or person, but not requiring immediate assistance).",
+    "e_tr": "MAYDAY=ciddi ve yakın tehlike. PAN PAN=aciliyet. Her ikisi de üç kez tekrarlanır.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "What is the precise operational difference between 'Roger' and 'Wilco' in ICAO radiotelephony?",
+    "q_tr": "\"Wilco\" ve \"Roger\" arasındaki fark nedir?",
+    "o": [
+      "'Roger' means 'I have received all of your last transmission'; 'Wilco' means 'I understand and will comply'",
+      "They are interchangeable synonyms",
+      "'Wilco' means clearance rejected",
+      "'Roger' means terminating communication"
+    ],
+    "o_tr": [
+      "Roger: mesajı aldım; Wilco: anladım ve uygulayacağım",
+      "İkisi de aynı",
+      "Wilco: reddettim",
+      "Roger: kapat"
+    ],
+    "e": "Roger = 'I have received all of your last transmission'. Wilco = 'I understand your message and will comply with it'. Neither replaces mandatory readbacks.",
+    "e_tr": "Roger = mesaj alındı. Wilco = (will comply) anladım ve uygulayacağım. İzinler için Roger/Wilco yerine readback yapılır.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "During a radio check, ATC responds: 'Readability 5'. What does this indicate?",
+    "q_tr": "Radio check'te \"readability five\" ne anlama gelir?",
+    "o": [
+      "Perfectly readable (scale: 1 = unreadable, 5 = perfectly readable)",
+      "Bad reception",
+      "Wrong frequency selected",
+      "Weak carrier with no modulation"
+    ],
+    "o_tr": [
+      "Mükemmel anlaşılır (1=anlaşılmaz, 5=mükemmel)",
+      "Kötü anlaşılır",
+      "Frekans yanlış",
+      "Telsiz kapalı"
+    ],
+    "e": "Readability scale: 1 = Unreadable, 2 = Readable now and then, 3 = Readable with difficulty, 4 = Readable, 5 = Perfectly readable.",
+    "e_tr": "Okunabilirlik ölçeği: 1 anlaşılmaz, 2 ara sıra, 3 zor, 4 kolay, 5 mükemmel.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "When ATC instructs: 'TC-FLY, squawk ident', what action should the pilot take?",
+    "q_tr": "ATC \"squawk ident\" derse ne yaparsın?",
+    "o": [
+      "Press the IDENT button on the transponder once",
+      "Change the squawk code and turn transponder off",
+      "Switch to a new radio frequency",
+      "Initiate an immediate go-around"
+    ],
+    "o_tr": [
+      "Transponderdeki IDENT düğmesine basarım",
+      "Kodu değiştirir ve kapatırım",
+      "Yeni frekansa geçerim",
+      "Pas geçerim"
+    ],
+    "e": "'Squawk ident' directs the pilot to depress the IDENT button on the transponder, causing the radar return on the controller's screen to blossom for positive identification.",
+    "e_tr": "Ident, ATC radarında hedefinizi belirginleştirir. Kod değişimi için \"squawk (kod)\" denir.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "080 Principles of Flight",
+    "cat_tr": "Uçuş Prensipleri",
+    "q": "How does an increase in aircraft weight affect stall speed?",
+    "q_tr": "Ağırlık arttığında stall hızı nasıl değişir?",
+    "o": [
+      "Stall speed increases",
+      "Stall speed decreases",
+      "Stall speed remains unaffected",
+      "Stall speed drops to zero"
+    ],
+    "o_tr": [
+      "Artar",
+      "Azalır",
+      "Değişmez",
+      "Sıfırlanır"
+    ],
+    "e": "A heavier aircraft must fly at a higher angle of attack to generate sufficient lift for level flight at any given speed. Consequently, it reaches the critical angle of attack at a higher airspeed.",
+    "e_tr": "Daha ağır uçak aynı lifti üretmek için daha yüksek hücum açısına/hıza ihtiyaç duyar; stall hızı artar.",
+    "pos": "end"
+  },
+  {
+    "ph": 3,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "How should a standard distress call (MAYDAY) be structured on the radio?",
+    "q_tr": "Ciddi bir acil durumda MAYDAY çağrısı nasıl yapılır?",
+    "o": [
+      "'MAYDAY MAYDAY MAYDAY', station addressed, callsign, nature of emergency, pilot's intention, present position and altitude",
+      "'Pan-pan' once, followed by casual conversation",
+      "Silently change transponder to 7700 and say nothing",
+      "Study maps first, call after landing"
+    ],
+    "o_tr": [
+      "\"MAYDAY MAYDAY MAYDAY\", istasyon, çağrı işareti, acil durumun türü, niyet, konum ve irtifa",
+      "\"Pan-pan\" tek kez, sonra detaylar",
+      "Sadece transponderi 7700 yap",
+      "Önce haritaya bak, sonra telsiz"
+    ],
+    "e": "Distress call: MAYDAY (repeated 3 times) - Station addressed - Callsign (3 times) - Nature of emergency - Pilot intentions - Present position, altitude, and heading.",
+    "e_tr": "MAYDAY (3 kez) = ciddi ve yakın tehlike. Sıra: Aviate – Navigate – Communicate. Transponder 7700 ve frekansta sessizlik talebi de uygulanır."
+  },
+  {
+    "ph": 4,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "Approach: 'TC-FLY, join left-hand downwind runway 36, QNH 1018, report downwind.' What is the correct readback?",
+    "q_tr": "Doğru readback hangisi?",
+    "o": [
+      "'Join left-hand downwind runway 36, QNH 1018, will report downwind, TC-FLY.'",
+      "'Roger.'",
+      "'Join right-hand base runway 18, QNH 1013, TC-FLY.'",
+      "'Wilco, will report final.'"
+    ],
+    "o_tr": [
+      "Join left-hand downwind runway 36, QNH 1018, will report downwind, TC-FLY.",
+      "Roger.",
+      "Join right-hand base runway 18, QNH 1013, TC-FLY.",
+      "Wilco, will report final."
+    ],
+    "e": "Circuit join instructions, circuit leg, runway in use, altimeter setting, and reporting points require full verbatim readback.",
+    "e_tr": "Katılma talimatı, pist, QNH ve rapor talebiyle birlikte readback edilir.",
+    "freq": "APP 124.500",
+    "radio": true,
+    "atc": "TC-FLY, Skyline Approach, rejoin via western VRP, join left-hand downwind runway 36, QNH 1018, report downwind.",
+    "tr": "TC-FLY, batı VRP'den katıl; pist 36 sol devre downwind'e gir, QNH 1018, downwind'de bildir."
+  },
+  {
+    "ph": 4,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "What is the standard sequence of legs in a standard left-hand aerodrome traffic circuit?",
+    "q_tr": "Standart sol devre (left-hand circuit) için doğru sıra hangisi?",
+    "o": [
+      "Upwind (Takeoff) → Crosswind → Downwind → Base → Final (all turns to the left)",
+      "Upwind → Base → Crosswind → Final",
+      "Downwind → Upwind → Final → Base",
+      "Final → Base → Downwind (with right turns)"
+    ],
+    "o_tr": [
+      "Upwind → Crosswind → Downwind → Base → Final (hepsi sola dönüşlerle)",
+      "Upwind → Base → Crosswind → Final",
+      "Downwind → Upwind → Final → Base",
+      "Final → Base → Downwind (sağa dönüşlerle)"
+    ],
+    "e": "Standard circuit: Takeoff/Upwind -> 90° left turn onto Crosswind -> 90° left turn onto Downwind -> 90° left turn onto Base -> 90° left turn onto Final approach.",
+    "e_tr": "Sol devrede tüm dönüşler sola yapılır, devre irtifası genellikle 1000 ft AGL'dir. Ayrıca devre boyunca diğer trafikle görsel ayrım sağlanır."
+  },
+  {
+    "ph": 4,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "Tower: 'TC-FLY, wind 350 degrees 14 gusting 22 knots, runway 36, cleared to land.' What is the required readback?",
+    "q_tr": "Doğru readback hangisi?",
+    "o": [
+      "'Cleared to land runway 36, TC-FLY.'",
+      "'Roger, wind 350.'",
+      "'Wilco.'",
+      "'Landing now, TC-FLY.'"
+    ],
+    "o_tr": [
+      "Cleared to land runway 36, TC-FLY.",
+      "Roger, wind 350.",
+      "Wilco.",
+      "Landing, TC-FLY."
+    ],
+    "e": "Landing clearances require mandatory readback of clearance ('cleared to land'), runway designator ('runway 36'), and aircraft callsign ('TC-FLY').",
+    "e_tr": "İniş izni pist ve çağrı işaretiyle readback edilir.",
+    "freq": "TWR 118.100",
+    "radio": true,
+    "atc": "TC-FLY, Skyline Tower, wind 350 degrees 14 gusting 22 knots, runway 36, cleared to land.",
+    "tr": "TC-FLY, rüzgâr 350° 14 kt hamle 22, pist 36, iniş izni verildi."
+  },
+  {
+    "ph": 4,
+    "cat": "080 Principles of Flight",
+    "cat_tr": "Uçuş Prensipleri",
+    "q": "When approaching in gusty winds (e.g. 14 kt gusting 22 kt), how should the final approach speed be adjusted?",
+    "q_tr": "Hamleli rüzgârda (14 gusting 22) final yaklaşma hızını nasıl ayarlarsın?",
+    "o": [
+      "Add half the gust factor to normal approach speed: (22 - 14) / 2 = +4 knots",
+      "Reduce approach speed significantly",
+      "Keep approach speed unchanged",
+      "Deploy full flaps and slow down near stall"
+    ],
+    "o_tr": [
+      "Normal yaklaşma hızına hamle farkının yarısını (22−14)/2 = 4 kt eklerim",
+      "Yaklaşma hızını belirgin düşürürüm",
+      "Hızı değiştirmem",
+      "Flap'ı tam açıp yavaşlarım"
+    ],
+    "e": "In gusty conditions, add half the gust spread (Gust - Steady) / 2 to normal Vref. Here (22-14)/2 = 4 kt. This provides control authority and safety margin against gust stalls.",
+    "e_tr": "Gust factor: (hamle − ortalama)/2 kadar hız eklenir. Daha yüksek hız kontrol yetkisi ve stall marjı sağlar; çok yavaş yaklaşma hamlede tehlikelidir."
+  },
+  {
+    "ph": 4,
+    "cat": "080 Principles of Flight",
+    "cat_tr": "Uçuş Prensipleri",
+    "q": "During final approach in a light piston aircraft, what primarily controls airspeed and what controls descent path?",
+    "q_tr": "Final yaklaşmada güç ve burun (pitch) ile ne kontrol edilir?",
+    "o": [
+      "Pitch attitude controls airspeed; throttle (power) controls descent angle / glidepath",
+      "Pitch attitude controls glidepath; throttle controls airspeed",
+      "Throttle controls only heading",
+      "Elevator trim controls only glidepath"
+    ],
+    "o_tr": [
+      "Burun hızı, güç irtifa/iniş eğimi (yaklaşma açısı) kontrol eder",
+      "Burun irtifayı, güç hızı",
+      "İkisi de sadece hızı",
+      "İkisi de sadece irtifayı"
+    ],
+    "e": "Standard pitch-power technique on approach: Elevator pitch controls airspeed; engine power controls rate of sink and glidepath profile. Both are coordinated continuously.",
+    "e_tr": "Klasik yaklaşma tekniğinde: pitch → hava hızı; power → irtifa/eğim. Her ikisi birlikte ayarlanır.",
+    "pos": "end"
+  },
+  {
+    "ph": 4,
+    "cat": "080 Principles of Flight",
+    "cat_tr": "Uçuş Prensipleri",
+    "q": "How is the wing-low (sideslip) crosswind landing technique executed?",
+    "q_tr": "Yan rüzgârlı inişte wing-low (sideslip) tekniğinde ne yaparsın?",
+    "o": [
+      "Bank into the crosswind with aileron to prevent drift; apply opposite rudder to keep the longitudinal axis aligned with runway centerline",
+      "Crab into the wind and touch down sideways",
+      "Deploy full flaps and increase throttle",
+      "Push rudder in the direction of the wind"
+    ],
+    "o_tr": [
+      "Rüzgâr tarafındaki kanadı aileronla indirir, ters rudder ile burnu pist ekseninde tutarım",
+      "Burnu rüzgâra çevirip hiçbir düzeltme yapmam",
+      "Tüm flap'ı açıp güç artırırım",
+      "Rudder'ı rüzgâr tarafına iterim"
+    ],
+    "e": "Wing-low: Lower upwind wing with ailerons to counter lateral drift; apply opposite rudder to align fuselage with runway centerline. Touch down on the upwind main gear first.",
+    "e_tr": "Wing-low: kanadı rüzgâr yönüne indir (aileron), uçağın burnunu ters rudder ile pist yönüne hizala. Böylece tekerlekler yan kaymaz.",
+    "pos": "end"
+  },
+  {
+    "ph": 4,
+    "cat": "080 Principles of Flight",
+    "cat_tr": "Uçuş Prensipleri",
+    "q": "What aerodynamic change occurs when an aircraft enters ground effect, and what is the operational result?",
+    "q_tr": "Yer etkisi (ground effect) neyi azaltır ve ne sonuç doğurur?",
+    "o": [
+      "Induced drag is reduced; the aircraft experiences excess lift and tends to 'float' along the runway",
+      "Lift drops to zero",
+      "Engine power increases by 50%",
+      "Fuel burn doubles"
+    ],
+    "o_tr": [
+      "İndüklenmiş sürüklemeyi azaltır; uçak pist üzerinde \"yüzer\" (float)",
+      "Lifti sıfırlar",
+      "Motor gücünü artırır",
+      "Yakıt tüketimini artırır"
+    ],
+    "e": "Within one wingspan height above ground, surface proximity disrupts wingtip vortices, significantly reducing induced drag. If approach speed is too high, the aircraft floats excessively.",
+    "e_tr": "Yere yakınken (kanat açıklığı yüksekliği) kanat ucu girdapları zayıflar, induced drag azalır ve uçak süzülmeye devam eder. Çok hızlı yaklaşırsan pistte float yaparsın.",
+    "pos": "end"
+  },
+  {
+    "ph": 4,
+    "cat": "080 Principles of Flight",
+    "cat_tr": "Uçuş Prensipleri",
+    "q": "Under which conditions are wake turbulence wingtip vortices most severe?",
+    "q_tr": "Wake türbülansı hangi koşulda en tehlikelidir?",
+    "o": [
+      "Behind a heavy, clean (flaps up), and slow aircraft in light wind conditions",
+      "Behind light aircraft at cruise",
+      "At high speeds with flaps fully extended",
+      "In strong crosswinds where vortices dissipate instantly"
+    ],
+    "o_tr": [
+      "Ağır, yavaş, temiz konfigürasyonda uçan uçağın arkasında ve rüzgârsız havada",
+      "Hafif uçakların arkasında",
+      "Yüksek hızda ve flap açıkken",
+      "Kuvvetli yan rüzgârda hiç tehlike yoktur"
+    ],
+    "e": "Wingtip vortices are greatest when the generating aircraft is HEAVY, CLEAN, and SLOW. Light crosswinds can keep vortices hovering directly over the runway.",
+    "e_tr": "Wake girdapları aşağı ve dışa doğru yayılır, hafif rüzgâr onları pistte tutabilir. Ağır uçağın touchdown noktasının ötesine in; ağır uçağın rotate noktasından önce kalk.",
+    "pos": "end"
+  },
+  {
+    "ph": 4,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "When two aircraft are on approach to land at the same aerodrome, which aircraft has the right of way (SERA.3210)?",
+    "q_tr": "İniş yapmak üzere yaklaşan iki uçaktan hangisine öncelik verilir?",
+    "o": [
+      "The aircraft at the lower altitude has right of way; however, it must not cut in front of another on final",
+      "The aircraft at the higher altitude",
+      "Always the larger commercial transport",
+      "The aircraft approaching from the left"
+    ],
+    "o_tr": [
+      "Daha alçaktaki uçağa (final'dekine)",
+      "Daha yüksekteki uçağa",
+      "Her zaman büyük uçağa",
+      "Soldan gelene"
+    ],
+    "e": "SERA.3210(c): An aircraft in flight or on the ground shall give way to aircraft landing or in final stages of approach. Between two landing aircraft, the lower one has right of way.",
+    "e_tr": "SERA.3210: İniş yapan veya yaklaşan uçaklardan yüksekte olan, alçakta olana yol verir. Ancak bunu suistimal edip kısa final'e girmemelisin.",
+    "pos": "end"
+  },
+  {
+    "ph": 4,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "An aircraft in flight receives a 'steady green' light signal from the control tower. What does it mean?",
+    "q_tr": "Havadaki uçağa kuleden \"sabit yeşil ışık\" verilirse ne anlama gelir?",
+    "o": [
+      "Cleared to land",
+      "Give way to other aircraft and continue circling",
+      "Aerodrome unsafe, do not land",
+      "Execute immediate go-around"
+    ],
+    "o_tr": [
+      "İniş izni",
+      "Dolaş ve bekle",
+      "Havaalanı güvensiz",
+      "Pas geç"
+    ],
+    "e": "ICAO Aerodrome light signals: To aircraft in flight, steady green means 'Cleared to land'; steady red means 'Give way and continue circling'; flashing green means 'Return for landing'.",
+    "e_tr": "Havada: sabit yeşil = iniş izni, sabit kırmızı = yol ver ve dolaş, yanıp sönen yeşil = iniş için geri dön (izin ayrıca verilir), yanıp sönen kırmızı = havaalanı güvensiz, inme, yanıp sönen beyaz = bu havaalanına in ve apron'a git.",
+    "pos": "end"
+  },
+  {
+    "ph": 4,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku & Güvenlik",
+    "q": "If an approach is unstable (excess speed, high sink rate, poor alignment) below 500 ft AGL, what is the correct airman decision?",
+    "q_tr": "Yaklaşma stabil değilse (çok hızlı/yüksek/yamuk, 500 ft AGL altında) en doğru karar nedir?",
+    "o": [
+      "Execute an immediate go-around and re-enter the traffic circuit",
+      "Force the landing onto the runway",
+      "Cut throttle abruptly and dive for the numbers",
+      "Take no action and hope ground effect slows the aircraft"
+    ],
+    "o_tr": [
+      "Pas geç (go-around) ve yeniden yaklaş",
+      "İnişe zorlayarak devam et",
+      "Gazı tam kes ve dal",
+      "Hiçbir şey yapma"
+    ],
+    "e": "Unstable approaches are a leading cause of runway excursions and hard landings. If approach parameters are outside tolerances at 500 ft AGL, go-around immediately.",
+    "e_tr": "Stabilize yaklaşma kriterleri sağlanmıyorsa pas geçmek en güvenli seçenektir; çoğu kaza \"inişe zorlama\"dan çıkar.",
+    "pos": "end"
+  },
+  {
+    "ph": 4,
+    "cat": "020 Aircraft General Knowledge",
+    "cat_tr": "Uçak Bilgisi",
+    "q": "When should Carb Heat be applied during circuit descent, and what must be done with it during a go-around?",
+    "q_tr": "Carb heat ne zaman uygulanır ve pas geçerken ne yapılır?",
+    "o": [
+      "Apply Carb Heat ON before reducing throttle (downwind/base); push Carb Heat COLD when advancing full throttle for go-around",
+      "Leave Carb Heat COLD at all times",
+      "Apply Carb Heat only at full power",
+      "Carb heat is never used in the circuit"
+    ],
+    "o_tr": [
+      "Güç azaltılmadan önce (genelde downwind/base) açılır; pas geçerken tam güçle birlikte kapatılır",
+      "Her zaman kapalı kalır",
+      "Sadece tam güçte açılır",
+      "Hiç kullanılmaz"
+    ],
+    "e": "Carb ice risks peak at low throttle. Apply Carb Heat ON before power reduction in the circuit. On go-around, push Carb Heat COLD to ensure full takeoff power is available.",
+    "e_tr": "Düşük güçte buzlanma riski artar; carb heat güç azaltılmadan önce açılır. Pas geçişinde güç artarken carb heat kapatılır (cold).",
+    "pos": "end"
+  },
+  {
+    "ph": 4,
+    "cat": "050 Meteorology",
+    "cat_tr": "Meteoroloji",
+    "q": "On final approach, you encounter sudden low-level wind shear causing a sudden loss of headwind. What happens and how must you react?",
+    "q_tr": "Final'de ani kafa rüzgârı kaybı (wind shear) olursa uçağa ne olur ve ne yapılır?",
+    "o": [
+      "Airspeed and lift drop rapidly; add immediate power, control pitch to maintain glidepath, and initiate go-around if necessary",
+      "Airspeed increases, cut throttle immediately",
+      "No change in aircraft performance",
+      "Extend full flaps and wait"
+    ],
+    "o_tr": [
+      "Hız ve irtifa kaybı olur; güç ekle, burnu kontrol et, gerekirse pas geç",
+      "Uçak hızlanır, gazı kes",
+      "Hiçbir şey olmaz",
+      "Flap tam aç ve bekle"
+    ],
+    "e": "Loss of headwind rapidly reduces indicated airspeed, causing a sudden sink rate and potential stall close to the ground. Apply immediate power and maintain safe airspeed.",
+    "e_tr": "Kafa rüzgârı azalınca hava hızı düşer; alçak irtifada stall riski büyür. Güç ekle, burnu indirip hızı koru, gerekirse pas geç.",
+    "pos": "end"
+  },
+  {
+    "ph": 4,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "Which details are transmitted in a standard downwind radio call in the aerodrome circuit?",
+    "q_tr": "Downwind çağrısında hangi bilgiler verilir?",
+    "o": [
+      "Station addressed, callsign, position ('downwind'), runway designator, and intentions if not landing full stop",
+      "Only the single word 'downwind'",
+      "Complete weather briefing",
+      "Passenger names"
+    ],
+    "o_tr": [
+      "İstasyon, çağrı işareti, pozisyon (downwind) ve pist",
+      "Sadece \"downwind\"",
+      "Hava durumu raporu",
+      "Rastgele bilgi"
+    ],
+    "e": "Standard circuit call: 'Skyline Tower, TC-FLY, downwind runway 36.' Tower acknowledges and advises landing sequence or clearance.",
+    "e_tr": "Devre içinde: \"Skyline Tower, TC-FLY, downwind runway 36.\" Kule size sıra bildirir (number two, cleared to land vb.).",
+    "pos": "end"
+  },
+  {
+    "ph": 4,
+    "cat": "070 Operational Procedures",
+    "cat_tr": "Acil Durumlar",
+    "q": "Tower: 'TC-FLY, go around! Aircraft on the runway!' What is the correct sequence of actions for a balked landing (go-around)?",
+    "q_tr": "Pas geçme (go-around) için doğru aksiyon sırası?",
+    "o": [
+      "Full throttle, Carb heat cold, pitch up to climb attitude, retract flaps progressively upon positive climb, announce go-around to ATC",
+      "Cut throttle and land anyway",
+      "Retract all flaps instantly to 0° while pulling back hard",
+      "Turn sharply left at low speed"
+    ],
+    "o_tr": [
+      "Tam güç, carb heat soğuk, burnu kaldır, pozitif tırmanışta flap'ı kademeli kıs, kuleye bildir",
+      "Gazı kes ve inişe devam et",
+      "Flap'ı hemen tamamen içeri al, burnu aşağı çek",
+      "Sert sola dön ve gazı azalt"
+    ],
+    "e": "Go-around mnemonic: Power (full throttle), Carb heat (cold), Pitch (climb attitude), Flaps (retract to 20°/10° then 0° on positive rate of climb), Talk (notify tower).",
+    "e_tr": "Go-around: Full power → Carb heat cold → Pitch (burun yukarı) → Flap'ı kademeli kıs → Pozitif tırmanış → Bildir. Karar vermekte tereddüt etme, pas geçmek her zaman güvenlidir.",
+    "radio": true,
+    "atc": "TC-FLY, go around, go around! Aircraft on the runway!",
+    "tr": "TC-FLY, pas geç! Pistte uçak var!",
+    "lockNext": 4800
+  },
+  {
+    "ph": 5,
+    "cat": "080 Principles of Flight",
+    "cat_tr": "Uçuş Prensipleri",
+    "q": "How is the landing flare (round-out) executed over the runway threshold?",
+    "q_tr": "Piste yaklaşırken flare (round-out) nasıl yapılır?",
+    "o": [
+      "Close throttle smoothly, gently raise nose to arrest sink rate, and allow main wheels to touch down first at minimum controllable speed",
+      "Push nose down sharply to plant the nosewheel",
+      "Apply full power and yank yoke back",
+      "Deploy full rudder and bank hard"
+    ],
+    "o_tr": [
+      "Gazı kapat, burnu yavaşça kaldırıp sink oranını azalt, ana tekerleklerle yumuşak temas et",
+      "Burnu hızla aşağı itip pist başına dal",
+      "Tam güçle burnu fırlat",
+      "Flap'ı indirip gazı yükselt"
+    ],
+    "e": "Flare: In ground effect (~1-2 meters), reduce throttle to idle, progressively raise pitch attitude to transition from descent to level float, touching down on main wheels first.",
+    "e_tr": "Flare: pist üzerinde ~1 m yükseklikte gazı kıs, burnu yavaşça kaldırarak sink oranını azalt; uçak minimum hızda ana tekerleklerle temas etmeli (burun tekerleği en son).",
+    "freq": "TWR 118.100",
+    "atc": "TC-FLY, runway clear now. Continue approach, cleared to land runway 36.",
+    "tr": "TC-FLY, pist boş. Yaklaşmaya devam et, pist 36 iniş izni."
+  },
+  {
+    "ph": 5,
+    "cat": "070 Operational Procedures",
+    "cat_tr": "Prosedürler",
+    "q": "What is the pilot's primary priority during the rollout immediately after touchdown?",
+    "q_tr": "İniş koşusunda ilk öncelik nedir?",
+    "o": [
+      "Maintain runway centerline with rudder, ensure throttle is idle, apply gentle aerodynamic and wheel braking; avoid secondary cockpit distractions until clear",
+      "Instantly retract all flaps while still rolling fast",
+      "Reach for radio and conduct long conversations",
+      "Taxi at maximum speed to the apron"
+    ],
+    "o_tr": [
+      "Uçağı pist ekseninde tut (rudder), gazı kıs, gerekirse yumuşak fren",
+      "Hemen tüm flap'ı kaldır",
+      "Hemen telsizle konuş",
+      "Pist boyunca tam gazla ilerle"
+    ],
+    "e": "Maintain directional control with rudder pedals on centerline. Do not touch flap or switch controls until the aircraft has safely slowed and vacated the active runway.",
+    "e_tr": "Önce uçağı kontrol et. Direksiyon/rudder ile hizayı koru, güç idle, yavaşlayınca fren; pist boşaltılmadan başka işlem yapma.",
+    "pos": "after1"
+  },
+  {
+    "ph": 5,
+    "cat": "090 Communications",
+    "cat_tr": "Telsiz ve Muhabere",
+    "q": "Tower: 'TC-FLY, vacate right via Bravo, contact Ground 121.700.' What is the required readback?",
+    "q_tr": "Doğru readback hangisi?",
+    "o": [
+      "'Vacate right via Bravo, contact Ground 121.7, TC-FLY.'",
+      "'Roger.'",
+      "'Vacate left, contact Tower, TC-FLY.'",
+      "'Wilco, bye.'"
+    ],
+    "o_tr": [
+      "Vacate right via Bravo, contact Ground 121.7, TC-FLY.",
+      "Roger.",
+      "Vacate left, contact Tower, TC-FLY.",
+      "Wilco, bye."
+    ],
+    "e": "Runway vacation instructions and frequency transfer require mandatory verbatim readback with callsign.",
+    "e_tr": "Pistten çıkış talimatı ve frekans değişimi readback edilir. Pist boşalmadan flap/carb heat gibi işlemleri yapma, önce pisti boşalt.",
+    "radio": true,
+    "atc": "TC-FLY, vacate right via Bravo, contact Ground 121.700.",
+    "tr": "TC-FLY, Bravo'dan sağa pistten çık, Ground 121.700'e geç.",
+    "needGnd": true
+  },
+  {
+    "ph": 5,
+    "cat": "070 Operational Procedures",
+    "cat_tr": "Prosedürler",
+    "q": "After crossing the runway holding point line into the taxiway (runway vacated), what after-landing checks are performed?",
+    "q_tr": "Pistten çıkıp güvenli bölgeye geçince flap ve carb heat ne yapılır?",
+    "o": [
+      "Retract flaps, Carb heat cold, landing light off, transponder to standby/ground mode",
+      "Retract flaps during high-speed rollout on the active runway",
+      "Stop on the runway centerline to do checks",
+      "Shut down engine on the taxiway"
+    ],
+    "o_tr": [
+      "Pist boşaltıldıktan sonra flap kaldırılır ve carb heat kapatılır",
+      "İniş sırasında hemen kaldırılır",
+      "Pistte durup yapılır",
+      "Hiç dokunulmaz"
+    ],
+    "e": "After clearing the runway beyond the holding point line: Flaps up, Carb Heat Cold, Pitot Heat Off, Strobes/Landing lights as appropriate, Transponder Standby.",
+    "e_tr": "Hareket halinde kontrolü bırakıp yan işlemlere dalma. Pist boşalınca flap kaldır, carb heat kapat, transponderi standby'a al.",
+    "pos": "end"
+  },
+  {
+    "ph": 5,
+    "cat": "070 Operational Procedures",
+    "cat_tr": "Prosedürler",
+    "q": "After parking on the apron, what securing actions are performed before leaving the aircraft?",
+    "q_tr": "Uçağı bağladıktan sonra (park) ne yapılır?",
+    "o": [
+      "Install wheel chocks and tie-downs, pitot cover, control locks, and complete technical log and flight time records",
+      "Leave aircraft untied with controls free",
+      "Remove ignition key only and walk away",
+      "Drain all remaining fuel"
+    ],
+    "o_tr": [
+      "Tie-down/takoz, pitot kapağı ve kumanda kilitleri uygulanır; belgeler ve logbook doldurulur",
+      "Uçak açıkta bırakılır",
+      "Sadece anahtar çıkarılır",
+      "Yakıt boşaltılır"
+    ],
+    "e": "Proper securing: Wheel chocks, gust locks, pitot tube cover, tie-down ropes in wind, and accurate entries in the aircraft journey logbook.",
+    "e_tr": "Uçak rüzgâra karşı bağlanır, pitot ve kumanda kilidi takılır. Uçuş süresi/kayıtlar uçuş defterine işlenir.",
+    "pos": "end"
+  },
+  {
+    "ph": 5,
+    "cat": "010 Air Law",
+    "cat_tr": "Hava Hukuku",
+    "q": "In the event of an aircraft accident or serious incident, what is the pilot's legal duty regarding notification?",
+    "q_tr": "Ciddi bir olay veya kaza yaşandığında pilot ne yapmalıdır?",
+    "o": [
+      "Notify the national aviation accident investigation authority immediately and preserve flight recorders/evidence",
+      "Take no action",
+      "Move the wreckage immediately to clear the area",
+      "Post photos to social media only"
+    ],
+    "o_tr": [
+      "İlgili havacılık otoritesine ve soruşturma birimine gecikmeden bildirim yapmalı, delilleri korumalıdır",
+      "Hiçbir şey yapma",
+      "Uçağı hemen taşı",
+      "Yalnızca sosyal medyada paylaş"
+    ],
+    "e": "Under ICAO Annex 13 and EU Regulation 996/2010, accidents and serious incidents must be reported immediately to the national investigation board; wreckage/evidence must not be disturbed.",
+    "e_tr": "Kaza/ciddi olay bildirimi zorunludur; delillere dokunulmaz ve soruşturmaya yardımcı olunur. Ülkeye göre kurum değişir (Türkiye'de SHGM).",
+    "pos": "end"
+  },
+  {
+    "ph": 5,
+    "cat": "070 Operational Procedures",
+    "cat_tr": "Prosedürler",
+    "q": "You are parked at the apron. What is the standard procedure to shut down a piston engine?",
+    "q_tr": "Park ettin. Motoru normal şekilde nasıl durdurursun?",
+    "o": [
+      "Pull mixture control to idle cut-off; after propeller stops, switch magnetos OFF and Master switch OFF",
+      "Switch Master switch OFF first with mixture full rich",
+      "Switch magnetos OFF first while mixture remains rich",
+      "Open throttle to full to flood the engine"
+    ],
+    "o_tr": [
+      "Mixture'ı idle cut-off'a çek, motor durunca magnetoları ve master'ı kapat",
+      "Önce master'ı kapat, motoru kendi haline bırak",
+      "Magnetoları kapat, mixture full kalsın",
+      "Gazı tam açıp motoru boğ"
+    ],
+    "e": "Pull Mixture to IDLE CUT-OFF to starve the cylinders of fuel and prevent unburned fuel accumulation. Once the engine stops, turn Magnetos OFF and Master Switch OFF.",
+    "e_tr": "Mixture idle cut-off yakıtı keser; motor durur, sonra magnetolar OFF ve master OFF. Hâlâ yakıt varken magnetoyu kapatmak motorun atış yapmasına sebep olabilir.",
+    "needGnd": true
+  }
 ];
 
-/* ===== EK SORULAR (bilgi soruları; o[0] doğru cevap) ===== */
-const X=(ph,cat,q,o,e,pos)=>({ph,cat,q,o,e,pos:pos||'end'});
-const EXTRA=[
-// ---- PARK / UÇUŞ ÖNCESİ ----
-X(0,`Hava Hukuku`,`Uçuştan önce uçakta hangi belgelerin bulunması/geçerli olması gerekir?`,[`Tescil belgesi, uçuşa elverişlilik (airworthiness) belgesi, sigorta, telsiz ruhsatı; pilotta ise lisans, sağlık belgesi ve kimlik`,`Sadece pilot lisansı`,`Sadece uçak ruhsatı ve yakıt faturası`,`Hava durumu raporu ve uçuş okulu üyelik kartı`],`Uçak belgeleri (tescil, uçuşa elverişlilik, sigorta, telsiz ruhsatı) ve pilot belgeleri (lisans, medikal, kimlik) uçuş öncesi kontrol edilir. Eksik veya süresi dolmuş belgeyle uçulmaz.`,'start'),
-X(0,`Operasyon`,`Gündüz VFR uçuş için yakıt planlamasında asgari kural nedir (EASA NCO.OP.125)?`,[`Hedefe kadar gereken yakıt + en az 30 dakikalık nihai rezerv`,`Sadece hedefe yetecek kadar yakıt`,`Hedefe yetecek yakıtın yarısı`,`Depoyu yarıya kadar doldurmak yeterlidir`],`Gündüz VFR için hedef havaalanına kadar yakıt + normal seyir irtifasında en az 30 dk rezerv gerekir (gece VFR 45 dk). Pratikte ek emniyet payı (rüzgâr, pas geçme, alternatif) eklenir.`,'start'),
-X(0,`NOTAM`,`Uçuş öncesi NOTAM kontrolü neden önemlidir?`,[`Pist kapanması, kısıtlı/tehlikeli bölge, vinç/engel ve cihaz arızası gibi geçici değişiklikleri bildirir`,`Sadece hava durumunu bildirir`,`Uçak fiyatlarını duyurur`,`Yalnızca uçuş ücretlerini içerir`],`NOTAM; altyapı, hizmet ve hava sahası değişikliklerini (pist kapalı, aktif kısıtlı bölge, ışık arızası vb.) içerir. Uçuş öncesi bilgilendirme (PIB) bunun bir parçasıdır.`,'start'),
-X(0,`Ağırlık ve Denge`,`Uçağın ağırlık merkezi (CG) arka limitin ötesindeyse en tehlikeli sonuç hangisidir?`,[`Boyuna stabilite azalır; stall/spin'den çıkış zorlaşır`,`Stall hızı azalır ve uçak çok sağlamlaşır`,`Yakıt tüketimi sıfırlanır`,`Uçak kontrolü kolaylaşır`],`CG arkada ise uçak daha az stabil olur ve burnu kolayca yukarı kalkar; stall'dan çıkış zorlaşır. CG çok önde ise flare için yeterli elevatör gücü olmayabilir. Her zaman W&B hesapla.`,'start'),
-X(0,`Uçuş Performansı`,`Yoğunluk irtifası (density altitude) arttığında kalkış performansı nasıl değişir?`,[`Kalkış koşusu uzar, tırmanma performansı düşer`,`Kalkış koşusu kısalır`,`Hiç değişmez`,`Sadece yakıt tüketimi etkilenir`],`Sıcak, yüksek ve nemli havada hava yoğunluğu düşer: motor gücü, pervane verimi ve kanat lifti azalır. Yaz sıcağında ve yüksek pistlerde dikkat edilmelidir.`,'start'),
-X(0,`Telsiz`,`TC-FLY çağrı işaretinin ICAO fonetik okunuşu hangisidir?`,[`Tango Charlie Foxtrot Lima Yankee`,`Tango Charlie Fox Love Yellow`,`Tom Charlie Fred Larry Yellow`,`Tango Cuba Foxtrot Lima Yankee`],`ICAO fonetik alfabesi: T=Tango, C=Charlie, F=Foxtrot, L=Lima, Y=Yankee. Telsizde harfler fonetik okunur.`,'start'),
-X(0,`Telsiz`,`Telsizde "9" rakamı ve "118.1" frekansı nasıl okunur?`,[`"Niner" ve "one one eight decimal one"`,`"Nine" ve "one eighteen point one"`,`"Nein" ve "hundred eighteen one"`,`"Nigh-nine" ve "one eight point one"`],`ICAO: 3=tree, 5=fife, 9=niner. Frekans rakam rakam okunur, ondalık "decimal" denir.`,'start'),
-X(0,`Hava Hukuku`,`Uçak çağrı işaretindeki "TC-" ön eki neyi gösterir?`,[`Uçağın tescil edildiği ülkenin ulusal işareti (Türkiye)`,`Uçağın modelini`,`Uçağın motor tipini`,`Havaalanının ICAO kodunu`],`Tescil işareti ulusal ön ekle başlar (TC=Türkiye, D=Almanya, G=Birleşik Krallık). Chicago Sözleşmesi Annex 7 ile belirlenir.`,'start'),
-// ---- TAKSİ / KALKIŞ ÖNCESİ ----
-X(1,`Prosedürler`,`Taksi hareketine başlar başlamaz ilk yapılacak kontrol hangisidir?`,[`Frenleri test etmek`,`Flap'ı tam açmak`,`Transponderi kapatmak`,`Mixture'ı idle cut-off'a çekmek`],`Taksinin başında frenler (ve yönlendirme) test edilir; hız yürüme hızından hızlı olmamalıdır.`),
-X(1,`Pist İşaretleri`,`Pist numarası "36" neyi ifade eder?`,[`Manyetik pist yönü 360° (pist yönünün 10'a bölünmüş yuvarlanmış hali)`,`Pist uzunluğu 3600 m`,`Pist genişliği 36 m`,`Pistin 36. numaralı park alanı`],`Pist numarası, manyetik yönün 10'a bölünüp yuvarlanmasıyla bulunur. 36 → 360° (kuzey), 18 → 180° (güney).`),
-X(1,`Uçak Bilgisi`,`Run-up sırasında carb heat'i açınca RPM'in hafif düşmesi neyi gösterir?`,[`Normal: sıcak hava karışımı zenginleştirir, sistem çalışıyor`,`Motor arızası`,`Yağ basıncı sorunu`,`Pervane hasarı`],`Carb heat sıcak hava verir ve karışımı hafif zenginleştirir, bu yüzden RPM düşer. RPM hiç düşmüyorsa sistem çalışmıyor olabilir. Buz varsa önce düşer sonra toparlar.`),
-X(1,`Hava Hukuku`,`ATC "hold short of runway 36" dediğinde ne yaparsın?`,[`Bekleme çizgisinin (holding point) önünde durup readback yaparım`,`Pist başına girip beklerim`,`İzin gelmeden pisti geçerim`,`Sadece "Roger" derim ve devam ederim`],`Bekleme noktası pist ihlallerini önlemek için kritiktir. Hold short talimatı mutlaka readback edilir ve çizgi izinsiz geçilmez.`),
-X(1,`Meteoroloji`,`Cessna 172'nin kitapta belirtilen gösterilmiş maksimum yan rüzgâr hızı (demonstrated crosswind) yaklaşık nedir?`,[`15 kt`,`5 kt`,`35 kt`,`50 kt`],`C172 için yaklaşık 15 kt gösterilmiş yan rüzgâr değeri vardır. Bu limit değil, test pilotunun gösterdiği değerdir; kendi tecrüben ve okulunun limitleri esas alınır.`),
-X(1,`Hava Hukuku`,`Yerdeki uçağa kuleden "sabit yeşil ışık" verilirse ne anlama gelir?`,[`Kalkış izni`,`Dur`,`Park alanına dön`,`Pistten çık ve bekle`],`Yerde: sabit yeşil = kalkış izni, sabit kırmızı = dur, yanıp sönen yeşil = taksi izni, yanıp sönen kırmızı = taksi yolunu boşalt, yanıp sönen beyaz = başladığın yere dön.`),
-X(1,`Uçuş Prensipleri`,`Tam güç kalkış koşusunda tek pervaneli uçak (saat yönü dönen pervane, pilottan bakış) hangi yöne sapma eğilimindedir ve nasıl düzeltilir?`,[`Sola sapar; sağ rudder ile düzeltilir`,`Sağa sapar; sol rudder ile düzeltilir`,`Sapma olmaz`,`Yukarı kalkar; elevatör ileri`],`Tork, slipstream ve P-faktörü yüzünden uçak sola sapar. Sağ rudder pedalına basarak düzeltilir.`),
-X(1,`Acil Durumlar`,`Kalkış koşusunda (henüz havalanmadan) motor arızası olursa yapılacak hareket nedir?`,[`Gazı kapat, uçağı pist yönünde frenleyerek durdur`,`Havalanıp tırmanmaya çalış`,`Flap'ı indir ve devam et`,`Sert dönüş yap`],`Havalanmadan önceki arızada kalkış iptal edilir (rejected takeoff): gaz idle, direksiyon ve fren ile pistte durdur.`),
-// ---- KALKIŞ / TIRMANIŞ ----
-X(2,`Uçuş Prensipleri`,`60° yatışlı koordineli dönüşte yük faktörü ve stall hızı nasıl değişir?`,[`2 G ve stall hızı yaklaşık %41 artar`,`1 G ve stall hızı değişmez`,`2 G ve stall hızı azalır`,`3 G ve stall hızı iki katı artar`],`Yük faktörü = 1/cos(yatış açısı). 60° → 2 G; stall hızı artış katsayısı √2 ≈ 1.41. Bu yüzden dik yatışlarda stall riski büyür.`),
-X(2,`Hava Hukuku`,`VFR uçuşta "see and avoid" prensibi ne anlama gelir?`,[`Pilot, hava durumuna ve trafiğe görsel olarak dikkat eder, çarpışmayı önlemekten sorumludur`,`Çarpışmayı yalnızca ATC önler`,`VFR'de çevre izlemeye gerek yoktur`,`Sadece transponderle trafik takip edilir`],`VFR'de ayrım sorumluluğu pilota aittir. Sürekli dış gözlem (scan) ve doğru bildirim şarttır.`),
-X(2,`Hava Hukuku`,`Yerleşim alanı üzerinde minimum uçuş yüksekliği nedir (SERA.5005)?`,[`Bir yarıçapı 600 m içindeki en yüksek engelin 300 m (1000 ft) üzerinde`,`50 ft`,`Sadece 500 ft AGL, engel fark etmez`,`Yerleşim üzerinde alçalmak serbesttir`],`Yoğun yerleşim üzerinde: 600 m yarıçap içindeki en yüksek engelin en az 300 m (1000 ft) üstünde. Diğer yerlerde en az 150 m (500 ft) AGL/AMSL.`),
-X(2,`Hava Hukuku`,`Avrupa'da VFR uçuşta yaygın kullanılan transponder (squawk) kodu hangisidir?`,[`7000`,`7700`,`7500`,`0000`],`7000 genel VFR kodudur (ATC başka kod verene kadar). 7500, 7600 ve 7700 acil kodlardır. Ulusal kurallar değişebilir.`),
-X(2,`Hava Hukuku`,`Transition altitude'un altında altimetre hangi ayarla uçulur?`,[`QNH (deniz seviyesi basıncı)`,`Standart 1013.25 hPa`,`Gerçek yer yüksekliği (QFE)`,`Sıcaklığa göre rastgele ayar`],`Transition altitude altında QNH ile irtifa (altitude), transition level üstünde 1013.25 hPa ile uçuş seviyesi (FL) kullanılır.`),
-X(2,`Hava Hukuku`,`Gece uçan bir uçağın seyir ışıkları nasıldır?`,[`Sol kanat kırmızı, sağ kanat yeşil, kuyruk beyaz`,`Sol yeşil, sağ kırmızı, kuyruk beyaz`,`Hepsi beyaz`,`Sol mavi, sağ sarı`],`Sol (port) kırmızı, sağ (starboard) yeşil, kuyruk beyaz. Bu ışıklardan yön ve trafik durumu anlaşılır.`),
-// ---- SEYİR ----
-X(3,`Uçuş Prensipleri`,`Spin kurtarmada standart adım sırası nedir (PARE)?`,[`Gaz idle, aileron nötr, spin yönünün tersine rudder, elevatörü ileri; dönme durunca yumuşak çekiş`,`Gaz tam, yoke tam geri, rudder spin yönüne`,`Flap tam açık, burun yukarı`,`Önce kuleye bildir, sonra bekle`],`Spin'de önce stall'ı kır: power idle, ailerons neutral, rudder opposite, elevator forward. Kurtarmada flap ve yük faktörüne dikkat edilir; ilk eğitimde eğitmenle uygulanır.`),
-X(3,`Meteoroloji`,`METAR'da "BKN" bulut miktarı kaç okta demektir?`,[`5–7 okta (parçalı/kapalı)`,`1–2 okta`,`3–4 okta`,`8 okta`],`FEW=1–2, SCT=3–4, BKN=5–7, OVC=8 okta. Tavan (ceiling) BKN veya OVC en alçak tabaka olarak tanımlanır.`),
-X(3,`Meteoroloji`,`Radyasyon sisi (radiation fog) hangi koşullarda oluşur?`,[`Açık, sakin ve nemli bir gecede yer soğuyup sıcaklık çiğ noktasına yaklaştığında`,`Güçlü rüzgârlı sıcak öğleden sonra`,`Soğuk cephe geçişinde`,`Yüksek irtifada kuru havada`],`Hafif rüzgâr, açık gökyüzü, yüksek nem ve uzun gece koşulları sis oluşturur. Sabah güneşle dağılır, ama ilk saatlerde görüşü ciddi düşürebilir.`),
-X(3,`Meteoroloji`,`Soğuk cephe geçtikten sonra tipik değişimler nelerdir?`,[`Sıcaklık düşer, basınç yükselir, rüzgâr sağa döner (kuzey yarım küre), görüş genelde iyileşir`,`Sıcaklık artar, basınç düşer`,`Rüzgâr sola döner ve hava durgunlaşır`,`Hiçbir şey değişmez`],`Soğuk cephe önünde ve geçişinde CB, sağanak ve türbülans olabilir; geçişten sonra görüş genelde iyidir, basınç yükselir ve rüzgâr (kuzey yarım kürede) sağa döner.`),
-X(3,`Meteoroloji`,`Termal türbülans günün hangi saatlerinde en şiddetlidir?`,[`Güneşli günlerde öğleden sonra`,`Gece yarısı`,`Şafak vakti`,`Gün batımından sonra`],`Yerin ısınmasıyla yükselen hava (termal) en güçlü olarak öğleden sonra gelişir; bu saatlerde cumulus bulutları artar.`),
-X(3,`Meteoroloji`,`Yüksek basınçlı bir bölgeden alçak basınçlı bölgeye altimetre ayarını değiştirmeden uçarsan ne olur?`,[`Altimetre gerçek irtifadan daha YÜKSEK gösterir; uçak aslında daha alçaktır`,`Altimetre gerçek irtifadan daha düşük gösterir`,`Hiçbir fark olmaz`,`Altimetre durur`],`"High to low, look out below": basınç düşüyorsa altimetre fazla okur. Bu yüzden QNH sık güncellenir.`),
-X(3,`Seyrüsefer`,`60 NM uçtun ve rotandan 3 NM saptın. İzleme hatası (track error) yaklaşık kaç derecedir?`,[`3° (1:60 kuralı)`,`6°`,`1°`,`30°`],`1:60 kuralı: 60 NM'de 1 NM sapma yaklaşık 1°'dir. 3 NM → 3°. Düzeltme için kalan mesafe de hesaba katılır.`),
-X(3,`Seyrüsefer`,`TAS 100 kt, rüzgâr tam kuyruktan 20 kt ise yer hızı (GS) nedir?`,[`120 kt`,`80 kt`,`100 kt`,`20 kt`],`Kuyruk rüzgârı GS'yi artırır: 100 + 20 = 120 kt. Kafa rüzgârında GS azalır.`),
-X(3,`Seyrüsefer`,`Yakıt tüketimi 36 L/saat. GS 100 kt ile 150 NM uçacaksın. Gereken yakıt yaklaşık ne kadardır?`,[`54 L`,`36 L`,`72 L`,`150 L`],`Süre = 150/100 = 1.5 saat. Yakıt = 36 × 1.5 = 54 L (rezerv hariç).`),
-X(3,`Seyrüsefer`,`UTC 1150Z saat Türkiye yerel saatiyle kaçtır? (UTC+3)`,[`14:50`,`08:50`,`11:50`,`12:50`],`Türkiye UTC+3 kullanır: 11:50 + 3 saat = 14:50. Uçuş planı ve NOTAM'larda saatler UTC (Z) verilir.`),
-X(3,`Seyrüsefer`,`1:500.000 ölçekli haritada 1 cm gerçekte kaç km'dir?`,[`5 km`,`500 m`,`50 km`,`0,5 km`],`1:500.000 → 1 cm = 500.000 cm = 5.000 m = 5 km.`),
-X(3,`Seyrüsefer`,`Kuzey yarım kürede kuzeye dönüş sırasında manyetik pusula hatası nasıl uygulanır (UNOS)?`,[`Hedeften ÖNCE toparlanır (undershoot north)`,`Hedefi geçip toparlanır`,`Hiçbir hata olmaz`,`Pusula yalnızca batıya dönüşte hata yapar`],`UNOS: Undershoot North, Overshoot South. Kuzeye dönerken pusula geç tepki verir, hedef heading'e varmadan önce yatışı topla.`),
-X(3,`Uçak Bilgisi`,`Heading indicator (DI/gyro) zamanla ne yapar ve ne sıklıkla düzeltilmelidir?`,[`Presesyon yapar; düz uçuşta yaklaşık her 15 dakikada manyetik pusulayla eşitlenmelidir`,`Asla sapma yapmaz`,`Sadece yağmurda bozulur`,`Her gün bir kez düzeltilir`],`Gyro tabanlı gösterge sürtünme/presesyon nedeniyle kayar; manyetik pusulayla periyodik olarak senkronize edilir.`),
-X(3,`İnsan Performansı`,`Hiperventilasyonun belirtisi ve düzeltme yöntemi nedir?`,[`Baş dönmesi, karıncalanma, kas kasılması; yavaş ve kontrollü nefes (konuşma/sayma)`,`Mavi dudak; hızlı nefes almaya devam et`,`Uyuşukluk; derin hızlı soluk`,`Görüş artar; hiçbir şey yapma`],`Aşırı hızlı nefes CO2'yi düşürür. Stres/panik tetikler. Nefesi yavaşlat, sakin ol, gerekirse yüksek sesle say.`),
-X(3,`İnsan Performansı`,`IMSAFE kontrol listesindeki "A" harfi neyi ifade eder?`,[`Alkol: alkol/ilaç etkisi altında uçulmaz; ulusal kural ve "8 saat" gibi eşikler uygulanır`,`Altimetre ayarı`,`Pilot kondisyonu`,`Hava durumu`],`IMSAFE: Illness, Medication, Stress, Alcohol, Fatigue, Emotion (veya Eating). Pilotun uçuşa uygunluğunu uçuş öncesi sorgulamak için kullanılır.`),
-X(3,`İnsan Performansı`,`Bulutta/görüşün kaybolduğu anda "leans" gibi yanlış duyularla karşılaşan pilot ne yapmalıdır?`,[`Enstrümanlara (özellikle yapay ufuk) güvenmeli ve duyularına değil göstergelere göre uçmalı`,`Duyularına güvenip hızlıca dönüş yapmalı`,`Gözlerini kapatıp dinlenmeli`,`Gazı tam açmalı`],`Uzamsal yönelim bozukluğunda (spatial disorientation) iç kulak yanıltır. Çare: göstergelere güven, ani hareketlerden kaçın, yardım iste, VMC'ye dön.`),
-X(3,`İnsan Performansı`,`Kokpitte karbon monoksit (CO) zehirlenmesinden şüphelenirsen ne yaparsın?`,[`Kabin ısıtmasını kapat, havalandırmayı aç, en yakın uygun yere iniş yap ve ATC'ye bildir`,`Isıtmayı daha çok aç`,`Hiçbir şey yapmadan devam et`,`Gaz kes ve dal`],`CO egzozdan kabin ısıtmasına sızabilir; belirtiler baş ağrısı, bulantı, uyuşukluk. Isıtmayı kapat, hava ver, en yakın yere in. Gerekirse tıbbi kontrol yaptır.`),
-X(3,`İnsan Performansı`,`"Bana bir şey olmaz" tavrı hangi tehlikeli tutuma örnektir?`,[`Yenilmezlik (invulnerability)`,`Macho`,`Dürtüsellik`,`Boyun eğme`],`Tehlikeli tutumlar: Anti-authority, Impulsivity, Invulnerability, Macho, Resignation. Karşı tedbir: "Bu bana da olabilir."`),
-X(3,`İnsan Performansı`,`Nezle veya sinüs tıkanıklığı varken uçmak neden risklidir?`,[`Basınç değişimlerinde kulak/sinüs ağrısı ve işitme kaybı, dikkat bozukluğu doğurabilir`,`Uçak performansı artar`,`Hiçbir risk yoktur`,`Sadece yolcuları etkiler`],`Alçalma sırasında kulak/sinüs basıncı dengelenemeyebilir (barotrawma). Hasta pilot uçmamalıdır.`),
-X(3,`Uçak Bilgisi`,`Avgas 100LL yerine yanlışlıkla Jet-A yakıt doldurulursa ne olur?`,[`Motor detonasyon yapabilir, güç kaybı ve ciddi hasar oluşabilir`,`Motor daha güçlü çalışır`,`Hiçbir şey olmaz`,`Sadece renk değişir`],`Jet-A kerosendir; pistonlu motorda sorun çıkarır. Doğru yakıtı ve renk/kokuyu kontrol et; şüphe varsa uçma.`),
-X(3,`Hava Hukuku`,`D sınıfı hava sahasında VFR uçuş için ne gereklidir?`,[`ATC izni (clearance) ve iki yönlü telsiz haberleşmesi`,`Hiçbir şey gerekmez`,`Sadece transponder`,`Sadece uçuş planı`],`D sınıfında VFR uçuşlar için ATC izni ve sürekli iki yönlü telsiz gerekir. VFR'ler birbirinden ayrılmaz, ancak trafik bilgisi verilir.`),
-X(3,`Hava Hukuku`,`Telsiz arızasında (VFR, hava iyi) ne yapılır?`,[`7600 kodunu gir, VMC'de kal, en yakın uygun havaalanına in ve ışık sinyallerini izle`,`7700'e geç ve hemen dal`,`Alçalıp kule üzerine dalış yap`,`Frekansı sessizce sürekli değiştir`],`Telsiz arızasında 7600 kodu girilir, mümkünse VMC'de kalınır, ışık sinyalleri izlenir ve uygun bir havaalanına inilir.`),
-X(3,`Telsiz`,`PAN PAN çağrısı ne zaman kullanılır?`,[`Acil değil ama güvenliği etkileyen acil/urgent durum (ör. yön kaybı, yakıt azlığı)`,`Anında hayati tehlike`,`Rutin konum bildirimi`,`Selamlama`],`MAYDAY=ciddi ve yakın tehlike. PAN PAN=aciliyet. Her ikisi de üç kez tekrarlanır.`),
-X(3,`Telsiz`,`"Wilco" ve "Roger" arasındaki fark nedir?`,[`Roger: mesajı aldım; Wilco: anladım ve uygulayacağım`,`İkisi de aynı`,`Wilco: reddettim`,`Roger: kapat`],`Roger = mesaj alındı. Wilco = (will comply) anladım ve uygulayacağım. İzinler için Roger/Wilco yerine readback yapılır.`),
-X(3,`Telsiz`,`Radio check'te "readability five" ne anlama gelir?`,[`Mükemmel anlaşılır (1=anlaşılmaz, 5=mükemmel)`,`Kötü anlaşılır`,`Frekans yanlış`,`Telsiz kapalı`],`Okunabilirlik ölçeği: 1 anlaşılmaz, 2 ara sıra, 3 zor, 4 kolay, 5 mükemmel.`),
-X(3,`Telsiz`,`ATC "squawk ident" derse ne yaparsın?`,[`Transponderdeki IDENT düğmesine basarım`,`Kodu değiştirir ve kapatırım`,`Yeni frekansa geçerim`,`Pas geçerim`],`Ident, ATC radarında hedefinizi belirginleştirir. Kod değişimi için "squawk (kod)" denir.`),
-X(3,`Uçuş Prensipleri`,`Ağırlık arttığında stall hızı nasıl değişir?`,[`Artar`,`Azalır`,`Değişmez`,`Sıfırlanır`],`Daha ağır uçak aynı lifti üretmek için daha yüksek hücum açısına/hıza ihtiyaç duyar; stall hızı artar.`),
-// ---- YAKLAŞMA ----
-X(4,`Uçuş Prensipleri`,`Final yaklaşmada güç ve burun (pitch) ile ne kontrol edilir?`,[`Burun hızı, güç irtifa/iniş eğimi (yaklaşma açısı) kontrol eder`,`Burun irtifayı, güç hızı`,`İkisi de sadece hızı`,`İkisi de sadece irtifayı`],`Klasik yaklaşma tekniğinde: pitch → hava hızı; power → irtifa/eğim. Her ikisi birlikte ayarlanır.`),
-X(4,`Uçuş Prensipleri`,`Yan rüzgârlı inişte wing-low (sideslip) tekniğinde ne yaparsın?`,[`Rüzgâr tarafındaki kanadı aileronla indirir, ters rudder ile burnu pist ekseninde tutarım`,`Burnu rüzgâra çevirip hiçbir düzeltme yapmam`,`Tüm flap'ı açıp güç artırırım`,`Rudder'ı rüzgâr tarafına iterim`],`Wing-low: kanadı rüzgâr yönüne indir (aileron), uçağın burnunu ters rudder ile pist yönüne hizala. Böylece tekerlekler yan kaymaz.`),
-X(4,`Uçuş Prensipleri`,`Yer etkisi (ground effect) neyi azaltır ve ne sonuç doğurur?`,[`İndüklenmiş sürüklemeyi azaltır; uçak pist üzerinde "yüzer" (float)`,`Lifti sıfırlar`,`Motor gücünü artırır`,`Yakıt tüketimini artırır`],`Yere yakınken (kanat açıklığı yüksekliği) kanat ucu girdapları zayıflar, induced drag azalır ve uçak süzülmeye devam eder. Çok hızlı yaklaşırsan pistte float yaparsın.`),
-X(4,`Uçuş Prensipleri`,`Wake türbülansı hangi koşulda en tehlikelidir?`,[`Ağır, yavaş, temiz konfigürasyonda uçan uçağın arkasında ve rüzgârsız havada`,`Hafif uçakların arkasında`,`Yüksek hızda ve flap açıkken`,`Kuvvetli yan rüzgârda hiç tehlike yoktur`],`Wake girdapları aşağı ve dışa doğru yayılır, hafif rüzgâr onları pistte tutabilir. Ağır uçağın touchdown noktasının ötesine in; ağır uçağın rotate noktasından önce kalk.`),
-X(4,`Hava Hukuku`,`İniş yapmak üzere yaklaşan iki uçaktan hangisine öncelik verilir?`,[`Daha alçaktaki uçağa (final'dekine)`,`Daha yüksekteki uçağa`,`Her zaman büyük uçağa`,`Soldan gelene`],`SERA.3210: İniş yapan veya yaklaşan uçaklardan yüksekte olan, alçakta olana yol verir. Ancak bunu suistimal edip kısa final'e girmemelisin.`),
-X(4,`Hava Hukuku`,`Havadaki uçağa kuleden "sabit yeşil ışık" verilirse ne anlama gelir?`,[`İniş izni`,`Dolaş ve bekle`,`Havaalanı güvensiz`,`Pas geç`],`Havada: sabit yeşil = iniş izni, sabit kırmızı = yol ver ve dolaş, yanıp sönen yeşil = iniş için geri dön (izin ayrıca verilir), yanıp sönen kırmızı = havaalanı güvensiz, inme, yanıp sönen beyaz = bu havaalanına in ve apron'a git.`),
-X(4,`Hava Hukuku`,`Yaklaşma stabil değilse (çok hızlı/yüksek/yamuk, 500 ft AGL altında) en doğru karar nedir?`,[`Pas geç (go-around) ve yeniden yaklaş`,`İnişe zorlayarak devam et`,`Gazı tam kes ve dal`,`Hiçbir şey yapma`],`Stabilize yaklaşma kriterleri sağlanmıyorsa pas geçmek en güvenli seçenektir; çoğu kaza "inişe zorlama"dan çıkar.`),
-X(4,`Uçak Bilgisi`,`Carb heat ne zaman uygulanır ve pas geçerken ne yapılır?`,[`Güç azaltılmadan önce (genelde downwind/base) açılır; pas geçerken tam güçle birlikte kapatılır`,`Her zaman kapalı kalır`,`Sadece tam güçte açılır`,`Hiç kullanılmaz`],`Düşük güçte buzlanma riski artar; carb heat güç azaltılmadan önce açılır. Pas geçişinde güç artarken carb heat kapatılır (cold).`),
-X(4,`Meteoroloji`,`Final'de ani kafa rüzgârı kaybı (wind shear) olursa uçağa ne olur ve ne yapılır?`,[`Hız ve irtifa kaybı olur; güç ekle, burnu kontrol et, gerekirse pas geç`,`Uçak hızlanır, gazı kes`,`Hiçbir şey olmaz`,`Flap tam aç ve bekle`],`Kafa rüzgârı azalınca hava hızı düşer; alçak irtifada stall riski büyür. Güç ekle, burnu indirip hızı koru, gerekirse pas geç.`),
-X(4,`Telsiz`,`Downwind çağrısında hangi bilgiler verilir?`,[`İstasyon, çağrı işareti, pozisyon (downwind) ve pist`,`Sadece "downwind"`,`Hava durumu raporu`,`Rastgele bilgi`],`Devre içinde: "Skyline Tower, TC-FLY, downwind runway 36." Kule size sıra bildirir (number two, cleared to land vb.).`),
-// ---- İNİŞ / PARK ----
-X(5,`Prosedürler`,`İniş koşusunda ilk öncelik nedir?`,[`Uçağı pist ekseninde tut (rudder), gazı kıs, gerekirse yumuşak fren`,`Hemen tüm flap'ı kaldır`,`Hemen telsizle konuş`,`Pist boyunca tam gazla ilerle`],`Önce uçağı kontrol et. Direksiyon/rudder ile hizayı koru, güç idle, yavaşlayınca fren; pist boşaltılmadan başka işlem yapma.`,'after1'),
-X(5,`Prosedürler`,`Pistten çıkıp güvenli bölgeye geçince flap ve carb heat ne yapılır?`,[`Pist boşaltıldıktan sonra flap kaldırılır ve carb heat kapatılır`,`İniş sırasında hemen kaldırılır`,`Pistte durup yapılır`,`Hiç dokunulmaz`],`Hareket halinde kontrolü bırakıp yan işlemlere dalma. Pist boşalınca flap kaldır, carb heat kapat, transponderi standby'a al.`),
-X(5,`Prosedürler`,`Uçağı bağladıktan sonra (park) ne yapılır?`,[`Tie-down/takoz, pitot kapağı ve kumanda kilitleri uygulanır; belgeler ve logbook doldurulur`,`Uçak açıkta bırakılır`,`Sadece anahtar çıkarılır`,`Yakıt boşaltılır`],`Uçak rüzgâra karşı bağlanır, pitot ve kumanda kilidi takılır. Uçuş süresi/kayıtlar uçuş defterine işlenir.`),
-X(5,`Hava Hukuku`,`Ciddi bir olay veya kaza yaşandığında pilot ne yapmalıdır?`,[`İlgili havacılık otoritesine ve soruşturma birimine gecikmeden bildirim yapmalı, delilleri korumalıdır`,`Hiçbir şey yapma`,`Uçağı hemen taşı`,`Yalnızca sosyal medyada paylaş`],`Kaza/ciddi olay bildirimi zorunludur; delillere dokunulmaz ve soruşturmaya yardımcı olunur. Ülkeye göre kurum değişir (Türkiye'de SHGM).`)
-];
-(function(){const sorted=[];for(let ph=0;ph<=5;ph++){const base=ST.filter(s=>s.ph===ph);const st=EXTRA.filter(e=>e.ph===ph&&e.pos==='start');const en=EXTRA.filter(e=>e.ph===ph&&e.pos!=='start'&&e.pos!=='after1');
- const a1=EXTRA.filter(e=>e.ph===ph&&e.pos==='after1');const last=base.pop();const first=base.shift();sorted.push(...st,first,...a1,...base,...en,last)}
- ST.length=0;ST.push(...sorted)})();
+/* Attach in-flight simulation callbacks */
+const CB = {
+  9: { after: ()=>{ S.tRpm = 1000; } },
+  13: { start: ()=>{ S.tRpm = 1000; } },
+  14: { after: ()=>{ S.tRpm = 1100; S.zMax = -45; S.tIas = 15; } },
+  15: { start: ()=>{ S.tRpm = 1800; } },
+  24: { start: ()=>{ S.tRpm = 900; }, after: ()=>{ S.zMax = 12; S.tIas = 8; } },
+  25: { after: ()=>{ S.zMax = null; S.tRpm = 2400; S.tIas = 56; } },
+  26: { after: ()=>{ S.gnd = false; S.tAlt = 600; S.tIas = 74; } },
+  27: { start: ()=>{ S.gnd = false; S.alt = Math.max(S.alt, 300); S.tAlt = 300; S.tIas = 74; D.eFail = true; }, after: ()=>{ D.eFail = false; S.tAlt = 1500; S.tIas = 80; S.tRpm = 2400; } },
+  28: { after: ()=>{ setFreq('DEP 124.500'); S.tAlt = 2500; S.tIas = 85; } },
+  35: { start: ()=>{ S.tAlt = 3500; S.tHdg = 90; S.tRpm = 2400; } },
+  36: { start: ()=>{ S.tRpm = 2300; S.tIas = 100; } },
+  38: { start: ()=>{ D.carb = true; D.carbT = tt; }, after: ()=>{ D.carb = false; } },
+  39: { start: ()=>{ D.oil = true; }, after: ()=>{ D.oil = false; } },
+  40: { after: ()=>{ S.tHdg = 80; } },
+  69: { after: ()=>{ jump(()=>{ S.appr = true; S.gnd = false; S.z = -3200; S.apprCap = -250; S.tIas = 70; S.tRpm = 1700; S.hdg = 360; S.tHdg = 360; }); } },
+  70: { start: ()=>{ S.tIas = 70; } },
+  83: { start: ()=>{ S.shake = 4; }, after: ()=>{ S.appr = false; S.gnd = false; S.tAlt = Math.max(S.alt + 500, 600); S.tIas = 75; S.tRpm = 2400; setTimeout(()=>jump(()=>{ S.appr = true; S.gnd = false; S.z = -2400; S.apprCap = -250; S.tIas = 70; S.tRpm = 1700; }), 3800); } },
+  84: { after: ()=>{ S.apprCap = null; S.tIas = 65; S.tRpm = 1300; } },
+  86: { after: ()=>{ setFreq('GND 121.700'); S.tIas = 12; S.zMax = S.z + 120; S.tRpm = 1000; } },
+  90: { after: ()=>{ S.tRpm = 0; S.tIas = 0; } }
+};
+Object.entries(CB).forEach(([i, c]) => Object.assign(ST[i], c));
 
-/* ================= OYUN AKIŞI ================= */
+/* ================= OYUN AKIŞI & BILINGUAL UI ================= */
 let toastT;
-function toast(t,c){const e=$('toast');e.textContent=t;e.style.color=c||'#fff';e.style.opacity=1;clearTimeout(toastT);toastT=setTimeout(()=>e.style.opacity=0,1800)}
-function setFreq(f){freqTxt=f;$('freq').textContent=f}
-function jump(fn){const f=$('fade');f.style.transition='opacity .6s';f.style.background='#000';f.style.opacity=1;setTimeout(()=>{fn();f.style.opacity=0},650)}
-function addLog(who,text,cls,tr){const d=document.createElement('div');d.className='m '+cls;d.innerHTML='<b>'+who+'</b>';const s=document.createElement('span');s.textContent=text;d.appendChild(s);
- if(tr){const i=document.createElement('i');i.textContent='🇹🇷 '+tr;d.appendChild(i)}const l=$('log');l.appendChild(d);l.scrollTop=l.scrollHeight;while(l.children.length>40)l.removeChild(l.firstChild)}
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
-function hud(){$('hp').style.width=Math.max(0,hp)+'%';$('hp').style.background=hp>60?'#27d17f':hp>30?'#ffb020':'#ff3b4e';$('score').textContent=score;$('streak').textContent=streak;
- const ph=ST[Math.min(idx,ST.length-1)].ph;$('pills').innerHTML=PH.map((n,i)=>`<span class="pill ${i<ph?'done':i==ph?'on':''}">${i<ph?'✓ ':''}${n}</span>`).join('')}
-function start(){audioInit();if(AC&&AC.state==='suspended')AC.resume();
- resetState();$('log').innerHTML='';run=true;$('ov').style.display='none';setFreq('---');hud();
- addLog('SİSTEM','Cessna 172 TC-FLY – Skyline Havaalanı (LTXX), pist 36. İyi uçuşlar!','info');show()}
-function show(){
- const st=ST[idx];
- if(ended)return;
- if(st.needGnd&&!S.gnd&&!S.crash){$('card').style.display='none';setTimeout(show,400);return}
- locked=false;hud();
- if(st.freq)setFreq(st.freq);
- if(st.info)addLog('MET',st.info,'info');
- if(st.atc){squelch();talk=2.5;addLog('KULE · '+freqTxt.split(' ')[0],st.atc,'atc',st.tr);say(st.atc)}
- if(st.start)st.start();
- $('cat').textContent=st.cat+(st.radio?' · 📻':'');$('qn').textContent='Soru '+(idx+1)+'/'+ST.length;$('q').textContent=st.q;$('exp').textContent='';$('next').style.display='none';
- const box=$('opts');box.innerHTML='';
- shuffle(st.o.map((t,i)=>({t,c:i===0}))).forEach(x=>{const b=document.createElement('button');b.className='opt';b.textContent=x.t;if(x.c){b.dataset.c=1;if(TEST)b.classList.add('hint');if(TEST)b.textContent='✔ '+x.t}b.onclick=()=>answer(b,x,box,st);box.appendChild(b)});
- box._o=null;$('card').style.display='block';$('card').scrollTop=0;
+function toast(t, c) {
+  const e = $('toast');
+  e.textContent = t;
+  e.style.color = c || '#fff';
+  e.style.opacity = 1;
+  clearTimeout(toastT);
+  toastT = setTimeout(() => e.style.opacity = 0, 2000);
 }
-function answer(btn,x,box,st){
- if(locked||ended)return;locked=true;
- [...box.children].forEach(b=>{b.disabled=true});
- const okBtn=[...box.children].find(b=>b.dataset.c);okBtn.classList.add('ok');
- const s=stat[st.cat]=stat[st.cat]||{ok:0,tot:0};s.tot++;
- const before=lvl();
- if(st.radio){squelch();talk=2;addLog('SEN',x.t,x.c?'me':'bad')}
- if(x.c){s.ok++;streak++;score+=10+streak*2;hp=Math.min(100,hp+10);
-  toast(streak>2?`🔥 ${streak} seri!`:'✅ Doğru!','#6dffa8');beep(1200,.12,.05)}
- else{btn.classList.add('bad');streak=0;hp-=20;S.shake=14;beep(180,.35,.09,'sawtooth');
-  if(st.radio){setTimeout(()=>{squelch();talk=2;addLog('KULE','TC-FLY, negative, say again your readback.','atc');say('Negative. Say again your readback.')},900)}}
- const after=lvl();
- if(after>before){const m=['','⚠️ MASTER CAUTION – Motor düzensiz çalışıyor','🛢️ Yağ basıncı düşüyor, motordan duman!','🔥 MOTOR YANGINI – güç kaybı!','🚨 MAYDAY – acil iniş!','🚨 KRİTİK'];toast(m[Math.min(after,4)],after>=3?'#ff5a4d':'#ffcf40')}
- else if(after<before&&after>=0)toast('🔧 Sistemler toparlanıyor','#9de0ff');
- if(st.after)st.after();
- $('exp').textContent='💡 '+st.e;hud();
- const nb=$('next');nb.style.display='inline-block';nb.disabled=false;nb.textContent=idx>=ST.length-1?'Uçuşu Bitir 🏁':'Devam ➜';
- if(st.lockNext){nb.disabled=true;setTimeout(()=>nb.disabled=false,st.lockNext)}
- $('card').scrollTo({top:$('card').scrollHeight,behavior:'smooth'});
+
+function setFreq(f) {
+  freqTxt = f;
+  $('freq').textContent = f;
 }
-$('next').onclick=()=>{if(ended)return;idx++;if(idx>=ST.length)return win();show()};
-function report(){const rows=Object.entries(stat).map(([k,v])=>{const p=Math.round(v.ok/v.tot*100);return`<div>${k} <b>${v.ok}/${v.tot}</b><div class="t"><i style="width:${p}%;background:${p>=75?'#27d17f':p>=50?'#ffb020':'#ff4d63'}"></i></div></div>`}).join('');
- const weak=Object.entries(stat).filter(([k,v])=>v.ok/v.tot<.75).map(([k])=>k);
- return`<div class="rep">${rows}</div>`+(weak.length?`<p>📚 Tekrar et: <b>${weak.join(', ')}</b></p>`:'<p>🎯 Tüm konularda sağlam görünüyorsun!</p>')}
-function menu(h){run=false;$('card').style.display='none';$('ovb').innerHTML=h;$('ov').style.display='flex';$('warn').className='';if(window.speechSynthesis)speechSynthesis.cancel()}
-function endGame(t,m){if(ended&&!S.crash)return;ended=true;run=false;S.tRpm=0;
- menu(`<h1>${t}</h1><p>${m}</p><p>Skor: <b>${score}</b> · Soru: ${Math.min(idx+1,ST.length)}/${ST.length}</p>${report()}<button class="btn" onclick="start()">Tekrar Uç ✈️</button>`)}
-function win(){ended=true;const g=hp>80?'🏆 Kusursuz uçuş! Check-ride hazır!':hp>40?'🛬 Güvenli iniş. Biraz daha tekrar!':'🛬 Zor da olsa indin! Konuları tekrar et.';
- menu(`<h1>${g}</h1><p>Skor: <b>${score}</b> · Uçak sağlığı: %${Math.max(0,hp)}</p>${report()}<button class="btn" onclick="start()">Yeni Uçuş ✈️</button>`)}
 
-menu(`<h1>✈️ PPL Flight Sim</h1><p>Cessna 172 kokpitinde, Skyline Havaalanı'ndan kalkıp aynı alana inen gerçekçi bir PPL sınav simülasyonu: park → taksi → kalkış → seyir → yaklaşma → iniş.</p>
-<p>Kule/Ground/Departure ile <b>telsiz readback</b> yap, prosedür ve teori sorularını doğru cevapla. Yanlış cevaplarda uçakta arızalar çıkar: motor pürüzü, yağ kaybı, yangın… ve sağlık biterse kaza!</p>
-<p style="font-size:13px;opacity:.8">🔊 ATC mesajları İngilizce (gerçek phraseology) sesli okunur, Türkçe karşılığı altında yazar. Ses için tarayıcı izni gerekebilir.</p>
-<button class="btn" onclick="start()">Motoru Çalıştır 🛫</button>`);
+function jump(fn) {
+  const f = $('fade');
+  f.style.transition = 'opacity .6s';
+  f.style.background = '#000';
+  f.style.opacity = 1;
+  setTimeout(() => { fn(); f.style.opacity = 0; }, 650);
+}
 
-let last=performance.now();
-function loop(n){const dt=Math.min(.05,(n-last)/1000);last=n;update(dt);render();drawDash();requestAnimationFrame(loop)}
+function addLog(who, text, cls, tr) {
+  const d = document.createElement('div');
+  d.className = 'm ' + cls;
+  d.innerHTML = '<b>' + who + '</b>';
+  const s = document.createElement('span');
+  s.textContent = text;
+  d.appendChild(s);
+  if (tr) {
+    const i = document.createElement('i');
+    i.textContent = (lang === 'en' ? '🇹🇷 ' : '🇬🇧 ') + tr;
+    d.appendChild(i);
+  }
+  const l = $('log');
+  l.appendChild(d);
+  l.scrollTop = l.scrollHeight;
+  while (l.children.length > 50) l.removeChild(l.firstChild);
+}
+
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.random() * (i + 1) | 0;
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function hud() {
+  $('hp').style.width = Math.max(0, hp) + '%';
+  $('hp').style.background = hp > 60 ? '#27d17f' : hp > 30 ? '#ffb020' : '#ff3b4e';
+  $('score').textContent = score;
+  $('streak').textContent = streak;
+  const ph = ST[Math.min(idx, ST.length - 1)].ph;
+  const phases = PH_I18N[lang] || PH_I18N.en;
+  $('pills').innerHTML = phases.map((n, i) => `<span class="pill ${i < ph ? 'done' : i === ph ? 'on' : ''}">${i < ph ? '✓ ' : ''}${n}</span>`).join('');
+}
+
+let currentOptOrder = [0, 1, 2, 3];
+
+function show() {
+  const st = ST[idx];
+  if (ended) return;
+  if (st.needGnd && !S.gnd && !S.crash) {
+    $('card').style.display = 'none';
+    setTimeout(show, 400);
+    return;
+  }
+  locked = false;
+  hud();
+  if (st.freq) setFreq(st.freq);
+  if (st.info) addLog('MET', st.info, 'info');
+  if (st.atc) {
+    squelch();
+    talk = 2.5;
+    const towerLabel = (lang === 'tr' ? 'KULE' : 'TOWER') + ' · ' + freqTxt.split(' ')[0];
+    addLog(towerLabel, st.atc, 'atc', st.tr);
+    say(st.atc);
+  }
+  if (st.start) {
+    try { st.start(); } catch (e) { console.error(e); }
+  }
+
+  currentOptOrder = shuffle([0, 1, 2, 3]);
+  buildCard(st);
+  $('card').style.display = 'block';
+  $('card').scrollTop = 0;
+}
+
+function buildCard(st) {
+  const t = I18N[lang];
+  $('cat').textContent = (lang === 'tr' ? st.cat_tr : st.cat) + (st.radio ? ' · 📻' : '');
+  $('qn').textContent = t.qLabel(idx + 1, ST.length);
+  $('q').textContent = lang === 'tr' ? st.q_tr : st.q;
+  $('exp').textContent = '';
+  $('next').style.display = 'none';
+
+  const box = $('opts');
+  box.innerHTML = '';
+  currentOptOrder.forEach(origIdx => {
+    const isCorrect = (origIdx === 0);
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.dataset.origIdx = origIdx;
+    if (isCorrect) b.dataset.c = '1';
+    const text = lang === 'tr' ? st.o_tr[origIdx] : st.o[origIdx];
+    b.textContent = (TEST && isCorrect ? '✔ ' : '') + text;
+    if (TEST && isCorrect) b.classList.add('hint');
+    b.onclick = () => answer(b, origIdx, box, st);
+    box.appendChild(b);
+  });
+}
+
+function refreshCard() {
+  const st = ST[idx];
+  if (!st) return;
+  const t = I18N[lang];
+  $('cat').textContent = (lang === 'tr' ? st.cat_tr : st.cat) + (st.radio ? ' · 📻' : '');
+  $('qn').textContent = t.qLabel(idx + 1, ST.length);
+  $('q').textContent = lang === 'tr' ? st.q_tr : st.q;
+  const box = $('opts');
+  [...box.children].forEach(btn => {
+    const origIdx = parseInt(btn.dataset.origIdx, 10);
+    const isCorrect = (origIdx === 0);
+    const text = lang === 'tr' ? st.o_tr[origIdx] : st.o[origIdx];
+    btn.textContent = (TEST && isCorrect ? '✔ ' : '') + text;
+    if (isCorrect) btn.classList.toggle('hint', TEST);
+  });
+  if (locked) {
+    $('exp').textContent = '💡 ' + (lang === 'tr' ? st.e_tr : st.e);
+    $('next').textContent = idx >= ST.length - 1 ? t.finishBtn : t.continueBtn;
+  }
+}
+
+function answer(btn, origIdx, box, st) {
+  if (locked || ended) return;
+  locked = true;
+  [...box.children].forEach(b => { b.disabled = true; });
+  const okBtn = [...box.children].find(b => b.dataset.c);
+  if (okBtn) okBtn.classList.add('ok');
+
+  const catKey = st.cat;
+  const s = stat[catKey] = stat[catKey] || { ok: 0, tot: 0 };
+  s.tot++;
+  const before = lvl();
+  const isCorrect = (origIdx === 0);
+  const choiceText = lang === 'tr' ? st.o_tr[origIdx] : st.o[origIdx];
+  const choiceSubText = lang === 'tr' ? st.o[origIdx] : (st.o_tr ? st.o_tr[origIdx] : null);
+
+  if (st.radio) {
+    squelch();
+    talk = 2;
+    addLog(lang === 'tr' ? 'SEN' : 'YOU', choiceText, isCorrect ? 'me' : 'bad', choiceSubText);
+  }
+
+  if (isCorrect) {
+    s.ok++;
+    streak++;
+    score += 10 + streak * 2;
+    hp = Math.min(100, hp + 10);
+    toast(streak > 2 ? `🔥 ${streak} ${I18N[lang].streakBadge}!` : I18N[lang].toastCorrect, '#6dffa8');
+    beep(1200, .12, .05);
+  } else {
+    btn.classList.add('bad');
+    streak = 0;
+    hp -= 20;
+    S.shake = 14;
+    beep(180, .35, .09, 'sawtooth');
+    if (st.radio) {
+      setTimeout(() => {
+        squelch();
+        talk = 2;
+        addLog(lang === 'tr' ? 'KULE' : 'TOWER', 'TC-FLY, negative, say again your readback.', 'atc', 'TC-FLY, anlaşılamadı, readback tekrar edin.');
+        say('Negative. Say again your readback.');
+      }, 900);
+    }
+  }
+
+  const after = lvl();
+  if (after > before) {
+    const cautions = I18N[lang].cautions;
+    toast(cautions[Math.min(after, 4)], after >= 3 ? '#ff5a4d' : '#ffcf40');
+  } else if (after < before && after >= 0) {
+    toast(I18N[lang].systemsRecover, '#9de0ff');
+  }
+
+  if (st.after) {
+    try { st.after(); } catch (e) { console.error(e); }
+  }
+  hud();
+
+  $('exp').textContent = '💡 ' + (lang === 'tr' ? st.e_tr : st.e);
+  const nb = $('next');
+  nb.style.display = 'inline-block';
+  nb.disabled = false;
+  nb.textContent = idx >= ST.length - 1 ? I18N[lang].finishBtn : I18N[lang].continueBtn;
+  if (st.lockNext) {
+    nb.disabled = true;
+    setTimeout(() => nb.disabled = false, st.lockNext);
+  }
+  $('card').scrollTo({ top: $('card').scrollHeight, behavior: 'smooth' });
+}
+
+$('next').onclick = () => {
+  if (ended) return;
+  idx++;
+  if (idx >= ST.length) return win();
+  show();
+};
+
+function report() {
+  const t = I18N[lang];
+  const rows = Object.entries(stat).map(([k, v]) => {
+    const p = Math.round(v.ok / v.tot * 100);
+    const catLabel = lang === 'tr' ? (CAT_MAP[k] || k) : k;
+    return `<div>${catLabel} <b>${v.ok}/${v.tot}</b><div class="t"><i style="width:${p}%;background:${p >= 75 ? '#27d17f' : p >= 50 ? '#ffb020' : '#ff4d63'}"></i></div></div>`;
+  }).join('');
+  const weak = Object.entries(stat).filter(([k, v]) => v.ok / v.tot < .75).map(([k]) => lang === 'tr' ? (CAT_MAP[k] || k) : k);
+  return `<div class="rep">${rows}</div>` + (weak.length ? `<p>${t.needReview}<b>${weak.join(', ')}</b></p>` : `<p>${t.allSolid}</p>`);
+}
+
+function menu(h) {
+  run = false;
+  $('card').style.display = 'none';
+  $('ovb').innerHTML = h;
+  $('ov').style.display = 'flex';
+  $('warn').className = '';
+  if (window.speechSynthesis) speechSynthesis.cancel();
+}
+
+let lastEndState = null;
+let lastFailData = null;
+
+function endGame(t_en, m_en, t_tr, m_tr) {
+  if (ended && !S.crash) return;
+  ended = true;
+  run = false;
+  S.tRpm = 0;
+  lastEndState = 'fail';
+  lastFailData = { t_en, m_en, t_tr: t_tr || t_en, m_tr: m_tr || m_en };
+  showFailMenu();
+}
+
+function showFailMenu() {
+  const t = I18N[lang];
+  const title = (lang === 'tr' && lastFailData && lastFailData.t_tr) ? lastFailData.t_tr : (lastFailData ? lastFailData.t_en : 'Flight Terminated');
+  const msg = (lang === 'tr' && lastFailData && lastFailData.m_tr) ? lastFailData.m_tr : (lastFailData ? lastFailData.m_en : '');
+  menu(`<h1>${title}</h1><p>${msg}</p><p>${t.scoreLabel}: <b>${score}</b> · ${t.qLabel(Math.min(idx + 1, ST.length), ST.length)}</p>${report()}<button class="btn" onclick="start()">${t.flyAgainBtn}</button>`);
+}
+
+function win() {
+  ended = true;
+  lastEndState = 'win';
+  const t = I18N[lang];
+  const g = hp > 80 ? t.winPerfect : hp > 40 ? t.winGood : t.winRough;
+  menu(`<h1>${g}</h1><p>${t.scoreLabel}: <b>${score}</b> · ${t.aircraftHealth}: %${Math.max(0, hp)}</p>${report()}<button class="btn" onclick="start()">${t.newFlightBtn}</button>`);
+}
+
+function showStartMenu() {
+  const t = I18N[lang];
+  menu(`<h1>${t.welcomeTitle}</h1>
+<p>${t.welcomeP1}</p>
+<p>${t.welcomeP2}</p>
+<p style="font-size:13px;opacity:.8">${t.welcomeP3}</p>
+<button class="btn" onclick="start()">${t.startBtn}</button>`);
+}
+
+function updateLangUI() {
+  const t = I18N[lang];
+  document.documentElement.lang = lang;
+  document.title = t.title;
+  $('lang-btn').textContent = t.langBtn;
+  $('lang-btn').title = t.langTitle;
+  $('tab-flt').textContent = t.tabFlt;
+  $('tab-eng').textContent = t.tabEng;
+  $('tst').title = t.testTitle;
+  const tstTxt = $('tst').querySelector('.btn-txt');
+  if (tstTxt) tstTxt.textContent = t.testBtn;
+  $('snd').title = t.sndTitle;
+  $('voc').title = t.vocTitle;
+  hud();
+  if ($('ov').style.display !== 'none') {
+    if (!run && !ended) {
+      showStartMenu();
+    } else if (ended) {
+      if (lastEndState === 'win') win();
+      else if (lastEndState === 'fail') showFailMenu();
+    }
+  } else if ($('card').style.display !== 'none' && idx < ST.length) {
+    refreshCard();
+  }
+}
+
+$('lang-btn').onclick = () => {
+  lang = (lang === 'en' ? 'tr' : 'en');
+  try { localStorage.setItem('ppl_sim_lang', lang); } catch (e) {}
+  updateLangUI();
+  toast(lang === 'en' ? '🇬🇧 English selected' : '🇹🇷 Türkçe seçildi', '#8ab4f8');
+};
+
+function start() {
+  audioInit();
+  if (AC && AC.state === 'suspended') AC.resume();
+  resetState();
+  $('log').innerHTML = '';
+  run = true;
+  ended = false;
+  lastEndState = null;
+  lastFailData = null;
+  $('ov').style.display = 'none';
+  setFreq('---');
+  hud();
+  addLog(I18N[lang].sysTag, I18N[lang].sysInit, 'info');
+  show();
+}
+
+// Initial UI setup and Welcome Menu
+updateLangUI();
+showStartMenu();
+
+let last = performance.now();
+function loop(n) {
+  const dt = Math.min(.05, (n - last) / 1000);
+  last = n;
+  update(dt);
+  render();
+  drawDash();
+  requestAnimationFrame(loop);
+}
 requestAnimationFrame(loop);
+
 </script>
 </body>
 </html>
