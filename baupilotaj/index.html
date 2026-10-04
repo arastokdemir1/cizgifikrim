@@ -66,7 +66,22 @@ canvas{position:fixed;left:0;display:block}
 .opt:active:not(:disabled){transform:scale(0.985);background:#223c8a}
 .opt.hint:not(.ok):not(.bad){outline:2px dashed #ffd24d;outline-offset:-2px}
 .opt.ok{background:#12673f;border-color:#27d17f}.opt.bad{background:#7a1f2c;border-color:#ff5468}
-#exp{margin-top:8px;font-size:13px;color:#cfe1ff;line-height:1.4}
+.card-toolbar{display:flex;align-items:center;justify-content:flex-end;margin-top:6px}
+.exp-toggle-btn{
+  background:rgba(18,34,75,0.65);border:1px solid #2d4580;color:#9bc0ff;
+  border-radius:7px;padding:4px 10px;font-size:12px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:5px;transition:background .2s,color .2s;font-weight:600;
+}
+.exp-toggle-btn:hover{background:rgba(32,58,122,0.9);color:#fff}
+#exp{
+  margin-top:8px;font-size:13.5px;color:#d5e5ff;line-height:1.45;
+  background:rgba(17,33,70,0.85);border:1px solid #3359a0;border-radius:10px;
+  padding:10px 13px;display:none;box-shadow:inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.exp-title{
+  font-weight:700;font-size:11.5px;letter-spacing:0.8px;color:#ffd24d;
+  margin-bottom:5px;display:flex;align-items:center;gap:5px;text-transform:uppercase;
+}
 .btn{display:inline-block;padding:11px 24px;border:0;border-radius:11px;background:linear-gradient(135deg,#2e8bff,#6a5bff);color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-top:10px;touch-action:manipulation}
 .btn:active:not(:disabled){transform:scale(0.98)}
 .btn:disabled{opacity:.4;cursor:wait}
@@ -186,8 +201,13 @@ canvas{position:fixed;left:0;display:block}
 </div>
 <div id="card">
   <div id="chead"><span id="cat"></span><span id="qn"></span></div>
-  <div id="q"></div><div id="opts"></div><div id="exp"></div>
-  <button class="btn" id="next" style="display:none">Devam ➜</button>
+  <div id="q"></div>
+  <div id="opts"></div>
+  <div class="card-toolbar">
+    <button id="exp-toggle" class="exp-toggle-btn" title="Toggle Explanation / Açıklamayı Göster/Gizle">💡 <span id="exp-toggle-txt">Explanation</span></button>
+  </div>
+  <div id="exp"></div>
+  <button class="btn" id="next" style="display:none">Continue ➜</button>
 </div>
 <div id="ov"><div id="ovb"></div></div>
 
@@ -541,7 +561,7 @@ function say(t){if(!vocOn||!sndOn||!('speechSynthesis' in window))return;speechS
  const u=new SpeechSynthesisUtterance(t.replace(/TC-FLY/g,'Tango Charlie Foxtrot Lima Yankee'));u.lang='en-US';u.rate=.92;u.pitch=.85;speechSynthesis.speak(u)}
 let TEST=new URLSearchParams(location.search).get('test')==='1';
 if(TEST)$('tst').classList.remove('off');
-$('tst').onclick=()=>{TEST=!TEST;$('tst').classList.toggle('off',!TEST);const b=document.querySelector('.opt[data-c]');if(b&&!b.disabled){b.classList.toggle('hint',TEST);b.textContent=(TEST?'✔ ':'')+b.textContent.replace(/^✔ /,'')}};
+$('tst').onclick=()=>{TEST=!TEST;$('tst').classList.toggle('off',!TEST);const b=document.querySelector('.opt[data-c]');if(b&&!b.disabled){b.classList.toggle('hint',TEST);b.textContent=(TEST?'✔ ':'')+b.textContent.replace(/^✔ /,'')};renderExp(ST[idx]);};
 $('snd').onclick=e=>{sndOn=!sndOn;e.target.classList.toggle('off',!sndOn);if(!sndOn&&window.speechSynthesis)speechSynthesis.cancel()};
 $('voc').onclick=e=>{vocOn=!vocOn;e.target.classList.toggle('off',!vocOn);if(!vocOn&&window.speechSynthesis)speechSynthesis.cancel()};
 
@@ -574,6 +594,9 @@ const I18N = {
     continueBtn: "Continue ➜",
     finishBtn: "Complete Flight 🏁",
     toastCorrect: "✅ Correct!",
+    expTitle: "EASA / REGULATORY REFERENCE",
+    showExp: "Explanation",
+    hideExp: "Hide Explanation",
     streakBadge: "streak",
     cautions: [
       "",
@@ -624,6 +647,9 @@ const I18N = {
     continueBtn: "Devam ➜",
     finishBtn: "Uçuşu Bitir 🏁",
     toastCorrect: "✅ Doğru!",
+    expTitle: "EASA / MEVZUAT AÇIKLAMASI",
+    showExp: "Açıklama",
+    hideExp: "Açıklamayı Gizle",
     streakBadge: "seri",
     cautions: [
       "",
@@ -2808,13 +2834,35 @@ function show() {
   $('card').scrollTop = 0;
 }
 
+let expVisible = false;
+
+function renderExp(st) {
+  if (!st) return;
+  const t = I18N[lang];
+  const shouldShow = locked || TEST || expVisible;
+  const expBox = $('exp');
+  const toggleBtn = $('exp-toggle');
+  if (toggleBtn) {
+    const txtSpan = toggleBtn.querySelector('#exp-toggle-txt');
+    if (txtSpan) txtSpan.textContent = shouldShow ? t.hideExp : t.showExp;
+  }
+  if (shouldShow) {
+    expBox.style.display = 'block';
+    expBox.innerHTML = `<div class="exp-title">💡 ${t.expTitle}</div><div>${lang === 'tr' ? st.e_tr : st.e}</div>`;
+  } else {
+    expBox.style.display = 'none';
+    expBox.innerHTML = '';
+  }
+}
+
 function buildCard(st) {
   const t = I18N[lang];
   $('cat').textContent = (lang === 'tr' ? st.cat_tr : st.cat) + (st.radio ? ' · 📻' : '');
   $('qn').textContent = t.qLabel(idx + 1, ST.length);
   $('q').textContent = lang === 'tr' ? st.q_tr : st.q;
-  $('exp').textContent = '';
   $('next').style.display = 'none';
+  expVisible = false;
+  renderExp(st);
 
   const box = $('opts');
   box.innerHTML = '';
@@ -2847,8 +2895,8 @@ function refreshCard() {
     btn.textContent = (TEST && isCorrect ? '✔ ' : '') + text;
     if (isCorrect) btn.classList.toggle('hint', TEST);
   });
+  renderExp(st);
   if (locked) {
-    $('exp').textContent = '💡 ' + (lang === 'tr' ? st.e_tr : st.e);
     $('next').textContent = idx >= ST.length - 1 ? t.finishBtn : t.continueBtn;
   }
 }
@@ -2910,7 +2958,7 @@ function answer(btn, origIdx, box, st) {
   }
   hud();
 
-  $('exp').textContent = '💡 ' + (lang === 'tr' ? st.e_tr : st.e);
+  renderExp(st);
   const nb = $('next');
   nb.style.display = 'inline-block';
   nb.disabled = false;
@@ -3012,6 +3060,8 @@ function updateLangUI() {
   }
 }
 
+
+$('exp-toggle').onclick = () => { expVisible = !expVisible; renderExp(ST[idx]); };
 $('lang-btn').onclick = () => {
   lang = (lang === 'en' ? 'tr' : 'en');
   try { localStorage.setItem('ppl_sim_lang', lang); } catch (e) {}
