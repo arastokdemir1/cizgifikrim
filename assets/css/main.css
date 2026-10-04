@@ -30,6 +30,8 @@
   --accent-soft: #eff6ff;
   --card:     #ffffff;
   --live:     #0d9488;
+  --live-text: #0a6f66; /* metin için, açık zeminde 4.5:1 üstü */
+  --wip-text:  #8f5f10; /* metin için, açık zeminde 4.5:1 üstü */
   --rd:       #4f46e5;
   --wip:      #b7791f;
   --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05), 0 6px 18px rgba(15, 23, 42, 0.04);
@@ -373,9 +375,9 @@ ul, ol { list-style: none; }
 .dot-rd      { background: var(--rd); }
 .dot-wip     { background: var(--wip); }
 .dot-concept { background: var(--muted-fg); }
-.label-live    { color: var(--live); }
+.label-live    { color: var(--live-text); }
 .label-rd      { color: var(--rd); }
-.label-wip     { color: var(--wip); }
+.label-wip     { color: var(--wip-text); }
 .label-concept { color: var(--muted-fg); }
 
 /* ======================================================
@@ -1146,7 +1148,7 @@ ul, ol { list-style: none; }
 @media (min-width: 640px) { .build-status-headline { font-size: 1.5rem; } }
 
 /* Canlı varyant */
-.build-status--live .build-status-headline { color: var(--live); }
+.build-status--live .build-status-headline { color: var(--live-text); }
 .build-status-live-note {
   font-family: var(--mono);
   font-size: 0.8rem;
@@ -1161,7 +1163,7 @@ ul, ol { list-style: none; }
 .build-status-row p { font-size: 0.95rem; line-height: 1.6; }
 
 /* İnşa/geliştirme varyantı — grafik */
-.build-status--building .build-status-headline { color: var(--wip); }
+.build-status--building .build-status-headline { color: var(--wip-text); }
 .build-graph { display: flex; flex-direction: column; gap: 0.75rem; }
 .build-graph-row {
   display: grid;
@@ -2032,7 +2034,7 @@ button { color: inherit; }
 .hero-aside-note { margin-top: 1rem; color: var(--muted-fg); font-size: 0.82rem; line-height: 1.55; }
 .proof-band { width: min(100% - 2rem, 72rem); margin: 0 auto; padding-bottom: clamp(2rem, 5vw, 4rem); }
 .proof-band p { display: flex; align-items: center; gap: 0.55rem; color: var(--muted-fg); font-family: var(--sans); font-size: 0.85rem; font-weight: 600; }
-.proof-band p span { color: var(--live); font-size: 1rem; }
+.proof-band p span { color: var(--live-text); font-size: 1rem; }
 .section-heading { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); align-items: end; gap: 2rem; }
 .section-heading .section-sub { max-width: 34rem; line-height: 1.7; }
 .current-work-intro { max-width: 46rem; margin-top: 0.85rem; line-height: 1.7; }
@@ -2396,7 +2398,7 @@ button { color: inherit; }
 .lab-desk li > a { display: block; min-width: 0; }
 .lab-desk li > a:hover strong { color: var(--accent-strong); }
 .lab-live-dot { width: .55rem; height: .55rem; border-radius: 50%; background: var(--live); box-shadow: 0 0 0 4px color-mix(in srgb, var(--live) 18%, transparent); }
-.lab-desk li em { color: var(--live); }
+.lab-desk li em { color: var(--live-text); }
 .lab-button.is-ghost { background: transparent; color: var(--ink); border-color: var(--rule); box-shadow: none; }
 .lab-button.is-ghost:hover { background: var(--card); border-color: var(--accent); color: var(--accent-strong); }
 .home-block { padding-top: clamp(3rem, 7vw, 5rem); padding-bottom: clamp(1rem, 3vw, 2rem); border-top: 1px solid var(--rule); }
@@ -2455,9 +2457,9 @@ button { color: inherit; }
 @media (min-width: 1024px) { .footer-inner { grid-template-columns: minmax(0, 1fr) auto; } }
 /* Proje aktivite kartı her projede CarLog'daki görünümle aynı: başlık ve
    durum rozeti aynı yeşil tonda (metin projenin gerçek durumunu söyler). */
-.build-status--building .build-status-headline { color: var(--live); }
+.build-status--building .build-status-headline { color: var(--live-text); }
 .build-status .status-badge .status-dot { background: var(--live); }
-.build-status .status-badge [class^="label-"] { color: var(--live); }
+.build-status .status-badge [class^="label-"] { color: var(--live-text); }
 /* Ofis konuşmaları: kat planının üstünü kapatan balon yerine planın hemen
    üstünde tek satırlık canlı akış şeridi. */
 .live-office .lo-conversation { position: static; transform: none; display: flex; align-items: center; gap: .6rem; max-width: none; min-height: 2.6rem; margin: 0 0 .75rem; padding: .55rem .9rem; border: 1px solid #2c3f66; border-radius: .7rem; background: #0f1a30; box-shadow: none; color: #dbe4ff; font-size: .8rem; line-height: 1.4; text-align: left; }
@@ -2893,3 +2895,8 @@ button { color: inherit; }
   margin: 0;
 }
 
+
+/* Atlama bağlantısı (klavye/ekran okuyucu): odaklanınca görünür */
+.skip-link { position: absolute; left: 0.75rem; top: -4rem; z-index: 1000; padding: 0.6rem 1rem; border-radius: var(--radius-sm); background: var(--ink); color: #fff; font-family: var(--sans); font-size: 0.875rem; font-weight: 600; }
+.skip-link:focus { top: 0.75rem; }
+main:focus { outline: none; }

@@ -42,6 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const open = mobileNav.classList.toggle('open');
       toggle.classList.toggle('open', open);
       toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Menüyü kapat' : 'Menüyü aç');
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+        toggle.click();
+        toggle.focus();
+      }
     });
   }
 
