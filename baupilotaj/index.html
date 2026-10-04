@@ -2,70 +2,186 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>PPL Flight Sim – Sınav Simülatörü</title>
 <meta name="robots" content="noindex,nofollow">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#05070d;color:#e8eefc;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden}
+*{box-sizing:border-box;margin:0;padding:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;width:100%;background:#05070d;color:#e8eefc;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden;position:fixed}
 canvas{position:fixed;left:0;display:block}
 #scene{top:0}#dash{bottom:0}
-#hud{position:fixed;top:0;left:0;right:0;height:46px;z-index:6;display:flex;align-items:center;gap:14px;padding:0 14px;background:linear-gradient(#050810ee,#050810aa);border-bottom:1px solid #1f2a44;font-size:13px}
-.brand{font-weight:800;letter-spacing:.5px;white-space:nowrap}
-#pills{display:flex;gap:6px;flex:1;min-width:0;overflow:hidden}
-.pill{padding:4px 10px;border-radius:20px;background:#121a30;color:#7d8bb0;font-size:12px;white-space:nowrap;border:1px solid #1f2a44}
+
+#hud{
+  position:fixed;top:0;left:0;right:0;height:44px;z-index:10;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:0 max(10px, env(safe-area-inset-right)) 0 max(10px, env(safe-area-inset-left));
+  background:linear-gradient(#050810f2,#050810cc);border-bottom:1px solid #1f2a44;font-size:12.5px;
+}
+.brand{font-weight:800;letter-spacing:.5px;white-space:nowrap;font-size:13px;display:flex;align-items:center;gap:4px}
+#pills{display:flex;gap:5px;flex:1;min-width:0;overflow:hidden;margin:0 4px}
+.pill{padding:3px 9px;border-radius:18px;background:#121a30;color:#7d8bb0;font-size:11.5px;white-space:nowrap;border:1px solid #1f2a44}
 .pill.on{background:#1b4fd8;color:#fff;border-color:#5b8cff}.pill.done{color:#5fd68f;border-color:#1f5a3a}
-.bar{width:110px;height:10px;background:#1a2238;border-radius:6px;overflow:hidden;display:inline-block;vertical-align:middle}
+.hp-wrap{display:flex;align-items:center;gap:5px;white-space:nowrap;font-size:12px}
+.bar{width:90px;height:9px;background:#1a2238;border-radius:6px;overflow:hidden;display:inline-block;vertical-align:middle}
 .bar i{display:block;height:100%;width:100%;background:#27d17f;transition:width .5s,background .5s}
-.tg{background:#121a30;border:1px solid #2a3a63;color:#cfe0ff;border-radius:8px;padding:4px 9px;cursor:pointer;font-size:12px}
-.tg.off{opacity:.45}
-#radio{position:fixed;top:56px;left:12px;width:min(380px,40vw);z-index:5;background:#060c1ccc;border:1px solid #27386a;border-radius:12px;backdrop-filter:blur(5px);overflow:hidden}
-.rh{display:flex;justify-content:space-between;align-items:center;padding:7px 12px;background:#0d1a38;font-size:13px}
+.score-wrap{white-space:nowrap;font-size:12px}
+.streak-badge{color:#ff9d3b;font-weight:700}
+.btn-group{display:flex;gap:4px;align-items:center}
+.tg{background:#121a30;border:1px solid #2a3a63;color:#cfe0ff;border-radius:7px;padding:4px 8px;cursor:pointer;font-size:12px;min-height:28px;line-height:1;display:inline-flex;align-items:center;justify-content:center}
+.tg.off{opacity:.4}
+
+#radio{
+  position:fixed;top:50px;left:10px;width:min(380px,40vw);z-index:6;
+  background:#060c1ccc;border:1px solid #27386a;border-radius:12px;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);overflow:hidden;
+  transition:box-shadow .2s;
+}
+.rh{display:flex;justify-content:space-between;align-items:center;padding:6px 11px;background:#0d1a38;font-size:12.5px;cursor:pointer;user-select:none}
 #freq{color:#ff5a4d;font-family:ui-monospace,Menlo,monospace;letter-spacing:1px}
-#tx{width:10px;height:10px;border-radius:50%;background:#333;display:inline-block}#tx.on{background:#3bff7a;box-shadow:0 0 8px #3bff7a}
-#log{max-height:min(36vh,300px);overflow-y:auto;padding:8px 12px;font-size:13px;line-height:1.4}
-.m{margin:5px 0;padding:6px 9px;border-radius:8px}
+.rh-right{display:flex;align-items:center;gap:8px}
+#tx{width:9px;height:9px;border-radius:50%;background:#333;display:inline-block}#tx.on{background:#3bff7a;box-shadow:0 0 8px #3bff7a}
+.rh-btn{font-size:11px;padding:2px 6px;border-radius:4px;background:#172445;border:1px solid #334c85;color:#9bb5f0}
+#log{max-height:min(34vh,280px);overflow-y:auto;padding:6px 10px;font-size:12.5px;line-height:1.4;-webkit-overflow-scrolling:touch}
+.m{margin:4px 0;padding:5px 8px;border-radius:7px}
 .m.atc{background:#10285a;border-left:3px solid #4d8dff}
 .m.me{background:#103a26;border-left:3px solid #3bd47b}
 .m.bad{background:#4a1520;border-left:3px solid #ff4d63}
-.m.info{background:#2b2a12;border-left:3px solid #e0c040;font-family:ui-monospace,Menlo,monospace;font-size:12px}
-.m b{font-size:11px;letter-spacing:1px;opacity:.85;display:block}
-.m i{display:block;color:#9fb6e8;font-size:12px;margin-top:2px}
-#card{position:fixed;top:56px;right:12px;width:min(470px,46vw);z-index:5;background:#060c1cdd;border:1px solid #2f4a94;border-radius:14px;padding:14px 16px;backdrop-filter:blur(6px);max-height:calc(100vh - var(--dh,210px) - 70px);overflow-y:auto;display:none;box-shadow:0 12px 40px #000a}
+.m.info{background:#2b2a12;border-left:3px solid #e0c040;font-family:ui-monospace,Menlo,monospace;font-size:11.5px}
+.m b{font-size:10.5px;letter-spacing:1px;opacity:.85;display:block}
+.m i{display:block;color:#9fb6e8;font-size:11.5px;margin-top:2px}
+
+#card{
+  position:fixed;top:50px;right:10px;width:min(470px,46vw);z-index:7;
+  background:#060c1cee;border:1px solid #2f4a94;border-radius:14px;padding:14px 16px;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  max-height:calc(100vh - var(--dh,210px) - 62px);
+  overflow-y:auto;display:none;box-shadow:0 12px 40px #000a;
+  -webkit-overflow-scrolling:touch;
+}
 #chead{display:flex;justify-content:space-between;font-size:11px;letter-spacing:1.2px;color:#78a8ff;text-transform:uppercase;margin-bottom:6px}
-#q{font-size:16.5px;font-weight:650;line-height:1.35;margin-bottom:8px}
-.opt{display:block;width:100%;text-align:left;margin:6px 0;padding:9px 12px;border-radius:9px;border:1px solid #33498a;background:#0f1d44;color:#fff;font-size:14px;cursor:pointer;line-height:1.3}
+#q{font-size:16px;font-weight:650;line-height:1.35;margin-bottom:8px}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 13px;border-radius:9px;border:1px solid #33498a;background:#0f1d44;color:#fff;font-size:13.8px;cursor:pointer;line-height:1.35;touch-action:manipulation}
 .opt:hover:not(:disabled){background:#1a3070}
+.opt:active:not(:disabled){transform:scale(0.985);background:#223c8a}
 .opt.hint:not(.ok):not(.bad){outline:2px dashed #ffd24d;outline-offset:-2px}
 .opt.ok{background:#12673f;border-color:#27d17f}.opt.bad{background:#7a1f2c;border-color:#ff5468}
-#exp{margin-top:8px;font-size:13.5px;color:#cfe1ff;line-height:1.4}
-.btn{padding:11px 24px;border:0;border-radius:11px;background:linear-gradient(135deg,#2e8bff,#6a5bff);color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-top:10px}
+#exp{margin-top:8px;font-size:13px;color:#cfe1ff;line-height:1.4}
+.btn{display:inline-block;padding:11px 24px;border:0;border-radius:11px;background:linear-gradient(135deg,#2e8bff,#6a5bff);color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-top:10px;touch-action:manipulation}
+.btn:active:not(:disabled){transform:scale(0.98)}
 .btn:disabled{opacity:.4;cursor:wait}
+
 #fade{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity .6s;z-index:8}
 #warn{position:fixed;inset:0;pointer-events:none;z-index:4}
 #warn.l1{animation:pa 1.6s infinite}#warn.l2{animation:pa 1s infinite}#warn.l3{animation:pr .6s infinite}
 @keyframes pa{50%{box-shadow:inset 0 0 120px rgba(255,170,0,.45)}}
 @keyframes pr{50%{box-shadow:inset 0 0 180px rgba(255,20,20,.75)}}
-#toast{position:fixed;top:52%;left:50%;transform:translate(-50%,-50%);font-size:24px;font-weight:800;z-index:7;opacity:0;transition:opacity .3s;text-shadow:0 2px 10px #000;pointer-events:none;text-align:center;max-width:80vw}
-#ov{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;background:radial-gradient(#101d44ee,#04060dfa);padding:20px;overflow:auto}
-#ovb{max-width:640px;text-align:center}
-#ovb h1{font-size:34px;margin-bottom:10px}#ovb p{color:#b9c9f0;line-height:1.55;margin:8px 0}
-.rep{text-align:left;margin:12px auto;max-width:430px;font-size:14px}
+#toast{position:fixed;top:48%;left:50%;transform:translate(-50%,-50%);font-size:22px;font-weight:800;z-index:9;opacity:0;transition:opacity .3s;text-shadow:0 2px 10px #000;pointer-events:none;text-align:center;max-width:85vw}
+
+#ov{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;background:radial-gradient(#101d44ee,#04060dfa);padding:16px 12px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#ovb{max-width:640px;width:100%;margin:auto;text-align:center;padding:12px 0 24px}
+#ovb h1{font-size:32px;margin-bottom:10px}#ovb p{color:#b9c9f0;line-height:1.55;margin:8px 0}
+.rep{text-align:left;margin:12px auto;max-width:430px;font-size:13.5px}
 .rep div{margin:5px 0}.rep .t{height:8px;border-radius:5px;background:#1a2238;overflow:hidden}.rep .t i{display:block;height:100%}
-@media(max-width:900px){#radio{width:calc(100vw - 24px);top:50px}#log{max-height:80px}#card{width:calc(100vw - 24px);top:auto;bottom:calc(var(--dh,150px) + 8px);max-height:48vh}#pills{display:none}}
+
+#dash-tabs{
+  position:fixed;bottom:calc(var(--dh, 135px) + 3px);right:8px;z-index:8;display:none;
+  background:rgba(6,12,28,0.85);border:1px solid #283d70;border-radius:18px;padding:2px 3px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.5);
+}
+#dash-tabs button{
+  background:transparent;border:0;color:#8ba2d4;font-size:11px;font-weight:600;padding:4px 8px;border-radius:14px;cursor:pointer;
+}
+#dash-tabs button.act{background:#2655cc;color:#fff}
+
+@media(max-width:768px){
+  #pills{display:none}
+  #hud{height:42px;padding:0 8px;gap:6px}
+  .brand .brand-sub{display:none}
+  .bar{width:56px;height:7px}
+  .btn-txt{display:none}
+  .tg{padding:4px 6px;font-size:11px}
+  .score-wrap{font-size:11.5px}
+  
+  #radio{
+    left:8px;right:8px;width:auto;top:46px;
+    background:rgba(6,12,28,0.92);
+  }
+  .rh{padding:5px 9px;font-size:11.5px}
+  #log{
+    max-height:56px;
+    padding:4px 8px;
+    font-size:11.5px;
+    transition:max-height .25s ease;
+  }
+  #radio.open #log{max-height:220px}
+  #radio.collapsed #log{display:none}
+  
+  #card{
+    left:8px;right:8px;width:auto;top:auto;
+    bottom:calc(var(--dh,135px) + 6px + env(safe-area-inset-bottom, 0px));
+    max-height:min(57vh, calc(100vh - var(--dh,135px) - 86px));
+    padding:11px 13px;
+    border-radius:13px;
+    background:rgba(6,12,28,0.95);
+    box-shadow:0 -6px 28px rgba(0,0,0,0.7);
+  }
+  #q{font-size:14.5px;line-height:1.32;margin-bottom:6px}
+  .opt{
+    padding:10px 11px;
+    font-size:13px;
+    margin:5px 0;
+    min-height:42px;
+    border-radius:8px;
+  }
+  #exp{
+    font-size:12px;
+    line-height:1.35;
+    padding:6px 9px;
+    background:rgba(18,34,75,0.5);
+    border-radius:7px;
+    margin-top:6px;
+  }
+  .btn{
+    width:100%;
+    padding:12px 16px;
+    font-size:15px;
+    min-height:44px;
+    border-radius:10px;
+    margin-top:8px;
+  }
+  
+  #dash-tabs{display:flex;gap:2px}
+  
+  #ovb h1{font-size:26px}
+  #ovb p{font-size:13px;line-height:1.45}
+}
 </style>
 </head>
 <body>
 <canvas id="scene"></canvas><canvas id="dash"></canvas>
+<div id="dash-tabs">
+  <button id="tab-flt" class="act">✈️ Göstergeler</button>
+  <button id="tab-eng">⚙️ Motor/Telsiz</button>
+</div>
 <div id="warn"></div><div id="fade"></div><div id="toast"></div>
 <div id="hud">
-  <div class="brand">✈️ PPL FLIGHT SIM</div>
+  <div class="brand">✈️ <span class="brand-sub">PPL SIM</span></div>
   <div id="pills"></div>
-  <div>Sağlık <span class="bar"><i id="hp"></i></span></div>
-  <div>Skor <b id="score">0</b> · Seri <b id="streak">0</b>🔥</div>
-  <button class="tg off" id="tst">🧪 Test: cevabı göster</button><button class="tg" id="snd">🔊 Ses</button><button class="tg" id="voc">🗣️ ATC sesi</button>
+  <div class="hp-wrap"><span>HP</span> <span class="bar"><i id="hp"></i></span></div>
+  <div class="score-wrap"><b id="score">0</b> <span class="streak-badge">🔥<b id="streak">0</b></span></div>
+  <div class="btn-group">
+    <button class="tg off" id="tst" title="Test Modu">🧪<span class="btn-txt"> Test</span></button>
+    <button class="tg" id="snd" title="Ses">🔊</button>
+    <button class="tg" id="voc" title="ATC Sesi">🗣️</button>
+  </div>
 </div>
-<div id="radio"><div class="rh"><span>📻 <b id="freq">---</b></span><span>TX <span id="tx"></span></span></div><div id="log"></div></div>
+<div id="radio">
+  <div class="rh" id="rh-toggle">
+    <span>📻 <b id="freq">---</b></span>
+    <span class="rh-right">TX <span id="tx"></span> <span id="log-btn" class="rh-btn">📜</span></span>
+  </div>
+  <div id="log"></div>
+</div>
 <div id="card">
   <div id="chead"><span id="cat"></span><span id="qn"></span></div>
   <div id="q"></div><div id="opts"></div><div id="exp"></div>
@@ -77,12 +193,69 @@ canvas{position:fixed;left:0;display:block}
 const $=id=>document.getElementById(id);
 const FT=.3048,KT=.5144,DIL=.45,rad=d=>d*Math.PI/180;
 const sc=$('scene'),sx=sc.getContext('2d'),dc=$('dash'),dx=dc.getContext('2d');
-let W=0,H=0,DW=0,DH=0,DS=1;
-function rs(){DS=Math.min(1,innerWidth/1280);DH=Math.round(210*DS);DW=innerWidth;
- dc.width=DW;dc.height=DH;dc.style.width=DW+'px';dc.style.height=DH+'px';
- W=sc.width=innerWidth;H=sc.height=Math.max(200,innerHeight-DH);sc.style.width=W+'px';sc.style.height=H+'px';
- document.documentElement.style.setProperty('--dh',DH+'px');}
+let W=0,H=0,DW=0,DH=0,DS=1,DPR=1;
+let isMobile=false,dashX=0,targetDashX=0,minDashX=0;
+let isDraggingDash=false,startDragX=0,startDashX=0;
+
+function rs(){
+ DPR=Math.min(2,window.devicePixelRatio||1);
+ isMobile=innerWidth<768;
+ DW=innerWidth;
+ if(isMobile){
+  // Mobil: 90-100px çaplı okunabilir kadranlar
+  DS=Math.max(0.55,Math.min(0.72,DW/580));
+  DH=Math.round(210*DS);
+  minDashX=Math.min(0,DW-1280*DS);
+  targetDashX=Math.max(minDashX,Math.min(0,targetDashX));
+ }else{
+  DS=Math.min(1,DW/1280);
+  DH=Math.round(210*DS);
+  minDashX=0;
+  targetDashX=0;
+  dashX=0;
+ }
+ dc.width=Math.round(DW*DPR);dc.height=Math.round(DH*DPR);
+ dc.style.width=DW+'px';dc.style.height=DH+'px';
+ W=innerWidth;H=Math.max(180,innerHeight-DH);
+ sc.width=Math.round(W*DPR);sc.height=Math.round(H*DPR);
+ sc.style.width=W+'px';sc.style.height=H+'px';
+ document.documentElement.style.setProperty('--dh',DH+'px');
+}
 rs();addEventListener('resize',rs);
+
+// Dokunmatik gösterge kaydırma
+dc.addEventListener('touchstart',e=>{
+ if(!isMobile||e.touches.length!==1)return;
+ isDraggingDash=true;startDragX=e.touches[0].clientX;startDashX=dashX;
+},{passive:true});
+dc.addEventListener('touchmove',e=>{
+ if(!isDraggingDash||e.touches.length!==1)return;
+ const delta=e.touches[0].clientX-startDragX;
+ targetDashX=Math.max(minDashX-30,Math.min(30,startDashX+delta));
+ dashX=targetDashX;syncTabs();
+},{passive:true});
+dc.addEventListener('touchend',()=>{
+ if(!isDraggingDash)return;
+ isDraggingDash=false;
+ targetDashX=targetDashX>minDashX*0.45?0:minDashX;
+ syncTabs();
+});
+function syncTabs(){
+ const tF=$('tab-flt'),tE=$('tab-eng');
+ if(!tF||!tE)return;
+ const isE=targetDashX<minDashX*0.48;
+ tF.classList.toggle('act',!isE);tE.classList.toggle('act',isE);
+}
+if($('tab-flt'))$('tab-flt').onclick=()=>{targetDashX=0;syncTabs()};
+if($('tab-eng'))$('tab-eng').onclick=()=>{targetDashX=minDashX;syncTabs()};
+
+// Telsiz başlığına dokununca aç/kapa
+if($('rh-toggle'))$('rh-toggle').onclick=()=>{
+ const r=$('radio');if(!r)return;
+ if(r.classList.contains('open')){r.classList.remove('open');r.classList.add('collapsed');$('log-btn').textContent='▼'}
+ else if(r.classList.contains('collapsed')){r.classList.remove('collapsed');$('log-btn').textContent='📜'}
+ else{r.classList.add('open');$('log-btn').textContent='▲'}
+};
 
 /* ================= DÜNYA ================= */
 function mb(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
@@ -169,6 +342,7 @@ function resetState(){Object.assign(S,{z:-420,x:0,alt:0,ias:0,hdg:360,pitch:0,ro
 
 function update(dt){
  tt+=dt;const L=lvl();
+ if(isMobile&&!isDraggingDash){dashX+=(targetDashX-dashX)*Math.min(1,dt*14)}
  // RPM
  let tr=S.tRpm;
  if(D.carb)tr-=Math.min(500,(tt-D.carbT)*45);
@@ -235,6 +409,7 @@ function boom(){ended=true;S.tRpm=0;for(let i=0;i<160;i++)parts.push({x:W/2+(Mat
 
 /* ================= RENDER SAHNE ================= */
 function render(){
+ sx.setTransform(DPR,0,0,DPR,0,0);
  const L=lvl();CY=S.alt*FT+2.2;CAMX=S.x;CAMZ=S.z;F=H;HY=H*.44+F*Math.tan(rad(S.pitch));
  const jit=(S.shake>0?S.shake:0)+(L>=1?L*.8:0);
  sx.clearRect(0,0,W,H);sx.save();
@@ -287,9 +462,11 @@ function bar(x,y,w,label,v,zones,txtv){
 
 function drawDash(){
  const L=lvl();
- dx.setTransform(1,0,0,1,0,0);dx.clearRect(0,0,DW,DH);
+ dx.setTransform(DPR,0,0,DPR,0,0);
+ dx.clearRect(0,0,DW,DH);
  let g=dx.createLinearGradient(0,0,0,DH);g.addColorStop(0,'#23262d');g.addColorStop(1,'#101216');dx.fillStyle=g;dx.fillRect(0,0,DW,DH);
- dx.setTransform(DS,0,0,DS,Math.max(0,(DW-1280*DS)/2),0);
+ const curX=isMobile?dashX:Math.max(0,(DW-1280*DS)/2);
+ dx.setTransform(DS*DPR,0,0,DS*DPR,curX*DPR,0);
  const cy=122,r=68;
  // annunciator
  const L3=L>=3;
@@ -610,7 +787,7 @@ function answer(btn,x,box,st){
  $('exp').textContent='💡 '+st.e;hud();
  const nb=$('next');nb.style.display='inline-block';nb.disabled=false;nb.textContent=idx>=ST.length-1?'Uçuşu Bitir 🏁':'Devam ➜';
  if(st.lockNext){nb.disabled=true;setTimeout(()=>nb.disabled=false,st.lockNext)}
- $('card').scrollTop=$('card').scrollHeight;
+ $('card').scrollTo({top:$('card').scrollHeight,behavior:'smooth'});
 }
 $('next').onclick=()=>{if(ended)return;idx++;if(idx>=ST.length)return win();show()};
 function report(){const rows=Object.entries(stat).map(([k,v])=>{const p=Math.round(v.ok/v.tot*100);return`<div>${k} <b>${v.ok}/${v.tot}</b><div class="t"><i style="width:${p}%;background:${p>=75?'#27d17f':p>=50?'#ffb020':'#ff4d63'}"></i></div></div>`}).join('');
