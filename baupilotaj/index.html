@@ -187,7 +187,7 @@ canvas{position:fixed;left:0;display:block}
 .sub-pill.on{background:#1b4fd8;color:#fff;border-color:#5b8cff;font-weight:700}
 
 #card.exam-mode{
-  top:92px;right:auto;left:50%;transform:translateX(-50%);
+  top:92px;bottom:auto;right:auto;left:50%;transform:translateX(-50%);
   width:min(680px,94vw);max-height:calc(100vh - 108px);
   background:rgba(6,12,28,0.96);border:1px solid #3d63b8;
   box-shadow:0 12px 45px rgba(0,0,0,0.85);
@@ -400,7 +400,7 @@ function drawWorld(L){
 const S={z:-420,x:0,alt:0,ias:0,hdg:360,pitch:0,roll:0,rpm:0,oilP:0,oilT:90,fuel:.85,vsi:0,gnd:true,appr:false,apprCap:null,zMax:null,tIas:0,tAlt:0,tRpm:0,tHdg:360,crash:false,shake:0,prop:0};
 const D={carb:false,carbT:0,oil:false,eFail:false};
 let hp=100,score=0,streak=0,idx=0,run=false,locked=false,tt=0,ended=false,squawk='7000',freqTxt='---',talk=0,lastL=0,beepT=0;
-const stat={};
+let stat={};
 const lvl=()=>Math.max(0,Math.ceil((100-hp)/20));
 const parts=[];
 function resetState(){Object.assign(S,{z:-420,x:0,alt:0,ias:0,hdg:360,pitch:0,roll:0,rpm:0,oilP:0,oilT:90,fuel:.85,vsi:0,gnd:true,appr:false,apprCap:null,zMax:null,tIas:0,tAlt:0,tRpm:0,tHdg:360,crash:false,shake:0});
@@ -7503,13 +7503,13 @@ function showStartMenu() {
     <div class="mode-badge">${t.simCardBadge}</div>
     <h2>${t.simCardTitle}</h2>
     <p>${t.simCardDesc}</p>
-    <button class="btn">${t.simCardBtn}</button>
+    <button class="btn" onclick="selectMode('sim'); event.stopPropagation();">${t.simCardBtn}</button>
   </div>
   <div class="mode-card" onclick="selectMode('exam')">
     <div class="mode-badge">${t.examCardBadge}</div>
     <h2>${t.examCardTitle}</h2>
     <p>${t.examCardDesc}</p>
-    <button class="btn btn-sec">${t.examCardBtn}</button>
+    <button class="btn btn-sec" onclick="selectMode('exam'); event.stopPropagation();">${t.examCardBtn}</button>
   </div>
 </div>
 <p style="font-size:12px;opacity:.75">💡 ${lang === 'tr' ? 'Tüm sorular resmi EASA ECQB müfredatına birebir uygundur.' : 'All questions verbatim match the official EASA ECQB learning objectives.'}</p>`);
@@ -7599,7 +7599,7 @@ function startExam(subCode) {
   idx = 0;
   score = 0;
   streak = 0;
-  stat = {};
+  for (const k in stat) delete stat[k];
   renderExamBar();
   hud();
   show();
