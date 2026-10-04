@@ -1242,7 +1242,7 @@ function initContactFormSupabase() {
     } catch (error) {
       console.error('contact form fallback', error);
       if (sentMsg) {
-        sentMsg.textContent = 'Mesaj şu anda gönderilemedi. Lütfen hello@cizgifikrim.net adresine e-posta gönder.';
+        sentMsg.textContent = 'Mesaj şu anda gönderilemedi. Lütfen cizgifikrimnet@gmail.com adresine e-posta gönder.';
       }
     } finally {
       if (submitBtn) {
