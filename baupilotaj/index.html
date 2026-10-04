@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PPL Flight Sim – Sınav Simülatörü</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#05070d;color:#e8eefc;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden}
+canvas{position:fixed;left:0;display:block}
+#scene{top:0}#dash{bottom:0}
+#hud{position:fixed;top:0;left:0;right:0;height:46px;z-index:6;display:flex;align-items:center;gap:14px;padding:0 14px;background:linear-gradient(#050810ee,#050810aa);border-bottom:1px solid #1f2a44;font-size:13px}
+.brand{font-weight:800;letter-spacing:.5px;white-space:nowrap}
+#pills{display:flex;gap:6px;flex:1;min-width:0;overflow:hidden}
+.pill{padding:4px 10px;border-radius:20px;background:#121a30;color:#7d8bb0;font-size:12px;white-space:nowrap;border:1px solid #1f2a44}
+.pill.on{background:#1b4fd8;color:#fff;border-color:#5b8cff}.pill.done{color:#5fd68f;border-color:#1f5a3a}
+.bar{width:110px;height:10px;background:#1a2238;border-radius:6px;overflow:hidden;display:inline-block;vertical-align:middle}
+.bar i{display:block;height:100%;width:100%;background:#27d17f;transition:width .5s,background .5s}
+.tg{background:#121a30;border:1px solid #2a3a63;color:#cfe0ff;border-radius:8px;padding:4px 9px;cursor:pointer;font-size:12px}
+.tg.off{opacity:.45}
+#radio{position:fixed;top:56px;left:12px;width:min(380px,40vw);z-index:5;background:#060c1ccc;border:1px solid #27386a;border-radius:12px;backdrop-filter:blur(5px);overflow:hidden}
+.rh{display:flex;justify-content:space-between;align-items:center;padding:7px 12px;background:#0d1a38;font-size:13px}
+#freq{color:#ff5a4d;font-family:ui-monospace,Menlo,monospace;letter-spacing:1px}
+#tx{width:10px;height:10px;border-radius:50%;background:#333;display:inline-block}#tx.on{background:#3bff7a;box-shadow:0 0 8px #3bff7a}
+#log{max-height:min(36vh,300px);overflow-y:auto;padding:8px 12px;font-size:13px;line-height:1.4}
+.m{margin:5px 0;padding:6px 9px;border-radius:8px}
+.m.atc{background:#10285a;border-left:3px solid #4d8dff}
+.m.me{background:#103a26;border-left:3px solid #3bd47b}
+.m.bad{background:#4a1520;border-left:3px solid #ff4d63}
+.m.info{background:#2b2a12;border-left:3px solid #e0c040;font-family:ui-monospace,Menlo,monospace;font-size:12px}
+.m b{font-size:11px;letter-spacing:1px;opacity:.85;display:block}
+.m i{display:block;color:#9fb6e8;font-size:12px;margin-top:2px}
+#card{position:fixed;top:56px;right:12px;width:min(470px,46vw);z-index:5;background:#060c1cdd;border:1px solid #2f4a94;border-radius:14px;padding:14px 16px;backdrop-filter:blur(6px);max-height:calc(100vh - var(--dh,210px) - 70px);overflow-y:auto;display:none;box-shadow:0 12px 40px #000a}
+#chead{display:flex;justify-content:space-between;font-size:11px;letter-spacing:1.2px;color:#78a8ff;text-transform:uppercase;margin-bottom:6px}
+#q{font-size:16.5px;font-weight:650;line-height:1.35;margin-bottom:8px}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;padding:9px 12px;border-radius:9px;border:1px solid #33498a;background:#0f1d44;color:#fff;font-size:14px;cursor:pointer;line-height:1.3}
+.opt:hover:not(:disabled){background:#1a3070}
+.opt.hint:not(.ok):not(.bad){outline:2px dashed #ffd24d;outline-offset:-2px}
+.opt.ok{background:#12673f;border-color:#27d17f}.opt.bad{background:#7a1f2c;border-color:#ff5468}
+#exp{margin-top:8px;font-size:13.5px;color:#cfe1ff;line-height:1.4}
+.btn{padding:11px 24px;border:0;border-radius:11px;background:linear-gradient(135deg,#2e8bff,#6a5bff);color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-top:10px}
+.btn:disabled{opacity:.4;cursor:wait}
+#fade{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity .6s;z-index:8}
+#warn{position:fixed;inset:0;pointer-events:none;z-index:4}
+#warn.l1{animation:pa 1.6s infinite}#warn.l2{animation:pa 1s infinite}#warn.l3{animation:pr .6s infinite}
+@keyframes pa{50%{box-shadow:inset 0 0 120px rgba(255,170,0,.45)}}
+@keyframes pr{50%{box-shadow:inset 0 0 180px rgba(255,20,20,.75)}}
+#toast{position:fixed;top:52%;left:50%;transform:translate(-50%,-50%);font-size:24px;font-weight:800;z-index:7;opacity:0;transition:opacity .3s;text-shadow:0 2px 10px #000;pointer-events:none;text-align:center;max-width:80vw}
+#ov{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;background:radial-gradient(#101d44ee,#04060dfa);padding:20px;overflow:auto}
+#ovb{max-width:640px;text-align:center}
+#ovb h1{font-size:34px;margin-bottom:10px}#ovb p{color:#b9c9f0;line-height:1.55;margin:8px 0}
+.rep{text-align:left;margin:12px auto;max-width:430px;font-size:14px}
+.rep div{margin:5px 0}.rep .t{height:8px;border-radius:5px;background:#1a2238;overflow:hidden}.rep .t i{display:block;height:100%}
+@media(max-width:900px){#radio{width:calc(100vw - 24px);top:50px}#log{max-height:80px}#card{width:calc(100vw - 24px);top:auto;bottom:calc(var(--dh,150px) + 8px);max-height:48vh}#pills{display:none}}
+</style>
+</head>
+<body>
+<canvas id="scene"></canvas><canvas id="dash"></canvas>
+<div id="warn"></div><div id="fade"></div><div id="toast"></div>
+<div id="hud">
+  <div class="brand">✈️ PPL FLIGHT SIM</div>
+  <div id="pills"></div>
+  <div>Sağlık <span class="bar"><i id="hp"></i></span></div>
+  <div>Skor <b id="score">0</b> · Seri <b id="streak">0</b>🔥</div>
+  <button class="tg off" id="tst">🧪 Test: cevabı göster</button><button class="tg" id="snd">🔊 Ses</button><button class="tg" id="voc">🗣️ ATC sesi</button>
+</div>
+<div id="radio"><div class="rh"><span>📻 <b id="freq">---</b></span><span>TX <span id="tx"></span></span></div><div id="log"></div></div>
+<div id="card">
+  <div id="chead"><span id="cat"></span><span id="qn"></span></div>
+  <div id="q"></div><div id="opts"></div><div id="exp"></div>
+  <button class="btn" id="next" style="display:none">Devam ➜</button>
+</div>
+<div id="ov"><div id="ovb"></div></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const FT=.3048,KT=.5144,DIL=.45,rad=d=>d*Math.PI/180;
+const sc=$('scene'),sx=sc.getContext('2d'),dc=$('dash'),dx=dc.getContext('2d');
+let W=0,H=0,DW=0,DH=0,DS=1;
+function rs(){DS=Math.min(1,innerWidth/1280);DH=Math.round(210*DS);DW=innerWidth;
+ dc.width=DW;dc.height=DH;dc.style.width=DW+'px';dc.style.height=DH+'px';
+ W=sc.width=innerWidth;H=sc.height=Math.max(200,innerHeight-DH);sc.style.width=W+'px';sc.style.height=H+'px';
+ document.documentElement.style.setProperty('--dh',DH+'px');}
+rs();addEventListener('resize',rs);
+
+/* ================= DÜNYA ================= */
+function mb(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const R=mb(7);
+const FCOL=['#4e8a3c','#6b9a43','#8aa34a','#b5a85a','#3f7a3a','#5f8f4e','#3b6f9c'];
+const fields=[...Array(170)].map(()=>({x:(R()-.5)*7000,z:R()*8000,w:90+R()*420,d:90+R()*520,c:FCOL[R()*7|0]})).filter(f=>f.x>270||f.x+f.w<-270);
+const clouds=[...Array(28)].map(()=>({x:(R()-.5)*8000,y:900+R()*950,z:R()*8000,s:150+R()*260}));
+const splats=[...Array(9)].map(()=>({x:.25+R()*.5,y:.1+R()*.6,r:.03+R()*.05}));
+function shade(h,k){const n=parseInt(h.slice(1),16);let r=n>>16,g=n>>8&255,b=n&255;return`rgb(${Math.min(255,r*k|0)},${Math.min(255,g*k|0)},${Math.min(255,b*k|0)})`}
+let CY,HY,CAMX,CAMZ,F;
+function P(x,y,z){const dz=Math.max(z-CAMZ,2);return[W/2+F*(x-CAMX)/dz,HY-F*(y-CY)/dz,dz]}
+function quad(pts,col){sx.fillStyle=col;sx.beginPath();pts.forEach((p,i)=>{const q=P(p[0],p[1],p[2]);i?sx.lineTo(q[0],q[1]):sx.moveTo(q[0],q[1])});sx.closePath();sx.fill()}
+function zquad(x0,x1,y,z0,z1,c){const n=CAMZ+1.5;if(z1<=n)return;if(z0<n)z0=n;quad([[x0,y,z0],[x1,y,z0],[x1,y,z1],[x0,y,z1]],c)}
+function box(x,y0,z,w,h,d,col){
+ if(z+d<CAMZ+2)return;const zf=Math.max(z,CAMZ+1.5);
+ if(z>CAMZ+1.5)quad([[x,y0,z],[x+w,y0,z],[x+w,y0+h,z],[x,y0+h,z]],shade(col,1));
+ const xs=CAMX<x?x:(CAMX>x+w?x+w:null);
+ if(xs!==null)quad([[xs,y0,zf],[xs,y0,z+d],[xs,y0+h,z+d],[xs,y0+h,zf]],shade(col,.7));
+ if(CY>y0+h)quad([[x,y0+h,zf],[x+w,y0+h,zf],[x+w,y0+h,z+d],[x,y0+h,z+d]],shade(col,1.15));
+}
+const objs=[
+ {x:60,y:0,z:-440,w:50,h:9,d:60,c:'#8a8f98'},{x:60,y:0,z:-350,w:50,h:9,d:60,c:'#9aa0a8'},{x:60,y:0,z:-260,w:40,h:7,d:40,c:'#a39a8a'},
+ {x:-150,y:0,z:-470,w:70,h:7,d:45,c:'#b9a99a'},{x:-150,y:0,z:-380,w:40,h:5,d:30,c:'#c8c2b5'},
+ {x:-70,y:0,z:-250,w:10,h:6,d:10,c:'#d8d8d8'},{x:-68,y:6,z:-248,w:6,h:14,d:6,c:'#c9ccd1'},
+ {x:-73,y:20,z:-253,w:16,h:4,d:16,c:'#2c5a7a'},{x:-74,y:24,z:-254,w:18,h:1,d:18,c:'#e8e8e8'}
+];
+
+function drawWorld(L){
+ const t=tt;
+ // gökyüzü
+ let g=sx.createLinearGradient(0,HY-H*.9,0,HY);g.addColorStop(0,'#1f58b8');g.addColorStop(1,'#bfe0f7');
+ sx.fillStyle=g;sx.fillRect(-W,HY-H*4,W*3,H*4);
+ const sg=sx.createRadialGradient(W*.8,HY-H*.3,5,W*.8,HY-H*.3,H*.35);sg.addColorStop(0,'rgba(255,250,220,.9)');sg.addColorStop(1,'rgba(255,250,220,0)');
+ sx.fillStyle=sg;sx.fillRect(W*.8-H*.4,HY-H*.7,H*.8,H*.8);
+ // dağlar
+ const off=S.hdg*14+S.z*.004;
+ [['#7d9bb8',60,.0035,0],['#5f8095',34,.0062,40]].forEach(([c,a,fr,ph])=>{sx.fillStyle=c;sx.beginPath();sx.moveTo(-W,HY);
+  for(let x=-W;x<=2*W;x+=30){const h=a*(.5+.5*Math.sin((x+off)*fr+ph))+a*.5*Math.abs(Math.sin((x+off)*fr*2.7+ph))+8;sx.lineTo(x,HY-h)}
+  sx.lineTo(2*W,HY);sx.fill()});
+ // zemin
+ g=sx.createLinearGradient(0,HY,0,HY+H*.7);g.addColorStop(0,'#a9c8a4');g.addColorStop(.25,'#6fa35f');g.addColorStop(1,'#3f7a38');
+ sx.fillStyle=g;sx.fillRect(-W,HY,W*3,H*4);
+ // tarlalar (sarmal)
+ const fl=fields.map(f=>({f,rz:(((f.z-CAMZ)%8000)+8000)%8000+10})).sort((a,b)=>b.rz-a.rz);
+ fl.forEach(o=>zquad(o.f.x,o.f.x+o.f.w,0,CAMZ+o.rz,CAMZ+o.rz+o.f.d,o.f.c));
+ zquad(400,413,.01,CAMZ,CAMZ+8000,'#7b7b72');zquad(-900,-888,.01,CAMZ,CAMZ+8000,'#7b7b72');
+ // havaalanı
+ zquad(-70,70,.02,-600,1500,'#5f9a4c');
+ zquad(-90,90,.03,-520,-180,'#6b6e73');
+ zquad(-8,8,.04,-200,5,'#55585d');zquad(-.25,.25,.05,-200,0,'#e6c229');
+ zquad(-12,12,.06,-47,-45,'#e6c229');zquad(-12,12,.06,-43.5,-42.5,'#e6c229');
+ zquad(-15,15,.05,0,1400,'#3a3d42');
+ zquad(-15,-14.6,.06,0,1400,'#eee');zquad(14.6,15,.06,0,1400,'#eee');
+ for(let k=-6;k<=6;k++)if(k)zquad(k*2.2-.8,k*2.2+.8,.07,6,36,'#eee');
+ for(let z=50;z<1380;z+=40)zquad(-.3,.3,.07,z,z+20,'#f4f4f4');
+ [150,300].forEach(z=>{zquad(-9,-6,.07,z,z+22,'#eee');zquad(6,9,.07,z,z+22,'#eee');zquad(-5,-3,.07,z,z+22,'#eee');zquad(3,5,.07,z,z+22,'#eee')});
+ for(let z=0;z<1400;z+=70)for(const s of[-17,17]){const q=P(s,.4,z);if(q[2]<3000&&z>CAMZ+2){sx.fillStyle='#fff';sx.beginPath();sx.arc(q[0],q[1],Math.max(1,F*.25/q[2]),0,7);sx.fill()}}
+ // rüzgar çorabı
+ {const bx=55,bz=320;box(bx,0,bz,.3,8,.3,'#ddd');const w=Math.sin(t*3)*.25;
+  for(let i=0;i<4;i++){const h=1.7-.3*i;quad([[bx+.3+i*1.5,8-.2,bz],[bx+.3+(i+1)*1.5,8-.2+w,bz],[bx+.3+(i+1)*1.5,8-h+w,bz],[bx+.3+i*1.5,8-h,bz]],i%2?'#fff':'#ff6a00')}}
+ // binalar mesafeye göre
+ objs.map(o=>({o,d:Math.hypot(o.x-CAMX,o.z-CAMZ)})).sort((a,b)=>b.d-a.d).forEach(e=>{const o=e.o;box(o.x,o.y,o.z,o.w,o.h,o.d,o.c)});
+ // kule camı + beacon
+ {const q=P(-65,26.8,-245);if(-245>CAMZ+3){sx.fillStyle=Math.floor(t*1.5)%2?'#a6ffb0':'#ffffff';sx.beginPath();sx.arc(q[0],q[1],Math.max(1.5,F*.7/q[2]),0,7);sx.fill()}}
+ // bulutlar
+ clouds.map(c=>({c,rz:(((c.z-CAMZ)%8000)+8000)%8000+40})).sort((a,b)=>b.rz-a.rz).forEach(o=>{
+  const c=o.c,dz=o.rz,x=W/2+F*(c.x-CAMX)/dz,y=HY-F*(c.y-CY)/dz,r=F*c.s/dz;if(r<2||r>H*1.2)return;
+  sx.fillStyle=`rgba(255,255,255,${Math.min(.92,.35+dz/6000)})`;
+  [[0,0,1],[.9,.12,.8],[-.9,.15,.75],[.4,-.35,.8],[-.4,-.3,.7]].forEach(p=>{sx.beginPath();sx.arc(x+p[0]*r,y+p[1]*r,p[2]*r*.55,0,7);sx.fill()})});
+ // pus
+ g=sx.createLinearGradient(0,HY-10,0,HY+H*.14);g.addColorStop(0,'rgba(215,232,245,.75)');g.addColorStop(1,'rgba(215,232,245,0)');
+ sx.fillStyle=g;sx.fillRect(-W,HY-10,W*3,H*.14+10);
+}
+
+/* ================= DURUM ================= */
+const S={z:-420,x:0,alt:0,ias:0,hdg:360,pitch:0,roll:0,rpm:0,oilP:0,oilT:90,fuel:.85,vsi:0,gnd:true,appr:false,apprCap:null,zMax:null,tIas:0,tAlt:0,tRpm:0,tHdg:360,crash:false,shake:0,prop:0};
+const D={carb:false,carbT:0,oil:false,eFail:false};
+let hp=100,score=0,streak=0,idx=0,run=false,locked=false,tt=0,ended=false,squawk='7000',freqTxt='---',talk=0,lastL=0,beepT=0;
+const stat={};
+const lvl=()=>Math.max(0,Math.ceil((100-hp)/20));
+const parts=[];
+function resetState(){Object.assign(S,{z:-420,x:0,alt:0,ias:0,hdg:360,pitch:0,roll:0,rpm:0,oilP:0,oilT:90,fuel:.85,vsi:0,gnd:true,appr:false,apprCap:null,zMax:null,tIas:0,tAlt:0,tRpm:0,tHdg:360,crash:false,shake:0});
+ Object.assign(D,{carb:false,oil:false,eFail:false});hp=100;score=0;streak=0;idx=0;ended=false;squawk='7000';parts.length=0;lastL=0;for(const k in stat)delete stat[k]}
+
+function update(dt){
+ tt+=dt;const L=lvl();
+ // RPM
+ let tr=S.tRpm;
+ if(D.carb)tr-=Math.min(500,(tt-D.carbT)*45);
+ if(L==1)tr+=Math.sin(tt*9)*90+Math.sin(tt*23)*60;
+ if(L==2)tr+=Math.sin(tt*7)*180+Math.sin(tt*19)*120-150;
+ if(D.eFail||L>=3)tr=S.gnd?0:Math.min(tr,520);
+ if(tr<0)tr=0;
+ S.rpm+=(tr-S.rpm)*Math.min(1,dt*(D.eFail||L>=3?1.6:2.5));
+ const bad=D.oil||L>=2;
+ const op=S.rpm>200?(bad?(L>=3?4:14):30+S.rpm/2300*30):0;
+ S.oilP+=(op-S.oilP)*Math.min(1,dt*1.4);
+ const ot=S.rpm>200?(bad?246:176):90;S.oilT+=(ot-S.oilT)*Math.min(1,dt*(bad?.25:.04));
+ if(S.rpm>500)S.fuel=Math.max(.05,S.fuel-dt*.0005);
+ S.prop+=S.rpm/60*dt*6.28*.35;
+ // hız ve konum
+ let ti=S.tIas;
+ if(!S.gnd&&!S.appr&&(L>=3||D.eFail))ti=Math.min(ti,68);
+ if(S.gnd&&S.zMax!=null&&S.z>=S.zMax-1)ti=0;
+ const rate=S.gnd?(ti==0?10:7):4;
+ S.ias+=Math.max(-rate*dt,Math.min(rate*dt,ti-S.ias));
+ const dil=S.appr&&S.z<-300?DIL:(S.appr?1:1);
+ S.z+=S.ias*KT*(S.appr&&S.z<-300?DIL:1)*dt;
+ if(S.gnd&&S.zMax!=null&&S.z>S.zMax)S.z=S.zMax;
+ if(S.appr&&S.apprCap!=null&&S.z>S.apprCap)S.z=S.apprCap;
+ // irtifa
+ if(S.crash){S.alt-=dt*50;S.vsi=-3000;S.ias=Math.max(S.ias,90);if(S.alt<=0&&!ended)boom();}
+ else if(S.appr){const g=Math.max(0,(150-S.z)*.0524/FT);S.vsi=(g-S.alt)/Math.max(dt,.001)*60;S.alt=g;if(S.z>=150)touchdown();}
+ else if(S.gnd){S.alt=0;S.vsi=0}
+ else{let vs=Math.max(-900,Math.min(800,(S.tAlt-S.alt)*1.2));
+  if(D.eFail||L>=3)vs=S.alt>150?-300:-20;
+  S.vsi+=(vs-S.vsi)*Math.min(1,dt*2);S.alt=Math.max(1,S.alt+S.vsi/60*dt);}
+ // pitch, roll, hdg
+ let tp;
+ if(S.crash)tp=-28;else if(S.appr)tp=S.alt<30?1.5:-3;else if(S.gnd)tp=0;
+ else tp=Math.max(-8,Math.min(10,S.vsi/130))+(S.ias<78?1.5:0);
+ S.pitch+=(tp-S.pitch)*Math.min(1,dt*2);
+ if(S.crash)S.roll+=dt*150;
+ else{const trl=Math.sin(tt*.6)*1.5+(L>=2?Math.sin(tt*2.3)*L*2.5:0);S.roll+=(trl-S.roll)*Math.min(1,dt*3)}
+ const dh=((S.tHdg-S.hdg+540)%360)-180;S.hdg=(S.hdg+Math.max(-6*dt,Math.min(6*dt,dh))+360)%360;
+ if(S.shake>0)S.shake=Math.max(0,S.shake-dt*14);
+ // son durum
+ if(run&&!ended){
+  if(hp<=0&&!S.crash){if(S.gnd)endGame('🔥 Motor yangını!','Yerde motor yangını çıktı; uçuş iptal edildi, yangın ekibi müdahale etti.');else{S.crash=true;S.appr=false;S.gnd=false;S.tAlt=0;S.vsi=-3000;toast('🚨 MAYDAY! Kontrol kaybı!','#ff4d4d')}}
+  else if(L>=3&&S.gnd&&!S.crash)endGame('🔥 Motor yangını!','Yerde motor yangını çıktı; uçuş iptal edildi, yangın ekibi müdahale etti.');
+ }
+ // partiküller
+ if(!ended){
+  if((L>=2||D.oil)&&Math.random()<dt*35)parts.push({x:W/2+(Math.random()-.5)*W*.2,y:H*.87,vx:(Math.random()-.5)*60,vy:-80-Math.random()*90,r:8,vr:40,l:1.8,m:1.8,c:'45,45,48'});
+  if(L>=3&&Math.random()<dt*70)parts.push({x:W/2+(Math.random()-.5)*W*.16,y:H*.88,vx:(Math.random()-.5)*50,vy:-120-Math.random()*120,r:14,vr:-10,l:.6,m:.6,c:'255,'+(90+Math.random()*120|0)+',20'});
+ }
+ for(let i=parts.length-1;i>=0;i--){const p=parts[i];p.x+=p.vx*dt;p.y+=p.vy*dt;p.r+=p.vr*dt;p.l-=dt;if(p.l<=0||p.r<1)parts.splice(i,1)}
+ if(talk>0)talk-=dt;$('tx').className=talk>0?'on':'';
+ // uyarı sesi
+ if(L>=1&&AC&&sndOn&&!ended){beepT-=dt;if(beepT<=0){beep(L>=3?1100:800,.12,.05,'square');beepT=1.4/L}}
+ if(L!==lastL){const w=$('warn');w.className=L>=3?'l3':L==2?'l2':L==1?'l1':'';lastL=L}
+ if(L>=3)squawk='7700';
+ audioUpd();
+}
+function touchdown(){S.appr=false;S.gnd=true;S.alt=0;S.tIas=0;S.tRpm=900;S.shake=12;S.vsi=0;S.zMax=null;toast('✅ Touchdown!','#6dffa8')}
+function boom(){ended=true;S.tRpm=0;for(let i=0;i<160;i++)parts.push({x:W/2+(Math.random()-.5)*60,y:H*.7,vx:(Math.random()-.5)*600,vy:-Math.random()*500,r:10+Math.random()*20,vr:30,l:1.6,m:1.6,c:'255,'+(Math.random()*170|0)+',20'});
+ const f=$('fade');f.style.transition='opacity .15s';f.style.background='#fff';f.style.opacity=1;
+ setTimeout(()=>{f.style.transition='opacity 1.2s';f.style.background='#000';f.style.opacity=0},180);
+ setTimeout(()=>endGame('💥 Kaza!','Uçak kontrolden çıkıp yere çakıldı. Gerçek hayatta bunu önleyen şey; doğru bilgi, doğru readback ve sakin kalmak.'),1400)}
+
+/* ================= RENDER SAHNE ================= */
+function render(){
+ const L=lvl();CY=S.alt*FT+2.2;CAMX=S.x;CAMZ=S.z;F=H;HY=H*.44+F*Math.tan(rad(S.pitch));
+ const jit=(S.shake>0?S.shake:0)+(L>=1?L*.8:0);
+ sx.clearRect(0,0,W,H);sx.save();
+ sx.translate(W/2+(Math.random()-.5)*jit,H*.5+(Math.random()-.5)*jit);sx.rotate(-rad(S.roll));sx.translate(-W/2,-H*.5);
+ drawWorld(L);
+ sx.restore();
+ // pervane
+ const py=H*.9;
+ if(S.rpm>40){
+  if(S.rpm>520){const g=sx.createRadialGradient(W/2,py,10,W/2,py,W*.17);g.addColorStop(0,'rgba(30,30,34,.05)');g.addColorStop(.8,'rgba(30,30,34,.22)');g.addColorStop(1,'rgba(30,30,34,0)');sx.fillStyle=g;sx.beginPath();sx.ellipse(W/2,py,W*.17,H*.13,0,0,7);sx.fill()}
+  else{sx.strokeStyle='#1a1a1d';sx.lineWidth=14;sx.lineCap='round';for(let b=0;b<2;b++){const a=S.prop+b*Math.PI;sx.beginPath();sx.moveTo(W/2,py);sx.lineTo(W/2+Math.cos(a)*W*.15,py+Math.sin(a)*H*.12);sx.stroke()}}
+ }else{sx.strokeStyle='#1a1a1d';sx.lineWidth=14;sx.lineCap='round';sx.beginPath();sx.moveTo(W/2-W*.1,py-H*.07);sx.lineTo(W/2+W*.1,py+H*.07);sx.stroke()}
+ // kokpit çerçevesi
+ let g=sx.createLinearGradient(0,H*.86,0,H);g.addColorStop(0,'#3a3e47');g.addColorStop(1,'#16181d');
+ sx.fillStyle=g;sx.beginPath();sx.moveTo(W*.26,H);sx.quadraticCurveTo(W*.38,H*.88,W*.5,H*.875);sx.quadraticCurveTo(W*.62,H*.88,W*.74,H);sx.fill();
+ sx.fillStyle='#bdc3cf';sx.beginPath();sx.ellipse(W/2,H*.9,16,10,0,0,7);sx.fill();
+ g=sx.createLinearGradient(0,H*.935,0,H);g.addColorStop(0,'#0c0d10');g.addColorStop(1,'#1a1c22');sx.fillStyle=g;sx.fillRect(0,H*.945,W,H*.06);
+ sx.fillStyle='#14161a';
+ sx.beginPath();sx.moveTo(0,0);sx.lineTo(W*.12,0);sx.lineTo(W*.045,H);sx.lineTo(0,H);sx.fill();
+ sx.beginPath();sx.moveTo(W,0);sx.lineTo(W*.88,0);sx.lineTo(W*.955,H);sx.lineTo(W,H);sx.fill();
+ g=sx.createLinearGradient(0,0,0,H*.07);g.addColorStop(0,'#0b0c0f');g.addColorStop(1,'#1d2026');sx.fillStyle=g;sx.fillRect(0,0,W,H*.065);
+ sx.fillStyle='rgba(255,255,255,.07)';sx.fillRect(W*.12,H*.06,W*.76,3);
+ // yağ lekeleri
+ if(L>=2||D.oil){sx.fillStyle=`rgba(40,26,10,${.3+.1*Math.min(L,3)})`;splats.forEach(s=>{sx.beginPath();sx.ellipse(s.x*W,s.y*H,s.r*W,s.r*W*.7,0,0,7);sx.fill()})}
+ // partiküller
+ parts.forEach(p=>{sx.fillStyle=`rgba(${p.c},${Math.max(0,p.l/p.m)*.7})`;sx.beginPath();sx.arc(p.x,p.y,p.r,0,7);sx.fill()});
+}
+
+/* ================= ENSTRÜMANLAR ================= */
+function gauge(cx,cy,r){dx.fillStyle='#2b2e35';dx.beginPath();dx.arc(cx,cy,r+6,0,7);dx.fill();dx.fillStyle='#080a0d';dx.beginPath();dx.arc(cx,cy,r,0,7);dx.fill()}
+function arc(cx,cy,r,a0,a1,col,w){dx.strokeStyle=col;dx.lineWidth=w;dx.beginPath();dx.arc(cx,cy,r,rad(a0),rad(a1));dx.stroke()}
+function needle(cx,cy,a,len,col,w){dx.save();dx.translate(cx,cy);dx.rotate(rad(a));dx.strokeStyle=col;dx.lineWidth=w;dx.lineCap='round';dx.beginPath();dx.moveTo(-len*.18,0);dx.lineTo(len,0);dx.stroke();dx.restore();dx.fillStyle='#ccc';dx.beginPath();dx.arc(cx,cy,w+1.5,0,7);dx.fill()}
+function txt(s,x,y,sz,col,al,f){dx.fillStyle=col||'#dfe6f5';dx.font=(f||'bold')+' '+sz+'px system-ui,sans-serif';dx.textAlign=al||'center';dx.textBaseline='middle';dx.fillText(s,x,y)}
+function scale(cx,cy,r,min,max,major,minor,fmt,a0,sw,lab){
+ const n=Math.round((max-min)/minor);
+ for(let i=0;i<=n;i++){const v=min+i*minor,a=a0+(v-min)/(max-min)*sw,big=(v-min)%major<1e-6;
+  const c=Math.cos(rad(a)),s=Math.sin(rad(a));dx.strokeStyle='#e8ecf5';dx.lineWidth=big?2:1;dx.beginPath();dx.moveTo(cx+c*(r-(big?9:5)),cy+s*(r-(big?9:5)));dx.lineTo(cx+c*(r-1),cy+s*(r-1));dx.stroke();
+  if(big)txt(fmt(v),cx+c*(r-20),cy+s*(r-20),10,'#dfe6f5')}
+ txt(lab,cx,cy+r*.45,9,'#8fa0c8')}
+function annun(x,y,w,label,on,col,blink){
+ const lit=on&&(!blink||Math.floor(tt*2.5)%2==0);
+ dx.fillStyle=lit?col:'#1a1d24';dx.fillRect(x,y,w,22);dx.strokeStyle='#394057';dx.strokeRect(x,y,w,22);
+ txt(label,x+w/2,y+11,11,lit?'#111':'#4a5268')}
+function bar(x,y,w,label,v,zones,txtv){
+ txt(label,x,y,11,'#9fb0d8','left');
+ dx.fillStyle='#10141c';dx.fillRect(x+66,y-7,w,14);
+ zones.forEach(z=>{dx.fillStyle=z[2];dx.globalAlpha=.28;dx.fillRect(x+66+z[0]*w,y-7,(z[1]-z[0])*w,14);dx.globalAlpha=1});
+ const vv=Math.max(0,Math.min(1,v));dx.fillStyle='#e8edf8';dx.fillRect(x+66+vv*w-2,y-9,4,18);
+ txt(txtv,x+66+w+8,y,11,'#dfe6f5','left')}
+
+function drawDash(){
+ const L=lvl();
+ dx.setTransform(1,0,0,1,0,0);dx.clearRect(0,0,DW,DH);
+ let g=dx.createLinearGradient(0,0,0,DH);g.addColorStop(0,'#23262d');g.addColorStop(1,'#101216');dx.fillStyle=g;dx.fillRect(0,0,DW,DH);
+ dx.setTransform(DS,0,0,DS,Math.max(0,(DW-1280*DS)/2),0);
+ const cy=122,r=68;
+ // annunciator
+ const L3=L>=3;
+ annun(20,6,140,'MASTER CAUTION',L>=1||D.oil||D.carb,'#ffb020',true);
+ annun(170,6,120,'OIL PRESS',S.oilP<20&&S.rpm>200,'#ff4040',false);
+ annun(300,6,120,'ENGINE FIRE',L3&&!S.gnd||L3,'#ff2a2a',true);
+ annun(430,6,120,'CARB ICE',D.carb,'#ffb020',true);
+ annun(560,6,120,'LOW FUEL',S.fuel<.12,'#ffb020',false);
+ annun(690,6,100,'ELEC',false,'#ffb020',false);
+ // ASI
+ let cx=95;gauge(cx,cy,r);
+ arc(cx,cy,r-5,120+40*1.5,120+85*1.5,'#fff',3);arc(cx,cy,r-9,120+48*1.5,120+129*1.5,'#2ecc71',4);arc(cx,cy,r-9,120+129*1.5,120+163*1.5,'#f1c40f',4);
+ scale(cx,cy,r,0,200,20,10,v=>v,120,300,'KNOTS');txt('AIRSPEED',cx,cy-r*.42,9,'#8fa0c8');
+ needle(cx,cy,120+Math.min(200,S.ias)*1.5,r-14,'#fff',3);
+ // AI
+ cx=250;gauge(cx,cy,r);dx.save();dx.beginPath();dx.arc(cx,cy,r-2,0,7);dx.clip();dx.translate(cx,cy);dx.rotate(-rad(S.roll));dx.translate(0,S.pitch*3.3);
+ dx.fillStyle='#3a7bd5';dx.fillRect(-120,-200,240,200);dx.fillStyle='#8b5a2b';dx.fillRect(-120,0,240,200);dx.strokeStyle='#fff';dx.lineWidth=2;dx.beginPath();dx.moveTo(-120,0);dx.lineTo(120,0);dx.stroke();
+ for(let a=-20;a<=20;a+=5){if(!a)continue;const w=a%10==0?30:16;dx.beginPath();dx.moveTo(-w,-a*3.3);dx.lineTo(w,-a*3.3);dx.stroke()}
+ dx.restore();dx.strokeStyle='#ffc400';dx.lineWidth=3;dx.beginPath();dx.moveTo(cx-34,cy);dx.lineTo(cx-10,cy);dx.lineTo(cx,cy+7);dx.lineTo(cx+10,cy);dx.lineTo(cx+34,cy);dx.stroke();
+ txt('ATTITUDE',cx,cy+r*.62,9,'#8fa0c8');
+ // ALT
+ cx=405;gauge(cx,cy,r);
+ for(let i=0;i<10;i++){const a=-90+i*36,c=Math.cos(rad(a)),s=Math.sin(rad(a));dx.strokeStyle='#e8ecf5';dx.lineWidth=2;dx.beginPath();dx.moveTo(cx+c*(r-9),cy+s*(r-9));dx.lineTo(cx+c*(r-1),cy+s*(r-1));dx.stroke();txt(i,cx+c*(r-20),cy+s*(r-20),12,'#dfe6f5')}
+ txt('ALT',cx,cy-r*.4,10,'#8fa0c8');txt('QNH 1018',cx,cy+r*.5,10,'#ffd24d');
+ needle(cx,cy,-90+(S.alt%10000)/10000*360,r*.5,'#fff',5);needle(cx,cy,-90+(S.alt%1000)/1000*360,r-14,'#fff',2.5);
+ // HDG
+ cx=560;gauge(cx,cy,r);dx.save();dx.beginPath();dx.arc(cx,cy,r-2,0,7);dx.clip();dx.translate(cx,cy);dx.rotate(-rad(S.hdg));
+ for(let a=0;a<360;a+=5){const big=a%10==0,c=Math.cos(rad(a-90)),s=Math.sin(rad(a-90));dx.strokeStyle='#e8ecf5';dx.lineWidth=big?2:1;dx.beginPath();dx.moveTo(c*(r-(big?12:7)),s*(r-(big?12:7)));dx.lineTo(c*(r-2),s*(r-2));dx.stroke();
+  if(a%30==0){dx.save();dx.translate(c*(r-24),s*(r-24));dx.rotate(rad(a));txt(a==0?'N':a==90?'E':a==180?'S':a==270?'W':a/10,0,0,12,a%90==0?'#ffd24d':'#dfe6f5');dx.restore()}}
+ dx.restore();dx.fillStyle='#ffc400';dx.beginPath();dx.moveTo(cx,cy-r+3);dx.lineTo(cx-6,cy-r+14);dx.lineTo(cx+6,cy-r+14);dx.fill();
+ dx.strokeStyle='#fff';dx.lineWidth=3;dx.beginPath();dx.moveTo(cx,cy-16);dx.lineTo(cx,cy+16);dx.moveTo(cx-14,cy+2);dx.lineTo(cx+14,cy+2);dx.moveTo(cx-6,cy+14);dx.lineTo(cx+6,cy+14);dx.stroke();
+ txt(String(Math.round(S.hdg)%360).padStart(3,'0')+'°',cx,cy+r*.62,11,'#9dff9d');
+ // TACH
+ cx=715;gauge(cx,cy,r);
+ arc(cx,cy,r-6,120+2100/3000*300,120+2700/3000*300,'#2ecc71',5);arc(cx,cy,r-6,120+2700/3000*300,120+2760/3000*300,'#ff3b30',5);
+ scale(cx,cy,r,0,3000,500,250,v=>v/100,120,300,'RPM x100');txt('TACH',cx,cy-r*.42,9,'#8fa0c8');
+ txt(Math.round(S.rpm/10)*10,cx,cy+r*.62,11,'#9dff9d');needle(cx,cy,120+Math.min(3000,S.rpm)/3000*300,r-14,'#ffcf40',3);
+ // motor kümesi
+ dx.fillStyle='#14171d';dx.fillRect(805,42,185,150);dx.strokeStyle='#2c3345';dx.strokeRect(805,42,185,150);
+ txt('ENGINE',898,54,10,'#8fa0c8');
+ bar(815,80,70,'OIL PSI',S.oilP/100,[[0,.2,'#ff4040'],[.2,.6,'#f1c40f'],[.6,.9,'#2ecc71'],[.9,1,'#ff4040']],Math.round(S.oilP));
+ bar(815,112,70,'OIL °F',(S.oilT-60)/220,[[0,.2,'#f1c40f'],[.2,.75,'#2ecc71'],[.75,1,'#ff4040']],Math.round(S.oilT));
+ bar(815,144,70,'FUEL',S.fuel,[[0,.15,'#ff4040'],[.15,1,'#2ecc71']],Math.round(S.fuel*100)+'%');
+ txt('FLAPS  0°   VOLTS 27.8',898,176,10,'#8fa0c8');
+ // telsiz
+ dx.fillStyle='#14171d';dx.fillRect(1005,42,255,150);dx.strokeStyle='#2c3345';dx.strokeRect(1005,42,255,150);
+ txt('COM 1',1020,58,11,'#8fa0c8','left');
+ dx.fillStyle='#240606';dx.fillRect(1018,70,150,40);txt(freqTxt.split(' ').pop(),1093,90,28,'#ff3b30','center','bold ui-monospace,Menlo,monospace');
+ dx.fillStyle=talk>0?'#3bff7a':'#223';dx.beginPath();dx.arc(1190,90,9,0,7);dx.fill();txt('TX/RX',1225,90,10,'#8fa0c8');
+ txt('XPDR',1020,132,11,'#8fa0c8','left');
+ dx.fillStyle='#240606';dx.fillRect(1018,142,150,34);
+ const sq=squawk=='7700'&&Math.floor(tt*3)%2==0?'#ffd24d':'#ff3b30';
+ txt(squawk,1075,159,24,sq,'center','bold ui-monospace,Menlo,monospace');txt('ALT',1140,159,11,'#ff3b30');
+ txt(squawk=='7700'?'EMERG':'VFR',1225,159,11,squawk=='7700'?'#ff4040':'#8fa0c8');
+}
+
+/* ================= SES ================= */
+let AC=null,eng,engG,eng2,sndOn=true,vocOn=true;
+function audioInit(){if(AC)return;try{AC=new(window.AudioContext||window.webkitAudioContext)();
+ eng=AC.createOscillator();eng.type='sawtooth';eng2=AC.createOscillator();eng2.type='square';eng2.detune.value=14;
+ engG=AC.createGain();engG.gain.value=0;const lp=AC.createBiquadFilter();lp.type='lowpass';lp.frequency.value=380;
+ eng.connect(lp);eng2.connect(lp);lp.connect(engG);engG.connect(AC.destination);eng.start();eng2.start();}catch(e){AC=null}}
+function audioUpd(){if(!AC)return;const f=Math.max(20,S.rpm/60*2),L=lvl();
+ eng.frequency.value=f*(1+(L>=1?(Math.random()-.5)*.08*L:0));eng2.frequency.value=f*.5;
+ engG.gain.value=sndOn&&!ended?Math.min(.1,S.rpm/2400*.1):0}
+function beep(f,d,v,type){if(!AC||!sndOn)return;const o=AC.createOscillator(),g=AC.createGain();o.type=type||'sine';o.frequency.value=f;g.gain.value=v||.05;o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}
+function squelch(){if(!AC||!sndOn)return;const n=AC.sampleRate*.18,b=AC.createBuffer(1,n,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n)*.5;
+ const s=AC.createBufferSource();s.buffer=b;const bp=AC.createBiquadFilter();bp.type='bandpass';bp.frequency.value=1800;const g=AC.createGain();g.gain.value=.08;s.connect(bp);bp.connect(g);g.connect(AC.destination);s.start()}
+function say(t){if(!vocOn||!sndOn||!('speechSynthesis' in window))return;speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(t.replace(/TC-FLY/g,'Tango Charlie Foxtrot Lima Yankee'));u.lang='en-US';u.rate=.92;u.pitch=.85;speechSynthesis.speak(u)}
+let TEST=new URLSearchParams(location.search).get('test')==='1';
+$('tst').onclick=e=>{TEST=!TEST;e.target.classList.toggle('off',!TEST);const b=document.querySelector('.opt[data-c]');if(b&&!b.disabled){b.classList.toggle('hint',TEST);b.textContent=(TEST?'✔ ':'')+b.textContent.replace(/^✔ /,'')}};
+$('snd').onclick=e=>{sndOn=!sndOn;e.target.classList.toggle('off',!sndOn);if(!sndOn&&window.speechSynthesis)speechSynthesis.cancel()};
+$('voc').onclick=e=>{vocOn=!vocOn;e.target.classList.toggle('off',!vocOn);if(!vocOn&&window.speechSynthesis)speechSynthesis.cancel()};
+
+/* ================= SORULAR / SENARYO ================= */
+const PH=['Park','Taksi','Kalkış','Seyir','Yaklaşma','İniş'];
+const CS='TC-FLY';
+// o[0] her zaman doğru cevaptır (gösterimde karıştırılır)
+const ST=[
+{ph:0,cat:'Uçuş Öncesi',q:'Dış kontrolde yakıt numunesi (fuel sample) aldın. Hangi durumda uçuştan vazgeçmelisin?',
+ o:['Numune bulanık veya dibinde su damlacıkları var','Numune mavi (Avgas 100LL) ve berrak','Numunede yakıt kokusu var','Numune sıcaklığı hava sıcaklığına yakın'],
+ e:'Avgas 100LL mavidir. Bulanıklık veya su motoru durdurabilir (su yakıttan ağırdır, dibe çöker). Su temizlenene kadar tekrar numune alınır, temizlenmezse uçulmaz.'},
+{ph:0,cat:'Prosedürler',q:'Starter\'a basmadan önce pervane yönüne "CLEAR PROP!" diye bağırmanın amacı nedir?',
+ o:['Çevredekileri uyarıp pervane alanının boş olduğundan emin olmak','Motoru ısıtmak','Kuleye çağrı yapmak','Yakıt pompasını açmak'],
+ e:'Pervane çok tehlikelidir. Çalıştırmadan önce çevre kontrol edilir ve sesli uyarı verilir.',
+ after:()=>{S.tRpm=1000}},
+{ph:0,cat:'Uçak Bilgisi',q:'Motor çalıştı. İlk saniyelerde hangi göstergeyi mutlaka kontrol etmelisin?',
+ o:['Yağ basıncı – yeşil aralığa çıkmalı','Altimetre','Hız göstergesi','Heading indicator'],
+ e:'Yağ basıncı ~30 sn içinde (soğuk havada biraz daha uzun) yükselmezse motor hemen kapatılır; yağsız motor dakikalar içinde hasar görür.'},
+{ph:0,cat:'Meteoroloji',freq:'ATIS 127.250',atc:'Skyline Information Alpha. Runway in use 36. Wind 340 degrees 8 knots. CAVOK. Temperature 18, dew point 9. QNH 1018.',
+ tr:'Skyline bilgi Alfa. Kullanılan pist 36. Rüzgâr 340° 8 kt. CAVOK. Sıcaklık 18, çiğ noktası 9. QNH 1018.',
+ q:'ATIS\'teki "CAVOK" ne anlama gelir?',
+ o:['Görüş ≥10 km, 5000 ft/MSA altında bulut yok, CB/TCU yok, önemli hava olayı yok','Tamamen bulutsuz gökyüzü','Görüş 5 km, hafif yağmur','Pist kuru ve frenleme iyi'],
+ e:'CAVOK = Ceiling And Visibility OK. Sadece "bulutsuz" demek değildir; yukarıdaki üç şartın hepsi sağlanmalıdır.'},
+{ph:0,cat:'Seyrüsefer',q:'ATIS: pist 36, rüzgâr 340°/08 kt. Rüzgâr hangi yönden ve nasıl bileşenlere sahip?',
+ o:['Kuzey-kuzeybatıdan; neredeyse tam kafa rüzgârı (~7 kt kafa, ~3 kt yan)','Güneydoğudan; kuyruk rüzgârı','Batıdan; tam yan rüzgâr','Doğudan; tam yan rüzgâr'],
+ e:'Rüzgâr yönü "geldiği" yöndür. 340° ile pist yönü 360° arası 20° fark: 8×cos20° ≈ 7.5 kt kafa, 8×sin20° ≈ 2.7 kt yan rüzgâr.'},
+{ph:0,cat:'Telsiz',freq:'GND 121.700',q:'Taksi izni için Ground\'u ilk kez çağırıyorsun. En doğru çağrı hangisi?',
+ o:['Skyline Ground, TC-FLY, Cessna 172, at the apron, information Alpha, request taxi, VFR local.','TC-FLY requesting taxi, over and out.','Hello Skyline, can I go now?','Ground, we are ready, please advise.'],
+ e:'Format: Kime – Kimden – Tip – Konum – Bilgi (ATIS) – Niyet. "Over and out" birlikte kullanılmaz (çelişir).',radio:true,
+ start:()=>{S.tRpm=1000}},
+{ph:1,cat:'Telsiz',radio:true,atc:'TC-FLY, Skyline Ground, taxi to holding point runway 36 via Alpha. QNH 1018.',
+ tr:'TC-FLY, pist 36 bekleme noktasına Alpha üzerinden taksi yap. QNH 1018.',q:'Doğru readback hangisi?',
+ o:['Taxi to holding point runway 36 via Alpha, QNH 1018, TC-FLY.','Roger.','Taxi to holding point runway 18 via Alpha, QNH 1018, TC-FLY.','Taxi via Bravo, QNH 1013, TC-FLY.'],
+ e:'Pist, taksi yolu ve QNH eksiksiz readback edilir. Sadece "Roger" yeterli değildir; yanlış pist/QNH ise hemen düzeltilir.',
+ after:()=>{S.tRpm=1100;S.zMax=-45;S.tIas=15}},
+{ph:1,cat:'Prosedürler',q:'Bekleme noktasında run-up yapıyorsun. Magneto kontrolünde izin verilen düşüş nedir?',
+ o:['Her magnetoda en fazla 150 RPM düşüş; ikisi arasındaki fark en fazla 50 RPM','500 RPM düşüş normaldir','RPM hiç düşmemeli','Tek magnetoda 300 RPM düşüş yeterli'],
+ e:'Cessna 172: ~1800 RPM\'de her magneto için maks. 150 RPM düşüş, aradaki fark ≤50 RPM. Aksi halde kalkış yapılmaz.',
+ start:()=>{S.tRpm=1800}},
+{ph:1,cat:'Telsiz',radio:true,freq:'TWR 118.100',atc:'TC-FLY, Skyline Tower, line up runway 36 and wait.',tr:'TC-FLY, pist 36\'ya hizalan ve bekle.',
+ q:'Doğru readback hangisi? (Bu bir kalkış izni midir?)',
+ o:['Line up runway 36 and wait, TC-FLY. (Kalkış izni DEĞİL)','Cleared for takeoff runway 36, TC-FLY.','Rolling, TC-FLY.','Roger, taking off.'],
+ e:'"Line up and wait" sadece pist başına girip beklemektir. Kalkış ancak "cleared for takeoff" ile yapılır; bu karışıklık pist ihlallerinin ve çarpışmaların klasik sebebidir.',
+ start:()=>{S.tRpm=900},after:()=>{S.zMax=12;S.tIas=8}},
+{ph:2,cat:'Telsiz',radio:true,atc:'TC-FLY, wind 340 degrees 8 knots, runway 36, cleared for takeoff.',tr:'TC-FLY, rüzgâr 340° 8 kt, pist 36, kalkış izni verildi.',
+ q:'Doğru readback hangisi?',
+ o:['Cleared for takeoff runway 36, TC-FLY.','Wilco.','Rolling.','Roger, wind 340.'],
+ e:'Pistten kalkış/iniş izinleri ve pist kullanım talimatları mutlaka readback edilir (ICAO). Roger/Wilco yeterli değildir.',
+ after:()=>{S.zMax=null;S.tRpm=2400;S.tIas=56}},
+{ph:2,cat:'Uçuş Prensipleri',q:'Tam güçle pist koşusundasın; hız göstergesi Vr (≈55 kt) gösteriyor. Ne yaparsın?',
+ o:['Yoke\'u yumuşakça geri çekip burnu ~7° kaldırırım (rotate)','Flap\'ı tamamen açarım','Gazı keserim','Yoke\'u ileri iterim'],
+ e:'Vr\'de burun kaldırılır, uçak ~60 kt\'ta havalanır, sonra Vy (~74 kt) ile tırmanılır.',
+ after:()=>{S.gnd=false;S.tAlt=600;S.tIas=74}},
+{ph:2,cat:'Acil Durumlar',q:'300 ft yükseklikte motor aniden güç kaybetti! İlk ve en doğru aksiyon?',
+ o:['Burnu hemen indirip süzülüş hızını (~65 kt) tut, öndeki araziye iniş planla','Pistte geri dönmek için sert dönüş yap','Burnu kaldırıp tırmanmaya çalış','Önce kuleyle konuş, uçağı bırak'],
+ e:'Düşük irtifada geri dönüş ("impossible turn") ölümcül olabilir: hız kaybı ve stall/spin riski. Önce uçağı uç (Aviate), burnu indir, öndeki ±30° içindeki en iyi araziyi seç. (Simülasyonda motor tekrar çalıştı.)',
+ start:()=>{S.gnd=false;S.alt=Math.max(S.alt,300);S.tAlt=300;S.tIas=74;D.eFail=true},after:()=>{D.eFail=false;S.tAlt=1500;S.tIas=80;S.tRpm=2400}},
+{ph:2,cat:'Telsiz',radio:true,freq:'TWR 118.100',atc:'TC-FLY, contact Skyline Departure 124.500, good day.',tr:'TC-FLY, Skyline Departure 124.500\'e geç, iyi günler.',
+ q:'Doğru readback hangisi?',
+ o:['Contact Departure 124.5, TC-FLY, good day.','Roger.','Contact Ground 121.7, TC-FLY.','Wilco, bye.'],
+ e:'Frekans değişikliği talimatı frekans ve çağrı işaretiyle readback edilir.',
+ after:()=>{setFreq('DEP 124.500');S.tAlt=2500;S.tIas=85}},
+{ph:2,cat:'Uçuş Prensipleri',q:'Tırmanışta Vy hızıyla uçmak neyi sağlar?',
+ o:['Birim zamanda en fazla irtifa kazancı (en iyi tırmanma oranı)','En kısa mesafede engeli aşmayı','En düşük yakıt tüketimini','En düşük stall hızını'],
+ e:'Vx = en dik tırmanma açısı (engel aşma). Vy = en yüksek tırmanma oranı (en hızlı irtifa kazanımı).',
+ start:()=>{S.tAlt=3500;S.tHdg=90;S.tRpm=2400}},
+{ph:3,cat:'Hava Hukuku',q:'3500 ft AMSL\'de G sınıfı hava sahasında VFR uçuyorsun (≤140 kt, FL100 altı). Minimum VFR şartları nedir?',
+ o:['Görüş 5 km; bulutlardan yatayda 1500 m, düşeyde 1000 ft uzakta','Görüş 1 km; bulut içinde uçulabilir','Görüş 8 km; bulutlardan yatayda 500 m','Görüş 800 m; bulutlardan uzak'],
+ e:'SERA.5001: G sınıfı, 3000 ft AMSL / 1000 ft AGL üzerinde ve FL100 altında 5 km, 1500 m yatay, 1000 ft dikey. Ulusal farklılıklar olabilir; okulunun materyaliyle teyit et.',
+ start:()=>{S.tRpm=2300;S.tIas=100}},
+{ph:3,cat:'Meteoroloji',info:'METAR LTXX 041150Z 29012G22KT 6000 -RA BKN012 14/12 Q1008',q:'Bu METAR\'a göre doğru çıkarım hangisi?',
+ o:['Rüzgâr 290° 12 kt (hamle 22), görüş 6 km, hafif yağmur, 1200 ft\'te parçalı/kapalı bulut','Rüzgâr 120° 29 kt, görüş 600 m','CAVOK, rüzgâr sakin','Rüzgâr 290° 12 kt, görüş 12 km, bulutsuz'],
+ e:'29012G22KT: 290°/12 kt hamle 22. 6000: görüş 6 km. -RA hafif yağmur. BKN012: 5–7 okta, 1200 ft AGL. 14/12 sıcaklık/çiğ noktası (yakın → sis/bulut riski). Q1008: QNH.'},
+{ph:3,cat:'Acil Durumlar',q:'Seyirde nemli havada RPM kendiliğinden yavaşça düşüyor ve motor pürüzlü. En olası sebep ve ilk aksiyon?',
+ o:['Karbüratör buzlanması – carb heat\'i tam aç','Yakıt bitti – kuleyi ara','Magneto arızası – motoru kapat','Pervane arızası – flap indir'],
+ e:'Nemli havada (yaz bile olsa) karbüratör buzlanabilir. Carb heat tam açılır; RPM önce biraz düşüp sonra toparlar. Sorun bitince carb heat kapatılır.',
+ start:()=>{D.carb=true;D.carbT=tt},after:()=>{D.carb=false}},
+{ph:3,cat:'Acil Durumlar',q:'Yağ basıncı hızla düşüyor, yağ sıcaklığı yükseliyor. Ne yaparsın?',
+ o:['Gücü azalt, en yakın uygun yere yönel, iniş hazırlığı yap ve ATC\'ye bildir','Gücü artırıp hızlıca varış yerine uç','Göstergeler arızalıdır, hiçbir şey yapma','Motoru hemen kapatıp dalışa geç'],
+ e:'Yağ kaybı motoru dakikalar içinde kilitleyebilir. Gücü azalt, en yakın havaalanına/araziye yönel (precautionary landing), durumu bildir.',
+ start:()=>{D.oil=true},after:()=>{D.oil=false}},
+{ph:3,cat:'Seyrüsefer',q:'Rotan 090°, rüzgâr 360°/20 kt (kuzeyden). Rotada kalmak için burnu nereye çevirirsin?',
+ o:['Rüzgâra doğru: yaklaşık 080°','Rüzgârdan uzağa: yaklaşık 100°','090° yeterli','270°'],
+ e:'Kuzeyden esen rüzgâr uçağı güneye sürükler; rüzgâra doğru crab açısı verilir → heading < 090°.',
+ after:()=>{S.tHdg=80}},
+{ph:3,cat:'Telsiz',q:'Ciddi bir acil durumda MAYDAY çağrısı nasıl yapılır?',
+ o:['"MAYDAY MAYDAY MAYDAY", istasyon, çağrı işareti, acil durumun türü, niyet, konum ve irtifa','"Pan-pan" tek kez, sonra detaylar','Sadece transponderi 7700 yap','Önce haritaya bak, sonra telsiz'],
+ e:'MAYDAY (3 kez) = ciddi ve yakın tehlike. Sıra: Aviate – Navigate – Communicate. Transponder 7700 ve frekansta sessizlik talebi de uygulanır.'},
+{ph:4,cat:'Telsiz',radio:true,freq:'APP 124.500',atc:'TC-FLY, Skyline Approach, rejoin via western VRP, join left-hand downwind runway 36, QNH 1018, report downwind.',
+ tr:'TC-FLY, batı VRP\'den katıl; pist 36 sol devre downwind\'e gir, QNH 1018, downwind\'de bildir.',q:'Doğru readback hangisi?',
+ o:['Join left-hand downwind runway 36, QNH 1018, will report downwind, TC-FLY.','Roger.','Join right-hand base runway 18, QNH 1013, TC-FLY.','Wilco, will report final.'],
+ e:'Katılma talimatı, pist, QNH ve rapor talebiyle birlikte readback edilir.',
+ after:()=>{jump(()=>{S.appr=true;S.gnd=false;S.z=-3200;S.apprCap=-250;S.tIas=70;S.tRpm=1700;S.hdg=360;S.tHdg=360})}},
+{ph:4,cat:'Hava Hukuku',q:'Standart sol devre (left-hand circuit) için doğru sıra hangisi?',
+ o:['Upwind → Crosswind → Downwind → Base → Final (hepsi sola dönüşlerle)','Upwind → Base → Crosswind → Final','Downwind → Upwind → Final → Base','Final → Base → Downwind (sağa dönüşlerle)'],
+ e:'Sol devrede tüm dönüşler sola yapılır, devre irtifası genellikle 1000 ft AGL\'dir. Ayrıca devre boyunca diğer trafikle görsel ayrım sağlanır.',
+ start:()=>{S.tIas=70}},
+{ph:4,cat:'Telsiz',radio:true,freq:'TWR 118.100',atc:'TC-FLY, Skyline Tower, wind 350 degrees 14 gusting 22 knots, runway 36, cleared to land.',
+ tr:'TC-FLY, rüzgâr 350° 14 kt hamle 22, pist 36, iniş izni verildi.',q:'Doğru readback hangisi?',
+ o:['Cleared to land runway 36, TC-FLY.','Roger, wind 350.','Wilco.','Landing, TC-FLY.'],
+ e:'İniş izni pist ve çağrı işaretiyle readback edilir.'},
+{ph:4,cat:'Uçuş Prensipleri',q:'Hamleli rüzgârda (14 gusting 22) final yaklaşma hızını nasıl ayarlarsın?',
+ o:['Normal yaklaşma hızına hamle farkının yarısını (22−14)/2 = 4 kt eklerim','Yaklaşma hızını belirgin düşürürüm','Hızı değiştirmem','Flap\'ı tam açıp yavaşlarım'],
+ e:'Gust factor: (hamle − ortalama)/2 kadar hız eklenir. Daha yüksek hız kontrol yetkisi ve stall marjı sağlar; çok yavaş yaklaşma hamlede tehlikelidir.'},
+{ph:4,cat:'Acil Durumlar',radio:true,atc:'TC-FLY, go around, go around! Aircraft on the runway!',tr:'TC-FLY, pas geç! Pistte uçak var!',
+ q:'Pas geçme (go-around) için doğru aksiyon sırası?',
+ o:['Tam güç, carb heat soğuk, burnu kaldır, pozitif tırmanışta flap\'ı kademeli kıs, kuleye bildir','Gazı kes ve inişe devam et','Flap\'ı hemen tamamen içeri al, burnu aşağı çek','Sert sola dön ve gazı azalt'],
+ e:'Go-around: Full power → Carb heat cold → Pitch (burun yukarı) → Flap\'ı kademeli kıs → Pozitif tırmanış → Bildir. Karar vermekte tereddüt etme, pas geçmek her zaman güvenlidir.',
+ start:()=>{S.shake=4},lockNext:4800,
+ after:()=>{S.appr=false;S.gnd=false;S.tAlt=Math.max(S.alt+500,600);S.tIas=75;S.tRpm=2400;setTimeout(()=>jump(()=>{S.appr=true;S.gnd=false;S.z=-2400;S.apprCap=-250;S.tIas=70;S.tRpm=1700}),3800)}},
+{ph:5,cat:'Uçuş Prensipleri',freq:'TWR 118.100',atc:'TC-FLY, runway clear now. Continue approach, cleared to land runway 36.',tr:'TC-FLY, pist boş. Yaklaşmaya devam et, pist 36 iniş izni.',
+ q:'Piste yaklaşırken flare (round-out) nasıl yapılır?',
+ o:['Gazı kapat, burnu yavaşça kaldırıp sink oranını azalt, ana tekerleklerle yumuşak temas et','Burnu hızla aşağı itip pist başına dal','Tam güçle burnu fırlat','Flap\'ı indirip gazı yükselt'],
+ e:'Flare: pist üzerinde ~1 m yükseklikte gazı kıs, burnu yavaşça kaldırarak sink oranını azalt; uçak minimum hızda ana tekerleklerle temas etmeli (burun tekerleği en son).',
+ after:()=>{S.apprCap=null;S.tIas=65;S.tRpm=1300}},
+{ph:5,cat:'Telsiz',radio:true,needGnd:true,atc:'TC-FLY, vacate right via Bravo, contact Ground 121.700.',tr:'TC-FLY, Bravo\'dan sağa pistten çık, Ground 121.700\'e geç.',
+ q:'Doğru readback hangisi?',
+ o:['Vacate right via Bravo, contact Ground 121.7, TC-FLY.','Roger.','Vacate left, contact Tower, TC-FLY.','Wilco, bye.'],
+ e:'Pistten çıkış talimatı ve frekans değişimi readback edilir. Pist boşalmadan flap/carb heat gibi işlemleri yapma, önce pisti boşalt.',
+ after:()=>{setFreq('GND 121.700');S.tIas=12;S.zMax=S.z+120;S.tRpm=1000}},
+{ph:5,cat:'Prosedürler',needGnd:true,q:'Park ettin. Motoru normal şekilde nasıl durdurursun?',
+ o:['Mixture\'ı idle cut-off\'a çek, motor durunca magnetoları ve master\'ı kapat','Önce master\'ı kapat, motoru kendi haline bırak','Magnetoları kapat, mixture full kalsın','Gazı tam açıp motoru boğ'],
+ e:'Mixture idle cut-off yakıtı keser; motor durur, sonra magnetolar OFF ve master OFF. Hâlâ yakıt varken magnetoyu kapatmak motorun atış yapmasına sebep olabilir.',
+ after:()=>{S.tRpm=0;S.tIas=0}}
+];
+
+/* ===== EK SORULAR (bilgi soruları; o[0] doğru cevap) ===== */
+const X=(ph,cat,q,o,e,pos)=>({ph,cat,q,o,e,pos:pos||'end'});
+const EXTRA=[
+// ---- PARK / UÇUŞ ÖNCESİ ----
+X(0,`Hava Hukuku`,`Uçuştan önce uçakta hangi belgelerin bulunması/geçerli olması gerekir?`,[`Tescil belgesi, uçuşa elverişlilik (airworthiness) belgesi, sigorta, telsiz ruhsatı; pilotta ise lisans, sağlık belgesi ve kimlik`,`Sadece pilot lisansı`,`Sadece uçak ruhsatı ve yakıt faturası`,`Hava durumu raporu ve uçuş okulu üyelik kartı`],`Uçak belgeleri (tescil, uçuşa elverişlilik, sigorta, telsiz ruhsatı) ve pilot belgeleri (lisans, medikal, kimlik) uçuş öncesi kontrol edilir. Eksik veya süresi dolmuş belgeyle uçulmaz.`,'start'),
+X(0,`Operasyon`,`Gündüz VFR uçuş için yakıt planlamasında asgari kural nedir (EASA NCO.OP.125)?`,[`Hedefe kadar gereken yakıt + en az 30 dakikalık nihai rezerv`,`Sadece hedefe yetecek kadar yakıt`,`Hedefe yetecek yakıtın yarısı`,`Depoyu yarıya kadar doldurmak yeterlidir`],`Gündüz VFR için hedef havaalanına kadar yakıt + normal seyir irtifasında en az 30 dk rezerv gerekir (gece VFR 45 dk). Pratikte ek emniyet payı (rüzgâr, pas geçme, alternatif) eklenir.`,'start'),
+X(0,`NOTAM`,`Uçuş öncesi NOTAM kontrolü neden önemlidir?`,[`Pist kapanması, kısıtlı/tehlikeli bölge, vinç/engel ve cihaz arızası gibi geçici değişiklikleri bildirir`,`Sadece hava durumunu bildirir`,`Uçak fiyatlarını duyurur`,`Yalnızca uçuş ücretlerini içerir`],`NOTAM; altyapı, hizmet ve hava sahası değişikliklerini (pist kapalı, aktif kısıtlı bölge, ışık arızası vb.) içerir. Uçuş öncesi bilgilendirme (PIB) bunun bir parçasıdır.`,'start'),
+X(0,`Ağırlık ve Denge`,`Uçağın ağırlık merkezi (CG) arka limitin ötesindeyse en tehlikeli sonuç hangisidir?`,[`Boyuna stabilite azalır; stall/spin'den çıkış zorlaşır`,`Stall hızı azalır ve uçak çok sağlamlaşır`,`Yakıt tüketimi sıfırlanır`,`Uçak kontrolü kolaylaşır`],`CG arkada ise uçak daha az stabil olur ve burnu kolayca yukarı kalkar; stall'dan çıkış zorlaşır. CG çok önde ise flare için yeterli elevatör gücü olmayabilir. Her zaman W&B hesapla.`,'start'),
+X(0,`Uçuş Performansı`,`Yoğunluk irtifası (density altitude) arttığında kalkış performansı nasıl değişir?`,[`Kalkış koşusu uzar, tırmanma performansı düşer`,`Kalkış koşusu kısalır`,`Hiç değişmez`,`Sadece yakıt tüketimi etkilenir`],`Sıcak, yüksek ve nemli havada hava yoğunluğu düşer: motor gücü, pervane verimi ve kanat lifti azalır. Yaz sıcağında ve yüksek pistlerde dikkat edilmelidir.`,'start'),
+X(0,`Telsiz`,`TC-FLY çağrı işaretinin ICAO fonetik okunuşu hangisidir?`,[`Tango Charlie Foxtrot Lima Yankee`,`Tango Charlie Fox Love Yellow`,`Tom Charlie Fred Larry Yellow`,`Tango Cuba Foxtrot Lima Yankee`],`ICAO fonetik alfabesi: T=Tango, C=Charlie, F=Foxtrot, L=Lima, Y=Yankee. Telsizde harfler fonetik okunur.`,'start'),
+X(0,`Telsiz`,`Telsizde "9" rakamı ve "118.1" frekansı nasıl okunur?`,[`"Niner" ve "one one eight decimal one"`,`"Nine" ve "one eighteen point one"`,`"Nein" ve "hundred eighteen one"`,`"Nigh-nine" ve "one eight point one"`],`ICAO: 3=tree, 5=fife, 9=niner. Frekans rakam rakam okunur, ondalık "decimal" denir.`,'start'),
+X(0,`Hava Hukuku`,`Uçak çağrı işaretindeki "TC-" ön eki neyi gösterir?`,[`Uçağın tescil edildiği ülkenin ulusal işareti (Türkiye)`,`Uçağın modelini`,`Uçağın motor tipini`,`Havaalanının ICAO kodunu`],`Tescil işareti ulusal ön ekle başlar (TC=Türkiye, D=Almanya, G=Birleşik Krallık). Chicago Sözleşmesi Annex 7 ile belirlenir.`,'start'),
+// ---- TAKSİ / KALKIŞ ÖNCESİ ----
+X(1,`Prosedürler`,`Taksi hareketine başlar başlamaz ilk yapılacak kontrol hangisidir?`,[`Frenleri test etmek`,`Flap'ı tam açmak`,`Transponderi kapatmak`,`Mixture'ı idle cut-off'a çekmek`],`Taksinin başında frenler (ve yönlendirme) test edilir; hız yürüme hızından hızlı olmamalıdır.`),
+X(1,`Pist İşaretleri`,`Pist numarası "36" neyi ifade eder?`,[`Manyetik pist yönü 360° (pist yönünün 10'a bölünmüş yuvarlanmış hali)`,`Pist uzunluğu 3600 m`,`Pist genişliği 36 m`,`Pistin 36. numaralı park alanı`],`Pist numarası, manyetik yönün 10'a bölünüp yuvarlanmasıyla bulunur. 36 → 360° (kuzey), 18 → 180° (güney).`),
+X(1,`Uçak Bilgisi`,`Run-up sırasında carb heat'i açınca RPM'in hafif düşmesi neyi gösterir?`,[`Normal: sıcak hava karışımı zenginleştirir, sistem çalışıyor`,`Motor arızası`,`Yağ basıncı sorunu`,`Pervane hasarı`],`Carb heat sıcak hava verir ve karışımı hafif zenginleştirir, bu yüzden RPM düşer. RPM hiç düşmüyorsa sistem çalışmıyor olabilir. Buz varsa önce düşer sonra toparlar.`),
+X(1,`Hava Hukuku`,`ATC "hold short of runway 36" dediğinde ne yaparsın?`,[`Bekleme çizgisinin (holding point) önünde durup readback yaparım`,`Pist başına girip beklerim`,`İzin gelmeden pisti geçerim`,`Sadece "Roger" derim ve devam ederim`],`Bekleme noktası pist ihlallerini önlemek için kritiktir. Hold short talimatı mutlaka readback edilir ve çizgi izinsiz geçilmez.`),
+X(1,`Meteoroloji`,`Cessna 172'nin kitapta belirtilen gösterilmiş maksimum yan rüzgâr hızı (demonstrated crosswind) yaklaşık nedir?`,[`15 kt`,`5 kt`,`35 kt`,`50 kt`],`C172 için yaklaşık 15 kt gösterilmiş yan rüzgâr değeri vardır. Bu limit değil, test pilotunun gösterdiği değerdir; kendi tecrüben ve okulunun limitleri esas alınır.`),
+X(1,`Hava Hukuku`,`Yerdeki uçağa kuleden "sabit yeşil ışık" verilirse ne anlama gelir?`,[`Kalkış izni`,`Dur`,`Park alanına dön`,`Pistten çık ve bekle`],`Yerde: sabit yeşil = kalkış izni, sabit kırmızı = dur, yanıp sönen yeşil = taksi izni, yanıp sönen kırmızı = taksi yolunu boşalt, yanıp sönen beyaz = başladığın yere dön.`),
+X(1,`Uçuş Prensipleri`,`Tam güç kalkış koşusunda tek pervaneli uçak (saat yönü dönen pervane, pilottan bakış) hangi yöne sapma eğilimindedir ve nasıl düzeltilir?`,[`Sola sapar; sağ rudder ile düzeltilir`,`Sağa sapar; sol rudder ile düzeltilir`,`Sapma olmaz`,`Yukarı kalkar; elevatör ileri`],`Tork, slipstream ve P-faktörü yüzünden uçak sola sapar. Sağ rudder pedalına basarak düzeltilir.`),
+X(1,`Acil Durumlar`,`Kalkış koşusunda (henüz havalanmadan) motor arızası olursa yapılacak hareket nedir?`,[`Gazı kapat, uçağı pist yönünde frenleyerek durdur`,`Havalanıp tırmanmaya çalış`,`Flap'ı indir ve devam et`,`Sert dönüş yap`],`Havalanmadan önceki arızada kalkış iptal edilir (rejected takeoff): gaz idle, direksiyon ve fren ile pistte durdur.`),
+// ---- KALKIŞ / TIRMANIŞ ----
+X(2,`Uçuş Prensipleri`,`60° yatışlı koordineli dönüşte yük faktörü ve stall hızı nasıl değişir?`,[`2 G ve stall hızı yaklaşık %41 artar`,`1 G ve stall hızı değişmez`,`2 G ve stall hızı azalır`,`3 G ve stall hızı iki katı artar`],`Yük faktörü = 1/cos(yatış açısı). 60° → 2 G; stall hızı artış katsayısı √2 ≈ 1.41. Bu yüzden dik yatışlarda stall riski büyür.`),
+X(2,`Hava Hukuku`,`VFR uçuşta "see and avoid" prensibi ne anlama gelir?`,[`Pilot, hava durumuna ve trafiğe görsel olarak dikkat eder, çarpışmayı önlemekten sorumludur`,`Çarpışmayı yalnızca ATC önler`,`VFR'de çevre izlemeye gerek yoktur`,`Sadece transponderle trafik takip edilir`],`VFR'de ayrım sorumluluğu pilota aittir. Sürekli dış gözlem (scan) ve doğru bildirim şarttır.`),
+X(2,`Hava Hukuku`,`Yerleşim alanı üzerinde minimum uçuş yüksekliği nedir (SERA.5005)?`,[`Bir yarıçapı 600 m içindeki en yüksek engelin 300 m (1000 ft) üzerinde`,`50 ft`,`Sadece 500 ft AGL, engel fark etmez`,`Yerleşim üzerinde alçalmak serbesttir`],`Yoğun yerleşim üzerinde: 600 m yarıçap içindeki en yüksek engelin en az 300 m (1000 ft) üstünde. Diğer yerlerde en az 150 m (500 ft) AGL/AMSL.`),
+X(2,`Hava Hukuku`,`Avrupa'da VFR uçuşta yaygın kullanılan transponder (squawk) kodu hangisidir?`,[`7000`,`7700`,`7500`,`0000`],`7000 genel VFR kodudur (ATC başka kod verene kadar). 7500, 7600 ve 7700 acil kodlardır. Ulusal kurallar değişebilir.`),
+X(2,`Hava Hukuku`,`Transition altitude'un altında altimetre hangi ayarla uçulur?`,[`QNH (deniz seviyesi basıncı)`,`Standart 1013.25 hPa`,`Gerçek yer yüksekliği (QFE)`,`Sıcaklığa göre rastgele ayar`],`Transition altitude altında QNH ile irtifa (altitude), transition level üstünde 1013.25 hPa ile uçuş seviyesi (FL) kullanılır.`),
+X(2,`Hava Hukuku`,`Gece uçan bir uçağın seyir ışıkları nasıldır?`,[`Sol kanat kırmızı, sağ kanat yeşil, kuyruk beyaz`,`Sol yeşil, sağ kırmızı, kuyruk beyaz`,`Hepsi beyaz`,`Sol mavi, sağ sarı`],`Sol (port) kırmızı, sağ (starboard) yeşil, kuyruk beyaz. Bu ışıklardan yön ve trafik durumu anlaşılır.`),
+// ---- SEYİR ----
+X(3,`Uçuş Prensipleri`,`Spin kurtarmada standart adım sırası nedir (PARE)?`,[`Gaz idle, aileron nötr, spin yönünün tersine rudder, elevatörü ileri; dönme durunca yumuşak çekiş`,`Gaz tam, yoke tam geri, rudder spin yönüne`,`Flap tam açık, burun yukarı`,`Önce kuleye bildir, sonra bekle`],`Spin'de önce stall'ı kır: power idle, ailerons neutral, rudder opposite, elevator forward. Kurtarmada flap ve yük faktörüne dikkat edilir; ilk eğitimde eğitmenle uygulanır.`),
+X(3,`Meteoroloji`,`METAR'da "BKN" bulut miktarı kaç okta demektir?`,[`5–7 okta (parçalı/kapalı)`,`1–2 okta`,`3–4 okta`,`8 okta`],`FEW=1–2, SCT=3–4, BKN=5–7, OVC=8 okta. Tavan (ceiling) BKN veya OVC en alçak tabaka olarak tanımlanır.`),
+X(3,`Meteoroloji`,`Radyasyon sisi (radiation fog) hangi koşullarda oluşur?`,[`Açık, sakin ve nemli bir gecede yer soğuyup sıcaklık çiğ noktasına yaklaştığında`,`Güçlü rüzgârlı sıcak öğleden sonra`,`Soğuk cephe geçişinde`,`Yüksek irtifada kuru havada`],`Hafif rüzgâr, açık gökyüzü, yüksek nem ve uzun gece koşulları sis oluşturur. Sabah güneşle dağılır, ama ilk saatlerde görüşü ciddi düşürebilir.`),
+X(3,`Meteoroloji`,`Soğuk cephe geçtikten sonra tipik değişimler nelerdir?`,[`Sıcaklık düşer, basınç yükselir, rüzgâr sağa döner (kuzey yarım küre), görüş genelde iyileşir`,`Sıcaklık artar, basınç düşer`,`Rüzgâr sola döner ve hava durgunlaşır`,`Hiçbir şey değişmez`],`Soğuk cephe önünde ve geçişinde CB, sağanak ve türbülans olabilir; geçişten sonra görüş genelde iyidir, basınç yükselir ve rüzgâr (kuzey yarım kürede) sağa döner.`),
+X(3,`Meteoroloji`,`Termal türbülans günün hangi saatlerinde en şiddetlidir?`,[`Güneşli günlerde öğleden sonra`,`Gece yarısı`,`Şafak vakti`,`Gün batımından sonra`],`Yerin ısınmasıyla yükselen hava (termal) en güçlü olarak öğleden sonra gelişir; bu saatlerde cumulus bulutları artar.`),
+X(3,`Meteoroloji`,`Yüksek basınçlı bir bölgeden alçak basınçlı bölgeye altimetre ayarını değiştirmeden uçarsan ne olur?`,[`Altimetre gerçek irtifadan daha YÜKSEK gösterir; uçak aslında daha alçaktır`,`Altimetre gerçek irtifadan daha düşük gösterir`,`Hiçbir fark olmaz`,`Altimetre durur`],`"High to low, look out below": basınç düşüyorsa altimetre fazla okur. Bu yüzden QNH sık güncellenir.`),
+X(3,`Seyrüsefer`,`60 NM uçtun ve rotandan 3 NM saptın. İzleme hatası (track error) yaklaşık kaç derecedir?`,[`3° (1:60 kuralı)`,`6°`,`1°`,`30°`],`1:60 kuralı: 60 NM'de 1 NM sapma yaklaşık 1°'dir. 3 NM → 3°. Düzeltme için kalan mesafe de hesaba katılır.`),
+X(3,`Seyrüsefer`,`TAS 100 kt, rüzgâr tam kuyruktan 20 kt ise yer hızı (GS) nedir?`,[`120 kt`,`80 kt`,`100 kt`,`20 kt`],`Kuyruk rüzgârı GS'yi artırır: 100 + 20 = 120 kt. Kafa rüzgârında GS azalır.`),
+X(3,`Seyrüsefer`,`Yakıt tüketimi 36 L/saat. GS 100 kt ile 150 NM uçacaksın. Gereken yakıt yaklaşık ne kadardır?`,[`54 L`,`36 L`,`72 L`,`150 L`],`Süre = 150/100 = 1.5 saat. Yakıt = 36 × 1.5 = 54 L (rezerv hariç).`),
+X(3,`Seyrüsefer`,`UTC 1150Z saat Türkiye yerel saatiyle kaçtır? (UTC+3)`,[`14:50`,`08:50`,`11:50`,`12:50`],`Türkiye UTC+3 kullanır: 11:50 + 3 saat = 14:50. Uçuş planı ve NOTAM'larda saatler UTC (Z) verilir.`),
+X(3,`Seyrüsefer`,`1:500.000 ölçekli haritada 1 cm gerçekte kaç km'dir?`,[`5 km`,`500 m`,`50 km`,`0,5 km`],`1:500.000 → 1 cm = 500.000 cm = 5.000 m = 5 km.`),
+X(3,`Seyrüsefer`,`Kuzey yarım kürede kuzeye dönüş sırasında manyetik pusula hatası nasıl uygulanır (UNOS)?`,[`Hedeften ÖNCE toparlanır (undershoot north)`,`Hedefi geçip toparlanır`,`Hiçbir hata olmaz`,`Pusula yalnızca batıya dönüşte hata yapar`],`UNOS: Undershoot North, Overshoot South. Kuzeye dönerken pusula geç tepki verir, hedef heading'e varmadan önce yatışı topla.`),
+X(3,`Uçak Bilgisi`,`Heading indicator (DI/gyro) zamanla ne yapar ve ne sıklıkla düzeltilmelidir?`,[`Presesyon yapar; düz uçuşta yaklaşık her 15 dakikada manyetik pusulayla eşitlenmelidir`,`Asla sapma yapmaz`,`Sadece yağmurda bozulur`,`Her gün bir kez düzeltilir`],`Gyro tabanlı gösterge sürtünme/presesyon nedeniyle kayar; manyetik pusulayla periyodik olarak senkronize edilir.`),
+X(3,`İnsan Performansı`,`Hiperventilasyonun belirtisi ve düzeltme yöntemi nedir?`,[`Baş dönmesi, karıncalanma, kas kasılması; yavaş ve kontrollü nefes (konuşma/sayma)`,`Mavi dudak; hızlı nefes almaya devam et`,`Uyuşukluk; derin hızlı soluk`,`Görüş artar; hiçbir şey yapma`],`Aşırı hızlı nefes CO2'yi düşürür. Stres/panik tetikler. Nefesi yavaşlat, sakin ol, gerekirse yüksek sesle say.`),
+X(3,`İnsan Performansı`,`IMSAFE kontrol listesindeki "A" harfi neyi ifade eder?`,[`Alkol: alkol/ilaç etkisi altında uçulmaz; ulusal kural ve "8 saat" gibi eşikler uygulanır`,`Altimetre ayarı`,`Pilot kondisyonu`,`Hava durumu`],`IMSAFE: Illness, Medication, Stress, Alcohol, Fatigue, Emotion (veya Eating). Pilotun uçuşa uygunluğunu uçuş öncesi sorgulamak için kullanılır.`),
+X(3,`İnsan Performansı`,`Bulutta/görüşün kaybolduğu anda "leans" gibi yanlış duyularla karşılaşan pilot ne yapmalıdır?`,[`Enstrümanlara (özellikle yapay ufuk) güvenmeli ve duyularına değil göstergelere göre uçmalı`,`Duyularına güvenip hızlıca dönüş yapmalı`,`Gözlerini kapatıp dinlenmeli`,`Gazı tam açmalı`],`Uzamsal yönelim bozukluğunda (spatial disorientation) iç kulak yanıltır. Çare: göstergelere güven, ani hareketlerden kaçın, yardım iste, VMC'ye dön.`),
+X(3,`İnsan Performansı`,`Kokpitte karbon monoksit (CO) zehirlenmesinden şüphelenirsen ne yaparsın?`,[`Kabin ısıtmasını kapat, havalandırmayı aç, en yakın uygun yere iniş yap ve ATC'ye bildir`,`Isıtmayı daha çok aç`,`Hiçbir şey yapmadan devam et`,`Gaz kes ve dal`],`CO egzozdan kabin ısıtmasına sızabilir; belirtiler baş ağrısı, bulantı, uyuşukluk. Isıtmayı kapat, hava ver, en yakın yere in. Gerekirse tıbbi kontrol yaptır.`),
+X(3,`İnsan Performansı`,`"Bana bir şey olmaz" tavrı hangi tehlikeli tutuma örnektir?`,[`Yenilmezlik (invulnerability)`,`Macho`,`Dürtüsellik`,`Boyun eğme`],`Tehlikeli tutumlar: Anti-authority, Impulsivity, Invulnerability, Macho, Resignation. Karşı tedbir: "Bu bana da olabilir."`),
+X(3,`İnsan Performansı`,`Nezle veya sinüs tıkanıklığı varken uçmak neden risklidir?`,[`Basınç değişimlerinde kulak/sinüs ağrısı ve işitme kaybı, dikkat bozukluğu doğurabilir`,`Uçak performansı artar`,`Hiçbir risk yoktur`,`Sadece yolcuları etkiler`],`Alçalma sırasında kulak/sinüs basıncı dengelenemeyebilir (barotrawma). Hasta pilot uçmamalıdır.`),
+X(3,`Uçak Bilgisi`,`Avgas 100LL yerine yanlışlıkla Jet-A yakıt doldurulursa ne olur?`,[`Motor detonasyon yapabilir, güç kaybı ve ciddi hasar oluşabilir`,`Motor daha güçlü çalışır`,`Hiçbir şey olmaz`,`Sadece renk değişir`],`Jet-A kerosendir; pistonlu motorda sorun çıkarır. Doğru yakıtı ve renk/kokuyu kontrol et; şüphe varsa uçma.`),
+X(3,`Hava Hukuku`,`D sınıfı hava sahasında VFR uçuş için ne gereklidir?`,[`ATC izni (clearance) ve iki yönlü telsiz haberleşmesi`,`Hiçbir şey gerekmez`,`Sadece transponder`,`Sadece uçuş planı`],`D sınıfında VFR uçuşlar için ATC izni ve sürekli iki yönlü telsiz gerekir. VFR'ler birbirinden ayrılmaz, ancak trafik bilgisi verilir.`),
+X(3,`Hava Hukuku`,`Telsiz arızasında (VFR, hava iyi) ne yapılır?`,[`7600 kodunu gir, VMC'de kal, en yakın uygun havaalanına in ve ışık sinyallerini izle`,`7700'e geç ve hemen dal`,`Alçalıp kule üzerine dalış yap`,`Frekansı sessizce sürekli değiştir`],`Telsiz arızasında 7600 kodu girilir, mümkünse VMC'de kalınır, ışık sinyalleri izlenir ve uygun bir havaalanına inilir.`),
+X(3,`Telsiz`,`PAN PAN çağrısı ne zaman kullanılır?`,[`Acil değil ama güvenliği etkileyen acil/urgent durum (ör. yön kaybı, yakıt azlığı)`,`Anında hayati tehlike`,`Rutin konum bildirimi`,`Selamlama`],`MAYDAY=ciddi ve yakın tehlike. PAN PAN=aciliyet. Her ikisi de üç kez tekrarlanır.`),
+X(3,`Telsiz`,`"Wilco" ve "Roger" arasındaki fark nedir?`,[`Roger: mesajı aldım; Wilco: anladım ve uygulayacağım`,`İkisi de aynı`,`Wilco: reddettim`,`Roger: kapat`],`Roger = mesaj alındı. Wilco = (will comply) anladım ve uygulayacağım. İzinler için Roger/Wilco yerine readback yapılır.`),
+X(3,`Telsiz`,`Radio check'te "readability five" ne anlama gelir?`,[`Mükemmel anlaşılır (1=anlaşılmaz, 5=mükemmel)`,`Kötü anlaşılır`,`Frekans yanlış`,`Telsiz kapalı`],`Okunabilirlik ölçeği: 1 anlaşılmaz, 2 ara sıra, 3 zor, 4 kolay, 5 mükemmel.`),
+X(3,`Telsiz`,`ATC "squawk ident" derse ne yaparsın?`,[`Transponderdeki IDENT düğmesine basarım`,`Kodu değiştirir ve kapatırım`,`Yeni frekansa geçerim`,`Pas geçerim`],`Ident, ATC radarında hedefinizi belirginleştirir. Kod değişimi için "squawk (kod)" denir.`),
+X(3,`Uçuş Prensipleri`,`Ağırlık arttığında stall hızı nasıl değişir?`,[`Artar`,`Azalır`,`Değişmez`,`Sıfırlanır`],`Daha ağır uçak aynı lifti üretmek için daha yüksek hücum açısına/hıza ihtiyaç duyar; stall hızı artar.`),
+// ---- YAKLAŞMA ----
+X(4,`Uçuş Prensipleri`,`Final yaklaşmada güç ve burun (pitch) ile ne kontrol edilir?`,[`Burun hızı, güç irtifa/iniş eğimi (yaklaşma açısı) kontrol eder`,`Burun irtifayı, güç hızı`,`İkisi de sadece hızı`,`İkisi de sadece irtifayı`],`Klasik yaklaşma tekniğinde: pitch → hava hızı; power → irtifa/eğim. Her ikisi birlikte ayarlanır.`),
+X(4,`Uçuş Prensipleri`,`Yan rüzgârlı inişte wing-low (sideslip) tekniğinde ne yaparsın?`,[`Rüzgâr tarafındaki kanadı aileronla indirir, ters rudder ile burnu pist ekseninde tutarım`,`Burnu rüzgâra çevirip hiçbir düzeltme yapmam`,`Tüm flap'ı açıp güç artırırım`,`Rudder'ı rüzgâr tarafına iterim`],`Wing-low: kanadı rüzgâr yönüne indir (aileron), uçağın burnunu ters rudder ile pist yönüne hizala. Böylece tekerlekler yan kaymaz.`),
+X(4,`Uçuş Prensipleri`,`Yer etkisi (ground effect) neyi azaltır ve ne sonuç doğurur?`,[`İndüklenmiş sürüklemeyi azaltır; uçak pist üzerinde "yüzer" (float)`,`Lifti sıfırlar`,`Motor gücünü artırır`,`Yakıt tüketimini artırır`],`Yere yakınken (kanat açıklığı yüksekliği) kanat ucu girdapları zayıflar, induced drag azalır ve uçak süzülmeye devam eder. Çok hızlı yaklaşırsan pistte float yaparsın.`),
+X(4,`Uçuş Prensipleri`,`Wake türbülansı hangi koşulda en tehlikelidir?`,[`Ağır, yavaş, temiz konfigürasyonda uçan uçağın arkasında ve rüzgârsız havada`,`Hafif uçakların arkasında`,`Yüksek hızda ve flap açıkken`,`Kuvvetli yan rüzgârda hiç tehlike yoktur`],`Wake girdapları aşağı ve dışa doğru yayılır, hafif rüzgâr onları pistte tutabilir. Ağır uçağın touchdown noktasının ötesine in; ağır uçağın rotate noktasından önce kalk.`),
+X(4,`Hava Hukuku`,`İniş yapmak üzere yaklaşan iki uçaktan hangisine öncelik verilir?`,[`Daha alçaktaki uçağa (final'dekine)`,`Daha yüksekteki uçağa`,`Her zaman büyük uçağa`,`Soldan gelene`],`SERA.3210: İniş yapan veya yaklaşan uçaklardan yüksekte olan, alçakta olana yol verir. Ancak bunu suistimal edip kısa final'e girmemelisin.`),
+X(4,`Hava Hukuku`,`Havadaki uçağa kuleden "sabit yeşil ışık" verilirse ne anlama gelir?`,[`İniş izni`,`Dolaş ve bekle`,`Havaalanı güvensiz`,`Pas geç`],`Havada: sabit yeşil = iniş izni, sabit kırmızı = yol ver ve dolaş, yanıp sönen yeşil = iniş için geri dön (izin ayrıca verilir), yanıp sönen kırmızı = havaalanı güvensiz, inme, yanıp sönen beyaz = bu havaalanına in ve apron'a git.`),
+X(4,`Hava Hukuku`,`Yaklaşma stabil değilse (çok hızlı/yüksek/yamuk, 500 ft AGL altında) en doğru karar nedir?`,[`Pas geç (go-around) ve yeniden yaklaş`,`İnişe zorlayarak devam et`,`Gazı tam kes ve dal`,`Hiçbir şey yapma`],`Stabilize yaklaşma kriterleri sağlanmıyorsa pas geçmek en güvenli seçenektir; çoğu kaza "inişe zorlama"dan çıkar.`),
+X(4,`Uçak Bilgisi`,`Carb heat ne zaman uygulanır ve pas geçerken ne yapılır?`,[`Güç azaltılmadan önce (genelde downwind/base) açılır; pas geçerken tam güçle birlikte kapatılır`,`Her zaman kapalı kalır`,`Sadece tam güçte açılır`,`Hiç kullanılmaz`],`Düşük güçte buzlanma riski artar; carb heat güç azaltılmadan önce açılır. Pas geçişinde güç artarken carb heat kapatılır (cold).`),
+X(4,`Meteoroloji`,`Final'de ani kafa rüzgârı kaybı (wind shear) olursa uçağa ne olur ve ne yapılır?`,[`Hız ve irtifa kaybı olur; güç ekle, burnu kontrol et, gerekirse pas geç`,`Uçak hızlanır, gazı kes`,`Hiçbir şey olmaz`,`Flap tam aç ve bekle`],`Kafa rüzgârı azalınca hava hızı düşer; alçak irtifada stall riski büyür. Güç ekle, burnu indirip hızı koru, gerekirse pas geç.`),
+X(4,`Telsiz`,`Downwind çağrısında hangi bilgiler verilir?`,[`İstasyon, çağrı işareti, pozisyon (downwind) ve pist`,`Sadece "downwind"`,`Hava durumu raporu`,`Rastgele bilgi`],`Devre içinde: "Skyline Tower, TC-FLY, downwind runway 36." Kule size sıra bildirir (number two, cleared to land vb.).`),
+// ---- İNİŞ / PARK ----
+X(5,`Prosedürler`,`İniş koşusunda ilk öncelik nedir?`,[`Uçağı pist ekseninde tut (rudder), gazı kıs, gerekirse yumuşak fren`,`Hemen tüm flap'ı kaldır`,`Hemen telsizle konuş`,`Pist boyunca tam gazla ilerle`],`Önce uçağı kontrol et. Direksiyon/rudder ile hizayı koru, güç idle, yavaşlayınca fren; pist boşaltılmadan başka işlem yapma.`,'after1'),
+X(5,`Prosedürler`,`Pistten çıkıp güvenli bölgeye geçince flap ve carb heat ne yapılır?`,[`Pist boşaltıldıktan sonra flap kaldırılır ve carb heat kapatılır`,`İniş sırasında hemen kaldırılır`,`Pistte durup yapılır`,`Hiç dokunulmaz`],`Hareket halinde kontrolü bırakıp yan işlemlere dalma. Pist boşalınca flap kaldır, carb heat kapat, transponderi standby'a al.`),
+X(5,`Prosedürler`,`Uçağı bağladıktan sonra (park) ne yapılır?`,[`Tie-down/takoz, pitot kapağı ve kumanda kilitleri uygulanır; belgeler ve logbook doldurulur`,`Uçak açıkta bırakılır`,`Sadece anahtar çıkarılır`,`Yakıt boşaltılır`],`Uçak rüzgâra karşı bağlanır, pitot ve kumanda kilidi takılır. Uçuş süresi/kayıtlar uçuş defterine işlenir.`),
+X(5,`Hava Hukuku`,`Ciddi bir olay veya kaza yaşandığında pilot ne yapmalıdır?`,[`İlgili havacılık otoritesine ve soruşturma birimine gecikmeden bildirim yapmalı, delilleri korumalıdır`,`Hiçbir şey yapma`,`Uçağı hemen taşı`,`Yalnızca sosyal medyada paylaş`],`Kaza/ciddi olay bildirimi zorunludur; delillere dokunulmaz ve soruşturmaya yardımcı olunur. Ülkeye göre kurum değişir (Türkiye'de SHGM).`)
+];
+(function(){const sorted=[];for(let ph=0;ph<=5;ph++){const base=ST.filter(s=>s.ph===ph);const st=EXTRA.filter(e=>e.ph===ph&&e.pos==='start');const en=EXTRA.filter(e=>e.ph===ph&&e.pos!=='start'&&e.pos!=='after1');
+ const a1=EXTRA.filter(e=>e.ph===ph&&e.pos==='after1');const last=base.pop();const first=base.shift();sorted.push(...st,first,...a1,...base,...en,last)}
+ ST.length=0;ST.push(...sorted)})();
+
+/* ================= OYUN AKIŞI ================= */
+let toastT;
+function toast(t,c){const e=$('toast');e.textContent=t;e.style.color=c||'#fff';e.style.opacity=1;clearTimeout(toastT);toastT=setTimeout(()=>e.style.opacity=0,1800)}
+function setFreq(f){freqTxt=f;$('freq').textContent=f}
+function jump(fn){const f=$('fade');f.style.transition='opacity .6s';f.style.background='#000';f.style.opacity=1;setTimeout(()=>{fn();f.style.opacity=0},650)}
+function addLog(who,text,cls,tr){const d=document.createElement('div');d.className='m '+cls;d.innerHTML='<b>'+who+'</b>';const s=document.createElement('span');s.textContent=text;d.appendChild(s);
+ if(tr){const i=document.createElement('i');i.textContent='🇹🇷 '+tr;d.appendChild(i)}const l=$('log');l.appendChild(d);l.scrollTop=l.scrollHeight;while(l.children.length>40)l.removeChild(l.firstChild)}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+function hud(){$('hp').style.width=Math.max(0,hp)+'%';$('hp').style.background=hp>60?'#27d17f':hp>30?'#ffb020':'#ff3b4e';$('score').textContent=score;$('streak').textContent=streak;
+ const ph=ST[Math.min(idx,ST.length-1)].ph;$('pills').innerHTML=PH.map((n,i)=>`<span class="pill ${i<ph?'done':i==ph?'on':''}">${i<ph?'✓ ':''}${n}</span>`).join('')}
+function start(){audioInit();if(AC&&AC.state==='suspended')AC.resume();
+ resetState();$('log').innerHTML='';run=true;$('ov').style.display='none';setFreq('---');hud();
+ addLog('SİSTEM','Cessna 172 TC-FLY – Skyline Havaalanı (LTXX), pist 36. İyi uçuşlar!','info');show()}
+function show(){
+ const st=ST[idx];
+ if(ended)return;
+ if(st.needGnd&&!S.gnd&&!S.crash){$('card').style.display='none';setTimeout(show,400);return}
+ locked=false;hud();
+ if(st.freq)setFreq(st.freq);
+ if(st.info)addLog('MET',st.info,'info');
+ if(st.atc){squelch();talk=2.5;addLog('KULE · '+freqTxt.split(' ')[0],st.atc,'atc',st.tr);say(st.atc)}
+ if(st.start)st.start();
+ $('cat').textContent=st.cat+(st.radio?' · 📻':'');$('qn').textContent='Soru '+(idx+1)+'/'+ST.length;$('q').textContent=st.q;$('exp').textContent='';$('next').style.display='none';
+ const box=$('opts');box.innerHTML='';
+ shuffle(st.o.map((t,i)=>({t,c:i===0}))).forEach(x=>{const b=document.createElement('button');b.className='opt';b.textContent=x.t;if(x.c){b.dataset.c=1;if(TEST)b.classList.add('hint');if(TEST)b.textContent='✔ '+x.t}b.onclick=()=>answer(b,x,box,st);box.appendChild(b)});
+ box._o=null;$('card').style.display='block';$('card').scrollTop=0;
+}
+function answer(btn,x,box,st){
+ if(locked||ended)return;locked=true;
+ [...box.children].forEach(b=>{b.disabled=true});
+ const okBtn=[...box.children].find(b=>b.dataset.c);okBtn.classList.add('ok');
+ const s=stat[st.cat]=stat[st.cat]||{ok:0,tot:0};s.tot++;
+ const before=lvl();
+ if(st.radio){squelch();talk=2;addLog('SEN',x.t,x.c?'me':'bad')}
+ if(x.c){s.ok++;streak++;score+=10+streak*2;hp=Math.min(100,hp+10);
+  toast(streak>2?`🔥 ${streak} seri!`:'✅ Doğru!','#6dffa8');beep(1200,.12,.05)}
+ else{btn.classList.add('bad');streak=0;hp-=20;S.shake=14;beep(180,.35,.09,'sawtooth');
+  if(st.radio){setTimeout(()=>{squelch();talk=2;addLog('KULE','TC-FLY, negative, say again your readback.','atc');say('Negative. Say again your readback.')},900)}}
+ const after=lvl();
+ if(after>before){const m=['','⚠️ MASTER CAUTION – Motor düzensiz çalışıyor','🛢️ Yağ basıncı düşüyor, motordan duman!','🔥 MOTOR YANGINI – güç kaybı!','🚨 MAYDAY – acil iniş!','🚨 KRİTİK'];toast(m[Math.min(after,4)],after>=3?'#ff5a4d':'#ffcf40')}
+ else if(after<before&&after>=0)toast('🔧 Sistemler toparlanıyor','#9de0ff');
+ if(st.after)st.after();
+ $('exp').textContent='💡 '+st.e;hud();
+ const nb=$('next');nb.style.display='inline-block';nb.disabled=false;nb.textContent=idx>=ST.length-1?'Uçuşu Bitir 🏁':'Devam ➜';
+ if(st.lockNext){nb.disabled=true;setTimeout(()=>nb.disabled=false,st.lockNext)}
+ $('card').scrollTop=$('card').scrollHeight;
+}
+$('next').onclick=()=>{if(ended)return;idx++;if(idx>=ST.length)return win();show()};
+function report(){const rows=Object.entries(stat).map(([k,v])=>{const p=Math.round(v.ok/v.tot*100);return`<div>${k} <b>${v.ok}/${v.tot}</b><div class="t"><i style="width:${p}%;background:${p>=75?'#27d17f':p>=50?'#ffb020':'#ff4d63'}"></i></div></div>`}).join('');
+ const weak=Object.entries(stat).filter(([k,v])=>v.ok/v.tot<.75).map(([k])=>k);
+ return`<div class="rep">${rows}</div>`+(weak.length?`<p>📚 Tekrar et: <b>${weak.join(', ')}</b></p>`:'<p>🎯 Tüm konularda sağlam görünüyorsun!</p>')}
+function menu(h){run=false;$('card').style.display='none';$('ovb').innerHTML=h;$('ov').style.display='flex';$('warn').className='';if(window.speechSynthesis)speechSynthesis.cancel()}
+function endGame(t,m){if(ended&&!S.crash)return;ended=true;run=false;S.tRpm=0;
+ menu(`<h1>${t}</h1><p>${m}</p><p>Skor: <b>${score}</b> · Soru: ${Math.min(idx+1,ST.length)}/${ST.length}</p>${report()}<button class="btn" onclick="start()">Tekrar Uç ✈️</button>`)}
+function win(){ended=true;const g=hp>80?'🏆 Kusursuz uçuş! Check-ride hazır!':hp>40?'🛬 Güvenli iniş. Biraz daha tekrar!':'🛬 Zor da olsa indin! Konuları tekrar et.';
+ menu(`<h1>${g}</h1><p>Skor: <b>${score}</b> · Uçak sağlığı: %${Math.max(0,hp)}</p>${report()}<button class="btn" onclick="start()">Yeni Uçuş ✈️</button>`)}
+
+menu(`<h1>✈️ PPL Flight Sim</h1><p>Cessna 172 kokpitinde, Skyline Havaalanı'ndan kalkıp aynı alana inen gerçekçi bir PPL sınav simülasyonu: park → taksi → kalkış → seyir → yaklaşma → iniş.</p>
+<p>Kule/Ground/Departure ile <b>telsiz readback</b> yap, prosedür ve teori sorularını doğru cevapla. Yanlış cevaplarda uçakta arızalar çıkar: motor pürüzü, yağ kaybı, yangın… ve sağlık biterse kaza!</p>
+<p style="font-size:13px;opacity:.8">🔊 ATC mesajları İngilizce (gerçek phraseology) sesli okunur, Türkçe karşılığı altında yazar. Ses için tarayıcı izni gerekebilir.</p>
+<button class="btn" onclick="start()">Motoru Çalıştır 🛫</button>`);
+
+let last=performance.now();
+function loop(n){const dt=Math.min(.05,(n-last)/1000);last=n;update(dt);render();drawDash();requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
