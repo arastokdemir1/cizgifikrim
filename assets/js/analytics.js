@@ -72,7 +72,8 @@
     if (durationSent) return;
     durationSent = true;
     const duration = Math.min(14400, Math.max(0, Math.round((Date.now() - start) / 1000)));
-    send('PATCH', `site_visits?id=eq.${visitId}`, { duration_seconds: duration }).catch(() => {});
+    // Dar RPC (20261004100100): yalnız bu ziyaretin boş süresini bir kez yazar.
+    send('POST', 'rpc/set_visit_duration', { p_visit_id: visitId, p_seconds: duration }).catch(() => {});
   };
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') sendDuration(); });
   addEventListener('pagehide', sendDuration);
