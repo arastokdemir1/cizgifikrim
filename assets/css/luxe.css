@@ -175,6 +175,17 @@ p { text-wrap: pretty; }
 .lab-desk li em::before { content: ""; display: inline-block; width: .4rem; height: .4rem; margin-right: .45rem; border-radius: 50%; background: var(--lx-accent); }
 .lab-desk > p { color: var(--lx-muted); font-size: .875rem; }
 
+/* hero: "Son güncelleme" kartı (yalnız gerçek veriden; render.js doldurur, veri yoksa gizli) */
+.lx-latest { display: flex; align-items: baseline; gap: .75rem; flex-wrap: wrap; margin-top: 1.25rem; padding: .9rem 1rem; min-height: 44px; border: 1px solid var(--lx-hair-strong); border-radius: var(--lx-r); text-decoration: none; transition: border-color .4s var(--lx-ease), background-color .4s var(--lx-ease); }
+.lx-latest[hidden] { display: none; }
+.lx-latest:hover { border-color: var(--lx-ink); background: var(--lx-surface); }
+.lx-latest-k { font-family: var(--mono); font-size: .75rem; color: var(--lx-accent); }
+.lx-latest strong { font-weight: 480; letter-spacing: -.02em; }
+.lx-latest-t { margin-left: auto; font-family: var(--mono); font-size: .75rem; color: var(--lx-muted); }
+/* katalog: platform çipleri (yalnız mevcut metinden türetilir) */
+.proj-chips { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; margin-top: .6rem; }
+.proj-chips li { padding: .1rem .5rem; border: 1px solid var(--lx-hair-strong); border-radius: 2px; font-family: var(--mono); font-size: .75rem; color: var(--lx-graphite); }
+
 /* sayaçlar */
 .lx-stats { padding-top: 0; padding-bottom: clamp(2rem, 5vw, 3.5rem); }
 .lx-stats dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--lx-hair); border-bottom: 1px solid var(--lx-hair); }

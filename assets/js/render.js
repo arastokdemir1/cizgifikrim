@@ -48,6 +48,16 @@ function setStatusNotice(root, message) {
   notice.textContent = message;
 }
 
+function projectChips(p) {
+  const text = `${p.tagline || ''} ${(p.description || '').split('\n\n')[0]}`;
+  const chips = [];
+  if (/\biOS\b/.test(text)) chips.push('iOS');
+  if (/macOS/.test(text)) chips.push('macOS');
+  if (/web tabanlı/i.test(text)) chips.push('Web');
+  (Array.isArray(p.tech) ? p.tech : []).slice(0, 4).forEach((t) => { if (!chips.includes(String(t))) chips.push(String(t)); });
+  return chips.length ? `<ul class="proj-chips" aria-label="Platform">${chips.map((c) => `<li>${escapeHTML(c)}</li>`).join('')}</ul>` : '';
+}
+
 function projectCardHTML(p, num) {
   const slug = safeProjectSlug(p.slug);
   if (!slug) return '';
@@ -57,6 +67,7 @@ function projectCardHTML(p, num) {
         <div class="proj-name-col">
           <h3 class="proj-name-main">${escapeHTML(p.display_name)}</h3>
           <p class="proj-tagline-sm">${escapeHTML(p.tagline)}</p>
+          ${projectChips(p)}
         </div>
         <p class="proj-desc-col">${escapeHTML((p.description || '').split('\n\n')[0])}</p>
         <div class="proj-status-col">${statusBadgeHTML(p.status, p.status_label)}</div>
@@ -1135,6 +1146,15 @@ async function renderHomeBuildStatus() {
     return;
   }
   root.innerHTML = `<div class="home-activity">${active.map(homeBuildNoteHTML).join('')}</div>`;
+  // Hero kartı: yalnız gerçek veriden ("yayında" iddiası yok, yalnız son güncelleme zamanı); veri yoksa kart gizli kalır.
+  const latest = document.getElementById('home-latest');
+  const top = active[0];
+  const slug = top && safeProjectSlug(top.slug);
+  if (latest && slug) {
+    latest.href = `projects/${slug}.html`;
+    latest.innerHTML = `<span class="lx-latest-k">Son güncelleme</span><strong>${escapeHTML(top.display_name || '')}</strong><span class="lx-latest-t">${escapeHTML(relativeTimeTR(top.latest_update_at))}</span>`;
+    latest.hidden = false;
+  }
 }
 
 async function renderProjectDetail() {
