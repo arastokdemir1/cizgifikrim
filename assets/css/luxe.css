@@ -138,6 +138,10 @@ p { text-wrap: pretty; }
 .reveal.visible { opacity: 1; transform: none; }
 .reveal-d1 { transition-delay: .06s; } .reveal-d2 { transition-delay: .12s; } .reveal-d3 { transition-delay: .18s; } .reveal-d4 { transition-delay: .24s; } .reveal-d5 { transition-delay: .3s; }
 
+/* Fold üstü içerik gizli BAŞLAMAZ: başlık/giriş metni/CTA anında görünür (LCP). Giriş animasyonu yalnız fold altında. */
+.lab-hero .reveal, .page-hero .reveal, .corporate-page-hero .reveal, .corporate-contact-hero .reveal, .products-hero .reveal,
+.services-hero .reveal, h1.reveal, .page-h1.reveal, .page-intro.reveal, .products-desc.reveal { opacity: 1; transform: none; transition: none; }
+
 /* ÜRETKEN ARKA PLAN (luxe.js: sakin kontur çizgileri) */
 .lx-flow { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 .lab-hero { position: relative; isolation: isolate; }
