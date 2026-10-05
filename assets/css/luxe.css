@@ -93,6 +93,10 @@ p { text-wrap: pretty; }
 .folio, .lab-kicker, .brand-meta, .status-badge, .service-status-pill, .features-heading, .service-card-meta, .lab-home-note-meta, .lab-desk-head p {
   font-family: var(--mono); font-size: .75rem; font-weight: 450; letter-spacing: .02em; text-transform: none; color: var(--lx-muted); }
 .lab-kicker { color: var(--lx-accent); }
+/* mono etiketler: tutarlı "cümle düzeni" (içerik büyük harfle yazılmış olsa da) */
+.folio, .hero-eyebrow, .lab-kicker, .service-card-meta, .service-status-pill, .features-heading, .status-badge, .lab-desk-head p { text-transform: lowercase; }
+.folio::first-letter, .hero-eyebrow::first-letter, .lab-kicker::first-letter, .service-card-meta::first-letter, .features-heading::first-letter, .lab-desk-head p::first-letter { text-transform: uppercase; }
+.service-status-pill, .status-badge { display: inline-flex; }
 .brand-meta { text-transform: lowercase; }
 
 /* ÜST BİLGİ / ALT BİLGİ */
@@ -204,6 +208,77 @@ p { text-wrap: pretty; }
   .lab-hero { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: center; }
   .lab-hero-copy h1 { max-width: 16ch; font-size: clamp(4rem, 6vw, 5.4rem); }
 }
+/* ───────── HİZMETLER ───────── */
+.services-now { padding-top: 0; padding-bottom: 2.5rem; }
+.services-now ul { list-style: none; border-top: 1px solid var(--lx-ink); }
+.services-now li { border-bottom: 1px solid var(--lx-hair); }
+.services-now a { position: relative; display: grid; gap: .3rem; padding: 1.4rem 3rem 1.4rem 0; text-decoration: none; min-height: 44px; transition: padding .6s var(--lx-ease); }
+.services-now a::after { content: "↓"; position: absolute; right: .25rem; top: 1.4rem; color: var(--lx-ink); font-weight: 300; font-size: 1.3rem; transition: transform .5s var(--lx-ease), color .3s; }
+.services-now a:hover { padding-left: .75rem; }
+.services-now a:hover::after { color: var(--lx-accent); transform: translateY(3px); }
+.services-now strong { font-size: clamp(1.4rem, 3.4vw, 1.9rem); font-weight: 420; letter-spacing: -.03em; line-height: 1.15; }
+.services-now a:hover strong { color: var(--lx-accent); }
+.services-now span { color: var(--lx-muted); font-size: .95rem; }
+.services-section-head { margin-bottom: 1.75rem; }
+.services-section-head h2 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); max-width: 22ch; }
+.services-section-head p { color: var(--lx-muted); max-width: 40rem; }
+.hero-eyebrow { font-family: var(--mono); font-size: .75rem; font-weight: 450; color: var(--lx-accent); letter-spacing: .02em; text-transform: none; }
+
+.service-card { position: relative; padding: 1.75rem 0 0; border: 0; border-top: 1px solid var(--lx-ink); border-radius: 0; background: transparent; box-shadow: none; }
+.service-card h2 { font-size: clamp(1.45rem, 3vw, 1.9rem); font-weight: 400; letter-spacing: -.03em; line-height: 1.15; text-transform: none; }
+.service-card-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.service-status-pill, .price-pill, .status-badge { padding: .15rem .55rem; border: 1px solid var(--lx-hair-strong); border-radius: 2px; background: transparent; color: var(--lx-graphite); }
+.service-card-desc { color: var(--lx-muted); }
+.service-pricing-box { margin: 1.25rem 0; padding: .25rem 0 .25rem 1.1rem; border: 0; border-left: 1px solid var(--lx-hair-strong); border-radius: 0; background: transparent; }
+.price-main strong { font-size: 1.15rem; font-weight: 450; letter-spacing: -.02em; color: var(--lx-ink); }
+.price-main span, .price-detail { color: var(--lx-muted); }
+.features-heading { margin: 1.25rem 0 .6rem; color: var(--lx-accent); }
+.service-feature-list { border-top: 1px solid var(--lx-hair); }
+.service-feature-list li { padding: .65rem 0; border-bottom: 1px solid var(--lx-hair); color: var(--lx-graphite); }
+.service-feature-list .check-icon { color: var(--lx-accent); }
+.service-card-actions { display: grid; gap: .6rem; margin-top: 1.5rem; }
+.service-cta-btn { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-height: 3rem; padding: .7rem 1.25rem; border-radius: var(--lx-r); font-family: var(--sans); font-size: .95rem; font-weight: 500; text-decoration: none; transition: background-color .4s var(--lx-ease), border-color .4s var(--lx-ease), color .3s; }
+.service-cta-btn.is-secondary { background: transparent; color: var(--lx-ink); border: 1px solid var(--lx-hair-strong); }
+.service-cta-btn.is-secondary:hover { border-color: var(--lx-ink); }
+.services-faq details { border-top: 1px solid var(--lx-hair); }
+.services-faq details:last-of-type { border-bottom: 1px solid var(--lx-hair); }
+.services-faq summary { display: flex; align-items: center; min-height: 44px; padding: .9rem 0; font-size: 1.1rem; font-weight: 420; letter-spacing: -.02em; cursor: pointer; }
+.services-faq details p { padding: 0 0 1rem; max-width: 40rem; color: var(--lx-muted); }
+@media (min-width: 860px) {
+  .services-now a { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: baseline; gap: 2rem; }
+  #services-grid-custom { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem; }
+  #services-grid-ecommerce { gap: 3rem; }
+}
+@media (max-width: 859px) {
+  #services-grid-ecommerce { display: flex; gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 1rem; margin-right: calc(var(--pad, 1rem) * -1); -webkit-overflow-scrolling: touch; }
+  #services-grid-ecommerce > .service-card { flex: 0 0 85%; scroll-snap-align: start; }
+}
+
+/* ───────── ÇALIŞMALAR (katalog) ───────── */
+.folio-bar-row { display: flex; align-items: center; gap: 1rem; }
+.folio-dotted-rule { flex: 1; border: 0; border-top: 1px solid var(--lx-hair); }
+.products-hero { padding-top: clamp(2.5rem, 7vw, 5rem); }
+.products-desc { color: var(--lx-muted); max-width: 36rem; }
+.catalog-summary { display: grid; gap: 0; margin-top: 3rem; border-top: 1px solid var(--lx-ink); }
+.summary-card { padding: 1.5rem 0; border: 0; border-bottom: 1px solid var(--lx-hair); border-radius: 0; background: transparent; box-shadow: none; }
+.summary-card h2 { margin-top: .4rem; font-size: 1.3rem; font-weight: 420; letter-spacing: -.025em; }
+.summary-card p:last-child { margin-top: .4rem; color: var(--lx-muted); }
+.catalog-intro { margin-top: 3.5rem; }
+.catalog-intro h2 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); }
+.catalog-intro p { color: var(--lx-muted); max-width: 36rem; }
+.cat-section { margin-top: 3rem; }
+.cat-header { grid-template-columns: minmax(0, 1fr) auto; padding-bottom: .9rem; border-bottom: 1px solid var(--lx-ink); }
+.cat-name { font-style: normal; font-weight: 400; letter-spacing: -.03em; font-size: clamp(1.5rem, 3.4vw, 2rem); white-space: normal; }
+.cat-count { color: var(--lx-muted); }
+.proj-item { border-bottom: 1px solid var(--lx-hair); }
+.proj-link { grid-template-columns: minmax(0, 1fr) auto; margin-inline: 0; padding: 1.4rem 0; border-radius: 0; transition: padding .6s var(--lx-ease); }
+.proj-link:hover { background: transparent; box-shadow: none; padding-left: .75rem; }
+.proj-name-main { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 420; letter-spacing: -.03em; transition: color .4s var(--lx-ease); }
+.proj-link:hover .proj-name-main { color: var(--lx-accent); text-decoration: none; }
+.proj-tagline-sm { font-style: normal; color: var(--lx-muted); font-size: .95rem; }
+.proj-desc-col { color: var(--lx-muted); }
+@media (min-width: 640px) { .proj-link { grid-template-columns: 5fr 6fr auto; gap: 2rem; } .catalog-summary { grid-template-columns: repeat(3, 1fr); gap: 2rem; } .summary-card { border-bottom: 0; } }
+
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .lab-desk .lab-live-dot { animation: none; }

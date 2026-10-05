@@ -54,7 +54,6 @@ function projectCardHTML(p, num) {
   return `
     <li class="proj-item">
       <a href="projects/${slug}.html" class="proj-link reveal">
-        <span class="folio proj-num-col">№${num}</span>
         <div class="proj-name-col">
           <h3 class="proj-name-main">${escapeHTML(p.display_name)}</h3>
           <p class="proj-tagline-sm">${escapeHTML(p.tagline)}</p>
@@ -87,7 +86,6 @@ async function renderProductsPage() {
       return `
         <section class="page cat-section">
           <header class="cat-header">
-            <span class="folio">${meta.folioNum}</span>
             <h2 class="cat-name">${meta.name}</h2>
             <span class="folio cat-count">${grouped[cat].length} adet</span>
           </header>
