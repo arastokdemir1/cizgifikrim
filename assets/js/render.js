@@ -363,7 +363,10 @@ function buildStatusHTML(p) {
 function homeBuildNoteHTML(p) {
   const slug = safeProjectSlug(p.slug);
   const status = escapeHTML(p.status_label || 'Geliştiriliyor');
-  const update = escapeHTML(p.latest_update_text || 'Bu çalışma için yeni bir kısa not henüz yayınlanmadı.');
+  // Ham commit/sürüm başlıkları ("Bump build number...") müşteriye gösterilmez; yalnız
+  // "Son N günde ... geliştirme" gibi özet cümleler geçer, diğerleri nötr cümleyle değişir.
+  const raw = String(p.latest_update_text || '');
+  const update = escapeHTML(/^Son \d+ günde /.test(raw) ? raw : 'Bu çalışmada geliştirme sürüyor. Ayrıntılar çalışma sayfasında.');
   const category = escapeHTML(CATEGORY_META[p.category]?.name || 'Çalışma kaydı');
   if (!slug) return '';
   return `

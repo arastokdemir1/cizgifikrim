@@ -4,17 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CizgiFikrim — Yapay zekâ ve mobil ürün geliştirme</title>
-  <meta name="description" content="CizgiFikrim; işletmeler ve girişimler için yapay zekâ sistemleri, mobil uygulamalar ve veri araçları geliştiren İstanbul merkezli teknoloji stüdyosu.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/css/main.css?v=70">
-  <link rel="icon" href="/assets/favicon.svg?v=4" type="image/svg+xml">
+  <meta name="description" content="CizgiFikrim; işletmeler ve girişimler için yapay zekâ sistemleri, mobil uygulamalar ve veri araçları geliştiren İstanbul merkezli teknoloji stüdyosu."><link rel="stylesheet" href="../assets/css/main.css?v=70"><link rel="stylesheet" href="../assets/css/luxe.css?v=1">
+  <link rel="icon" href="/assets/favicon.svg?v=5" type="image/svg+xml">
   <link rel="canonical" href="https://cizgifikrim.net/tr/index.html">
+  <link rel="preload" href="../assets/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="lab-home">
   <a class="skip-link" href="#main">Ana içeriğe geç</a>
   <header class="site-header"><div class="page header-inner">
-    <a href="index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><img class="brand-lockup" width="160" height="32" src="/assets/brand/cizgifikrim-logo.svg?v=1" alt="" aria-hidden="true"><span class="brand-meta">TEKNOLOJİ &amp; AR-GE</span></a>
+    <a href="index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><img class="brand-lockup" width="160" height="32" src="/assets/brand/cizgifikrim-logo.svg?v=2" alt="" aria-hidden="true"><span class="brand-meta">TEKNOLOJİ &amp; AR-GE</span></a>
     <nav class="desktop-nav" aria-label="Ana menü"><a href="hizmetler.html" class="nav-link">Hizmetler</a><a href="products.html" class="nav-link">Çalışmalar</a><a href="about.html" class="nav-link">Hakkında</a><a href="randevu.html" class="nav-link">Görüşme</a></nav>
     <div class="nav-auth"><span data-auth-slot="desktop" data-base=""><a href="giris.html" class="nav-login">Giriş yap</a><a href="kayit.html" class="nav-cta">Kayıt ol</a></span></div>
     <button class="mobile-toggle" aria-label="Menüyü aç" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -22,6 +20,7 @@
 
   <main id="main" tabindex="-1">
     <section class="page lab-hero">
+      <canvas class="lx-flow" aria-hidden="true"></canvas>
       <div class="lab-hero-copy">
         <p class="lab-kicker reveal">CİZGİFİKRİM · TEKNOLOJİ STÜDYOSU</p>
         <h1 class="reveal reveal-d1">Yapay zekâ ve mobil ürünleri <em>fikirden canlıya</em> taşıyoruz.</h1>
@@ -34,32 +33,40 @@
       <aside class="lab-desk reveal reveal-d2" aria-label="Yayındaki ürünler">
         <div class="lab-desk-head"><p>YAYINDAKİ ÜRÜNLER</p><span class="lab-live-dot" aria-hidden="true"></span></div>
         <ol>
-          <li><span>01</span><a href="projects/carlog.html"><strong>CarLog</strong><small>iOS araç maliyet uygulaması</small></a><em>Canlı</em></li>
-          <li><span>02</span><a href="projects/piyasa.html"><strong>PiyasApp</strong><small>Konum tabanlı sosyal keşif</small></a><em>Canlı</em></li>
-          <li><span>03</span><a href="projects/sano.html"><strong>Sano</strong><small>Zihinsel yük ve burnout analizi</small></a><em>Canlı</em></li>
-          <li><span>04</span><a href="projects/focusgrid.html"><strong>FocusGrid</strong><small>Minimalist odaklanma aracı</small></a><em>Canlı</em></li>
-          <li><span>05</span><a href="projects/flowgraph.html"><strong>FlowGraph</strong><small>Kişisel finans akışı</small></a><em>Canlı</em></li>
+          <li><a href="projects/carlog.html"><strong>CarLog</strong><small>iOS araç maliyet uygulaması</small></a><em>Canlı</em></li>
+          <li><a href="projects/piyasa.html"><strong>PiyasApp</strong><small>Konum tabanlı sosyal keşif</small></a><em>Canlı</em></li>
+          <li><a href="projects/sano.html"><strong>Sano</strong><small>Zihinsel yük ve burnout analizi</small></a><em>Canlı</em></li>
+          <li><a href="projects/focusgrid.html"><strong>FocusGrid</strong><small>Minimalist odaklanma aracı</small></a><em>Canlı</em></li>
+          <li><a href="projects/flowgraph.html"><strong>FlowGraph</strong><small>Kişisel finans akışı</small></a><em>Canlı</em></li>
         </ol>
         <p>Geliştirdiğimiz her şey önce kendi ürünlerimizde sınanır.</p>
       </aside>
     </section>
 
+    <section class="page lx-stats" aria-label="Rakamlarla CizgiFikrim">
+      <dl class="reveal">
+        <div><dt>Yayındaki ürün</dt><dd data-count="5">5</dd></div>
+        <div><dt>Çalışma alanı</dt><dd data-count="4">4</dd></div>
+        <div><dt>Katalogdaki çalışma</dt><dd data-count="12">12</dd></div>
+      </dl>
+    </section>
+
     <section class="page home-block" aria-labelledby="services-title">
       <div class="home-block-head reveal">
-        <p class="lab-kicker">NE YAPIYORUZ</p>
+        
         <h2 id="services-title">Dört alanda uçtan uca ürün geliştirme.</h2>
       </div>
       <div class="home-services">
-        <a class="home-service reveal reveal-d1" href="products.html#katalog"><span>01</span><h3>Yapay zekâ sistemleri</h3><p>Kurum içi asistanlar, otomasyon akışları ve verinin cihazda kaldığı yerel modeller.</p><b aria-hidden="true">↗</b></a>
-        <a class="home-service reveal reveal-d2" href="products.html#katalog"><span>02</span><h3>Mobil uygulamalar</h3><p>Ürün tasarımından App Store yayınına kadar iOS uygulama geliştirme.</p><b aria-hidden="true">↗</b></a>
-        <a class="home-service reveal reveal-d3" href="products.html#katalog"><span>03</span><h3>Veri ve finans araçları</h3><p>Piyasa verisi, tarama ve karar akışlarını anlaşılır arayüzlere dönüştürme.</p><b aria-hidden="true">↗</b></a>
-        <a class="home-service reveal reveal-d4" href="products.html#katalog"><span>04</span><h3>Otomotiv yazılımları</h3><p>ECU yazılımları ve araç içi dijital deneyim katmanları.</p><b aria-hidden="true">↗</b></a>
+        <a class="home-service reveal reveal-d1" href="products.html#katalog"><h3>Yapay zekâ sistemleri</h3><p>Kurum içi asistanlar, otomasyon akışları ve verinin cihazda kaldığı yerel modeller.</p><b aria-hidden="true">↗</b></a>
+        <a class="home-service reveal reveal-d2" href="products.html#katalog"><h3>Mobil uygulamalar</h3><p>Ürün tasarımından App Store yayınına kadar iOS uygulama geliştirme.</p><b aria-hidden="true">↗</b></a>
+        <a class="home-service reveal reveal-d3" href="products.html#katalog"><h3>Veri ve finans araçları</h3><p>Piyasa verisi, tarama ve karar akışlarını anlaşılır arayüzlere dönüştürme.</p><b aria-hidden="true">↗</b></a>
+        <a class="home-service reveal reveal-d4" href="products.html#katalog"><h3>Otomotiv yazılımları</h3><p>ECU yazılımları ve araç içi dijital deneyim katmanları.</p><b aria-hidden="true">↗</b></a>
       </div>
     </section>
 
     <section class="page home-block" aria-labelledby="process-title">
       <div class="home-block-head reveal">
-        <p class="lab-kicker">NASIL ÇALIŞIYORUZ</p>
+        
         <h2 id="process-title">İlk görüşmeden yayına, her adım görünür.</h2>
       </div>
       <ol class="home-steps">
@@ -72,7 +79,7 @@
 
     <section class="page home-block" aria-labelledby="live-title">
       <div class="feat-header reveal">
-        <div><p class="lab-kicker">CANLI GELİŞTİRME</p><h2 id="live-title">Ürünlerimiz üzerinde her gün çalışıyoruz.</h2></div>
+        <div><h2 id="live-title">Ürünlerimiz üzerinde her gün çalışıyoruz.</h2></div>
         <a href="products.html" class="lab-text-link">Tüm çalışmalar ↗</a>
       </div>
       <div id="home-build-status" class="reveal reveal-d1" data-slug="ersoy" aria-live="polite"></div>
@@ -80,7 +87,7 @@
 
     <section class="page home-cta reveal" aria-labelledby="cta-title">
       <div>
-        <p class="lab-kicker">BAŞLAYALIM</p>
+        
         <h2 id="cta-title">Projeni konuşalım.</h2>
         <p data-auth-alt-text="Bir görüşme planla; projenin durumunu, dosyaları ve yazışmaları panelinden tek yerden takip et.">Bir görüşme planla ya da hesap oluştur; projenin durumunu, dosyaları ve yazışmaları tek yerden takip et.</p>
       </div>
@@ -100,5 +107,6 @@
   <script src="../assets/js/render.js?v=53"></script>
   <script src="../assets/js/app.js?v=36"></script>
   <script src="../assets/js/analytics.js?v=3"></script>
+  <script src="../assets/js/luxe.js?v=1" defer></script>
 </body>
 </html>
