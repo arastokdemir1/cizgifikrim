@@ -97,6 +97,8 @@ p { text-wrap: pretty; }
 .folio, .hero-eyebrow, .lab-kicker, .service-card-meta, .service-status-pill, .features-heading, .status-badge, .lab-desk-head p { text-transform: lowercase; }
 .folio::first-letter, .hero-eyebrow::first-letter, .lab-kicker::first-letter, .service-card-meta::first-letter, .features-heading::first-letter, .lab-desk-head p::first-letter { text-transform: uppercase; }
 .service-status-pill, .status-badge { display: inline-flex; }
+.site-footer .folio { text-transform: none; }
+.site-footer .folio::first-letter { text-transform: none; }
 .brand-meta { text-transform: lowercase; }
 
 /* ÜST BİLGİ / ALT BİLGİ */
@@ -279,6 +281,64 @@ p { text-wrap: pretty; }
 .proj-desc-col { color: var(--lx-muted); }
 @media (min-width: 640px) { .proj-link { grid-template-columns: 5fr 6fr auto; gap: 2rem; } .catalog-summary { grid-template-columns: repeat(3, 1fr); gap: 2rem; } .summary-card { border-bottom: 0; } }
 
+/* ───────── İÇ SAYFALAR: hakkında, iletişim, randevu, yasal, giriş, e-ticaret, 404 ───────── */
+.page-hero, .corporate-page-hero, .corporate-contact-hero { padding-top: clamp(2.5rem, 7vw, 5rem); }
+.page-intro { color: var(--lx-muted); max-width: 38rem; font-size: clamp(1.02rem, 1.5vw, 1.15rem); line-height: 1.7; }
+.section-border { border-top: 1px solid var(--lx-hair); }
+.section-h2 { font-size: clamp(1.7rem, 3.8vw, 2.4rem); font-weight: 380; }
+.principles-panel, .legal-box { padding: 1.25rem 1.4rem; border: 0; border-left: 1px solid var(--lx-accent); border-radius: 0; background: transparent; box-shadow: none; }
+.legal-page { max-width: 46rem; }
+.legal-h1 { font-size: clamp(2.1rem, 5.5vw, 3.2rem); }
+.legal-page h2 { margin-top: 2.5rem; font-size: 1.35rem; font-weight: 450; letter-spacing: -.02em; }
+.legal-page p, .legal-page li { color: var(--lx-graphite); }
+.legal-page a, .page-intro a, .auth-section a { text-underline-offset: 3px; text-decoration-color: var(--lx-hair-strong); }
+.legal-page a:hover, .auth-section a:hover { color: var(--lx-accent); text-decoration-color: var(--lx-accent); }
+.legal-meta { font-family: var(--mono); font-size: .8125rem; color: var(--lx-muted); }
+
+/* formlar */
+.form-field { display: block; }
+.form-input, textarea.form-input, select.form-input { min-height: 2.9rem; padding: .7rem .9rem; border: 1px solid var(--lx-hair-strong); border-radius: var(--lx-r); background: var(--lx-surface); color: var(--lx-ink); font-family: var(--sans); font-size: 1rem; transition: border-color .3s var(--lx-ease), box-shadow .3s var(--lx-ease); }
+.form-input:hover { border-color: var(--lx-ink); }
+.form-input:focus { outline: none; border-color: var(--lx-accent); box-shadow: 0 0 0 3px rgba(29, 92, 90, .14); }
+.form-input::placeholder { color: #7B7E83; }
+.reason-btn { min-height: 2.75rem; padding: .55rem 1rem; border: 1px solid var(--lx-hair-strong); border-radius: var(--lx-r); background: transparent; color: var(--lx-graphite); font-family: var(--sans); font-size: .95rem; font-weight: 450; transition: background-color .35s var(--lx-ease), color .35s, border-color .35s; }
+.reason-btn:hover { border-color: var(--lx-ink); }
+.reason-btn.active { background: var(--lx-ink); border-color: var(--lx-ink); color: var(--lx-bg); }
+.contact-process-step { display: grid; grid-template-columns: 8rem 1fr; gap: 1rem; padding: 1rem 0; border: 0; border-top: 1px solid var(--lx-hair); border-radius: 0; background: transparent; box-shadow: none; }
+.contact-process-step p:first-child { font-family: var(--mono); font-size: .75rem; color: var(--lx-accent); text-transform: lowercase; }
+.contact-process-step p:first-child::first-letter { text-transform: uppercase; }
+.contact-trust-list li { color: var(--lx-graphite); }
+.contact-trust-list li::before { color: var(--lx-accent); }
+.auth-section .auth-box { border: 0; background: transparent; box-shadow: none; padding-left: 0; padding-right: 0; }
+.auth-oauth-btn { min-height: 3rem; border: 1px solid var(--lx-hair-strong); border-radius: var(--lx-r); background: var(--lx-surface); transition: border-color .3s var(--lx-ease); }
+.auth-oauth-btn:hover { border-color: var(--lx-ink); background: var(--lx-surface); }
+.auth-status { font-size: .95rem; }
+
+/* randevu: sayfa içi <style> yarıçap ve renklerini sakinleştir */
+.randevu-choice-block, .randevu-channel-option, .randevu-tabs, .randevu-tabs button, .randevu-facts li, [class*="randevu"] button { border-radius: var(--lx-r) !important; }
+.randevu-choice-title { font-size: .75rem !important; letter-spacing: .02em !important; text-transform: none !important; color: var(--lx-muted); }
+.randevu-channel-option, .randevu-tabs button { min-height: 44px; }
+.randevu-channel-option.on, .randevu-tabs button.on { background: var(--lx-ink) !important; border-color: var(--lx-ink) !important; color: var(--lx-bg) !important; }
+.randevu-cal-fallback { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* e-ticaret sayfası */
+.services-hero .lab-button { margin-top: 1.75rem; }
+.services-hero .folio { margin-top: 1rem; display: block; }
+.services-hero h1 { font-size: clamp(2.2rem, 6.4vw, 3.9rem); max-width: 20ch; }
+.page > p:not([class]) { margin-top: 1.25rem; max-width: 40rem; color: var(--lx-graphite); }
+.page > p.folio { margin-top: 1rem; }
+
+/* 12 px yazı tabanı ve logo hedefi */
+.brand { min-height: 44px; display: flex; align-items: center; }
+.price-pill, .randevu-facts li span:first-child, .approach-card span { font-size: .75rem; }
+.approach-card { padding: 1.5rem 0 0; border: 0; border-top: 1px solid var(--lx-hair-strong); border-radius: 0; background: transparent; box-shadow: none; }
+.approach-card h2 { font-size: 1.4rem; font-weight: 420; letter-spacing: -.025em; }
+.approach-card p { color: var(--lx-muted); }
+
+/* 404 */
+main > .page-hero .btn-primary { margin-top: 1rem; }
+
+@media (max-width: 639px) { .contact-process-step { grid-template-columns: 1fr; gap: .25rem; } }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .lab-desk .lab-live-dot { animation: none; }
