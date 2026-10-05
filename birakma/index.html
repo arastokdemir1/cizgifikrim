@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bırakma sayacı — CizgiFikrim</title>
-<meta name="description" content="Bıraktığın şeyin sayacı: kaç gün, ne kadar biriktirdin. Yakında, prototip aşamasında.">
+<title>X gündür. Cebinde kalan ₺. — CizgiFikrim</title>
+<meta name="description" content="Bıraktığın günleri ve biriken parayı tek ekranda gör.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#4545d6">
 <link rel="icon" href="/assets/favicon.svg?v=4" type="image/svg+xml">
@@ -27,36 +27,40 @@
   .shots{display:flex;gap:.75rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.25rem 0 .75rem;-webkit-overflow-scrolling:touch;}
   .shots figure{flex:0 0 min(62%,15rem);scroll-snap-align:start;}
   .shots img{display:block;width:100%;height:auto;border-radius:1.1rem;border:1px solid var(--line);background:#fff;}
+  .honest{margin-top:1.25rem;padding:.8rem 1rem;border-left:4px solid var(--acc-d);background:var(--soft);border-radius:.4rem;font-size:.95rem;color:var(--fg);}
   .cap{margin-top:.5rem;font-size:.8rem;color:var(--mut);}
   footer{margin-top:2.5rem;padding-top:1.25rem;border-top:1px solid var(--line);font-size:.82rem;color:var(--mut);}
 </style>
 </head>
 <body>
-<!-- TASLAK: Vitrin metni (pazarlama/landing-birakma.md) gelince başlık/vaat/maddeler güncellenir. Yer tutucu metin Cephe'ye aittir. noindex, sitemap'te ve menüde yok.
-     Ölçüm: /assets/js/analytics.js (site_clicks); CTA data-track: birakma-cta (üst), birakma-cta-alt (alt). Yeni backend/tablo yok. -->
+<!-- Metin: pazarlama/landing-birakma.md (Vitrin, taslak, yayın yok). noindex, sitemap'te ve menüde yok.
+     Ölçüm: /assets/js/analytics.js (site_clicks); CTA data-track: birakma-cta (üst), birakma-cta-alt (alt). Yeni backend/tablo yok. Form yok: Haberdar ol = mailto.
+     Veri sorumlusu ve hukuki kontrol Aras/hukukta; ?src= parametresi analytics page alanına yazılır. -->
 <main id="main">
   <span class="tag">Yakında · Prototip</span>
-  <h1>Bırakma sayacı: kaç gündür, ne kadar biriktirdin.</h1>
-  <p class="lead">Bıraktığın şeyin gün sayacını tut ve biriken tutarı gör.</p>
+  <h1>X gündür. Cebinde kalan ₺.</h1>
+  <p class="lead">Bıraktığın günleri ve biriken parayı tek ekranda gör.</p>
   <a class="btn" data-track="birakma-cta" href="mailto:cizgifikrimnet@gmail.com?subject=B%C4%B1rakma%20sayac%C4%B1%3A%20haberdar%20ol&amp;body=Ad%C4%B1m%3A%0A">Haberdar ol</a>
-  <p class="note">Haberdar ol'a basınca e-posta uygulaman açılır; adresin yalnızca seni bu uygulama hakkında bilgilendirmek için kullanılır. <a href="/tr/gizlilik.html">Gizlilik politikası</a></p>
+  <p class="note">İlk sürüm hazır olunca bir kez yazarız. E-postan yalnızca ilk sürüm haberi için, açık rızanla işlenir ve istediğin zaman silinmesini isteyebilirsin (<a href="/tr/gizlilik.html">aydınlatma metni</a>).</p>
+
+  <p class="honest">Bu bir prototiptir; uygulama geliştiriliyor. Ekran görüntüleri örnek veriyle hazırlandı. Tıbbi tavsiye değildir; bırakma sürecinde bir sağlık profesyoneline danışmanı öneririz.</p>
 
   <h2>Neler olacak?</h2>
   <ul class="pts">
-    <li><strong>Gün sayacı ve biriken tutar. </strong>Günlük tutarı kendin girersin; uygulama biriken toplamı gösterir.</li>
-    <li><strong>Rozetler. </strong>1, 3, 7, 14, 30 ve 90. günler için hedefler.</li>
-    <li><strong>Zorlandığın gün. </strong>"Zorlandım" dersen yargılamayan bir ekran açılır; istersen sayacı bugünden yeniden başlatırsın.</li>
+    <li><strong>Gün sayacı. </strong>Kaç gündür devam ettiğin büyük, okunaklı bir sayıyla görünür.</li>
+    <li><strong>Biriken para. </strong>Günlük harcamanı sen girersin; sayaç gün sayısı × günlük harcama olarak hesaplar.</li>
+    <li><strong>Zor gün için yer. </strong>Zorlandığın gün sayacı yargılamadan yeniden başlatabilirsin; toplam temiz gün saklanır.</li>
   </ul>
 
   <h2>Prototipten ekranlar</h2>
   <div class="shots" role="group" aria-label="Prototip ekran görüntüleri">
-    <figure><img src="ekran-1.jpg" width="506" height="1100" alt="Ana ekran: gün sayacı, biriken tutar ve rozetler" decoding="async"><figcaption class="cap">Ana ekran: gün sayacı, biriken tutar ve rozetler</figcaption></figure>
-    <figure><img src="ekran-2.jpg" width="506" height="1100" alt=""Zorlandım" ekranı: destekleyici mesaj ve yeniden başlatma seçeneği" loading="lazy" decoding="async"><figcaption class="cap">"Zorlandım" ekranı: destekleyici mesaj ve yeniden başlatma seçeneği</figcaption></figure>
+    <figure><img src="ekran-1.jpg" width="506" height="1100" alt="Prototip · örnek veri: sayaç ve biriken tutar" decoding="async"><figcaption class="cap">Prototip · örnek veri: sayaç ve biriken tutar</figcaption></figure>
+    <figure><img src="ekran-2.jpg" width="506" height="1100" alt="Prototip · örnek veri: zorlandığın gün" loading="lazy" decoding="async"><figcaption class="cap">Prototip · örnek veri: zorlandığın gün</figcaption></figure>
   </div>
-  <p class="cap">Ekranlar prototiptir; gösterilen sayılar örnektir ve uygulama henüz yayında değildir.</p>
+  <p class="cap">Prototip · örnek veri.</p>
 
   <p style="margin-top:1.5rem"><a class="btn" data-track="birakma-cta-alt" href="mailto:cizgifikrimnet@gmail.com?subject=B%C4%B1rakma%20sayac%C4%B1%3A%20haberdar%20ol&amp;body=Ad%C4%B1m%3A%0A">Haberdar ol</a></p>
-  <p class="note">Bırakma sayacı bir takip aracıdır; tıbbi tavsiye veya tedavi yerine geçmez. Bırakma konusunda destek için bir sağlık uzmanına danışabilirsin.</p>
+  <p class="note">İlk sürüm hazır olunca bir kez yazarız.</p>
 
   <footer>CizgiFikrim · <a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a> · <a href="/tr/gizlilik.html">Gizlilik</a></footer>
 </main>

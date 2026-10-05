@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seri — CizgiFikrim</title>
-<meta name="description" content="Tek alışkanlık, her gün tek dokunuş. Yakında, prototip aşamasında.">
+<title>Tek düğme. Tek zincir. — CizgiFikrim</title>
+<meta name="description" content="Bir alışkanlığı her gün tek dokunuşla işaretle, zincirin uzadığını gör.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0f8f73">
 <link rel="icon" href="/assets/favicon.svg?v=4" type="image/svg+xml">
@@ -27,36 +27,40 @@
   .shots{display:flex;gap:.75rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.25rem 0 .75rem;-webkit-overflow-scrolling:touch;}
   .shots figure{flex:0 0 min(62%,15rem);scroll-snap-align:start;}
   .shots img{display:block;width:100%;height:auto;border-radius:1.1rem;border:1px solid var(--line);background:#fff;}
+  .honest{margin-top:1.25rem;padding:.8rem 1rem;border-left:4px solid var(--acc-d);background:var(--soft);border-radius:.4rem;font-size:.95rem;color:var(--fg);}
   .cap{margin-top:.5rem;font-size:.8rem;color:var(--mut);}
   footer{margin-top:2.5rem;padding-top:1.25rem;border-top:1px solid var(--line);font-size:.82rem;color:var(--mut);}
 </style>
 </head>
 <body>
-<!-- TASLAK: Vitrin metni (pazarlama/landing-seri.md) gelince başlık/vaat/maddeler güncellenir. Yer tutucu metin Cephe'ye aittir. noindex, sitemap'te ve menüde yok.
-     Ölçüm: /assets/js/analytics.js (site_clicks); CTA data-track: seri-cta (üst), seri-cta-alt (alt). Yeni backend/tablo yok. -->
+<!-- Metin: pazarlama/landing-seri.md (Vitrin, taslak, yayın yok). noindex, sitemap'te ve menüde yok.
+     Ölçüm: /assets/js/analytics.js (site_clicks); CTA data-track: seri-cta (üst), seri-cta-alt (alt). Yeni backend/tablo yok. Form yok: Haberdar ol = mailto.
+     Veri sorumlusu ve hukuki kontrol Aras/hukukta; ?src= parametresi analytics page alanına yazılır. -->
 <main id="main">
   <span class="tag">Yakında · Prototip</span>
-  <h1>Seri: tek alışkanlık, her gün tek dokunuş.</h1>
-  <p class="lead">Seçtiğin tek alışkanlığı her gün işaretle; zincirin kopmasın.</p>
+  <h1>Tek düğme. Tek zincir.</h1>
+  <p class="lead">Bir alışkanlığı her gün tek dokunuşla işaretle, zincirin uzadığını gör.</p>
   <a class="btn" data-track="seri-cta" href="mailto:cizgifikrimnet@gmail.com?subject=Seri%3A%20haberdar%20ol&amp;body=Ad%C4%B1m%3A%0A">Haberdar ol</a>
-  <p class="note">Haberdar ol'a basınca e-posta uygulaman açılır; adresin yalnızca seni bu uygulama hakkında bilgilendirmek için kullanılır. <a href="/tr/gizlilik.html">Gizlilik politikası</a></p>
+  <p class="note">İlk sürüm hazır olunca bir kez yazarız. E-postan yalnızca ilk sürüm haberi için, açık rızanla işlenir ve istediğin zaman silinmesini isteyebilirsin (<a href="/tr/gizlilik.html">aydınlatma metni</a>).</p>
+
+  <p class="honest">Bu bir prototiptir; uygulama geliştiriliyor. Ekran görüntüleri örnek veriyle hazırlandı.</p>
 
   <h2>Neler olacak?</h2>
   <ul class="pts">
-    <li><strong>Tek alışkanlık. </strong>Kalabalık liste yok; yalnızca seçtiğin bir şeyi takip edersin.</li>
-    <li><strong>Tek dokunuş. </strong>"Bugün yaptım"a basarsın, o kadar.</li>
-    <li><strong>Geçmişin. </strong>Zincirin, en uzun serin ve son haftaların tek bakışta.</li>
+    <li><strong>Tek ekran. </strong>Büyük bir sayı ve tek bir "Bugün yaptım" düğmesi.</li>
+    <li><strong>Zincir. </strong>Kaç gündür üst üste yaptığın her zaman görünür; gerekirse geri alabilirsin.</li>
+    <li><strong>Geçmiş. </strong>Son haftalarını takvimde bir bakışta gör.</li>
   </ul>
 
   <h2>Prototipten ekranlar</h2>
   <div class="shots" role="group" aria-label="Prototip ekran görüntüleri">
-    <figure><img src="ekran-1.jpg" width="506" height="1100" alt="Ana ekran: gün sayısı ve "Bugün yaptım" düğmesi" decoding="async"><figcaption class="cap">Ana ekran: gün sayısı ve "Bugün yaptım" düğmesi</figcaption></figure>
-    <figure><img src="ekran-2.jpg" width="506" height="1100" alt="Geçmiş ekranı: en uzun seri ve son 5 hafta" loading="lazy" decoding="async"><figcaption class="cap">Geçmiş ekranı: en uzun seri ve son 5 hafta</figcaption></figure>
+    <figure><img src="ekran-1.jpg" width="506" height="1100" alt="Prototip · örnek veri: ana ekran" decoding="async"><figcaption class="cap">Prototip · örnek veri: ana ekran</figcaption></figure>
+    <figure><img src="ekran-2.jpg" width="506" height="1100" alt="Prototip · örnek veri: geçmiş" loading="lazy" decoding="async"><figcaption class="cap">Prototip · örnek veri: geçmiş</figcaption></figure>
   </div>
-  <p class="cap">Ekranlar prototiptir; gösterilen sayılar örnektir ve uygulama henüz yayında değildir.</p>
+  <p class="cap">Prototip · örnek veri.</p>
 
   <p style="margin-top:1.5rem"><a class="btn" data-track="seri-cta-alt" href="mailto:cizgifikrimnet@gmail.com?subject=Seri%3A%20haberdar%20ol&amp;body=Ad%C4%B1m%3A%0A">Haberdar ol</a></p>
-  <p class="note">Seri, kişisel bir alışkanlık takip aracıdır; tıbbi veya terapötik bir uygulama değildir.</p>
+  <p class="note">İlk sürüm hazır olunca bir kez yazarız.</p>
 
   <footer>CizgiFikrim · <a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a> · <a href="/tr/gizlilik.html">Gizlilik</a></footer>
 </main>
