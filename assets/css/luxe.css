@@ -142,6 +142,16 @@ p { text-wrap: pretty; }
 .lab-hero .reveal, .page-hero .reveal, .corporate-page-hero .reveal, .corporate-contact-hero .reveal, .products-hero .reveal,
 .services-hero .reveal, h1.reveal, .page-h1.reveal, .page-intro.reveal, .products-desc.reveal { opacity: 1; transform: none; transition: none; }
 
+/* Mobil sabit tek CTA (yalnız dar ekran): hero CTA'sı ekrandan çıkınca görünür, kapanış CTA'sı görününce gizlenir; güvenli alan + 44 px+ */
+.lx-sticky { display: none; }
+@media (max-width: 639px) {
+  .lx-sticky { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: .75rem 1rem calc(.75rem + env(safe-area-inset-bottom)); background: rgba(242, 241, 237, .92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid var(--lx-hair); transform: translateY(110%); visibility: hidden; transition: transform .5s var(--lx-ease), visibility 0s linear .5s; }
+  .lx-sticky.on { transform: none; visibility: visible; transition-delay: 0s; }
+  .lx-sticky .lab-button { width: 100%; justify-content: center; min-height: 3rem; }
+  body.has-sticky { padding-bottom: calc(4.5rem + env(safe-area-inset-bottom)); }
+}
+@media (prefers-reduced-motion: reduce) { .lx-sticky { transition: none; } }
+
 /* ÜRETKEN ARKA PLAN (luxe.js: sakin kontur çizgileri) */
 .lx-flow { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 .lab-hero { position: relative; isolation: isolate; }

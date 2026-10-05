@@ -29,6 +29,18 @@
     counters.forEach(function (c) { cio.observe(c); });
   }
 
+  // ── mobil sabit CTA ───────────────────────────────────────────────────────
+  var bar = document.querySelector('.lx-sticky');
+  if (bar && 'IntersectionObserver' in window) {
+    var after = document.querySelector(bar.getAttribute('data-sticky-after'));
+    var until = document.querySelector(bar.getAttribute('data-sticky-until')) || document.querySelector('footer');
+    var past = false, atEnd = false;
+    var apply = function () { bar.classList.toggle('on', past && !atEnd); };
+    document.body.classList.add('has-sticky');
+    if (after) new IntersectionObserver(function (e) { var r = e[0]; past = !r.isIntersecting && r.boundingClientRect.top < 0; apply(); }).observe(after);
+    if (until) new IntersectionObserver(function (e) { atEnd = e[0].isIntersecting; apply(); }).observe(until);
+  }
+
   // ── kontur çizgileri ──────────────────────────────────────────────────────
   var canvas = document.querySelector('canvas.lx-flow');
   if (!canvas || !canvas.getContext) return;

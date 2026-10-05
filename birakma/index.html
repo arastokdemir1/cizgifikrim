@@ -30,6 +30,15 @@
   .honest{margin-top:1.25rem;padding:.8rem 1rem;border-left:4px solid var(--acc-d);background:var(--soft);border-radius:.4rem;font-size:.95rem;color:var(--fg);}
   .cap{margin-top:.5rem;font-size:.8rem;color:var(--mut);}
   footer{margin-top:2.5rem;padding-top:1.25rem;border-top:1px solid var(--line);font-size:.82rem;color:var(--mut);}
+  /* mobil sabit tek CTA: ilk CTA ekrandan çıkınca görünür, kapanış CTA'sı görününce gizlenir */
+  .sticky{display:none;}
+  @media (max-width:639px){
+    .sticky{display:block;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:.75rem 1.25rem calc(.75rem + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--line);transform:translateY(110%);visibility:hidden;transition:transform .4s cubic-bezier(.2,.8,.2,1),visibility 0s linear .4s;}
+    .sticky.on{transform:none;visibility:visible;transition-delay:0s;}
+    .sticky .btn{width:100%;margin:0;}
+    body.has-sticky{padding-bottom:calc(5.5rem + env(safe-area-inset-bottom));}
+  }
+  @media (prefers-reduced-motion:reduce){.sticky{transition:none;}}
 </style>
 </head>
 <body>
@@ -64,6 +73,20 @@
 
   <footer>CizgiFikrim · <a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a> · <a href="/tr/gizlilik.html">Gizlilik</a></footer>
 </main>
+<div class="sticky" data-after="main > .btn, a.btn[data-track=birakma-cta]" data-until="a.btn[data-track=birakma-cta-alt]" aria-label="Hızlı eylem">
+  <a class="btn" data-track="birakma-cta-sticky" href="mailto:cizgifikrimnet@gmail.com?subject=B%C4%B1rakma%20sayac%C4%B1%3A%20haberdar%20ol&amp;body=Ad%C4%B1m%3A%0A">Haberdar ol</a>
+</div>
+<script>
+(function(){
+  var bar=document.querySelector('.sticky');
+  if(!bar||!('IntersectionObserver' in window))return;
+  var a=document.querySelector(bar.getAttribute('data-after')),u=document.querySelector(bar.getAttribute('data-until'));
+  var past=false,end=false;function ap(){bar.classList.toggle('on',past&&!end);}
+  document.body.classList.add('has-sticky');
+  if(a)new IntersectionObserver(function(e){var r=e[0];past=!r.isIntersecting&&r.boundingClientRect.top<0;ap();}).observe(a);
+  if(u)new IntersectionObserver(function(e){end=e[0].isIntersecting;ap();}).observe(u);
+})();
+</script>
 <script src="/assets/js/analytics.js?v=3" defer></script>
 </body>
 </html>
