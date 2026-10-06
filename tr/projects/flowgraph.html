@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>FlowGraph — Kişisel Finans Akışı | CizgiFikrim</title>
   <meta name="description" content="FlowGraph, gelir-gider hareketlerini kategoriler arası bir akış grafiği olarak görselleştirir.">
-  <meta name="theme-color" content="#F3ECDD">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=72"><link rel="stylesheet" href="../../assets/css/cizgi.css?v=1">
-  <link rel="icon" href="/assets/favicon.svg?v=6" type="image/svg+xml">
-  <link rel="preload" href="../../assets/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <meta name="theme-color" content="#0A0B0D">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=73"><link rel="stylesheet" href="../../assets/css/cizgi.css?v=2">
+  <link rel="icon" href="/assets/favicon.svg?v=7" type="image/svg+xml">
+  <link rel="preload" href="../../assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <noscript><style>.reveal,.cz-word-in{opacity:1;transform:none}.cz-phone,.cz-radar{opacity:1;transform:none}.cz-scene{height:auto}.cz-scene-sticky{position:relative;height:auto;min-height:0;padding-block:6rem}.cz-scene-head{position:relative;top:auto;margin-bottom:2rem}.cz-steps2{gap:1rem}.cz-step2{grid-area:auto;opacity:1;transform:none}.cz-dots{display:none}</style></noscript>
 </head>
 <body>
   <a class="skip-link" href="#main">Ana içeriğe geç</a>
@@ -22,18 +23,17 @@
 
   <main id="main" tabindex="-1">
     <section class="cz-pagehead" aria-labelledby="project-name" data-cz-start>
+      <div class="cz-netwrap" aria-hidden="true"><canvas class="cz-net" data-net="head" data-seed="flowgraph"></canvas></div>
       <div class="cz-wrap">
-        <a class="cz-crumb" href="../products.html"><span aria-hidden="true">←</span> Çalışmalar</a>
         <div class="cz-proj">
-          <div>
-            <p class="cz-note" id="folio-category">Çalışma</p>
-            <h1 id="project-name">FlowGraph<span class="project-dot">.</span></h1>
-            <p class="cz-lead" id="project-tagline">Kişisel Finans Akışı</p>
-            <div id="meta-chips"></div>
-            
-          </div>
+          <a class="cz-crumb" href="../products.html"><span aria-hidden="true">←</span> Çalışmalar</a>
+          <p class="cz-k" id="folio-category">Çalışma</p>
+          <h1 id="project-name">FlowGraph<span class="project-dot">.</span></h1>
+          <p class="cz-lead" id="project-tagline">Kişisel Finans Akışı</p>
+          <div id="meta-chips"></div>
+          
+          <div class="cz-proj-vis cz-proj-vis--sq" aria-hidden="true"><canvas class="cz-net" data-net="emblem" data-seed="flowgraph" style="position:absolute;inset:0"></canvas></div>
           <div class="cz-spec">
-            <div class="cz-sketch " data-cz-draw="form" aria-hidden="true" style="width:min(100%,12rem);margin:0 0 2rem"></div>
             <dl>
               <dt>Durum</dt><dd id="meta-status"></dd>
               <dt>Alan</dt><dd id="meta-category"></dd>
@@ -61,10 +61,10 @@
     <nav class="project-nav" aria-label="Çalışma gezintisi"><div class="proj-nav-prev" id="nav-prev"></div><div class="proj-nav-next" id="nav-next"></div></nav>
 
     <section class="cz-close" aria-labelledby="cta-title" data-cz-side="l">
-      <div class="cz-wrap">
+      <div class="cz-netwrap" aria-hidden="true"><canvas class="cz-net" data-net="cta"></canvas></div>
+      <div class="cz-wrap cz-in">
         <p class="cz-k">Başlayalım</p>
-        <h2 id="cta-title" class="cz-giant" style="margin-top:1.2rem">Bunu konuşalım.</h2>
-        <div class="cz-sketch cz-sketch--line" data-cz-draw="underline" aria-hidden="true" style="margin:.6rem 0 0"></div>
+        <h2 id="cta-title" class="cz-giant">Bunu <em>konuşalım</em>.</h2>
         <p class="cz-lead">Benzer bir ürün düşünüyorsanız ya da bu çalışma hakkında sorunuz varsa bir görüşme planlayın.</p>
         <div class="cz-actions">
           <a href="../randevu.html" class="cz-btn">Görüşme planla <span aria-hidden="true">→</span></a>
@@ -76,20 +76,20 @@
 
   <footer class="site-footer">
     <div class="cz-foot">
-      <div><p class="cz-foot-big">Önce <em>çizeriz</em>, sonra kurarız.</p></div>
+      <div><p class="cz-foot-big">Çizgiyi <em>ürüne</em> çeviriyoruz.</p></div>
       <div class="cz-foot-cols">
         <nav aria-label="Alt gezinti"><h2>Gezinti</h2><ul><li><a href="../hizmetler.html">Hizmetler</a></li><li><a href="../products.html">Çalışmalar</a></li><li><a href="../about.html">Hakkında</a></li><li><a href="../randevu.html">Görüşme</a></li></ul></nav>
         <nav aria-label="Ürünler"><h2>Ürünler</h2><ul><li><a href="../projects/carlog.html">CarLog</a></li><li><a href="../projects/piyasa.html">PiyasApp</a></li><li><a href="../projects/sano.html">Sano</a></li><li><a href="/seri/">Seri</a></li><li><a href="/birakma/">Bırakma</a></li></ul></nav>
-        <div><h2>Yazın</h2><p><a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></p><p class="cz-note" style="margin-top:.4rem">İstanbul, Türkiye</p></div>
+        <div><h2>İletişim</h2><p><a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></p><p class="cz-note" style="margin-top:.4rem">İstanbul, Türkiye</p></div>
       </div>
     </div>
     <div class="cz-foot-base"><span>© <span id="year">2026</span> CizgiFikrim</span><span><a href="../gizlilik.html">Gizlilik</a> · <a href="../kosullar.html">Koşullar</a> · <a href="#main">Başa dön</a></span></div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8/dist/umd/supabase.js" integrity="sha384-l7yJnh/cWKcqeTC5adHUdc5b+J4Kb2QTGRSkCQehn1YT5xEFlrgwnXOYuvrtI1F6" crossorigin="anonymous"></script>
   <script src="../../assets/js/supabase-client.js?v=40"></script>
-  <script src="../../assets/js/render.js?v=72"></script>
+  <script src="../../assets/js/render.js?v=73"></script>
   <script src="../../assets/js/app.js?v=40"></script>
   <script src="../../assets/js/analytics.js?v=3"></script>
-  <script src="../../assets/js/cizgi.js?v=1" defer></script>
+  <script src="../../assets/js/cizgi.js?v=2" defer></script>
 </body>
 </html>

@@ -1140,10 +1140,10 @@ function homeProductCardHTML(p) {
   const href = escapeHTML(p.href || `projects/${slug}.html`);
   const st = escapeHTML(p.status || 'wip');
   const cat = escapeHTML(CATEGORY_META[p.category]?.name || '');
-  return `<li><a class="cz-prow reveal" href="${href}">
-    <h3>${escapeHTML(p.display_name)}</h3>
-    <div class="cz-p-t">${escapeHTML(p.tagline || '')}${projectChips(p)}</div>
-    <span class="cz-p-s"><span class="cz-status" data-status="${st}">${escapeHTML(p.status_label || 'Geliştiriliyor')}</span><span class="cz-note">${cat}</span></span></a></li>`;
+  return `<li><a class="cz-pcard cz-panel" href="${href}">
+    <div><h3>${escapeHTML(p.display_name)}</h3><p>${escapeHTML(p.tagline || '')}</p>${projectChips(p)}</div>
+    <canvas class="cz-net" data-net="mini" data-seed="${escapeHTML(slug)}" aria-hidden="true" style="position:static"></canvas>
+    <div class="cz-p-s"><span class="cz-status" data-status="${st}">${escapeHTML(p.status_label || 'Geliştiriliyor')}</span><span class="cz-note">${cat}</span></div></a></li>`;
 }
 
 async function renderHomeProducts() {
@@ -1153,11 +1153,11 @@ async function renderHomeProducts() {
   const remote = await fetchAllProjects();
   const list = remote && remote.length ? remote : STATIC_PROJECTS;
   if (grid) {
-    const live = list.filter((p) => p.status === 'live').slice(0, 4);
-    const proto = list.filter((p) => p.status === 'concept').slice(0, 2);
-    grid.innerHTML = live.concat(proto).map(homeProductCardHTML).join('');
-    if (window.initReveal) window.initReveal();
+    const rank = { live: 0, wip: 1, rd: 1, concept: 2 };
+    const sorted = list.slice().sort((x, y) => (rank[x.status] ?? 1) - (rank[y.status] ?? 1));
+    grid.innerHTML = sorted.map(homeProductCardHTML).join('');
     grid.setAttribute('aria-busy', 'false');
+    if (window.czRefresh) window.czRefresh();
   }
   if (stats) {
     const nums = { total: list.length, live: list.filter((p) => p.status === 'live').length, proto: list.filter((p) => p.status === 'concept').length };
