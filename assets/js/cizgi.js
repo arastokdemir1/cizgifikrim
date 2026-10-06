@@ -32,13 +32,25 @@
     if (degrade >= 3) { root.classList.add('cz-simple'); }
   }
 
-  // ───────────── glow sprite ─────────────
-  var sprite = (function () {
-    var c = D.createElement('canvas'); c.width = c.height = 64; var x = c.getContext('2d');
+  // ───────────── renkler: CSS belirteçlerinden okunur (palet değişince czRecolor ile yenilenir) ─────────────
+  var C = { acc: '', accA: '', fgA: '', boost: 1, blend: 'lighter', spr: 1 };
+  function readColors() {
+    var cs = getComputedStyle(root);
+    function v(n, d) { var t = cs.getPropertyValue(n).trim(); return t || d; }
+    var acc = v('--k-acc-rgb', '185 210 124').split(/[\s,]+/).join(','), fg = v('--k-fg-rgb', '237 235 228').split(/[\s,]+/).join(',');
+    C.acc = 'rgb(' + acc + ')'; C.accA = 'rgba(' + acc + ','; C.fgA = 'rgba(' + fg + ',';
+    C.boost = parseFloat(v('--k-net-boost', '1')) || 1; C.blend = v('--k-blend', 'lighter'); C.spr = parseFloat(v('--k-spr', '1')) || 1;
+  }
+  var sprite = null;
+  function buildSprite() {
+    var c = sprite || D.createElement('canvas'); c.width = c.height = 64; var x = c.getContext('2d');
+    x.clearRect(0, 0, 64, 64);
     var g = x.createRadialGradient(32, 32, 0, 32, 32, 32);
-    g.addColorStop(0, 'rgba(185,210,124,.5)'); g.addColorStop(.3, 'rgba(185,210,124,.16)'); g.addColorStop(1, 'rgba(185,210,124,0)');
-    x.fillStyle = g; x.fillRect(0, 0, 64, 64); return c;
-  })();
+    g.addColorStop(0, C.accA + (.5 * C.spr) + ')'); g.addColorStop(.3, C.accA + (.16 * C.spr) + ')'); g.addColorStop(1, C.accA + '0)');
+    x.fillStyle = g; x.fillRect(0, 0, 64, 64); sprite = c; return c;
+  }
+  readColors(); buildSprite();
+  W.czRecolor = function () { readColors(); buildSprite(); if (STATIC) nets.forEach(function (n) { if (n.draw) n.draw(); }); };
 
   // ───────────── Net: canlı sinir ağı (düğümler + kenarlar + veri paketleri) ─────────────
   function Net(canvas, o) {
@@ -89,31 +101,31 @@
     x.lineWidth = 1;
     for (i = 0; i < N.length; i++) for (j = i + 1; j < N.length; j++) {
       var dx = N[i].x - N[j].x, dy = N[i].y - N[j].y, d2 = dx * dx + dy * dy;
-      if (d2 < L2) { var d = Math.sqrt(d2); E.push([i, j, d]); adj[i].push(j); adj[j].push(i); x.strokeStyle = 'rgba(185,210,124,' + ((1 - d / L) * .27).toFixed(3) + ')'; x.beginPath(); x.moveTo(N[i].x, N[i].y); x.lineTo(N[j].x, N[j].y); x.stroke(); }
+      if (d2 < L2) { var d = Math.sqrt(d2); E.push([i, j, d]); adj[i].push(j); adj[j].push(i); x.strokeStyle = C.accA + ((1 - d / L) * .27 * C.boost).toFixed(3) + ')'; x.beginPath(); x.moveTo(N[i].x, N[i].y); x.lineTo(N[j].x, N[j].y); x.stroke(); }
     }
     if (this.p) {
-      for (i = 0; i < N.length; i++) { var px = this.p.x - N[i].x, py = this.p.y - N[i].y, pd = Math.sqrt(px * px + py * py); if (pd < 170) { x.strokeStyle = 'rgba(185,210,124,' + ((1 - pd / 170) * .6).toFixed(3) + ')'; x.beginPath(); x.moveTo(this.p.x, this.p.y); x.lineTo(N[i].x, N[i].y); x.stroke(); } }
+      for (i = 0; i < N.length; i++) { var px = this.p.x - N[i].x, py = this.p.y - N[i].y, pd = Math.sqrt(px * px + py * py); if (pd < 170) { x.strokeStyle = C.accA + ((1 - pd / 170) * .6 * C.boost).toFixed(3) + ')'; x.beginPath(); x.moveTo(this.p.x, this.p.y); x.lineTo(N[i].x, N[i].y); x.stroke(); } }
       x.drawImage(sprite, this.p.x - 22, this.p.y - 22, 44, 44);
     }
-    x.globalCompositeOperation = 'lighter';
+    x.globalCompositeOperation = C.blend;
     for (i = 0; i < N.length; i++) {
       var a = N[i];
       if (a.hot) { var pulse = .55 + .45 * Math.sin(performance.now() * .002 + a.ph); x.globalAlpha = pulse; x.drawImage(sprite, a.x - 15, a.y - 15, 30, 30); x.globalAlpha = 1; }
     }
     x.globalCompositeOperation = 'source-over';
-    for (i = 0; i < N.length; i++) { var n = N[i]; x.fillStyle = n.hot ? '#B9D27C' : 'rgba(237,235,228,.55)'; x.beginPath(); x.arc(n.x, n.y, n.hot ? n.r + 1.2 : n.r + .3, 0, 6.2832); x.fill(); }
+    for (i = 0; i < N.length; i++) { var n = N[i]; x.fillStyle = n.hot ? C.acc : (C.fgA + '.55)'); x.beginPath(); x.arc(n.x, n.y, n.hot ? n.r + 1.2 : n.r + .3, 0, 6.2832); x.fill(); }
     // veri paketleri
     var P = this.pulses, want = this.o.pulses || 0;
     if (!STATIC) {
       while (P.length < want && E.length) { var e = E[(this.rand() * E.length) | 0]; P.push({ a: e[0], b: e[1], t: 0, sp: .16 + this.rand() * .12 }); }
-      x.globalCompositeOperation = 'lighter';
+      x.globalCompositeOperation = C.blend;
       for (i = P.length - 1; i >= 0; i--) {
         var q = P[i], A = N[q.a], B = N[q.b], ddx = B.x - A.x, ddy = B.y - A.y, dist = Math.sqrt(ddx * ddx + ddy * ddy) || 1;
         if (dist > L * 1.05) { P.splice(i, 1); continue; }
         q.t += (q.sp * 16) / dist;
         if (q.t >= 1) { var nb = adj[q.b], nx = -1; if (nb && nb.length) { for (var tries = 0; tries < 4; tries++) { var c = nb[(this.rand() * nb.length) | 0]; if (c !== q.a) { nx = c; break; } } } if (nx < 0) { P.splice(i, 1); continue; } q.a = q.b; q.b = nx; q.t = 0; continue; }
         var hx = A.x + ddx * q.t, hy = A.y + ddy * q.t, tx = A.x + ddx * Math.max(0, q.t - .22), ty = A.y + ddy * Math.max(0, q.t - .22);
-        var g = x.createLinearGradient(tx, ty, hx, hy); g.addColorStop(0, 'rgba(185,210,124,0)'); g.addColorStop(1, 'rgba(185,210,124,.6)');
+        var g = x.createLinearGradient(tx, ty, hx, hy); g.addColorStop(0, C.accA + '0)'); g.addColorStop(1, C.accA + '.6)');
         x.strokeStyle = g; x.lineWidth = 1.4; x.beginPath(); x.moveTo(tx, ty); x.lineTo(hx, hy); x.stroke();
         x.drawImage(sprite, hx - 6, hy - 6, 12, 12);
       }
@@ -148,11 +160,11 @@
       var ea = clamp(p * n - k - .55, 0, 1); if (ea <= 0) continue;
       for (i = 0; i < Ls[k].length; i++) for (j = 0; j < Ls[k + 1].length; j++) {
         var A = Ls[k][i], B = Ls[k + 1][j];
-        x.strokeStyle = 'rgba(185,210,124,' + (ea * (this.focus === k || this.focus === k + 1 ? .22 : .1)).toFixed(3) + ')'; x.lineWidth = 1;
+        x.strokeStyle = C.accA + (ea * (this.focus === k || this.focus === k + 1 ? .22 : .1) * C.boost).toFixed(3) + ')'; x.lineWidth = 1;
         x.beginPath(); x.moveTo(A.x, A.y); x.lineTo(A.x + (B.x - A.x) * ea, A.y + (B.y - A.y) * ea); x.stroke();
       }
     }
-    x.globalCompositeOperation = 'lighter';
+    x.globalCompositeOperation = C.blend;
     for (k = 0; k < n; k++) {
       var la = clamp(p * n - k, 0, 1); if (la <= 0) continue;
       for (i = 0; i < Ls[k].length; i++) {
@@ -161,11 +173,11 @@
       }
     }
     x.globalAlpha = 1; x.globalCompositeOperation = 'source-over';
-    for (k = 0; k < n; k++) { var a2 = clamp(p * n - k, 0, 1); for (i = 0; i < Ls[k].length; i++) { x.fillStyle = this.focus === k ? 'rgba(185,210,124,' + a2 + ')' : 'rgba(241,242,238,' + (a2 * .8) + ')'; x.beginPath(); x.arc(Ls[k][i].x, Ls[k][i].y, 3.4, 0, 6.2832); x.fill(); } }
+    for (k = 0; k < n; k++) { var a2 = clamp(p * n - k, 0, 1); for (i = 0; i < Ls[k].length; i++) { x.fillStyle = this.focus === k ? C.accA + a2 + ')' : C.fgA + (a2 * .8) + ')'; x.beginPath(); x.arc(Ls[k][i].x, Ls[k][i].y, 3.4, 0, 6.2832); x.fill(); } }
     if (!STATIC && p > .15) {
       var vis = Math.max(1, Math.min(n - 1, Math.floor(p * n)));
       while (this.pulses.length < 5) { var kk = (this.rand() * vis) | 0; this.pulses.push({ k: kk, i: (this.rand() * Ls[kk].length) | 0, j: (this.rand() * Ls[kk + 1].length) | 0, t: 0, sp: .0006 + this.rand() * .0005 }); }
-      x.globalCompositeOperation = 'lighter';
+      x.globalCompositeOperation = C.blend;
       for (i = this.pulses.length - 1; i >= 0; i--) {
         var q = this.pulses[i]; q.t += q.sp * (dt || 16);
         if (q.t >= 1 || q.k >= vis) { this.pulses.splice(i, 1); continue; }
@@ -451,5 +463,16 @@
     // çizim yoksa (iç sayfa) mini arayüzler hemen görünür
     if (STATIC) [].slice.call(D.querySelectorAll('[data-cz-draw]')).forEach(function (e) { e.classList.add('is-done'); });
   }
+  // Randevu bağlantısına yaklaşılınca (hover/odak/dokunma) Cal.com'a bağlantı önceden kurulur; üçüncü taraf dosyası kopyalanmaz.
+  (function () {
+    var warmed = false;
+    function warm(e) {
+      if (warmed || !e.target || !e.target.closest) return;
+      var a = e.target.closest('a[href*="randevu"]'); if (!a) return;
+      warmed = true;
+      ['preconnect', 'dns-prefetch'].forEach(function (rel) { var l = D.createElement('link'); l.rel = rel; l.href = 'https://app.cal.com'; if (rel === 'preconnect') l.crossOrigin = ''; D.head.appendChild(l); });
+    }
+    ['pointerover', 'focusin', 'touchstart'].forEach(function (ev) { D.addEventListener(ev, warm, { passive: true, capture: true }); });
+  })();
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', init); else init();
 })();

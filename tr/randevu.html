@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Randevu — CizgiFikrim</title>
   <meta name="theme-color" content="#0B0C0E">
-  <meta name="description" content="CizgiFikrim ile gerçek zamanlı bir görüşme planla."><link rel="stylesheet" href="../assets/css/main.css?v=75"><link rel="stylesheet" href="../assets/css/cizgi.css?v=4">
+  <link rel="preconnect" href="https://app.cal.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cal.com">
+  <meta name="description" content="CizgiFikrim ile gerçek zamanlı bir görüşme planla."><link rel="stylesheet" href="../assets/css/main.css?v=75"><link rel="stylesheet" href="../assets/css/cizgi.css?v=7">
+  <script>/* palet önizleme kancası: YALNIZ ?palet=… ya da yerel önizleme; üretimde (cizgifikrim.net) hiçbir şey yüklemez. Palet seçilince bu satır silinir. */(function(){try{var m=/[?&]palet=([a-z0-9]+)/.exec(location.search),v=m&&m[1],st=window.localStorage;if(v==='off'){st.removeItem('cz-palet');return}if(v)st.setItem('cz-palet',v);v=v||st.getItem('cz-palet');var dev=/^(localhost|127\.|192\.168\.|10\.)/.test(location.hostname);if(!v&&!dev)return;v=v||'v3';document.documentElement.setAttribute('data-palet',v);document.write('<link rel="stylesheet" href="../assets/css/palet.css?v=1"><script src="../assets/js/palet.js?v=1" defer><\/script>')}catch(e){}})()</script>
+
   <link rel="icon" href="/assets/favicon.svg?v=8" type="image/svg+xml">
   <link rel="canonical" href="https://cizgifikrim.net/tr/randevu.html">
 </head>
@@ -60,20 +64,24 @@
       <div class="cz-wrap">
       <div class="randevu-embed">
         <div id="cal-video-30" role="tabpanel" aria-labelledby="channel-video-label tab-30" tabindex="0">
-          <p class="randevu-cal-loading" role="status" data-cal-loading>Cal.com takvimi yükleniyor…</p>
-          <a class="randevu-cal-fallback" data-cal-fallback hidden target="_blank" rel="noopener">Takvimi Cal.com'da aç ↗</a>
+          <div class="randevu-calbar"><p class="randevu-cal-loading" role="status" data-cal-loading>Takvim hazırlanıyor…</p><a class="randevu-cal-fallback" data-cal-fallback target="_blank" rel="noopener">Cal.com'da aç <span aria-hidden="true">↗</span></a></div>
+          <button type="button" class="cz-btn cz-btn--ghost randevu-launch" data-cal-start hidden>Takvimi yükle</button>
+          <div class="randevu-stage" id="cal-stage-video-30"><div class="randevu-skel" data-cal-skel aria-hidden="true"><div class="sk-head"><i></i><i></i><i></i></div><div class="sk-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
         <div id="cal-video-15" role="tabpanel" aria-labelledby="channel-video-label tab-15" tabindex="0" hidden>
-          <p class="randevu-cal-loading" role="status" data-cal-loading>Cal.com takvimi yükleniyor…</p>
-          <a class="randevu-cal-fallback" data-cal-fallback hidden target="_blank" rel="noopener">Takvimi Cal.com'da aç ↗</a>
+          <div class="randevu-calbar"><p class="randevu-cal-loading" role="status" data-cal-loading>Takvim hazırlanıyor…</p><a class="randevu-cal-fallback" data-cal-fallback target="_blank" rel="noopener">Cal.com'da aç <span aria-hidden="true">↗</span></a></div>
+          <button type="button" class="cz-btn cz-btn--ghost randevu-launch" data-cal-start hidden>Takvimi yükle</button>
+          <div class="randevu-stage" id="cal-stage-video-15"><div class="randevu-skel" data-cal-skel aria-hidden="true"><div class="sk-head"><i></i><i></i><i></i></div><div class="sk-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
         <div id="cal-phone-30" role="tabpanel" aria-labelledby="channel-phone-label tab-30" tabindex="0" hidden>
-          <p class="randevu-cal-loading" role="status" data-cal-loading>Cal.com takvimi yükleniyor…</p>
-          <a class="randevu-cal-fallback" data-cal-fallback hidden target="_blank" rel="noopener">Takvimi Cal.com'da aç ↗</a>
+          <div class="randevu-calbar"><p class="randevu-cal-loading" role="status" data-cal-loading>Takvim hazırlanıyor…</p><a class="randevu-cal-fallback" data-cal-fallback target="_blank" rel="noopener">Cal.com'da aç <span aria-hidden="true">↗</span></a></div>
+          <button type="button" class="cz-btn cz-btn--ghost randevu-launch" data-cal-start hidden>Takvimi yükle</button>
+          <div class="randevu-stage" id="cal-stage-phone-30"><div class="randevu-skel" data-cal-skel aria-hidden="true"><div class="sk-head"><i></i><i></i><i></i></div><div class="sk-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
         <div id="cal-phone-15" role="tabpanel" aria-labelledby="channel-phone-label tab-15" tabindex="0" hidden>
-          <p class="randevu-cal-loading" role="status" data-cal-loading>Cal.com takvimi yükleniyor…</p>
-          <a class="randevu-cal-fallback" data-cal-fallback hidden target="_blank" rel="noopener">Takvimi Cal.com'da aç ↗</a>
+          <div class="randevu-calbar"><p class="randevu-cal-loading" role="status" data-cal-loading>Takvim hazırlanıyor…</p><a class="randevu-cal-fallback" data-cal-fallback target="_blank" rel="noopener">Cal.com'da aç <span aria-hidden="true">↗</span></a></div>
+          <button type="button" class="cz-btn cz-btn--ghost randevu-launch" data-cal-start hidden>Takvimi yükle</button>
+          <div class="randevu-stage" id="cal-stage-phone-15"><div class="randevu-skel" data-cal-skel aria-hidden="true"><div class="sk-head"><i></i><i></i><i></i></div><div class="sk-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
       </div>
       <p class="randevu-alt">Takvimde uygun saat yoksa <a href="contact.html">bize yaz</a>, birlikte bir zaman bulalım.</p>
@@ -138,12 +146,19 @@
 
   // Takvimi sitenin renk ve kart diline oturtur — bkz. cal.com/docs
   // "customize embed css variables".
-  const calVars = {
-    "cal-brand": "#B9D27C", "cal-brand-emphasis": "#D4E5A8", "cal-brand-text": "#ffffff",
-    "cal-bg": "#121316", "cal-bg-emphasis": "#17181C", "cal-bg-subtle": "#0F1013", "cal-bg-muted": "#0F1013",
-    "cal-border": "#2A2F36", "cal-border-subtle": "#20242A", "cal-border-booker": "#2A2F36", "cal-border-booker-width": "1px",
-    "cal-text": "#F1F2EE", "cal-text-emphasis": "#FFFFFF", "cal-text-subtle": "#9CA3A8", "cal-text-muted": "#9CA3A8",
-    "radius": "4px",
+  const calVarsNow = () => {
+    const cs = getComputedStyle(document.documentElement);
+    const t = (n, d) => (cs.getPropertyValue(n).trim() || d);
+    const hex = (h) => { h = h.replace("#", ""); if (h.length === 3) h = h.replace(/./g, "$&$&"); return [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16)); };
+    const mix = (a, b, k) => { const x = hex(a), y = hex(b); return "#" + x.map((v, i) => Math.round(v + (y[i] - v) * k).toString(16).padStart(2, "0")).join(""); };
+    const bg2 = t("--k-bg2", "#0F1013"), panel = t("--k-panel", "#121316"), panel2 = t("--k-panel2", "#17181C"), text = t("--k-text", "#EDEBE4"), acc = t("--k-acc", "#B9D27C");
+    return {
+      "cal-brand": acc, "cal-brand-emphasis": mix(acc, text, .35), "cal-brand-text": t("--k-acc-ink", "#0B0C0E"),
+      "cal-bg": panel, "cal-bg-emphasis": panel2, "cal-bg-subtle": bg2, "cal-bg-muted": bg2,
+      "cal-border": mix(panel, text, .18), "cal-border-subtle": mix(panel, text, .1), "cal-border-booker": mix(panel, text, .18), "cal-border-booker-width": "1px",
+      "cal-text": text, "cal-text-emphasis": text, "cal-text-subtle": t("--k-muted", "#9A9FA4"), "cal-text-muted": t("--k-muted", "#9A9FA4"),
+      "radius": "4px",
+    };
   };
 
   // Dört randevu türü de Cal.com'un kayıtlı etkinliklerine gider.
@@ -153,39 +168,88 @@
   };
   const started = {};
   const calPanels = document.querySelectorAll('.randevu-embed [role="tabpanel"]');
-  function startCal(type, minutes) {
+  function startCal(type, minutes, force) {
     const key = `${type}-${minutes}`;
     if (started[key]) return;
-    started[key] = true;
     const ns = `${type}${minutes}`;
     const panel = document.getElementById(`cal-${key}`);
-    const loading = panel.querySelector("[data-cal-loading]");
+    const status = panel.querySelector("[data-cal-loading]");
     const fallback = panel.querySelector("[data-cal-fallback]");
+    const skel = panel.querySelector("[data-cal-skel]");
+    const launch = panel.querySelector("[data-cal-start]");
     fallback.href = `https://cal.com/${CAL_SLOTS[type][minutes]}`;
+    const conn = navigator.connection || {};
+    const heavy = conn.saveData || /(^|-)(2g|3g)/.test(conn.effectiveType || "");
+    if (heavy && !force) {
+      status.textContent = "Bağlantın yavaş görünüyor; takvim istediğinde yüklenir.";
+      launch.hidden = false;
+      launch.onclick = () => { launch.hidden = true; startCal(type, minutes, true); };
+      return;
+    }
+    started[key] = true;
+    launch.hidden = true;
+    const t0 = performance.now();
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      window.clearInterval(tick);
+      skel.classList.add("is-ready");
+      status.textContent = "Takvim hazır. Bir gün seçin.";   // gizlenmez: üst çubuk yüksekliği sabit kalır (CLS)
+      fallback.classList.remove("is-emph");
+      window.__calReady = Math.round(performance.now());
+    };
+    const tick = window.setInterval(() => {
+      if (done) return;
+      const s = Math.round((performance.now() - t0) / 1000);
+      if (s >= 45) {
+        status.textContent = "Takvim yüklenemedi. Cal.com bağlantısını kullanabilirsin.";
+        fallback.classList.add("is-emph");
+        window.clearInterval(tick);
+      } else if (s >= 8) {
+        status.textContent = `Takvim beklenenden yavaş yükleniyor (${s} sn). İstersen Cal.com'da aç.`;
+        fallback.classList.add("is-emph");
+      } else {
+        status.textContent = `Takvim yükleniyor… ${s} sn`;
+      }
+    }, 1000);
+    const stage = document.getElementById(`cal-stage-${key}`);
     const embedObserver = new MutationObserver(() => {
-      if (!panel.querySelector("iframe")) return;
-      loading.hidden = true;
-      fallback.hidden = true;
-      window.clearTimeout(loadTimeout);
-      embedObserver.disconnect();
+      const f = stage.querySelector("iframe");
+      if (!f || f.__w) return;
+      f.__w = true;
+      window.__calIframe = Math.round(performance.now());
+      f.addEventListener("load", () => { window.__calLoad = Math.round(performance.now()); window.setTimeout(finish, 3500); });
     });
-    embedObserver.observe(panel, { childList: true, subtree: true });
-    const loadTimeout = window.setTimeout(() => {
-      if (panel.querySelector("iframe")) return;
-      loading.textContent = "Takvim şu anda yüklenemedi.";
-      fallback.hidden = false;
-      embedObserver.disconnect();
-    }, 12000);
+    embedObserver.observe(stage, { childList: true, subtree: true });
     Cal("init", ns, { origin: "https://cal.com" });
+    Cal.ns[ns]("on", { action: "linkReady", callback: () => { window.__calLinkReady = Math.round(performance.now()); finish(); } });
     Cal.ns[ns]("inline", {
-      elementOrSelector: `#cal-${key}`,
+      elementOrSelector: `#cal-stage-${key}`,
       calLink: CAL_SLOTS[type][minutes],
       layout: "month_view",
       config: { theme: "light", layout: "month_view", ...calPrefill },
     });
-    Cal.ns[ns]("ui", { theme: "light", cssVarsPerTheme: { light: calVars, dark: calVars }, hideEventTypeDetails: false, layout: "month_view" });
+    Cal.ns[ns]("ui", { theme: "light", cssVarsPerTheme: { light: calVarsNow(), dark: calVarsNow() }, hideEventTypeDetails: false, layout: "month_view" });
+  }
+  // Takvim yalnız görünür olunca (ya da kullanıcı seçim yapınca) başlar; sayfa anında kullanılabilir kalır.
+  const calIO = ("IntersectionObserver" in window) ? new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (!e.isIntersecting) return;
+    calIO.unobserve(e.target);
+    startCal(e.target.dataset.calType, Number(e.target.dataset.calMin));
+  }), { rootMargin: "400px" }) : null;
+  function armCal(type, minutes, immediate) {
+    if (immediate || !calIO) { startCal(type, minutes, immediate); return; }
+    const panel = document.getElementById(`cal-${type}-${minutes}`);
+    panel.dataset.calType = type; panel.dataset.calMin = String(minutes);
+    calIO.observe(panel);
   }
 
+  // Palet değişince (yalnız önizleme) başlamış takvimlerin renkleri güncellenir.
+  window.addEventListener("cz-palet", () => Object.keys(started).forEach((k) => {
+    const [ty, mi] = k.split("-"); const vars = calVarsNow();
+    try { Cal.ns[ty + mi]("ui", { theme: "light", cssVarsPerTheme: { light: vars, dark: vars }, hideEventTypeDetails: false, layout: "month_view" }); } catch (_) {}
+  }));
   const durationTabs = Array.from(document.querySelectorAll("[data-cal-tab]"));
   const meetingTypeRadios = Array.from(document.querySelectorAll('input[name="meeting-type"]'));
   const summaryChannel = document.getElementById("summary-channel");
@@ -195,7 +259,7 @@
   let selectedType = "video";
   let selectedMinutes = 30;
 
-  function showSelection(type, minutes) {
+  function showSelection(type, minutes, user) {
     selectedType = type;
     selectedMinutes = minutes;
     const channelLabel = type === "phone" ? "Telefon" : "Görüntülü";
@@ -224,14 +288,14 @@
     summaryDuration.textContent = `${minutes} dakika`;
     selectedTitle.textContent = `${minutes} dakikalık ${channelDescription}`;
     phoneCallDetails.hidden = type !== "phone";
-    startCal(type, minutes);
+    armCal(type, minutes, user);
   }
 
   meetingTypeRadios.forEach((radio) => radio.addEventListener("change", () => {
-    if (radio.checked) showSelection(radio.value, selectedMinutes);
+    if (radio.checked) showSelection(radio.value, selectedMinutes, true);
   }));
   durationTabs.forEach((tab, index) => {
-    tab.addEventListener("click", () => showSelection(selectedType, Number(tab.dataset.calTab)));
+    tab.addEventListener("click", () => showSelection(selectedType, Number(tab.dataset.calTab), true));
     tab.addEventListener("keydown", (event) => {
       let nextIndex = index;
       if (event.key === "ArrowRight") nextIndex = (index + 1) % durationTabs.length;
@@ -241,13 +305,13 @@
       else return;
       event.preventDefault();
       const nextTab = durationTabs[nextIndex];
-      showSelection(selectedType, Number(nextTab.dataset.calTab));
+      showSelection(selectedType, Number(nextTab.dataset.calTab), true);
       nextTab.focus();
     });
   });
   showSelection("video", 30);
 </script>
   <script src="../assets/js/analytics.js?v=3"></script>
-  <script src="../assets/js/cizgi.js?v=4" defer></script>
+  <script src="../assets/js/cizgi.js?v=7" defer></script>
 </body>
 </html>
