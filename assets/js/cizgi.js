@@ -36,7 +36,7 @@
   var sprite = (function () {
     var c = D.createElement('canvas'); c.width = c.height = 64; var x = c.getContext('2d');
     var g = x.createRadialGradient(32, 32, 0, 32, 32, 32);
-    g.addColorStop(0, 'rgba(200,255,61,.85)'); g.addColorStop(.25, 'rgba(200,255,61,.35)'); g.addColorStop(1, 'rgba(200,255,61,0)');
+    g.addColorStop(0, 'rgba(185,210,124,.5)'); g.addColorStop(.3, 'rgba(185,210,124,.16)'); g.addColorStop(1, 'rgba(185,210,124,0)');
     x.fillStyle = g; x.fillRect(0, 0, 64, 64); return c;
   })();
 
@@ -65,7 +65,7 @@
   Net.prototype.populate = function () {
     var o = this.o, n = o.count * (narrow() ? 0.45 : 1) * this.scale; n = Math.max(8, Math.round(n));
     var r = this.rand; this.nodes.length = 0;
-    for (var i = 0; i < n; i++) this.nodes.push({ x: r() * this.w, y: r() * this.h, vx: (r() - .5) * .05, vy: (r() - .5) * .05, r: 1.2 + r() * 1.8, hot: r() < .14, ph: r() * 6.28 });
+    for (var i = 0; i < n; i++) this.nodes.push({ x: r() * this.w, y: r() * this.h, vx: (r() - .5) * .03, vy: (r() - .5) * .03, r: 1.2 + r() * 1.6, hot: r() < .1, ph: r() * 6.28 });
     this.link = clamp(o.link || Math.min(this.w, this.h) * .22, 70, 190);
     this.pulses.length = 0;
   };
@@ -89,19 +89,19 @@
     x.lineWidth = 1;
     for (i = 0; i < N.length; i++) for (j = i + 1; j < N.length; j++) {
       var dx = N[i].x - N[j].x, dy = N[i].y - N[j].y, d2 = dx * dx + dy * dy;
-      if (d2 < L2) { var d = Math.sqrt(d2); E.push([i, j, d]); adj[i].push(j); adj[j].push(i); x.strokeStyle = 'rgba(200,255,61,' + ((1 - d / L) * .36).toFixed(3) + ')'; x.beginPath(); x.moveTo(N[i].x, N[i].y); x.lineTo(N[j].x, N[j].y); x.stroke(); }
+      if (d2 < L2) { var d = Math.sqrt(d2); E.push([i, j, d]); adj[i].push(j); adj[j].push(i); x.strokeStyle = 'rgba(185,210,124,' + ((1 - d / L) * .27).toFixed(3) + ')'; x.beginPath(); x.moveTo(N[i].x, N[i].y); x.lineTo(N[j].x, N[j].y); x.stroke(); }
     }
     if (this.p) {
-      for (i = 0; i < N.length; i++) { var px = this.p.x - N[i].x, py = this.p.y - N[i].y, pd = Math.sqrt(px * px + py * py); if (pd < 170) { x.strokeStyle = 'rgba(200,255,61,' + ((1 - pd / 170) * .6).toFixed(3) + ')'; x.beginPath(); x.moveTo(this.p.x, this.p.y); x.lineTo(N[i].x, N[i].y); x.stroke(); } }
+      for (i = 0; i < N.length; i++) { var px = this.p.x - N[i].x, py = this.p.y - N[i].y, pd = Math.sqrt(px * px + py * py); if (pd < 170) { x.strokeStyle = 'rgba(185,210,124,' + ((1 - pd / 170) * .6).toFixed(3) + ')'; x.beginPath(); x.moveTo(this.p.x, this.p.y); x.lineTo(N[i].x, N[i].y); x.stroke(); } }
       x.drawImage(sprite, this.p.x - 22, this.p.y - 22, 44, 44);
     }
     x.globalCompositeOperation = 'lighter';
     for (i = 0; i < N.length; i++) {
       var a = N[i];
-      if (a.hot) { var pulse = .55 + .45 * Math.sin(performance.now() * .002 + a.ph); x.globalAlpha = pulse; x.drawImage(sprite, a.x - 22, a.y - 22, 44, 44); x.globalAlpha = 1; }
+      if (a.hot) { var pulse = .55 + .45 * Math.sin(performance.now() * .002 + a.ph); x.globalAlpha = pulse; x.drawImage(sprite, a.x - 15, a.y - 15, 30, 30); x.globalAlpha = 1; }
     }
     x.globalCompositeOperation = 'source-over';
-    for (i = 0; i < N.length; i++) { var n = N[i]; x.fillStyle = n.hot ? '#C8FF3D' : 'rgba(241,242,238,.7)'; x.beginPath(); x.arc(n.x, n.y, n.hot ? n.r + 1.2 : n.r + .3, 0, 6.2832); x.fill(); }
+    for (i = 0; i < N.length; i++) { var n = N[i]; x.fillStyle = n.hot ? '#B9D27C' : 'rgba(237,235,228,.55)'; x.beginPath(); x.arc(n.x, n.y, n.hot ? n.r + 1.2 : n.r + .3, 0, 6.2832); x.fill(); }
     // veri paketleri
     var P = this.pulses, want = this.o.pulses || 0;
     if (!STATIC) {
@@ -113,9 +113,9 @@
         q.t += (q.sp * 16) / dist;
         if (q.t >= 1) { var nb = adj[q.b], nx = -1; if (nb && nb.length) { for (var tries = 0; tries < 4; tries++) { var c = nb[(this.rand() * nb.length) | 0]; if (c !== q.a) { nx = c; break; } } } if (nx < 0) { P.splice(i, 1); continue; } q.a = q.b; q.b = nx; q.t = 0; continue; }
         var hx = A.x + ddx * q.t, hy = A.y + ddy * q.t, tx = A.x + ddx * Math.max(0, q.t - .22), ty = A.y + ddy * Math.max(0, q.t - .22);
-        var g = x.createLinearGradient(tx, ty, hx, hy); g.addColorStop(0, 'rgba(200,255,61,0)'); g.addColorStop(1, 'rgba(200,255,61,.9)');
-        x.strokeStyle = g; x.lineWidth = 2; x.beginPath(); x.moveTo(tx, ty); x.lineTo(hx, hy); x.stroke();
-        x.drawImage(sprite, hx - 9, hy - 9, 18, 18);
+        var g = x.createLinearGradient(tx, ty, hx, hy); g.addColorStop(0, 'rgba(185,210,124,0)'); g.addColorStop(1, 'rgba(185,210,124,.6)');
+        x.strokeStyle = g; x.lineWidth = 1.4; x.beginPath(); x.moveTo(tx, ty); x.lineTo(hx, hy); x.stroke();
+        x.drawImage(sprite, hx - 6, hy - 6, 12, 12);
       }
       x.globalCompositeOperation = 'source-over';
     }
@@ -148,7 +148,7 @@
       var ea = clamp(p * n - k - .55, 0, 1); if (ea <= 0) continue;
       for (i = 0; i < Ls[k].length; i++) for (j = 0; j < Ls[k + 1].length; j++) {
         var A = Ls[k][i], B = Ls[k + 1][j];
-        x.strokeStyle = 'rgba(200,255,61,' + (ea * (this.focus === k || this.focus === k + 1 ? .34 : .17)).toFixed(3) + ')'; x.lineWidth = 1;
+        x.strokeStyle = 'rgba(185,210,124,' + (ea * (this.focus === k || this.focus === k + 1 ? .22 : .1)).toFixed(3) + ')'; x.lineWidth = 1;
         x.beginPath(); x.moveTo(A.x, A.y); x.lineTo(A.x + (B.x - A.x) * ea, A.y + (B.y - A.y) * ea); x.stroke();
       }
     }
@@ -157,21 +157,21 @@
       var la = clamp(p * n - k, 0, 1); if (la <= 0) continue;
       for (i = 0; i < Ls[k].length; i++) {
         var nd = Ls[k][i], hot = this.focus === k, tw = .6 + .4 * Math.sin(t * .003 + i * 1.7 + k);
-        x.globalAlpha = la * (hot ? .95 : .35 + .25 * tw); var sz = hot ? 34 : 22; x.drawImage(sprite, nd.x - sz / 2, nd.y - sz / 2, sz, sz);
+        x.globalAlpha = la * (hot ? .8 : .3 + .2 * tw); var sz = hot ? 26 : 16; x.drawImage(sprite, nd.x - sz / 2, nd.y - sz / 2, sz, sz);
       }
     }
     x.globalAlpha = 1; x.globalCompositeOperation = 'source-over';
-    for (k = 0; k < n; k++) { var a2 = clamp(p * n - k, 0, 1); for (i = 0; i < Ls[k].length; i++) { x.fillStyle = this.focus === k ? 'rgba(200,255,61,' + a2 + ')' : 'rgba(241,242,238,' + (a2 * .8) + ')'; x.beginPath(); x.arc(Ls[k][i].x, Ls[k][i].y, 4.2, 0, 6.2832); x.fill(); } }
+    for (k = 0; k < n; k++) { var a2 = clamp(p * n - k, 0, 1); for (i = 0; i < Ls[k].length; i++) { x.fillStyle = this.focus === k ? 'rgba(185,210,124,' + a2 + ')' : 'rgba(241,242,238,' + (a2 * .8) + ')'; x.beginPath(); x.arc(Ls[k][i].x, Ls[k][i].y, 3.4, 0, 6.2832); x.fill(); } }
     if (!STATIC && p > .15) {
       var vis = Math.max(1, Math.min(n - 1, Math.floor(p * n)));
-      while (this.pulses.length < 9) { var kk = (this.rand() * vis) | 0; this.pulses.push({ k: kk, i: (this.rand() * Ls[kk].length) | 0, j: (this.rand() * Ls[kk + 1].length) | 0, t: 0, sp: .0006 + this.rand() * .0005 }); }
+      while (this.pulses.length < 5) { var kk = (this.rand() * vis) | 0; this.pulses.push({ k: kk, i: (this.rand() * Ls[kk].length) | 0, j: (this.rand() * Ls[kk + 1].length) | 0, t: 0, sp: .0006 + this.rand() * .0005 }); }
       x.globalCompositeOperation = 'lighter';
       for (i = this.pulses.length - 1; i >= 0; i--) {
         var q = this.pulses[i]; q.t += q.sp * (dt || 16);
         if (q.t >= 1 || q.k >= vis) { this.pulses.splice(i, 1); continue; }
         var A2 = Ls[q.k][q.i], B2 = Ls[q.k + 1][q.j]; if (!A2 || !B2) { this.pulses.splice(i, 1); continue; }
         var hx = A2.x + (B2.x - A2.x) * q.t, hy = A2.y + (B2.y - A2.y) * q.t;
-        x.drawImage(sprite, hx - 10, hy - 10, 20, 20);
+        x.drawImage(sprite, hx - 7, hy - 7, 14, 14);
       }
       x.globalCompositeOperation = 'source-over';
     }
@@ -213,7 +213,7 @@
       out.push([[26, 24], [34, 70], [30, 120], [38, 170]], [[70, 24], [64, 70], [72, 122], [66, 172]], rrect(20, 182, 60, 9, 4.5).concat([[24, 182]]), [[50, 196], [50, 199]]);
       return out; } }
   };
-  var svg = null, segs = [], bp = [], dots = [], draws = [], total = 0, built = false, curD = -1, introT = (STATIC ? 1 : 0), pen = null, penGlow = null, packets = [];
+  var maxFrac = 0, svg = null, segs = [], bp = [], dots = [], draws = [], total = 0, built = false, curD = -1, introT = (STATIC ? 1 : 0), pen = null, penGlow = null, packets = [];
 
   function route(pts) {
     var out = [pts[0].slice()];
@@ -286,12 +286,12 @@
     });
     dots.forEach(function (dt) {
       var h = D.createElementNS(NS, 'circle'); h.setAttribute('class', 'halo'); h.setAttribute('cx', dt.x); h.setAttribute('cy', dt.y); h.setAttribute('r', 15); svg.appendChild(h);
-      var c = D.createElementNS(NS, 'circle'); c.setAttribute('class', 'dot'); c.setAttribute('cx', dt.x); c.setAttribute('cy', dt.y); c.setAttribute('r', 5); svg.appendChild(c); dt.el = c; dt.halo = h;
+      var c = D.createElementNS(NS, 'circle'); c.setAttribute('class', 'dot'); c.setAttribute('cx', dt.x); c.setAttribute('cy', dt.y); c.setAttribute('r', 4); svg.appendChild(c); dt.el = c; dt.halo = h;
     });
     if (!STATIC) {
       penGlow = D.createElementNS(NS, 'circle'); penGlow.setAttribute('class', 'penglow'); penGlow.setAttribute('r', 14); svg.appendChild(penGlow);
-      pen = D.createElementNS(NS, 'circle'); pen.setAttribute('class', 'pen'); pen.setAttribute('r', 4); svg.appendChild(pen);
-      packets = []; for (var k = 0; k < 3; k++) { var pk = D.createElementNS(NS, 'circle'); pk.setAttribute('class', 'pk'); pk.setAttribute('r', 2.6); svg.appendChild(pk); packets.push({ el: pk, o: k / 3 }); }
+      pen = D.createElementNS(NS, 'circle'); pen.setAttribute('class', 'pen'); pen.setAttribute('r', 3.2); svg.appendChild(pen);
+      packets = []; for (var k = 0; k < 1; k++) { var pk = D.createElementNS(NS, 'circle'); pk.setAttribute('class', 'pk'); pk.setAttribute('r', 2.2); svg.appendChild(pk); packets.push({ el: pk, o: k / 1 }); }
     }
     built = true; curD = -1; renderLine(0);
   }
@@ -307,6 +307,8 @@
     if (!built) return;
     var Dd = STATIC ? total : Math.max(targetD(), Math.min(total, 60)) * (introT >= 1 ? 1 : 1 - Math.pow(1 - introT, 3));
     Dd = clamp(Dd, 0, total);
+    // RATCHET: bir kez çizilen çizgi geri sarılmaz (yeniden kurulumda oran korunur)
+    Dd = Math.max(Dd, maxFrac * total); maxFrac = total ? Dd / total : 0;
     if (Math.abs(Dd - curD) >= .4) {
       curD = Dd; var head = null, loc = 0;
       for (var i = 0; i < segs.length; i++) {
@@ -315,11 +317,11 @@
         if (dr > 0 && dr < s.len) { head = s; loc = dr; }
       }
       if (pen) { if (head && Dd < total) { var pt = head.els[2].getPointAtLength(loc); pen.setAttribute('cx', pt.x); pen.setAttribute('cy', pt.y); penGlow.setAttribute('cx', pt.x); penGlow.setAttribute('cy', pt.y); pen.style.opacity = penGlow.style.opacity = 1; } else pen.style.opacity = penGlow.style.opacity = 0; }
-      dots.forEach(function (d) { var on = Dd >= d.D - 2; d.el.classList.toggle('on', on); d.halo.classList.toggle('on', on); });
-      draws.forEach(function (d) { d.el.classList.toggle('is-done', Dd >= d.endD - 3); });
+      dots.forEach(function (d) { if (Dd >= d.D - 2) { d.el.classList.add('on'); d.halo.classList.add('on'); } });
+      draws.forEach(function (d) { if (Dd >= d.endD - 3) d.el.classList.add('is-done'); });
     }
     if (!STATIC && packets.length && curD > 120) {
-      for (var p = 0; p < packets.length; p++) { var pk = packets[p], g = ((t * .00009 + pk.o) % 1) * curD, sg = segAt(g); if (!sg) continue; var loc2 = clamp(g - sg.start, 0, sg.len); if (g > sg.start + sg.len) continue; var q = sg.els[2].getPointAtLength(loc2); pk.el.setAttribute('cx', q.x); pk.el.setAttribute('cy', q.y); }
+      for (var p = 0; p < packets.length; p++) { var pk = packets[p], g = ((t * .00006 + pk.o) % 1) * curD, sg = segAt(g); if (!sg) continue; var loc2 = clamp(g - sg.start, 0, sg.len); if (g > sg.start + sg.len) continue; var q = sg.els[2].getPointAtLength(loc2); pk.el.setAttribute('cx', q.x); pk.el.setAttribute('cy', q.y); }
     }
   }
   var rb;
@@ -345,7 +347,7 @@
     els.forEach(function (el) {
       var base = parseInt(el.getAttribute('data-live'), 10), max = parseInt(el.getAttribute('data-live-max') || (base + 14), 10), val = base;
       var vis = true; if ('IntersectionObserver' in W) new IntersectionObserver(function (e) { vis = e[0].isIntersecting; }).observe(el);
-      setInterval(function () { if (!vis || D.hidden) return; val += 1 + ((Math.random() * 3) | 0); if (val > max) val = base; el.textContent = String(val); }, 1500);
+      var iv = setInterval(function () { if (!vis || D.hidden) return; var d = el.closest('[data-cz-draw]'); if (d && !d.classList.contains('is-done')) return; val += 1 + ((Math.random() * 3) | 0); if (val >= max) { val = max; clearInterval(iv); } el.textContent = String(val); }, 1700);
     });
   }
   function typing() {
@@ -354,7 +356,7 @@
     if (STATIC) { el.innerHTML = lines[0]; return; }
     var li = 0, ci = 0, vis = true;
     if ('IntersectionObserver' in W) new IntersectionObserver(function (e) { vis = e[0].isIntersecting; }).observe(el);
-    (function tick() { if (!vis || D.hidden) return setTimeout(tick, 800); var s = lines[li]; ci++; el.innerHTML = s.slice(0, ci) + '<span class="cur"></span>'; if (ci >= s.length) { ci = 0; li = (li + 1) % lines.length; return setTimeout(tick, 2200); } setTimeout(tick, 38); })();
+    (function tick() { if (!vis || D.hidden) return setTimeout(tick, 800); var s = lines[li]; ci++; el.innerHTML = s.slice(0, ci) + '<span class="cur"></span>'; if (ci >= s.length) { if (li >= lines.length - 1) { el.innerHTML = s; return; } ci = 0; li++; return setTimeout(tick, 1800); } setTimeout(tick, 38); })();
   }
 
   // ───────────── sahne (öğrenen ağ), şerit, imleç, manyetik ─────────────
@@ -364,7 +366,7 @@
     function upd() {
       var r = sc.getBoundingClientRect(), vh = W.innerHeight, q = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
       var idx = clamp(Math.floor(q * steps.length * .999), 0, steps.length - 1);
-      if (L) { L.p = clamp(q * 1.25, 0, 1); L.focus = idx; }
+      if (L) { L.p = Math.max(L.p, clamp(q * 1.25, 0, 1)); L.focus = idx; W.__cz = W.__cz || {}; W.__cz.layersP = L.p; }
       if (idx !== last) { last = idx; steps.forEach(function (s, i) { s.classList.toggle('on', i === idx); }); dotsEl.forEach(function (d, i) { d.classList.toggle('on', i === idx); }); }
     }
     if (STATIC) { steps.forEach(function (s) { s.classList.add('on'); }); return; }
@@ -408,7 +410,7 @@
   }
 
   // ───────────── canvas ağlarını başlat ─────────────
-  var CFG = { hero: { count: 84, link: 0, pulses: 12, pointer: true }, head: { count: 34, link: 0, pulses: 3, pointer: true }, cta: { count: 52, link: 0, pulses: 5, pointer: true }, emblem: { count: 16, link: 78, pulses: 2, pointer: false }, mini: { count: 12, link: 66, pulses: 2, pointer: false } };
+  var CFG = { hero: { count: 68, link: 0, pulses: 7, pointer: true }, head: { count: 30, link: 0, pulses: 2, pointer: true }, cta: { count: 40, link: 0, pulses: 3, pointer: true }, emblem: { count: 16, link: 78, pulses: 2, pointer: false }, mini: { count: 12, link: 66, pulses: 1, pointer: false } };
   function initNets() {
     [].slice.call(D.querySelectorAll('canvas[data-net]:not([data-net-bound])')).forEach(function (cv) {
       cv.setAttribute('data-net-bound', '1'); var k = cv.getAttribute('data-net'), c = CFG[k] || CFG.head;
@@ -426,8 +428,15 @@
     if (until) new IntersectionObserver(function (e) { atEnd = e[0].isIntersecting; apply(); }).observe(until);
   }
 
+  function tiles() {
+    var ts = [].slice.call(D.querySelectorAll('.cz-tile'));
+    if (!ts.length) return;
+    if (STATIC || !('IntersectionObserver' in W)) { ts.forEach(function (t) { t.classList.add('is-in'); }); return; }
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }); }, { threshold: .35 });
+    ts.forEach(function (t) { io.observe(t); });
+  }
   function init() {
-    split(); initNets(); W.initCounters(); scene(); strip(); pointerFx(); liveNumbers(); typing(); sticky();
+    split(); tiles(); initNets(); W.initCounters(); scene(); strip(); pointerFx(); liveNumbers(); typing(); sticky();
     if (!D.querySelector('[data-cz-draw]')) root.classList.add('no-line-draw');
     if (D.querySelector('[data-cz-start]')) {
       buildLine();
