@@ -185,7 +185,7 @@ a { color: inherit; }
 .lx-marks > .lx-mk-b { position: absolute; inset: 0; pointer-events: none; }
 .lx-marks > .lx-mk-b::before { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
 .lx-marks > .lx-mk-b::after { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
-.lx-fig-tag { display: flex; justify-content: space-between; gap: 1rem; font-family: var(--mono); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--lx-muted); }
+.lx-fig-tag { display: flex; justify-content: space-between; gap: 1rem; white-space: nowrap; font-family: var(--mono); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--lx-muted); }
 
 /* ───────── BÖLÜMLER ───────── */
 .lx-section { padding-block: var(--lx-gap); }
@@ -305,10 +305,11 @@ a { color: inherit; }
 .lx-steps li { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: .25rem 1rem; padding: .95rem 0; border-bottom: 1px solid var(--lx-hair); color: var(--lx-muted); transition: color .5s var(--lx-ease); }
 .lx-steps li::before { counter-increment: s; content: "0" counter(s); font-family: var(--mono); font-size: .75rem; letter-spacing: .1em; padding-top: .35rem; }
 .lx-steps h3 { font-size: clamp(1.2rem, 2.4vw, 1.7rem); font-weight: 400; letter-spacing: -.03em; color: inherit; }
-.lx-steps p { grid-column: 2; max-height: 0; overflow: hidden; opacity: 0; font-size: .95rem; transition: max-height .6s var(--lx-ease), opacity .5s var(--lx-ease); }
+.lx-steps { position: relative; padding-bottom: 5.2rem; }
+.lx-steps p { position: absolute; left: 4rem; right: 0; bottom: 0; padding-top: .8rem; opacity: 0; font-size: .95rem; transition: opacity .5s var(--lx-ease); pointer-events: none; }
 .lx-steps li.is-active { color: var(--lx-ink); }
 .lx-steps li.is-active::before { color: var(--lx-accent); }
-.lx-steps li.is-active p { max-height: 8rem; opacity: 1; color: var(--lx-muted); }
+.lx-steps li.is-active p { opacity: 1; color: var(--lx-muted); }
 .lx-cards { position: relative; width: min(100%, 24rem); aspect-ratio: 4 / 5; margin-inline: auto; }
 .lx-stepcard { position: absolute; inset: 0; display: grid; grid-template-rows: auto 1fr auto; padding: 1.4rem; border: 1px solid var(--lx-hair-strong); border-radius: calc(var(--lx-r) * 3); background: color-mix(in oklab, var(--lx-surface) 92%, var(--lx-accent-deep) 8%); transform-origin: 50% 100%;
   transform: translate3d(calc(var(--d, 0) * 34px), calc(var(--d, 0) * -22px), 0) rotate(calc(var(--d, 0) * 4.5deg)) scale(calc(1 - var(--a, 0) * .05)); opacity: calc(1 - var(--a, 0) * .22); z-index: calc(10 - var(--a, 0)); transition: transform .9s var(--lx-ease-soft), opacity .6s var(--lx-ease); }
@@ -322,7 +323,7 @@ a { color: inherit; }
 @media (min-width: 900px) { .lx-scene-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 4rem; } }
 @media (max-width: 899px) {
   .lx-scene { height: 380vh; }
-  .lx-scene-sticky { padding-block: 5rem 1rem; align-content: start; }
+  .lx-scene-sticky { padding-block: 5rem 4.6rem; align-content: start; }
   .lx-steps li { padding: .7rem 0; } .lx-steps h3 { font-size: 1.15rem; }
   .lx-cards { width: min(64vw, 15rem); aspect-ratio: 5 / 4; margin-top: .5rem; }
   .lx-stepcard { padding: 1rem; } .lx-stepcard svg { max-height: 5.5rem; } .lx-stepcard-n { font-size: 2.6rem; }
@@ -334,7 +335,7 @@ a { color: inherit; }
   .lx-scene { height: auto; background: var(--lx-void); }
   .lx-scene { --lx-bg: var(--lx-void); --lx-ink: var(--lx-text-dark); --lx-muted: #8FA3A0; --lx-graphite: #C5D3D0; --lx-hair: rgba(232,240,238,.12); --lx-hair-strong: rgba(232,240,238,.28); --lx-accent: var(--lx-accent-hi); --lx-surface: var(--lx-panel); }
   .lx-scene-sticky { position: static; height: auto; padding-block: var(--lx-gap); }
-  .lx-steps li { color: var(--lx-ink); } .lx-steps p { max-height: none; opacity: 1; }
+  .lx-steps { padding-bottom: 0; } .lx-steps li { color: var(--lx-ink); } .lx-steps p { position: static; grid-column: 2; opacity: 1; padding-top: 0; pointer-events: auto; }
   .lx-cards { display: none; } .lx-scene-count { display: none; }
 }
 
@@ -608,7 +609,7 @@ a { color: inherit; }
 .lx-kv dt, .lx-kv dd { padding: .8rem 0; border-bottom: 1px solid var(--lx-hair); display: flex; align-items: center; min-height: 44px; }
 .lx-kv dt { font-family: var(--mono); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--lx-muted); padding-right: 1.5rem; }
 .lx-kv dd { margin: 0; justify-content: flex-end; text-align: right; }
-.lx-kv a { text-underline-offset: 3px; }
+.lx-kv a { display: inline-flex; align-items: center; min-height: 44px; text-underline-offset: 3px; }
 
 .approach-grid { padding: 0; gap: 1px; }
 .approach-card { border: 0; border-radius: 0; box-shadow: none; }
@@ -714,5 +715,19 @@ a { color: inherit; }
 .panel-message { border-radius: var(--lx-r); }
 .panel-detail-head h2, .admin-block h2 { font-family: var(--sans); font-weight: 400; letter-spacing: -.02em; }
 .lx-panelmain .btn-primary { min-height: 3rem; }
+
+
+/* ofis (ersoy): erişilebilirlik tabanı: metin >= 12 px, kontrast, 44 px hedef; marka tonuna oturt */
+#office-root :where(small, em, time, .lo-overline, .lo-connection, .lo-station-label, .lo-room-label, .lo-disclosure, .lo-event p, .lo-agent-label strong, .lo-team-member strong, .lo-team-index, .lo-active-count, .lo-conversation, .lo-floor-help, .lo-event-meta) { font-size: .75rem !important; line-height: 1.4 !important; letter-spacing: .02em; }
+#office-root .lo-overline, #office-root .lo-team-index, #office-root time, #office-root .lo-event time, #office-root .lo-team-member small, #office-root .lo-team-member em, #office-root .lo-disclosure, #office-root .lo-connection, #office-root .lo-active-count { color: #1D2733 !important; }
+#office-root .lo-agent-label small { display: none; }
+#office-root .lo-agent { min-width: 48px; min-height: 48px; justify-content: center; }
+#office-root .lo-team-member { min-height: 44px; }
+@media (max-width: 780px) { #office-root .lo-agent, #office-root .lo-agent.is-selected { transform: translate(-50%, -43%); } }
+.approach-card > span { font-size: .75rem; }
+.randevu-facts li, .randevu-facts li span { font-size: .9rem; }
+.randevu-facts li span:first-child { font-size: .75rem; }
+
+@media (max-width: 480px) { .lx-fig-tag { letter-spacing: .06em; gap: .5rem; } }
 
 /*@@APPEND@@*/
