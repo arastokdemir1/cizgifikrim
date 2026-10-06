@@ -1151,7 +1151,7 @@ async function renderHomeProducts() {
   const stats = document.getElementById('home-stats');
   if (!grid && !stats) return;
   const remote = await fetchAllProjects();
-  const list = remote && remote.length ? remote : STATIC_PROJECTS;
+  const list = (remote && remote.length ? remote : STATIC_PROJECTS).filter((p) => CATEGORY_ORDER.includes(p.category));   // katalogda listelenmeyen kayıtlar şeritte ve sayaçta da yok
   if (grid) {
     const rank = { live: 0, wip: 1, rd: 1, concept: 2 };
     const sorted = list.slice().sort((x, y) => (rank[x.status] ?? 1) - (rank[y.status] ?? 1));
@@ -1209,7 +1209,7 @@ async function renderProjectDetail() {
   const slug = location.pathname.split('/').pop().replace('.html', '');
   const [remoteProject, remoteAll] = await Promise.all([fetchProjectBySlug(slug), fetchAllProjects()]);
   const project = remoteProject || STATIC_PROJECTS.find(p => p.slug === slug);
-  const all = remoteAll?.length ? remoteAll : STATIC_PROJECTS;
+  const all = (remoteAll?.length ? remoteAll : STATIC_PROJECTS).filter((p) => CATEGORY_ORDER.includes(p.category));
 
   if (!project) {
     nameEl.textContent = 'Proje bilgisi bulunamadı';
