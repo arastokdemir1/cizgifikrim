@@ -21,7 +21,7 @@ const STATIC_PROJECTS = [
   ['radar', 'Radar', 'BIST Hisse Tarayıcısı', 'Filtre tabanlı BIST hisse tarama uygulaması.', 'finansal', 'wip', 'Bakımda'],
 ].map(([slug, display_name, tagline, description, category, status, status_label], order_index) => ({
   slug, display_name, tagline, description, category, status, status_label, order_index,
-})).concat(typeof LOCAL_EXTRA_PROJECTS !== 'undefined' ? LOCAL_EXTRA_PROJECTS : []);
+}));
 
 function safeProjectSlug(slug) {
   return /^[a-z0-9._-]+$/i.test(String(slug || '')) ? String(slug) : '';
@@ -1161,6 +1161,10 @@ async function renderHomeProducts() {
   }
   if (stats) {
     const nums = { total: list.length, live: list.filter((p) => p.status === 'live').length, proto: list.filter((p) => p.status === 'concept').length };
+    if (nums.proto === 0) {
+      const cell = stats.querySelector('[data-stat="proto"]')?.closest('div');
+      if (cell) { cell.remove(); stats.style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))'; }
+    }
     stats.querySelectorAll('[data-stat]').forEach((el) => {
       el.setAttribute('data-count', String(nums[el.getAttribute('data-stat')] ?? 0));
       el.textContent = String(nums[el.getAttribute('data-stat')] ?? 0);
