@@ -186,7 +186,7 @@ h1.reveal { opacity: 1; transform: none; transition: none; }
 @keyframes cz-drop { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
 
 /* sayaç şeridi + marquee */
-.cz-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--k-hair); background: rgba(11, 12, 14, .5); }
+.cz-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-block: 1px solid var(--k-hair); background: rgba(11, 12, 14, .5); }
 .cz-stats > div { padding: clamp(1.6rem, 4vw, 3rem) 1rem; text-align: center; }
 .cz-stats > div + div { border-left: 1px solid var(--k-hair); }
 .cz-stats dd { margin: 0; font-family: var(--k-head); font-variant-numeric: tabular-nums; font-weight: 600; font-size: clamp(2.6rem, 8vw, 6.4rem); line-height: 1; letter-spacing: -.035em; }
@@ -251,7 +251,7 @@ h1.reveal { opacity: 1; transform: none; transition: none; }
 .cz-ui-tabs b { padding: .2rem 0; border-radius: 7px; font-weight: 500; }
 .cz-ui-tabs b:first-child { background: #fff; color: #0F172A; font-weight: 600; }
 .cz-ui-card { padding: .8rem .8rem; border-radius: 12px; background: #fff; border: 1px solid #E2E8F0; display: grid; gap: .3rem; }
-.cz-ui-label { font-size: .75rem; color: #64748B; }
+.cz-ui-label { font-size: .75rem; color: #526077; }
 .cz-ui-big { font-family: "Space Grotesk", var(--k-head); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 2.5rem; line-height: 1; letter-spacing: -.03em; color: #0F172A; }
 .cz-ui-big small { font-size: 1.1rem; color: #64748B; margin-left: .15rem; font-weight: 600; }
 .cz-ui-prog { height: 6px; border-radius: 99px; background: #E2E8F0; overflow: hidden; }
@@ -262,14 +262,14 @@ h1.reveal { opacity: 1; transform: none; transition: none; }
 .cz-ui-stats div { padding: .45rem .5rem; border-radius: 10px; background: #fff; border: 1px solid #E2E8F0; }
 .cz-ui-stats small { display: block; font-size: .75rem; color: #64748B; }
 .cz-ui-stats b { font-family: "Space Grotesk", var(--k-head); font-variant-numeric: tabular-nums; font-size: .9rem; font-weight: 700; color: #0F172A; }
-.cz-ui-stats div:nth-child(2) b { color: #E08600; }
+.cz-ui-stats div:nth-child(2) b { color: #A55300; }
 .cz-ui-bars { display: flex; align-items: flex-end; gap: 3px; height: 8.6rem; padding: .5rem .6rem .45rem; border-radius: 12px; background: #fff; border: 1px solid #E2E8F0; }
 .cz-ui-bars i { flex: 1; border-radius: 2px 2px 0 0; background: #FF9500; transform-origin: bottom; transform: scaleY(.04); height: calc(var(--h) * .092rem); }
 .cz-ui-bars i:nth-child(3n) { background: #0066FF; }
 .is-done .cz-ui-bars i { animation: cz-barfull 1.3s var(--k-ease) forwards; animation-delay: calc(var(--i) * 60ms + .4s); }
 .cz-ui-tabbar { display: grid; grid-template-columns: repeat(3, 1fr); padding: .3rem; border-radius: 12px; background: #fff; border: 1px solid #E2E8F0; font-size: .75rem; text-align: center; color: #64748B; white-space: nowrap; }
 .cz-ui-tabbar b { padding: .25rem 0; border-radius: 8px; font-weight: 500; }
-.cz-ui-tabbar b:first-child { background: rgba(0, 102, 255, .1); color: #0066FF; font-weight: 600; }
+.cz-ui-tabbar b:first-child { background: rgba(0, 102, 255, .1); color: #0050C8; font-weight: 600; }
 .cz-callouts { display: grid; gap: .9rem; width: min(100%, 36rem); }
 .cz-callouts .cz-actions { margin-top: 1rem; }
 .cz-callout { display: flex; gap: .9rem; align-items: flex-start; padding: .9rem 1rem; border: 1px solid var(--k-hair); border-radius: 10px; background: var(--k-panel); }

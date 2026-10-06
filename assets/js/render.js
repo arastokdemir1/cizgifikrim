@@ -1161,9 +1161,11 @@ async function renderHomeProducts() {
   }
   if (stats) {
     const nums = { total: list.length, live: list.filter((p) => p.status === 'live').length, proto: list.filter((p) => p.status === 'concept').length };
-    if (nums.proto === 0) {
-      const cell = stats.querySelector('[data-stat="proto"]')?.closest('div');
-      if (cell) { cell.remove(); stats.style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))'; }
+    if (nums.proto > 0 && !stats.querySelector('[data-stat="proto"]')) {
+      const cell = document.createElement('div');
+      cell.innerHTML = '<dd data-stat="proto">—</dd><dt>prototip</dt>';
+      stats.appendChild(cell);
+      stats.style.gridTemplateColumns = 'repeat(3, minmax(0, 1fr))';
     }
     stats.querySelectorAll('[data-stat]').forEach((el) => {
       el.setAttribute('data-count', String(nums[el.getAttribute('data-stat')] ?? 0));
