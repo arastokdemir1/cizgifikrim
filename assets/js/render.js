@@ -1140,10 +1140,10 @@ function homeProductCardHTML(p) {
   const href = escapeHTML(p.href || `projects/${slug}.html`);
   const st = escapeHTML(p.status || 'wip');
   const cat = escapeHTML(CATEGORY_META[p.category]?.name || '');
-  return `<li><a class="lx-pcard" href="${href}">
-    <span class="lx-pcard-top"><span class="lx-chip" data-status="${st}">${escapeHTML(p.status_label || 'Geliştiriliyor')}</span><span class="lx-mono" style="color:var(--lx-muted)">${cat}</span></span>
-    <span><h3>${escapeHTML(p.display_name)}</h3><p>${escapeHTML(p.tagline || '')}</p>${projectChips(p)}</span>
-    <span class="lx-pcard-go" aria-hidden="true">↗</span></a></li>`;
+  return `<li><a class="cz-prow reveal" href="${href}">
+    <h3>${escapeHTML(p.display_name)}</h3>
+    <div class="cz-p-t">${escapeHTML(p.tagline || '')}${projectChips(p)}</div>
+    <span class="cz-p-s"><span class="cz-status" data-status="${st}">${escapeHTML(p.status_label || 'Geliştiriliyor')}</span><span class="cz-note">${cat}</span></span></a></li>`;
 }
 
 async function renderHomeProducts() {
@@ -1156,6 +1156,7 @@ async function renderHomeProducts() {
     const live = list.filter((p) => p.status === 'live').slice(0, 4);
     const proto = list.filter((p) => p.status === 'concept').slice(0, 2);
     grid.innerHTML = live.concat(proto).map(homeProductCardHTML).join('');
+    if (window.initReveal) window.initReveal();
     grid.setAttribute('aria-busy', 'false');
   }
   if (stats) {

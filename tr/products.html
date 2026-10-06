@@ -5,83 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Ürünler &amp; Sistemler — CizgiFikrim</title>
   <meta name="description" content="CizgiFikrim'de yayınlanan ürün ve sistem çalışmalarını inceleyin.">
-  <meta name="theme-color" content="#050A0B">
-  <link rel="stylesheet" href="../assets/css/main.css?v=71"><link rel="stylesheet" href="../assets/css/luxe.css?v=11">
-  <link rel="icon" href="/assets/favicon.svg?v=5" type="image/svg+xml">
+  <meta name="theme-color" content="#F3ECDD">
+  <link rel="stylesheet" href="../assets/css/main.css?v=72"><link rel="stylesheet" href="../assets/css/cizgi.css?v=1">
+  <link rel="icon" href="/assets/favicon.svg?v=6" type="image/svg+xml">
   <link rel="canonical" href="https://cizgifikrim.net/tr/products.html">
-  <link rel="preload" href="../assets/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
   <a class="skip-link" href="#main">Ana içeriğe geç</a>
-  <header class="site-header"><div class="lx-wrap header-inner">
-    <a href="index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><img class="brand-lockup" width="160" height="32" src="/assets/brand/cizgifikrim-logo-light.svg?v=1" alt="" aria-hidden="true"></a>
+  <header class="site-header"><div class="cz-wrap header-inner">
+    <a href="index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><svg class="cz-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M44 15.4c-3.5-2.5-7.8-3.9-12.4-3.9-11.5 0-20.8 9.2-20.8 20.5s9.3 20.5 20.8 20.5c4.6 0 8.9-1.5 12.4-3.9"/><circle cx="48" cy="32" r="4.6"/></svg><span class="cz-word">CizgiFikrim</span></a>
     <nav class="desktop-nav" aria-label="Ana menü"><a href="hizmetler.html" class="nav-link">Hizmetler</a><a href="products.html" class="nav-link" aria-current="page">Çalışmalar</a><a href="about.html" class="nav-link">Hakkında</a><a href="randevu.html" class="nav-link">Görüşme</a></nav>
     <div class="nav-auth"><span data-auth-slot="desktop" data-base=""><a href="giris.html" class="nav-login">Giriş yap</a><a href="kayit.html" class="nav-cta">Kayıt ol</a></span></div>
     <button class="mobile-toggle" aria-label="Menüyü aç" aria-expanded="false"><span></span><span></span><span></span></button>
-  </div><nav class="mobile-nav" aria-label="Mobil menü"><div class="lx-wrap mobile-nav-inner"><a href="hizmetler.html" class="mobile-nav-link">Hizmetler</a><a href="products.html" class="mobile-nav-link" aria-current="page">Çalışmalar</a><a href="about.html" class="mobile-nav-link">Hakkında</a><a href="randevu.html" class="mobile-nav-link">Görüşme</a><div class="mobile-nav-auth"><span data-auth-slot="mobile" data-base=""><a href="giris.html" class="mobile-nav-btn">Giriş yap</a><a href="kayit.html" class="mobile-nav-btn is-primary">Kayıt ol</a></span></div></div></nav></header>
+  </div><nav class="mobile-nav" aria-label="Mobil menü"><div class="cz-wrap mobile-nav-inner"><a href="hizmetler.html" class="mobile-nav-link">Hizmetler</a><a href="products.html" class="mobile-nav-link" aria-current="page">Çalışmalar</a><a href="about.html" class="mobile-nav-link">Hakkında</a><a href="randevu.html" class="mobile-nav-link">Görüşme</a><div class="mobile-nav-auth"><span data-auth-slot="mobile" data-base=""><a href="giris.html" class="mobile-nav-btn">Giriş yap</a><a href="kayit.html" class="mobile-nav-btn is-primary">Kayıt ol</a></span></div></div></nav></header>
 
   <main id="main" tabindex="-1">
-    <section class="lx-phero lx-dark" id="katalog" aria-labelledby="products-title">
-      <div class="lx-wrap lx-phero-grid">
-        <div>
-          <span class="lx-eyebrow">Çalışmalar</span>
-          <h1 id="products-title" class="lx-h1">Fikirden işleyen sistemlere.</h1>
-          <p class="lx-lead">Farklı problem alanları için geliştirilen ürün, araç ve araştırma çalışmalarını tek katalogda topluyoruz. Her kart, yayınlanan proje kaydındaki güncel özetle hazırlanır.</p>
-        </div>
-        <dl class="lx-stats lx-stats--hero" id="home-stats" aria-label="Katalog özeti">
-          <div><dt>Çalışma</dt><dd data-stat="total">—</dd></div>
-          <div><dt>Canlı kayıtlı</dt><dd data-stat="live">—</dd></div>
-          <div><dt>Prototip</dt><dd data-stat="proto">—</dd></div>
-        </dl>
+    <section class="cz-pagehead" aria-labelledby="ph-title" id="katalog" data-cz-start>
+      <div class="cz-wrap">
+        <p class="cz-note">Çalışmalar</p>
+        <div class="cz-in"><h1 id="ph-title">Neler yaptık, <em>neler</em> yapıyoruz.</h1>
+        <p class="cz-lead">Ürünlerimiz, araçlarımız ve araştırma çalışmalarımız tek listede. Durumlar kayıtlı veriden gelir; prototipler prototip diye anılır.</p><p class="cz-census" id="home-stats" style="margin-top:2.2rem">Listede <b data-stat="total">—</b> çalışma var; <b data-stat="live">—</b> tanesi canlı kayıtlı, <b data-stat="proto">—</b> tanesi prototip.</p></div>
       </div>
     </section>
 
-    <section class="lx-section" style="padding-bottom:0" aria-labelledby="catalog-heading">
-      <div class="lx-wrap lx-section-head lx-section-head--split" style="margin-bottom:0">
-        <div><span class="lx-eyebrow">Portfolyo</span><h2 id="catalog-heading" class="lx-h2" style="margin-top:1.25rem">Yayınlanan çalışmalar</h2></div>
-        <p class="lx-lead">PORTFOLYO</p>
-      </div>
+    <section class="cz-sec cz-sec--tight" aria-label="Çalışma listesi" data-cz-side="r" style="padding-bottom:0">
+      <div id="products-categories" aria-live="polite" aria-busy="true"><p class="cz-wrap cz-note">Liste hazırlanıyor…</p></div>
     </section>
 
-    <!-- Kategori bölümleri Supabase'ten dinamik olarak yüklenir — bkz. assets/js/render.js -->
-    <div id="products-categories" aria-live="polite" aria-busy="true">
-      <p class="lx-wrap lx-note">Katalog hazırlanıyor…</p>
-    </div>
-
-    <section class="lx-cta lx-dark" aria-labelledby="cta-title">
-      <div class="lx-wrap lx-cta-inner">
-        <div>
-          <span class="lx-eyebrow">Başlayalım</span>
-          <h2 id="cta-title" class="lx-h2" style="margin-top:1.25rem">Projeni konuşalım.</h2>
-          <p class="lx-lead" style="margin-top:1.25rem" data-auth-alt-text="Bir görüşme planla; projenin durumunu, dosyaları ve yazışmaları panelinden tek yerden takip et.">Bir görüşme planla ya da hesap oluştur; projenin durumunu, dosyaları ve yazışmaları tek yerden takip et.</p>
-        </div>
-        <div class="lx-phero-actions" style="margin:0">
-          <a href="randevu.html" class="lx-btn">Görüşme planla <span class="lx-arrow" aria-hidden="true">→</span></a>
-          <a href="kayit.html" class="lx-btn lx-btn--ghost" data-auth-alt-href="panel.html" data-auth-alt-text="Panelime git">Hesap oluştur</a>
+    <section class="cz-close" aria-labelledby="cta-title" data-cz-side="l">
+      <div class="cz-wrap">
+        <p class="cz-k">Başlayalım</p>
+        <h2 id="cta-title" class="cz-giant" style="margin-top:1.2rem">Konuşalım.</h2>
+        <div class="cz-sketch cz-sketch--line" data-cz-draw="underline" aria-hidden="true" style="margin:.6rem 0 0"></div>
+        <p class="cz-lead" data-auth-alt-text="Bir görüşme planlayın; işin durumunu, dosyaları ve yazışmaları panelinizden izleyin.">Bir görüşme planlayın ya da hesap açın; işin durumunu, dosyaları ve yazışmaları tek yerden izleyin.</p>
+        <div class="cz-actions">
+          <a href="randevu.html" class="cz-btn">Görüşme planla <span aria-hidden="true">→</span></a>
+          <a href="kayit.html" class="cz-link" data-auth-alt-href="panel.html" data-auth-alt-text="Panelime git">Hesap aç <span class="cz-arr" aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer lx-dark">
-    <div class="lx-foot">
-      <div>
-        <p class="lx-mono" style="color:var(--lx-muted)">CİZGİFİKRİM</p>
-        <p class="lx-foot-big" style="margin-top:1rem">Yapay zekâ, mobil ve veri ürünleri geliştiren teknoloji stüdyosu.</p>
-      </div>
-      <div class="lx-foot-cols">
+  <footer class="site-footer">
+    <div class="cz-foot">
+      <div><p class="cz-foot-big">Önce <em>çizeriz</em>, sonra kurarız.</p></div>
+      <div class="cz-foot-cols">
         <nav aria-label="Alt gezinti"><h2>Gezinti</h2><ul><li><a href="hizmetler.html">Hizmetler</a></li><li><a href="products.html">Çalışmalar</a></li><li><a href="about.html">Hakkında</a></li><li><a href="randevu.html">Görüşme</a></li></ul></nav>
         <nav aria-label="Ürünler"><h2>Ürünler</h2><ul><li><a href="projects/carlog.html">CarLog</a></li><li><a href="projects/piyasa.html">PiyasApp</a></li><li><a href="projects/sano.html">Sano</a></li><li><a href="/seri/">Seri</a></li><li><a href="/birakma/">Bırakma</a></li></ul></nav>
-        <div><h2>İletişim</h2><p><a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></p><p class="lx-mono" style="color:var(--lx-muted);margin-top:.5rem">İstanbul, Türkiye</p></div>
+        <div><h2>Yazın</h2><p><a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></p><p class="cz-note" style="margin-top:.4rem">İstanbul, Türkiye</p></div>
       </div>
     </div>
-    <div class="lx-foot-base"><span>© <span id="year">2026</span> CizgiFikrim</span><span><a href="gizlilik.html">Gizlilik</a> · <a href="kosullar.html">Koşullar</a> · <a href="#main">Başa dön</a></span></div>
+    <div class="cz-foot-base"><span>© <span id="year">2026</span> CizgiFikrim</span><span><a href="gizlilik.html">Gizlilik</a> · <a href="kosullar.html">Koşullar</a> · <a href="#main">Başa dön</a></span></div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8/dist/umd/supabase.js" integrity="sha384-l7yJnh/cWKcqeTC5adHUdc5b+J4Kb2QTGRSkCQehn1YT5xEFlrgwnXOYuvrtI1F6" crossorigin="anonymous"></script>
   <script src="../assets/js/supabase-client.js?v=40"></script>
-  <script src="../assets/js/render.js?v=71"></script>
+  <script src="../assets/js/render.js?v=72"></script>
   <script src="../assets/js/app.js?v=40"></script>
   <script src="../assets/js/analytics.js?v=3"></script>
-  <script src="../assets/js/luxe.js?v=11" defer></script>
+  <script src="../assets/js/cizgi.js?v=1" defer></script>
 </body>
 </html>
