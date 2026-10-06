@@ -2,83 +2,131 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>X gündür. Cebinde kalan ₺. — CizgiFikrim</title>
-<meta name="description" content="Bıraktığın günleri ve biriken parayı tek ekranda gör.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Bırakma | CizgiFikrim</title>
+<meta name="description" content="Bıraktığın günleri ve biriken parayı tek ekranda gör. Prototip; tasarım henüz onaylanmadı.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#4545d6">
-<link rel="icon" href="/assets/favicon.svg?v=4" type="image/svg+xml">
-<style>
-  :root{--bg:#f8faff;--fg:#172033;--mut:#526176;--acc:#4545d6;--acc-d:#3a3ab8;--soft:#e6e6fb;--line:#d9e2ef;}
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
-  main{max-width:44rem;margin:0 auto;padding:1.5rem 1.25rem 3rem;}
-  .tag{display:inline-block;padding:.25rem .7rem;border-radius:999px;background:var(--soft);color:var(--acc-d);font-size:.78rem;font-weight:600;letter-spacing:.02em;}
-  h1{margin:1rem 0 .75rem;font-size:clamp(1.85rem,7vw,2.8rem);line-height:1.15;letter-spacing:-.02em;color:#0f172a;}
-  .lead{font-size:1.1rem;color:var(--mut);margin-bottom:1.5rem;}
-  .btn{display:block;text-align:center;padding:1rem 1.25rem;border-radius:999px;background:var(--acc-d);color:#fff;font-weight:700;font-size:1.05rem;text-decoration:none;}
-  .btn:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:3px;}
-  .note{margin-top:.75rem;font-size:.82rem;color:var(--mut);}
-  .note a,footer a{color:var(--acc-d);}
-  h2{margin:2.25rem 0 .75rem;font-size:1.2rem;color:#0f172a;}
-  ul.pts{list-style:none;display:grid;gap:.75rem;}
-  ul.pts li{padding:.9rem 1rem;border:1px solid var(--line);border-radius:.75rem;background:#fff;}
-  ul.pts strong{display:block;color:#0f172a;}
-  .shots{display:flex;gap:.75rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.25rem 0 .75rem;-webkit-overflow-scrolling:touch;}
-  .shots figure{flex:0 0 min(62%,15rem);scroll-snap-align:start;}
-  .shots img{display:block;width:100%;height:auto;border-radius:1.1rem;border:1px solid var(--line);background:#fff;}
-  .honest{margin-top:1.25rem;padding:.8rem 1rem;border-left:4px solid var(--acc-d);background:var(--soft);border-radius:.4rem;font-size:.95rem;color:var(--fg);}
-  .cap{margin-top:.5rem;font-size:.8rem;color:var(--mut);}
-  footer{margin-top:2.5rem;padding-top:1.25rem;border-top:1px solid var(--line);font-size:.82rem;color:var(--mut);}
-  /* mobil sabit tek CTA: ilk CTA ekrandan çıkınca görünür, kapanış CTA'sı görününce gizlenir */
-  .sticky{display:none;}
-  @media (max-width:639px){
-    .sticky{display:block;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:.75rem 1.25rem calc(.75rem + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--line);transform:translateY(110%);visibility:hidden;transition:transform .4s cubic-bezier(.2,.8,.2,1),visibility 0s linear .4s;}
-    .sticky.on{transform:none;visibility:visible;transition-delay:0s;}
-    .sticky .btn{width:100%;margin:0;}
-    body.has-sticky{padding-bottom:calc(5.5rem + env(safe-area-inset-bottom));}
-  }
-  @media (prefers-reduced-motion:reduce){.sticky{transition:none;}}
-</style>
+<meta name="theme-color" content="#050A0B">
+<link rel="icon" href="/assets/favicon.svg?v=5" type="image/svg+xml">
+<link rel="preload" as="image" href="/birakma/poster.jpg">
+<link rel="preload" href="/assets/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/main.css?v=71"><link rel="stylesheet" href="/assets/css/luxe.css?v=11"><link rel="stylesheet" href="/assets/css/plaka.css?v=1">
 </head>
 <body>
-<!-- Metin: pazarlama/landing-birakma.md (Vitrin, taslak, yayın yok). noindex, sitemap'te ve menüde yok.
-     Ölçüm: /assets/js/analytics.js (site_clicks); CTA data-track: birakma-cta (üst), birakma-cta-alt (alt). Yeni backend/tablo yok. Form yok: Haberdar ol = mailto.
-     Veri sorumlusu ve hukuki kontrol Aras/hukukta; ?src= parametresi analytics page alanına yazılır. -->
-<main id="main">
-  <span class="tag">Yakında · Prototip</span>
-  <h1>X gündür. Cebinde kalan ₺.</h1>
-  <p class="lead">Bıraktığın günleri ve biriken parayı tek ekranda gör.</p>
-  <a class="btn" data-track="birakma-cta" href="mailto:cizgifikrimnet@gmail.com?subject=B%C4%B1rakma%20sayac%C4%B1%3A%20haberdar%20ol&amp;body=Ad%C4%B1m%3A%0A">Haberdar ol</a>
-  <p class="note">İlk sürüm hazır olunca bir kez yazarız. E-postan yalnızca ilk sürüm haberi için, açık rızanla işlenir ve istediğin zaman silinmesini isteyebilirsin (<a href="/tr/gizlilik.html">aydınlatma metni</a>).</p>
+<a class="skip-link" href="#main">Ana içeriğe geç</a>
+<header class="site-header"><div class="lx-wrap header-inner">
+    <a href="/tr/index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><img class="brand-lockup" width="160" height="32" src="/assets/brand/cizgifikrim-logo-light.svg?v=1" alt="" aria-hidden="true"></a>
+    <nav class="desktop-nav" aria-label="Ana menü"><a href="/tr/hizmetler.html" class="nav-link">Hizmetler</a><a href="/tr/products.html" class="nav-link">Çalışmalar</a><a href="/tr/about.html" class="nav-link">Hakkında</a><a href="/tr/randevu.html" class="nav-link">Görüşme</a></nav>
+    <div class="nav-auth"><span data-auth-slot="desktop" data-base="/tr/"><a href="/tr/giris.html" class="nav-login">Giriş yap</a><a href="/tr/kayit.html" class="nav-cta">Kayıt ol</a></span></div>
+    <button class="mobile-toggle" aria-label="Menüyü aç" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div><nav class="mobile-nav" aria-label="Mobil menü"><div class="lx-wrap mobile-nav-inner"><a href="/tr/hizmetler.html" class="mobile-nav-link">Hizmetler</a><a href="/tr/products.html" class="mobile-nav-link">Çalışmalar</a><a href="/tr/about.html" class="mobile-nav-link">Hakkında</a><a href="/tr/randevu.html" class="mobile-nav-link">Görüşme</a><div class="mobile-nav-auth"><span data-auth-slot="mobile" data-base="/tr/"><a href="/tr/giris.html" class="mobile-nav-btn">Giriş yap</a><a href="/tr/kayit.html" class="mobile-nav-btn is-primary">Kayıt ol</a></span></div></div></nav></header>
+<div class="plaka plaka--green">
+<div class="top"><div class="wrap">
+    <a class="crumb micro" href="/tr/products.html"><span aria-hidden="true">←</span>&nbsp;Çalışmalar</a>
+    <span class="stamp micro">Prototip · Tasarım onaylanmadı</span>
+  </div></div>
+<main id="main" tabindex="-1">
+  <section class="wrap hero" aria-labelledby="h">
+    <div>
+      <h1 id="h" class="cond"><span>Bir gün,</span><span class="r">bir jeton.</span></h1>
+      <p class="lead">Bıraktığın günleri ve biriken parayı tek ekranda gör. Her temiz gün kavanoza bir jeton düşer.</p>
+      <div class="cta">
+        <a class="btn cond" data-track="birakma-cta" href="mailto:cizgifikrimnet@gmail.com?subject=B%C4%B1rakma%3A%20haberdar%20ol&amp;body=Ad%C4%B1m%3A%0A">Haberdar ol</a>
+        <p class="fine micro">İlk sürüm hazır olunca bir kez yazarız.</p>
+      </div>
+    </div>
+    <figure class="phone">
+      <video id="demo" muted loop playsinline preload="none" poster="poster.jpg" width="540" height="1174" disablepictureinpicture aria-label="Prototip ekran kaydı: bırakılan gün sayısı, biriken tutar ve kavanoza düşen jetonlar">
+        <source src="birakma-a3.mp4" type="video/mp4">
+      </video>
+      <figcaption class="cap micro">Prototip · örnek veri</figcaption>
+    </figure>
+  </section>
 
-  <p class="honest">Bu bir prototiptir; uygulama geliştiriliyor. Ekran görüntüleri örnek veriyle hazırlandı. Tıbbi tavsiye değildir; bırakma sürecinde bir sağlık profesyoneline danışmanı öneririz.</p>
+  <section class="plate-band" aria-label="Örnek ana ekran sayısı">
+    <div class="chain" id="chain"><div class="wrap plate">
+      <span class="plate-n cond" aria-hidden="true">₺1.440</span>
+      <p class="plate-l"><span class="tag micro">Biriken</span><span class="day cond" style="font-size:2.6rem;line-height:1">12 gündür</span><span class="micro">+₺120 / gün · örnek veri</span></p>
+    </div></div>
+  </section>
 
-  <h2>Neler olacak?</h2>
-  <ul class="pts">
-    <li><strong>Gün sayacı. </strong>Kaç gündür devam ettiğin büyük, okunaklı bir sayıyla görünür.</li>
-    <li><strong>Biriken para. </strong>Günlük harcamanı sen girersin; sayaç gün sayısı × günlük harcama olarak hesaplar.</li>
-    <li><strong>Zor gün için yer. </strong>Zorlandığın gün sayacı yargılamadan yeniden başlatabilirsin; toplam temiz gün saklanır.</li>
-  </ul>
+  <section class="items" aria-label="Özellikler">
+    <div class="wrap">
+      <div class="item"><span class="n cond" aria-hidden="true">1</span><div><h2 class="cond">Düz kavanoz</h2><p>Dev ₺ rakamı, gün sayısı ve yalnızca mürekkep çizgiyle çizilmiş bir kavanoz. Her temiz gün bir jeton; en yeni jeton yeşil.</p></div></div>
+      <div class="item"><span class="n cond" aria-hidden="true">2</span><div><h2 class="cond">Senin tutarın</h2><p>Günlük tutarı sen girersin; biriken para, temiz günler çarpı bu tutardır. Uygulama para taşımaz, doğrulamaz.</p></div></div>
+      <div class="item"><span class="n cond" aria-hidden="true">3</span><div><h2 class="cond">Zorlandım</h2><p>Zor bir an için "10 dk bekle" sayfası. Bir gün kayarsa tutar eklenmez, önceki günler ve jetonlar geri alınmaz.</p></div></div>
+    </div>
+  </section>
 
-  <h2>Prototipten ekranlar</h2>
-  <div class="shots" role="group" aria-label="Prototip ekran görüntüleri">
-    <figure><img src="ekran-1.jpg" width="506" height="1100" alt="Prototip · örnek veri: sayaç ve biriken tutar" decoding="async"><figcaption class="cap">Prototip · örnek veri: sayaç ve biriken tutar</figcaption></figure>
-    <figure><img src="ekran-2.jpg" width="506" height="1100" alt="Prototip · örnek veri: zorlandığın gün" loading="lazy" decoding="async"><figcaption class="cap">Prototip · örnek veri: zorlandığın gün</figcaption></figure>
-  </div>
-  <p class="cap">Prototip · örnek veri.</p>
+  <section class="hold hold--green" aria-label="Nasıl işaretlenir">
+    <div class="wrap">
+      <div>
+        <h2 class="cond">Basılı<br>tut</h2>
+        <p>Prototipte bugünün jetonunu düşürmek için düğmeyi 1,1 saniye basılı tutuyorsun.</p>
+      </div>
+      <div class="knob" aria-hidden="true"></div>
+    </div>
+  </section>
 
-  <p style="margin-top:1.5rem"><a class="btn" data-track="birakma-cta-alt" href="mailto:cizgifikrimnet@gmail.com?subject=B%C4%B1rakma%20sayac%C4%B1%3A%20haberdar%20ol&amp;body=Ad%C4%B1m%3A%0A">Haberdar ol</a></p>
-  <p class="note">İlk sürüm hazır olunca bir kez yazarız.</p>
+  <section class="wrap shots" aria-labelledby="s">
+    <h2 id="s" class="cond">Prototipten ekranlar</h2>
+    <div class="strip" role="group" aria-label="Prototip ekran görüntüleri">
+      <figure><img src="a3-1-ana.jpg" width="600" height="1304" alt="Ana ekran: ₺1.440 biriken, 12 gündür, kavanoz ve basılı tut düğmesi" decoding="async" loading="lazy"><figcaption class="micro">Ana ekran</figcaption></figure>
+      <figure><img src="a3-2-baslangic.jpg" width="600" height="1304" alt="Başlangıç ekranı: neyi bırakıyorsun? Üç hazır seçenek ve özel ad" decoding="async" loading="lazy"><figcaption class="micro">Başlangıç</figcaption></figure>
+      <figure><img src="a3-4-toren-30.jpg" width="600" height="1304" alt="Koyu tören sahnesi: 30. gün, yarım kavanoz jeton" decoding="async" loading="lazy"><figcaption class="micro">30. gün töreni</figcaption></figure>
+      <figure><img src="a3-6-zorlandim.jpg" width="600" height="1304" alt="Şu an zor: on dakika bekle düğmesi" decoding="async" loading="lazy"><figcaption class="micro">Zorlandım</figcaption></figure>
+      <figure><img src="a3-9-ayarlar.jpg" width="600" height="1304" alt="Ayarlar: alışkanlık adı, günlük tutar ve nasıl sayılır notu" decoding="async" loading="lazy"><figcaption class="micro">Ayarlar</figcaption></figure>
+      <figure><img src="a3-kart.jpg" width="600" height="1067" alt="Paylaşım kartı örneği: biriken tutar ve gün sayısı" decoding="async" loading="lazy"><figcaption class="micro">Paylaşım kartı</figcaption></figure>
+    </div>
+    <p class="micro" style="color:var(--pk-mut)">Prototip · örnek veri</p>
+    <p class="rule-note"><strong>Nasıl sayılır?</strong> Biriken = temiz günler × senin girdiğin günlük tutar. Tutar senin beyanındır; uygulama para taşımaz ve doğrulamaz.</p>
+  </section>
 
-  <footer>CizgiFikrim · <a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a> · <a href="/tr/gizlilik.html">Gizlilik</a></footer>
+  <section class="honest" aria-label="Durum">
+    <div class="wrap"><p><strong>Bu bir prototiptir; tasarım henüz onaylanmadı.</strong> Uygulama geliştirme aşamasında; ekran görüntüleri ve video örnek veriyle hazırlandı. Tıbbi tavsiye değildir; bırakma sürecinde bir sağlık profesyoneline danışmanı öneririz.</p></div>
+  </section>
+
+  <section class="wrap end" aria-label="Haberdar ol">
+    <div class="cta">
+      <a class="btn cond" data-track="birakma-cta-alt" href="mailto:cizgifikrimnet@gmail.com?subject=B%C4%B1rakma%3A%20haberdar%20ol&amp;body=Ad%C4%B1m%3A%0A">Haberdar ol</a>
+      <p class="fine micro">İlk sürüm hazır olunca bir kez yazarız.</p>
+      <p class="fine">E-postan yalnızca ilk sürüm haberi için, açık rızanla işlenir ve istediğin zaman silinmesini isteyebilirsin (<a href="/tr/gizlilik.html">aydınlatma metni</a>).</p>
+    </div>
+  </section>
 </main>
-<div class="sticky" data-after="main > .btn, a.btn[data-track=birakma-cta]" data-until="a.btn[data-track=birakma-cta-alt]" aria-label="Hızlı eylem">
-  <a class="btn" data-track="birakma-cta-sticky" href="mailto:cizgifikrimnet@gmail.com?subject=B%C4%B1rakma%20sayac%C4%B1%3A%20haberdar%20ol&amp;body=Ad%C4%B1m%3A%0A">Haberdar ol</a>
+<div class="sticky" data-after=".hero .btn" data-until=".end" aria-label="Hızlı eylem">
+  <a class="btn cond" data-track="birakma-cta-sticky" href="mailto:cizgifikrimnet@gmail.com?subject=B%C4%B1rakma%3A%20haberdar%20ol&amp;body=Ad%C4%B1m%3A%0A">Haberdar ol</a>
 </div>
+</div>
+<footer class="site-footer lx-dark">
+    <div class="lx-foot">
+      <div>
+        <p class="lx-mono" style="color:var(--lx-muted)">CİZGİFİKRİM</p>
+        <p class="lx-foot-big" style="margin-top:1rem">Yapay zekâ, mobil ve veri ürünleri geliştiren teknoloji stüdyosu.</p>
+      </div>
+      <div class="lx-foot-cols">
+        <nav aria-label="Alt gezinti"><h2>Gezinti</h2><ul><li><a href="/tr/hizmetler.html">Hizmetler</a></li><li><a href="/tr/products.html">Çalışmalar</a></li><li><a href="/tr/about.html">Hakkında</a></li><li><a href="/tr/randevu.html">Görüşme</a></li></ul></nav>
+        <nav aria-label="Ürünler"><h2>Ürünler</h2><ul><li><a href="/tr/projects/carlog.html">CarLog</a></li><li><a href="/tr/projects/piyasa.html">PiyasApp</a></li><li><a href="/tr/projects/sano.html">Sano</a></li><li><a href="/seri/">Seri</a></li><li><a href="/birakma/">Bırakma</a></li></ul></nav>
+        <div><h2>İletişim</h2><p><a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></p><p class="lx-mono" style="color:var(--lx-muted);margin-top:.5rem">İstanbul, Türkiye</p></div>
+      </div>
+    </div>
+    <div class="lx-foot-base"><span>© <span id="year">2026</span> CizgiFikrim</span><span><a href="/tr/gizlilik.html">Gizlilik</a> · <a href="/tr/kosullar.html">Koşullar</a> · <a href="#main">Başa dön</a></span></div>
+  </footer>
 <script>
 (function(){
-  var bar=document.querySelector('.sticky');
+  var d=document.documentElement;d.classList.add('js');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var v=document.getElementById('demo'),c=document.getElementById('chain');
+  if('IntersectionObserver' in window){
+    if(c&&!reduce){new IntersectionObserver(function(e,o){if(e[0].isIntersecting){c.classList.add('go');o.disconnect();}},{threshold:.5}).observe(c);}
+    if(v&&!reduce){new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){});}else{v.pause();}});},{threshold:.4}).observe(v);}
+  }
+  if(c&&(reduce||!('IntersectionObserver' in window))){c.classList.add('go');}
+})();
+</script>
+<script>
+(function(){
+  var bar=document.querySelector('.plaka .sticky');
   if(!bar||!('IntersectionObserver' in window))return;
   var a=document.querySelector(bar.getAttribute('data-after')),u=document.querySelector(bar.getAttribute('data-until'));
   var past=false,end=false;function ap(){bar.classList.toggle('on',past&&!end);}
@@ -87,6 +135,8 @@
   if(u)new IntersectionObserver(function(e){end=e[0].isIntersecting;ap();}).observe(u);
 })();
 </script>
+<script src="/assets/js/app.js?v=40"></script>
 <script src="/assets/js/analytics.js?v=3" defer></script>
+<script src="/assets/js/luxe.js?v=11" defer></script>
 </body>
 </html>

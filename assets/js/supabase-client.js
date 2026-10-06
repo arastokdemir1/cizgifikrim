@@ -34,6 +34,16 @@ function escapeHTML(value) {
   }[char]));
 }
 
+// Yerel ek kayıtlar (veritabanına YAZILMAZ; yalnız sunum). Seri ve Bırakma prototiptir; durumları dürüstçe "Prototip".
+const LOCAL_EXTRA_PROJECTS = [
+  { slug: 'seri', display_name: 'Seri', tagline: 'Tek düğmeli alışkanlık takibi', description: 'Her gün tek dokunuşla işaretlediğin tek bir alışkanlık: büyük bir sayı, bir zincir, bir geçmiş. iOS prototipi, geliştirme sürüyor.', category: 'mobil', status: 'concept', status_label: 'Prototip', href: '/seri/', tech: ['iOS', 'SwiftUI'], order_index: 1000 },
+  { slug: 'birakma', display_name: 'Bırakma', tagline: 'Bıraktığın günleri ve biriken parayı gör', description: 'Bıraktığın günleri ve biriken parayı tek ekranda gösteren sayaç. iOS prototipi, tasarım henüz onaylanmadı.', category: 'mobil', status: 'concept', status_label: 'Prototip', href: '/birakma/', tech: ['iOS', 'SwiftUI'], order_index: 1001 },
+];
+function withLocalExtras(rows) {
+  const have = new Set((rows || []).map((r) => r.slug));
+  return (rows || []).concat(LOCAL_EXTRA_PROJECTS.filter((x) => !have.has(x.slug)));
+}
+
 async function fetchAllProjects() {
   if (!sb) return null;
   try {
@@ -42,7 +52,7 @@ async function fetchAllProjects() {
       .select('*')
       .order('order_index', { ascending: true });
     if (error) { console.error('fetchAllProjects', error); return null; }
-    return data || [];
+    return withLocalExtras(data || []);
   } catch (error) {
     console.error('fetchAllProjects', error);
     return null;

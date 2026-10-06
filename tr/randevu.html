@@ -2,148 +2,29 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Randevu — CizgiFikrim</title>
-  <meta name="description" content="CizgiFikrim ile gerçek zamanlı bir görüşme planla."><link rel="stylesheet" href="../assets/css/main.css?v=70"><link rel="stylesheet" href="../assets/css/luxe.css?v=4">
+  <meta name="theme-color" content="#050A0B">
+  <meta name="description" content="CizgiFikrim ile gerçek zamanlı bir görüşme planla."><link rel="stylesheet" href="../assets/css/main.css?v=71"><link rel="stylesheet" href="../assets/css/luxe.css?v=11">
   <link rel="icon" href="/assets/favicon.svg?v=5" type="image/svg+xml">
-  <style>
-    .randevu-choice-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-      max-width: 42rem;
-      margin: 1.5rem auto 0;
-      text-align: left;
-    }
-    .randevu-choice-block {
-      min-width: 0;
-      margin: 0;
-      padding: 1rem;
-      border: 1px solid var(--rule);
-      border-radius: var(--radius-md);
-      background: var(--card);
-    }
-    .randevu-choice-title {
-      display: block;
-      margin-bottom: .75rem;
-      color: var(--muted-fg);
-      font-family: var(--mono);
-      font-size: .68rem;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-    }
-    .randevu-channel-options {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: .5rem;
-    }
-    .randevu-channel-option {
-      position: relative;
-      display: grid;
-      min-height: 44px;
-      place-items: center;
-      padding: .6rem .7rem;
-      border: 1px solid var(--rule);
-      border-radius: 999px;
-      color: var(--muted-fg);
-      font-family: var(--sans);
-      font-size: .86rem;
-      font-weight: 600;
-      text-align: center;
-      cursor: pointer;
-      transition: background-color .15s, color .15s, border-color .15s;
-    }
-    .randevu-channel-option input {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      clip-path: inset(50%);
-      white-space: nowrap;
-    }
-    .randevu-channel-option:hover { color: var(--ink); }
-    .randevu-channel-option.on {
-      border-color: var(--accent);
-      background: var(--accent);
-      color: #fff;
-    }
-    .randevu-channel-option:focus-within {
-      outline: 3px solid var(--accent);
-      outline-offset: 3px;
-    }
-    .randevu-duration-tabs { margin-top: 0; }
-    .randevu-duration-tabs button:focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: 3px;
-    }
-    .randevu-selected-meeting {
-      margin: 1.25rem 0 .25rem;
-      color: var(--ink);
-      font-family: var(--serif);
-      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
-      font-weight: 700;
-    }
-    .randevu-phone-note {
-      max-width: 42rem;
-      margin: .75rem auto 1rem;
-      padding: .75rem 1rem;
-      border-left: 3px solid var(--accent);
-      background: var(--accent-soft);
-      color: var(--fg);
-      font-size: .86rem;
-      line-height: 1.55;
-      text-align: left;
-    }
-    .randevu-phone-note[hidden], .randevu-cal-loading[hidden],
-    .randevu-cal-fallback[hidden] { display: none; }
-    .randevu-cal-loading {
-      max-width: 42rem;
-      margin: 1rem auto;
-      color: var(--muted-fg);
-      font-size: .9rem;
-      text-align: center;
-    }
-    .randevu-cal-fallback {
-      display: block;
-      margin: .75rem auto 1rem;
-      color: var(--accent-strong);
-      font-weight: 600;
-      text-align: center;
-    }
-    .randevu-embed [role="tabpanel"]:focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: 4px;
-    }
-    @media (max-width: 680px) {
-      .randevu-choice-grid { grid-template-columns: 1fr; max-width: 30rem; }
-      .randevu-choice-block { padding: .85rem; }
-      .randevu-duration-tabs { display: flex; width: 100%; }
-      .randevu-duration-tabs button { flex: 1; padding-inline: .65rem; }
-      .randevu-selected-meeting { margin-top: 1rem; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .randevu-channel-option { transition: none; }
-    }
-  </style>
   <link rel="canonical" href="https://cizgifikrim.net/tr/randevu.html">
   <link rel="preload" href="../assets/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
   <a class="skip-link" href="#main">Ana içeriğe geç</a>
-  <header class="site-header"><div class="page header-inner">
-    <a href="index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><img class="brand-lockup" width="160" height="32" src="/assets/brand/cizgifikrim-logo.svg?v=2" alt="" aria-hidden="true"><span class="brand-meta">TEKNOLOJİ &amp; AR-GE</span></a>
+  <header class="site-header"><div class="lx-wrap header-inner">
+    <a href="index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><img class="brand-lockup" width="160" height="32" src="/assets/brand/cizgifikrim-logo-light.svg?v=1" alt="" aria-hidden="true"></a>
     <nav class="desktop-nav" aria-label="Ana menü"><a href="hizmetler.html" class="nav-link">Hizmetler</a><a href="products.html" class="nav-link">Çalışmalar</a><a href="about.html" class="nav-link">Hakkında</a><a href="randevu.html" class="nav-link" aria-current="page">Görüşme</a></nav>
     <div class="nav-auth"><span data-auth-slot="desktop" data-base=""><a href="giris.html" class="nav-login">Giriş yap</a><a href="kayit.html" class="nav-cta">Kayıt ol</a></span></div>
     <button class="mobile-toggle" aria-label="Menüyü aç" aria-expanded="false"><span></span><span></span><span></span></button>
-  </div><nav class="mobile-nav" aria-label="Mobil menü"><div class="page mobile-nav-inner"><a href="hizmetler.html" class="mobile-nav-link">Hizmetler</a><a href="products.html" class="mobile-nav-link">Çalışmalar</a><a href="about.html" class="mobile-nav-link">Hakkında</a><a href="randevu.html" class="mobile-nav-link" aria-current="page">Görüşme</a><div class="mobile-nav-auth"><span data-auth-slot="mobile" data-base=""><a href="giris.html" class="mobile-nav-btn">Giriş yap</a><a href="kayit.html" class="mobile-nav-btn is-primary">Kayıt ol</a></span></div></div></nav></header>
+  </div><nav class="mobile-nav" aria-label="Mobil menü"><div class="lx-wrap mobile-nav-inner"><a href="hizmetler.html" class="mobile-nav-link">Hizmetler</a><a href="products.html" class="mobile-nav-link">Çalışmalar</a><a href="about.html" class="mobile-nav-link">Hakkında</a><a href="randevu.html" class="mobile-nav-link" aria-current="page">Görüşme</a><div class="mobile-nav-auth"><span data-auth-slot="mobile" data-base=""><a href="giris.html" class="mobile-nav-btn">Giriş yap</a><a href="kayit.html" class="mobile-nav-btn is-primary">Kayıt ol</a></span></div></div></nav></header>
 
   <main id="main" tabindex="-1">
-    <section class="page randevu-section">
-      <div class="randevu-head">
-        <p class="folio">GÖRÜŞME</p>
-        <h1 class="auth-h1">Bir görüşme planla</h1>
-        <p class="auth-sub">Görüşmeler uzaktan yapılır; şehir fark etmeksizin telefon veya görüntülü görüşme seçebilirsin. Randevu onayı ve katılım ya da arama ayrıntıları e-postana gelir.</p>
+    <section class="randevu-hero lx-phero lx-dark">
+      <div class="lx-wrap randevu-head">
+        <span class="lx-eyebrow">Görüşme</span>
+        <h1 class="lx-h1">Bir görüşme planla</h1>
+        <p class="lx-lead randevu-sub">Görüşmeler uzaktan yapılır; şehir fark etmeksizin telefon veya görüntülü görüşme seçebilirsin. Randevu onayı ve katılım ya da arama ayrıntıları e-postana gelir.</p>
         <ul class="randevu-facts">
           <li><span>YÖNTEM</span><span id="summary-channel">Görüntülü</span></li>
           <li><span>SÜRE</span><span id="summary-duration">30 dakika</span></li>
@@ -174,6 +55,9 @@
         <h2 class="randevu-selected-meeting" id="selected-meeting-title" aria-live="polite">30 dakika görüntülü görüşme</h2>
         <p class="randevu-phone-note" id="phone-call-details" hidden>Telefon görüşmesinde, takvim formunda katılımcı telefonunu ve arama yönü tercihini belirt. Arama ayrıntıları onay e-postasında netleşir.</p>
       </div>
+    </section>
+    <section class="lx-section randevu-band">
+      <div class="lx-wrap">
       <div class="randevu-embed">
         <div id="cal-video-30" role="tabpanel" aria-labelledby="channel-video-label tab-30" tabindex="0">
           <p class="randevu-cal-loading" role="status" data-cal-loading>Cal.com takvimi yükleniyor…</p>
@@ -193,15 +77,26 @@
         </div>
       </div>
       <p class="randevu-alt">Takvimde uygun saat yoksa <a href="contact.html">bize yaz</a>, birlikte bir zaman bulalım.</p>
+      </div>
     </section>
   </main>
 
-  <footer class="site-footer"><div class="page footer-inner">
-    <div><p class="folio">CİZGİFİKRİM</p><p class="footer-big">Yapay zekâ, mobil ve veri ürünleri geliştiren teknoloji stüdyosu.</p><p class="footer-small">İstanbul, Türkiye · <a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></p></div>
-    <div class="footer-right"><p class="folio">© <span id="year">2026</span> CizgiFikrim</p><p class="footer-legal"><a href="gizlilik.html">Gizlilik</a> · <a href="kosullar.html">Koşullar</a></p></div>
-  </div></footer>
+  <footer class="site-footer lx-dark">
+    <div class="lx-foot">
+      <div>
+        <p class="lx-mono" style="color:var(--lx-muted)">CİZGİFİKRİM</p>
+        <p class="lx-foot-big" style="margin-top:1rem">Yapay zekâ, mobil ve veri ürünleri geliştiren teknoloji stüdyosu.</p>
+      </div>
+      <div class="lx-foot-cols">
+        <nav aria-label="Alt gezinti"><h2>Gezinti</h2><ul><li><a href="hizmetler.html">Hizmetler</a></li><li><a href="products.html">Çalışmalar</a></li><li><a href="about.html">Hakkında</a></li><li><a href="randevu.html">Görüşme</a></li></ul></nav>
+        <nav aria-label="Ürünler"><h2>Ürünler</h2><ul><li><a href="projects/carlog.html">CarLog</a></li><li><a href="projects/piyasa.html">PiyasApp</a></li><li><a href="projects/sano.html">Sano</a></li><li><a href="/seri/">Seri</a></li><li><a href="/birakma/">Bırakma</a></li></ul></nav>
+        <div><h2>İletişim</h2><p><a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></p><p class="lx-mono" style="color:var(--lx-muted);margin-top:.5rem">İstanbul, Türkiye</p></div>
+      </div>
+    </div>
+    <div class="lx-foot-base"><span>© <span id="year">2026</span> CizgiFikrim</span><span><a href="gizlilik.html">Gizlilik</a> · <a href="kosullar.html">Koşullar</a> · <a href="#main">Başa dön</a></span></div>
+  </footer>
 
-<script src="../assets/js/app.js?v=36"></script>
+<script src="../assets/js/app.js?v=40"></script>
 <script type="text/javascript">
   (function (C, A, L) {
     let p = function (a, ar) { a.q.push(ar); };
@@ -247,11 +142,11 @@
   // Takvimi sitenin renk ve kart diline oturtur — bkz. cal.com/docs
   // "customize embed css variables".
   const calVars = {
-    "cal-brand": "#2563eb", "cal-brand-emphasis": "#1d4ed8", "cal-brand-text": "#ffffff",
-    "cal-bg": "#ffffff", "cal-bg-emphasis": "#eff6ff", "cal-bg-subtle": "#f8faff", "cal-bg-muted": "#f8faff",
-    "cal-border": "#d9e2ef", "cal-border-subtle": "#e6ecf5", "cal-border-booker": "#d9e2ef", "cal-border-booker-width": "1px",
-    "cal-text": "#172033", "cal-text-emphasis": "#0f172a", "cal-text-subtle": "#526176", "cal-text-muted": "#64748b",
-    "radius": "12px",
+    "cal-brand": "#1D5C5A", "cal-brand-emphasis": "#2F8F89", "cal-brand-text": "#ffffff",
+    "cal-bg": "#F6F8F7", "cal-bg-emphasis": "#EDF1EF", "cal-bg-subtle": "#EDF1EF", "cal-bg-muted": "#EDF1EF",
+    "cal-border": "#C9D3D0", "cal-border-subtle": "#DCE3E1", "cal-border-booker": "#C9D3D0", "cal-border-booker-width": "1px",
+    "cal-text": "#0B1214", "cal-text-emphasis": "#0B1214", "cal-text-subtle": "#4F5F5C", "cal-text-muted": "#4F5F5C",
+    "radius": "4px",
   };
 
   // Dört randevu türü de Cal.com'un kayıtlı etkinliklerine gider.
@@ -356,5 +251,6 @@
   showSelection("video", 30);
 </script>
   <script src="../assets/js/analytics.js?v=3"></script>
+  <script src="../assets/js/luxe.js?v=11" defer></script>
 </body>
 </html>
