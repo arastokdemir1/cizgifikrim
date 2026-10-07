@@ -45,7 +45,6 @@
     x.fillStyle = g; x.fillRect(0, 0, 64, 64); c.sprite = sp; colCache[key] = c; return c;
   }
   var C = colorsFor(root), sprite = C.sprite, layerz = [];
-  W.czRecolor = function () { colCache = {}; nets.forEach(function (n) { n.col = colorsFor(n.c); if (STATIC && n.draw) n.draw(); }); layerz.forEach(function (l) { l.col = colorsFor(l.c); if (STATIC) l.draw(1); }); };
 
   // ───────────── Net: canlı sinir ağı (düğümler + kenarlar + veri paketleri) ─────────────
   function Net(canvas, o) {
