@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>B2B Mühendislik ve Teknoloji Hizmetleri — CizgiFikrim</title>
   <meta name="description" content="İşletmeler için temel web sitesi kurulumu ve özel yazılım mühendisliği. E-ticaret mesajlaşması ve ReputeGate prototipleri canlı hizmet değildir.">
-  <meta name="theme-color" content="#0E0F11">
-  <link rel="stylesheet" href="../assets/css/main.css?v=75"><link rel="stylesheet" href="../assets/css/cizgi.css?v=11">
+  <meta name="theme-color" content="#F5F0E7">
+  <link rel="stylesheet" href="../assets/css/main.css?v=75"><link rel="stylesheet" href="../assets/css/cizgi.css?v=14">
+  <script>/* palet önizleme kancası: YALNIZ ?palet=… ya da yerel önizleme; üretimde (cizgifikrim.net) hiçbir şey yüklemez. Palet seçilince bu satır silinir. */(function(){try{var m=/[?&]palet=([a-z0-9]+)/.exec(location.search),v=m&&m[1],st=window.localStorage;if(v==='off'){st.removeItem('cz-palet');return}if(v)st.setItem('cz-palet',v);v=v||st.getItem('cz-palet');var dev=/^(localhost|127\.|192\.168\.|10\.)/.test(location.hostname);if(!v&&!dev)return;v=v||'l1';document.documentElement.setAttribute('data-palet',v);document.write('<link rel="stylesheet" href="../assets/css/palet.css?v=2"><script src="../assets/js/palet.js?v=2" defer><\/script>')}catch(e){}})()</script>
   <link rel="icon" href="/assets/favicon.svg?v=9" type="image/svg+xml">
   <link rel="canonical" href="https://cizgifikrim.net/tr/hizmetler.html">
   <link rel="preload" href="../assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -55,7 +56,7 @@
       </div>
     </section>
 
-    <section class="cz-sec" id="prototipler" aria-labelledby="proto-title" data-cz-side="l">
+    <section class="cz-sec cz-tint" id="prototipler" aria-labelledby="proto-title" data-cz-side="l">
       <div class="cz-wrap">
         <div class="cz-head cz-head--c"><p class="cz-k">Prototipler</p><h2 id="proto-title" class="cz-h2">E-ticaret <em>denemelerimiz</em>.</h2><p class="cz-lead">Her prototip kendi sayfasında açılır. Örnekler Shopify, ödeme sağlayıcısı veya WhatsApp Business API ile canlı entegrasyon değildir; gerçek kurulum teknik keşif ve yazılı kapsam sonrasında ayrıca değerlendirilir.</p></div>
         <ul class="cz-protos">
@@ -90,7 +91,7 @@
       </div>
     </section>
 
-    <section class="cz-sec cz-sec--tight" aria-labelledby="faq-title" data-cz-side="l">
+    <section class="cz-sec cz-tint cz-sec--tight" aria-labelledby="faq-title" data-cz-side="l">
       <div class="cz-wrap">
         <div class="cz-head cz-head--c"><p class="cz-k">Sorular</p><h2 id="faq-title" class="cz-h2">Prototip hakkında <em>sorulanlar</em>.</h2><p class="cz-lead">Bu bölüm, canlı hizmet veya entegrasyon taahhüdü değildir; mevcut prototipin sınırlarını açıklar.</p></div>
         <ul class="cz-faq"><li class="reveal"><h3>Bu prototip WhatsApp hesabıma mesaj gönderiyor mu?</h3><p>Hayır. Bu ekran yalnızca etkileşimli prototiptir; WhatsApp Business hesabına bağlanmaz ve mesaj göndermez. Canlı entegrasyon ancak teknik keşif, izin ve mesaj kuralları ile yazılı kapsam doğrulandıktan sonra ayrıca değerlendirilir.</p></li><li class="reveal"><h3>Prototipte gerçek temsilciye devir var mı?</h3><p>Bu davranış prototipte gerçek bir temsilciye sohbet devri yapmaz. Canlı bildirim ve devir mekanizması, henüz doğrulanmış teslim özelliği değildir.</p></li><li class="reveal"><h3>Bu prototip mağazama bağlanıyor mu?</h3><p>Hayır. Prototip canlı mağaza veya ödeme altyapısına bağlı değildir. Herhangi bir bağlantı ancak teknik keşif ve yazılı kapsam sonrasında değerlendirilir.</p></li><li class="reveal"><h3>Performans veya kurulum garantisi veriliyor mu?</h3><p>Hayır. Şu anda 14 günlük canlı deneme, performans primi veya kurulum süresi garantisi sunulmuyor. Demo yalnızca örnek akışları canlandırır; satış, dönüşüm veya gelir ölçümü yapmaz.</p></li></ul>
@@ -110,7 +111,8 @@
     </section>
   </main>
 
-  <footer class="site-footer">
+  <div class="cz-bridge cz-bridge--foot" aria-hidden="true"></div>
+  <footer class="site-footer cz-deep">
     <div class="cz-foot">
       <div><p class="cz-foot-big">Çizgiyi <em>ürüne</em> çeviriyoruz.</p></div>
       <div class="cz-foot-cols">
@@ -126,6 +128,6 @@
   <script src="../assets/js/render.js?v=75"></script>
   <script src="../assets/js/app.js?v=40"></script>
   <script src="../assets/js/analytics.js?v=3"></script>
-  <script src="../assets/js/cizgi.js?v=11" defer></script>
+  <script src="../assets/js/cizgi.js?v=14" defer></script>
 </body>
 </html>

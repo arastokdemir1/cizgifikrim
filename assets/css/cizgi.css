@@ -1,4 +1,4 @@
-/* CizgiFikrim "Çizgi v5": sakin, ciddi: grafit zemin + amber/bakır tek sinyal (#E3A24F). İnce hairline, mat yüzey, az ışıma.
+/* CizgiFikrim "Çizgi v7": açık ağırlıklı (sıcak kum + grafit mürekkep + bakır/amber), derin grafit sahne bantları, bölümler arası yumuşak zemin geçişi. İnce hairline, mat yüzey, az ışıma.
    Yazı tipi: Hanken Grotesk (başlık + veri, tabular rakam) + Instrument Sans (gövde), ikisi de OFL ve kendi sunucumuzda.
    Mono etiket yok, FİG yok, serif yok. Gölge yok; ışıma yalnız vurgu elemanlarında. main.css'ten SONRA yüklenir. */
 
@@ -17,20 +17,22 @@
 
 /* ───────── BELİRTEÇLER ───────── */
 :root {
-  --k-bg: #0E0F11; --k-bg2: #121316; --k-panel: #151619; --k-panel2: #1B1C20;
-  --k-text: #EEEBE6; --k-muted: #A5A29D; --k-dim: #94918C;
-  --k-hair: rgb(var(--k-fg-rgb) / calc(.08 * var(--k-hs))); --k-hair2: rgb(var(--k-fg-rgb) / calc(.16 * var(--k-hs)));
-  --k-acc: #E3A24F; --k-acc-ink: #0E0F11; --k-btn-ink: #0E0F11; --k-glow: transparent; --k-acc-soft: rgb(var(--k-acc-rgb) / .10); --k-btn: #EEEBE6; --k-btn-hover: #FFFFFF;
-  /* kanal belirteçleri: alfalı renkler rgb(var(--k-x-rgb) / alfa) ile aynı tek kaynaktan gelir */
-  --k-fg-rgb: 255 255 255; --k-bg-rgb: 14 15 17; --k-acc-rgb: 227 162 79; --k-auth-rgb: 23 24 27; --k-hs: 1;
-  --k-frame: #3D3E42; --k-dev-bg: #121316; --k-dev-acc-rgb: 227 162 79; --k-prose: #D7D4CF;
-  --k-office: grayscale(1) invert(.92) contrast(.95); --k-net-boost: 1; --k-blend: lighter; --k-spr: 1; --k-scheme: dark;
+  /* AÇIK takım (varsayılan, L1) */
+  --k-bg: #F5F0E7; --k-bg2: #EDE6D9; --k-panel: #FBF8F2; --k-panel2: #FFFFFF; --k-text: #1D1B18; --k-muted: #58534A; --k-dim: #605B51; --k-acc: #8E520D; --k-acc-ink: #FBF8F2; --k-btn: #1D1B18; --k-btn-hover: #000000; --k-btn-ink: #FBF8F2; --k-tint: #EADBC2; --k-fg-rgb: 29 27 24; --k-bg-rgb: 245 240 231; --k-acc-rgb: 142 82 13; --k-auth-rgb: 251 248 242; --k-hs: 1.5; --k-frame: #2E2C29; --k-dev-bg: #14151A; --k-dev-acc-rgb: 228 230 226; --k-prose: #38342D; --k-office: grayscale(1) contrast(.95); --k-net-boost: 2.2; --k-blend: source-over; --k-spr: .45; --k-scheme: light;
+  /* DERİN bant takımı: .cz-deep bölümlerinde --k-* bunlara eşlenir; köprü/gradyanlar da doğrudan --d-bg kullanır */
+  --d-bg: #141518; --d-bg2: #18191D; --d-panel: #1C1D21; --d-panel2: #222328; --d-text: #EEEBE6; --d-muted: #A8A5A0; --d-dim: #97948F; --d-acc: #E3A24F; --d-acc-ink: #141518; --d-btn: #EEEBE6; --d-btn-hover: #FFFFFF; --d-btn-ink: #141518; --d-tint: #1F1E1C; --d-fg-rgb: 255 255 255; --d-bg-rgb: 20 21 24; --d-acc-rgb: 227 162 79; --d-auth-rgb: 28 29 33; --d-hs: 1; --d-frame: #3D3E42; --d-dev-bg: #1C1D21; --d-dev-acc-rgb: 227 162 79; --d-prose: #D7D4CF; --d-office: grayscale(1) invert(.92) contrast(.95); --d-net-boost: 1; --d-blend: lighter; --d-spr: 1; --d-scheme: dark;
+  --k-line: #B26A10;
   --k-head: "Hanken Grotesk", "Helvetica Neue", Arial, system-ui, sans-serif;
   --k-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --k-ease: cubic-bezier(.22, 1, .36, 1);
   --k-wrap: min(100% - 2.5rem, 76rem);
   --k-gap: clamp(5.5rem, 12vw, 9.5rem);
   --k-r: 12px;
+  --k-glow: transparent;
+}
+/* türetilmiş belirteçler: her bağlamda (açık / .cz-deep) yeniden hesaplanır */
+:root, .cz-deep {
+  --k-hair: rgb(var(--k-fg-rgb) / calc(.08 * var(--k-hs))); --k-hair2: rgb(var(--k-fg-rgb) / calc(.16 * var(--k-hs))); --k-acc-soft: rgb(var(--k-acc-rgb) / .10);
   /* main.css belirteçleri */
   --bg: var(--k-bg); --fg: var(--k-text); --ink: var(--k-text); --rule: var(--k-hair); --mark: var(--k-hair);
   --muted: var(--k-panel); --muted-fg: var(--k-muted); --accent: var(--k-acc); --accent-strong: var(--k-acc);
@@ -38,11 +40,17 @@
   --live: var(--k-acc); --live-text: var(--k-acc); --rd: var(--k-muted); --wip: var(--k-muted); --wip-text: var(--k-muted);
   --shadow-sm: none; --shadow-md: none; --radius-sm: 8px; --radius-md: 12px; --radius-lg: var(--k-r);
   --serif: var(--k-head); --sans: var(--k-sans); --mono: var(--k-sans);
-  --hdr-bg: rgb(var(--k-bg-rgb) / .8); --hdr-border: var(--k-hair); --hdr-ink: var(--k-text); --hdr-muted: var(--k-muted);
+  --hdr-bg: rgb(var(--k-bg-rgb) / .86); --hdr-border: var(--k-hair); --hdr-ink: var(--k-text); --hdr-muted: var(--k-muted);
   --hdr-accent: var(--k-text); --hdr-accent-strong: var(--k-acc); --hdr-accent-soft: rgb(var(--k-fg-rgb) / calc(.06 * var(--k-hs)));
   --hdr-card: var(--k-bg); --hdr-sans: var(--k-sans); --hdr-serif: var(--k-head); --hdr-mono: var(--k-sans);
 }
-html { background: var(--k-bg); color-scheme: var(--k-scheme); }
+.cz-deep { --k-bg: var(--d-bg); --k-bg2: var(--d-bg2); --k-panel: var(--d-panel); --k-panel2: var(--d-panel2); --k-text: var(--d-text); --k-muted: var(--d-muted); --k-dim: var(--d-dim); --k-acc: var(--d-acc); --k-acc-ink: var(--d-acc-ink); --k-btn: var(--d-btn); --k-btn-hover: var(--d-btn-hover); --k-btn-ink: var(--d-btn-ink); --k-tint: var(--d-tint); --k-fg-rgb: var(--d-fg-rgb); --k-bg-rgb: var(--d-bg-rgb); --k-acc-rgb: var(--d-acc-rgb); --k-auth-rgb: var(--d-auth-rgb); --k-hs: var(--d-hs); --k-frame: var(--d-frame); --k-dev-bg: var(--d-dev-bg); --k-dev-acc-rgb: var(--d-dev-acc-rgb); --k-prose: var(--d-prose); --k-office: var(--d-office); --k-net-boost: var(--d-net-boost); --k-blend: var(--d-blend); --k-spr: var(--d-spr); --k-scheme: var(--d-scheme); background: var(--k-bg); color: var(--k-text); color-scheme: dark; }
+/* köprü: açık zeminden derin banda (ve geri) yumuşak geçiş; içinde metin yok */
+.cz-bridge { height: clamp(13rem, 30vh, 22rem); background: linear-gradient(180deg, var(--k-bg) 0%, var(--k-tint) 32%, var(--d-bg) 100%); position: relative; z-index: 1; }
+.cz-bridge--up { background: linear-gradient(0deg, var(--k-bg) 0%, var(--k-tint) 32%, var(--d-bg) 100%); }
+.cz-tint { background: linear-gradient(180deg, var(--k-bg) 0%, var(--k-bg2) 20%, var(--k-bg2) 80%, var(--k-bg) 100%); }
+.cz-glow { background: linear-gradient(180deg, var(--k-bg) 0%, var(--k-tint) 50%, var(--k-bg) 100%); }
+html { background: var(--k-bg); color-scheme: light; }
 html, body { overflow-x: clip; }
 @supports not (overflow: clip) { body { overflow-x: visible; } }   /* eski Safari: html+body ikisi overflow-x:hidden olursa sticky bozulur; yalnız html kırpar */
 body { position: relative; background: var(--k-bg); color: var(--k-text); font-family: var(--k-sans); font-size: 1.0625rem; line-height: 1.65; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
@@ -98,7 +106,7 @@ p { text-wrap: pretty; }
 .proj-chips li { display: inline-block; padding: .08rem .5rem; border: 1px solid var(--k-hair2); border-radius: 6px; font-size: .8rem; color: var(--k-muted); background: none; }
 
 /* ───────── ÜST BİLGİ ───────── */
-.site-header { position: sticky; top: 0; z-index: 40; background: rgb(var(--k-bg-rgb) / .72); -webkit-backdrop-filter: blur(16px) saturate(1.2); backdrop-filter: blur(16px) saturate(1.2); border-bottom: 1px solid var(--k-hair); color: var(--k-text); }
+.site-header { position: sticky; top: 0; z-index: 40; background: rgb(var(--k-bg-rgb) / .86); -webkit-backdrop-filter: blur(16px) saturate(1.2); backdrop-filter: blur(16px) saturate(1.2); border-bottom: 1px solid var(--k-hair); color: var(--k-text); }
 .header-inner { width: var(--k-wrap); max-width: none; min-height: 4.5rem; padding-inline: 0; }
 .brand { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; text-decoration: none; color: var(--k-text); }
 .cz-mark { width: 2rem; height: 2rem; flex: none; }
@@ -233,7 +241,7 @@ h1.reveal { opacity: 1; transform: none; transition: none; }
 /* ───────── ANA SAYFA: "NASIL" SAHNESİ (öğrenen ağ) ───────── */
 .cz-scene { position: relative; height: 380vh; }
 .cz-scene-sticky { position: sticky; top: 0; height: 100svh; display: grid; place-items: center; overflow: hidden; }
-.cz-scene-sticky::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, transparent 40%, var(--k-bg) 100%); pointer-events: none; }
+.cz-scene-sticky::after { display: none; content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, transparent 40%, var(--k-bg) 100%); pointer-events: none; }
 .cz-scene-head { position: absolute; z-index: 3; top: 5.5rem; left: 0; right: 0; text-align: center; padding-inline: 1.25rem; }
 .cz-steps2 { position: relative; z-index: 3; display: grid; width: min(100% - 2.5rem, 44rem); text-align: center; }
 .cz-step2 { grid-area: 1 / 1; opacity: 0; transform: translateY(16px); transition: opacity .8s var(--k-ease), transform .8s var(--k-ease); pointer-events: none; padding: 1.6rem 1.4rem; border: 1px solid var(--k-hair); border-radius: var(--k-r); background: rgb(var(--k-bg-rgb) / .82); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
@@ -741,3 +749,15 @@ h1.reveal { opacity: 1; transform: none; transition: none; }
   .cz-sticky { transition: none; }
   .cz-phone, .cz-radar { opacity: 1; transform: none; transition: none; }
 }
+
+/* ───────── AÇIK AĞIRLIKLI TON (v7) ───────── */
+.cz-deep .cz-scene-sticky::after { display: block; }
+.cz-line .m, .cz-line .c { stroke: var(--k-line); }
+.cz-line .dot { stroke: var(--k-line); }
+.cz-line .dot.on { fill: var(--k-line); }
+.cz-line .halo { fill: var(--k-line); }
+.cz-line .pen { fill: var(--k-line); }
+.cz-phone, .cz-radar { box-shadow: 0 26px 60px -30px rgb(0 0 0 / .5); }
+.cz-deep .cz-phone, .cz-deep .cz-radar { box-shadow: none; }
+.site-footer.cz-deep { border-top: 0; }
+.nav-link[aria-current="page"] { background: rgb(var(--k-fg-rgb) / .05); }   /* açık zeminde vurgu rengi metni ≥4,5:1 kalsın */

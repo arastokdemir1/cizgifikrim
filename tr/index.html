@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>CizgiFikrim — Yapay zekâ ve mobil ürün geliştirme</title>
   <meta name="description" content="CizgiFikrim; işletmeler ve girişimler için yapay zekâ sistemleri, mobil uygulamalar ve veri araçları geliştiren İstanbul merkezli teknoloji stüdyosu.">
-  <meta name="theme-color" content="#0E0F11">
-  <link rel="stylesheet" href="../assets/css/main.css?v=75"><link rel="stylesheet" href="../assets/css/cizgi.css?v=11">
+  <meta name="theme-color" content="#F5F0E7">
+  <link rel="stylesheet" href="../assets/css/main.css?v=75"><link rel="stylesheet" href="../assets/css/cizgi.css?v=14">
+  <script>/* palet önizleme kancası: YALNIZ ?palet=… ya da yerel önizleme; üretimde (cizgifikrim.net) hiçbir şey yüklemez. Palet seçilince bu satır silinir. */(function(){try{var m=/[?&]palet=([a-z0-9]+)/.exec(location.search),v=m&&m[1],st=window.localStorage;if(v==='off'){st.removeItem('cz-palet');return}if(v)st.setItem('cz-palet',v);v=v||st.getItem('cz-palet');var dev=/^(localhost|127\.|192\.168\.|10\.)/.test(location.hostname);if(!v&&!dev)return;v=v||'l1';document.documentElement.setAttribute('data-palet',v);document.write('<link rel="stylesheet" href="../assets/css/palet.css?v=2"><script src="../assets/js/palet.js?v=2" defer><\/script>')}catch(e){}})()</script>
   <link rel="icon" href="/assets/favicon.svg?v=9" type="image/svg+xml">
   <link rel="canonical" href="https://cizgifikrim.net/tr/index.html">
   <link rel="preload" href="../assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -57,7 +58,7 @@
       </div>
     </section>
 
-    <section class="cz-scene" data-scene aria-labelledby="scene-title">
+    <section class="cz-scene cz-glow" data-scene aria-labelledby="scene-title">
       <div class="cz-scene-sticky">
         <div class="cz-netwrap" aria-hidden="true"><canvas class="cz-net"></canvas></div>
         <div class="cz-scene-head"><p class="cz-k">Yöntem</p><h2 id="scene-title" class="cz-h2" style="margin-top:1rem">Fikir, dört adımda ağa bağlanır.</h2></div>
@@ -66,7 +67,8 @@
       </div>
     </section>
 
-    <section class="cz-pscene" data-pscene="carlog" id="urun" aria-labelledby="urun-title">
+    <div class="cz-bridge" aria-hidden="true"></div>
+    <section class="cz-pscene cz-deep" data-pscene="carlog" id="urun" aria-labelledby="urun-title">
       <div class="cz-pscene-sticky">
         <div class="cz-pscene-head"><p class="cz-k">Ürün</p><h2 id="urun-title" class="cz-h2">Çizgi bir ürüne <em>dönüşünce</em>.</h2><p class="cz-lead">Çizgi CarLog'un Özet ekranının ana hatlarını çizer, ardından arayüz canlanır. Aşağıdaki sayılar örnek veridir.</p></div>
         <div class="cz-product">
@@ -84,8 +86,9 @@
         </div>
       </div>
     </section>
+    <div class="cz-bridge cz-bridge--up" aria-hidden="true"></div>
 
-    <section class="cz-sec" aria-labelledby="serit-title" data-cz-side="r" id="calismalar">
+    <section class="cz-sec cz-tint" aria-labelledby="serit-title" data-cz-side="r" id="calismalar">
       <div class="cz-wrap">
         <div class="cz-strip-head">
           <div><p class="cz-k">Çalışmalarımız</p><h2 id="serit-title" class="cz-h2" style="margin-top:1rem">Hepsi tek şeritte.</h2></div>
@@ -109,7 +112,7 @@
       </div>
     </section>
 
-    <section class="cz-sec cz-sec--tight" aria-labelledby="defter-title" data-cz-side="r">
+    <section class="cz-sec cz-tint cz-sec--tight" aria-labelledby="defter-title" data-cz-side="r">
       <div class="cz-wrap">
         <div class="cz-head" style="margin-bottom:1rem"><p class="cz-k">Son güncellemeler</p><h2 id="defter-title" class="cz-h2" style="max-width:14ch">Atölyeden <em class="cz-acc" style="font-style:normal">haberler</em>.</h2></div>
         <div id="home-build-status" aria-live="polite" data-slug="ersoy"></div>
@@ -129,7 +132,8 @@
     </section>
   </main>
 
-  <footer class="site-footer">
+  <div class="cz-bridge cz-bridge--foot" aria-hidden="true"></div>
+  <footer class="site-footer cz-deep">
     <div class="cz-foot">
       <div><p class="cz-foot-big">Çizgiyi <em>ürüne</em> çeviriyoruz.</p></div>
       <div class="cz-foot-cols">
@@ -148,6 +152,6 @@
   <script src="../assets/js/render.js?v=75"></script>
   <script src="../assets/js/app.js?v=40"></script>
   <script src="../assets/js/analytics.js?v=3"></script>
-  <script src="../assets/js/cizgi.js?v=11" defer></script>
+  <script src="../assets/js/cizgi.js?v=14" defer></script>
 </body>
 </html>

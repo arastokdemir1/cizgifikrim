@@ -32,28 +32,24 @@
     if (degrade >= 3) { root.classList.add('cz-simple'); }
   }
 
-  // ───────────── renkler: CSS belirteçlerinden okunur ─────────────
-  var C = { acc: '', accA: '', fgA: '', boost: 1, blend: 'lighter', spr: 1 };
-  function readColors() {
-    var cs = getComputedStyle(root);
+  // ───────────── renkler: CSS belirteçlerinden, TUVALİN KENDİ bağlamından okunur (açık zemin ya da koyu bant) ─────────────
+  var colCache = {};
+  function colorsFor(el) {
+    var cs = getComputedStyle(el || root);
     function v(n, d) { var t = cs.getPropertyValue(n).trim(); return t || d; }
-    var acc = v('--k-acc-rgb', '227 162 79').split(/[\s,]+/).join(','), fg = v('--k-fg-rgb', '237 235 228').split(/[\s,]+/).join(',');
-    C.acc = 'rgb(' + acc + ')'; C.accA = 'rgba(' + acc + ','; C.fgA = 'rgba(' + fg + ',';
-    C.boost = parseFloat(v('--k-net-boost', '1')) || 1; C.blend = v('--k-blend', 'lighter'); C.spr = parseFloat(v('--k-spr', '1')) || 1;
+    var acc = v('--k-acc-rgb', '154 87 16').split(/[\s,]+/).join(','), fg = v('--k-fg-rgb', '28 26 23').split(/[\s,]+/).join(','), boost = parseFloat(v('--k-net-boost', '1')) || 1, blend = v('--k-blend', 'lighter'), spr = parseFloat(v('--k-spr', '1')) || 1;
+    var key = [acc, fg, boost, blend, spr].join('|'); if (colCache[key]) return colCache[key];
+    var c = { acc: 'rgb(' + acc + ')', accA: 'rgba(' + acc + ',', fgA: 'rgba(' + fg + ',', boost: boost, blend: blend, spr: spr };
+    var sp = D.createElement('canvas'); sp.width = sp.height = 64; var x = sp.getContext('2d'), g = x.createRadialGradient(32, 32, 0, 32, 32, 32);
+    g.addColorStop(0, c.accA + (.5 * spr) + ')'); g.addColorStop(.3, c.accA + (.16 * spr) + ')'); g.addColorStop(1, c.accA + '0)');
+    x.fillStyle = g; x.fillRect(0, 0, 64, 64); c.sprite = sp; colCache[key] = c; return c;
   }
-  var sprite = null;
-  function buildSprite() {
-    var c = sprite || D.createElement('canvas'); c.width = c.height = 64; var x = c.getContext('2d');
-    x.clearRect(0, 0, 64, 64);
-    var g = x.createRadialGradient(32, 32, 0, 32, 32, 32);
-    g.addColorStop(0, C.accA + (.5 * C.spr) + ')'); g.addColorStop(.3, C.accA + (.16 * C.spr) + ')'); g.addColorStop(1, C.accA + '0)');
-    x.fillStyle = g; x.fillRect(0, 0, 64, 64); sprite = c; return c;
-  }
-  readColors(); buildSprite();
+  var C = colorsFor(root), sprite = C.sprite, layerz = [];
+  W.czRecolor = function () { colCache = {}; nets.forEach(function (n) { n.col = colorsFor(n.c); if (STATIC && n.draw) n.draw(); }); layerz.forEach(function (l) { l.col = colorsFor(l.c); if (STATIC) l.draw(1); }); };
 
   // ───────────── Net: canlı sinir ağı (düğümler + kenarlar + veri paketleri) ─────────────
   function Net(canvas, o) {
-    this.c = canvas; this.x = canvas.getContext('2d'); this.o = o; this.nodes = []; this.pulses = []; this.edges = []; this.adj = [];
+    this.c = canvas; this.col = colorsFor(canvas); this.x = canvas.getContext('2d'); this.o = o; this.nodes = []; this.pulses = []; this.edges = []; this.adj = [];
     this.vis = true; this.p = null; this.rand = rng(o.seed || 7); this.scale = 1;
     this.resize(); this.populate();
     var self = this;
@@ -94,6 +90,7 @@
     }
   };
   Net.prototype.draw = function () {
+    C = this.col; sprite = C.sprite;
     var x = this.x, N = this.nodes, L = this.link, L2 = L * L, E = this.edges, adj = this.adj, i, j;
     x.clearRect(0, 0, this.w, this.h);
     E.length = 0; adj.length = N.length; for (i = 0; i < N.length; i++) adj[i] = [];
@@ -134,7 +131,7 @@
 
   // ───────────── Layers: kaydırmayla öğrenen katmanlı ağ ─────────────
   function Layers(canvas) {
-    this.c = canvas; this.x = canvas.getContext('2d'); this.p = STATIC ? 1 : 0; this.focus = 0; this.vis = false; this.pulses = []; this.rand = rng(99);
+    this.c = canvas; this.col = colorsFor(canvas); layerz.push(this); this.x = canvas.getContext('2d'); this.p = STATIC ? 1 : 0; this.focus = 0; this.vis = false; this.pulses = []; this.rand = rng(99);
     this.resize(); var self = this;
     if ('IntersectionObserver' in W) new IntersectionObserver(function (e) { self.vis = e[0].isIntersecting; if (self.vis && STATIC) self.draw(1); }, { rootMargin: '80px' }).observe(canvas);
     W.addEventListener('resize', function () { self.resize(); if (STATIC) self.draw(1); });
@@ -152,6 +149,7 @@
     }
   };
   Layers.prototype.draw = function (dt) {
+    C = this.col; sprite = C.sprite;
     var x = this.x, Ls = this.layers, n = Ls.length, p = this.p, t = performance.now();
     x.clearRect(0, 0, this.w, this.h);
     var k, i, j;
@@ -448,6 +446,7 @@
       if (p > P + .0005) { P = p; apply(); }
     }
     fit(); build();
+    if ('ResizeObserver' in W && !STATIC) new ResizeObserver(function () { fit(); rebuildSoon(); }).observe(cell);   // sabit CTA çubuğu vb. sonradan yer değiştirirse telefon yeniden sığar
     if (STATIC) { P = 1; apply(); box.classList.add('is-done'); return; }
     apply(); upd();
     sc.addEventListener('focusin', function () { if (P < 1) { P = 1; apply(); } });   // klavye odağı gizli bir nota/bağlantıya giderse sahne tamamlanır

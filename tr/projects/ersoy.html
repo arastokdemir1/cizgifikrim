@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Ersoy — Bilişsel AI Çalışması | CizgiFikrim</title>
   <meta name="description" content="Ersoy için yayınlanan proje özeti, çalışma yaklaşımı ve güncel durum bilgileri.">
-  <meta name="theme-color" content="#0E0F11">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=75"><link rel="stylesheet" href="../../assets/css/cizgi.css?v=11">
+  <meta name="theme-color" content="#F5F0E7">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=75"><link rel="stylesheet" href="../../assets/css/cizgi.css?v=14">
+  <script>/* palet önizleme kancası: YALNIZ ?palet=… ya da yerel önizleme; üretimde (cizgifikrim.net) hiçbir şey yüklemez. Palet seçilince bu satır silinir. */(function(){try{var m=/[?&]palet=([a-z0-9]+)/.exec(location.search),v=m&&m[1],st=window.localStorage;if(v==='off'){st.removeItem('cz-palet');return}if(v)st.setItem('cz-palet',v);v=v||st.getItem('cz-palet');var dev=/^(localhost|127\.|192\.168\.|10\.)/.test(location.hostname);if(!v&&!dev)return;v=v||'l1';document.documentElement.setAttribute('data-palet',v);document.write('<link rel="stylesheet" href="../../assets/css/palet.css?v=2"><script src="../../assets/js/palet.js?v=2" defer><\/script>')}catch(e){}})()</script>
   <link rel="icon" href="/assets/favicon.svg?v=9" type="image/svg+xml">
   <link rel="preload" href="../../assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../../assets/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -51,7 +52,7 @@
         <div class="project-body" id="project-body"></div>
       </div>
     </section>
-    <section class="cz-sec" aria-labelledby="approach-title" data-cz-side="l">
+    <section class="cz-sec cz-tint" aria-labelledby="approach-title" data-cz-side="l">
       <div class="cz-wrap">
         <div class="cz-head cz-head--c"><p class="cz-k">Çalışma yaklaşımı</p><h2 id="approach-title" class="cz-h2" style="max-width:17ch">Bilişsel bir sistemi, anlaşılabilir karar akışlarıyla ele almak.</h2><p class="cz-lead">Bu bölüm ürün vaadi değil, geliştirme yaklaşımını özetler. Yayınlanan kapsam ve güncel durum bilgileri yukarıdaki proje kaydından gelir.</p></div>
         <div class="approach-grid"><article class="approach-card cz-panel reveal"><span class="approach-number">01 · Bağlam</span><h3>Girdiyi ve sınırları görünür tutmak</h3><p>Sorunun bağlamını, tanımlı kısıtlarını ve kullanılabilir bilgiyi ayrı bir çalışma yüzeyi olarak ele almak.</p></article><article class="approach-card cz-panel reveal"><span class="approach-number">02 · İnceleme</span><h3>Çıktıyı yeniden değerlendirebilmek</h3><p>Üretilen sonucu tek başına bırakmak yerine, gözden geçirilebilecek bir karar adımı olarak düşünmek.</p></article><article class="approach-card cz-panel reveal"><span class="approach-number">03 · Deneti̇m</span><h3>İnsan kontrolü için alan bırakmak</h3><p>Otomasyonun hangi noktada duracağı ve insan incelemesinin nerede devreye gireceği üzerine çalışmak.</p></article></div>
@@ -64,7 +65,7 @@
       </div>
     </section>
 
-    <section class="cz-sec" aria-labelledby="log-title" data-cz-side="l">
+    <section class="cz-sec cz-tint" aria-labelledby="log-title" data-cz-side="l">
       <div class="cz-wrap">
         <div class="cz-head"><p class="cz-k">Geliştirme kaydı</p><h2 id="log-title" class="cz-h2" style="max-width:14ch">Durum ve son geliştirmeler.</h2></div>
         <div id="build-status-root"></div>
@@ -86,7 +87,8 @@
     </section>
   </main>
 
-  <footer class="site-footer">
+  <div class="cz-bridge cz-bridge--foot" aria-hidden="true"></div>
+  <footer class="site-footer cz-deep">
     <div class="cz-foot">
       <div><p class="cz-foot-big">Çizgiyi <em>ürüne</em> çeviriyoruz.</p></div>
       <div class="cz-foot-cols">
@@ -102,6 +104,6 @@
   <script src="../../assets/js/render.js?v=75"></script>
   <script src="../../assets/js/app.js?v=40"></script>
   <script src="../../assets/js/analytics.js?v=3"></script>
-  <script src="../../assets/js/cizgi.js?v=11" defer></script>
+  <script src="../../assets/js/cizgi.js?v=14" defer></script>
 </body>
 </html>
