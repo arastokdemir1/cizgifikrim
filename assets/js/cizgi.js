@@ -46,6 +46,11 @@
   }
   var C = colorsFor(root), sprite = C.sprite, layerz = [];
 
+  // ───────────── hareket ritmi: orta-yavaş, kareye değil ZAMANA bağlı (dt, ms) ─────────────
+  // Önceki değerlerin ≈%45'i (ölçüm: site-plan/cizgi8-hiz.md). Hız birimleri px/ms; dt her görevde ≤40 ms'e sıkıştırılır (sekme dönüşü, yavaş cihaz).
+  var RHY = { drift: .0135, driftMin: .0027, kick: .0018, packet: .06, packetVar: .05, pull: .0000022, pullDrag: 1200, vmax: .04, pointerEase: 140, pointerFade: 320, layerPulse: .00024, layerVar: .0002, hot: .0012, twinkle: .0017, line: .14, count: 2800, live: 3200, type: 80, typePause: 3200 };
+  function ease3(t) { return t * t * (3 - 2 * t); }
+
   // ───────────── Net: canlı sinir ağı (düğümler + kenarlar + veri paketleri) ─────────────
   function Net(canvas, o) {
     this.c = canvas; this.col = colorsFor(canvas); this.x = canvas.getContext('2d'); this.o = o; this.nodes = []; this.pulses = []; this.edges = []; this.adj = [];
@@ -55,13 +60,13 @@
     if ('IntersectionObserver' in W) new IntersectionObserver(function (e) { self.vis = e[0].isIntersecting; if (self.vis && STATIC) self.draw(); }, { rootMargin: '120px' }).observe(canvas);
     if (o.pointer && fine && !STATIC) {
       var host = canvas.parentElement.parentElement || canvas.parentElement;
-      host.addEventListener('pointermove', function (e) { var r = self.c.getBoundingClientRect(); self.p = { x: e.clientX - r.left, y: e.clientY - r.top }; }, { passive: true });
-      host.addEventListener('pointerleave', function () { self.p = null; });
+      host.addEventListener('pointermove', function (e) { var r = self.c.getBoundingClientRect(); self.pt = { x: e.clientX - r.left, y: e.clientY - r.top }; if (!self.p) { self.p = { x: self.pt.x, y: self.pt.y }; self.pa = 0; } }, { passive: true });
+      host.addEventListener('pointerleave', function () { self.pt = null; });
     }
     W.addEventListener('resize', function () { self.resize(); self.populate(); if (STATIC) self.draw(); });
     nets.push(this);
     if (STATIC) { for (var i = 0; i < 90; i++) this.step(16); this.draw(); }
-    else addTask(function (t, dt) { if (self.vis) { self.step(dt); self.draw(); } });
+    else addTask(function (t, dt) { if (self.vis) { self.step(dt); self.draw(dt); } });
   }
   Net.prototype.resize = function () {
     var dpr = Math.min(W.devicePixelRatio || 1, 1.75), w = this.c.clientWidth, h = this.c.clientHeight;
@@ -71,25 +76,33 @@
   Net.prototype.populate = function () {
     var o = this.o, n = o.count * (narrow() ? 0.45 : 1) * this.scale; n = Math.max(8, Math.round(n));
     var r = this.rand; this.nodes.length = 0;
-    for (var i = 0; i < n; i++) this.nodes.push({ x: r() * this.w, y: r() * this.h, vx: (r() - .5) * .03, vy: (r() - .5) * .03, r: 1.2 + r() * 1.6, hot: r() < .1, ph: r() * 6.28 });
+    for (var i = 0; i < n; i++) this.nodes.push({ x: r() * this.w, y: r() * this.h, vx: (r() - .5) * RHY.drift, vy: (r() - .5) * RHY.drift, r: 1.2 + r() * 1.6, hot: r() < .1, ph: r() * 6.28 });
     this.link = clamp(o.link || Math.min(this.w, this.h) * .22, 70, 190);
     this.pulses.length = 0;
   };
-  Net.prototype.thin = function (level) { this.scale = level >= 2 ? .3 : .55; this.o.pulses = Math.max(1, Math.round(this.o.pulses * .5)); this.o.pointer = false; this.p = null; this.populate(); };
+  Net.prototype.thin = function (level) { this.scale = level >= 2 ? .3 : .55; this.o.pulses = Math.max(1, Math.round(this.o.pulses * .5)); this.o.pointer = false; this.p = null; this.pt = null; this.pa = 0; this.populate(); };
   Net.prototype.step = function (dt) {
-    var N = this.nodes, w = this.w, h = this.h, p = this.p, k = dt;
+    var N = this.nodes, w = this.w, h = this.h, k = Math.min(dt || 16, 40);
+    // imleç: hedefe sönümlü (damped) yaklaşır; çıkınca yumuşakça söner
+    if (this.pt && this.p) { var ke = 1 - Math.exp(-k / RHY.pointerEase); this.p.x += (this.pt.x - this.p.x) * ke; this.p.y += (this.pt.y - this.p.y) * ke; this.pa = Math.min(1, (this.pa || 0) + k / RHY.pointerFade); }
+    else if (this.p) { this.pa = Math.max(0, (this.pa || 0) - k / RHY.pointerFade); if (this.pa <= 0) this.p = null; }
+    var p = this.p, pa = this.pa || 0, damp = Math.exp(-k / 33000), drag = Math.exp(-k / RHY.pullDrag);
     for (var i = 0; i < N.length; i++) {
       var a = N[i];
-      if (p) { var dx = p.x - a.x, dy = p.y - a.y, d2 = dx * dx + dy * dy; if (d2 < 40000 && d2 > 100) { var f = 0.000012 * k; a.vx += dx * f; a.vy += dy * f; } }
+      if (p && pa > 0) {
+        var dx = p.x - a.x, dy = p.y - a.y, d2 = dx * dx + dy * dy;
+        if (d2 < 40000 && d2 > 100) { var f = RHY.pull * k * pa; a.vx += dx * f; a.vy += dy * f; a.vx *= drag; a.vy *= drag; }
+      }
+      var sp = Math.sqrt(a.vx * a.vx + a.vy * a.vy); if (sp > RHY.vmax) { a.vx *= RHY.vmax / sp; a.vy *= RHY.vmax / sp; }   // ani hız yok
       a.x += a.vx * k; a.y += a.vy * k;
-      a.vx *= .9995; a.vy *= .9995;
-      if (Math.abs(a.vx) < .006) a.vx += (this.rand() - .5) * .004; if (Math.abs(a.vy) < .006) a.vy += (this.rand() - .5) * .004;
+      a.vx *= damp; a.vy *= damp;
+      if (Math.abs(a.vx) < RHY.driftMin) a.vx += (this.rand() - .5) * RHY.kick; if (Math.abs(a.vy) < RHY.driftMin) a.vy += (this.rand() - .5) * RHY.kick;
       if (a.x < -20) a.x = w + 20; else if (a.x > w + 20) a.x = -20;
       if (a.y < -20) a.y = h + 20; else if (a.y > h + 20) a.y = -20;
     }
   };
-  Net.prototype.draw = function () {
-    C = this.col; sprite = C.sprite;
+  Net.prototype.draw = function (dt) {
+    C = this.col; sprite = C.sprite; dt = Math.min(dt || 16, 40);
     var x = this.x, N = this.nodes, L = this.link, L2 = L * L, E = this.edges, adj = this.adj, i, j;
     x.clearRect(0, 0, this.w, this.h);
     E.length = 0; adj.length = N.length; for (i = 0; i < N.length; i++) adj[i] = [];
@@ -98,28 +111,30 @@
       var dx = N[i].x - N[j].x, dy = N[i].y - N[j].y, d2 = dx * dx + dy * dy;
       if (d2 < L2) { var d = Math.sqrt(d2); E.push([i, j, d]); adj[i].push(j); adj[j].push(i); x.strokeStyle = C.accA + ((1 - d / L) * .27 * C.boost).toFixed(3) + ')'; x.beginPath(); x.moveTo(N[i].x, N[i].y); x.lineTo(N[j].x, N[j].y); x.stroke(); }
     }
-    if (this.p) {
-      for (i = 0; i < N.length; i++) { var px = this.p.x - N[i].x, py = this.p.y - N[i].y, pd = Math.sqrt(px * px + py * py); if (pd < 170) { x.strokeStyle = C.accA + ((1 - pd / 170) * .6 * C.boost).toFixed(3) + ')'; x.beginPath(); x.moveTo(this.p.x, this.p.y); x.lineTo(N[i].x, N[i].y); x.stroke(); } }
-      x.drawImage(sprite, this.p.x - 22, this.p.y - 22, 44, 44);
+    if (this.p && (this.pa || 0) > 0) {
+      var pal = this.pa;
+      for (i = 0; i < N.length; i++) { var px = this.p.x - N[i].x, py = this.p.y - N[i].y, pd = Math.sqrt(px * px + py * py); if (pd < 170) { x.strokeStyle = C.accA + ((1 - pd / 170) * .6 * C.boost * pal).toFixed(3) + ')'; x.beginPath(); x.moveTo(this.p.x, this.p.y); x.lineTo(N[i].x, N[i].y); x.stroke(); } }
+      x.globalAlpha = pal; x.drawImage(sprite, this.p.x - 22, this.p.y - 22, 44, 44); x.globalAlpha = 1;
     }
     x.globalCompositeOperation = C.blend;
     for (i = 0; i < N.length; i++) {
       var a = N[i];
-      if (a.hot) { var pulse = .55 + .45 * Math.sin(performance.now() * .002 + a.ph); x.globalAlpha = pulse; x.drawImage(sprite, a.x - 15, a.y - 15, 30, 30); x.globalAlpha = 1; }
+      if (a.hot) { var pulse = .55 + .45 * Math.sin(performance.now() * RHY.hot + a.ph); x.globalAlpha = pulse; x.drawImage(sprite, a.x - 15, a.y - 15, 30, 30); x.globalAlpha = 1; }
     }
     x.globalCompositeOperation = 'source-over';
     for (i = 0; i < N.length; i++) { var n = N[i]; x.fillStyle = n.hot ? C.acc : (C.fgA + '.55)'); x.beginPath(); x.arc(n.x, n.y, n.hot ? n.r + 1.2 : n.r + .3, 0, 6.2832); x.fill(); }
     // veri paketleri
     var P = this.pulses, want = this.o.pulses || 0;
     if (!STATIC) {
-      while (P.length < want && E.length) { var e = E[(this.rand() * E.length) | 0]; P.push({ a: e[0], b: e[1], t: 0, sp: .16 + this.rand() * .12 }); }
+      while (P.length < want && E.length) { var e = E[(this.rand() * E.length) | 0]; P.push({ a: e[0], b: e[1], t: 0, sp: RHY.packet + this.rand() * RHY.packetVar }); }
       x.globalCompositeOperation = C.blend;
       for (i = P.length - 1; i >= 0; i--) {
         var q = P[i], A = N[q.a], B = N[q.b], ddx = B.x - A.x, ddy = B.y - A.y, dist = Math.sqrt(ddx * ddx + ddy * ddy) || 1;
         if (dist > L * 1.05) { P.splice(i, 1); continue; }
-        q.t += (q.sp * 16) / dist;
+        q.t += (q.sp * dt) / dist;
         if (q.t >= 1) { var nb = adj[q.b], nx = -1; if (nb && nb.length) { for (var tries = 0; tries < 4; tries++) { var c = nb[(this.rand() * nb.length) | 0]; if (c !== q.a) { nx = c; break; } } } if (nx < 0) { P.splice(i, 1); continue; } q.a = q.b; q.b = nx; q.t = 0; continue; }
-        var hx = A.x + ddx * q.t, hy = A.y + ddy * q.t, tx = A.x + ddx * Math.max(0, q.t - .22), ty = A.y + ddy * Math.max(0, q.t - .22);
+        var qe = (q.t * .5 + ease3(q.t) * .5), qt = Math.max(0, q.t - .22), qte = (qt * .5 + ease3(qt) * .5);   // düğümlerde yumuşak kalkış/iniş
+        var hx = A.x + ddx * qe, hy = A.y + ddy * qe, tx = A.x + ddx * qte, ty = A.y + ddy * qte;
         var g = x.createLinearGradient(tx, ty, hx, hy); g.addColorStop(0, C.accA + '0)'); g.addColorStop(1, C.accA + '.6)');
         x.strokeStyle = g; x.lineWidth = 1.4; x.beginPath(); x.moveTo(tx, ty); x.lineTo(hx, hy); x.stroke();
         x.drawImage(sprite, hx - 6, hy - 6, 12, 12);
@@ -164,7 +179,7 @@
     for (k = 0; k < n; k++) {
       var la = clamp(p * n - k, 0, 1); if (la <= 0) continue;
       for (i = 0; i < Ls[k].length; i++) {
-        var nd = Ls[k][i], hot = this.focus === k, tw = .6 + .4 * Math.sin(t * .003 + i * 1.7 + k);
+        var nd = Ls[k][i], hot = this.focus === k, tw = .6 + .4 * Math.sin(t * RHY.twinkle + i * 1.7 + k);
         x.globalAlpha = la * (hot ? .8 : .3 + .2 * tw); var sz = hot ? 26 : 16; x.drawImage(sprite, nd.x - sz / 2, nd.y - sz / 2, sz, sz);
       }
     }
@@ -172,13 +187,13 @@
     for (k = 0; k < n; k++) { var a2 = clamp(p * n - k, 0, 1); for (i = 0; i < Ls[k].length; i++) { x.fillStyle = this.focus === k ? C.accA + a2 + ')' : C.fgA + (a2 * .8) + ')'; x.beginPath(); x.arc(Ls[k][i].x, Ls[k][i].y, 3.4, 0, 6.2832); x.fill(); } }
     if (!STATIC && p > .15) {
       var vis = Math.max(1, Math.min(n - 1, Math.floor(p * n)));
-      while (this.pulses.length < 5) { var kk = (this.rand() * vis) | 0; this.pulses.push({ k: kk, i: (this.rand() * Ls[kk].length) | 0, j: (this.rand() * Ls[kk + 1].length) | 0, t: 0, sp: .0006 + this.rand() * .0005 }); }
+      while (this.pulses.length < 5) { var kk = (this.rand() * vis) | 0; this.pulses.push({ k: kk, i: (this.rand() * Ls[kk].length) | 0, j: (this.rand() * Ls[kk + 1].length) | 0, t: 0, sp: RHY.layerPulse + this.rand() * RHY.layerVar }); }
       x.globalCompositeOperation = C.blend;
       for (i = this.pulses.length - 1; i >= 0; i--) {
-        var q = this.pulses[i]; q.t += q.sp * (dt || 16);
+        var q = this.pulses[i]; q.t += q.sp * Math.min(dt || 16, 40);
         if (q.t >= 1 || q.k >= vis) { this.pulses.splice(i, 1); continue; }
         var A2 = Ls[q.k][q.i], B2 = Ls[q.k + 1][q.j]; if (!A2 || !B2) { this.pulses.splice(i, 1); continue; }
-        var hx = A2.x + (B2.x - A2.x) * q.t, hy = A2.y + (B2.y - A2.y) * q.t;
+        var qe2 = q.t * .5 + ease3(q.t) * .5, hx = A2.x + (B2.x - A2.x) * qe2, hy = A2.y + (B2.y - A2.y) * qe2;
         x.drawImage(sprite, hx - 7, hy - 7, 14, 14);
       }
       x.globalCompositeOperation = 'source-over';
@@ -347,7 +362,7 @@
       draws.forEach(function (d) { if (Dd >= d.endD - 3) d.el.classList.add('is-done'); });
     }
     if (!STATIC && packets.length && curD > 120) {
-      for (var p = 0; p < packets.length; p++) { var pk = packets[p], g = ((t * .00006 + pk.o) % 1) * curD, sg = segAt(g); if (!sg) continue; var loc2 = clamp(g - sg.start, 0, sg.len); if (g > sg.start + sg.len) continue; var q = sg.els[2].getPointAtLength(loc2); pk.el.setAttribute('cx', q.x); pk.el.setAttribute('cy', q.y); }
+      for (var p = 0; p < packets.length; p++) { var pk = packets[p], g = (((t * RHY.line) / Math.max(curD, 1) + pk.o) % 1) * curD, sg = segAt(g); if (!sg) continue; var loc2 = clamp(g - sg.start, 0, sg.len); if (g > sg.start + sg.len) continue; var q = sg.els[2].getPointAtLength(loc2); pk.el.setAttribute('cx', q.x); pk.el.setAttribute('cy', q.y); }
     }
   }
   var rb;
@@ -359,7 +374,7 @@
     var end = parseInt(el.getAttribute('data-count'), 10); if (isNaN(end)) return;
     if (STATIC) { el.textContent = String(end); return; }
     var t0 = null; el.textContent = '0';
-    requestAnimationFrame(function step(ts) { if (t0 === null) t0 = ts; var p = Math.min(1, (ts - t0) / 1600); el.textContent = String(Math.round(end * (1 - Math.pow(1 - p, 4)))); if (p < 1) requestAnimationFrame(step); });
+    requestAnimationFrame(function step(ts) { if (t0 === null) t0 = ts; var p = Math.min(1, (ts - t0) / RHY.count); el.textContent = String(Math.round(end * (1 - Math.pow(1 - p, 4)))); if (p < 1) requestAnimationFrame(step); });
   }
   W.initCounters = function () {
     [].slice.call(D.querySelectorAll('[data-count]:not([data-count-bound])')).forEach(function (el) {
@@ -373,7 +388,7 @@
     els.forEach(function (el) {
       var base = parseInt(el.getAttribute('data-live'), 10), max = parseInt(el.getAttribute('data-live-max') || (base + 14), 10), val = base;
       var vis = true; if ('IntersectionObserver' in W) new IntersectionObserver(function (e) { vis = e[0].isIntersecting; }).observe(el);
-      var iv = setInterval(function () { if (!vis || D.hidden) return; var d = el.closest('[data-cz-draw]'); if (d && !d.classList.contains('is-done')) return; val += 1 + ((Math.random() * 3) | 0); if (val >= max) { val = max; clearInterval(iv); } el.textContent = String(val); }, 1700);
+      var iv = setInterval(function () { if (!vis || D.hidden) return; var d = el.closest('[data-cz-draw]'); if (d && !d.classList.contains('is-done')) return; val += 1 + ((Math.random() * 3) | 0); if (val >= max) { val = max; clearInterval(iv); } el.textContent = String(val); }, RHY.live);
     });
   }
   function typing() {
@@ -382,7 +397,7 @@
     if (STATIC) { el.innerHTML = lines[0]; return; }
     var li = 0, ci = 0, vis = true;
     if ('IntersectionObserver' in W) new IntersectionObserver(function (e) { vis = e[0].isIntersecting; }).observe(el);
-    (function tick() { if (!vis || D.hidden) return setTimeout(tick, 800); var s = lines[li]; ci++; el.innerHTML = s.slice(0, ci) + '<span class="cur"></span>'; if (ci >= s.length) { if (li >= lines.length - 1) { el.innerHTML = s; return; } ci = 0; li++; return setTimeout(tick, 1800); } setTimeout(tick, 38); })();
+    (function tick() { if (!vis || D.hidden) return setTimeout(tick, 800); var s = lines[li]; ci++; el.innerHTML = s.slice(0, ci) + '<span class="cur"></span>'; if (ci >= s.length) { if (li >= lines.length - 1) { el.innerHTML = s; return; } ci = 0; li++; return setTimeout(tick, RHY.typePause); } setTimeout(tick, RHY.type); })();
   }
 
   // ───────────── sahne (öğrenen ağ), şerit, imleç, manyetik ─────────────
@@ -543,5 +558,6 @@
     }
     ['pointerover', 'focusin', 'touchstart'].forEach(function (ev) { D.addEventListener(ev, warm, { passive: true, capture: true }); });
   })();
+  W.__cz = W.__cz || {}; W.__cz.nets = nets; W.__cz.layerz = layerz; W.__cz.lineD = function () { return curD; };   // hız/test ölçümü için salt okunur erişim
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', init); else init();
 })();
