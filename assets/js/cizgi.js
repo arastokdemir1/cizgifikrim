@@ -32,12 +32,12 @@
     if (degrade >= 3) { root.classList.add('cz-simple'); }
   }
 
-  // ───────────── renkler: CSS belirteçlerinden okunur (palet değişince czRecolor ile yenilenir) ─────────────
+  // ───────────── renkler: CSS belirteçlerinden okunur ─────────────
   var C = { acc: '', accA: '', fgA: '', boost: 1, blend: 'lighter', spr: 1 };
   function readColors() {
     var cs = getComputedStyle(root);
     function v(n, d) { var t = cs.getPropertyValue(n).trim(); return t || d; }
-    var acc = v('--k-acc-rgb', '185 210 124').split(/[\s,]+/).join(','), fg = v('--k-fg-rgb', '237 235 228').split(/[\s,]+/).join(',');
+    var acc = v('--k-acc-rgb', '227 162 79').split(/[\s,]+/).join(','), fg = v('--k-fg-rgb', '237 235 228').split(/[\s,]+/).join(',');
     C.acc = 'rgb(' + acc + ')'; C.accA = 'rgba(' + acc + ','; C.fgA = 'rgba(' + fg + ',';
     C.boost = parseFloat(v('--k-net-boost', '1')) || 1; C.blend = v('--k-blend', 'lighter'); C.spr = parseFloat(v('--k-spr', '1')) || 1;
   }
@@ -50,7 +50,6 @@
     x.fillStyle = g; x.fillRect(0, 0, 64, 64); sprite = c; return c;
   }
   readColors(); buildSprite();
-  W.czRecolor = function () { readColors(); buildSprite(); if (STATIC) nets.forEach(function (n) { if (n.draw) n.draw(); }); };
 
   // ───────────── Net: canlı sinir ağı (düğümler + kenarlar + veri paketleri) ─────────────
   function Net(canvas, o) {

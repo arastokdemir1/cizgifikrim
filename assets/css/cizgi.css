@@ -1,4 +1,4 @@
-/* CizgiFikrim "Çizgi v3": sakin, ciddi: grafit zemin + soluk limon-yeşil tek sinyal (#B9D27C). İnce hairline, mat yüzey, az ışıma.
+/* CizgiFikrim "Çizgi v5": sakin, ciddi: grafit zemin + amber/bakır tek sinyal (#E3A24F). İnce hairline, mat yüzey, az ışıma.
    Yazı tipi: Hanken Grotesk (başlık + veri, tabular rakam) + Instrument Sans (gövde), ikisi de OFL ve kendi sunucumuzda.
    Mono etiket yok, FİG yok, serif yok. Gölge yok; ışıma yalnız vurgu elemanlarında. main.css'ten SONRA yüklenir. */
 
@@ -17,13 +17,13 @@
 
 /* ───────── BELİRTEÇLER ───────── */
 :root {
-  --k-bg: #0B0C0E; --k-bg2: #0F1013; --k-panel: #121316; --k-panel2: #17181C;
-  --k-text: #EDEBE4; --k-muted: #9A9FA4; --k-dim: #8B9095;
+  --k-bg: #0E0F11; --k-bg2: #121316; --k-panel: #151619; --k-panel2: #1B1C20;
+  --k-text: #EEEBE6; --k-muted: #A5A29D; --k-dim: #94918C;
   --k-hair: rgb(var(--k-fg-rgb) / calc(.08 * var(--k-hs))); --k-hair2: rgb(var(--k-fg-rgb) / calc(.16 * var(--k-hs)));
-  --k-acc: #B9D27C; --k-acc-ink: #0B0C0E; --k-btn-ink: #0B0C0E; --k-glow: transparent; --k-acc-soft: rgb(var(--k-acc-rgb) / .10); --k-btn: #EDEBE4; --k-btn-hover: #FFFFFF;
-  /* kanal belirteçleri: palet değişince alfalı renkler de değişir (rgb(var(--k-x-rgb) / alfa)) */
-  --k-fg-rgb: 255 255 255; --k-bg-rgb: 11 12 14; --k-acc-rgb: 185 210 124; --k-auth-rgb: 20 23 27; --k-hs: 1;
-  --k-frame: #3A3E45; --k-dev-bg: #0F1013; --k-dev-acc-rgb: 185 210 124; --k-prose: #D4D7D2;
+  --k-acc: #E3A24F; --k-acc-ink: #0E0F11; --k-btn-ink: #0E0F11; --k-glow: transparent; --k-acc-soft: rgb(var(--k-acc-rgb) / .10); --k-btn: #EEEBE6; --k-btn-hover: #FFFFFF;
+  /* kanal belirteçleri: alfalı renkler rgb(var(--k-x-rgb) / alfa) ile aynı tek kaynaktan gelir */
+  --k-fg-rgb: 255 255 255; --k-bg-rgb: 14 15 17; --k-acc-rgb: 227 162 79; --k-auth-rgb: 23 24 27; --k-hs: 1;
+  --k-frame: #3D3E42; --k-dev-bg: #121316; --k-dev-acc-rgb: 227 162 79; --k-prose: #D7D4CF;
   --k-office: grayscale(1) invert(.92) contrast(.95); --k-net-boost: 1; --k-blend: lighter; --k-spr: 1; --k-scheme: dark;
   --k-head: "Hanken Grotesk", "Helvetica Neue", Arial, system-ui, sans-serif;
   --k-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
