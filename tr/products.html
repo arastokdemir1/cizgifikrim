@@ -2,81 +2,70 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Ürünler &amp; Sistemler — CizgiFikrim</title>
   <meta name="description" content="CizgiFikrim'de yayınlanan ürün ve sistem çalışmalarını inceleyin.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/main.css?v=70">
-  <link rel="icon" href="/assets/favicon.svg?v=4" type="image/svg+xml">
-  <style>
-    /* Stitch yönü: mevcut render.js sınıflarını koruyan, sayfaya özel tema. */
-    .catalog-page { --bg:#f8f9ff; --fg:#10213b; --ink:#10213b; --rule:#d9e2ef; --mark:#dbeafe; --muted:#edf3fa; --muted-fg:#5a6b82; --accent:#2563eb; --card:#fff; --serif:'Plus Jakarta Sans',Inter,system-ui,sans-serif; --sans:Inter,system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace; background-image:none; }
-    .catalog-page .folio-bar { padding-top:.85rem; }.catalog-page .folio-bar-row { gap:.85rem; }.catalog-page .folio { color:var(--muted-fg); font-size:.63rem; letter-spacing:.13em; }
-    .catalog-page .products-hero { padding-top:clamp(3.5rem,8vw,7rem); padding-bottom:2.25rem; gap:2rem; align-items:end; }
-    .catalog-page .products-h1 { max-width:13ch; margin-top:.7rem; font-family:var(--serif); font-size:clamp(2.65rem,6vw,5.5rem); font-weight:800; letter-spacing: -0.025em; line-height:1.02; }
-    .catalog-page .products-h1 em { color:#2563eb; font-style:normal; }.catalog-page .products-desc { max-width:36rem; font-size:1rem; color:#43536a; line-height:1.75; }
-    .catalog-page .catalog-summary { display:grid; grid-template-columns:1fr; gap:.75rem; padding-bottom:3.5rem; }
-    .catalog-page .summary-card { min-height:8rem; padding:1.2rem; border:1px solid var(--rule); border-radius:.65rem; background:var(--card); box-shadow:0 10px 30px rgba(30,64,175,.045); }
-    .catalog-page .summary-card h2 { margin-top:.85rem; font-family:var(--serif); font-size:1.05rem; letter-spacing:-.02em; }.catalog-page .summary-card p:last-child { margin-top:.35rem; color:var(--muted-fg); font-size:.86rem; line-height:1.55; }
-    .catalog-page .catalog-intro { display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; padding-bottom:1.25rem; }.catalog-page .catalog-intro h2 { font-family:var(--serif); font-size:clamp(1.4rem,3vw,2rem); letter-spacing: -0.02em; }.catalog-page .catalog-intro p { max-width:34rem; color:var(--muted-fg); font-size:.9rem; }
-    .catalog-page .cat-section { border-top:1px solid var(--rule); padding-top:2.2rem; padding-bottom:2.2rem; }.catalog-page .cat-header { margin-bottom:1.1rem; }.catalog-page .cat-name { font-family:var(--serif); font-style:normal; font-weight:700; letter-spacing: -0.02em; }.catalog-page .cat-count { color:#2563eb; }
-    .catalog-page .proj-item { margin-bottom:.65rem; border:1px solid var(--rule); border-radius:.65rem; background:var(--card); overflow:hidden; }.catalog-page .proj-link { min-height:8.5rem; padding:1.2rem; margin:0; gap:1rem; }.catalog-page .proj-link:hover,.catalog-page .proj-link:focus-visible { background:#f1f5ff; outline:none; }.catalog-page .proj-link:focus-visible { box-shadow:inset 0 0 0 2px #2563eb; }.catalog-page .proj-num-col { color:#2563eb; }.catalog-page .proj-name-main { font-family:var(--serif); font-size:1.42rem; font-weight:700; letter-spacing: -0.02em; }.catalog-page .proj-link:hover .proj-name-main { text-decoration:none; color:#1d4ed8; }.catalog-page .proj-tagline-sm { font-family:var(--sans); font-style:normal; font-size:.84rem; line-height:1.45; }.catalog-page .proj-desc-col { color:#526278; }.catalog-page .proj-status-col { padding-top:0; }
-    .catalog-page .site-footer { margin-top:2.5rem; border-top:1px solid var(--rule); background:#fff; }.catalog-page .footer-inner { padding-top:2.5rem; padding-bottom:2.5rem; }.catalog-page .footer-big { max-width:22rem; font-family:var(--serif); font-size:1.05rem; font-style:normal; font-weight:600; }.catalog-page .footer-small,.catalog-page .footer-location { color:var(--muted-fg); }.catalog-page .footer-email { color:#1d4ed8; font-family:var(--sans); font-size:1rem; font-style:normal; }
-    @media (min-width:640px) { .catalog-page .catalog-summary { grid-template-columns:repeat(3,1fr); }.catalog-page .summary-card { min-height:9.5rem; }.catalog-page .proj-link { grid-template-columns:auto minmax(12rem,4fr) minmax(12rem,5fr) auto; align-items:start; }.catalog-page .proj-name-main { font-size:1.7rem; } }
-  </style>
+  <meta name="theme-color" content="#F5F0E7">
+  <link rel="stylesheet" href="../assets/css/main.css?v=75"><link rel="stylesheet" href="../assets/css/cizgi.css?v=17">
+  <link rel="icon" href="/assets/favicon.svg?v=10" type="image/svg+xml">
   <link rel="canonical" href="https://cizgifikrim.net/tr/products.html">
+  <link rel="preload" href="../assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <noscript><style>.reveal,.cz-word-in{opacity:1;transform:none}.cz-phone,.cz-radar{opacity:1;transform:none}.cz-pscene{height:auto}.cz-pscene-sticky{position:relative;height:auto;padding-block:5rem 3rem}.cz-pscene .cz-callout,.cz-pactions{opacity:1;transform:none}.cz-pcell{min-height:38rem}.cz-pscene .cz-product{flex:none}.cz-scene{height:auto}.cz-scene-sticky{position:relative;height:auto;min-height:0;padding-block:6rem}.cz-scene-head{position:relative;top:auto;margin-bottom:2rem}.cz-steps2{gap:1rem}.cz-step2{grid-area:auto;opacity:1;transform:none}.cz-dots{display:none}</style></noscript>
 </head>
-<body class="catalog-page">
+<body>
   <a class="skip-link" href="#main">Ana içeriğe geç</a>
-
-<header class="site-header"><div class="page header-inner">
-    <a href="index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><img class="brand-lockup" width="160" height="32" src="/assets/brand/cizgifikrim-logo.svg?v=1" alt="" aria-hidden="true"><span class="brand-meta">TEKNOLOJİ &amp; AR-GE</span></a>
-    <nav class="desktop-nav" aria-label="Ana menü"><a href="hizmetler.html" class="nav-link">Hizmetler</a><a href="products.html" class="nav-link" aria-current="page">Çalışmalar</a><a href="about.html" class="nav-link">Hakkında</a><a href="randevu.html" class="nav-link">Görüşme</a></nav>
-    <div class="nav-auth"><span data-auth-slot="desktop" data-base=""><a href="giris.html" class="nav-login">Giriş yap</a><a href="kayit.html" class="nav-cta">Kayıt ol</a></span></div>
+  <header class="site-header"><div class="cz-wrap header-inner">
+    <a href="index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><svg class="cz-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M44 15.4c-3.5-2.5-7.8-3.9-12.4-3.9-11.5 0-20.8 9.2-20.8 20.5s9.3 20.5 20.8 20.5c4.6 0 8.9-1.5 12.4-3.9"/><circle cx="48" cy="32" r="4.6"/></svg><span class="cz-word">CizgiFikrim</span></a>
+    <nav class="desktop-nav" aria-label="Ana menü"><a href="hizmetler.html" class="nav-link">Hizmetler</a><a href="products.html" class="nav-link" aria-current="page">Çalışmalar</a><a href="about.html" class="nav-link">Hakkında</a></nav>
+    <div class="nav-auth"><a href="randevu.html" class="nav-cta">Randevu al</a></div>
     <button class="mobile-toggle" aria-label="Menüyü aç" aria-expanded="false"><span></span><span></span><span></span></button>
-  </div><nav class="mobile-nav" aria-label="Mobil menü"><div class="page mobile-nav-inner"><a href="hizmetler.html" class="mobile-nav-link">Hizmetler</a><a href="products.html" class="mobile-nav-link" aria-current="page">Çalışmalar</a><a href="about.html" class="mobile-nav-link">Hakkında</a><a href="randevu.html" class="mobile-nav-link">Görüşme</a><div class="mobile-nav-auth"><span data-auth-slot="mobile" data-base=""><a href="giris.html" class="mobile-nav-btn">Giriş yap</a><a href="kayit.html" class="mobile-nav-btn is-primary">Kayıt ol</a></span></div></div></nav></header>
+  </div><nav class="mobile-nav" aria-label="Mobil menü"><div class="cz-wrap mobile-nav-inner"><a href="hizmetler.html" class="mobile-nav-link">Hizmetler</a><a href="products.html" class="mobile-nav-link" aria-current="page">Çalışmalar</a><a href="about.html" class="mobile-nav-link">Hakkında</a><div class="mobile-nav-auth"><a href="randevu.html" class="mobile-nav-btn is-primary">Randevu al</a></div></div></nav></header>
 
-<div class="page folio-bar">
-  <div class="folio-bar-row"><span class="folio">Ürün kataloğu</span><hr class="folio-dotted-rule"></div>
-</div>
+  <main id="main" tabindex="-1">
+    <section class="cz-pagehead" aria-labelledby="ph-title" id="katalog" data-cz-start>
+      <div class="cz-netwrap" aria-hidden="true"><canvas class="cz-net" data-net="head"></canvas></div>
+      <div class="cz-wrap cz-in">
+        <p class="cz-k">Çalışmalar</p>
+        <h1 id="ph-title">Ürünler, araçlar, <em>denemeler</em>.</h1>
+        <p class="cz-lead">Ürünlerimiz, araçlarımız ve araştırma çalışmalarımız tek listede. Durumlar kayıtlı veriden gelir; prototipler prototip diye anılır.</p><dl class="cz-stats" id="home-stats" style="width:100%;max-width:56rem;margin-top:1.5rem"><div><dd data-stat="total">—</dd><dt>çalışma</dt></div><div><dd data-stat="live">—</dd><dt>canlı kayıtlı</dt></div></dl>
+      </div>
+    </section>
 
-<main id="main" tabindex="-1">
-  <section class="page products-hero" id="katalog" aria-labelledby="products-title">
-    <div>
-      <p class="folio">CİZGİFİKRİM · ÜRÜNLER VE SİSTEMLER</p>
-      <h1 class="products-h1 reveal" id="products-title">Fikirden <em>işleyen</em> sistemlere.</h1>
+    <section class="cz-sec cz-sec--tight" aria-label="Çalışma listesi" data-cz-side="r" style="padding-top:1rem">
+      <div id="products-categories" aria-live="polite" aria-busy="true"><p class="cz-wrap cz-note">Liste hazırlanıyor…</p></div>
+    </section>
+
+    <section class="cz-close" aria-labelledby="cta-title" data-cz-side="l">
+      <div class="cz-netwrap" aria-hidden="true"><canvas class="cz-net" data-net="cta"></canvas></div>
+      <div class="cz-wrap cz-in">
+        <p class="cz-k">Başlayalım</p>
+        <h2 id="cta-title" class="cz-giant">Projeni <em>anlat</em>.</h2>
+        <p class="cz-lead">Kısa bir görüşmeyle başlıyoruz: neyi, hangi sırayla yapacağımızı birlikte netleştiririz.</p>
+        <div class="cz-actions">
+          <a href="randevu.html" class="cz-btn">Randevu al <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="cz-bridge cz-bridge--foot" aria-hidden="true"></div>
+  <footer class="site-footer cz-deep">
+    <div class="cz-foot">
+      <div><p class="cz-foot-big">Çizgiyi <em>ürüne</em> çeviriyoruz.</p></div>
+      <div class="cz-foot-cols">
+        <nav aria-label="Alt gezinti"><h2>Gezinti</h2><ul><li><a href="hizmetler.html">Hizmetler</a></li><li><a href="products.html">Çalışmalar</a></li><li><a href="about.html">Hakkında</a></li><li><a href="randevu.html">Randevu al</a></li></ul></nav>
+        <nav aria-label="Ürünler"><h2>Ürünler</h2><ul><li><a href="projects/carlog.html">CarLog</a></li><li><a href="projects/piyasa.html">PiyasApp</a></li><li><a href="projects/sano.html">Sano</a></li><li><a href="projects/focusgrid.html">FocusGrid</a></li></ul></nav>
+        <div><h2>İletişim</h2><p><a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></p><p class="cz-note" style="margin-top:.4rem">İstanbul, Türkiye</p></div>
+      </div>
     </div>
-    <p class="products-desc reveal reveal-d1">Farklı problem alanları için geliştirilen ürün, araç ve araştırma çalışmalarını tek katalogda topluyoruz. Her kart, yayınlanan proje kaydındaki güncel özetle hazırlanır.</p>
-  </section>
-
-  <section class="page catalog-summary" aria-label="Katalog hakkında">
-    <article class="summary-card"><p class="folio">Kapsam</p><h2>Ürün ve araştırma çalışmaları</h2><p>Yayınlanan proje kayıtlarıyla büyüyen canlı katalog.</p></article>
-    <article class="summary-card"><p class="folio">Alanlar</p><h2>Farklı çalışma alanları</h2><p>Otonom AI, mobil, finansal ve otomotiv odakları aynı yapıda.</p></article>
-    <article class="summary-card"><p class="folio">İnceleme</p><h2>Her proje kendi dosyasında</h2><p>Durum, kapsam ve yayınlanan açıklamalar proje sayfasında yer alır.</p></article>
-  </section>
-
-  <section class="page catalog-intro" aria-labelledby="catalog-heading">
-    <div><p class="folio">PORTFOLYO</p><h2 id="catalog-heading">Yayınlanan çalışmalar</h2></div>
-    <p>Proje durumu ve açıklamaları, erişilebilir olduğunda veri kaynağından güncellenir; bağlantı yoksa son yayınlanan katalog gösterilir.</p>
-  </section>
-
-  <!-- Kategori bölümleri Supabase'ten dinamik olarak yüklenir — bkz. assets/js/render.js -->
-  <div id="products-categories" aria-live="polite" aria-busy="true">
-    <p class="page" style="padding-block:3rem; color:var(--muted-fg);">Katalog hazırlanıyor…</p>
-  </div>
-</main>
-
-<footer class="site-footer"><div class="page footer-inner">
-    <div><p class="folio">CİZGİFİKRİM</p><p class="footer-big">Yapay zekâ, mobil ve veri ürünleri geliştiren teknoloji stüdyosu.</p><p class="footer-small">İstanbul, Türkiye · <a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></p></div>
-    <div class="footer-right"><p class="folio">© <span id="year">2026</span> CizgiFikrim</p><p class="footer-legal"><a href="gizlilik.html">Gizlilik</a> · <a href="kosullar.html">Koşullar</a></p></div>
-  </div></footer>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8/dist/umd/supabase.js" integrity="sha384-l7yJnh/cWKcqeTC5adHUdc5b+J4Kb2QTGRSkCQehn1YT5xEFlrgwnXOYuvrtI1F6" crossorigin="anonymous"></script>
-<script src="../assets/js/supabase-client.js?v=35"></script>
-<script src="../assets/js/render.js?v=53"></script>
-<script src="../assets/js/app.js?v=36"></script>
+    <div class="cz-foot-base"><span>© <span id="year">2026</span> CizgiFikrim</span><span><a href="gizlilik.html">Gizlilik</a> · <a href="kosullar.html">Koşullar</a> · <a href="#main">Başa dön</a></span></div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8/dist/umd/supabase.js" integrity="sha384-l7yJnh/cWKcqeTC5adHUdc5b+J4Kb2QTGRSkCQehn1YT5xEFlrgwnXOYuvrtI1F6" crossorigin="anonymous"></script>
+  <script src="../assets/js/supabase-client.js?v=40"></script>
+  <script src="../assets/js/render.js?v=75"></script>
+  <script src="../assets/js/app.js?v=40"></script>
   <script src="../assets/js/analytics.js?v=3"></script>
+  <script src="../assets/js/cizgi.js?v=17" defer></script>
 </body>
 </html>

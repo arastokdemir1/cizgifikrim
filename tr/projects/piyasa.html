@@ -2,93 +2,127 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>PiyasApp — Konum Tabanlı Sosyal Keşif | CizgiFikrim</title>
   <meta name="description" content="Çevrende ne olduğunu canlı bir harita üzerinde gösteren sosyal keşif uygulaması.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="../../assets/css/main.css?v=65">
-  <link rel="icon" href="/assets/favicon.svg?v=4" type="image/svg+xml">
+  <meta name="theme-color" content="#F5F0E7">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=75"><link rel="stylesheet" href="../../assets/css/cizgi.css?v=17">
+  <link rel="icon" href="/assets/favicon.svg?v=10" type="image/svg+xml">
+  <link rel="preload" href="../../assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <noscript><style>.reveal,.cz-word-in{opacity:1;transform:none}.cz-phone,.cz-radar{opacity:1;transform:none}.cz-pscene{height:auto}.cz-pscene-sticky{position:relative;height:auto;padding-block:5rem 3rem}.cz-pscene .cz-callout,.cz-pactions{opacity:1;transform:none}.cz-pcell{min-height:38rem}.cz-pscene .cz-product{flex:none}.cz-scene{height:auto}.cz-scene-sticky{position:relative;height:auto;min-height:0;padding-block:6rem}.cz-scene-head{position:relative;top:auto;margin-bottom:2rem}.cz-steps2{gap:1rem}.cz-step2{grid-area:auto;opacity:1;transform:none}.cz-dots{display:none}</style></noscript>
 </head>
 <body>
-
-<header class="site-header"><div class="page header-inner">
-    <a href="../index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><img class="brand-lockup" src="/assets/brand/cizgifikrim-logo.svg?v=1" alt="" aria-hidden="true"><span class="brand-meta">TEKNOLOJİ &amp; AR-GE</span></a>
-    <nav class="desktop-nav" aria-label="Ana menü"><a href="../hizmetler.html" class="nav-link">Hizmetler</a><a href="../products.html" class="nav-link">Çalışmalar</a><a href="../about.html" class="nav-link">Hakkında</a><a href="../randevu.html" class="nav-link">Görüşme</a></nav>
-    <div class="nav-auth"><span data-auth-slot="desktop" data-base="../"><a href="../giris.html" class="nav-login">Giriş yap</a><a href="../kayit.html" class="nav-cta">Kayıt ol</a></span></div>
+  <a class="skip-link" href="#main">Ana içeriğe geç</a>
+  <header class="site-header"><div class="cz-wrap header-inner">
+    <a href="../index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><svg class="cz-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M44 15.4c-3.5-2.5-7.8-3.9-12.4-3.9-11.5 0-20.8 9.2-20.8 20.5s9.3 20.5 20.8 20.5c4.6 0 8.9-1.5 12.4-3.9"/><circle cx="48" cy="32" r="4.6"/></svg><span class="cz-word">CizgiFikrim</span></a>
+    <nav class="desktop-nav" aria-label="Ana menü"><a href="../hizmetler.html" class="nav-link">Hizmetler</a><a href="../products.html" class="nav-link">Çalışmalar</a><a href="../about.html" class="nav-link">Hakkında</a></nav>
+    <div class="nav-auth"><a href="../randevu.html" class="nav-cta">Randevu al</a></div>
     <button class="mobile-toggle" aria-label="Menüyü aç" aria-expanded="false"><span></span><span></span><span></span></button>
-  </div><nav class="mobile-nav" aria-label="Mobil menü"><div class="page mobile-nav-inner"><a href="../hizmetler.html" class="mobile-nav-link">Hizmetler</a><a href="../products.html" class="mobile-nav-link">Çalışmalar</a><a href="../about.html" class="mobile-nav-link">Hakkında</a><a href="../randevu.html" class="mobile-nav-link">Görüşme</a><div class="mobile-nav-auth"><span data-auth-slot="mobile" data-base="../"><a href="../giris.html" class="mobile-nav-btn">Giriş yap</a><a href="../kayit.html" class="mobile-nav-btn is-primary">Kayıt ol</a></span></div></div></nav></header>
+  </div><nav class="mobile-nav" aria-label="Mobil menü"><div class="cz-wrap mobile-nav-inner"><a href="../hizmetler.html" class="mobile-nav-link">Hizmetler</a><a href="../products.html" class="mobile-nav-link">Çalışmalar</a><a href="../about.html" class="mobile-nav-link">Hakkında</a><div class="mobile-nav-auth"><a href="../randevu.html" class="mobile-nav-btn is-primary">Randevu al</a></div></div></nav></header>
 
-<div class="page folio-bar">
-  <div class="folio-bar-row">
-    <span class="folio" id="folio-category">Dosya</span>
-    <hr class="folio-dotted-rule">
-  </div>
-</div>
-
-<main>
-  <article class="page project-article">
-
-    <aside class="project-aside">
-      <div class="meta-block">
-        <p class="folio meta-label">Durum</p>
-        <div class="meta-val" id="meta-status"></div>
-      </div>
-      <div class="meta-block">
-        <p class="folio meta-label">Kategori</p>
-        <p class="meta-val" id="meta-category"></p>
-      </div>
-      <div class="meta-block">
-        <p class="folio meta-label">Dosya No.</p>
-        <p class="meta-val-mono" id="meta-folder"></p>
-      </div>
-    </aside>
-
-    <div class="project-content">
-      <p class="folio">Proje</p>
-      <h1 class="project-h1 reveal" id="project-name">Yükleniyor…</h1>
-      <p class="project-tagline reveal reveal-d1" id="project-tagline"></p>
-      <div class="project-body reveal reveal-d2" id="project-body"></div>
-      <section class="app-demo reveal" aria-labelledby="app-demo-title">
-        <div class="app-demo-copy">
-          <p class="folio">WEB DEMO</p>
-          <h2 id="app-demo-title">Uygulamayı burada dene</h2>
-          <p>PiyasApp'in iOS uygulamasının web kopyası. Radar ile çevrendeki araçları tara, canlı haritayı gez veya garajdaki otomobilleri incele.</p>
-          <ul class="app-demo-points">
-            <li>Konum tabanlı radar</li>
-            <li>Garaj yönetimi</li>
-            <li>Dinamik gizlilik kalkanı</li>
-          </ul>
-          <div class="app-demo-actions">
-            <a class="btn-primary" href="https://apps.apple.com/tr/app/piyasapp/id6478950543" target="_blank" rel="noopener">App Store'da indir <span class="btn-arrow">→</span></a>
-            <a class="app-demo-full" href="../../demo/piyasa/" target="_blank" rel="noopener">Tam ekran aç ↗</a>
+  <main id="main" tabindex="-1">
+    <section class="cz-pagehead" aria-labelledby="project-name" data-cz-start>
+      <div class="cz-netwrap" aria-hidden="true"><canvas class="cz-net" data-net="head" data-seed="piyasa"></canvas></div>
+      <div class="cz-wrap">
+        <div class="cz-proj">
+          <a class="cz-crumb" href="../products.html"><span aria-hidden="true">←</span> Çalışmalar</a>
+          <p class="cz-k" id="folio-category">Mobil Uygulamalar</p>
+          <h1 id="project-name">PiyasApp<span class="project-dot">.</span></h1>
+          <p class="cz-lead" id="project-tagline">Konum Tabanlı Sosyal Keşif</p>
+          <div id="meta-chips"></div>
+          <div class="cz-actions" style="justify-content:center"><a class="cz-btn" href="https://apps.apple.com/tr/app/piyasapp/id6478950543" target="_blank" rel="noopener">App Store'da gör <span aria-hidden="true">↗</span></a><a class="cz-link" href="#demo">Web'de dene <span class="cz-arr" aria-hidden="true">↓</span></a></div>
+          
+          <div class="cz-spec">
+            <dl>
+              <dt>Durum</dt><dd id="meta-status"></dd>
+              <dt>Alan</dt><dd id="meta-category"></dd>
+              <dt id="meta-folder-k" hidden>Kayıt</dt><dd id="meta-folder" hidden></dd>
+            </dl>
           </div>
         </div>
-        <div class="phone-frame" aria-label="PiyasApp web demosu">
-          <iframe src="../../demo/piyasa/" title="PiyasApp web demosu" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <div class="cz-bridge" aria-hidden="true"></div>
+    <section class="cz-pscene cz-deep cz-pscene--solo" data-pscene="piyasa" aria-labelledby="ps-title">
+      <div class="cz-pscene-sticky">
+        <div class="cz-pscene-head"><p class="cz-k">Arayüz</p><h2 id="ps-title" class="cz-h2">Çizgiden <em>ürüne</em>.</h2><p class="cz-lead">Çizgi PiyasApp radar ekranının ana hatlarını çizer, ardından ekran belirir. Çizim bir yorumdur.</p></div>
+        <div class="cz-product">
+          <div class="cz-callouts"></div>
+          <div class="cz-pcell"><div class="cz-phonebox" data-cz-draw="piyasa"><div class="cz-phonewrap"><div class="cz-radar" role="img" aria-label="PiyasApp radar yorumu: çevredeki noktaları tarayan radar"><i></i><i></i><i></i><span class="sw"></span><b style="top:30%;left:58%"></b><b style="top:62%;left:34%;animation-delay:.8s"></b><b style="top:44%;left:70%;animation-delay:1.5s"></b></div></div></div></div>
+          <div class="cz-callouts"></div>
         </div>
-      </section>
-      <div id="office-root" style="margin-top:2rem;"></div>
-      <div id="build-status-root" style="margin-top:1.5rem;"></div>
+      </div>
+    </section>
+    <div class="cz-bridge cz-bridge--up" aria-hidden="true"></div>
+    <section class="cz-sec" aria-label="Çalışma özeti" data-cz-side="r">
+      <div class="cz-wrap cz-bodygrid">
+        <div><p class="cz-k">Özet</p></div>
+        <div class="project-body" id="project-body"></div>
+      </div>
+    </section>
+    <section class="cz-sec cz-tint" id="demo" aria-labelledby="app-demo-title" data-cz-side="l">
+      <div class="cz-wrap"><section aria-labelledby="app-demo-title" class="app-demo">
+<div class="app-demo-copy">
+<p class="cz-k">Web demosu</p>
+<h2 id="app-demo-title">Uygulamayı burada dene</h2>
+<p>PiyasApp'in iOS uygulamasının web kopyası. Radar ile çevrendeki araçları tara, canlı haritayı gez veya garajdaki otomobilleri incele.</p>
+<ul class="app-demo-points">
+<li>Konum tabanlı radar</li>
+<li>Garaj yönetimi</li>
+<li>Dinamik gizlilik kalkanı</li>
+</ul>
+<div class="app-demo-actions">
+<a class="cz-btn" href="https://apps.apple.com/tr/app/piyasapp/id6478950543" rel="noopener" target="_blank">App Store'da indir <span aria-hidden="true">→</span></a>
+<a class="app-demo-full" href="../../demo/piyasa/" rel="noopener" target="_blank">Tam ekran aç ↗</a>
+</div>
+</div>
+<div aria-label="PiyasApp web demosu" class="phone-frame">
+<iframe loading="lazy" src="../../demo/piyasa/" title="PiyasApp web demosu"></iframe>
+</div>
+</section></div>
+    </section>
+
+    <section class="cz-sec" aria-labelledby="log-title" data-cz-side="l">
+      <div class="cz-wrap">
+        <div class="cz-head"><p class="cz-k">Geliştirme kaydı</p><h2 id="log-title" class="cz-h2" style="max-width:14ch">Durum ve son geliştirmeler.</h2></div>
+        <div id="build-status-root"></div>
+      </div>
+    </section>
+
+    <nav class="project-nav" aria-label="Çalışma gezintisi"><div class="proj-nav-prev" id="nav-prev"></div><div class="proj-nav-next" id="nav-next"></div></nav>
+
+    <section class="cz-close" aria-labelledby="cta-title" data-cz-side="l">
+      <div class="cz-netwrap" aria-hidden="true"><canvas class="cz-net" data-net="cta"></canvas></div>
+      <div class="cz-wrap cz-in">
+        <p class="cz-k">Başlayalım</p>
+        <h2 id="cta-title" class="cz-giant">Bunu <em>konuşalım</em>.</h2>
+        <p class="cz-lead">Benzer bir ürün düşünüyorsanız ya da bu çalışma hakkında sorunuz varsa bir görüşme planlayın.</p>
+        <div class="cz-actions">
+          <a href="../randevu.html" class="cz-btn">Randevu al <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="cz-bridge cz-bridge--foot" aria-hidden="true"></div>
+  <footer class="site-footer cz-deep">
+    <div class="cz-foot">
+      <div><p class="cz-foot-big">Çizgiyi <em>ürüne</em> çeviriyoruz.</p></div>
+      <div class="cz-foot-cols">
+        <nav aria-label="Alt gezinti"><h2>Gezinti</h2><ul><li><a href="../hizmetler.html">Hizmetler</a></li><li><a href="../products.html">Çalışmalar</a></li><li><a href="../about.html">Hakkında</a></li><li><a href="../randevu.html">Randevu al</a></li></ul></nav>
+        <nav aria-label="Ürünler"><h2>Ürünler</h2><ul><li><a href="../projects/carlog.html">CarLog</a></li><li><a href="../projects/piyasa.html">PiyasApp</a></li><li><a href="../projects/sano.html">Sano</a></li><li><a href="../projects/focusgrid.html">FocusGrid</a></li></ul></nav>
+        <div><h2>İletişim</h2><p><a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></p><p class="cz-note" style="margin-top:.4rem">İstanbul, Türkiye</p></div>
+      </div>
     </div>
-
-  </article>
-
-  <section class="page project-nav">
-    <div class="proj-nav-prev" id="nav-prev"></div>
-    <div class="proj-nav-next" id="nav-next"></div>
-  </section>
-</main>
-
-<footer class="site-footer"><div class="page footer-inner">
-    <div><p class="folio">CİZGİFİKRİM</p><p class="footer-big">Yapay zekâ, mobil ve veri ürünleri geliştiren teknoloji stüdyosu.</p><p class="footer-small">İstanbul, Türkiye</p></div>
-    <div class="footer-right"><p class="folio">© <span id="year">2026</span> CizgiFikrim</p><p class="footer-legal"><a href="../gizlilik.html">Gizlilik</a> · <a href="../kosullar.html">Koşullar</a></p></div>
-  </div></footer>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8/dist/umd/supabase.js" integrity="sha384-l7yJnh/cWKcqeTC5adHUdc5b+J4Kb2QTGRSkCQehn1YT5xEFlrgwnXOYuvrtI1F6" crossorigin="anonymous"></script>
-<script src="../../assets/js/supabase-client.js?v=35"></script>
-<script src="../../assets/js/render.js?v=53"></script>
-<script src="../../assets/js/app.js?v=36"></script>
+    <div class="cz-foot-base"><span>© <span id="year">2026</span> CizgiFikrim</span><span><a href="../gizlilik.html">Gizlilik</a> · <a href="../kosullar.html">Koşullar</a> · <a href="#main">Başa dön</a></span></div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8/dist/umd/supabase.js" integrity="sha384-l7yJnh/cWKcqeTC5adHUdc5b+J4Kb2QTGRSkCQehn1YT5xEFlrgwnXOYuvrtI1F6" crossorigin="anonymous"></script>
+  <script src="../../assets/js/supabase-client.js?v=40"></script>
+  <script src="../../assets/js/render.js?v=75"></script>
+  <script src="../../assets/js/app.js?v=40"></script>
   <script src="../../assets/js/analytics.js?v=3"></script>
+  <script src="../../assets/js/cizgi.js?v=17" defer></script>
 </body>
 </html>

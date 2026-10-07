@@ -2,150 +2,31 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Randevu — CizgiFikrim</title>
-  <meta name="description" content="CizgiFikrim ile gerçek zamanlı bir görüşme planla.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/css/main.css?v=70">
-  <link rel="icon" href="/assets/favicon.svg?v=4" type="image/svg+xml">
-  <style>
-    .randevu-choice-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-      max-width: 42rem;
-      margin: 1.5rem auto 0;
-      text-align: left;
-    }
-    .randevu-choice-block {
-      min-width: 0;
-      margin: 0;
-      padding: 1rem;
-      border: 1px solid var(--rule);
-      border-radius: var(--radius-md);
-      background: var(--card);
-    }
-    .randevu-choice-title {
-      display: block;
-      margin-bottom: .75rem;
-      color: var(--muted-fg);
-      font-family: var(--mono);
-      font-size: .68rem;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-    }
-    .randevu-channel-options {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: .5rem;
-    }
-    .randevu-channel-option {
-      position: relative;
-      display: grid;
-      min-height: 44px;
-      place-items: center;
-      padding: .6rem .7rem;
-      border: 1px solid var(--rule);
-      border-radius: 999px;
-      color: var(--muted-fg);
-      font-family: var(--sans);
-      font-size: .86rem;
-      font-weight: 600;
-      text-align: center;
-      cursor: pointer;
-      transition: background-color .15s, color .15s, border-color .15s;
-    }
-    .randevu-channel-option input {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      clip-path: inset(50%);
-      white-space: nowrap;
-    }
-    .randevu-channel-option:hover { color: var(--ink); }
-    .randevu-channel-option.on {
-      border-color: var(--accent);
-      background: var(--accent);
-      color: #fff;
-    }
-    .randevu-channel-option:focus-within {
-      outline: 3px solid var(--accent);
-      outline-offset: 3px;
-    }
-    .randevu-duration-tabs { margin-top: 0; }
-    .randevu-duration-tabs button:focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: 3px;
-    }
-    .randevu-selected-meeting {
-      margin: 1.25rem 0 .25rem;
-      color: var(--ink);
-      font-family: var(--serif);
-      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
-      font-weight: 700;
-    }
-    .randevu-phone-note {
-      max-width: 42rem;
-      margin: .75rem auto 1rem;
-      padding: .75rem 1rem;
-      border-left: 3px solid var(--accent);
-      background: var(--accent-soft);
-      color: var(--fg);
-      font-size: .86rem;
-      line-height: 1.55;
-      text-align: left;
-    }
-    .randevu-phone-note[hidden], .randevu-cal-loading[hidden],
-    .randevu-cal-fallback[hidden] { display: none; }
-    .randevu-cal-loading {
-      max-width: 42rem;
-      margin: 1rem auto;
-      color: var(--muted-fg);
-      font-size: .9rem;
-      text-align: center;
-    }
-    .randevu-cal-fallback {
-      display: block;
-      margin: .75rem auto 1rem;
-      color: var(--accent-strong);
-      font-weight: 600;
-      text-align: center;
-    }
-    .randevu-embed [role="tabpanel"]:focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: 4px;
-    }
-    @media (max-width: 680px) {
-      .randevu-choice-grid { grid-template-columns: 1fr; max-width: 30rem; }
-      .randevu-choice-block { padding: .85rem; }
-      .randevu-duration-tabs { display: flex; width: 100%; }
-      .randevu-duration-tabs button { flex: 1; padding-inline: .65rem; }
-      .randevu-selected-meeting { margin-top: 1rem; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .randevu-channel-option { transition: none; }
-    }
-  </style>
+  <meta name="theme-color" content="#F5F0E7">
+  <link rel="preconnect" href="https://app.cal.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cal.com">
+  <meta name="description" content="CizgiFikrim ile gerçek zamanlı bir görüşme planla."><link rel="stylesheet" href="../assets/css/main.css?v=75"><link rel="stylesheet" href="../assets/css/cizgi.css?v=17">
+  <link rel="icon" href="/assets/favicon.svg?v=10" type="image/svg+xml">
   <link rel="canonical" href="https://cizgifikrim.net/tr/randevu.html">
 </head>
 <body>
   <a class="skip-link" href="#main">Ana içeriğe geç</a>
-  <header class="site-header"><div class="page header-inner">
-    <a href="index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><img class="brand-lockup" width="160" height="32" src="/assets/brand/cizgifikrim-logo.svg?v=1" alt="" aria-hidden="true"><span class="brand-meta">TEKNOLOJİ &amp; AR-GE</span></a>
-    <nav class="desktop-nav" aria-label="Ana menü"><a href="hizmetler.html" class="nav-link">Hizmetler</a><a href="products.html" class="nav-link">Çalışmalar</a><a href="about.html" class="nav-link">Hakkında</a><a href="randevu.html" class="nav-link" aria-current="page">Görüşme</a></nav>
-    <div class="nav-auth"><span data-auth-slot="desktop" data-base=""><a href="giris.html" class="nav-login">Giriş yap</a><a href="kayit.html" class="nav-cta">Kayıt ol</a></span></div>
+  <header class="site-header"><div class="cz-wrap header-inner">
+    <a href="index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><svg class="cz-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M44 15.4c-3.5-2.5-7.8-3.9-12.4-3.9-11.5 0-20.8 9.2-20.8 20.5s9.3 20.5 20.8 20.5c4.6 0 8.9-1.5 12.4-3.9"/><circle cx="48" cy="32" r="4.6"/></svg><span class="cz-word">CizgiFikrim</span></a>
+    <nav class="desktop-nav" aria-label="Ana menü"><a href="hizmetler.html" class="nav-link">Hizmetler</a><a href="products.html" class="nav-link">Çalışmalar</a><a href="about.html" class="nav-link">Hakkında</a></nav>
+    <div class="nav-auth"><a href="randevu.html" class="nav-cta" aria-current="page">Randevu al</a></div>
     <button class="mobile-toggle" aria-label="Menüyü aç" aria-expanded="false"><span></span><span></span><span></span></button>
-  </div><nav class="mobile-nav" aria-label="Mobil menü"><div class="page mobile-nav-inner"><a href="hizmetler.html" class="mobile-nav-link">Hizmetler</a><a href="products.html" class="mobile-nav-link">Çalışmalar</a><a href="about.html" class="mobile-nav-link">Hakkında</a><a href="randevu.html" class="mobile-nav-link" aria-current="page">Görüşme</a><div class="mobile-nav-auth"><span data-auth-slot="mobile" data-base=""><a href="giris.html" class="mobile-nav-btn">Giriş yap</a><a href="kayit.html" class="mobile-nav-btn is-primary">Kayıt ol</a></span></div></div></nav></header>
+  </div><nav class="mobile-nav" aria-label="Mobil menü"><div class="cz-wrap mobile-nav-inner"><a href="hizmetler.html" class="mobile-nav-link">Hizmetler</a><a href="products.html" class="mobile-nav-link">Çalışmalar</a><a href="about.html" class="mobile-nav-link">Hakkında</a><div class="mobile-nav-auth"><a href="randevu.html" class="mobile-nav-btn is-primary" aria-current="page">Randevu al</a></div></div></nav></header>
 
   <main id="main" tabindex="-1">
-    <section class="page randevu-section">
-      <div class="randevu-head">
-        <p class="folio">GÖRÜŞME</p>
-        <h1 class="auth-h1">Bir görüşme planla</h1>
-        <p class="auth-sub">Görüşmeler uzaktan yapılır; şehir fark etmeksizin telefon veya görüntülü görüşme seçebilirsin. Randevu onayı ve katılım ya da arama ayrıntıları e-postana gelir.</p>
+    <section class="cz-pagehead randevu-hero" data-cz-start>
+      <div class="cz-netwrap" aria-hidden="true"><canvas class="cz-net" data-net="head"></canvas></div>
+      <div class="cz-wrap randevu-head">
+        <p class="cz-k">Görüşme</p>
+        <h1>Bir görüşme <em>ayırın</em>.</h1>
+        <p class="cz-lead randevu-sub">Görüşmeler uzaktan yapılır; telefon ya da görüntülü görüşme seçebilirsiniz. Randevu onayı ile katılım veya arama ayrıntıları e-postanıza gelir.</p>
         <ul class="randevu-facts">
           <li><span>YÖNTEM</span><span id="summary-channel">Görüntülü</span></li>
           <li><span>SÜRE</span><span id="summary-duration">30 dakika</span></li>
@@ -176,34 +57,50 @@
         <h2 class="randevu-selected-meeting" id="selected-meeting-title" aria-live="polite">30 dakika görüntülü görüşme</h2>
         <p class="randevu-phone-note" id="phone-call-details" hidden>Telefon görüşmesinde, takvim formunda katılımcı telefonunu ve arama yönü tercihini belirt. Arama ayrıntıları onay e-postasında netleşir.</p>
       </div>
+    </section>
+    <section class="cz-sec randevu-band" data-cz-side="r">
+      <div class="cz-wrap">
       <div class="randevu-embed">
         <div id="cal-video-30" role="tabpanel" aria-labelledby="channel-video-label tab-30" tabindex="0">
-          <p class="randevu-cal-loading" role="status" data-cal-loading>Cal.com takvimi yükleniyor…</p>
-          <a class="randevu-cal-fallback" data-cal-fallback hidden target="_blank" rel="noopener">Takvimi Cal.com'da aç ↗</a>
+          <div class="randevu-calbar"><p class="randevu-cal-loading" role="status" data-cal-loading>Takvim hazırlanıyor…</p><a class="randevu-cal-fallback" data-cal-fallback target="_blank" rel="noopener">Cal.com'da aç <span aria-hidden="true">↗</span></a></div>
+          <button type="button" class="cz-btn cz-btn--ghost randevu-launch" data-cal-start hidden>Takvimi yükle</button>
+          <div class="randevu-stage" id="cal-stage-video-30"><div class="randevu-skel" data-cal-skel aria-hidden="true"><div class="sk-head"><i></i><i></i><i></i></div><div class="sk-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
         <div id="cal-video-15" role="tabpanel" aria-labelledby="channel-video-label tab-15" tabindex="0" hidden>
-          <p class="randevu-cal-loading" role="status" data-cal-loading>Cal.com takvimi yükleniyor…</p>
-          <a class="randevu-cal-fallback" data-cal-fallback hidden target="_blank" rel="noopener">Takvimi Cal.com'da aç ↗</a>
+          <div class="randevu-calbar"><p class="randevu-cal-loading" role="status" data-cal-loading>Takvim hazırlanıyor…</p><a class="randevu-cal-fallback" data-cal-fallback target="_blank" rel="noopener">Cal.com'da aç <span aria-hidden="true">↗</span></a></div>
+          <button type="button" class="cz-btn cz-btn--ghost randevu-launch" data-cal-start hidden>Takvimi yükle</button>
+          <div class="randevu-stage" id="cal-stage-video-15"><div class="randevu-skel" data-cal-skel aria-hidden="true"><div class="sk-head"><i></i><i></i><i></i></div><div class="sk-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
         <div id="cal-phone-30" role="tabpanel" aria-labelledby="channel-phone-label tab-30" tabindex="0" hidden>
-          <p class="randevu-cal-loading" role="status" data-cal-loading>Cal.com takvimi yükleniyor…</p>
-          <a class="randevu-cal-fallback" data-cal-fallback hidden target="_blank" rel="noopener">Takvimi Cal.com'da aç ↗</a>
+          <div class="randevu-calbar"><p class="randevu-cal-loading" role="status" data-cal-loading>Takvim hazırlanıyor…</p><a class="randevu-cal-fallback" data-cal-fallback target="_blank" rel="noopener">Cal.com'da aç <span aria-hidden="true">↗</span></a></div>
+          <button type="button" class="cz-btn cz-btn--ghost randevu-launch" data-cal-start hidden>Takvimi yükle</button>
+          <div class="randevu-stage" id="cal-stage-phone-30"><div class="randevu-skel" data-cal-skel aria-hidden="true"><div class="sk-head"><i></i><i></i><i></i></div><div class="sk-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
         <div id="cal-phone-15" role="tabpanel" aria-labelledby="channel-phone-label tab-15" tabindex="0" hidden>
-          <p class="randevu-cal-loading" role="status" data-cal-loading>Cal.com takvimi yükleniyor…</p>
-          <a class="randevu-cal-fallback" data-cal-fallback hidden target="_blank" rel="noopener">Takvimi Cal.com'da aç ↗</a>
+          <div class="randevu-calbar"><p class="randevu-cal-loading" role="status" data-cal-loading>Takvim hazırlanıyor…</p><a class="randevu-cal-fallback" data-cal-fallback target="_blank" rel="noopener">Cal.com'da aç <span aria-hidden="true">↗</span></a></div>
+          <button type="button" class="cz-btn cz-btn--ghost randevu-launch" data-cal-start hidden>Takvimi yükle</button>
+          <div class="randevu-stage" id="cal-stage-phone-15"><div class="randevu-skel" data-cal-skel aria-hidden="true"><div class="sk-head"><i></i><i></i><i></i></div><div class="sk-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
         </div>
       </div>
       <p class="randevu-alt">Takvimde uygun saat yoksa <a href="contact.html">bize yaz</a>, birlikte bir zaman bulalım.</p>
+      </div>
     </section>
   </main>
 
-  <footer class="site-footer"><div class="page footer-inner">
-    <div><p class="folio">CİZGİFİKRİM</p><p class="footer-big">Yapay zekâ, mobil ve veri ürünleri geliştiren teknoloji stüdyosu.</p><p class="footer-small">İstanbul, Türkiye · <a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></p></div>
-    <div class="footer-right"><p class="folio">© <span id="year">2026</span> CizgiFikrim</p><p class="footer-legal"><a href="gizlilik.html">Gizlilik</a> · <a href="kosullar.html">Koşullar</a></p></div>
-  </div></footer>
+  <div class="cz-bridge cz-bridge--foot" aria-hidden="true"></div>
+  <footer class="site-footer cz-deep">
+    <div class="cz-foot">
+      <div><p class="cz-foot-big">Çizgiyi <em>ürüne</em> çeviriyoruz.</p></div>
+      <div class="cz-foot-cols">
+        <nav aria-label="Alt gezinti"><h2>Gezinti</h2><ul><li><a href="hizmetler.html">Hizmetler</a></li><li><a href="products.html">Çalışmalar</a></li><li><a href="about.html">Hakkında</a></li><li><a href="randevu.html">Randevu al</a></li></ul></nav>
+        <nav aria-label="Ürünler"><h2>Ürünler</h2><ul><li><a href="projects/carlog.html">CarLog</a></li><li><a href="projects/piyasa.html">PiyasApp</a></li><li><a href="projects/sano.html">Sano</a></li><li><a href="projects/focusgrid.html">FocusGrid</a></li></ul></nav>
+        <div><h2>İletişim</h2><p><a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></p><p class="cz-note" style="margin-top:.4rem">İstanbul, Türkiye</p></div>
+      </div>
+    </div>
+    <div class="cz-foot-base"><span>© <span id="year">2026</span> CizgiFikrim</span><span><a href="gizlilik.html">Gizlilik</a> · <a href="kosullar.html">Koşullar</a> · <a href="#main">Başa dön</a></span></div>
+  </footer>
 
-<script src="../assets/js/app.js?v=36"></script>
+<script src="../assets/js/app.js?v=40"></script>
 <script type="text/javascript">
   (function (C, A, L) {
     let p = function (a, ar) { a.q.push(ar); };
@@ -248,12 +145,19 @@
 
   // Takvimi sitenin renk ve kart diline oturtur — bkz. cal.com/docs
   // "customize embed css variables".
-  const calVars = {
-    "cal-brand": "#2563eb", "cal-brand-emphasis": "#1d4ed8", "cal-brand-text": "#ffffff",
-    "cal-bg": "#ffffff", "cal-bg-emphasis": "#eff6ff", "cal-bg-subtle": "#f8faff", "cal-bg-muted": "#f8faff",
-    "cal-border": "#d9e2ef", "cal-border-subtle": "#e6ecf5", "cal-border-booker": "#d9e2ef", "cal-border-booker-width": "1px",
-    "cal-text": "#172033", "cal-text-emphasis": "#0f172a", "cal-text-subtle": "#526176", "cal-text-muted": "#64748b",
-    "radius": "12px",
+  const calVarsNow = () => {
+    const cs = getComputedStyle(document.documentElement);
+    const t = (n, d) => (cs.getPropertyValue(n).trim() || d);
+    const hex = (h) => { h = h.replace("#", ""); if (h.length === 3) h = h.replace(/./g, "$&$&"); return [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16)); };
+    const mix = (a, b, k) => { const x = hex(a), y = hex(b); return "#" + x.map((v, i) => Math.round(v + (y[i] - v) * k).toString(16).padStart(2, "0")).join(""); };
+    const bg2 = t("--k-bg2", "#121316"), panel = t("--k-panel", "#151619"), panel2 = t("--k-panel2", "#1B1C20"), text = t("--k-text", "#EEEBE6"), acc = t("--k-acc", "#E3A24F");
+    return {
+      "cal-brand": acc, "cal-brand-emphasis": mix(acc, text, .35), "cal-brand-text": t("--k-acc-ink", "#F5F0E7"),
+      "cal-bg": panel, "cal-bg-emphasis": panel2, "cal-bg-subtle": bg2, "cal-bg-muted": bg2,
+      "cal-border": mix(panel, text, .18), "cal-border-subtle": mix(panel, text, .1), "cal-border-booker": mix(panel, text, .18), "cal-border-booker-width": "1px",
+      "cal-text": text, "cal-text-emphasis": text, "cal-text-subtle": t("--k-muted", "#A5A29D"), "cal-text-muted": t("--k-muted", "#A5A29D"),
+      "radius": "4px",
+    };
   };
 
   // Dört randevu türü de Cal.com'un kayıtlı etkinliklerine gider.
@@ -263,37 +167,81 @@
   };
   const started = {};
   const calPanels = document.querySelectorAll('.randevu-embed [role="tabpanel"]');
-  function startCal(type, minutes) {
+  function startCal(type, minutes, force) {
     const key = `${type}-${minutes}`;
     if (started[key]) return;
-    started[key] = true;
     const ns = `${type}${minutes}`;
     const panel = document.getElementById(`cal-${key}`);
-    const loading = panel.querySelector("[data-cal-loading]");
+    const status = panel.querySelector("[data-cal-loading]");
     const fallback = panel.querySelector("[data-cal-fallback]");
+    const skel = panel.querySelector("[data-cal-skel]");
+    const launch = panel.querySelector("[data-cal-start]");
     fallback.href = `https://cal.com/${CAL_SLOTS[type][minutes]}`;
+    const conn = navigator.connection || {};
+    const heavy = conn.saveData || /(^|-)(2g|3g)/.test(conn.effectiveType || "");
+    if (heavy && !force) {
+      status.textContent = "Bağlantın yavaş görünüyor; takvim istediğinde yüklenir.";
+      launch.hidden = false;
+      launch.onclick = () => { launch.hidden = true; startCal(type, minutes, true); };
+      return;
+    }
+    started[key] = true;
+    launch.hidden = true;
+    const t0 = performance.now();
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      window.clearInterval(tick);
+      skel.classList.add("is-ready");
+      status.textContent = "Takvim hazır. Bir gün seçin.";   // gizlenmez: üst çubuk yüksekliği sabit kalır (CLS)
+      fallback.classList.remove("is-emph");
+      window.__calReady = Math.round(performance.now());
+    };
+    const tick = window.setInterval(() => {
+      if (done) return;
+      const s = Math.round((performance.now() - t0) / 1000);
+      if (s >= 45) {
+        status.textContent = "Takvim yüklenemedi. Cal.com bağlantısını kullanabilirsin.";
+        fallback.classList.add("is-emph");
+        window.clearInterval(tick);
+      } else if (s >= 8) {
+        status.textContent = `Takvim beklenenden yavaş yükleniyor (${s} sn). İstersen Cal.com'da aç.`;
+        fallback.classList.add("is-emph");
+      } else {
+        status.textContent = `Takvim yükleniyor… ${s} sn`;
+      }
+    }, 1000);
+    const stage = document.getElementById(`cal-stage-${key}`);
     const embedObserver = new MutationObserver(() => {
-      if (!panel.querySelector("iframe")) return;
-      loading.hidden = true;
-      fallback.hidden = true;
-      window.clearTimeout(loadTimeout);
-      embedObserver.disconnect();
+      const f = stage.querySelector("iframe");
+      if (!f || f.__w) return;
+      f.__w = true;
+      window.__calIframe = Math.round(performance.now());
+      f.addEventListener("load", () => { window.__calLoad = Math.round(performance.now()); window.setTimeout(finish, 3500); });
     });
-    embedObserver.observe(panel, { childList: true, subtree: true });
-    const loadTimeout = window.setTimeout(() => {
-      if (panel.querySelector("iframe")) return;
-      loading.textContent = "Takvim şu anda yüklenemedi.";
-      fallback.hidden = false;
-      embedObserver.disconnect();
-    }, 12000);
+    embedObserver.observe(stage, { childList: true, subtree: true });
     Cal("init", ns, { origin: "https://cal.com" });
+    Cal.ns[ns]("on", { action: "linkReady", callback: () => { window.__calLinkReady = Math.round(performance.now()); finish(); } });
     Cal.ns[ns]("inline", {
-      elementOrSelector: `#cal-${key}`,
+      elementOrSelector: `#cal-stage-${key}`,
       calLink: CAL_SLOTS[type][minutes],
       layout: "month_view",
       config: { theme: "light", layout: "month_view", ...calPrefill },
     });
-    Cal.ns[ns]("ui", { theme: "light", cssVarsPerTheme: { light: calVars, dark: calVars }, hideEventTypeDetails: false, layout: "month_view" });
+    Cal.ns[ns]("ui", { theme: "light", cssVarsPerTheme: { light: calVarsNow(), dark: calVarsNow() }, hideEventTypeDetails: false, layout: "month_view" });
+  }
+  // Takvim yalnız görünür olunca (ya da kullanıcı seçim yapınca) başlar; sayfa anında kullanılabilir kalır.
+  const calIO = ("IntersectionObserver" in window) ? new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (!e.isIntersecting) return;
+    calIO.unobserve(e.target);
+    startCal(e.target.dataset.calType, Number(e.target.dataset.calMin));
+  }), { rootMargin: "400px" }) : null;
+  function armCal(type, minutes, immediate) {
+    if (immediate || !calIO) { startCal(type, minutes, immediate); return; }
+    const panel = document.getElementById(`cal-${type}-${minutes}`);
+    panel.dataset.calType = type; panel.dataset.calMin = String(minutes);
+    calIO.observe(panel);
   }
 
   const durationTabs = Array.from(document.querySelectorAll("[data-cal-tab]"));
@@ -305,7 +253,7 @@
   let selectedType = "video";
   let selectedMinutes = 30;
 
-  function showSelection(type, minutes) {
+  function showSelection(type, minutes, user) {
     selectedType = type;
     selectedMinutes = minutes;
     const channelLabel = type === "phone" ? "Telefon" : "Görüntülü";
@@ -334,14 +282,14 @@
     summaryDuration.textContent = `${minutes} dakika`;
     selectedTitle.textContent = `${minutes} dakikalık ${channelDescription}`;
     phoneCallDetails.hidden = type !== "phone";
-    startCal(type, minutes);
+    armCal(type, minutes, user);
   }
 
   meetingTypeRadios.forEach((radio) => radio.addEventListener("change", () => {
-    if (radio.checked) showSelection(radio.value, selectedMinutes);
+    if (radio.checked) showSelection(radio.value, selectedMinutes, true);
   }));
   durationTabs.forEach((tab, index) => {
-    tab.addEventListener("click", () => showSelection(selectedType, Number(tab.dataset.calTab)));
+    tab.addEventListener("click", () => showSelection(selectedType, Number(tab.dataset.calTab), true));
     tab.addEventListener("keydown", (event) => {
       let nextIndex = index;
       if (event.key === "ArrowRight") nextIndex = (index + 1) % durationTabs.length;
@@ -351,12 +299,13 @@
       else return;
       event.preventDefault();
       const nextTab = durationTabs[nextIndex];
-      showSelection(selectedType, Number(nextTab.dataset.calTab));
+      showSelection(selectedType, Number(nextTab.dataset.calTab), true);
       nextTab.focus();
     });
   });
   showSelection("video", 30);
 </script>
   <script src="../assets/js/analytics.js?v=3"></script>
+  <script src="../assets/js/cizgi.js?v=17" defer></script>
 </body>
 </html>

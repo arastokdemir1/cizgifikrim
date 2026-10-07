@@ -48,16 +48,26 @@ function setStatusNotice(root, message) {
   notice.textContent = message;
 }
 
+function projectChips(p) {
+  const text = `${p.tagline || ''} ${(p.description || '').split('\n\n')[0]}`;
+  const chips = [];
+  if (/\biOS\b/.test(text)) chips.push('iOS');
+  if (/macOS/.test(text)) chips.push('macOS');
+  if (/web tabanlı/i.test(text)) chips.push('Web');
+  (Array.isArray(p.tech) ? p.tech : []).slice(0, 4).forEach((t) => { if (!chips.includes(String(t))) chips.push(String(t)); });
+  return chips.length ? `<ul class="proj-chips" aria-label="Platform">${chips.map((c) => `<li>${escapeHTML(c)}</li>`).join('')}</ul>` : '';
+}
+
 function projectCardHTML(p, num) {
   const slug = safeProjectSlug(p.slug);
   if (!slug) return '';
   return `
     <li class="proj-item">
-      <a href="projects/${slug}.html" class="proj-link reveal">
-        <span class="folio proj-num-col">№${num}</span>
+      <a href="${escapeHTML(p.href || `projects/${slug}.html`)}" class="proj-link reveal">
         <div class="proj-name-col">
           <h3 class="proj-name-main">${escapeHTML(p.display_name)}</h3>
           <p class="proj-tagline-sm">${escapeHTML(p.tagline)}</p>
+          ${projectChips(p)}
         </div>
         <p class="proj-desc-col">${escapeHTML((p.description || '').split('\n\n')[0])}</p>
         <div class="proj-status-col">${statusBadgeHTML(p.status, p.status_label)}</div>
@@ -87,7 +97,6 @@ async function renderProductsPage() {
       return `
         <section class="page cat-section">
           <header class="cat-header">
-            <span class="folio">${meta.folioNum}</span>
             <h2 class="cat-name">${meta.name}</h2>
             <span class="folio cat-count">${grouped[cat].length} adet</span>
           </header>
@@ -309,7 +318,10 @@ function relativeTimeTR(dateStr) {
 // show_commit_detail=true projelerde dolu gelir).
 function recentUpdatesHTML(p) {
   if (p.show_commit_detail === false || !Array.isArray(p.recent_updates) || !p.recent_updates.length) return '';
-  const items = p.recent_updates.slice(0, 6).map((u) => `
+  // Sürüm/birleştirme gürültüsü ("Bump build number…", "Merge…") müşteriye gösterilmez.
+  const notes = p.recent_updates.filter((u) => u && u.text && !/^(bump|merge|revert|chore|wip|release build)\b/i.test(String(u.text).trim()));
+  if (!notes.length) return '';
+  const items = notes.slice(0, 6).map((u) => `
         <li><time datetime="${escapeHTML(u.at)}">${escapeHTML(relativeTimeTR(u.at))}</time><span>${escapeHTML(u.text)}</span></li>`).join('');
   return `
       <div class="build-status-row">
@@ -332,7 +344,7 @@ function buildStatusHTML(p) {
   let activity;
   if (d30 > 0) activity = `Son 30 günde ${d30} geliştirme${d7 > 0 ? `, son 7 günde ${d7}` : ''}.`;
   else if (total > 0) activity = `Toplam ${total} geliştirme. Son 30 günde yeni bir değişiklik yok.`;
-  else activity = isLive ? 'Ürün yayında ve kullanıma açık.' : 'Aktivite verisi henüz senkronize edilmedi.';
+  else activity = 'Aktivite verisi henüz senkronize edilmedi.';
 
   const updates = recentUpdatesHTML(p) || (p.latest_update_text && !autoNote ? `
       <div class="build-status-row">
@@ -343,7 +355,7 @@ function buildStatusHTML(p) {
   return `
     <div class="build-status ${isLive ? 'build-status--live' : 'build-status--building'}">
       <div class="build-status-header">
-        <h3 class="build-status-headline">${isLive ? 'Canlı — yayında' : 'Geliştiriliyor'}</h3>
+        <h3 class="build-status-headline">Çalışma kaydı</h3>
         ${statusBadgeHTML(p.status, p.status_label)}
       </div>
       <div class="build-status-row">
@@ -363,7 +375,10 @@ function buildStatusHTML(p) {
 function homeBuildNoteHTML(p) {
   const slug = safeProjectSlug(p.slug);
   const status = escapeHTML(p.status_label || 'Geliştiriliyor');
-  const update = escapeHTML(p.latest_update_text || 'Bu çalışma için yeni bir kısa not henüz yayınlanmadı.');
+  // Ham commit/sürüm başlıkları ("Bump build number...") müşteriye gösterilmez; yalnız
+  // "Son N günde ... geliştirme" gibi özet cümleler geçer, diğerleri nötr cümleyle değişir.
+  const raw = String(p.latest_update_text || '');
+  const update = escapeHTML(/^Son \d+ günde /.test(raw) ? raw : 'Bu çalışmada geliştirme sürüyor. Ayrıntılar çalışma sayfasında.');
   const category = escapeHTML(CATEGORY_META[p.category]?.name || 'Çalışma kaydı');
   if (!slug) return '';
   return `
@@ -1117,6 +1132,50 @@ async function renderProjectOffice() {
   });
 }
 
+
+// Ana sayfa: ürün ızgarası ve sayaçlar (kayıtlı veriden; "yayında" iddiası eklenmez, etiketler kayıtlıdır)
+function homeProductCardHTML(p) {
+  const slug = safeProjectSlug(p.slug);
+  if (!slug) return '';
+  const href = escapeHTML(p.href || `projects/${slug}.html`);
+  const st = escapeHTML(p.status || 'wip');
+  const cat = escapeHTML(CATEGORY_META[p.category]?.name || '');
+  return `<li><a class="cz-pcard cz-panel" href="${href}">
+    <div><h3>${escapeHTML(p.display_name)}</h3><p>${escapeHTML(p.tagline || '')}</p>${projectChips(p)}</div>
+    <canvas class="cz-net" data-net="mini" data-seed="${escapeHTML(slug)}" aria-hidden="true" style="position:static"></canvas>
+    <div class="cz-p-s"><span class="cz-status" data-status="${st}">${escapeHTML(p.status_label || 'Geliştiriliyor')}</span><span class="cz-note">${cat}</span></div></a></li>`;
+}
+
+async function renderHomeProducts() {
+  const grid = document.getElementById('home-products');
+  const stats = document.getElementById('home-stats');
+  if (!grid && !stats) return;
+  const remote = await fetchAllProjects();
+  const list = (remote && remote.length ? remote : STATIC_PROJECTS).filter((p) => CATEGORY_ORDER.includes(p.category));   // katalogda listelenmeyen kayıtlar şeritte ve sayaçta da yok
+  if (grid) {
+    const rank = { live: 0, wip: 1, rd: 1, concept: 2 };
+    const sorted = list.slice().sort((x, y) => (rank[x.status] ?? 1) - (rank[y.status] ?? 1));
+    grid.innerHTML = sorted.map(homeProductCardHTML).join('');
+    grid.setAttribute('aria-busy', 'false');
+    if (window.czRefresh) window.czRefresh();
+  }
+  if (stats) {
+    const nums = { total: list.length, live: list.filter((p) => p.status === 'live').length, proto: list.filter((p) => p.status === 'concept').length };
+    if (nums.proto > 0 && !stats.querySelector('[data-stat="proto"]')) {
+      const cell = document.createElement('div');
+      cell.innerHTML = '<dd data-stat="proto">—</dd><dt>prototip</dt>';
+      stats.appendChild(cell);
+      stats.style.gridTemplateColumns = 'repeat(3, minmax(0, 1fr))';
+    }
+    stats.querySelectorAll('[data-stat]').forEach((el) => {
+      el.setAttribute('data-count', String(nums[el.getAttribute('data-stat')] ?? 0));
+      el.textContent = String(nums[el.getAttribute('data-stat')] ?? 0);
+      el.removeAttribute('data-count-bound');
+    });
+    if (window.initCounters) window.initCounters();
+  }
+}
+
 async function renderHomeBuildStatus() {
   const root = document.getElementById('home-build-status');
   if (!root) return;
@@ -1134,6 +1193,15 @@ async function renderHomeBuildStatus() {
     return;
   }
   root.innerHTML = `<div class="home-activity">${active.map(homeBuildNoteHTML).join('')}</div>`;
+  // Hero kartı: yalnız gerçek veriden ("yayında" iddiası yok, yalnız son güncelleme zamanı); veri yoksa kart gizli kalır.
+  const latest = document.getElementById('home-latest');
+  const top = active[0];
+  const slug = top && safeProjectSlug(top.slug);
+  if (latest && slug) {
+    latest.href = `projects/${slug}.html`;
+    latest.innerHTML = `<span class="lx-latest-k">Son güncelleme</span><strong>${escapeHTML(top.display_name || '')}</strong><span class="lx-latest-t">${escapeHTML(relativeTimeTR(top.latest_update_at))}</span>`;
+    latest.hidden = false;
+  }
 }
 
 async function renderProjectDetail() {
@@ -1143,7 +1211,7 @@ async function renderProjectDetail() {
   const slug = location.pathname.split('/').pop().replace('.html', '');
   const [remoteProject, remoteAll] = await Promise.all([fetchProjectBySlug(slug), fetchAllProjects()]);
   const project = remoteProject || STATIC_PROJECTS.find(p => p.slug === slug);
-  const all = remoteAll?.length ? remoteAll : STATIC_PROJECTS;
+  const all = (remoteAll?.length ? remoteAll : STATIC_PROJECTS).filter((p) => CATEGORY_ORDER.includes(p.category));
 
   if (!project) {
     nameEl.textContent = 'Proje bilgisi bulunamadı';
@@ -1166,9 +1234,17 @@ async function renderProjectDetail() {
   body.replaceChildren(...String(project.description || 'Bu proje için henüz ayrıntılı açıklama yayınlanmadı.').split('\n\n').map(para => Object.assign(document.createElement('p'), { className: 'project-para', textContent: para })));
   document.getElementById('meta-status').innerHTML = statusBadgeHTML(project.status, project.status_label);
   document.getElementById('meta-category').textContent = CATEGORY_META[project.category]?.name || '';
-  document.getElementById('meta-folder').textContent = project.folder_number || '';
+  const folderEl = document.getElementById('meta-folder');
+  folderEl.textContent = project.folder_number || '';
+  const hasFolder = Boolean(project.folder_number);
+  folderEl.hidden = !hasFolder;
+  const folderKey = document.getElementById('meta-folder-k');
+  if (folderKey) folderKey.hidden = !hasFolder;
+  const chipsEl = document.getElementById('meta-chips');
+  if (chipsEl) chipsEl.innerHTML = projectChips(project);
+  document.querySelectorAll('[data-spec-name]').forEach((el) => { el.textContent = String(project.display_name || '').toLocaleUpperCase('tr-TR'); });
   const folioEl = document.getElementById('folio-category');
-  if (folioEl) folioEl.textContent = `Dosya · ${CATEGORY_META[project.category]?.name || ''}`;
+  if (folioEl) folioEl.textContent = CATEGORY_META[project.category]?.name || 'Çalışma';
 
   const idx = all.findIndex(p => p.slug === slug);
   if (!all.length || idx < 0) {
@@ -1180,12 +1256,12 @@ async function renderProjectDetail() {
   const next = all[(idx + 1) % all.length];
 
   document.getElementById('nav-prev').innerHTML = `
-    <a href="${safeProjectSlug(prev.slug)}.html" class="proj-nav-a">
+    <a href="${escapeHTML(prev.href || `${safeProjectSlug(prev.slug)}.html`)}" class="proj-nav-a">
       <p class="folio">← Önceki</p>
       <p class="proj-nav-name">${escapeHTML(prev.display_name)}</p>
     </a>`;
   document.getElementById('nav-next').innerHTML = `
-    <a href="${safeProjectSlug(next.slug)}.html" class="proj-nav-a">
+    <a href="${escapeHTML(next.href || `${safeProjectSlug(next.slug)}.html`)}" class="proj-nav-a">
       <p class="folio">Sonraki →</p>
       <p class="proj-nav-name">${escapeHTML(next.display_name)}</p>
     </a>`;
@@ -1261,5 +1337,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProjectOffice();
   renderProjectBuildStatus();
   renderHomeBuildStatus();
+  renderHomeProducts();
   initContactFormSupabase();
 });
