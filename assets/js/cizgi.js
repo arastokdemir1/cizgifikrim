@@ -11,7 +11,7 @@
   var STATIC = reduce || lowPower;
   var fine = !!(W.matchMedia && matchMedia('(pointer: fine)').matches);
   var narrow = function () { return W.innerWidth < 760; };
-  if (STATIC) root.classList.add('cz-simple');
+  if (STATIC) root.classList.add('cz-simple', 'cz-static');
   var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
   function rng(seed) { var s = (seed >>> 0) || 1; return function () { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
   function hash(str) { var h = 2166136261; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
@@ -252,7 +252,14 @@
     nodes.push({ kind: 'pt', x: xs.l, y: sr.t + sr.h - 20 });
     [].slice.call(D.querySelectorAll('[data-cz-side],[data-cz-stop],[data-cz-draw]')).forEach(function (el) {
       var r = absRect(el);
-      if (el.hasAttribute('data-cz-draw')) { var nm = el.getAttribute('data-cz-draw'); if (DRAW[nm]) nodes.push({ kind: 'draw', name: nm, r: r, y: r.t, el: el }); }
+      if (el.hasAttribute('data-cz-draw')) {
+        var nm = el.getAttribute('data-cz-draw'), psc = el.closest('[data-pscene]');
+        if (DRAW[nm] && psc) {   // sabit sahne: tel çizimi telefonun içinde yerel çizilir; sayfa çizgisi başlangıç ve bitiş noktasına bağlanır
+          var stg = psc.querySelector('.cz-pscene-sticky'), rel = el.getBoundingClientRect().top - stg.getBoundingClientRect().top, sT = absRect(psc).t;
+          var r0 = { l: r.l, t: sT + rel, w: r.w, h: r.h }, r1 = { l: r.l, t: sT + psc.offsetHeight - stg.offsetHeight + rel, w: r.w, h: r.h };
+          nodes.push({ kind: 'pdraw', name: nm, r0: r0, r1: r1, y: r0.t, el: el });
+        } else if (DRAW[nm]) nodes.push({ kind: 'draw', name: nm, r: r, y: r.t, el: el });
+      }
       else if (el.hasAttribute('data-cz-stop')) nodes.push({ kind: 'pt', x: xs[el.getAttribute('data-cz-stop')] || xs.l, y: r.t + r.h * .5, dot: true });
       else { var x = xs[el.getAttribute('data-cz-side')] || xs.l; nodes.push({ kind: 'pt', x: x, y: r.t + 20, dot: true }); nodes.push({ kind: 'pt', x: x, y: r.t + r.h - 20 }); }
     });
@@ -279,6 +286,17 @@
     for (var n = 1; n < nodes.length; n++) {
       var nd = nodes[n];
       if (nd.kind === 'pt') { if (nd.y < tp[tp.length - 1][1] - 4) continue; push([nd.x, nd.y], { y: nd.y, pt: [nd.x, nd.y], dot: !!nd.dot }); }
+      else if (nd.kind === 'pdraw') {
+        var pd = DRAW[nd.name], P0 = nd.r0, P1 = nd.r1;
+        var psc0 = Math.min(P0.w / pd.w, P0.h / pd.h), pox = P0.l + (P0.w - pd.w * psc0) / 2, poy = P0.t + (P0.h - pd.h * psc0) / 2;
+        var pentry = [pox + pd.entry[0] * psc0, poy + pd.entry[1] * psc0], pesd = (P0.l + P0.w / 2) <= Wd / 2 + 8 ? 'l' : 'r', ppre = [xs[pesd], pentry[1] - 70];
+        if (ppre[1] > tp[tp.length - 1][1]) push(ppre, { y: ppre[1], pt: ppre }); push(pentry, { y: P0.t - 4, pt: pentry }); flush();
+        bp.push({ y: P0.t + P0.h * .04, D: total });
+        var psc1 = Math.min(P1.w / pd.w, P1.h / pd.h), qox = P1.l + (P1.w - pd.w * psc1) / 2, qoy = P1.t + (P1.h - pd.h * psc1) / 2;
+        var pex = [qox + pd.exit[0] * psc1, qoy + pd.exit[1] * psc1];
+        bp.push({ y: P1.t + P1.h * .9, D: total });
+        tp.push(pex); ta.push({ y: P1.t + P1.h * .96, pt: pex, idx: tp.length - 1 });
+      }
       else {
         var dd = DRAW[nd.name], R = nd.r, sc = Math.min(R.w / dd.w, R.h / dd.h), ox = R.l + (R.w - dd.w * sc) / 2, oy = R.t + (R.h - dd.h * sc) / 2;
         var T = function (p) { return [ox + p[0] * sc, oy + p[1] * sc]; };
@@ -384,6 +402,60 @@
     var dirty = true; W.addEventListener('scroll', function () { dirty = true; }, { passive: true }); W.addEventListener('resize', function () { dirty = true; });
     addTask(function () { if (dirty) { dirty = false; upd(); } }); upd();
   }
+
+  // ───────────── sabit ürün sahnesi (pinned) ─────────────
+  // 0–30 % tel çerçeve çizilir · 30–55 % arayüz belirir ve dolar · 55–70 % sayılar + notlar · 70–100 % bekleme. İlerleme en büyük değerde tutulur (ratchet).
+  function pscene(sc) {
+    var st = sc.querySelector('.cz-pscene-sticky'), box = sc.querySelector('.cz-phonebox'), wrap = sc.querySelector('.cz-phonewrap'), cell = box && box.parentNode;
+    if (!st || !box || !wrap) return;
+    var dd = DRAW[box.getAttribute('data-cz-draw')], notes = [].slice.call(sc.querySelectorAll('.cz-callout[data-note]')).sort(function (a, b) { return a.getAttribute('data-note') - b.getAttribute('data-note'); });
+    var acts = sc.querySelector('.cz-pactions'), lives = [].slice.call(sc.querySelectorAll('[data-live]')), svgw = null, paths = [], total = 0, pen = null, P = 0, ps = 1;
+    function fit() {
+      var w0 = wrap.offsetWidth, h0 = wrap.offsetHeight; if (!w0 || !h0) return;
+      ps = STATIC ? 1 : clamp(Math.min(cell.clientHeight / h0, cell.clientWidth / w0), .3, 1);
+      box.style.width = Math.round(w0 * ps) + 'px'; box.style.height = Math.round(h0 * ps) + 'px'; wrap.style.transform = ps < 1 ? 'scale(' + ps.toFixed(4) + ')' : '';
+    }
+    function build() {
+      if (svgw && svgw.parentNode) svgw.parentNode.removeChild(svgw);
+      svgw = null; paths = []; total = 0; pen = null;
+      if (!dd || STATIC) return;
+      var w0 = wrap.offsetWidth, h0 = wrap.offsetHeight, k = Math.min(w0 / dd.w, h0 / dd.h), ox = (w0 - dd.w * k) / 2, oy = (h0 - dd.h * k) / 2;
+      svgw = D.createElementNS(NS, 'svg'); svgw.setAttribute('class', 'cz-pwire'); svgw.setAttribute('viewBox', '0 0 ' + w0 + ' ' + h0); svgw.setAttribute('aria-hidden', 'true'); svgw.setAttribute('focusable', 'false');
+      dd.strokes().forEach(function (pts) {
+        var d = '', len = 0, prev = null;
+        pts.forEach(function (q, i) { var x = ox + q[0] * k, y = oy + q[1] * k; d += (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1) + ' '; if (prev) len += dist(prev, [x, y]); prev = [x, y]; });
+        var el = D.createElementNS(NS, 'path'); el.setAttribute('d', d); el.style.strokeDasharray = len + ' ' + (len + 2); el.style.strokeDashoffset = len; svgw.appendChild(el);
+        paths.push({ el: el, len: len, start: total }); total += len;
+      });
+      pen = D.createElementNS(NS, 'circle'); pen.setAttribute('class', 'pen'); pen.setAttribute('r', 3); svgw.appendChild(pen);
+      wrap.insertBefore(svgw, wrap.firstChild);
+    }
+    function apply() {
+      var fade = clamp((P - .30) / .10, 0, 1), bars = clamp((P - .32) / .20, 0, 1), num = clamp((P - .38) / .17, 0, 1), wire = clamp(P / .30, 0, 1);
+      sc.style.setProperty('--fade', fade.toFixed(3)); sc.style.setProperty('--bars', bars.toFixed(3)); sc.style.setProperty('--num', num.toFixed(3));
+      var Dd = total * wire, head = null, loc = 0;
+      paths.forEach(function (s) { var dr = clamp(Dd - s.start, 0, s.len); s.el.style.strokeDashoffset = (s.len - dr).toFixed(1); if (dr > 0 && dr < s.len) { head = s; loc = dr; } });
+      if (pen) { if (head && wire < 1) { var pt = head.el.getPointAtLength(loc); pen.setAttribute('cx', pt.x); pen.setAttribute('cy', pt.y); pen.style.opacity = 1; } else pen.style.opacity = 0; }
+      if (num < 1) lives.forEach(function (el) { el.textContent = String(Math.round(parseInt(el.getAttribute('data-live'), 10) * num)); });
+      var cur = -1; notes.forEach(function (n, i) { var on = P >= .55 + .15 * (i + 1) / (notes.length + 1); n.classList.toggle('on', on); if (on) cur = i; });
+      notes.forEach(function (n, i) { n.classList.toggle('cur', i === cur); });
+      if (acts) acts.classList.toggle('on', P >= .68);
+      if (num >= 1) box.classList.add('is-done');
+      sc.setAttribute('data-p', P.toFixed(3)); W.__cz = W.__cz || {}; W.__cz.pscene = P;
+    }
+    function upd() {
+      var r = sc.getBoundingClientRect(), vh = st.clientHeight || W.innerHeight, p = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
+      if (p > P + .0005) { P = p; apply(); }
+    }
+    fit(); build();
+    if (STATIC) { P = 1; apply(); box.classList.add('is-done'); return; }
+    apply(); upd();
+    sc.addEventListener('focusin', function () { if (P < 1) { P = 1; apply(); } });   // klavye odağı gizli bir nota/bağlantıya giderse sahne tamamlanır
+    var dirty = true; W.addEventListener('scroll', function () { dirty = true; }, { passive: true });
+    W.addEventListener('resize', function () { fit(); build(); apply(); dirty = true; });
+    addTask(function () { if (dirty) { dirty = false; upd(); } });
+  }
+  function pscenes() { [].slice.call(D.querySelectorAll('[data-pscene]')).forEach(pscene); }
   function strip() {
     var st = D.querySelector('.cz-strip'); if (!st) return;
     var bar = D.querySelector('.cz-prog i'), btns = [].slice.call(D.querySelectorAll('.cz-strip-ctl button'));
@@ -447,7 +519,7 @@
     ts.forEach(function (t) { io.observe(t); });
   }
   function init() {
-    split(); tiles(); initNets(); W.initCounters(); scene(); strip(); pointerFx(); liveNumbers(); typing(); sticky();
+    split(); tiles(); initNets(); W.initCounters(); scene(); pscenes(); strip(); pointerFx(); liveNumbers(); typing(); sticky();
     if (!D.querySelector('[data-cz-draw]')) root.classList.add('no-line-draw');
     if (D.querySelector('[data-cz-start]')) {
       buildLine();

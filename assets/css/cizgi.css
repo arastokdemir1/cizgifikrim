@@ -44,6 +44,7 @@
 }
 html { background: var(--k-bg); color-scheme: var(--k-scheme); }
 html, body { overflow-x: clip; }
+@supports not (overflow: clip) { body { overflow-x: visible; } }   /* eski Safari: html+body ikisi overflow-x:hidden olursa sticky bozulur; yalnız html kırpar */
 body { position: relative; background: var(--k-bg); color: var(--k-text); font-family: var(--k-sans); font-size: 1.0625rem; line-height: 1.65; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 ::selection { background: var(--k-acc); color: var(--k-acc-ink); }
 :focus-visible { outline: 2px solid var(--k-acc); outline-offset: 3px; border-radius: 6px; }
@@ -294,6 +295,63 @@ h1.reveal { opacity: 1; transform: none; transition: none; }
 @keyframes cz-spin { to { transform: rotate(360deg); } }
 .cz-radar b { position: absolute; width: .4rem; height: .4rem; border-radius: 50%; background: var(--k-acc); animation: cz-blink 3.6s ease-in-out infinite; }
 
+
+/* ───────── SABİT ÜRÜN SAHNESİ (pinned): telefon ekranda durur, kaydırma yalnız telefonun içini ilerletir ─────────
+   0–30 % tel çerçeve çizilir · 30–55 % arayüz belirir ve dolar · 55–70 % sayılar + özellik notları · 70–100 % bekleme (hold), sonra sahne çözülür.
+   Safari: sticky'nin ata zincirinde overflow/transform/will-change yok (main, body: overflow-x: clip); -webkit-sticky eklendi. */
+.cz-pscene { position: relative; height: 460vh; }
+@supports (height: 1svh) { .cz-pscene { height: 460svh; } }
+.cz-pscene-sticky { position: -webkit-sticky; position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; gap: .6rem; padding: 5.25rem 0 max(1.2rem, env(safe-area-inset-bottom)); overflow: hidden; }
+.cz-pscene-head { flex: none; display: grid; justify-items: center; text-align: center; gap: .55rem; padding-inline: 1.25rem; }
+.cz-pscene-head .cz-h2 { font-size: clamp(1.7rem, 3.1vw, 2.6rem); }
+.cz-pscene-head .cz-lead { margin-inline: auto; max-width: 42rem; font-size: 1.02rem; line-height: 1.5; }
+.cz-pscene .cz-product { flex: 1 1 0; min-height: 0; width: var(--k-wrap); margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1fr) 18rem minmax(0, 1fr); gap: 2.5rem; align-items: stretch; justify-items: stretch; }
+.cz-pscene--solo .cz-product { grid-template-columns: 18rem; justify-content: center; }
+.cz-pscene--solo .cz-callouts { display: none; }
+.cz-pscene .cz-callouts { align-self: stretch; align-content: space-between; width: auto; max-width: 25rem; gap: 1rem; }
+.cz-pscene .cz-callouts:first-child { justify-self: end; }
+.cz-callgrp { display: grid; gap: 1rem; }
+.cz-pcell { position: relative; min-height: 0; }
+.cz-phonebox { position: absolute; inset: 0; margin: auto; width: 18rem; height: 38rem; }
+.cz-pscene .cz-phonewrap { position: absolute; left: 0; top: 0; width: 18rem; height: 38rem; max-width: none; aspect-ratio: auto; margin: 0; transform-origin: 0 0; }
+.cz-pscene .cz-callout { opacity: 0; transform: translateY(12px); transition: opacity .6s var(--k-ease), transform .6s var(--k-ease); }
+.cz-pscene .cz-callout.on { opacity: 1; transform: none; }
+.cz-pscene .cz-pactions { margin-top: .4rem; opacity: 0; pointer-events: none; transition: opacity .6s var(--k-ease); }
+.cz-pscene .cz-pactions.on { opacity: 1; pointer-events: auto; }
+/* telefonun içi: ilerleme kaydırmadan gelir (--fade, --bars, --num; JS yazar) */
+.cz-pscene .cz-phone, .cz-pscene .cz-radar { opacity: var(--fade, 0); transform: none; transition: none; }
+.cz-pscene .cz-ui-prog i { width: calc(6% + 56% * var(--num, 0)); animation: none; }
+.cz-pscene .cz-ui-bars i { animation: none; transform: scaleY(clamp(.04, calc(var(--bars, 0) * 1.9 - var(--i) * .06), 1)); }
+.cz-pwire { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; opacity: calc(1 - .88 * var(--fade, 0)); }
+.cz-pwire path { fill: none; stroke: var(--k-acc); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.cz-pwire .pen { fill: var(--k-text); }
+@media (max-width: 899px) {
+  .cz-pscene { height: 440vh; }
+  @supports (height: 1svh) { .cz-pscene { height: 440svh; } }
+  .cz-pscene-sticky { gap: .4rem; padding-top: 4.9rem; padding-bottom: max(.8rem, env(safe-area-inset-bottom)); }
+  .has-sticky .cz-pscene-sticky { padding-bottom: calc(4.9rem + env(safe-area-inset-bottom)); }   /* alttaki sabit CTA çubuğunun altında kalmasın */
+  .cz-pscene-head { gap: .35rem; }
+  .cz-pscene-head .cz-lead { display: none; }
+  .cz-pscene-head .cz-h2 { font-size: 1.55rem; }
+  .cz-pscene .cz-product { width: min(100% - 2rem, 30rem); grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 5.2rem auto; gap: .5rem; }
+  .cz-pscene--solo .cz-product { grid-template-rows: minmax(0, 1fr); }
+  .cz-pscene .cz-callouts, .cz-pscene .cz-callgrp { display: contents; }
+  .cz-pscene .cz-pcell { grid-column: 1; grid-row: 1; }
+  .cz-pscene .cz-callout { grid-column: 1; grid-row: 2; align-self: start; width: 100%; max-width: none; opacity: 0; transform: none; }
+  .cz-pscene .cz-callout { visibility: hidden; transition: opacity .5s var(--k-ease), visibility 0s .5s; }
+  .cz-pscene .cz-callout.on { opacity: 0; }
+  .cz-pscene .cz-callout.cur { opacity: 1; visibility: visible; transition-delay: 0s; }
+  .cz-pscene .cz-pactions { grid-column: 1; grid-row: 3; justify-content: center; margin-top: 0; gap: .4rem .9rem; }
+}
+/* statik mod (azaltılmış hareket, tasarruf): sabitleme yok, arayüz tam */
+@media (prefers-reduced-motion: reduce) { .cz-pscene { height: auto; } }
+.cz-static .cz-pscene { height: auto; }
+.cz-static .cz-pscene-sticky { position: relative; height: auto; padding-block: 5.5rem 3rem; overflow: visible; }
+.cz-static .cz-pcell { min-height: 38rem; }
+.cz-static .cz-pscene .cz-product { flex: none; }
+.cz-static .cz-pscene .cz-callout, .cz-static .cz-pscene .cz-callout.on, .cz-static .cz-pscene .cz-callout.cur, .cz-static .cz-pscene .cz-pactions { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
+@media (max-width: 899px) { .cz-static .cz-pscene .cz-product { grid-template-rows: auto auto; } .cz-static .cz-pscene .cz-callout { grid-row: auto; margin-bottom: .6rem; } .cz-static .cz-pscene .cz-pactions { grid-row: auto; } }
+
 /* ürün şeridi (yatay) */
 .cz-strip-head { display: flex; justify-content: space-between; align-items: end; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
 .cz-strip-ctl { display: flex; gap: .6rem; }
@@ -356,11 +414,12 @@ h1.reveal { opacity: 1; transform: none; transition: none; }
 .cz-pagehead h1 em, .cz-h2 em, .cz-giant em { font-style: normal; color: var(--k-acc); }
 .cz-crumb { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; color: var(--k-muted); text-decoration: none; font-size: .95rem; }
 .cz-crumb:hover { color: var(--k-acc); }
-.cz-index { list-style: none; display: grid; gap: .8rem; margin-top: 1rem; width: 100%; max-width: 60rem; }
-.cz-index a { display: grid; gap: .3rem; padding: 1.1rem 1.2rem; min-height: 44px; text-align: left; text-decoration: none; color: var(--k-text); }
+.cz-index { list-style: none; display: grid; grid-auto-rows: 1fr; align-items: stretch; gap: .8rem; margin-top: 1rem; width: 100%; max-width: 60rem; }
+.cz-index li { display: flex; }
+.cz-index a { flex: 1; display: grid; grid-template-rows: auto 1fr auto; align-content: stretch; gap: .3rem; padding: 1.1rem 1.2rem; min-height: 44px; text-align: left; text-decoration: none; color: var(--k-text); }
 .cz-index strong { font-family: var(--k-head); font-weight: 600; font-size: 1.15rem; letter-spacing: -.02em; line-height: 1.25; }
 .cz-index .s { color: var(--k-muted); font-size: .92rem; }
-.cz-index .cz-arr { color: var(--k-acc); }
+.cz-index .cz-arr { color: var(--k-acc); align-self: end; justify-self: start; }
 @media (min-width: 800px) { .cz-index { grid-template-columns: repeat(3, 1fr); } }
 .cz-svc { display: grid; gap: 1.2rem; padding: clamp(1.6rem, 4vw, 3rem); margin-bottom: 1.2rem; scroll-margin-top: 5rem; }
 .cz-svc h2 { font-size: clamp(2rem, 4.4vw, 3.4rem); letter-spacing: -.032em; max-width: 16ch; margin-top: 1rem; }
