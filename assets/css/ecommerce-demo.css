@@ -1,3 +1,7 @@
+@font-face{font-family:"Hanken Grotesk";font-weight:100 900;font-display:swap;src:url("../fonts/hanken-grotesk-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Hanken Grotesk";font-weight:100 900;font-display:swap;src:url("../fonts/hanken-grotesk-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Instrument Sans";font-weight:400 700;font-display:swap;src:url("../fonts/instrument-sans-latin-wght-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Instrument Sans";font-weight:400 700;font-display:swap;src:url("../fonts/instrument-sans-latin-ext-wght-normal.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 body.ecommerce-prototype-page{margin:0;background:#f4f3ee;color:#1d2825;font-family:var(--sans,Arial,sans-serif)}
 .ecommerce-demo-header{background:#fff;border-bottom:1px solid #1d28251c}
 .ecommerce-demo-header-inner{width:min(1240px,92vw);min-height:72px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
@@ -26,3 +30,25 @@ body.ecommerce-prototype-page[data-demo-mode="sales"] .demo-roi-card,body.ecomme
 .ecommerce-demo-footer{padding:1.2rem 4vw;background:#202722;color:#d9ddd8;display:flex;justify-content:space-between;gap:1rem;font-size:.62rem}
 .ecommerce-demo-footer a{color:#d8c5a4}
 @media(max-width:680px){.ecommerce-demo-header-inner{min-height:64px}.ecommerce-demo-brand span{display:none}.ecommerce-demo-header nav{gap:0}.ecommerce-demo-header nav a{padding:.55rem .45rem;font-size:.59rem}.ecommerce-demo-main{padding-top:1.3rem}.demo-breadcrumb{margin-bottom:1.8rem}.ecommerce-demo-intro{text-align:left}.ecommerce-demo-intro h1{font-size:clamp(2.5rem,12vw,4rem)}.ecommerce-demo-intro>p:not(.ecommerce-demo-kicker){font-size:.78rem}.prototype-disclosure{font-size:.65rem}.demo-scenario-nav{justify-content:flex-start;gap:.4rem}.demo-scenario-nav a{padding:.62rem .72rem;font-size:.59rem}.ecommerce-demo-footer{flex-direction:column}}
+
+/* Çizgi dili: sıcak kum zemin, grafit mürekkep, bakır vurgu */
+body.ecommerce-prototype-page{background:#F5F0E7;color:#1D1B18;font-family:"Instrument Sans",var(--sans,Arial,sans-serif)}
+.ecommerce-demo-header{background:rgba(245,240,231,.92);border-bottom:1px solid rgba(29,27,24,.12)}
+.ecommerce-demo-brand,.ecommerce-demo-intro h1{font-family:"Hanken Grotesk",var(--display,Arial,sans-serif)}
+.ecommerce-demo-brand{font-size:1.15rem;font-weight:600;letter-spacing:-.03em;color:#1D1B18}
+.ecommerce-demo-brand span{color:#605B51;font:500 .72rem "Instrument Sans",sans-serif;letter-spacing:.04em}
+.ecommerce-demo-header nav a{font-size:.9rem;color:#58534A;min-height:44px;display:inline-flex;align-items:center}
+.ecommerce-demo-header nav a:hover,.ecommerce-demo-header nav a[aria-current=page]{background:rgba(29,27,24,.07);color:#1D1B18}
+.ecommerce-demo-header nav a.ecommerce-demo-cta{background:#1D1B18;color:#FBF8F2;border-radius:9px;padding:.65rem 1.1rem;font-weight:600}
+.ecommerce-demo-header nav a.ecommerce-demo-cta:hover{background:#000;color:#fff}
+.ecommerce-demo-intro h1{font-weight:600;letter-spacing:-.04em}
+.ecommerce-demo-intro>p:not(.ecommerce-demo-kicker){font-size:1rem;color:#58534A}
+.ecommerce-demo-kicker{color:#8E520D;font-size:.78rem}
+.prototype-disclosure{background:#FBF8F2;border-color:rgba(29,27,24,.16);color:#38342D;font-size:.9rem;border-radius:10px}
+.prototype-disclosure strong{color:#1D1B18}
+.demo-breadcrumb{font-size:.85rem;color:#605B51}
+.demo-scenario-nav a{font-size:.88rem;min-height:44px;display:inline-flex;align-items:center;color:#38342D;border-color:rgba(29,27,24,.22)}
+.demo-scenario-nav a[aria-current=page]{background:#1D1B18;border-color:#1D1B18;color:#FBF8F2}
+.ecommerce-demo-footer{background:#141518;color:#D7D4CF;font-size:.85rem}
+.ecommerce-demo-footer a{color:#E3A24F}
+@media(max-width:680px){.ecommerce-demo-header nav a{font-size:.8rem;padding:.55rem .5rem}.ecommerce-demo-header nav a.ecommerce-demo-cta{padding:.55rem .8rem}}
