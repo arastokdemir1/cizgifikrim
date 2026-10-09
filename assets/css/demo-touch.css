@@ -1,0 +1,35 @@
+/* Demo sayfaları: dokunma hedefleri ≥ 44 px. Görünüm bozulmasın diye satır içi bağlantılarda dolgu + eşit negatif kenar boşluğu kullanılır
+   (görünür boyut ve akış aynı, dokunma alanı büyür); kutu olan denetimlerde min-height. */
+.sr-only-h1 { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(0 0 0 0) !important; white-space: nowrap !important; clip-path: inset(50%) !important; margin: 0 !important; padding: 0 !important; border: 0 !important; }
+
+/* satır içi bağlantılar (menü, alt bilgi, metin bağlantıları) */
+nav a:not([class]), footer a:not([class]), footer a.brand, .sample-footer a, a.head-link, a.qr-text-link, a.visit-link, a.stay-link, a.local-quote-link, a.text-link, a.clinic-text-link,
+.album-nav a, .demo-breadcrumb a, small a, article > a:not([class]) { display: inline-block; padding-block: 20px; margin-block: -20px; }
+nav a:not([class]), .demo-breadcrumb a { position: relative; }
+
+/* kutu denetimler */
+a[class*="cta"], a[class*="contact"], a[class*="button"], a.primary-link, a.consult-hero-link, a.stay-button, .inquiry-card > a, .cover-overlay a, a.nav-cta, a.photo-nav-cta { min-height: 44px; box-sizing: border-box; }
+a[class*="logo"], a[class*="brand"] { min-height: 44px; box-sizing: border-box; display: inline-flex; flex-direction: column; justify-content: center; }
+.ecommerce-demo-brand { flex-direction: row; align-items: center; }
+details > summary { min-height: 44px; box-sizing: border-box; }
+button.model-reset { min-height: 44px; }
+
+/* e-ticaret demoları ve widget */
+.demo-view-tab, .demo-preset-btn, .roi-pill-btn, .demo-mobile-nav-btn, .demo-replay-btn, .wa-action-btn { min-height: 44px; }
+.demo-field input, .wa-footer-input { min-height: 44px; box-sizing: border-box; }
+.wa-control-btn { min-width: 44px; min-height: 44px; margin: -8px -8px -8px 0; }
+.wa-footer-btn { min-width: 44px; min-height: 44px; }
+.roi-range-input { height: 44px; background: linear-gradient(#1e293b, #1e293b) center / 100% 7px no-repeat; border-radius: 0; }
+
+/* CarLog demosu */
+.pill { min-height: 44px; }
+.arrow-btn { width: 44px; height: 44px; }
+.date-row .mid { min-height: 44px; }
+.trip-card button.stack { min-height: 44px; justify-content: center; }
+a.local-quote-link, .resume-contact a { min-height: 44px; box-sizing: border-box; }
+
+/* tr/eticaret-paketi.html: paragraf içi bağlantılar */
+.touch-inline main p a:not([class]), .touch-inline main li a:not([class]) { display: inline-block; padding-block: 20px; margin-block: -20px; }
+
+/* Safari (WebKit) yerel select'te min-height'i yok sayar: görünümü sıfırlayıp ok simgesini kendimiz çiziyoruz */
+.stay-page .stay-form-row select { -webkit-appearance: none; appearance: none; height: 46px; padding-right: 2.2rem; background-color: #fffdf7; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2330372e' stroke-width='1.6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .85rem center; }
