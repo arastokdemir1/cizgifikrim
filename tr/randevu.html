@@ -58,7 +58,33 @@
         <p class="randevu-phone-note" id="phone-call-details" hidden>Telefon görüşmesinde, takvim formunda katılımcı telefonunu ve arama yönü tercihini belirt. Arama ayrıntıları onay e-postasında netleşir.</p>
       </div>
     </section>
-    <section class="cz-sec randevu-band" data-cz-side="r">
+    <section class="cz-sec cz-sec--tight cz-leadsec" id="projeyi-anlat" aria-labelledby="lead-title" data-lead-section hidden>
+      <div class="cz-wrap cz-leadwrap">
+        <div class="cz-head"><p class="cz-k">Projeyi anlat</p><h2 id="lead-title" class="cz-h2">Önce kısaca yazın.</h2><p class="cz-lead">Fikrinizi birkaç cümleyle anlatın.</p><a class="cz-ablock" href="#takvim">Hemen bir saat seçmek isterseniz takvime geçin <span aria-hidden="true">↓</span></a></div>
+        <div class="cz-lead" data-lead data-lead-cal="#takvim">
+          <div class="cz-lead-fallback" data-lead-fallback>
+            <p>Projenizi kısaca e-postayla anlatabilir ya da doğrudan bir görüşme saati seçebilirsiniz.</p>
+            <div class="cz-actions"><a class="cz-btn" href="mailto:cizgifikrimnet@gmail.com">E-posta ile yazın <span aria-hidden="true">→</span></a><a class="cz-link" href="#takvim">Takvimden görüşme seçin <span class="cz-arr" aria-hidden="true">→</span></a></div>
+          </div>
+          <form class="cz-form cz-leadform" id="lead-form" data-lead-form aria-labelledby="lead-title" novalidate hidden>
+            <div class="cz-lead-summary" data-lead-summary role="alert" tabindex="-1" hidden></div>
+            <p class="cz-note">Telefon dışındaki alanlar zorunludur.</p>
+            <div class="input-2col">
+              <div class="form-field"><label class="cz-flabel" for="lead-name">Ad soyad</label><input class="form-input" id="lead-name" name="name" type="text" autocomplete="name" maxlength="120" required><p class="cz-ferr" id="lead-err-name" data-err="name" hidden></p></div>
+              <div class="form-field"><label class="cz-flabel" for="lead-email">E-posta</label><input class="form-input" id="lead-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required><p class="cz-ferr" id="lead-err-email" data-err="email" hidden></p></div>
+            </div>
+            <div class="form-field"><label class="cz-flabel" for="lead-phone">Telefon <span class="cz-opt">(isteğe bağlı)</span></label><input class="form-input" id="lead-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30"><p class="cz-ferr" id="lead-err-phone" data-err="phone" hidden></p></div>
+            <div class="form-field"><label class="cz-flabel" for="lead-message">Kısa mesaj</label><textarea class="form-input form-textarea" id="lead-message" name="message" rows="5" maxlength="2000" placeholder="Ne yapmak istiyorsunuz? Birkaç cümle yeterli." required></textarea><p class="cz-ferr" id="lead-err-message" data-err="message" hidden></p></div>
+            <div class="cz-hp" aria-hidden="true"><label>Web sitesi (boş bırakın)<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+            <div class="form-field"><div class="cz-consent"><input type="checkbox" id="lead-consent" name="consent" required><label for="lead-consent">Adımın, e-posta adresimin, mesajımın ve (verdiysem) telefon numaramın, talebime yanıt verilmesi amacıyla işlenmesini kabul ediyorum.</label><a class="cz-ablock" href="gizlilik.html#iletisim-formu" target="_blank" rel="noopener">Aydınlatma metnini oku <span class="cz-opt">(yeni sekmede açılır)</span></a></div><p class="cz-ferr" id="lead-err-consent" data-err="consent" hidden></p></div>
+            <div class="form-actions"><button class="cz-btn" type="submit" data-lead-submit>Gönder <span aria-hidden="true">→</span></button><span class="form-sent" data-lead-status role="status" aria-live="polite"></span></div>
+            <p class="cz-lead-alt"><a class="cz-ablock" href="#takvim">Doğrudan bir saat seçmek isterseniz takvimi açın <span aria-hidden="true">→</span></a></p>
+          </form>
+          <div class="cz-lead-done" data-lead-done role="status" tabindex="-1" hidden><h3>Teşekkürler.</h3><p>Mesajınız alındı.</p><a class="cz-ablock" href="#takvim">İsterseniz takvimden bir görüşme saati de seçin <span aria-hidden="true">→</span></a></div>
+        </div>
+      </div>
+    </section>
+    <section class="cz-sec randevu-band" id="takvim" data-cz-side="r">
       <div class="cz-wrap">
       <div class="randevu-embed">
         <div id="cal-video-30" role="tabpanel" aria-labelledby="channel-video-label tab-30" tabindex="0">
@@ -305,7 +331,10 @@
   });
   showSelection("video", 30);
 </script>
+  <script src="../assets/js/lead-config.js?v=1"></script>
+  <script src="../assets/js/lead-client.js?v=1"></script>
+  <script src="../assets/js/lead-form.js?v=1" defer></script>
   <script src="../assets/js/analytics.js?v=3"></script>
-  <script src="../assets/js/cizgi.js?v=17" defer></script>
+  <script src="../assets/js/cizgi.js?v=18" defer></script>
 </body>
 </html>
