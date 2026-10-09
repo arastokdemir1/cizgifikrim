@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Demo sayfaları duman testi (Playwright, Python). Yerel sunucu açar, tüm demo sayfalarını 1280 ve 390 px'te gezer.
+"""Demo sayfaları duman testi (Playwright, Python). Yerel sunucu açar, tüm demo sayfalarını 1280 ve 390 px'te gezer. Ayrıca h1 sayısı (=1) ve dokunma hedefi (≥44 px) denetlenir.
 
 Her sayfa için:  konsol/sayfa hatası · ağ hatası (4xx/5xx) · yatay taşma · kırık görsel · kırık #bağlantı · ölü iç bağlantı (HTTP durumu)
                  · görünür her etkileşimli öğe GERÇEK fare/klavye eylemiyle denenir (tıklanamayan = başka öğe üstünde / görünmez; yanıtsız = DOM değişmedi)
@@ -44,6 +44,17 @@ STATE_JS = r"""(function(){var d=document.documentElement;var wide=[];
   hash:[].filter.call(document.querySelectorAll('a[href^="#"]'),function(a){var h=a.getAttribute('href');return h.length>1&&!document.getElementById(h.slice(1))}).map(function(a){return a.getAttribute('href')})}})()"""
 MUT_START = r"""(function(){window.__mc=0;if(window.__mo)window.__mo.disconnect();window.__mo=new MutationObserver(function(m){window.__mc+=m.length});window.__mo.observe(document.documentElement,{subtree:true,childList:true,attributes:true,characterData:true});window.__u=location.href;window.__sy=scrollY;window.__ae=document.activeElement;})()"""
 MUT_END = r"""(function(){return {m:window.__mc,nav:location.href!==window.__u,sc:Math.abs(scrollY-window.__sy)>2,fo:document.activeElement!==window.__ae}})()"""
+
+A11Y_JS = """(function(){
+ var h1=[].filter.call(document.querySelectorAll('h1'),function(h){var r=h.getBoundingClientRect();return (r.width>0&&r.height>0)||h.classList.contains('sr-only-h1')||h.classList.contains('visually-hidden')}).length;
+ var small=[];
+ document.querySelectorAll('a[href],button,input:not([type=hidden]):not([type=checkbox]):not([type=radio]),select,textarea,summary,[role=tab]').forEach(function(e){
+  var cs=getComputedStyle(e),r=e.getBoundingClientRect();
+  if(cs.display==='none'||cs.visibility==='hidden'||r.width<1||r.height<1)return;
+  if(e.closest('[hidden],[aria-hidden=true],[inert],.cz-hp,.skip-link'))return;
+  if(r.left>innerWidth+5||r.right<-5)return;
+  if(r.height<43.5||r.width<43.5){if(e.tagName==='A'&&r.height>=43.5)return;small.push(e.tagName.toLowerCase()+'.'+String(e.className).trim().replace(/\\s+/g,'.').slice(0,26)+' '+Math.round(r.width)+'x'+Math.round(r.height)+' «'+(e.innerText||e.value||e.getAttribute('aria-label')||'').trim().replace(/\\s+/g,' ').slice(0,18)+'»')}});
+ return {h1:h1,small:small}})()"""
 
 findings = []
 def bad(page, w, msg):
@@ -175,6 +186,9 @@ def main():
                         if st["ov"]: bad(path, w, f"yatay taşma: kaydırma genişliği {st['sw']} > {w}; taşan: {st['wide']}")
                         for b in st["broken"]: bad(path, w, f"kırık görsel: {b}")
                         for hsh in st["hash"]: bad(path, w, f"kırık # bağlantı: {hsh}")
+                        ay = pg.evaluate(A11Y_JS)
+                        if path != "/tr/demo.html" and ay["h1"] != 1: bad(path, w, f"h1 sayısı {ay['h1']} (1 olmalı)")
+                        for sm in ay["small"][:8]: bad(path, w, f"küçük dokunma hedefi (<44 px): {sm}")
                         n = sweep(pg, path, w)
                         flow_checks(pg, path, w)
                         for e in errs[:6]: bad(path, w, e)
@@ -182,6 +196,14 @@ def main():
                     except Exception as e:
                         bad(path, w, "test çalışmadı: " + str(e).split("\n")[0][:120])
                     ctx.close()
+            for (w, h) in SIZES:   # parça sayfa tek başına açıldığında da h1 + dokunma hedefi
+                ctx = br.new_context(viewport={"width": w, "height": h}); pg = ctx.new_page()
+                pg.goto(BASE + "/demo/e-ticaret/shared/widget.html", wait_until="load"); pg.wait_for_timeout(1200)
+                print(f"/demo/e-ticaret/shared/widget.html @{w}", flush=True)
+                ay = pg.evaluate(A11Y_JS)
+                if ay["h1"] != 1: bad("/demo/e-ticaret/shared/widget.html", w, f"h1 sayısı {ay['h1']} (1 olmalı)")
+                for sm in ay["small"][:8]: bad("/demo/e-ticaret/shared/widget.html", w, f"küçük dokunma hedefi (<44 px): {sm}")
+                ctx.close()
             br.close()
     finally:
         srv.terminate()
