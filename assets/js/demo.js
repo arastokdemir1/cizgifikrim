@@ -950,6 +950,59 @@
   window.switchMobileView = switchMobileView;
 
   // --- Olay Dinleyicileri (Event Listeners) ---
+  // --- Serbest sohbet: yazılan mesaja ÖRNEK yanıt (gerçek asistan, katalog, stok ya da sipariş bağlantısı yoktur) ---
+  function appendFreeBubble(kind, html) {
+    if (!elements.waChatBody) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'wa-bubble-wrap ' + (kind === 'out' ? 'wa-outgoing' : 'wa-incoming');
+    wrap.innerHTML = '<div class="wa-bubble"><div>' + html + '</div><div class="wa-bubble-meta"><span>' + getTimeString() + '</span>' + (kind === 'out' ? '<span class="wa-ticks-blue">✓✓</span>' : '') + '</div></div>';
+    elements.waChatBody.appendChild(wrap);
+    elements.waChatBody.scrollTop = elements.waChatBody.scrollHeight;
+  }
+
+  function sampleReply(text) {
+    const t = text.toLocaleLowerCase('tr');
+    const product = escapeHTML(getSafeProductName());
+    const note = ' Bu bir <strong>örnek yanıttır</strong>; gerçek stok, fiyat, kargo ya da sipariş bilgisi doğrulanmaz.';
+    if (/beden|ölçü|boy|kalıp|numara/.test(t)) return 'Örnek yanıt: <strong>' + product + '</strong> için beden/ölçü sorusu, gerçek bir kurulumda mağazanın ürün bilgisiyle yanıtlanırdı.' + note;
+    if (/kargo|teslim|ne zaman|kaç gün|gönder/.test(t)) return 'Örnek yanıt: teslimat sorusu, gerçek bir kurulumda mağazanın kargo koşullarına göre yanıtlanırdı.' + note;
+    if (/iade|değişim|iptal|garanti/.test(t)) return 'Örnek yanıt: iade/değişim sorusu, gerçek bir kurulumda mağazanın yazılı koşullarıyla yanıtlanırdı.' + note;
+    if (/fiyat|indirim|kod|kupon|ücret|kaç tl|₺/.test(t)) return 'Örnek yanıt: <strong>' + product + '</strong> için ' + escapeHTML(getSafeAmount()) + ' temsili bir tutardır; <strong>' + escapeHTML(getSafeDiscountCode()) + '</strong> kodu da temsilidir, gerçek indirim uygulanmaz.' + note;
+    if (/stok|var mı|mevcut|kaldı/.test(t)) return 'Örnek yanıt: stok sorusu, gerçek bir kurulumda mağaza stok sisteminden okunurdu; bu prototip stok bilgisine bağlı değildir.' + note;
+    return 'Örnek yanıt: mesajınızı aldım. Gerçek bir kurulumda burada mağazanın onaylı bilgileriyle yazılmış bir yanıt görünürdü.' + note;
+  }
+
+  function bindFreeChat() {
+    const form = document.getElementById('wa-user-form');
+    const input = document.getElementById('wa-user-input');
+    if (!form || !input || form.dataset.bound) return;
+    form.dataset.bound = '1';
+    const send = document.getElementById('wa-send-btn');
+    let waiting = false;
+    const sync = () => { if (send) send.setAttribute('aria-disabled', input.value.trim() ? 'false' : 'true'); };
+    input.addEventListener('input', sync); sync();
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const text = input.value.trim();
+      if (!text || waiting) return;
+      waiting = true;
+      input.value = ''; sync();
+      appendFreeBubble('out', escapeHTML(text));
+      playBeep('pop');
+      showTypingIndicator();
+      setTimeout(function () {
+        removeTypingIndicator();
+        appendFreeBubble('in', sampleReply(text));
+        playBeep('success');
+        waiting = false;
+      }, 700);
+    });
+    const emoji = document.getElementById('wa-emoji-btn');
+    if (emoji) emoji.addEventListener('click', function () { input.value += '🙂'; input.focus(); sync(); });
+    const attach = document.getElementById('wa-attach-btn');
+    if (attach) attach.addEventListener('click', function () { showToast('Prototipte dosya gönderilmez; bu yalnızca örnek bir ekrandır.'); });
+  }
+
   function initEvents() {
     // 1. Mod Seçici Sekmeler
     if (!elements.modeTabs || elements.modeTabs.length === 0) {
@@ -1095,6 +1148,7 @@
   // --- Başlatıcı (Init) ---
   function init() {
     updateClock();
+    bindFreeChat();
     setInterval(updateClock, 30000);
 
     // Başlangıç form alanlarını senaryoyu çalıştırmadan doldur

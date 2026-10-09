@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yönlendiriliyorsunuz — CizgiFikrim</title>
-  <meta http-equiv="refresh" content="0; url=hizmetler.html#whatsapp-demo">
-  <link rel="canonical" href="https://cizgifikrim.net/tr/hizmetler.html#whatsapp-demo">
+  <meta http-equiv="refresh" content="0; url=../demo/e-ticaret/terk-edilmis-sepet/">
+  <link rel="canonical" href="https://cizgifikrim.net/demo/e-ticaret/terk-edilmis-sepet/">
   <link rel="stylesheet" href="../assets/css/main.css?v=66">
   <link rel="icon" href="/assets/favicon.svg?v=4" type="image/svg+xml">
   <script>
     (function() {
-      var search = window.location.search || '';
-      var target = 'hizmetler.html' + search + '#whatsapp-demo';
-      window.location.replace(target);
+      var q = new URLSearchParams(window.location.search), m = (q.get('mode') || '').toLowerCase();
+      var dir = ['sales', 'growth', '2', 'mode_2'].indexOf(m) >= 0 ? 'satis-asistani' : (['vip', 'scale', '3', 'mode_3'].indexOf(m) >= 0 ? 'musteri-sadakati' : 'terk-edilmis-sepet');
+      window.location.replace('/demo/e-ticaret/' + dir + '/');
     })();
   </script>
   <style>

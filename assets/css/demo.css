@@ -1261,14 +1261,17 @@
 
 .wa-footer-input {
   flex: 1;
+  min-width: 0;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 1.25rem;
-  padding: 0.4rem 0.85rem;
-  font-size: 0.78rem;
-  color: #54656f;
-  user-select: none;
+  padding: 0.5rem 0.85rem;
+  font: inherit;
+  font-size: 16px;   /* iOS Safari odaklanınca yakınlaşmasın */
+  color: #1d2825;
 }
+.wa-footer-input::placeholder { color: #54656f; opacity: 1; }
+.wa-footer-input:focus-visible { outline: 2px solid #00a884; outline-offset: 1px; }
 
 .wa-footer-icon {
   color: #54656f;
@@ -1277,6 +1280,11 @@
   justify-content: center;
   cursor: default;
 }
+.wa-footer-btn { background: none; border: 0; padding: 0; min-width: 36px; min-height: 36px; cursor: pointer; border-radius: 50%; }
+.wa-footer-btn:hover { background: rgba(0, 0, 0, 0.06); }
+.wa-footer-btn:focus-visible { outline: 2px solid #00a884; outline-offset: 1px; }
+.wa-footer-send { color: #00a884; }
+.wa-footer-send[aria-disabled="true"] { opacity: .45; }
 
 .iphone-home-bar {
   height: 18px;
