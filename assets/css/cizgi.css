@@ -793,3 +793,90 @@ h1.reveal { opacity: 1; transform: none; transition: none; }
 .cz-lead-alt { margin: 0; }
 .cz-lead-done .cz-ablock { margin-top: .4rem; }
 .cz-leadsec .cz-head .cz-ablock { justify-self: start; }
+
+/* ───────── FERAH (ekip/site-ferah-1) ─────────
+   Yalnız boşluk, satır uzunluğu/aralığı ve sıkışan ızgaraları açma. Renk, metin ve hareket mantığı aynı; sabit sahnelerin (yöntem, ürün) kendi yükseklik/konum kuralları değişmedi.
+   Bu blok silinirse site önceki sıklığına döner. */
+:root {
+  --k-wrap: min(100% - clamp(3rem, 8vw, 6rem), 72rem);          /* yatay kenar: mobil 24 px, masaüstü ~64 px; içerik 1152 px'i aşmaz */
+  --k-gap: clamp(5.5rem, 13vw, 10rem);                           /* bölüm dikey boşluğu: mobil 88, masaüstü 160 px (üstte ve altta) */
+  --k-card-pad: clamp(1.6rem, 3vw, 2.4rem);
+  --k-card-gap: clamp(1.1rem, 2.2vw, 1.75rem);
+}
+body { line-height: 1.72; }
+.cz-lead { line-height: 1.7; max-width: 36rem; }
+.cz-note { line-height: 1.65; }
+.cz-sec--tight { padding-block: clamp(4.5rem, 10vw, 8.5rem); }
+.cz-head { gap: 1.5rem; margin-bottom: clamp(3rem, 7vw, 5.5rem); }
+.cz-actions { gap: 1rem 1.5rem; margin-top: 2.4rem; }
+.cz-hero-in { gap: 2rem; }
+.cz-hero .cz-actions { margin-top: 1rem; }
+.cz-pagehead { padding-block: clamp(5.5rem, 13vw, 10rem) clamp(4rem, 8vw, 6.5rem); }
+.cz-pagehead .cz-in, .cz-close .cz-in { gap: 1.8rem; }
+
+/* kartlar ve ızgaralar */
+.cz-bento { gap: var(--k-card-gap); }
+.cz-tile { padding: var(--k-card-pad); gap: 2.5rem; min-height: 21rem; }
+.cz-tile p { line-height: 1.65; }
+.cz-stats > div { padding: clamp(2rem, 5vw, 3.6rem) 1.5rem; }
+.cz-stats dt { margin-top: .9rem; }
+.cz-vows, .home-activity { gap: var(--k-card-gap); }
+.cz-vow { padding: var(--k-card-pad); }
+.cz-vow .cz-note { margin-top: 1rem; }
+.lab-home-note { padding: 1.8rem; }
+.lab-home-note p { margin-top: .6rem; line-height: 1.65; }
+@media (min-width: 900px) { .cz-vows, .home-activity { grid-template-columns: minmax(0, 1fr); } }      /* 900-1179 px: 3 sütun yerine tek sütun */
+@media (min-width: 1180px) { .cz-vows, .home-activity { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.cz-strip { gap: var(--k-card-gap); padding-inline: max(1.5rem, calc((100vw - 72rem) / 2)); }
+.cz-strip > li { flex-basis: min(82vw, 24.5rem); }                                                    /* aynı anda görünen kart sayısı 4'ten 3'e */
+.cz-strip-head { margin-bottom: 2.5rem; }
+.cz-list { gap: .9rem; }
+.cz-list li { padding: 1.2rem 1.4rem; }
+
+/* menü ve alt bilgi (üst çubuk yüksekliği aynı: sabit sahnelerin konumu değişmez) */
+.nav-link { padding-inline: 1rem; }
+.desktop-nav { gap: .4rem; }
+.nav-auth { margin-left: 1rem; padding-left: 1.4rem; }
+.mobile-nav-inner { padding-block: .8rem 1.8rem; }
+.mobile-nav-link { min-height: 60px; }
+.mobile-nav-auth { margin-top: 1.4rem; gap: .8rem; }
+.site-footer { padding-block: clamp(4.5rem, 9vw, 7rem) 2.5rem; }
+.cz-foot { gap: 4rem; }
+.cz-foot-cols { gap: 2.5rem 3rem; }
+.cz-foot-base { margin-top: 4rem; padding-top: 1.6rem; gap: .6rem 2rem; }
+.cz-foot h2 { margin-bottom: .8rem; }
+
+/* iletişim ve formlar */
+.cz-contact { gap: clamp(3.5rem, 7vw, 5.5rem); }
+.contact-form, .cz-form { gap: 2rem; }
+.form-field { gap: .6rem; }
+.input-2col { gap: 2rem; }
+@media (min-width: 640px) { .input-2col { gap: 2rem 1.75rem; } }
+.cz-consent { gap: 1rem; }
+.contact-aside { gap: 2.6rem; }
+.contact-process { gap: 1rem; }
+.contact-process-step { padding: 1.3rem 1.5rem; gap: 1.5rem; }
+.contact-trust-list { gap: 1.2rem; line-height: 1.65; }
+.cz-lead-fallback { gap: 1.4rem; padding: 2rem; }
+.cz-lead-done { padding: 2.2rem; }
+.cz-lead-summary { padding: 1.2rem 1.4rem; }
+.cz-kv { padding: .5rem 1.6rem; }
+.cz-legal { max-width: 42rem; }
+.cz-legal > p, .cz-legal li { margin-top: 1.1rem; line-height: 1.8; }
+.cz-legal h2 { margin-top: 3.8rem; padding-top: 1.6rem; }
+.legal-box { padding: 1.4rem 1.6rem; margin-top: 2.2rem; }
+
+/* Projeler */
+.pj-jump { gap: .8rem; margin-top: 2.6rem; }
+.pj-blocks { gap: clamp(5rem, 11vw, 9rem); }
+.pj-block { gap: 2.2rem clamp(2rem, 5vw, 4.5rem); padding-top: 3rem; }
+.pj-side { top: 7.5rem; }
+.pj-desc { margin-top: .9rem; line-height: 1.65; }
+.pj-title { margin-top: .9rem; }
+.pj-list { gap: var(--k-card-gap); }
+.pj-card { gap: 1rem; padding: 1.7rem 1.8rem 1.5rem; }
+.pj-name { line-height: 1.25; }
+.pj-text { line-height: 1.7; }
+.pj-fine { line-height: 1.65; }
+.pj-foot { padding-top: .6rem; gap: .2rem 1.6rem; }
+.pj-tags { gap: .55rem; margin-top: .3rem; }
