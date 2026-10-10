@@ -52,3 +52,10 @@ body.ecommerce-prototype-page{background:var(--k-bg);color:var(--k-text);font-fa
 .ecommerce-demo-footer{background:var(--d-bg);color:var(--d-prose);font-size:.85rem}
 .ecommerce-demo-footer a{color:var(--d-acc)}
 @media(max-width:680px){.ecommerce-demo-header nav a{font-size:.8rem;padding:.55rem .5rem}.ecommerce-demo-header nav a.ecommerce-demo-cta{padding:.55rem .8rem}}
+
+/* demo.css/main.css vurgu belirteçleri palete bağlanır */
+body.ecommerce-prototype-page{--accent:var(--k-acc);--accent-strong:var(--k-acc);--accent-soft:rgb(var(--k-acc-rgb) / .1);--bg:var(--k-bg);--fg:var(--k-text);--ink:var(--k-text);--card:var(--k-panel)}
+.ecommerce-prototype-page .demo-mode-tab .tab-tag{background:rgb(var(--k-acc-rgb) / .12)}
+.ecommerce-prototype-page .demo-mode-tab.is-active .tab-tag{background:rgb(var(--k-acc-rgb) / .06)}
+.ecommerce-prototype-page .demo-preset-btn.is-active{background:rgb(var(--k-acc-rgb) / .08);border-color:rgb(var(--k-acc-rgb) / .45);box-shadow:0 0 0 1px rgb(var(--k-acc-rgb) / .45)}
+.ecommerce-prototype-page .wa-profile-avatar{background:var(--k-acc);color:var(--k-acc-ink)}
