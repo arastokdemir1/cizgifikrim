@@ -6,7 +6,7 @@
   <title>Demo ve İletişim — CizgiFikrim</title>
   <meta name="description" content="CizgiFikrim ürünleri, demo ve iş birliği için iletişime geçin.">
   <meta name="theme-color" content="#F4F4F2">
-  <link rel="stylesheet" href="../assets/css/main.css?v=75"><link rel="stylesheet" href="../assets/css/renk.css?v=1"><link rel="stylesheet" href="../assets/css/cizgi.css?v=18">
+  <link rel="stylesheet" href="../assets/css/main.css?v=75"><link rel="stylesheet" href="../assets/css/renk.css?v=1"><link rel="stylesheet" href="../assets/css/cizgi.css?v=19">
   <link rel="icon" href="/assets/favicon.svg?v=11" type="image/svg+xml">
   <link rel="canonical" href="https://cizgifikrim.net/tr/contact.html">
   <link rel="preload" href="../assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -34,13 +34,27 @@
 
     <section class="cz-sec cz-sec--tight" aria-label="İletişim formu" data-cz-side="r">
       <div class="cz-wrap cz-contact">
-        <form action="https://formspree.io/f/xoqogpgz" class="contact-form cz-form" id="contact-form" method="POST">
-<input aria-hidden="true" autocomplete="off" class="visually-hidden" name="_gotcha" tabindex="-1" type="text"/>
-<div><p class="cz-flabel">Talep türü</p><div aria-label="Talep türü" class="reason-btns" role="group"><button class="reason-btn active" data-reason="Demo / ürün bilgisi" type="button">Demo / ürün bilgisi</button><button class="reason-btn" data-reason="İş birliği / proje talebi" type="button">İş birliği / proje talebi</button><button class="reason-btn" data-reason="Diğer" type="button">Diğer</button></div><input id="subject-input" name="subject" type="hidden" value="Demo / ürün bilgisi"/></div>
-<div class="input-2col"><label class="form-field"><span class="cz-flabel">Ad soyad</span><input autocomplete="name" class="form-input" name="name" required="" type="text"/></label><label class="form-field"><span class="cz-flabel">E-posta</span><input autocomplete="email" class="form-input" name="email" required="" type="email"/></label></div>
-<label class="form-field"><span class="cz-flabel">Mesaj</span><textarea class="form-input form-textarea" name="message" placeholder="İlgilendiğiniz ürün, kullanım bağlamı veya sorunuz…" rows="6"></textarea></label>
-<div class="form-actions"><button class="cz-btn" type="submit">Talebi gönder <span aria-hidden="true">→</span></button><span aria-live="polite" class="form-sent" hidden="" id="form-sent" role="status">Talebiniz gönderildi.</span></div>
-</form>
+        <div><h2 class="visually-hidden" id="lead-title">Projeyi anlat</h2><div class="cz-lead" data-lead data-lead-cal="randevu.html">
+          <div class="cz-lead-fallback" data-lead-fallback>
+            <p>Projenizi kısaca e-postayla anlatabilir ya da doğrudan bir görüşme saati seçebilirsiniz.</p>
+            <div class="cz-actions"><a class="cz-btn" href="mailto:cizgifikrimnet@gmail.com">E-posta ile yazın <span aria-hidden="true">→</span></a><a class="cz-link" href="randevu.html">Takvimden görüşme seçin <span class="cz-arr" aria-hidden="true">→</span></a></div>
+          </div>
+          <form class="cz-form cz-leadform" id="lead-form" data-lead-form aria-labelledby="lead-title" novalidate hidden>
+            <div class="cz-lead-summary" data-lead-summary role="alert" tabindex="-1" hidden></div>
+            <p class="cz-note">Telefon dışındaki alanlar zorunludur.</p>
+            <div class="input-2col">
+              <div class="form-field"><label class="cz-flabel" for="lead-name">Ad soyad</label><input class="form-input" id="lead-name" name="name" type="text" autocomplete="name" maxlength="120" required><p class="cz-ferr" id="lead-err-name" data-err="name" hidden></p></div>
+              <div class="form-field"><label class="cz-flabel" for="lead-email">E-posta</label><input class="form-input" id="lead-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required><p class="cz-ferr" id="lead-err-email" data-err="email" hidden></p></div>
+            </div>
+            <div class="form-field"><label class="cz-flabel" for="lead-phone">Telefon <span class="cz-opt">(isteğe bağlı)</span></label><input class="form-input" id="lead-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30"><p class="cz-ferr" id="lead-err-phone" data-err="phone" hidden></p></div>
+            <div class="form-field"><label class="cz-flabel" for="lead-message">Kısa mesaj</label><textarea class="form-input form-textarea" id="lead-message" name="message" rows="5" maxlength="2000" placeholder="Ne yapmak istiyorsunuz? Birkaç cümle yeterli." required></textarea><p class="cz-ferr" id="lead-err-message" data-err="message" hidden></p></div>
+            <div class="cz-hp" aria-hidden="true"><label>Web sitesi (boş bırakın)<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+            <div class="form-field"><div class="cz-consent"><input type="checkbox" id="lead-consent" name="consent" required><label for="lead-consent">Adımın, e-posta adresimin, mesajımın ve (verdiysem) telefon numaramın, talebime yanıt verilmesi amacıyla işlenmesini kabul ediyorum.</label><a class="cz-ablock" href="gizlilik.html#iletisim-formu" target="_blank" rel="noopener">Aydınlatma metnini oku <span class="cz-opt">(yeni sekmede açılır)</span></a></div><p class="cz-ferr" id="lead-err-consent" data-err="consent" hidden></p></div>
+            <div class="form-actions"><button class="cz-btn" type="submit" data-lead-submit>Gönder <span aria-hidden="true">→</span></button><span class="form-sent" data-lead-status role="status" aria-live="polite"></span></div>
+            <p class="cz-lead-alt"><a class="cz-ablock" href="randevu.html">Doğrudan bir saat seçmek isterseniz takvimi açın <span aria-hidden="true">→</span></a></p>
+          </form>
+          <div class="cz-lead-done" data-lead-done role="status" tabindex="-1" hidden><h3>Teşekkürler.</h3><p>Mesajınız alındı.</p><a class="cz-ablock" href="randevu.html">İsterseniz takvimden bir görüşme saati de seçin <span aria-hidden="true">→</span></a></div>
+        </div></div>
         <aside class="contact-aside"><div class="contact-process" aria-label="Talep süreci"><article class="contact-process-step"><p>1. adım</p><p>Talep ve bağlam incelenir.</p></article><article class="contact-process-step"><p>2. adım</p><p>Uygun ürün veya çalışma kapsamı netleştirilir.</p></article><article class="contact-process-step"><p>3. adım</p><p>Gerekirse sonraki görüşme planlanır.</p></article></div><ul class="contact-trust-list"><li>Doğrudan yazmak için: <a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></li><li>Bilgi talebi için sertifika veya sözleşme iddiası sunmuyoruz; gereksinimi konuşarak doğru çerçeveyi kuruyoruz.</li></ul></aside>
         <!-- TODO-ARAS: Ticari kimlik bloğu (unvan, vergi dairesi/no, adres) şirket kurulunca buraya eklenecek. Şimdilik yazılmıyor. -->
       </div>
@@ -61,9 +75,12 @@
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8/dist/umd/supabase.js" integrity="sha384-l7yJnh/cWKcqeTC5adHUdc5b+J4Kb2QTGRSkCQehn1YT5xEFlrgwnXOYuvrtI1F6" crossorigin="anonymous"></script>
   <script src="../assets/js/supabase-client.js?v=40"></script>
-  <script src="../assets/js/render.js?v=75"></script>
+  <script src="../assets/js/render.js?v=76"></script>
   <script src="../assets/js/app.js?v=40"></script>
   <script src="../assets/js/analytics.js?v=3"></script>
-  <script src="../assets/js/cizgi.js?v=17" defer></script>
+  <script src="../assets/js/cizgi.js?v=18" defer></script>
+  <script src="../assets/js/lead-config.js?v=1"></script>
+  <script src="../assets/js/lead-client.js?v=1"></script>
+  <script src="../assets/js/lead-form.js?v=1" defer></script>
 </body>
 </html>

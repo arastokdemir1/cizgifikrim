@@ -757,3 +757,39 @@ h1.reveal { opacity: 1; transform: none; transition: none; }
 .cz-deep .cz-phone, .cz-deep .cz-radar { box-shadow: none; }
 .site-footer.cz-deep { border-top: 0; }
 .nav-link[aria-current="page"] { background: rgb(var(--k-fg-rgb) / .05); }   /* açık zeminde vurgu rengi metni ≥4,5:1 kalsın */
+
+/* ───────── "Projeyi anlat" talep formu ───────── */
+.cz-lead { display: grid; gap: 1.2rem; width: 100%; }
+.cz-lead-fallback { display: grid; gap: 1rem; padding: 1.4rem; border: 1px solid var(--k-hair2); border-radius: var(--k-r); background: var(--k-panel); }
+.cz-lead-fallback p { color: var(--k-muted); }
+.cz-leadform[hidden], .cz-lead-fallback[hidden], .cz-lead-done[hidden], .cz-leadsec[hidden] { display: none; }
+.cz-opt { font-weight: 400; color: var(--k-muted); }
+.cz-hp { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.cz-consent { display: grid; grid-template-columns: auto 1fr; gap: .8rem; align-items: start; }
+.cz-consent input[type="checkbox"] { width: 1.5rem; height: 1.5rem; margin: .1rem 0 0; accent-color: var(--k-acc); }
+.cz-consent label { font-size: .95rem; line-height: 1.55; color: var(--k-text); cursor: pointer; }
+.cz-consent label a { color: var(--k-acc); text-decoration: underline; text-underline-offset: 3px; }
+.cz-consent input:focus-visible { outline: 2px solid var(--k-acc); outline-offset: 3px; }
+.cz-ferr { color: var(--k-acc); font-size: .92rem; font-weight: 600; }
+.cz-ferr[hidden] { display: none; }
+.cz-leadform [aria-invalid="true"] { border-color: var(--k-acc); box-shadow: 0 0 0 2px var(--k-acc-soft); }
+.cz-lead-summary { padding: 1rem 1.2rem; border: 1px solid var(--k-acc); border-left-width: 4px; border-radius: 10px; background: var(--k-acc-soft); color: var(--k-text); font-size: .98rem; line-height: 1.6; }
+.cz-lead-summary a { color: var(--k-acc); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.cz-lead-summary:focus { outline: 2px solid var(--k-acc); outline-offset: 3px; }
+.cz-lead-summary, .cz-lead-done { scroll-margin-top: 6rem; }   /* odaklanınca sabit üst çubuğun altında kalmasın */
+.cz-lead-done { padding: 1.6rem; border: 1px solid var(--k-hair2); border-radius: var(--k-r); background: var(--k-panel); }
+.cz-lead-done h3 { font-size: 1.6rem; }
+.cz-lead-done p { margin-top: .5rem; color: var(--k-muted); }
+.cz-lead-done a, .cz-lead-alt a, .cz-lead-fallback a.cz-link { color: var(--k-text); text-decoration: underline; text-decoration-color: var(--k-acc); text-underline-offset: 4px; }
+.cz-lead-done:focus { outline: 2px solid var(--k-acc); outline-offset: 3px; }
+.cz-btn.is-busy, .cz-btn[aria-disabled="true"] { opacity: .6; cursor: progress; }
+.cz-leadwrap { max-width: 46rem; }
+.cz-ablock, .cz-lead-summary a { display: inline-flex; align-items: center; min-height: 44px; }
+.cz-ablock { color: var(--k-text); font-weight: 600; text-decoration: underline; text-decoration-color: var(--k-acc); text-underline-offset: 4px; gap: .35rem; }
+.cz-consent .cz-ablock { grid-column: 2; font-size: .95rem; }
+.cz-lead-summary a { padding-inline: .25rem; margin-right: .5rem; }
+.cz-lead-links { display: flex; flex-wrap: wrap; column-gap: 1rem; }
+.cz-form .cz-hp input[type="text"] { width: 48px; min-width: 48px; height: 48px; min-height: 48px; }
+.cz-lead-alt { margin: 0; }
+.cz-lead-done .cz-ablock { margin-top: .4rem; }
+.cz-leadsec .cz-head .cz-ablock { justify-self: start; }

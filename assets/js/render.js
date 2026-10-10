@@ -1267,68 +1267,6 @@ async function renderProjectDetail() {
     </a>`;
 }
 
-function initContactFormSupabase() {
-  const form = document.getElementById('contact-form');
-  const sentMsg = document.getElementById('form-sent');
-  if (!form) return;
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-    if (formData.get('_gotcha')) return; // honeypot
-
-    const submitBtn = form.querySelector('button[type="submit"]');
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.setAttribute('aria-busy', 'true');
-    }
-    if (sentMsg) {
-      sentMsg.hidden = false;
-      sentMsg.textContent = 'Mesaj gönderiliyor…';
-    }
-
-    const ok = await submitContactMessage({
-      name: formData.get('name'),
-      email: formData.get('email'),
-      subject: formData.get('subject') || 'Diğer',
-      message: formData.get('message') || '',
-    });
-
-    if (ok) {
-      form.reset();
-      if (sentMsg) sentMsg.textContent = 'Mesaj gönderildi — teşekkürler.';
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.removeAttribute('aria-busy');
-      }
-      return;
-    }
-
-    // Supabase kapalıysa formun HTML'deki mevcut Formspree hedefi kullanılır.
-    // Test verisi göndermeden bu yol yalnız gerçek kullanıcı gönderiminde çalışır.
-    try {
-      const response = await fetch(form.action, {
-        method: form.method || 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' },
-      });
-      if (!response.ok) throw new Error(`Formspree ${response.status}`);
-      form.reset();
-      if (sentMsg) sentMsg.textContent = 'Mesaj gönderildi — teşekkürler.';
-    } catch (error) {
-      console.error('contact form fallback', error);
-      if (sentMsg) {
-        sentMsg.textContent = 'Mesaj şu anda gönderilemedi. Lütfen cizgifikrimnet@gmail.com adresine e-posta gönder.';
-      }
-    } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.removeAttribute('aria-busy');
-      }
-    }
-  });
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   renderServicesPage();
   renderProductsPage();
@@ -1338,5 +1276,4 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProjectBuildStatus();
   renderHomeBuildStatus();
   renderHomeProducts();
-  initContactFormSupabase();
 });
