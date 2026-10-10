@@ -18,7 +18,7 @@ BASE = f"http://127.0.0.1:{PORT}"
 PAGES = ["/demo/e-ticaret/terk-edilmis-sepet/", "/demo/e-ticaret/satis-asistani/", "/demo/e-ticaret/musteri-sadakati/", "/demo/web-sitesi/", "/demo/web-sitesi/kafe/",
          "/demo/web-sitesi/mimarlik/", "/demo/web-sitesi/klinik/", "/demo/web-sitesi/konaklama/", "/demo/web-sitesi/yerel-hizmet/", "/demo/web-sitesi/fotografci/",
          "/demo/web-sitesi/kisisel-portfolyo/", "/demo/web-sitesi/danismanlik/", "/demo/web-sitesi/profesyonel-portfolyo/", "/demo/carlog/", "/demo/piyasa/", "/tr/demo.html",
-         "/tr/eticaret-paketi.html", "/tr/hizmetler.html"]
+         "/tr/eticaret-paketi.html", "/tr/projeler.html"]
 args = sys.argv[1:]
 WEBKIT = "--webkit" in args
 FAST = "--hizli" in args

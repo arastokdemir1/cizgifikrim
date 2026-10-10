@@ -24,31 +24,38 @@ body.ecommerce-prototype-page{margin:0;background:#f4f3ee;color:#1d2825;font-fam
 .demo-scenario-nav a[aria-current=page]{background:#24382e;color:#fff;border-color:#24382e}
 #demo-widget-mount{min-height:320px;margin-top:1.4rem}
 #demo-widget-mount .demo-studio{margin-top:0}
-.wa-prototype-label{display:inline-flex;align-items:center;padding:.13rem .34rem;border-radius:999px;background:#e6eee7;color:#45624d;font:700 .47rem var(--mono,monospace);letter-spacing:.08em}
+.wa-prototype-label{display:inline-flex;align-items:center;padding:.13rem .34rem;border-radius:999px;background:rgb(var(--k-acc-rgb) / .12);color:var(--k-acc);font:700 .47rem var(--mono,monospace);letter-spacing:.08em}
 body.ecommerce-prototype-page[data-demo-mode="sales"] .demo-roi-card,body.ecommerce-prototype-page[data-demo-mode="vip"] .demo-roi-card{display:none}
-.demo-load-error{margin:2rem auto;padding:1rem;border:1px solid #b54c3a;background:#fff;color:#702b20;max-width:640px;text-align:center}
+.demo-load-error{margin:2rem auto;padding:1rem;border:1px solid var(--k-err);background:var(--k-panel);color:var(--k-text);max-width:640px;text-align:center}
 .ecommerce-demo-footer{padding:1.2rem 4vw;background:#202722;color:#d9ddd8;display:flex;justify-content:space-between;gap:1rem;font-size:.62rem}
 .ecommerce-demo-footer a{color:#d8c5a4}
 @media(max-width:680px){.ecommerce-demo-header-inner{min-height:64px}.ecommerce-demo-brand span{display:none}.ecommerce-demo-header nav{gap:0}.ecommerce-demo-header nav a{padding:.55rem .45rem;font-size:.59rem}.ecommerce-demo-main{padding-top:1.3rem}.demo-breadcrumb{margin-bottom:1.8rem}.ecommerce-demo-intro{text-align:left}.ecommerce-demo-intro h1{font-size:clamp(2.5rem,12vw,4rem)}.ecommerce-demo-intro>p:not(.ecommerce-demo-kicker){font-size:.78rem}.prototype-disclosure{font-size:.65rem}.demo-scenario-nav{justify-content:flex-start;gap:.4rem}.demo-scenario-nav a{padding:.62rem .72rem;font-size:.59rem}.ecommerce-demo-footer{flex-direction:column}}
 
-/* Çizgi dili: sıcak kum zemin, grafit mürekkep, bakır vurgu */
-body.ecommerce-prototype-page{background:#F5F0E7;color:#1D1B18;font-family:"Instrument Sans",var(--sans,Arial,sans-serif)}
-.ecommerce-demo-header{background:rgba(245,240,231,.92);border-bottom:1px solid rgba(29,27,24,.12)}
+/* Çizgi dili: renkler assets/css/renk.css belirteçlerinden gelir (palet değişince demo da değişir) */
+body.ecommerce-prototype-page{background:var(--k-bg);color:var(--k-text);font-family:"Instrument Sans",var(--sans,Arial,sans-serif)}
+.ecommerce-demo-header{background:rgb(var(--k-bg-rgb) / .92);border-bottom:1px solid rgb(var(--k-fg-rgb) / .12)}
 .ecommerce-demo-brand,.ecommerce-demo-intro h1{font-family:"Hanken Grotesk",var(--display,Arial,sans-serif)}
-.ecommerce-demo-brand{font-size:1.15rem;font-weight:600;letter-spacing:-.03em;color:#1D1B18}
-.ecommerce-demo-brand span{color:#605B51;font:500 .72rem "Instrument Sans",sans-serif;letter-spacing:.04em}
-.ecommerce-demo-header nav a{font-size:.9rem;color:#58534A;min-height:44px;display:inline-flex;align-items:center}
-.ecommerce-demo-header nav a:hover,.ecommerce-demo-header nav a[aria-current=page]{background:rgba(29,27,24,.07);color:#1D1B18}
-.ecommerce-demo-header nav a.ecommerce-demo-cta{background:#1D1B18;color:#FBF8F2;border-radius:9px;padding:.65rem 1.1rem;font-weight:600}
-.ecommerce-demo-header nav a.ecommerce-demo-cta:hover{background:#000;color:#fff}
+.ecommerce-demo-brand{font-size:1.15rem;font-weight:600;letter-spacing:-.03em;color:var(--k-text)}
+.ecommerce-demo-brand span{color:var(--k-dim);font:500 .72rem "Instrument Sans",sans-serif;letter-spacing:.04em}
+.ecommerce-demo-header nav a{font-size:.9rem;color:var(--k-muted);min-height:44px;display:inline-flex;align-items:center}
+.ecommerce-demo-header nav a:hover,.ecommerce-demo-header nav a[aria-current=page]{background:rgb(var(--k-fg-rgb) / .07);color:var(--k-text)}
+.ecommerce-demo-header nav a.ecommerce-demo-cta{background:var(--k-btn);color:var(--k-btn-ink);border-radius:9px;padding:.65rem 1.1rem;font-weight:600}
+.ecommerce-demo-header nav a.ecommerce-demo-cta:hover{background:var(--k-btn-hover);color:var(--k-btn-ink)}
 .ecommerce-demo-intro h1{font-weight:600;letter-spacing:-.04em}
-.ecommerce-demo-intro>p:not(.ecommerce-demo-kicker){font-size:1rem;color:#58534A}
-.ecommerce-demo-kicker{color:#8E520D;font-size:.78rem}
-.prototype-disclosure{background:#FBF8F2;border-color:rgba(29,27,24,.16);color:#38342D;font-size:.9rem;border-radius:10px}
-.prototype-disclosure strong{color:#1D1B18}
-.demo-breadcrumb{font-size:.85rem;color:#605B51}
-.demo-scenario-nav a{font-size:.88rem;min-height:44px;display:inline-flex;align-items:center;color:#38342D;border-color:rgba(29,27,24,.22)}
-.demo-scenario-nav a[aria-current=page]{background:#1D1B18;border-color:#1D1B18;color:#FBF8F2}
-.ecommerce-demo-footer{background:#141518;color:#D7D4CF;font-size:.85rem}
-.ecommerce-demo-footer a{color:#E3A24F}
+.ecommerce-demo-intro>p:not(.ecommerce-demo-kicker){font-size:1rem;color:var(--k-muted)}
+.ecommerce-demo-kicker{color:var(--k-acc);font-size:.78rem}
+.prototype-disclosure{background:var(--k-panel);border-color:rgb(var(--k-fg-rgb) / .16);color:var(--k-prose);font-size:.9rem;border-radius:10px}
+.prototype-disclosure strong{color:var(--k-text)}
+.demo-breadcrumb{font-size:.85rem;color:var(--k-dim)}
+.demo-scenario-nav a{font-size:.88rem;min-height:44px;display:inline-flex;align-items:center;color:var(--k-prose);border-color:rgb(var(--k-fg-rgb) / .22)}
+.demo-scenario-nav a[aria-current=page]{background:var(--k-btn);border-color:var(--k-btn);color:var(--k-btn-ink)}
+.ecommerce-demo-footer{background:var(--d-bg);color:var(--d-prose);font-size:.85rem}
+.ecommerce-demo-footer a{color:var(--d-acc)}
 @media(max-width:680px){.ecommerce-demo-header nav a{font-size:.8rem;padding:.55rem .5rem}.ecommerce-demo-header nav a.ecommerce-demo-cta{padding:.55rem .8rem}}
+
+/* demo.css/main.css vurgu belirteçleri palete bağlanır */
+body.ecommerce-prototype-page{--accent:var(--k-acc);--accent-strong:var(--k-acc);--accent-soft:rgb(var(--k-acc-rgb) / .1);--bg:var(--k-bg);--fg:var(--k-text);--ink:var(--k-text);--card:var(--k-panel)}
+.ecommerce-prototype-page .demo-mode-tab .tab-tag{background:rgb(var(--k-acc-rgb) / .12)}
+.ecommerce-prototype-page .demo-mode-tab.is-active .tab-tag{background:rgb(var(--k-acc-rgb) / .06)}
+.ecommerce-prototype-page .demo-preset-btn.is-active{background:rgb(var(--k-acc-rgb) / .08);border-color:rgb(var(--k-acc-rgb) / .45);box-shadow:0 0 0 1px rgb(var(--k-acc-rgb) / .45)}
+.ecommerce-prototype-page .wa-profile-avatar{background:var(--k-acc);color:var(--k-acc-ink)}

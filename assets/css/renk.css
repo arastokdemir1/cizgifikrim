@@ -1,0 +1,18 @@
+/* CizgiFikrim renk belirteçleri: sitedeki TÜM renkler buradan gelir (tek yer). cizgi.css ve demo sayfaları bu dosyayı kullanır; renk değiştirmek için yalnız bu dosya düzenlenir.
+   Palet: Mercan (nötr taş beyazı, grafit metin, mercan-kırmızı vurgu; sahne bandı ve alt bilgi patlıcan moru + şeftali). Seçenek paletleri (A menekşe, C zümrüt) kaldırıldı; geçmişi git'te.
+   --k-* = açık takım · --d-* = derin takım (.cz-deep: sahne bandı, alt bilgi) · -ok/-warn/-err = durum renkleri. Tüm metin/vurgu çiftleri WCAG AA (≥4.5:1). Düzen, metin ve hareket burada yoktur. */
+:root {
+  --k-bg: #F4F4F2; --k-bg2: #EAEAE6; --k-panel: #FBFBFA; --k-panel2: #FFFFFF; --k-text: #16161A; --k-muted: #52525A; --k-dim: #5B5B63;
+  --k-acc: #BE3118; --k-acc-ink: #FFFFFF; --k-btn: #16161A; --k-btn-hover: #000000; --k-btn-ink: #F4F4F2; --k-tint: #E9CBC2;
+  --k-fg-rgb: 22 22 26; --k-bg-rgb: 244 244 242; --k-acc-rgb: 190 49 24; --k-auth-rgb: 251 251 250;
+  --k-hs: 1.5; --k-frame: #2C2C31; --k-dev-bg: #16161A; --k-dev-acc-rgb: 244 244 242; --k-prose: #34343A;
+  --k-office: grayscale(1) contrast(.95); --k-net-boost: 2.2; --k-blend: source-over; --k-spr: .45; --k-scheme: light;
+  --k-ok: #0F6B3C; --k-warn: #8A5A00; --k-err: #9F1D1D;
+  --d-bg: #2B1421; --d-bg2: #331827; --d-panel: #3B1D2E; --d-panel2: #452336; --d-text: #FFF4F1; --d-muted: #DDC3CC; --d-dim: #CDB0BB;
+  --d-acc: #FF8A66; --d-acc-ink: #2B1421; --d-btn: #FFF4F1; --d-btn-hover: #FFFFFF; --d-btn-ink: #2B1421; --d-tint: #3E1D2C;
+  --d-fg-rgb: 255 255 255; --d-bg-rgb: 43 20 33; --d-acc-rgb: 255 138 102; --d-auth-rgb: 59 29 46;
+  --d-hs: 1; --d-frame: #5A3347; --d-dev-bg: #3B1D2E; --d-dev-acc-rgb: 255 138 102; --d-prose: #EAD6DC;
+  --d-office: grayscale(1) invert(.92) contrast(.95); --d-net-boost: 1; --d-blend: lighter; --d-spr: 1; --d-scheme: dark;
+  --d-ok: #6FE0A0; --d-warn: #F7C25C; --d-err: #FFA79C;
+  --k-line: #E04A2D;
+}
