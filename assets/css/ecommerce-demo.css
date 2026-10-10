@@ -59,3 +59,28 @@ body.ecommerce-prototype-page{--accent:var(--k-acc);--accent-strong:var(--k-acc)
 .ecommerce-prototype-page .demo-mode-tab.is-active .tab-tag{background:rgb(var(--k-acc-rgb) / .06)}
 .ecommerce-prototype-page .demo-preset-btn.is-active{background:rgb(var(--k-acc-rgb) / .08);border-color:rgb(var(--k-acc-rgb) / .45);box-shadow:0 0 0 1px rgb(var(--k-acc-rgb) / .45)}
 .ecommerce-prototype-page .wa-profile-avatar{background:var(--k-acc);color:var(--k-acc-ink)}
+
+/* ───────── FERAH (ekip/site-ferah-1): demo sayfası boşlukları. Renk, metin ve hareket aynı. ───────── */
+.ecommerce-demo-header-inner { min-height: 80px; width: min(1240px, 100% - clamp(3rem, 8vw, 6rem)); }
+.ecommerce-demo-header nav { gap: .8rem; }
+.ecommerce-demo-main { width: min(1240px, 100% - clamp(3rem, 8vw, 6rem)); padding: 3rem 0 7rem; }
+.demo-breadcrumb { margin-bottom: 3.5rem; }
+.ecommerce-demo-intro { margin-bottom: 3.2rem; }
+.ecommerce-demo-intro h1 { margin: .8rem 0 1.5rem; }
+.ecommerce-demo-intro>p:not(.ecommerce-demo-kicker) { line-height: 1.8; }
+.prototype-disclosure { margin-top: 2.2rem; padding: 1.25rem 1.6rem; line-height: 1.75; }
+.demo-scenario-nav { gap: .8rem; margin: 3rem auto 3.5rem; }
+/* mobilde sekmeler üst üste biniyordu (dokunma alanı için eklenen eksi kenar boşluğu); kutu olarak 44 px yükseklik, binme yok */
+nav.demo-scenario-nav a:not([class]) { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-height: 44px; padding: .55rem 1.15rem; margin: 0; }
+#demo-widget-mount { margin-top: 2rem; }
+.demo-studio { gap: clamp(2.5rem, 5vw, 4rem); margin-top: 2rem; }
+.demo-card { padding: clamp(1.6rem, 3vw, 2.4rem); }
+.demo-controls-col { gap: 2rem; }
+.demo-preset-group { margin-bottom: 2rem; }
+.demo-section-label { margin-bottom: 1rem; }
+.demo-presets { gap: .8rem; }
+.demo-form { gap: 1.5rem; }
+.demo-form-grid-2 { gap: 1.3rem; }
+.demo-field { gap: .55rem; }
+.ecommerce-demo-footer { padding: 2rem 4vw; line-height: 1.7; }
+@media(max-width:680px){.ecommerce-demo-header-inner{min-height:72px}.ecommerce-demo-main{padding-top:2rem}.demo-breadcrumb{margin-bottom:2.4rem}.demo-scenario-nav{margin:2.2rem auto 2.6rem}}
