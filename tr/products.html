@@ -2,70 +2,25 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Ürünler &amp; Sistemler — CizgiFikrim</title>
-  <meta name="description" content="CizgiFikrim'de yayınlanan ürün ve sistem çalışmalarını inceleyin.">
-  <meta name="theme-color" content="#F5F0E7">
-  <link rel="stylesheet" href="../assets/css/main.css?v=75"><link rel="stylesheet" href="../assets/css/renk.css?v=1"><link rel="stylesheet" href="../assets/css/cizgi.css?v=17">
-  <link rel="icon" href="/assets/favicon.svg?v=10" type="image/svg+xml">
-  <link rel="canonical" href="https://cizgifikrim.net/tr/products.html">
-  <link rel="preload" href="../assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="../assets/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <noscript><style>.reveal,.cz-word-in{opacity:1;transform:none}.cz-phone,.cz-radar{opacity:1;transform:none}.cz-pscene{height:auto}.cz-pscene-sticky{position:relative;height:auto;padding-block:5rem 3rem}.cz-pscene .cz-callout,.cz-pactions{opacity:1;transform:none}.cz-pcell{min-height:38rem}.cz-pscene .cz-product{flex:none}.cz-scene{height:auto}.cz-scene-sticky{position:relative;height:auto;min-height:0;padding-block:6rem}.cz-scene-head{position:relative;top:auto;margin-bottom:2rem}.cz-steps2{gap:1rem}.cz-step2{grid-area:auto;opacity:1;transform:none}.cz-dots{display:none}</style></noscript>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projeler sayfasına taşındı — CizgiFikrim</title>
+  <meta name="robots" content="noindex, follow">
+  <meta http-equiv="refresh" content="0; url=projeler.html">
+  <link rel="canonical" href="https://cizgifikrim.net/tr/projeler.html">
+  <link rel="icon" href="/assets/favicon.svg?v=11" type="image/svg+xml">
+  <script>
+    (function () {
+      var map = { '#whatsapp-demo': '#e-ticaret', '#katalog': '', '#web': '#web-sitesi' };
+      var h = location.hash, to = 'projeler.html' + location.search + (h in map ? map[h] : '');
+      location.replace(to);
+    })();
+  </script>
+  <style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#F4F4F2;color:#16161A;font:1.0625rem/1.6 system-ui,sans-serif;text-align:center;padding:1.5rem}a{color:#BE3118;font-weight:600}</style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Ana içeriğe geç</a>
-  <header class="site-header"><div class="cz-wrap header-inner">
-    <a href="index.html" class="brand" aria-label="CizgiFikrim ana sayfa"><svg class="cz-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M44 15.4c-3.5-2.5-7.8-3.9-12.4-3.9-11.5 0-20.8 9.2-20.8 20.5s9.3 20.5 20.8 20.5c4.6 0 8.9-1.5 12.4-3.9"/><circle cx="48" cy="32" r="4.6"/></svg><span class="cz-word">CizgiFikrim</span></a>
-    <nav class="desktop-nav" aria-label="Ana menü"><a href="projeler.html" class="nav-link" aria-current="page">Projeler</a><a href="about.html" class="nav-link">Hakkında</a></nav>
-    <div class="nav-auth"><a href="randevu.html" class="nav-cta">Randevu al</a></div>
-    <button class="mobile-toggle" aria-label="Menüyü aç" aria-expanded="false"><span></span><span></span><span></span></button>
-  </div><nav class="mobile-nav" aria-label="Mobil menü"><div class="cz-wrap mobile-nav-inner"><a href="projeler.html" class="mobile-nav-link" aria-current="page">Projeler</a><a href="about.html" class="mobile-nav-link">Hakkında</a><div class="mobile-nav-auth"><a href="randevu.html" class="mobile-nav-btn is-primary">Randevu al</a></div></div></nav></header>
-
-  <main id="main" tabindex="-1">
-    <section class="cz-pagehead" aria-labelledby="ph-title" id="katalog" data-cz-start>
-      <div class="cz-netwrap" aria-hidden="true"><canvas class="cz-net" data-net="head"></canvas></div>
-      <div class="cz-wrap cz-in">
-        <p class="cz-k">Çalışmalar</p>
-        <h1 id="ph-title">Ürünler, araçlar, <em>denemeler</em>.</h1>
-        <p class="cz-lead">Ürünlerimiz, araçlarımız ve araştırma çalışmalarımız tek listede. Durumlar kayıtlı veriden gelir; prototipler prototip diye anılır.</p><dl class="cz-stats" id="home-stats" style="width:100%;max-width:56rem;margin-top:1.5rem"><div><dd data-stat="total">—</dd><dt>çalışma</dt></div><div><dd data-stat="live">—</dd><dt>canlı kayıtlı</dt></div></dl>
-      </div>
-    </section>
-
-    <section class="cz-sec cz-sec--tight" aria-label="Çalışma listesi" data-cz-side="r" style="padding-top:1rem">
-      <div id="products-categories" aria-live="polite" aria-busy="true"><p class="cz-wrap cz-note">Liste hazırlanıyor…</p></div>
-    </section>
-
-    <section class="cz-close" aria-labelledby="cta-title" data-cz-side="l">
-      <div class="cz-netwrap" aria-hidden="true"><canvas class="cz-net" data-net="cta"></canvas></div>
-      <div class="cz-wrap cz-in">
-        <p class="cz-k">Başlayalım</p>
-        <h2 id="cta-title" class="cz-giant">Projeni <em>anlat</em>.</h2>
-        <p class="cz-lead">Kısa bir görüşmeyle başlıyoruz: neyi, hangi sırayla yapacağımızı birlikte netleştiririz.</p>
-        <div class="cz-actions">
-          <a href="randevu.html" class="cz-btn">Randevu al <span aria-hidden="true">→</span></a>
-        </div>
-      </div>
-    </section>
+  <main>
+    <h1 style="font-size:1.5rem;margin:0 0 .6rem">Çalışmalar artık Projeler sayfasında</h1>
+    <p>Sayfa <a href="projeler.html">Projeler</a> sayfasında birleşti. Otomatik yönlendirilmezsen bağlantıya tıkla.</p>
   </main>
-
-  <div class="cz-bridge cz-bridge--foot" aria-hidden="true"></div>
-  <footer class="site-footer cz-deep">
-    <div class="cz-foot">
-      <div><p class="cz-foot-big">Çizgiyi <em>ürüne</em> çeviriyoruz.</p></div>
-      <div class="cz-foot-cols">
-        <nav aria-label="Alt gezinti"><h2>Gezinti</h2><ul><li><a href="projeler.html">Projeler</a></li><li><a href="about.html">Hakkında</a></li><li><a href="randevu.html">Randevu al</a></li></ul></nav>
-        <nav aria-label="Ürünler"><h2>Ürünler</h2><ul><li><a href="projects/carlog.html">CarLog</a></li><li><a href="projects/piyasa.html">PiyasApp</a></li><li><a href="projects/sano.html">Sano</a></li><li><a href="projects/focusgrid.html">FocusGrid</a></li></ul></nav>
-        <div><h2>İletişim</h2><p><a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></p><p class="cz-note" style="margin-top:.4rem">İstanbul, Türkiye</p></div>
-      </div>
-    </div>
-    <div class="cz-foot-base"><span>© <span id="year">2026</span> CizgiFikrim</span><span><a href="gizlilik.html">Gizlilik</a> · <a href="kosullar.html">Koşullar</a> · <a href="#main">Başa dön</a></span></div>
-  </footer>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8/dist/umd/supabase.js" integrity="sha384-l7yJnh/cWKcqeTC5adHUdc5b+J4Kb2QTGRSkCQehn1YT5xEFlrgwnXOYuvrtI1F6" crossorigin="anonymous"></script>
-  <script src="../assets/js/supabase-client.js?v=40"></script>
-  <script src="../assets/js/render.js?v=75"></script>
-  <script src="../assets/js/app.js?v=40"></script>
-  <script src="../assets/js/analytics.js?v=3"></script>
-  <script src="../assets/js/cizgi.js?v=17" defer></script>
 </body>
 </html>
