@@ -1,0 +1,66 @@
+/* CizgiFikrim renk belirteçleri: sitedeki TÜM renkler buradan gelir (tek yer). cizgi.css ve demo sayfaları bu dosyayı kullanır; renk değiştirmek için yalnız bu dosya düzenlenir.
+   :root = yayındaki palet (mevcut). html[data-renk="A|B|C"] = önizleme seçenekleri (sayfada data-renk yokken etkisizdir; seçim yapılınca seçilen blok :root'a taşınır, diğerleri silinir).
+   --k-* = açık takım · --d-* = derin takım (.cz-deep: sahne bandı, alt bilgi) · -ok/-warn/-err = durum renkleri. Düzen, metin ve hareket burada yoktur. */
+:root {
+  --k-bg: #F5F0E7; --k-bg2: #EDE6D9; --k-panel: #FBF8F2; --k-panel2: #FFFFFF; --k-text: #1D1B18; --k-muted: #58534A; --k-dim: #605B51;
+  --k-acc: #8E520D; --k-acc-ink: #FBF8F2; --k-btn: #1D1B18; --k-btn-hover: #000000; --k-btn-ink: #FBF8F2; --k-tint: #EADBC2;
+  --k-fg-rgb: 29 27 24; --k-bg-rgb: 245 240 231; --k-acc-rgb: 142 82 13; --k-auth-rgb: 251 248 242;
+  --k-hs: 1.5; --k-frame: #2E2C29; --k-dev-bg: #14151A; --k-dev-acc-rgb: 228 230 226; --k-prose: #38342D;
+  --k-office: grayscale(1) contrast(.95); --k-net-boost: 2.2; --k-blend: source-over; --k-spr: .45; --k-scheme: light;
+  --k-ok: #0F6B3C; --k-warn: #8A5A00; --k-err: #B3261E;
+  --d-bg: #141518; --d-bg2: #18191D; --d-panel: #1C1D21; --d-panel2: #222328; --d-text: #EEEBE6; --d-muted: #A8A5A0; --d-dim: #97948F;
+  --d-acc: #E3A24F; --d-acc-ink: #141518; --d-btn: #EEEBE6; --d-btn-hover: #FFFFFF; --d-btn-ink: #141518; --d-tint: #1F1E1C;
+  --d-fg-rgb: 255 255 255; --d-bg-rgb: 20 21 24; --d-acc-rgb: 227 162 79; --d-auth-rgb: 28 29 33;
+  --d-hs: 1; --d-frame: #3D3E42; --d-dev-bg: #1C1D21; --d-dev-acc-rgb: 227 162 79; --d-prose: #D7D4CF;
+  --d-office: grayscale(1) invert(.92) contrast(.95); --d-net-boost: 1; --d-blend: lighter; --d-spr: 1; --d-scheme: dark;
+  --d-ok: #5BD08A; --d-warn: #F2B94B; --d-err: #FF8A80;
+  --k-line: #B26A10;
+}
+/* A · Elektrik menekşe */
+html[data-renk="A"] {
+  --k-bg: #F6F7FB; --k-bg2: #ECEEF7; --k-panel: #FFFFFF; --k-panel2: #FFFFFF; --k-text: #12142B; --k-muted: #4A4E6B; --k-dim: #545873;
+  --k-acc: #4B35E8; --k-acc-ink: #FFFFFF; --k-btn: #12142B; --k-btn-hover: #000000; --k-btn-ink: #FFFFFF; --k-tint: #C9C7F7;
+  --k-fg-rgb: 18 20 43; --k-bg-rgb: 246 247 251; --k-acc-rgb: 75 53 232; --k-auth-rgb: 255 255 255;
+  --k-hs: 1.5; --k-frame: #2A2D55; --k-dev-bg: #12142B; --k-dev-acc-rgb: 220 221 255; --k-prose: #2B2E4D;
+  --k-office: grayscale(1) contrast(.95); --k-net-boost: 2.2; --k-blend: source-over; --k-spr: .45; --k-scheme: light;
+  --k-ok: #0F6B4A; --k-warn: #8A5A00; --k-err: #B3261E;
+  --d-bg: #2B20C9; --d-bg2: #3326D2; --d-panel: #3A2DDB; --d-panel2: #4638E6; --d-text: #FFFFFF; --d-muted: #D9D6FF; --d-dim: #C9C5FF;
+  --d-acc: #FFD84D; --d-acc-ink: #1A1500; --d-btn: #FFFFFF; --d-btn-hover: #FFF4C2; --d-btn-ink: #1B1478; --d-tint: #5546E8;
+  --d-fg-rgb: 255 255 255; --d-bg-rgb: 43 32 201; --d-acc-rgb: 255 216 77; --d-auth-rgb: 58 45 219;
+  --d-hs: 1; --d-frame: #5D50EE; --d-dev-bg: #1D159A; --d-dev-acc-rgb: 255 216 77; --d-prose: #E8E6FF;
+  --d-office: grayscale(1) invert(.92) contrast(.95); --d-net-boost: 1; --d-blend: lighter; --d-spr: 1; --d-scheme: dark;
+  --d-ok: #7CF0B0; --d-warn: #FFD84D; --d-err: #FFB4AC;
+  --k-line: #6C5BF2;
+}
+/* B · Mercan */
+html[data-renk="B"] {
+  --k-bg: #F4F4F2; --k-bg2: #EAEAE6; --k-panel: #FBFBFA; --k-panel2: #FFFFFF; --k-text: #16161A; --k-muted: #52525A; --k-dim: #5B5B63;
+  --k-acc: #BE3118; --k-acc-ink: #FFFFFF; --k-btn: #16161A; --k-btn-hover: #000000; --k-btn-ink: #F4F4F2; --k-tint: #E9CBC2;
+  --k-fg-rgb: 22 22 26; --k-bg-rgb: 244 244 242; --k-acc-rgb: 190 49 24; --k-auth-rgb: 251 251 250;
+  --k-hs: 1.5; --k-frame: #2C2C31; --k-dev-bg: #16161A; --k-dev-acc-rgb: 244 244 242; --k-prose: #34343A;
+  --k-office: grayscale(1) contrast(.95); --k-net-boost: 2.2; --k-blend: source-over; --k-spr: .45; --k-scheme: light;
+  --k-ok: #0F6B3C; --k-warn: #8A5A00; --k-err: #9F1D1D;
+  --d-bg: #1D1C21; --d-bg2: #222127; --d-panel: #27262C; --d-panel2: #2E2D34; --d-text: #F7F4F2; --d-muted: #B4B1B6; --d-dim: #A19EA4;
+  --d-acc: #FF8A66; --d-acc-ink: #1D1C21; --d-btn: #F7F4F2; --d-btn-hover: #FFFFFF; --d-btn-ink: #1D1C21; --d-tint: #2A2124;
+  --d-fg-rgb: 255 255 255; --d-bg-rgb: 29 28 33; --d-acc-rgb: 255 138 102; --d-auth-rgb: 39 38 44;
+  --d-hs: 1; --d-frame: #44434A; --d-dev-bg: #27262C; --d-dev-acc-rgb: 255 138 102; --d-prose: #DCD9DD;
+  --d-office: grayscale(1) invert(.92) contrast(.95); --d-net-boost: 1; --d-blend: lighter; --d-spr: 1; --d-scheme: dark;
+  --d-ok: #5BD08A; --d-warn: #F2B94B; --d-err: #FF8A80;
+  --k-line: #E04A2D;
+}
+/* C · Zümrüt */
+html[data-renk="C"] {
+  --k-bg: #F2F7F4; --k-bg2: #E6EFEA; --k-panel: #FAFDFB; --k-panel2: #FFFFFF; --k-text: #0F1F18; --k-muted: #46574E; --k-dim: #50625A;
+  --k-acc: #0A7A52; --k-acc-ink: #FFFFFF; --k-btn: #0F1F18; --k-btn-hover: #000000; --k-btn-ink: #F2F7F4; --k-tint: #BFE0D0;
+  --k-fg-rgb: 15 31 24; --k-bg-rgb: 242 247 244; --k-acc-rgb: 10 122 82; --k-auth-rgb: 250 253 251;
+  --k-hs: 1.5; --k-frame: #1E3A2E; --k-dev-bg: #0F1F18; --k-dev-acc-rgb: 217 242 230; --k-prose: #27382F;
+  --k-office: grayscale(1) contrast(.95); --k-net-boost: 2.2; --k-blend: source-over; --k-spr: .45; --k-scheme: light;
+  --k-ok: #0A7A52; --k-warn: #8A5A00; --k-err: #B3261E;
+  --d-bg: #08432F; --d-bg2: #0A4A35; --d-panel: #0D523B; --d-panel2: #115A42; --d-text: #FFFFFF; --d-muted: #CFEBDD; --d-dim: #B8DFCB;
+  --d-acc: #FFC46B; --d-acc-ink: #1A1100; --d-btn: #FFFFFF; --d-btn-hover: #FFF1D6; --d-btn-ink: #08432F; --d-tint: #1F7556;
+  --d-fg-rgb: 255 255 255; --d-bg-rgb: 8 67 47; --d-acc-rgb: 255 196 107; --d-auth-rgb: 13 82 59;
+  --d-hs: 1; --d-frame: #2E8466; --d-dev-bg: #052E21; --d-dev-acc-rgb: 255 196 107; --d-prose: #E2F4EB;
+  --d-office: grayscale(1) invert(.92) contrast(.95); --d-net-boost: 1; --d-blend: lighter; --d-spr: 1; --d-scheme: dark;
+  --d-ok: #9BF0C4; --d-warn: #FFD27A; --d-err: #FFB4AC;
+  --k-line: #14A06E;
+}

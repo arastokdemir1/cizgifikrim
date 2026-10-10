@@ -17,11 +17,7 @@
 
 /* ───────── BELİRTEÇLER ───────── */
 :root {
-  /* AÇIK takım (varsayılan, L1) */
-  --k-bg: #F5F0E7; --k-bg2: #EDE6D9; --k-panel: #FBF8F2; --k-panel2: #FFFFFF; --k-text: #1D1B18; --k-muted: #58534A; --k-dim: #605B51; --k-acc: #8E520D; --k-acc-ink: #FBF8F2; --k-btn: #1D1B18; --k-btn-hover: #000000; --k-btn-ink: #FBF8F2; --k-tint: #EADBC2; --k-fg-rgb: 29 27 24; --k-bg-rgb: 245 240 231; --k-acc-rgb: 142 82 13; --k-auth-rgb: 251 248 242; --k-hs: 1.5; --k-frame: #2E2C29; --k-dev-bg: #14151A; --k-dev-acc-rgb: 228 230 226; --k-prose: #38342D; --k-office: grayscale(1) contrast(.95); --k-net-boost: 2.2; --k-blend: source-over; --k-spr: .45; --k-scheme: light;
-  /* DERİN bant takımı: .cz-deep bölümlerinde --k-* bunlara eşlenir; köprü/gradyanlar da doğrudan --d-bg kullanır */
-  --d-bg: #141518; --d-bg2: #18191D; --d-panel: #1C1D21; --d-panel2: #222328; --d-text: #EEEBE6; --d-muted: #A8A5A0; --d-dim: #97948F; --d-acc: #E3A24F; --d-acc-ink: #141518; --d-btn: #EEEBE6; --d-btn-hover: #FFFFFF; --d-btn-ink: #141518; --d-tint: #1F1E1C; --d-fg-rgb: 255 255 255; --d-bg-rgb: 20 21 24; --d-acc-rgb: 227 162 79; --d-auth-rgb: 28 29 33; --d-hs: 1; --d-frame: #3D3E42; --d-dev-bg: #1C1D21; --d-dev-acc-rgb: 227 162 79; --d-prose: #D7D4CF; --d-office: grayscale(1) invert(.92) contrast(.95); --d-net-boost: 1; --d-blend: lighter; --d-spr: 1; --d-scheme: dark;
-  --k-line: #B26A10;
+  /* Renkler (açık --k-*, derin --d-*, durum -ok/-warn/-err) assets/css/renk.css içindedir; burada yalnız düzen belirteçleri vardır. */
   --k-head: "Hanken Grotesk", "Helvetica Neue", Arial, system-ui, sans-serif;
   --k-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --k-ease: cubic-bezier(.22, 1, .36, 1);
