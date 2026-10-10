@@ -9,6 +9,8 @@
     })
     .then((markup) => {
       mount.innerHTML = markup;
+      const frag = mount.querySelector('h1[data-fragment-h1]');   // sayfanın kendi h1'i var: parça başlığı h2 olur
+      if (frag) { const h2 = document.createElement('h2'); h2.id = frag.id; h2.className = frag.className; h2.textContent = frag.textContent; frag.replaceWith(h2); }
       mount.classList.add('is-ready');
 
       const simulator = document.createElement('script');
