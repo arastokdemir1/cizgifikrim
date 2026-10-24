@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PiyasApp — Arabacıların sosyal haritası</title>
+  <meta name="description" content="Arkadaşlarını haritada gör, selektörle selamlaş, konvoyla birlikte sür. Kokpit, telsiz, müzik ve garaj tek uygulamada. iPhone için ücretsiz.">
+  <link rel="canonical" href="https://cizgifikrim.net/piyasa/">
+  <meta name="apple-itunes-app" content="app-id=6786390358">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PiyasApp — Arabacıların sosyal haritası">
+  <meta property="og:description" content="Selektör, konvoy, telsiz, kokpit ve garaj. Piyasa artık cebinde.">
+  <meta property="og:url" content="https://cizgifikrim.net/piyasa/">
+  <meta property="og:image" content="https://cizgifikrim.net/piyasa/assets/harita.jpg">
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0B0B0C" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="assets/ikon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/ikon.png">
+  <link rel="preload" href="../assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    @font-face { font-family: "Hanken Grotesk"; src: url("../assets/fonts/hanken-grotesk-latin.woff2") format("woff2"); font-weight: 100 900; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Hanken Grotesk"; src: url("../assets/fonts/hanken-grotesk-latin-ext.woff2") format("woff2"); font-weight: 100 900; font-display: swap; unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+    /* Uygulamanın Theme.swift jetonları (açık / koyu) */
+    :root {
+      --zemin: #FFFFFF; --yuzey: #F4F4F1; --yuzey2: #E9E9E5; --cizgi: #E7E7E3;
+      --murekkep: #111111; --metin2: #5F5F5F; --murekkep-ustu: #FFFFFF;
+      --sari: #FFD200; --sari-ustu: #111111; --mavi: #0B5FFF; --kirmizi: #E8202F; --yesil: #16A34A;
+      --golge: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.08);
+      --golge-buyuk: 0 2px 6px rgba(0,0,0,.06), 0 30px 80px rgba(0,0,0,.16);
+      --cam: rgba(255,255,255,.72);
+      --r-s: 12px; --r-m: 20px; --r-l: 32px;
+      --kenar: max(20px, env(safe-area-inset-left));
+      --gen: 1120px;
+      --yay: cubic-bezier(.2, .8, .2, 1);        /* sönümlü yay, taşmasız */
+      --gostr: "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --zemin: #0B0B0C; --yuzey: #18181B; --yuzey2: #232327; --cizgi: #2E2E33;
+        --murekkep: #F5F5F4; --metin2: #A1A1AA; --murekkep-ustu: #0B0B0C;
+        --golge: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.4);
+        --golge-buyuk: 0 2px 6px rgba(0,0,0,.4), 0 30px 80px rgba(0,0,0,.6);
+        --cam: rgba(11,11,12,.7);
+        color-scheme: dark;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 76px; }
+    body { margin: 0; background: var(--zemin); color: var(--murekkep);
+      font: 400 1.0625rem/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden; }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--mavi); outline-offset: 3px; border-radius: 6px; }
+    .gizli { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .atla { position: absolute; left: 12px; top: -48px; background: var(--murekkep); color: var(--murekkep-ustu);
+      padding: 10px 14px; border-radius: 10px; z-index: 100; text-decoration: none; }
+    .atla:focus { top: 12px; }
+    .sar { width: min(var(--gen), 100% - 2 * var(--kenar)); margin-inline: auto; }
+
+    /* Tipografi: büyüdükçe sıkı aralık, sıkı satır */
+    h1, h2, h3 { font-family: var(--gostr); margin: 0; font-weight: 800; }
+    h1 { font-size: clamp(2.75rem, 7.4vw, 5.6rem); line-height: .98; letter-spacing: -.035em; }
+    h2 { font-size: clamp(2rem, 4.6vw, 3.4rem); line-height: 1.04; letter-spacing: -.028em; }
+    h3 { font-size: 1.25rem; line-height: 1.25; letter-spacing: -.01em; font-weight: 700; }
+    p { margin: 0; }
+    .ust { font: 700 .8125rem/1 var(--gostr); letter-spacing: .08em; text-transform: uppercase; color: var(--metin2); }
+    .giris { font-size: clamp(1.0625rem, 1.6vw, 1.25rem); line-height: 1.5; color: var(--metin2); max-width: 34ch; }
+    mark { background: none; color: inherit; position: relative; white-space: nowrap; }
+    mark::after { content: ""; position: absolute; left: .02em; right: .02em; bottom: -.06em; height: .14em;
+      background: var(--sari); border-radius: 99px; }
+
+    /* Düğmeler: basınca anında tepki */
+    .dugme { display: inline-flex; align-items: center; gap: .55rem; min-height: 52px; padding: 0 1.4rem;
+      border-radius: 999px; font: 700 1rem/1 var(--gostr); text-decoration: none; border: 0; cursor: pointer;
+      transition: transform .12s ease-out, background-color .2s, box-shadow .2s; -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation; }
+    .dugme:active, .dugme.basili { transform: scale(.97); }
+    .dugme-sari { background: var(--sari); color: var(--sari-ustu); box-shadow: 0 6px 20px rgba(255,210,0,.35); }
+    .dugme-koyu { background: var(--murekkep); color: var(--murekkep-ustu); }
+    .dugme-hafif { background: var(--yuzey); color: var(--murekkep); }
+    .dugme svg { width: 18px; height: 18px; flex: none; }
+
+    /* Üst çubuk: içerik altından akar; kaydırınca kenar efekti */
+    .ustcubuk { position: sticky; top: 0; z-index: 50; transition: background-color .25s, box-shadow .25s; }
+    .ustcubuk.kaydi { background: var(--cam); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+      box-shadow: 0 1px 0 var(--cizgi); }
+    .ustcubuk .sar { display: flex; align-items: center; gap: 1rem; height: 64px; }
+    .marka { display: flex; align-items: center; gap: .6rem; text-decoration: none; font: 800 1.15rem/1 var(--gostr); letter-spacing: -.02em; }
+    .marka img { width: 32px; height: 32px; border-radius: 9px; box-shadow: 0 1px 2px rgba(0,0,0,.15); }
+    .menu { display: flex; gap: .25rem; margin-left: auto; }
+    .menu a { text-decoration: none; font-weight: 600; font-size: .95rem; padding: .55rem .8rem; border-radius: 999px; color: var(--metin2); }
+    .menu a:hover { color: var(--murekkep); background: var(--yuzey); }
+    .ustcubuk .dugme { min-height: 40px; padding: 0 1rem; font-size: .9rem; }
+    @media (max-width: 760px) { .menu { display: none; } .ustcubuk .dugme { margin-left: auto; } }
+
+    /* Kahraman */
+    .kahraman { padding: clamp(2rem, 6vw, 5rem) 0 clamp(3rem, 7vw, 6rem); }
+    .kahraman .sar { display: grid; grid-template-columns: 1.08fr .92fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+    .kahraman .giris { margin: 1.5rem 0 2rem; }
+    .eylemler { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+    .kucuknot { margin-top: 1rem; font-size: .875rem; color: var(--metin2); }
+    @media (max-width: 860px) { .kahraman .sar { grid-template-columns: 1fr; } .kahraman .sahne { order: 2; } }
+
+    /* Telefon çerçevesi */
+    .telefon { position: relative; width: min(320px, 78vw); aspect-ratio: 1170 / 2532; margin-inline: auto;
+      border-radius: 13.5% / 6.3%; padding: 3.2%; background: #0E0E10; box-shadow: var(--golge-buyuk), inset 0 0 0 1.5px #3a3a3e; }
+    .telefon img { width: 100%; height: 100%; object-fit: cover; border-radius: 11% / 5.2%; background: var(--yuzey); }
+    .sahne { position: relative; }
+    .sahne .telefon { transform: perspective(1400px) rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)); transition: transform .5s var(--yay); }
+
+    /* Yüzen bildirimler */
+    .bant { position: absolute; display: flex; align-items: center; gap: .6rem; padding: .7rem .95rem .7rem .7rem;
+      border-radius: 18px; background: var(--cam); -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px);
+      box-shadow: var(--golge); font-weight: 650; font-size: .9rem; line-height: 1.2; white-space: nowrap;
+      opacity: 0; transform: translateY(14px) scale(.96); transition: opacity .6s var(--yay), transform .7s var(--yay); }
+    .bant.gorundu { opacity: 1; transform: none; }
+    .bant small { display: block; font-weight: 500; color: var(--metin2); font-size: .78rem; }
+    .bant .ik { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; flex: none; }
+    .bant .ik svg { width: 18px; height: 18px; }
+    .b1 { top: 16%; left: -6%; } .b2 { top: 47%; right: -8%; } .b3 { bottom: 12%; left: -2%; }
+    @media (max-width: 860px) { .b1 { left: 0; } .b2 { right: 0; } .b3 { left: 4%; } }
+
+    /* Özellik şeridi */
+    .serit { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; padding: 0 var(--kenar); }
+    .serit a { text-decoration: none; display: inline-flex; align-items: center; gap: .45rem; padding: .6rem 1rem; border-radius: 999px;
+      background: var(--yuzey); font-weight: 650; font-size: .95rem; transition: transform .12s ease-out, background-color .2s; }
+    .serit a:hover { background: var(--yuzey2); }
+    .serit a:active { transform: scale(.97); }
+    .serit svg { width: 16px; height: 16px; }
+
+    /* Bölümler */
+    .bolum { padding: clamp(4.5rem, 10vw, 8rem) 0; }
+    .bolum.ton { background: var(--yuzey); }
+    .ikili { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+    .ikili.ters .metin { order: 2; }
+    @media (max-width: 860px) { .ikili { grid-template-columns: 1fr; } .ikili.ters .metin { order: 0; } }
+    .metin h2 { margin: .9rem 0 1.1rem; }
+    .metin .giris { max-width: 38ch; }
+    .maddeler { list-style: none; padding: 0; margin: 1.75rem 0 0; display: grid; gap: 1rem; }
+    .maddeler li { display: grid; grid-template-columns: 40px 1fr; gap: .9rem; align-items: start; }
+    .maddeler .ik { width: 40px; height: 40px; border-radius: 12px; background: var(--zemin); display: grid; place-items: center; box-shadow: var(--golge); }
+    .bolum:not(.ton) .maddeler .ik { background: var(--yuzey); box-shadow: none; }
+    .maddeler .ik svg { width: 20px; height: 20px; }
+    .maddeler b { display: block; font-family: var(--gostr); font-size: 1.05rem; letter-spacing: -.01em; }
+    .maddeler span { color: var(--metin2); font-size: .975rem; }
+    .yeni { display: inline-block; margin-left: .35rem; padding: .15rem .45rem; border-radius: 6px; background: var(--sari); color: var(--sari-ustu);
+      font: 800 .68rem/1.2 var(--gostr); letter-spacing: .04em; text-transform: uppercase; vertical-align: .15em; }
+
+    /* Görünürlük: kaydırınca belir (yalnız opaklık + transform) */
+    .belir { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--yay), transform .9s var(--yay); }
+    .belir.gorundu { opacity: 1; transform: none; }
+
+    /* Selektör demosu */
+    .selektor-sahne { position: relative; }
+    .far { position: absolute; inset: 3.2%; border-radius: 11% / 5.2%; pointer-events: none; overflow: hidden; opacity: 0; }
+    .far::before, .far::after { content: ""; position: absolute; top: -12%; width: 85%; height: 70%;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,250,215,.95), rgba(255,240,170,.55) 30%, rgba(255,230,120,0) 70%); }
+    .far::before { left: -18%; transform: rotate(14deg); } .far::after { right: -18%; transform: rotate(-14deg); }
+    .far.yaniyor { animation: far 0.9s ease-out; }
+    @keyframes far { 0% { opacity: 0 } 12% { opacity: 1 } 30% { opacity: .1 } 46% { opacity: 1 } 70% { opacity: .15 } 100% { opacity: 0 } }
+    .selektor-bant { position: absolute; left: 50%; top: 9%; transform: translate(-50%, -12px); opacity: 0; transition: opacity .35s, transform .5s var(--yay); }
+    .selektor-bant.gorundu { opacity: 1; transform: translate(-50%, 0); }
+    .selektor-kontrol { margin-top: 1.75rem; display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; }
+    .surus-uyari { font-size: .9rem; color: var(--metin2); max-width: 36ch; }
+
+    /* Yolda Kesiştik kart yığını */
+    .deste-alan { display: grid; justify-items: center; gap: 1.25rem; }
+    .deste { position: relative; width: min(330px, 86vw); aspect-ratio: 3 / 4; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+    .kart { position: absolute; inset: 0; border-radius: var(--r-l); overflow: hidden; background: var(--zemin); box-shadow: var(--golge-buyuk);
+      cursor: grab; will-change: transform; display: flex; flex-direction: column; }
+    .kart:active { cursor: grabbing; }
+    .kart .foto { flex: 1; background-size: cover; background-position: center; background-color: var(--yuzey2); }
+    .kart .alt { padding: 1rem 1.15rem 1.15rem; display: grid; grid-template-columns: 44px 1fr; gap: .8rem; align-items: center; }
+    .avatar { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font: 800 .95rem/1 var(--gostr);
+      background: var(--yuzey); border: 2.5px solid var(--sari); }
+    .kart b { font-family: var(--gostr); font-size: 1.1rem; display: block; letter-spacing: -.01em; }
+    .kart small { color: var(--metin2); font-size: .85rem; }
+    .damga { position: absolute; top: 22px; padding: .35rem .7rem; border: 3px solid; border-radius: 10px; font: 900 1.2rem/1 var(--gostr);
+      letter-spacing: .06em; opacity: 0; background: rgba(255,255,255,.85); }
+    .damga.sag { left: 20px; color: var(--yesil); transform: rotate(-12deg); }
+    .damga.sol { right: 20px; color: var(--kirmizi); transform: rotate(12deg); }
+    .deste-bos { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; gap: .75rem; border-radius: var(--r-l);
+      border: 2px dashed var(--cizgi); color: var(--metin2); padding: 1.5rem; }
+    .deste-dugmeler { display: flex; gap: .75rem; }
+    .deste-dugmeler .dugme { min-width: 136px; justify-content: center; }
+    .deste-ozet { font-weight: 650; text-align: center; }
+
+    /* Konum kitlesi */
+    .kitle { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px; border-radius: 999px; background: var(--yuzey2);
+      width: min(420px, 100%); }
+    .kitle button { position: relative; z-index: 1; border: 0; background: none; min-height: 46px; border-radius: 999px; font: 700 .975rem/1 var(--gostr);
+      color: var(--metin2); cursor: pointer; transition: color .2s; -webkit-tap-highlight-color: transparent; }
+    .kitle button[aria-checked="true"] { color: var(--murekkep); }
+    .kitle .kayan { position: absolute; z-index: 0; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 8px) / 3); border-radius: 999px;
+      background: var(--zemin); box-shadow: 0 1px 3px rgba(0,0,0,.12); will-change: transform; }
+    .kitle-harita { position: relative; margin-top: 1.5rem; aspect-ratio: 16 / 10; border-radius: var(--r-m); overflow: hidden;
+      background: radial-gradient(circle at 30% 30%, rgba(11,95,255,.06), transparent 40%), var(--yuzey2); }
+    .kitle-harita svg.yol { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .nokta { position: absolute; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; display: grid; place-items: center;
+      font: 800 .8rem/1 var(--gostr); background: var(--zemin); box-shadow: var(--golge); transition: opacity .35s, filter .35s, transform .45s var(--yay); }
+    .nokta.ben { width: 52px; height: 52px; margin: -26px 0 0 -26px; background: var(--sari); color: var(--sari-ustu); font-size: .9rem; }
+    .nokta.ben::after { content: ""; position: absolute; inset: -14px; border-radius: 50%; border: 2px solid var(--sari); opacity: .5; }
+    .nokta.arkadas { border: 2.5px solid var(--yesil); }
+    .nokta.sonuk { opacity: .28; filter: grayscale(1); transform: scale(.9); }
+    .nokta.ben.gizli-ben { background: var(--yuzey); color: var(--metin2); }
+    .nokta.ben.gizli-ben::after { opacity: 0; }
+    .kitle-aciklama { margin-top: 1rem; min-height: 3em; color: var(--metin2); }
+    .lejant { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: .75rem; font-size: .85rem; color: var(--metin2); }
+    .lejant i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: .35rem; vertical-align: -1px; }
+
+    /* Güvenlik kartları */
+    .izgara { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 3rem; }
+    @media (max-width: 860px) { .izgara { grid-template-columns: 1fr; } }
+    .kutu { background: var(--zemin); border-radius: var(--r-m); padding: 1.5rem; box-shadow: var(--golge); }
+    .kutu .ik { width: 44px; height: 44px; border-radius: 13px; background: var(--yuzey); display: grid; place-items: center; margin-bottom: 1rem; }
+    .kutu .ik svg { width: 22px; height: 22px; }
+    .kutu p { color: var(--metin2); margin-top: .4rem; font-size: .975rem; }
+
+    /* Çıkartma */
+    .cikartma { position: relative; width: min(300px, 76vw); aspect-ratio: 1; margin: 2.5rem auto 0; border-radius: 50%; background: var(--sari);
+      display: grid; place-items: center; box-shadow: var(--golge-buyuk); transform: rotate(-6deg); }
+    .cikartma-ic { width: 60%; display: grid; justify-items: center; gap: .5rem; color: var(--sari-ustu); text-align: center; }
+    .cikartma-ic img { width: 100%; border-radius: 10px; background: #fff; padding: 6px; image-rendering: pixelated; }
+    .cikartma-ic b { font: 900 1rem/1 var(--gostr); letter-spacing: -.01em; }
+    .cikartma-ic small { font: 700 .72rem/1 var(--gostr); letter-spacing: .06em; text-transform: uppercase; }
+
+    /* Rehber sekmeleri */
+    .rehber-ust { display: grid; gap: 1rem; max-width: 42rem; }
+    .sekmeler { display: flex; gap: .5rem; overflow-x: auto; scrollbar-width: none; margin: 2.5rem 0 1.5rem; padding: 2px var(--kenar);
+      margin-inline: calc(-1 * var(--kenar)); scroll-snap-type: x proximity; }
+    .sekmeler::-webkit-scrollbar { display: none; }
+    .sekmeler button { flex: none; border: 0; cursor: pointer; padding: .7rem 1.1rem; border-radius: 999px; background: var(--zemin);
+      font: 700 .95rem/1 var(--gostr); color: var(--metin2); box-shadow: inset 0 0 0 1px var(--cizgi); scroll-snap-align: start;
+      transition: background-color .2s, color .2s, transform .12s ease-out; }
+    .sekmeler button:active { transform: scale(.97); }
+    .sekmeler button[aria-selected="true"] { background: var(--murekkep); color: var(--murekkep-ustu); box-shadow: none; }
+    .panel { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .panel[hidden] { display: none; }
+    .panel.giriyor { animation: giris .35s ease-out; }
+    @keyframes giris { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    @media (max-width: 760px) { .panel { grid-template-columns: 1fr; } }
+    .adim { background: var(--zemin); border-radius: var(--r-m); padding: 1.25rem 1.35rem; display: grid; grid-template-columns: 36px 1fr; gap: .9rem; }
+    .bolum:not(.ton) .adim { background: var(--yuzey); }
+    .adim .no { width: 36px; height: 36px; border-radius: 50%; background: var(--sari); color: var(--sari-ustu); display: grid; place-items: center;
+      font: 800 .95rem/1 var(--gostr); }
+    .adim b { font-family: var(--gostr); display: block; margin-bottom: .2rem; letter-spacing: -.01em; }
+    .adim p { color: var(--metin2); font-size: .95rem; }
+
+    /* SSS */
+    .sss { max-width: 46rem; margin-top: 2.5rem; }
+    details { border-bottom: 1px solid var(--cizgi); }
+    summary { list-style: none; cursor: pointer; padding: 1.25rem 2.5rem 1.25rem 0; position: relative; font: 700 1.1rem/1.35 var(--gostr); letter-spacing: -.01em; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: ""; position: absolute; right: 6px; top: 50%; width: 12px; height: 12px; margin-top: -8px;
+      border-right: 2.5px solid currentColor; border-bottom: 2.5px solid currentColor; transform: rotate(45deg); transition: transform .3s var(--yay); }
+    details[open] summary::after { transform: rotate(-135deg); margin-top: -2px; }
+    details p { padding: 0 0 1.25rem; color: var(--metin2); max-width: 60ch; }
+
+    /* Son çağrı */
+    .son { padding: clamp(4rem, 9vw, 7rem) 0; }
+    .son-kutu { background: var(--sari); color: var(--sari-ustu); border-radius: clamp(28px, 4vw, 44px); padding: clamp(2.5rem, 6vw, 4.5rem);
+      display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; overflow: hidden; position: relative; }
+    .son-kutu h2 { max-width: 14ch; }
+    .son-kutu p { margin-top: 1rem; font-size: 1.1rem; max-width: 34ch; opacity: .8; }
+    .son-kutu .dugme-koyu { background: #111; color: #fff; }
+    .son-kutu .ikon-buyuk { width: clamp(96px, 14vw, 150px); border-radius: 24%; box-shadow: 0 20px 50px rgba(0,0,0,.25); transform: rotate(8deg); }
+    @media (max-width: 760px) { .son-kutu { grid-template-columns: 1fr; } .son-kutu .ikon-buyuk { display: none; } }
+
+    footer { padding: 2.5rem 0 calc(2.5rem + env(safe-area-inset-bottom)); border-top: 1px solid var(--cizgi); font-size: .925rem; color: var(--metin2); }
+    footer .sar { display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between; align-items: center; }
+    footer nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    footer a { text-decoration: none; } footer a:hover { color: var(--murekkep); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .belir, .bant { opacity: 1; transform: none; transition: none; }
+      .sahne .telefon { transform: none !important; }
+      .far.yaniyor { animation: farSakin .6s ease-out; }
+      @keyframes farSakin { 0%, 100% { opacity: 0 } 40% { opacity: .7 } }
+      .panel.giriyor { animation: none; }
+    }
+    @media (prefers-reduced-transparency: reduce) {
+      .ustcubuk.kaydi, .bant { background: var(--zemin); -webkit-backdrop-filter: none; backdrop-filter: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="atla" href="#ana">Ana içeriğe geç</a>
+
+  <!-- Ortak simgeler -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="s-fener" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 3h10l-2 6v11a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V9L7 3Zm2 6h6M12 13v2"/></symbol>
+    <symbol id="s-konvoy" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 17h2m4 0h6m4 0h2M5 17V12l2-4h10l2 4v5M5 12h14M7.5 17a1.5 1.5 0 1 0 0 .01M16.5 17a1.5 1.5 0 1 0 0 .01"/></symbol>
+    <symbol id="s-kesis" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 21V12c0-3 2-5 5-5h9m0 0-3-3m3 3-3 3M19 21v-5c0-2-1.5-3.5-3.5-3.5H11"/></symbol>
+    <symbol id="s-telsiz" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 7h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Zm1-4 3 4M9 12h6M9 16h6"/></symbol>
+    <symbol id="s-muzik" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 18V5l11-2v13M9 18a3 3 0 1 1-3-3 3 3 0 0 1 3 3Zm11-2a3 3 0 1 1-3-3 3 3 0 0 1 3 3Z"/></symbol>
+    <symbol id="s-kokpit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-9-3h6m6 0h6m-9 3v6"/></symbol>
+    <symbol id="s-garaj" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 10 12 4l9 6v10H3V10Zm4 10v-6h10v6M7 17h10"/></symbol>
+    <symbol id="s-qr" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2v2h-2zM18 14h2M14 18h2M18 18h2v2"/></symbol>
+    <symbol id="s-harita" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m9 4-6 2v14l6-2 6 2 6-2V4l-6 2-6-2Zm0 0v14m6-12v14"/></symbol>
+    <symbol id="s-ara" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14Zm5-2 4 4"/></symbol>
+    <symbol id="s-kalkan" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Zm-3 9 2 2 4-4"/></symbol>
+    <symbol id="s-direksiyon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm-8.5-8.5L9 12l3 3 3-3 5.5.5M12 15v6"/></symbol>
+    <symbol id="s-cop" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M10 11v6m4-6v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+    <symbol id="s-sohbet" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 5h16v11H9l-5 4V5Z"/></symbol>
+    <symbol id="s-indir" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></symbol>
+  </svg>
+
+  <header class="ustcubuk" id="ustcubuk">
+    <div class="sar">
+      <a class="marka" href="#ana" aria-label="PiyasApp, sayfanın başı"><img src="assets/ikon.png" alt="" width="32" height="32">PiyasApp</a>
+      <nav class="menu" aria-label="Sayfa içi">
+        <a href="#ozellikler">Özellikler</a>
+        <a href="#konum">Gizlilik</a>
+        <a href="#rehber">Rehber</a>
+        <a href="#sss">Sorular</a>
+      </nav>
+      <a class="dugme dugme-sari" href="https://apps.apple.com/tr/app/piyasapp/id6786390358" data-indir>İndir</a>
+    </div>
+  </header>
+
+  <main id="ana" tabindex="-1">
+    <!-- KAHRAMAN -->
+    <section class="kahraman" aria-labelledby="baslik">
+      <div class="sar">
+        <div class="metin">
+          <p class="ust">Arabacıların sosyal haritası</p>
+          <h1 id="baslik" style="margin-top:1rem">Piyasa artık <mark>cebinde.</mark></h1>
+          <p class="giris">Arkadaşlarını haritada gör, selektörle selamlaş, konvoyla birlikte sür. Kokpit, telsiz, müzik ve garajın tek uygulamada.</p>
+          <div class="eylemler">
+            <a class="dugme dugme-koyu" href="https://apps.apple.com/tr/app/piyasapp/id6786390358" data-indir>
+              <svg aria-hidden="true"><use href="#s-indir"/></svg>App Store'dan indir
+            </a>
+            <a class="dugme dugme-hafif" href="#rehber">Nasıl kullanılır</a>
+          </div>
+          <p class="kucuknot">iPhone için ücretsiz. Konumun varsayılan olarak kapalı.</p>
+        </div>
+        <div class="sahne" id="kahramanSahne">
+          <div class="telefon"><img src="assets/harita.jpg" alt="PiyasApp harita ekranı: arkadaşların arabaları haritada" width="640" height="1385" fetchpriority="high"></div>
+          <div class="bant b1"><span class="ik" style="background:var(--sari);color:var(--sari-ustu)"><svg><use href="#s-fener"/></svg></span><span>Mert selektör yaptı<small>Geri yak</small></span></div>
+          <div class="bant b2"><span class="ik" style="background:var(--mavi);color:#fff"><svg><use href="#s-konvoy"/></svg></span><span>Gece Turu · 4 araç<small>Konvoy yolda</small></span></div>
+          <div class="bant b3"><span class="ik" style="background:var(--yesil);color:#fff"><svg><use href="#s-kesis"/></svg></span><span>Yolun 3 sürücüyle kesişti<small>Bağdat Cd. civarı</small></span></div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="serit" id="ozellikler" aria-label="Özellikler">
+      <a href="#selektor"><svg aria-hidden="true"><use href="#s-fener"/></svg>Selektör</a>
+      <a href="#kesistik"><svg aria-hidden="true"><use href="#s-kesis"/></svg>Yolda Kesiştik</a>
+      <a href="#kokpit"><svg aria-hidden="true"><use href="#s-konvoy"/></svg>Konvoy</a>
+      <a href="#kokpit"><svg aria-hidden="true"><use href="#s-telsiz"/></svg>Telsiz</a>
+      <a href="#garaj"><svg aria-hidden="true"><use href="#s-garaj"/></svg>Garaj</a>
+      <a href="#sohbet"><svg aria-hidden="true"><use href="#s-muzik"/></svg>Müzik</a>
+      <a href="#konum"><svg aria-hidden="true"><use href="#s-harita"/></svg>Konumun</a>
+    </nav>
+
+    <!-- SELEKTÖR -->
+    <section class="bolum" id="selektor" aria-labelledby="selektor-b">
+      <div class="sar ikili">
+        <div class="metin belir">
+          <p class="ust">Selektör</p>
+          <h2 id="selektor-b">Piyasanın selamı, bir dokunuşta.</h2>
+          <p class="giris">Haritada gördüğün bir sürücüye selektör yap. Onun ekranında farlar iki kez yanıp söner, telefonu titrer. İkiniz de yaptıysanız telsize ya da sohbete geçersiniz.</p>
+          <div class="selektor-kontrol">
+            <button class="dugme dugme-sari" id="selektorDugme" type="button"><svg aria-hidden="true"><use href="#s-fener"/></svg>Selektör yak</button>
+            <p class="surus-uyari">Araç hareket hâlindeyken selektör gönderilemez. Yolcuysan "Yolcuyum"u açman yeter.</p>
+          </div>
+        </div>
+        <div class="selektor-sahne belir">
+          <div class="telefon">
+            <img src="assets/harita-gece.jpg" alt="" width="640" height="1385" loading="lazy">
+            <div class="far" id="far" aria-hidden="true"></div>
+          </div>
+          <div class="bant selektor-bant" id="selektorBant" role="status" aria-live="polite"><span class="ik" style="background:var(--sari);color:var(--sari-ustu)"><svg><use href="#s-fener"/></svg></span><span>Deniz selektör yaptı<small>Geri yak</small></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- YOLDA KESİŞTİK -->
+    <section class="bolum ton" id="kesistik" aria-labelledby="kesistik-b">
+      <div class="sar ikili ters">
+        <div class="metin belir">
+          <p class="ust">Yolda Kesiştik</p>
+          <h2 id="kesistik-b">Kimlerle aynı yoldan geçtin?</h2>
+          <p class="giris">Sürüş bitince PiyasApp kimlerin yanından geçtiğini gösterir. Sağa kaydır selektör yap, sola kaydır geç. Kesin konum saklanmaz, kayıtlar bir hafta sonra silinir.</p>
+          <ul class="maddeler">
+            <li><span class="ik"><svg aria-hidden="true"><use href="#s-kesis"/></svg></span><div><b>Kendiliğinden</b><span>Sürüş sırasında yakınından geçen ve haritada görünen sürücüler kaydedilir.</span></div></li>
+            <li><span class="ik"><svg aria-hidden="true"><use href="#s-kalkan"/></svg></span><div><b>Karşılıklı</b><span>Sen haritada görünürken toplanır. Görünmeyen kimseyi göremezsin, kimse de seni.</span></div></li>
+          </ul>
+        </div>
+        <div class="deste-alan belir">
+          <div class="deste" id="deste" aria-label="Yolda kesiştiğin sürücüler, kaydırılabilir kartlar">
+            <div class="deste-bos" id="desteBos" hidden><b style="font-family:var(--gostr);font-size:1.15rem;color:var(--murekkep)">Hepsi bu kadar.</b><span>Bir sonraki sürüşte yenileri gelir.</span><button class="dugme dugme-hafif" type="button" id="desteYenile" style="justify-self:center">Baştan</button></div>
+          </div>
+          <div class="deste-dugmeler">
+            <button class="dugme dugme-hafif" type="button" id="kartGec">Geç</button>
+            <button class="dugme dugme-sari" type="button" id="kartSelektor"><svg aria-hidden="true"><use href="#s-fener"/></svg>Selektör</button>
+          </div>
+          <p class="deste-ozet" id="desteOzet" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- KOKPİT, KONVOY, TELSİZ -->
+    <section class="bolum" id="kokpit" aria-labelledby="kokpit-b">
+      <div class="sar ikili">
+        <div class="metin belir">
+          <p class="ust">Kokpit</p>
+          <h2 id="kokpit-b">Konvoyu kur, telsizi aç, yola çık.</h2>
+          <p class="giris">Kokpit sürüş ekranın. Hızın, yolculuğun ve konvoyun tek bakışta. Sürüşte her şey büyür, yazı gerekmez.</p>
+          <ul class="maddeler">
+            <li><span class="ik"><svg aria-hidden="true"><use href="#s-konvoy"/></svg></span><div><b>Konvoy</b><span>8 araca kadar. Arkadaşlarını çağır ya da QR okut. Ortak hedef, herkes aynı haritada.</span></div></li>
+            <li><span class="ik"><svg aria-hidden="true"><use href="#s-telsiz"/></svg></span><div><b>Telsiz</b><span>Bas, konuş. Konvoy kurulunca telsiz kendiliğinden bağlanır.</span></div></li>
+            <li><span class="ik"><svg aria-hidden="true"><use href="#s-muzik"/></svg></span><div><b>Konvoy DJ'i</b><span>DJ çaldığını paylaşır, herkes tek dokunuşla aynı parçayı açar.</span></div></li>
+            <li><span class="ik"><svg aria-hidden="true"><use href="#s-ara"/></svg></span><div><b>Arama ve yol tarifi <span class="yeni">Yeni</span></b><span>Bir yere dokun, kartı açılsın. Yol tarifini başlat, Kokpit seni sesle götürsün.</span></div></li>
+          </ul>
+        </div>
+        <div class="belir"><div class="telefon"><img src="assets/kokpit.jpg" alt="Kokpit ekranı: harita, haftanın yolculukları ve Sürüşe başla düğmesi" width="640" height="1385" loading="lazy"></div></div>
+      </div>
+    </section>
+
+    <!-- GARAJ + QR ÇIKARTMA -->
+    <section class="bolum ton" id="garaj" aria-labelledby="garaj-b">
+      <div class="sar ikili ters">
+        <div class="metin belir">
+          <p class="ust">Garaj</p>
+          <h2 id="garaj-b">Araban vitrinde, QR'ı camında.</h2>
+          <p class="giris">Araçlarını ekle: marka, model, güç, fotoğraf. Sonra kendi çıkartmanı oluştur. Trafikte, otoparkta QR'ı okutan seni PiyasApp'te bulur.</p>
+          <ul class="maddeler">
+            <li><span class="ik"><svg aria-hidden="true"><use href="#s-qr"/></svg></span><div><b>Üç şablon</b><span>Yuvarlak, cam şeridi, plaka altı. Baskıya hazır, yüksek çözünürlüklü.</span></div></li>
+            <li><span class="ik"><svg aria-hidden="true"><use href="#s-garaj"/></svg></span><div><b>Kendi garajın</b><span>Ana aracını seç, beğenileri gör, arkadaşlarının garajını gez.</span></div></li>
+          </ul>
+          <div class="cikartma" aria-label="Örnek PiyasApp çıkartması">
+            <div class="cikartma-ic"><small>Beni PiyasApp'te bul</small><img src="assets/qr.png" alt="Örnek QR kodu" width="232" height="232" loading="lazy"><b>@piyasapp</b></div>
+          </div>
+        </div>
+        <div class="belir"><div class="telefon"><img src="assets/garaj.jpg" alt="Garaj ekranı: araç kartları ve Çıkartmamı oluştur düğmesi" width="640" height="1385" loading="lazy"></div></div>
+      </div>
+    </section>
+
+    <!-- SOHBET + MÜZİK + YOLCULUKLAR -->
+    <section class="bolum" id="sohbet" aria-labelledby="sohbet-b">
+      <div class="sar ikili">
+        <div class="metin belir">
+          <p class="ust">Sohbet ve müzik</p>
+          <h2 id="sohbet-b">Listeni paylaş, rotanı göster.</h2>
+          <p class="giris">Sohbette yazmanın ötesine geç: çalma listeni, yolculuğunu, Shorts videolarını gönder. Spotify ya da YouTube Music bağlantısını yapıştır, liste PiyasApp'e gelsin.</p>
+          <ul class="maddeler">
+            <li><span class="ik"><svg aria-hidden="true"><use href="#s-muzik"/></svg></span><div><b>Müzik</b><span>Listeni içe aktar ve çal. Müzik sayfasından çıkınca küçük pencerede sürer; sohbette arkadaşına gönder.</span></div></li>
+            <li><span class="ik"><svg aria-hidden="true"><use href="#s-direksiyon"/></svg></span><div><b>Yolculuklar</b><span>Her yolculuk ayrı renkte, en yüksek hızıyla. Telefonunda kalır, bir hafta sonra silinir. Kaydı istediğin an kapat.</span></div></li>
+            <li><span class="ik"><svg aria-hidden="true"><use href="#s-sohbet"/></svg></span><div><b>Sohbet</b><span>Fotoğraf, tek görüntülük fotoğraf, video ve kartlar.</span></div></li>
+          </ul>
+        </div>
+        <div class="belir"><div class="telefon"><img src="assets/sohbet.jpg" alt="Sohbet ekranı: çalma listesi ve yolculuk kartları" width="640" height="1385" loading="lazy"></div></div>
+      </div>
+    </section>
+
+    <!-- KONUMUN -->
+    <section class="bolum ton" id="konum" aria-labelledby="konum-b">
+      <div class="sar">
+        <div class="ikili">
+          <div class="metin belir">
+            <p class="ust">Konumun</p>
+            <h2 id="konum-b">Kim görecek, sen seçersin.</h2>
+            <p class="giris">Tek düğme, üç seçenek. Kapalıyken kimse seni haritada göremez. İstediğin an değiştir.</p>
+          </div>
+          <div class="belir">
+            <div class="kitle" role="radiogroup" aria-label="Konumun kimlere görünsün" id="kitle">
+              <span class="kayan" aria-hidden="true"></span>
+              <button type="button" role="radio" aria-checked="false" data-kitle="kapali">Kapalı</button>
+              <button type="button" role="radio" aria-checked="true" data-kitle="arkadaslar">Arkadaşlar</button>
+              <button type="button" role="radio" aria-checked="false" data-kitle="herkes">Herkes</button>
+            </div>
+            <div class="kitle-harita" aria-hidden="true">
+              <svg class="yol" viewBox="0 0 400 250" preserveAspectRatio="none"><path d="M-10 190 C 90 150, 150 160, 220 110 S 340 40, 420 50" fill="none" stroke="var(--zemin)" stroke-width="22" stroke-linecap="round"/><path d="M120 -10 C 140 80, 170 160, 160 260" fill="none" stroke="var(--zemin)" stroke-width="14"/></svg>
+              <span class="nokta ben" style="left:48%;top:52%">SEN</span>
+              <span class="nokta arkadas" style="left:22%;top:30%">EY</span>
+              <span class="nokta arkadas" style="left:76%;top:70%">KT</span>
+              <span class="nokta yabanci" style="left:70%;top:24%">MS</span>
+              <span class="nokta yabanci" style="left:26%;top:76%">DA</span>
+            </div>
+            <p class="kitle-aciklama" id="kitleAciklama" role="status" aria-live="polite"></p>
+            <div class="lejant"><span><i style="background:var(--yesil)"></i>Arkadaşın</span><span><i style="background:var(--yuzey);box-shadow:inset 0 0 0 1px var(--cizgi)"></i>Diğer sürücüler</span></div>
+          </div>
+        </div>
+        <div class="izgara">
+          <div class="kutu belir"><span class="ik"><svg aria-hidden="true"><use href="#s-direksiyon"/></svg></span><h3>Sürerken güvenli</h3><p>Hız 10 km/s'i geçince yazı girişi kapanır, düğmeler büyür. Selektör yalnız dururken ya da yolcuyken.</p></div>
+          <div class="kutu belir"><span class="ik"><svg aria-hidden="true"><use href="#s-kalkan"/></svg></span><h3>Engelle, bildir</h3><p>Rahatsız eden olursa tek dokunuşla engelle. Engellediğin kişi seni haritada da görmez.</p></div>
+          <div class="kutu belir"><span class="ik"><svg aria-hidden="true"><use href="#s-cop"/></svg></span><h3>Verin senin</h3><p>Yolculuklar telefonunda kalır. Hesabını uygulamadan istediğin an silebilirsin.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REHBER -->
+    <section class="bolum" id="rehber" aria-labelledby="rehber-b">
+      <div class="sar">
+        <div class="rehber-ust belir">
+          <p class="ust">Rehber</p>
+          <h2 id="rehber-b">İlk 5 dakikada her şey.</h2>
+          <p class="giris">PiyasApp'te çok şey var. Buradan başla, sonra istediğin bölüme geç.</p>
+        </div>
+        <div class="sekmeler" role="tablist" aria-label="Rehber bölümleri" id="sekmeler"></div>
+        <div id="paneller"></div>
+      </div>
+    </section>
+
+    <!-- SSS -->
+    <section class="bolum ton" id="sss" aria-labelledby="sss-b">
+      <div class="sar">
+        <p class="ust belir">Sorular</p>
+        <h2 id="sss-b" class="belir" style="margin-top:.9rem">Merak ettiklerin.</h2>
+        <div class="sss belir">
+          <details><summary>PiyasApp ücretli mi?</summary><p>Hayır. İndirmesi ve bütün temel özellikleri ücretsiz. Hediye göndermek ya da öne çıkmak gibi birkaç ekstra jetonla çalışır.</p></details>
+          <details><summary>Konumumu kimler görür?</summary><p>Sen ne seçersen: Kapalı, Arkadaşlar ya da Herkes. Yeni hesaplarda konum kapalı başlar. Arkadaşların, birbirinizi takip ettiğiniz kişilerdir.</p></details>
+          <details><summary>Sürerken kullanmak güvenli mi?</summary><p>Kokpit sürüş için tasarlandı: büyük düğmeler, yazı yok, sesli yol tarifi. Yine de telefonu araç tutucuya tak, gözün yolda olsun. Selektör araç hareket hâlindeyken gönderilmez.</p></details>
+          <details><summary>Android'de var mı?</summary><p>Şimdilik yalnız iPhone'da.</p></details>
+          <details><summary>Yolculuklarım nerede saklanıyor?</summary><p>Telefonunda. Haritada en fazla bir hafta görünür, sonra silinir. Kaydı ve paylaşımı ayarlardan kapatabilirsin.</p></details>
+          <details><summary>Hesabımı nasıl silerim?</summary><p>Profil → Ayarlar → Hesabı sil. Bütün verilerin silinir. Ayrıntılar <a href="privacy.html">gizlilik politikasında</a>.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- SON ÇAĞRI -->
+    <section class="son" aria-labelledby="son-b">
+      <div class="sar">
+        <div class="son-kutu belir">
+          <div>
+            <h2 id="son-b">Bu akşam piyasada görüşürüz.</h2>
+            <p>Garajını kur, arkadaşlarını ekle, ilk konvoyunu aç.</p>
+            <div class="eylemler" style="margin-top:2rem">
+              <a class="dugme dugme-koyu" href="https://apps.apple.com/tr/app/piyasapp/id6786390358" data-indir><svg aria-hidden="true"><use href="#s-indir"/></svg>App Store'dan indir</a>
+            </div>
+          </div>
+          <img class="ikon-buyuk" src="assets/ikon.png" alt="" width="150" height="150" loading="lazy">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="sar">
+      <span>© 2026 PiyasApp · Bir <a href="../tr/index.html">CizgiFikrim</a> ürünü</span>
+      <nav aria-label="Alt bağlantılar"><a href="privacy.html">Gizlilik</a><a href="terms.html">Koşullar</a><a href="support.html">Destek</a><a href="mailto:dovicinshop@gmail.com">İletişim</a></nav>
+    </div>
+  </footer>
+
+  <script>
+  (() => {
+    const azHareket = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* Üst çubuk: kaydırınca kenar efekti */
+    const ust = document.getElementById("ustcubuk");
+    const kaydir = () => ust.classList.toggle("kaydi", scrollY > 8);
+    addEventListener("scroll", kaydir, { passive: true }); kaydir();
+
+    /* Kaydırınca belir */
+    const gozcu = new IntersectionObserver((girdiler) => {
+      for (const g of girdiler) if (g.isIntersecting) { g.target.classList.add("gorundu"); gozcu.unobserve(g.target); }
+    }, { rootMargin: "0px 0px -10% 0px", threshold: 0.12 });
+    document.querySelectorAll(".belir").forEach((el) => azHareket ? el.classList.add("gorundu") : gozcu.observe(el));
+
+    /* Kahraman: bantlar sırayla, telefon imlece hafif döner */
+    const bantlar = document.querySelectorAll(".kahraman .bant");
+    bantlar.forEach((b, i) => setTimeout(() => b.classList.add("gorundu"), azHareket ? 0 : 450 + i * 260));
+    const sahne = document.getElementById("kahramanSahne");
+    const tel = sahne.querySelector(".telefon");
+    if (!azHareket && matchMedia("(hover: hover)").matches) {
+      sahne.addEventListener("pointermove", (e) => {
+        const r = sahne.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        tel.style.setProperty("--ry", (x * 10).toFixed(2) + "deg");
+        tel.style.setProperty("--rx", (-y * 8).toFixed(2) + "deg");
+      });
+      sahne.addEventListener("pointerleave", () => { tel.style.setProperty("--ry", "0deg"); tel.style.setProperty("--rx", "0deg"); });
+    }
+
+    /* Basınca anında tepki (dokunmatikte :active gecikmesin) */
+    document.addEventListener("pointerdown", (e) => { const d = e.target.closest(".dugme"); if (d) d.classList.add("basili"); });
+    ["pointerup", "pointercancel", "pointerleave"].forEach((t) => document.addEventListener(t, () =>
+      document.querySelectorAll(".dugme.basili").forEach((d) => d.classList.remove("basili")), true));
+
+    const titret = (ms) => { try { navigator.vibrate && navigator.vibrate(ms); } catch (_) {} };
+
+    /* Selektör demosu */
+    const far = document.getElementById("far"), fbant = document.getElementById("selektorBant");
+    let bantSaat;
+    document.getElementById("selektorDugme").addEventListener("click", () => {
+      far.classList.remove("yaniyor"); void far.offsetWidth; far.classList.add("yaniyor");
+      titret([18, 120, 18]);
+      fbant.classList.add("gorundu"); clearTimeout(bantSaat);
+      bantSaat = setTimeout(() => fbant.classList.remove("gorundu"), 2600);
+    });
+
+    /* Yay (Apple: sönüm + tepki). sönüm 1 = taşmasız, <1 = hafif sekme */
+    function yay(baslangic, hedef, hiz, sonum, tepki, adim, bitti) {
+      const k = Math.pow(2 * Math.PI / tepki, 2), c = 4 * Math.PI * sonum / tepki;
+      let x = baslangic, v = hiz, onceki = performance.now(), kimlik;
+      const kare = (t) => {
+        let dt = Math.min(0.032, (t - onceki) / 1000); onceki = t;
+        const alt = 4; dt /= alt;
+        for (let i = 0; i < alt; i++) { const a = -k * (x - hedef) - c * v; v += a * dt; x += v * dt; }
+        adim(x);
+        if (Math.abs(v) < 2 && Math.abs(x - hedef) < 0.5) { adim(hedef); bitti && bitti(); return; }
+        kimlik = requestAnimationFrame(kare);
+      };
+      kimlik = requestAnimationFrame(kare);
+      return () => cancelAnimationFrame(kimlik);
+    }
+    const izdus = (v, d = 0.998) => (v / 1000) * d / (1 - d);   // Apple momentum izdüşümü
+
+    /* Yolda Kesiştik kart yığını */
+    const VERI = [
+      { ad: "Deniz Akın", arac: "BMW 318i · Turuncu", yer: "Bağdat Cd. civarı · 21:40", bas: "DA", foto: "assets/arac-bmw.jpg" },
+      { ad: "Kerem Topçu", arac: "Volkswagen Golf · Gri", yer: "Suadiye · 21:52", bas: "KT", foto: "assets/arac-golf.jpg" },
+      { ad: "Ece Yıldız", arac: "BMW 318i · Turuncu", yer: "Caddebostan · 22:05", bas: "EY", foto: "assets/arac-bmw.jpg" },
+    ];
+    const deste = document.getElementById("deste"), bos = document.getElementById("desteBos"), ozet = document.getElementById("desteOzet");
+    let kartlar = [], selektorSay = 0;
+    function kartYap(v) {
+      const k = document.createElement("article");
+      k.className = "kart"; k.setAttribute("aria-label", v.ad + ", " + v.arac + ", " + v.yer);
+      k.innerHTML = `<div class="foto" style="background-image:url('${v.foto}')"></div>
+        <div class="alt"><span class="avatar">${v.bas}</span><div><b>${v.ad}</b><small>${v.arac}<br>${v.yer}</small></div></div>
+        <span class="damga sag" aria-hidden="true">SELEKTÖR</span><span class="damga sol" aria-hidden="true">GEÇ</span>`;
+      return k;
+    }
+    function diz() {
+      kartlar.forEach((k, i) => {
+        const derin = kartlar.length - 1 - i;   // 0 = en üstte
+        k.style.zIndex = 10 + i;
+        if (derin > 0) { k.style.transform = `translateY(${derin * 10}px) scale(${1 - derin * 0.04})`; k.style.pointerEvents = "none"; }
+        else { k.style.transform = ""; k.style.pointerEvents = ""; }
+      });
+      bos.hidden = kartlar.length > 0;
+    }
+    function doldur() {
+      kartlar.forEach((k) => k.remove()); kartlar = []; selektorSay = 0; ozet.textContent = "";
+      VERI.slice().reverse().forEach((v) => { const k = kartYap(v); deste.appendChild(k); kartlar.push(k); baglan(k); });
+      diz();
+    }
+    function ciz(k, x, y) {
+      const w = deste.clientWidth;
+      k.style.transform = `translate(${x}px, ${y}px) rotate(${x / w * 14}deg)`;
+      k.querySelector(".sag").style.opacity = Math.max(0, Math.min(1, x / 90));
+      k.querySelector(".sol").style.opacity = Math.max(0, Math.min(1, -x / 90));
+    }
+    function at(k, yon, vx = 0) {
+      const w = deste.clientWidth, hedef = yon * w * 1.6;
+      if (yon > 0) { selektorSay++; titret(15); }
+      let x = parseFloat(k.dataset.x || 0), y = parseFloat(k.dataset.y || 0);
+      const bitir = () => { k.remove(); kartlar = kartlar.filter((z) => z !== k); diz();
+        ozet.textContent = kartlar.length ? "" : (selektorSay ? `${selektorSay} sürücüye selektör yaptın.` : "Hepsini geçtin."); };
+      if (azHareket) { bitir(); return; }
+      yay(x, hedef, vx || yon * 900, 1, 0.35, (nx) => { x = nx; ciz(k, x, y); }, bitir);
+    }
+    function baglan(k) {
+      let basX = 0, basY = 0, x = 0, y = 0, gecmis = [], durdur = null, surukluyor = false;
+      k.addEventListener("pointerdown", (e) => {
+        if (k !== kartlar[kartlar.length - 1]) return;
+        durdur && durdur(); k.setPointerCapture(e.pointerId); surukluyor = false;
+        basX = e.clientX - x; basY = e.clientY - y; gecmis = [{ x: e.clientX, t: e.timeStamp }];
+      });
+      k.addEventListener("pointermove", (e) => {
+        if (!k.hasPointerCapture(e.pointerId)) return;
+        const nx = e.clientX - basX, ny = e.clientY - basY;
+        if (!surukluyor && Math.hypot(nx - x, ny - y) < 10 && Math.abs(nx) < 10) return;   // eşik
+        surukluyor = true; x = nx; y = ny * 0.35;
+        k.dataset.x = x; k.dataset.y = y; ciz(k, x, y);
+        gecmis.push({ x: e.clientX, t: e.timeStamp }); if (gecmis.length > 5) gecmis.shift();
+      });
+      const birak = (e) => {
+        if (!k.hasPointerCapture(e.pointerId)) return;
+        k.releasePointerCapture(e.pointerId);
+        const a = gecmis[0], b = gecmis[gecmis.length - 1];
+        const vx = b && a && b.t > a.t ? (b.x - a.x) / ((b.t - a.t) / 1000) : 0;
+        const varis = x + izdus(vx);
+        const esik = deste.clientWidth * 0.45;
+        if (Math.abs(varis) > esik) { at(k, Math.sign(varis), vx); return; }
+        // Geri yay: momentum vardıysa hafif sekme
+        const sx = x, sy = y;
+        durdur = yay(1, 0, 0, 0.8, 0.4, (t) => { x = sx * t; y = sy * t; k.dataset.x = x; k.dataset.y = y; ciz(k, x, y); });
+      };
+      k.addEventListener("pointerup", birak); k.addEventListener("pointercancel", birak);
+    }
+    document.getElementById("kartGec").addEventListener("click", () => { const k = kartlar[kartlar.length - 1]; k && at(k, -1); });
+    document.getElementById("kartSelektor").addEventListener("click", () => { const k = kartlar[kartlar.length - 1]; k && at(k, 1); });
+    document.getElementById("desteYenile").addEventListener("click", doldur);
+    doldur();
+
+    /* Konum kitlesi */
+    const kitle = document.getElementById("kitle"), kayan = kitle.querySelector(".kayan");
+    const aciklama = document.getElementById("kitleAciklama");
+    const METIN = {
+      kapali: "Kimse seni haritada görmez. Sen yine herkesi görebilirsin.",
+      arkadaslar: "Yalnız arkadaşların seni görür. Arkadaş, birbirinizi takip ettiğiniz kişidir.",
+      herkes: "Haritada görünen herkes seni görür. Selektör ve konvoy davetleri gelebilir.",
+    };
+    const sira = ["kapali", "arkadaslar", "herkes"];
+    let kitleX = 1, kitleDurdur = null;
+    function kitleSec(ad, odakla) {
+      const i = sira.indexOf(ad);
+      kitle.querySelectorAll("button").forEach((b) => { const s = b.dataset.kitle === ad; b.setAttribute("aria-checked", s); b.tabIndex = s ? 0 : -1; if (s && odakla) b.focus(); });
+      kitleDurdur && kitleDurdur();
+      const ciz = (v) => { kitleX = v; kayan.style.transform = `translateX(${v * 100}%)`; };
+      if (azHareket) ciz(i); else kitleDurdur = yay(kitleX, i, 0, 1, 0.35, ciz);
+      const ben = document.querySelector(".nokta.ben");
+      ben.classList.toggle("gizli-ben", ad === "kapali");
+      document.querySelectorAll(".nokta.arkadas").forEach((n) => n.classList.toggle("sonuk", ad === "kapali"));
+      document.querySelectorAll(".nokta.yabanci").forEach((n) => n.classList.toggle("sonuk", ad !== "herkes"));
+      aciklama.textContent = METIN[ad];
+    }
+    kitle.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) kitleSec(b.dataset.kitle); });
+    kitle.addEventListener("keydown", (e) => {
+      const simdi = sira.indexOf(kitle.querySelector('[aria-checked="true"]').dataset.kitle);
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); kitleSec(sira[(simdi + 1) % 3], true); }
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); kitleSec(sira[(simdi + 2) % 3], true); }
+    });
+    kitleSec("arkadaslar");
+
+    /* Rehber */
+    const REHBER = [
+      { ad: "Başla", adimlar: [
+        ["İndir ve giriş yap", "E-posta adresine gelen 6 haneli kodla saniyeler içinde girersin."],
+        ["Garajını kur", "Profil → Garajım → Aracını ekle. Marka, model, yıl ve bir fotoğraf yeter."],
+        ["Konumunu seç", "Harita'daki Konumun düğmesi: Kapalı, Arkadaşlar ya da Herkes. Arkadaşlar'da yalnız karşılıklı takipleştiklerin seni görür."],
+        ["Arkadaşlarını ekle", "Kullanıcı adıyla ara ya da çıkartmandaki QR'ı okut."] ] },
+      { ad: "Harita", adimlar: [
+        ["Arkadaşların ve arabaları", "Haritada arkadaşlarını kendi araç işaretleriyle görürsün."],
+        ["Alt panel", "Arkadaşlar, Yakındakiler, Yolculuklar ve Kesişmeler. Yukarı çek, büyüsün."],
+        ["Bir yere dokun", "Yerin kartı açılır: yol tarifi al, konvoy hedefi yap ya da paylaş."],
+        ["Ara", "Üstteki Nereye? çubuğuna yaz ya da benzinlik, şarj, otopark kısayollarına dokun."] ] },
+      { ad: "Kokpit", adimlar: [
+        ["Sürüşe başla", "Kokpit'teki büyük düğmeye bas. PiyasApp sürüşünü kendiliğinden de algılar."],
+        ["Yol tarifi", "Harita'da seçtiğin yere Başlat de. Kokpit manevraları sesle söyler."],
+        ["Haritayla oyna", "Kaydır, yakınlaştır. Ortala'ya basınca ya da biraz bekleyince harita seni takibe döner."],
+        ["Sürerken", "Hız 10 km/s'i geçince yazı kapanır, her şey büyür."] ] },
+      { ad: "Konvoy", adimlar: [
+        ["Kur", "Kokpit → Konvoy kur. Bir ad ver, en fazla 7 arkadaşını seç."],
+        ["Çağır", "Arkadaşlarına davet gider. Yanındakilere konvoy QR'ını okutman yeter."],
+        ["Hedef ve DJ", "Ortak hedefi seç. DJ çaldığını paylaşır, herkes tek dokunuşla açar."],
+        ["Bitir", "Konvoy bitince grup özeti çıkar: rota, araç sayısı, km ve süre. Paylaş ya da kaydet."] ] },
+      { ad: "Telsiz", adimlar: [
+        ["Aç", "Kokpit → Telsiz. Buluşma telsizine katıl ya da konvoy telsizini kullan."],
+        ["Bas, konuş", "Büyük düğmeyi basılı tut, konuş, bırak."],
+        ["Konvoyda", "Konvoy kurulunca telsiz kendiliğinden bağlanır, bitince kapanır."] ] },
+      { ad: "Müzik", adimlar: [
+        ["Listeni getir", "Spotify ya da YouTube Music bağlantısını yapıştır, liste PiyasApp'e gelsin."],
+        ["Çal", "Kart destesinde sağa kaydır çal, sola kaydır geç."],
+        ["Pencere", "Müzik sayfasından çıkınca küçük bir video penceresi açılır ve müzik sürer. Köşelere sürükle; kapatınca müzik durur."],
+        ["Paylaş", "Listeyi ya da şarkıyı sohbette arkadaşına gönder."] ] },
+      { ad: "Yolculuklar", adimlar: [
+        ["Kendiliğinden kayıt", "Her sürüş ayrı renkte kaydedilir, en yüksek hızıyla."],
+        ["Bir hafta", "Yolculuklar telefonunda kalır, bir hafta sonra silinir."],
+        ["Senin elinde", "Kaydı ve arkadaşlarla paylaşımı Kokpit ayarlarından kapatabilirsin."] ] },
+      { ad: "Selektör", adimlar: [
+        ["Yap", "Haritada bir sürücünün kartını aç, Selektör'e bas."],
+        ["Karşılıklı", "İkiniz de yaptıysanız telsize çağır ya da mesaj at."],
+        ["Güvenli", "Araç hareket hâlindeyken gönderilmez. Yolcuysan Yolcuyum'u aç."] ] },
+    ];
+    const sekmeler = document.getElementById("sekmeler"), paneller = document.getElementById("paneller");
+    REHBER.forEach((r, i) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.role = "tab"; b.id = "sekme-" + i; b.textContent = r.ad;
+      b.setAttribute("aria-controls", "panel-" + i); b.setAttribute("aria-selected", i === 0); b.tabIndex = i === 0 ? 0 : -1;
+      sekmeler.appendChild(b);
+      const p = document.createElement("div");
+      p.className = "panel"; p.id = "panel-" + i; p.role = "tabpanel"; p.setAttribute("aria-labelledby", b.id); p.hidden = i !== 0;
+      p.innerHTML = r.adimlar.map((a, j) => `<div class="adim"><span class="no">${j + 1}</span><div><b>${a[0]}</b><p>${a[1]}</p></div></div>`).join("");
+      paneller.appendChild(p);
+    });
+    function sekmeSec(i, odakla) {
+      sekmeler.querySelectorAll("button").forEach((b, j) => { b.setAttribute("aria-selected", j === i); b.tabIndex = j === i ? 0 : -1; });
+      paneller.querySelectorAll(".panel").forEach((p, j) => { p.hidden = j !== i; if (j === i) { p.classList.remove("giriyor"); void p.offsetWidth; p.classList.add("giriyor"); } });
+      const b = sekmeler.children[i]; if (odakla) b.focus();
+      b.scrollIntoView({ block: "nearest", inline: "nearest", behavior: azHareket ? "auto" : "smooth" });
+    }
+    sekmeler.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) sekmeSec([...sekmeler.children].indexOf(b)); });
+    sekmeler.addEventListener("keydown", (e) => {
+      const i = [...sekmeler.children].findIndex((b) => b.getAttribute("aria-selected") === "true"), n = sekmeler.children.length;
+      if (e.key === "ArrowRight") { e.preventDefault(); sekmeSec((i + 1) % n, true); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); sekmeSec((i - 1 + n) % n, true); }
+      if (e.key === "Home") { e.preventDefault(); sekmeSec(0, true); }
+      if (e.key === "End") { e.preventDefault(); sekmeSec(n - 1, true); }
+    });
+  })();
+  </script>
+</body>
+</html>

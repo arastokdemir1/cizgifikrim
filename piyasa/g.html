@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FFD200">
+<title>PiyasApp garajı</title>
+<meta property="og:title" content="PiyasApp'te garajıma bak">
+<meta property="og:description" content="Arabamı, yolculuklarımı ve selektör yakacağın profili PiyasApp'te gör.">
+<meta property="og:type" content="website">
+<style>
+  :root {
+    --zemin: #FFFFFF; --yuzey: #F5F5F4; --murekkep: #111111; --metin2: #5F5F66;
+    --marka: #FFD200; --marka-yazi: #111111; --cizgi: #E4E4E7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --zemin: #0B0B0C; --yuzey: #18181B; --murekkep: #F5F5F4; --metin2: #A1A1AA; --cizgi: #2E2E33; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center;
+    padding: max(24px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom));
+    background: var(--zemin); color: var(--murekkep);
+    font: 16px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  }
+  main { width: 100%; max-width: 400px; text-align: center; }
+  .rozet {
+    width: 88px; height: 88px; margin: 0 auto 20px; border-radius: 24px; background: var(--marka);
+    display: flex; align-items: center; justify-content: center; font-size: 44px;
+  }
+  h1 { margin: 0 0 8px; font-size: 26px; line-height: 1.15; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+  p { margin: 0 0 24px; color: var(--metin2); }
+  .dugme {
+    display: block; width: 100%; padding: 16px 20px; margin: 0 0 12px; border-radius: 999px; border: 0;
+    font: 600 17px/1.2 inherit; text-decoration: none; cursor: pointer;
+  }
+  .birincil { background: var(--marka); color: var(--marka-yazi); }
+  .ikincil { background: var(--yuzey); color: var(--murekkep); border: 1px solid var(--cizgi); }
+  small { display: block; margin-top: 16px; color: var(--metin2); font-size: 13px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <div class="rozet" aria-hidden="true">🚗</div>
+  <h1 id="baslik">PiyasApp garajı</h1>
+  <p id="alt">PiyasApp'i aç, garajına bak.</p>
+
+  <a id="ac" class="dugme birincil" href="#" hidden>PiyasApp'te aç</a>
+  <a id="indir" class="dugme ikincil" href="https://apps.apple.com/tr/app/piyasapp/id6786390358">App Store'dan indir</a>
+  <small id="not" hidden></small>
+</main>
+<script>
+(function () {
+  "use strict";
+  // Sabit hedefler: yalnız bunlar açılır (açık yönlendirme / enjeksiyon yok).
+  var APP_STORE = "https://apps.apple.com/tr/app/piyasapp/id6786390358";
+  var IOS = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+            (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  // Kullanıcı adı: küçük harf, rakam, nokta, alt çizgi; 2–30 (uygulamadaki GarajBaglantisi ile AYNI kural).
+  var ham = new URLSearchParams(location.search).get("u") || "";
+  var ad = ham.trim().toLowerCase();
+  var gecerli = /^[a-z0-9._]{2,30}$/.test(ad);
+
+  var baslik = document.getElementById("baslik");
+  var alt = document.getElementById("alt");
+  var ac = document.getElementById("ac");
+  var not = document.getElementById("not");
+
+  if (!gecerli) {
+    baslik.textContent = "Bu bağlantı geçersiz";
+    alt.textContent = "PiyasApp'i indirip kendi garajını kurabilirsin.";
+    return;
+  }
+
+  baslik.textContent = "@" + ad;                       // textContent: HTML enjeksiyonu yok
+  alt.textContent = "garajına bakmak için PiyasApp'i aç.";
+  var uygulama = "piyasapp://garaj/" + encodeURIComponent(ad);
+
+  if (!IOS) {
+    // Masaüstü / Android: yalnız mağaza (uygulama yalnız iPhone).
+    not.hidden = false;
+    not.textContent = "PiyasApp şimdilik iPhone için.";
+    return;
+  }
+
+  ac.hidden = false;
+  ac.href = uygulama;
+
+  // iPhone: uygulamayı otomatik aç; açılmazsa (yüklü değilse) kısa süre sonra App Store.
+  var acildi = false;
+  document.addEventListener("visibilitychange", function () { if (document.hidden) acildi = true; });
+  window.addEventListener("pagehide", function () { acildi = true; });
+  location.href = uygulama;
+  setTimeout(function () {
+    if (!acildi && !document.hidden) {
+      not.hidden = false;
+      not.textContent = "Uygulama yüklü değilse App Store'a yönlendiriliyorsun…";
+      setTimeout(function () { if (!document.hidden) location.href = APP_STORE; }, 1200);
+    }
+  }, 1600);
+})();
+</script>
+</body>
+</html>
