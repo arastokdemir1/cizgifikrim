@@ -726,40 +726,107 @@
       { ad: "Başla", adimlar: [
         ["İndir ve giriş yap", "E-posta adresine gelen 6 haneli kodla saniyeler içinde girersin."],
         ["Garajını kur", "Profil → Garajım → Aracını ekle. Marka, model, yıl ve bir fotoğraf yeter."],
-        ["Konumunu seç", "Harita'daki Konumun düğmesi: Kapalı, Arkadaşlar ya da Herkes. Arkadaşlar'da yalnız karşılıklı takipleştiklerin seni görür."],
+        ["Konumunu seç", "Harita'daki Konumun düğmesi: Kapalı, Arkadaşlar ya da Herkes. Başta Kapalı gelir; sen seçmedikçe kimse seni göremez."],
         ["Arkadaşlarını ekle", "Kullanıcı adıyla ara ya da çıkartmandaki QR'ı okut."] ] },
+      { ad: "Piyasaya Giriş", adimlar: [
+        ["Bu gece piyasa nerede?", "Haritada sol üstteki sarı Piyasa düğmesi caddeleri ve canlı yoğunluğu listeler; haritada da caddeler yoğunluğa göre parlar. Bir cadde etiketine dokununca cadde kartı açılır: yoğunluk, bu gece girenler, yol tarifi."],
+        ["Piyasaya gir", "Konumun Herkes ve Piyasaya Giriş anonsu açıkken bir piyasa caddesine girince orada olan PiyasApp'lilere kartın düşer: araç, çaldığın şarkı, istersen gaz sesin. Sende Piyasaya girdin · cadde · N kişi gördü yazar."],
+        ["Kart gelince", "Duruyorsan tam kart açılır: gaz sesini ▶︎ ile dinle, Selektör yak. Sürerken yalnızca 4 saniyelik, dokunulmaz bir bant görünür; ses çalmaz."],
+        ["Gaz sesin", "Garajım → araç → Gaz sesi: en çok 5 sn kaydet, dinle, kaydet ya da sil. Kendiliğinden çalmaz, kartta ▶︎ ile çalar."],
+        ["Gizlilik", "Konumun Kapalı iken kart ne gider ne gelir. Arkadaşlar'da anonsu açarsan yalnız karşılıklı arkadaşların görür. Hızın hiçbir yerde gösterilmez; sayılar anonimdir, 3'ün altı birkaç araç diye görünür. Engellediklerin kartını görmezsin."],
+        ["Sınırlar", "Giriş yalnız PiyasApp açıkken algılanır. Aynı caddeye 30 dakikada bir giriş yapılır. Şimdilik 4 cadde var: Bağdat (İstanbul), Kordon (İzmir), Tunalı Hilmi (Ankara), Konyaaltı (Antalya). Anons tercihi Ayarlar → Gizlilik'te."] ] },
+      { ad: "Kamera ve fotoğraf", adimlar: [
+        ["Kamerayı aç", "Üst bardaki kamera düğmesi. Sohbet listesinde bir kişinin satırındaki kamera o kişi seçili açılır; Keşfet'teki + ise Hikâyem seçili açar."],
+        ["Çek, seç, gönder", "Fotoğrafı çek, alttaki baloncuktan Hikâyem'i ya da bir kişiyi seç, gönder okuna bas: üç dokunuş. Deklanşörün üstündeki Son fotoğrafların şeridinden galerinden de seçebilirsin; fotoğraf izni şeride dokununca sorulur."],
+        ["Video, yazı, tek görüntülük", "Deklanşöre basılı tut: video. Basılıyken yukarı sürükle: yakınlaş, sağa kaydır: kilitle. Yazı eklemek için ekrana dokun. Tek görüntülük açıksa karşı taraf bir kez görür."],
+        ["Arka planda gider", "Üstte Gönderiliyor, bitince Gönderildi ✓ yazar. Hata olursa Tekrar dene çıkar, fotoğrafın kaybolmaz. Sohbetteki galeri düğmesinden seçtiğin fotoğraf hemen gönderilir."] ] },
       { ad: "Harita", adimlar: [
         ["Arkadaşların ve arabaları", "Haritada arkadaşlarını kendi araç işaretleriyle görürsün."],
-        ["Alt panel", "Arkadaşlar, Yakındakiler, Yolculuklar ve Kesişmeler. Yukarı çek, büyüsün."],
+        ["Alt panel", "Arkadaşlar, Yakındakiler, Yolculuklarım ve (kesişme varsa) Kesişmeler. Yukarı çek, büyüsün."],
         ["Bir yere dokun", "Yerin kartı açılır: yol tarifi al, konvoy hedefi yap ya da paylaş."],
-        ["Ara", "Üstteki Nereye? çubuğuna yaz ya da benzinlik, şarj, otopark kısayollarına dokun."] ] },
+        ["Ara", "Üstteki Nereye? çubuğuna yaz ya da benzinlik, şarj, otopark kısayollarına dokun."],
+        ["Sağ üstteki ⋯", "Nasıl kullanılır, Bildirimler, Buluşma, Mekân, Bu haftanın yüzleri, Müzik ve Ayarlar buradan açılır. Buluşma, Mekân ve Bu haftanın yüzleri açıksa görünür."] ] },
+      { ad: "Konumun", adimlar: [
+        ["Kapalı", "Kimse seni haritada göremez; konumun sunucudan silinir, Piyasaya Giriş kartı da gitmez ve gelmez. Başlangıçta böyledir."],
+        ["Arkadaşlar", "Yalnız karşılıklı takipleştiğin arkadaşların seni görür."],
+        ["Herkes", "Yakındaki herkes seni Harita'da ve Yakındakiler'de görür."],
+        ["Nereden değişir", "Harita'daki Konumun düğmesinden ya da Ayarlar → Gizlilik → Konumun. Konum izni kapalıysa önce izin istenir."],
+        ["Ne zaman paylaşılır", "Konum yalnız uygulama açıkken paylaşılır. Uygulamayı kapatınca birkaç dakika içinde haritadan düşersin."],
+        ["Konvoyda", "Konvoydayken konumun yalnız konvoy üyelerine gider; bu, Konumun ayarından bağımsızdır."] ] },
       { ad: "Kokpit", adimlar: [
-        ["Sürüşe başla", "Kokpit'teki büyük düğmeye bas. PiyasApp sürüşünü kendiliğinden de algılar."],
+        ["Sürüşe başla", "Kokpit'teki büyük düğmeye bas. Yolculuk kaydı açıksa PiyasApp sürüşünü kendiliğinden de algılar."],
         ["Yol tarifi", "Harita'da seçtiğin yere Başlat de. Kokpit manevraları sesle söyler."],
         ["Haritayla oyna", "Kaydır, yakınlaştır. Ortala'ya basınca ya da biraz bekleyince harita seni takibe döner."],
-        ["Sürerken", "Hız 10 km/s'i geçince yazı kapanır, her şey büyür."] ] },
-      { ad: "Konvoy", adimlar: [
-        ["Kur", "Kokpit → Konvoy kur. Bir ad ver, en fazla 7 arkadaşını seç."],
-        ["Çağır", "Arkadaşlarına davet gider. Yanındakilere konvoy QR'ını okutman yeter."],
-        ["Hedef ve DJ", "Ortak hedefi seç. DJ çaldığını paylaşır, herkes tek dokunuşla açar."],
-        ["Bitir", "Konvoy bitince grup özeti çıkar: rota, araç sayısı, km ve süre. Paylaş ya da kaydet."] ] },
-      { ad: "Telsiz", adimlar: [
-        ["Aç", "Kokpit → Telsiz. Buluşma telsizine katıl ya da konvoy telsizini kullan."],
-        ["Bas, konuş", "Büyük düğmeyi basılı tut, konuş, bırak."],
-        ["Konvoyda", "Konvoy kurulunca telsiz kendiliğinden bağlanır, bitince kapanır."] ] },
-      { ad: "Müzik", adimlar: [
-        ["Listeni getir", "Spotify ya da YouTube Music bağlantısını yapıştır, liste PiyasApp'e gelsin."],
-        ["Çal", "Kart destesinde sağa kaydır çal, sola kaydır geç."],
-        ["Pencere", "Müzik sayfasından çıkınca küçük bir video penceresi açılır ve müzik sürer. Köşelere sürükle; kapatınca müzik durur."],
-        ["Paylaş", "Listeyi ya da şarkıyı sohbette arkadaşına gönder."] ] },
+        ["Sürerken", "Hız 10 km/s'i geçince yazı kapanır, her şey büyür. Konvoy kurmak, oda açmak ve selektör yakmak yavaşken yapılır."] ] },
       { ad: "Yolculuklar", adimlar: [
-        ["Kendiliğinden kayıt", "Her sürüş ayrı renkte kaydedilir, en yüksek hızıyla."],
+        ["Kaydı aç", "Yolculuk kaydı kapalı gelir. Kokpit'teki kayıt kapsülüne dokun, Sürüş ayarları'ndan Yolculuklarımı kaydet'i aç (Ayarlar → Gizlilik'ten de olur)."],
+        ["Kendiliğinden kayıt", "Kayıt açıkken sürüşün kendiliğinden kaydolur; yürüyüş ve 150 m'den kısa hareketler kaydedilmez. Her yolculuk ayrı renkte, en yüksek hızıyla görünür."],
         ["Bir hafta", "Yolculuklar telefonunda kalır, bir hafta sonra silinir."],
-        ["Senin elinde", "Kaydı ve arkadaşlarla paylaşımı Kokpit ayarlarından kapatabilirsin."] ] },
+        ["Senin elinde", "Arkadaşlarımla paylaş açıksa karşılıklı arkadaşların rotanı 7 gün görür; başı ve sonu kırpılır. Yolculuk verilerimi sil ile hepsini silebilirsin."] ] },
+      { ad: "Konvoy", adimlar: [
+        ["Kur", "Kokpit'te Sürüş modunda sağdaki Konvoy düğmesine bas (yavaşken ve konvoyda değilken görünür). Bir ad ver, arkadaşlarını seç, istersen telsizi aç. En çok 8 araç."],
+        ["Çağır", "Arkadaşlarına davet gider. Yanındakilere QR'ı PiyasApp kamerasıyla okut ya da bağlantıyı paylaş. Davet 4 saat geçerli."],
+        ["Katıl", "Davet Kokpit'te kart olarak düşer: Katıl ya da Geç."],
+        ["Hedef ve DJ", "Ortak hedefi yalnız lider koyar. DJ PiyasApp'te YouTube çalarsa herkese yansır; diğerleri Çal'a basınca kendi oynatıcısında açar."],
+        ["Bitir", "Konvoy en çok 4 saat sürer; lider Konvoyu bitir diyebilir. Bitince özet kartı çıkar: rota, araç sayısı, km ve süre. Paylaş ya da Fotoğraflara kaydet."] ] },
+      { ad: "Telsiz", adimlar: [
+        ["Aç", "Kokpit → Telsiz. Buluşma telsizine (buluşmandan 6 saat önce açılır) katıl ya da Açık odalar'dan bir odaya gir."],
+        ["Oda aç", "Oda aç ile kendi odanı kur. Kimse kalmayınca oda kendiliğinden kapanır. Günde en çok 5 oda."],
+        ["Bas, konuş", "Büyük düğmeyi basılı tut, konuş, bırak. Mikrofon yalnız basılıyken açık; ses kaydedilmez."],
+        ["Konvoyda", "Konvoy telsizliyse telsiz kendiliğinden bağlanır, bitince kapanır."] ] },
+      { ad: "Müzik", adimlar: [
+        ["Listeni getir", "Müzik'te Çalma listeni içe aktar'a gir; Spotify, YouTube Music ya da Apple Music bağlantısını yapıştır. Paylaş menüsündeki PiyasApp'e aktar da olur."],
+        ["Çal", "Kart destesinde sağa kaydır çal, sola kaydır geç, yukarı kaydır sohbete at."],
+        ["Spotify dürüstçe", "Spotify içeriği PiyasApp'te YouTube karşılığıyla çalar; Spotify gerekmez. YouTube'da bulunamayan şarkıyı Spotify'da açarsın. PiyasApp Spotify'ı uzaktan kumanda etmez."],
+        ["Pencere", "Müzik sayfasından çıkınca küçük bir video penceresi açılır ve müzik sürer. Köşelere sürükle. Küçült müziği duraklatır, Kapat durdurur. Video görünür olmak zorunda: arka planda ve kilitli ekranda çalmaz."],
+        ["Paylaş", "Listeyi ya da şarkıyı Sohbete at ile arkadaşına gönder."] ] },
+      { ad: "Shorts", adimlar: [
+        ["Aç", "Keşfet'te Gönderiler | Shorts çiplerinden Shorts'u seç."],
+        ["Kaydır", "Dikey kaydır, sıradaki video gelir. Videoya dokununca durur, tekrar dokununca sürer."],
+        ["Konu seç", "Üstteki konu çipleriyle ya da Ara ile istediğin konuya geç."],
+        ["Eylemler", "Videonun altında: ses, oynat/duraklat, Arkadaşına at, Paylaş, Bildir. Kullanıcı videolarında ayrıca Beğen ve Yorum."],
+        ["Ses", "Shorts sessiz başlar; sesi sen açarsın. Sesi açınca çalan müzik kısılır ya da duraklar."] ] },
+      { ad: "Hikâye ve akış", adimlar: [
+        ["Hikâye ekle", "Keşfet'te Hikâyene ekle'ye dokun: kamera Hikâyem seçili açılır. Basılı tutarsan Galeriden seç ya da Metin yaz."],
+        ["24 saat", "Hikâyen 24 saat sonra kaybolur. Seni takip edenler görür; kimin gördüğünü yalnız sen görürsün."],
+        ["İzle", "Sağa ya da sola dokun: ileri, geri. Basılı tut: durur. Aşağı çek: kapanır. Emojiyle tepki ver ya da yanıtla; yanıt sohbet mesajı olarak gider."],
+        ["Akış", "Keşfet'teki Piyasa akışı: Herkes ya da Takip. Paylaşmak için kamerada Akışa paylaş'ı seç; açıklama, konum ve araç etiketi isteğe bağlı."],
+        ["Kart eylemleri", "Beğen, yorum yap, paylaş, kaydet (Profil → Kaydedilenler). ⋯ ile Bildir ya da Engelle."] ] },
       { ad: "Selektör", adimlar: [
-        ["Yap", "Haritada bir sürücünün kartını aç, Selektör'e bas."],
-        ["Karşılıklı", "İkiniz de yaptıysanız telsize çağır ya da mesaj at."],
-        ["Güvenli", "Araç hareket hâlindeyken gönderilmez. Yolcuysan Yolcuyum'u aç."] ] },
+        ["Yap", "Haritada bir sürücünün kartını ya da Piyasaya Giriş kartını aç, Selektör'e bas."],
+        ["Karşıda", "Karşı tarafta far efekti ve üstte bir bant çıkar; Geri yak ile karşılık verebilir."],
+        ["Karşılıklı", "24 saat içinde ikiniz de yaparsanız Telsize çağır ya da Mesaj at çıkar."],
+        ["Geçmiş", "Ayarlar → Gizlilik → Selektör geçmişi: kim, ne zaman, hangi caddede. Yalnız telefonunda, 30 gün. Profilde Bu hafta X selektör yazar."],
+        ["Güvenli", "Hız 10 km/s'i geçince gönderilmez. Yolcuysan Yolcuyum'u aç. Saatte en çok 20; aynı kişiye 10 dakikada bir."] ] },
+      { ad: "Yolda Kesiştik", adimlar: [
+        ["Ne zaman olur", "Sürerken, uygulama açıkken ve Konumun Kapalı değilken yakındaki PiyasApp sürücüleriyle 300 m içinde kesişirsen kaydolur."],
+        ["Sürüş bitince", "Bugün yolun N PiyasApp sürücüsüyle kesişti bandı çıkar; Gör ile özet açılır."],
+        ["Kesişmeler", "Harita'nın alt panelindeki Kesişmeler çipinde (kesişme varsa) son kesişmelerin listelenir."],
+        ["Selektör yak", "Kart yığınında sağa kaydır: Selektör, sola kaydır: Geç."],
+        ["Gizlilik", "Kesin konum tutulmaz; kayıtlar telefonunda 7 gün kalır. Kapatmak için Konumun'u Kapalı yap ya da yolculuk kaydını kapat."] ] },
+      { ad: "QR çıkartma", adimlar: [
+        ["Oluştur", "Profil'deki QR simgesi ya da Garajım → Çıkartmamı oluştur. Önce uygun bir kullanıcı adı seçmelisin."],
+        ["Şablon seç", "Yuvarlak (10×10 cm), Cam şeridi (20×5 cm) ya da Plaka altı (30×6 cm). Baskı için 300 dpi PNG."],
+        ["Paylaş ya da kaydet", "Paylaş ile gönder, Fotoğraflar'a kaydet ile galerine ekle."],
+        ["Okutunca", "PiyasApp kamerası okutursa @kullanıcı garajını aç çıkar. Telefonun kendi kamerası garaj sayfasını web'de açar."] ] },
+      { ad: "Bildirimler", adimlar: [
+        ["Liste", "⋯ → Bildirimler. Okunmamışlar kalın ve noktalıdır; Hepsini okundu say ile temizlersin."],
+        ["Neler gelir", "Takip, beğeni, yorum, mesaj, eşleşme ve bahsetme bildirimleri."],
+        ["Rozetler", "⋯ düğmesinde kırmızı nokta, uygulama simgesinde okunmamış bildirim ve mesaj sayısı görünür."],
+        ["İzin", "Ayarlar → Bildirimler satırı iPhone ayarlarını açar. Uygulamada tür tür kapatma yok."] ] },
+      { ad: "Gizlilik ve güvenlik", adimlar: [
+        ["Engelle", "Profilde ⋯ → Engelle (sohbette de ⋯ → Engelle). Engellediğin kişi seni göremez, sana yazamaz."],
+        ["Engeli kaldır", "Ayarlar → Gizlilik → Engellenenler → Kaldır, ya da profilde ⋯ → Engeli kaldır."],
+        ["Şikâyet", "Profilde, sohbette ve gönderilerde ⋯ → Şikâyet et ya da Bildir. Şikâyetler 24 saat içinde incelenir."],
+        ["Konum ve yolculuk", "Ayarlar → Gizlilik: Yolculuklarımı kaydet, Arkadaşlarımla paylaş, Konumun, Piyasaya Giriş anonsu, Selektör geçmişi ve Yolculuk verilerimi sil."],
+        ["Hesabı sil", "Ayarlar'ın en altında Hesabı sil. Profilin, araçların, paylaşımların, mesajların ve rotaların silinir; geri gelmez."] ] },
+      { ad: "Sorun giderme", adimlar: [
+        ["Konumum görünmüyor", "Konumun Kapalı olmasın ve Ayarlar → PiyasApp → Konum izni açık olsun. Uygulamayı kapatırsan birkaç dakika sonra haritadan düşersin."],
+        ["Kimse görünmüyor", "Yakında kimse olmayabilir. Karşı tarafın da Konumun'u açık ve uygulaması ön planda olmalı. Piyasaya Giriş kartı için anons da açık olmalı."],
+        ["Yolculuk kaydı yok", "Kayıt kapalı gelir; Yolculuklar bölümündeki gibi aç. Konum izni Her zaman, Hareket ve fitness izni açık olmalı. Yürüyüş ve 150 m'den kısa hareketler kaydedilmez."],
+        ["İzinler", "Mikrofon, kamera ve fotoğraf kapalıysa Ayarlar → PiyasApp'ten aç. Kamera kapalıyken yalnız galeri kalır."],
+        ["Bildirim gelmiyor", "Ayarlar → Bildirimler → Bildirim izni satırından iPhone ayarlarında PiyasApp bildirimlerini aç."],
+        ["Düğme çalışmıyor", "Hız 10 km/s'i geçince Konvoy kur, Oda aç ve Selektör kapanır. Durunca yeniden dene."] ] }
     ];
     const sekmeler = document.getElementById("sekmeler"), paneller = document.getElementById("paneller");
     REHBER.forEach((r, i) => {
