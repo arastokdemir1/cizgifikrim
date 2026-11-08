@@ -6,8 +6,8 @@ export default {
   ana: [
     { etiket: 'Çalışmalar', href: '/calismalar/' },
     { etiket: 'Hizmetler', href: '/hizmetler/' },
+    { etiket: 'Nasıl çalışıyoruz', href: '/#surec' }, // /nasil-calisiyoruz/ sayfası gelince tek yerden güncellenir
     { etiket: 'Hakkında', href: '/hakkinda/' },
-    { etiket: 'Görüşme', href: '/gorusme/' },
   ],
   cta: { etiket: 'Ücretsiz keşif görüşmesi', href: '/gorusme/' },
   giris: site.istasyonCanli ? { etiket: 'Giriş', href: site.istasyonUrl, dis: true } : null,
