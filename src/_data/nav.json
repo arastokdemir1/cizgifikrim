@@ -1,0 +1,16 @@
+{
+  "ana": [
+    { "etiket": "Çalışmalar", "href": "/calismalar/" },
+    { "etiket": "Hizmetler", "href": "/hizmetler/" },
+    { "etiket": "Hakkında", "href": "/hakkinda/" },
+    { "etiket": "Görüşme", "href": "/gorusme/" }
+  ],
+  "cta": { "etiket": "Ücretsiz keşif görüşmesi", "href": "/gorusme/" },
+  "giris": { "etiket": "Giriş", "href": "https://istasyon.cizgifikrim.net", "dis": true },
+  "alt": {
+    "yasal": [
+      { "etiket": "Gizlilik", "href": "/gizlilik/" },
+      { "etiket": "Koşullar", "href": "/kosullar/" }
+    ]
+  }
+}

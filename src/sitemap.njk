@@ -1,0 +1,11 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+sitemap: false
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for p in collections.all | sitemapSayfalari %}
+  <url><loc>{{ site.url }}{{ p.url | xml }}</loc><lastmod>{{ p | lastmod }}</lastmod></url>
+{%- endfor %}
+</urlset>

@@ -1,0 +1,4 @@
+{
+  "_not": "Korunan yollarda bilinçli, onaylı değişiklikler (T7 istisnası). path bir dosya ya da 'dizin/' (altındaki her dosya) olabilir. Boş bırakılırsa korunan yollar origin/main ile bayt aynı olmak zorundadır.",
+  "istisnalar": []
+}

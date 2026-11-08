@@ -1,0 +1,145 @@
+{
+  "_not": "Tek veri, iki çıktı: PLATFORM=gh -> 'taşındı' stub'ları; PLATFORM=cf -> _redirects (301). Yalnız /tr/* eski yollar; korunan yollar buraya girmez. Varsayımlar: products.html, demo.html ve çalışması olmayan eski proje sayfaları -> /calismalar/ (Teknik-1 onayı).",
+  "redirects": [
+    {
+      "from": "/tr/",
+      "to": "/",
+      "status": 301
+    },
+    {
+      "from": "/tr/index.html",
+      "to": "/",
+      "status": 301
+    },
+    {
+      "from": "/tr/projeler.html",
+      "to": "/calismalar/",
+      "status": 301
+    },
+    {
+      "from": "/tr/products.html",
+      "to": "/calismalar/",
+      "status": 301
+    },
+    {
+      "from": "/tr/demo.html",
+      "to": "/calismalar/",
+      "status": 301
+    },
+    {
+      "from": "/tr/projects/carlog.html",
+      "to": "/calismalar/carlog/",
+      "status": 301
+    },
+    {
+      "from": "/tr/projects/piyasa.html",
+      "to": "/calismalar/",
+      "status": 301
+    },
+    {
+      "from": "/tr/projects/sano.html",
+      "to": "/calismalar/",
+      "status": 301
+    },
+    {
+      "from": "/tr/projects/ultron.html",
+      "to": "/calismalar/",
+      "status": 301
+    },
+    {
+      "from": "/tr/projects/focusgrid.html",
+      "to": "/calismalar/",
+      "status": 301
+    },
+    {
+      "from": "/tr/projects/flowgraph.html",
+      "to": "/calismalar/",
+      "status": 301
+    },
+    {
+      "from": "/tr/projects/aka.html",
+      "to": "/calismalar/",
+      "status": 301
+    },
+    {
+      "from": "/tr/projects/arda.html",
+      "to": "/calismalar/",
+      "status": 301
+    },
+    {
+      "from": "/tr/projects/better_motors.html",
+      "to": "/calismalar/",
+      "status": 301
+    },
+    {
+      "from": "/tr/projects/ersoy.html",
+      "to": "/calismalar/",
+      "status": 301
+    },
+    {
+      "from": "/tr/projects/gnomon.html",
+      "to": "/calismalar/",
+      "status": 301
+    },
+    {
+      "from": "/tr/projects/radar.html",
+      "to": "/calismalar/",
+      "status": 301
+    },
+    {
+      "from": "/tr/about.html",
+      "to": "/hakkinda/",
+      "status": 301
+    },
+    {
+      "from": "/tr/contact.html",
+      "to": "/gorusme/",
+      "status": 301
+    },
+    {
+      "from": "/tr/randevu.html",
+      "to": "/gorusme/",
+      "status": 301
+    },
+    {
+      "from": "/tr/kayit.html",
+      "to": "/gorusme/",
+      "status": 301
+    },
+    {
+      "from": "/tr/eticaret-paketi.html",
+      "to": "/hizmetler/#e-ticaret",
+      "status": 301
+    },
+    {
+      "from": "/tr/hizmetler.html",
+      "to": "/hizmetler/",
+      "status": 301
+    },
+    {
+      "from": "/tr/gizlilik.html",
+      "to": "/gizlilik/",
+      "status": 301
+    },
+    {
+      "from": "/tr/kosullar.html",
+      "to": "/kosullar/",
+      "status": 301
+    },
+    {
+      "from": "/tr/giris.html",
+      "to": "https://istasyon.cizgifikrim.net/",
+      "status": 301
+    },
+    {
+      "from": "/tr/panel.html",
+      "to": "https://istasyon.cizgifikrim.net/",
+      "status": 301
+    },
+    {
+      "from": "/tr/admin.html",
+      "to": "https://istasyon.cizgifikrim.net/",
+      "status": 301
+    }
+  ]
+}

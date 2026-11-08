@@ -21,3 +21,6 @@ pnpm-debug.log*
 # Derleme
 node_modules/
 _site/
+_site-test/
+.cache/
+url-listesi.txt

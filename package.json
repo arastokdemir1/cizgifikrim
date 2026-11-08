@@ -8,13 +8,16 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "eleventy",
-    "build:gh": "cross-env PLATFORM=gh eleventy",
-    "build:cf": "cross-env PLATFORM=cf eleventy",
+    "build": "npm run clean && eleventy",
+    "build:gh": "npm run clean && cross-env PLATFORM=gh eleventy",
+    "build:cf": "npm run clean && cross-env PLATFORM=cf eleventy",
     "serve": "eleventy --serve",
     "kontrol": "node scripts/kontrol-hepsi.mjs",
     "test": "npm run build:gh && npm run kontrol",
-    "audit": "npm audit --omit=dev --audit-level=high"
+    "audit": "npm audit --omit=dev --audit-level=high",
+    "build:fixture": "npm run clean && cross-env PLATFORM=gh ELEVENTY_FIXTURE=1 eleventy --output=_site-test",
+    "test:fixture": "npm run build:fixture && node scripts/kontrol-hepsi.mjs --site _site-test --no-audit",
+    "clean": "node -e \"for (const d of ['_site','_site-test']) require('fs').rmSync(d,{recursive:true,force:true})\""
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",

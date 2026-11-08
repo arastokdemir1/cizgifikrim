@@ -1,0 +1,26 @@
+---
+pagination:
+  data: stublar
+  size: 1
+  alias: stub
+permalink: "{{ stub.dosya }}"
+eleventyExcludeFromCollections: true
+sitemap: false
+stub: true
+---
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sayfa taşındı · {{ site.name }}</title>
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url={{ stub.to }}">
+{%- if not stub.dis %}
+<link rel="canonical" href="{{ site.url }}{{ stub.to }}">
+{%- endif %}
+</head>
+<body>
+<p>Bu sayfa taşındı. <a href="{{ stub.to }}">Yeni adrese git</a>.</p>
+</body>
+</html>

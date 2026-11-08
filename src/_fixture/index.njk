@@ -1,0 +1,21 @@
+---
+title: "Altyapı testi sayfası"
+description: "Bu sayfa yalnız altyapı testi içindir: canonical, Open Graph, JSON-LD, sitemap ve görsel işleme kısa kodunun doğru çalıştığını doğrular."
+sitemap: true
+jsonld:
+  "@type": "WebPage"
+  name: "Altyapı testi"
+---
+<!doctype html>
+<html lang="{{ site.lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% include "partials/seo.njk" %}
+</head>
+<body>
+<h1>Altyapı testi</h1>
+{% gorsel "scripts/fixture/ornek.jpg", "Altyapı testi için üretilmiş degrade görsel", "(min-width: 900px) 50vw, 100vw" %}
+<script src="/assets/v1/js/analytics.js" defer></script>
+</body>
+</html>

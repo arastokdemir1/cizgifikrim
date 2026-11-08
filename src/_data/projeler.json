@@ -1,0 +1,9 @@
+{
+  "_not": "Yalnız yapı ve bağlantılar. Kart/detay metinleri icerik_ortak.md ve Teknik-1 eşlemesinden gelir (S0-C); burada metin uydurulmaz.",
+  "liste": [
+    { "slug": "carlog", "baslik": "CarLog", "url": "/calismalar/carlog/", "hizmetSlug": "mobil-uygulama" },
+    { "slug": "vesira", "baslik": "Vesira", "url": "/calismalar/vesira/", "hizmetSlug": "yapay-zeka-ve-otomasyon" },
+    { "slug": "polishreel", "baslik": "PolishReel", "url": "/calismalar/polishreel/", "hizmetSlug": "yapay-zeka-ve-otomasyon" }
+  ],
+  "hizmetSlugs": ["web-sitesi-ve-e-ticaret", "mobil-uygulama", "yapay-zeka-ve-otomasyon"]
+}

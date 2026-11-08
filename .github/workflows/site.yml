@@ -1,0 +1,41 @@
+# Vitrin derlemesi ve kontroller. Yayın (Pages dağıtımı) varsayılan KAPALI: repo değişkeni PAGES_DEPLOY=true ve
+# Pages kaynağının "GitHub Actions" yapılması (Aras onayı gerektirir) olmadan deploy işi çalışmaz.
+name: site
+on:
+  push:
+    branches: [main, 'ekip/faz1-*']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }            # lastmod ve baz karşılaştırması için tam geçmiş
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Baz dal (origin/main) hazır olsun
+        run: git fetch origin main:refs/remotes/origin/main --depth=1 || git fetch origin main
+      - name: Derle (GitHub Pages: stub'lı)
+        run: npm run build:gh
+      - name: Kontroller (korunan yol SHA-256, yönlendirme, sitemap, SEO, URL listesi, npm audit)
+        run: node scripts/kontrol-hepsi.mjs --site _site --base origin/main
+      - name: Altyapı fixture testi (örnek sayfa, SEO ve sitemap boru hattı)
+        run: npm run test:fixture
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: _site }
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main' && vars.PAGES_DEPLOY == 'true'
+    runs-on: ubuntu-latest
+    permissions: { pages: write, id-token: write }
+    environment: { name: github-pages, url: '${{ steps.dagit.outputs.page_url }}' }
+    steps:
+      - id: dagit
+        uses: actions/deploy-pages@v4

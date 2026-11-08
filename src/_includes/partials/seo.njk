@@ -1,0 +1,32 @@
+{#- SEO partial'ı (sahip: Frontend-1). Tasarım katmanı base.njk içinde yalnız {% include "partials/seo.njk" %} çağırır.
+    Arayüz (front-matter): title, description, canonical (yoksa site.url + page.url), ogImage, ogType, noindex, jsonld (nesne ya da dizi). -#}
+{%- set _baslik = title or site.name -%}
+{%- set _aciklama = description or site.description -%}
+{%- set _canon = canonical or (site.url + page.url) -%}
+{%- set _og = ogImage or site.defaultOgImage -%}
+{%- set _ogMutlak = (_og | mutlakUrl(site)) if _og else '' -%}
+<title>{{ _baslik }}</title>
+<meta name="description" content="{{ _aciklama }}">
+<link rel="canonical" href="{{ _canon }}">
+{%- if noindex %}
+<meta name="robots" content="noindex,follow">
+{%- endif %}
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:locale" content="{{ site.locale }}">
+<meta property="og:type" content="{{ ogType or 'website' }}">
+<meta property="og:title" content="{{ _baslik }}">
+<meta property="og:description" content="{{ _aciklama }}">
+<meta property="og:url" content="{{ _canon }}">
+{%- if _ogMutlak %}
+<meta property="og:image" content="{{ _ogMutlak }}">
+{%- endif %}
+<meta name="twitter:card" content="{{ 'summary_large_image' if _ogMutlak else 'summary' }}">
+<meta name="twitter:title" content="{{ _baslik }}">
+<meta name="twitter:description" content="{{ _aciklama }}">
+{%- if _ogMutlak %}
+<meta name="twitter:image" content="{{ _ogMutlak }}">
+{%- endif %}
+{%- set _org = { "@type": "Organization", "@id": site.url + "/#org", "name": site.name, "url": site.url, "logo": site.url + site.logo } -%}
+{%- set _graf = [_org] -%}
+{%- if jsonld %}{%- set _graf = (_graf.concat(jsonld)) if jsonld.length else (_graf.concat([jsonld])) -%}{%- endif %}
+<script type="application/ld+json">{{ { "@context": "https://schema.org", "@graph": _graf } | jsonld | safe }}</script>
