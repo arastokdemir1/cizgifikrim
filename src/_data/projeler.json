@@ -1,9 +1,133 @@
 {
-  "_not": "Yalnız yapı ve bağlantılar. Kart/detay metinleri icerik_ortak.md ve Teknik-1 eşlemesinden gelir (S0-C); burada metin uydurulmaz.",
-  "liste": [
-    { "slug": "carlog", "baslik": "CarLog", "url": "/calismalar/carlog/", "hizmetSlug": "mobil-uygulama" },
-    { "slug": "vesira", "baslik": "Vesira", "url": "/calismalar/vesira/", "hizmetSlug": "yapay-zeka-ve-otomasyon" },
-    { "slug": "polishreel", "baslik": "PolishReel", "url": "/calismalar/polishreel/", "hizmetSlug": "yapay-zeka-ve-otomasyon" }
+  "_not": "Çalışma kartı ve poster verisi. Metinler icerik_ortak.md §5 + PART C'den birebir (çelişkide C kazanır); metin değişikliği Teknik-1'in kapısından geçer. Görsel yolları src/assets/img/projeler/. 'gorsel.tur': telefon (gerçek uygulama ekranı, demo posteri; App Store görseli cihaza KONMAZ), pencere (web uygulaması, önce/sonra bölünmüş), karolar (3 küçük 4:5 örnek çıktı). tasarim_sartnamesi.md §3.",
+  "hizmetSlugs": [
+    "web-sitesi-ve-e-ticaret",
+    "mobil-uygulama",
+    "yapay-zeka-ve-otomasyon"
   ],
-  "hizmetSlugs": ["web-sitesi-ve-e-ticaret", "mobil-uygulama", "yapay-zeka-ve-otomasyon"]
+  "liste": [
+    {
+      "slug": "carlog",
+      "baslik": "CarLog",
+      "url": "/calismalar/carlog/",
+      "hizmetSlug": "mobil-uygulama",
+      "boyut": "buyuk",
+      "cumle": "Yolculuğu kendiliğinden algılar; yakıt, gişe ve köprü masrafını canlı hesaplayan iOS uygulaması.",
+      "etiketler": [
+        "iOS",
+        "CarPlay",
+        "Araç masrafı"
+      ],
+      "durum": "App Store'da",
+      "ikincil": [
+        {
+          "etiket": "Tarayıcıda dene",
+          "href": "/calismalar/carlog/#demo",
+          "dis": false
+        },
+        {
+          "etiket": "App Store'da aç",
+          "href": "https://apps.apple.com/tr/app/id6779625494",
+          "dis": true
+        }
+      ],
+      "gorsel": {
+        "tur": "telefon",
+        "altyazi": null,
+        "ogeler": [
+          {
+            "kaynak": "src/assets/img/projeler/carlog/demo-poster.webp",
+            "alt": "CarLog uygulamasının özet ekranı",
+            "genislik": 680
+          }
+        ]
+      },
+      "platform": "iOS"
+    },
+    {
+      "slug": "vesira",
+      "baslik": "Vesira",
+      "url": "/calismalar/vesira/",
+      "hizmetSlug": "yapay-zeka-ve-otomasyon",
+      "boyut": "buyuk",
+      "cumle": "Odanın kendi fotoğrafından gerçekçi yenileme tasarımı üreten yapay zekâ iç mimarlık uygulaması.",
+      "etiketler": [
+        "Web",
+        "Yapay zekâ",
+        "İç mimarlık"
+      ],
+      "durum": "Web'de yayında",
+      "ikincil": [
+        {
+          "etiket": "vesira.app'i aç",
+          "href": "https://vesira.app",
+          "dis": true
+        }
+      ],
+      "gorsel": {
+        "tur": "pencere",
+        "altyazi": "Örnek: önce / sonra",
+        "pencereAdi": "vesira.app",
+        "ogeler": [
+          {
+            "kaynak": "src/assets/img/projeler/vesira/salon-once.webp",
+            "alt": "Örnek salon fotoğrafı, yenilemeden önce",
+            "etiket": "Önce",
+            "genislik": 1280
+          },
+          {
+            "kaynak": "src/assets/img/projeler/vesira/salon-yenileme.webp",
+            "alt": "Aynı salonun yenilenmiş tasarımı, örnek",
+            "etiket": "Sonra",
+            "genislik": 1280
+          }
+        ]
+      },
+      "platform": "Web"
+    },
+    {
+      "slug": "polishreel",
+      "baslik": "PolishReel",
+      "url": "/calismalar/polishreel/",
+      "hizmetSlug": "yapay-zeka-ve-otomasyon",
+      "boyut": "kucuk",
+      "cumle": "Takı ve aksesuar mağazaları için ürün fotoğrafından aylık fotoğraf seti ve kısa dikey video hazırlayan hizmet.",
+      "etiketler": [
+        "Web",
+        "Yapay zekâ",
+        "Ürün görseli"
+      ],
+      "durum": "Geliştiriliyor",
+      "girisim": "CizgiFikrim'in kendi girişimi",
+      "ikincil": [
+        {
+          "etiket": "polishreel.com'u aç",
+          "href": "https://polishreel.com",
+          "dis": true
+        }
+      ],
+      "gorsel": {
+        "tur": "karolar",
+        "altyazi": "Örnek çıktı",
+        "ogeler": [
+          {
+            "kaynak": "src/assets/img/projeler/polishreel/ornek-studio.jpg",
+            "alt": "Örnek çıktı: stüdyo sahnesi",
+            "genislik": 720
+          },
+          {
+            "kaynak": "src/assets/img/projeler/polishreel/ornek-lifestyle.jpg",
+            "alt": "Örnek çıktı: yaşam sahnesi",
+            "genislik": 720
+          },
+          {
+            "kaynak": "src/assets/img/projeler/polishreel/ornek-yakin-cekim.jpg",
+            "alt": "Örnek çıktı: yakın çekim",
+            "genislik": 720
+          }
+        ]
+      },
+      "platform": "Web"
+    }
+  ]
 }

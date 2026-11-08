@@ -1,0 +1,41 @@
+---
+fixtureUrl: /altyapi-testi/poster/index.html
+title: "Poster kart testi"
+description: "Bu sayfa yalnız poster kart bileşeninin görsel ve boyut testi içindir; canlı sitede üretilmez, sitemap'e girmez, altyapı denetiminde derlenir."
+sitemap: false
+noindex: true
+---
+<!doctype html>
+<html lang="{{ site.lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% include "partials/seo.njk" %}
+<link rel="stylesheet" href="/assets/v1/css/components/poster.css">
+<style>
+  /* Yalnız test: Frontend-2'nin jetonları gelene kadar Palet 1 */
+  :root { --c-main:#0A0A0A; --c-main-2:#16181B; --c-second:#F5F5F2; --c-accent:#CFFF4A; --c-ink:#F5F5F2; --c-ink-muted:#9A9A94; --r-m:16px; --r-l:24px; }
+  body { margin: 0; background: #F5F5F2; font-family: system-ui, sans-serif; }
+  main { max-width: 1280px; margin: 0 auto; padding: 32px 24px 80px; display: grid; gap: 32px; }
+  .t-satir { display: grid; grid-template-columns: 1fr; gap: 32px; }
+  @media (min-width: 900px) { .t-satir--kucuk { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); align-items: center; } }
+  h1 { margin: 0; font-size: 1.25rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Poster kart testi</h1>
+  {%- for p in projeler.liste %}
+    {%- if p.boyut == 'buyuk' %}
+  {% set poster = p %}{% set posterYukleme = 'eager' if loop.first else 'lazy' %}{% include "partials/poster.njk" %}
+    {%- endif %}
+  {%- endfor %}
+  {%- for p in projeler.liste %}
+    {%- if p.boyut == 'kucuk' %}
+  <div class="t-satir t-satir--kucuk">{% set poster = p %}{% include "partials/poster.njk" %}<p>PolishReel küçük kart: sağda kısa metin alanı (Frontend-2 Çalışmalar sayfası).</p></div>
+    {%- endif %}
+  {%- endfor %}
+</main>
+<script src="/assets/v1/js/poster.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{#- POSTER KART / poster-kart (sahip: Frontend-1; tasarim_sartnamesi.md §3). Çalışmalar listesi ve detay hero'sunda kullanılır.
+    Kullanım:   {% set poster = p %}{% include "partials/poster.njk" %}      (p = projeler.liste öğesi)
+    İsteğe bağlı: posterSeviye (başlık seviyesi, varsayılan 3), posterYukleme ("eager": ilk ekrandaki kart; varsayılan "lazy").
+    Veri: src/_data/projeler.json. Stil: /assets/v1/css/components/poster.css. Betik (yüzme/yeniden görünürlük): /assets/v1/js/poster.js (isteğe bağlı).
+    Kurallar: CarLog = telefon içinde demo posteri (App Store görseli cihaza konmaz), Vesira = pencere önce/sonra, PolishReel = 3 küçük 4:5 karo.
+    Vesira/PolishReel görsellerinde "Örnek" etiketi; naturalWidth >= 2x gösterim; görsel yoksa derleme durur (boş kart yok). -#}
+{%- set _h = posterSeviye or 3 -%}
+{%- set _y = posterYukleme or 'lazy' -%}
+{%- set _g = poster.gorsel -%}
+<article class="poster poster--{{ poster.boyut }} poster--{{ poster.slug }}" data-poster="{{ poster.slug }}" data-reveal>
+  <span class="poster__dev-ad" aria-hidden="true">{{ poster.baslik }}</span>
+  <header class="poster__ust">
+    <p class="poster__kimlik"><span class="poster__ad">{{ poster.baslik }}</span><span class="poster__platform">{{ poster.platform }}</span></p>
+    <p class="poster__durum-kutu"><span class="poster__durum">{{ poster.durum }}</span>{% if poster.girisim %}<span class="poster__girisim">{{ poster.girisim }}</span>{% endif %}</p>
+  </header>
+  <div class="poster__sahne">
+    <div class="poster__yuzen">
+    {%- if _g.tur == 'telefon' %}
+      {%- set o = _g.ogeler[0] %}
+      <div class="poster__telefon"><div class="poster__ekran">{% gorsel o.kaynak, o.alt, "(min-width: 720px) 500px, 260px", [340, 680], _y %}</div></div>
+    {%- elif _g.tur == 'pencere' %}
+      <div class="poster__pencere">
+        <div class="poster__pencere-bar" aria-hidden="true"><i></i><i></i><i></i><span>{{ _g.pencereAdi }}</span></div>
+        <div class="poster__bol">
+          <span class="poster__ornek">Örnek</span>
+          {%- for o in _g.ogeler %}
+          <div class="poster__yari poster__yari--{{ 'sonra' if loop.last else 'once' }}">{% gorsel o.kaynak, o.alt, "(min-width: 720px) 1100px, 260px", [640, 1280], _y %}</div>
+          {%- endfor %}
+          <span class="poster__bolme" aria-hidden="true"></span>
+          <span class="poster__yari-etiket poster__yari-etiket--once">{{ _g.ogeler[0].etiket }}</span>
+          <span class="poster__yari-etiket poster__yari-etiket--sonra">{{ _g.ogeler[1].etiket }}</span>
+        </div>
+      </div>
+    {%- else %}
+      <div class="poster__karolar">
+        <span class="poster__ornek">Örnek</span>
+        {%- for o in _g.ogeler %}
+        <div class="poster__karo">{% gorsel o.kaynak, o.alt, "(min-width: 720px) 260px, 200px", [240, 480, 720], _y %}</div>
+        {%- endfor %}
+      </div>
+    {%- endif %}
+    </div>
+    {%- if _g.altyazi %}
+    <p class="poster__altyazi">{{ _g.altyazi }}</p>
+    {%- endif %}
+  </div>
+  <div class="poster__alt">
+    <h{{ _h }} class="poster__baslik">{{ poster.cumle }}</h{{ _h }}>
+    <ul class="poster__etiketler" aria-label="Etiketler">
+      {%- for e in poster.etiketler %}<li>{{ e }}</li>{% endfor -%}
+    </ul>
+    <p class="poster__baglantilar">
+      <a class="poster__ana" href="{{ poster.url }}">Çalışmayı gör <span aria-hidden="true">→</span><span class="poster__sr"> ({{ poster.baslik }})</span></a>
+      {%- for b in poster.ikincil %}
+      <a class="poster__ikincil" href="{{ b.href }}"{% if b.dis %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ b.etiket }}{% if b.dis %} <span aria-hidden="true">↗</span>{% endif %}</a>
+      {%- endfor %}
+    </p>
+  </div>
+</article>
