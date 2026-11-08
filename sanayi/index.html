@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Sanayi İndir</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<style>
+:root{--bg:#f6f7f9;--kart:#fff;--yazi:#1b1f24;--soluk:#5b6572;--cizgi:#dde1e6;--vurgu:#0066cc;--vurgu-yazi:#fff;--hata:#b3261e;--hata-zemin:#fdecea;--ok:#1a7f37;--ok-zemin:#e9f6ec;--gol:rgba(20,30,45,.07)}
+:root[data-tema=koyu]{--bg:#14171b;--kart:#1c2026;--yazi:#eceff3;--soluk:#9aa5b1;--cizgi:#2f353d;--vurgu:#4c9aff;--vurgu-yazi:#06101f;--hata:#ff8a80;--hata-zemin:#3a1f1d;--ok:#6fd48a;--ok-zemin:#17301f;--gol:rgba(0,0,0,.4)}
+@media (prefers-color-scheme:dark){:root:not([data-tema=acik]){--bg:#14171b;--kart:#1c2026;--yazi:#eceff3;--soluk:#9aa5b1;--cizgi:#2f353d;--vurgu:#4c9aff;--vurgu-yazi:#06101f;--hata:#ff8a80;--hata-zemin:#3a1f1d;--ok:#6fd48a;--ok-zemin:#17301f;--gol:rgba(0,0,0,.4)}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--yazi);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:560px;margin:0 auto;padding:48px 16px 64px}
+h1{margin:0 0 6px;font-size:28px;line-height:1.15;letter-spacing:-.02em}
+.alt{margin:0 0 28px;color:var(--soluk)}
+.kart{background:var(--kart);border:1px solid var(--cizgi);border-radius:12px;padding:22px;box-shadow:0 1px 2px var(--gol)}
+label{display:block;margin:0 0 6px;font-weight:600}
+.satir{display:flex;gap:10px}
+input[type=password],input[type=text]{flex:1;min-width:0;height:46px;padding:0 14px;font:inherit;color:inherit;background:var(--bg);border:1px solid var(--cizgi);border-radius:8px}
+input:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--vurgu);outline-offset:2px}
+button{height:46px;padding:0 24px;font:inherit;font-weight:600;color:var(--vurgu-yazi);background:var(--vurgu);border:0;border-radius:8px;cursor:pointer;white-space:nowrap;transition:transform .08s ease,opacity .15s ease}
+button:active{transform:translateY(1px)}
+button[disabled]{opacity:.6;cursor:default}
+.durum{margin:14px 0 0;padding:10px 14px;border-radius:8px;font-size:15px}
+.durum[hidden]{display:none}
+.durum.hata{color:var(--hata);background:var(--hata-zemin)}
+.durum.ok{color:var(--ok);background:var(--ok-zemin)}
+.durum a{color:inherit;font-weight:600}
+details{margin:12px 0 0;color:var(--soluk);font-size:14px}
+summary{cursor:pointer}
+code,.sha{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+code{white-space:nowrap}
+.sha{word-break:break-all}
+h2{margin:36px 0 12px;font-size:18px;letter-spacing:-.01em}
+ol{margin:0;padding:0;list-style:none;counter-reset:adim}
+li{position:relative;margin:0 0 16px;padding-left:40px;counter-increment:adim}
+li::before{content:counter(adim);position:absolute;left:0;top:0;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--vurgu);color:var(--vurgu-yazi);font-size:14px;font-weight:700}
+li b{font-weight:600}
+.not{margin-top:24px;padding:14px 16px;border-left:3px solid var(--vurgu);color:var(--soluk);font-size:15px}
+footer{margin-top:40px;color:var(--soluk);font-size:13px}
+@media (max-width:480px){.satir{flex-direction:column}button{width:100%}h1{font-size:24px}}
+@media (prefers-reduced-motion:reduce){button{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Sanayi'yi indir</h1>
+  <p class="alt">Parça fiyat araştırma eklentisi. Size verilen şifreyi yazın, dosya inmeye başlar.</p>
+
+  <form class="kart" id="form" autocomplete="off" novalidate>
+    <label for="sifre">İndirme şifresi</label>
+    <div class="satir">
+      <input id="sifre" name="sifre" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" required aria-describedby="durum">
+      <button id="dugme" type="submit">İndir</button>
+    </div>
+    <p id="durum" class="durum" role="status" aria-live="polite" hidden></p>
+    <details id="dogrulama" hidden>
+      <summary>Dosya doğrulama kodu</summary>
+      <p>Dosya: <code id="dosya"></code> (sürüm <span id="surum"></span>)<br>SHA-256: <span class="sha" id="sha"></span></p>
+    </details>
+  </form>
+
+  <h2>İndirdikten sonra</h2>
+  <ol>
+    <li><b>Zip'i C:\Sanayi klasörüne açın.</b> Zip dosyasına sağ tıklayın, <b>Tümünü ayıkla</b> deyin. Hedef kutusunda yazan yolu silip yalnız <code>C:\Sanayi</code> yazın, <b>Ayıkla</b>'ya basın. Açılınca <code>C:\Sanayi\sanayi-eklenti</code> klasörünün içinde <code>manifest.json</code> görünmeli. Bu klasörü sonradan silmeyin ve taşımayın.</li>
+    <li><b>Eklentiyi Chrome'a yükleyin.</b> Chrome'un adres çubuğuna <code>chrome://extensions</code> yazın. Sağ üstteki <b>Geliştirici modu</b>nu açın, <b>Paketlenmemiş öğe yükle</b>'ye basın ve <code>C:\Sanayi\sanayi-eklenti</code> klasörünü seçin.</li>
+    <li><b>Simgeyi sabitleyin.</b> Adres çubuğunun sağındaki yapboz simgesine tıklayın, Sanayi'nin yanındaki raptiyeye basın.</li>
+    <li><b>Her tedarikçi sitesini bir kez ekleyin.</b> Sitede her zamanki gibi giriş yapın, Sanayi simgesine tıklayın, <b>Bu siteyi ekle</b>'ye basın, sonra sitede bir parça arayın. Chrome izin sorarsa <b>İzin ver</b> deyin.</li>
+    <li><b>Kullanın.</b> Sanayi simgesine tıklayın, parça kodunu yazın, <b>Fiyatları getir</b>'e basın.</li>
+  </ol>
+
+  <p class="not">Zip'in içindeki <b>KURULUM.html</b> dosyası aynı adımları resimli ve ayrıntılı anlatır. Takılırsanız bu sayfayı size gönderen kişiye yazın.</p>
+  <footer>Şifre yalnızca dosyayı indirmek içindir; kaydedilmez.</footer>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  // Sözleşme: POST {sifre} -> 200 {ok:true,url,dosya,surum,sha256} | 401 {ok:false,kod:"sifre"} | 429 {ok:false,kod:"sinir"}
+  var UCNOKTA = "https://iekdktdhhryqewvcrnmr.supabase.co/functions/v1/sanayi-indir";
+  var form = document.getElementById("form");
+  var alan = document.getElementById("sifre");
+  var dugme = document.getElementById("dugme");
+  var durum = document.getElementById("durum");
+  var dogrulama = document.getElementById("dogrulama");
+  var mesgul = false;
+
+  function goster(tur, metin, baglanti) {
+    durum.className = "durum " + tur;
+    durum.textContent = metin;
+    if (baglanti) {
+      durum.appendChild(document.createTextNode(" "));
+      var a = document.createElement("a");
+      a.href = baglanti.href;
+      a.textContent = baglanti.metin;
+      durum.appendChild(a);
+    }
+    durum.hidden = false;
+  }
+
+  function bitir() {
+    mesgul = false;
+    dugme.disabled = false;
+    dugme.textContent = "İndir";
+  }
+
+  // Yalnızca https adresi ve beklenen sunucu; başka bir adrese yönlendirme yapılmaz.
+  function guvenliAdres(u) {
+    try {
+      var x = new URL(u);
+      return x.protocol === "https:" && /\.supabase\.co$/.test(x.hostname);
+    } catch (e) { return false; }
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (mesgul) return;
+    var sifre = alan.value;
+    if (!sifre.trim()) { goster("hata", "Şifreyi yazın."); alan.focus(); return; }
+    mesgul = true;
+    dugme.disabled = true;
+    dugme.textContent = "Kontrol ediliyor…";
+    durum.hidden = true;
+    dogrulama.hidden = true;
+
+    fetch(UCNOKTA, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sifre: sifre }),
+      cache: "no-store",
+      credentials: "omit",
+      referrerPolicy: "no-referrer"
+    }).then(function (r) {
+      return r.json().catch(function () { return null; }).then(function (g) { return { durum: r.status, govde: g }; });
+    }).then(function (s) {
+      var g = s.govde || {};
+      if (s.durum === 200 && g.ok === true && typeof g.url === "string" && guvenliAdres(g.url)) {
+        alan.value = "";
+        goster("ok", "Şifre doğru. İndirme başlıyor. Başlamazsa", { href: g.url, metin: "buraya tıklayın." });
+        if (typeof g.dosya === "string") document.getElementById("dosya").textContent = g.dosya.slice(0, 120);
+        if (typeof g.surum === "string") document.getElementById("surum").textContent = g.surum.slice(0, 30);
+        if (typeof g.sha256 === "string") document.getElementById("sha").textContent = g.sha256.slice(0, 80);
+        dogrulama.hidden = !(g.dosya || g.sha256);
+        window.location.href = g.url;
+      } else if (s.durum === 401 || g.kod === "sifre") {
+        goster("hata", "Şifre yanlış. Kontrol edip yeniden deneyin.");
+        alan.select();
+      } else if (s.durum === 429 || g.kod === "sinir") {
+        goster("hata", "Çok fazla deneme yapıldı. Biraz bekleyip yeniden deneyin.");
+      } else {
+        goster("hata", "İndirme şu an başlatılamadı. Biraz sonra yeniden deneyin.");
+      }
+      bitir();
+    }).catch(function () {
+      goster("hata", "Sunucuya ulaşılamadı. İnternet bağlantınızı kontrol edip yeniden deneyin.");
+      bitir();
+    });
+  });
+})();
+</script>
+</body>
+</html>
