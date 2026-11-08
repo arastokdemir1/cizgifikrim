@@ -1,0 +1,131 @@
+---
+layout: layouts/base.njk
+title: "Web sitesi ve e-ticaret | CizgiFikrim"
+description: "İşinizi anlatan, hızlı açılan, telefonda düzgün çalışan web sitesi ve satış akışı: tasarım, yapım ve yayın. Ücretsiz keşif görüşmesi ayırın."
+permalink: /hizmetler/web-sitesi-ve-e-ticaret/
+sayfaCss: ['components/schema', 'components/sections', 'pages/hizmet']
+jsonld:
+  - "@type": BreadcrumbList
+    itemListElement:
+      - { "@type": ListItem, position: 1, name: "Hizmetler", item: "https://cizgifikrim.net/hizmetler/" }
+      - { "@type": ListItem, position: 2, name: "Web sitesi ve e-ticaret", item: "https://cizgifikrim.net/hizmetler/web-sitesi-ve-e-ticaret/" }
+  - "@type": Service
+    name: "Web sitesi ve e-ticaret"
+    serviceType: "Web sitesi ve e-ticaret geliştirme"
+    provider: { "@id": "https://cizgifikrim.net/#org" }
+    areaServed: TR
+    description: "İşinizi anlatan, hızlı açılan, telefonda düzgün çalışan bir web sitesi ya da satış akışı."
+---
+{#- HİZMET DETAYI: Web sitesi ve e-ticaret (şartname §7, icerik_ortak C5). Süre aralığı yok. Projeye YALNIZ metin linki (kart/görsel/demo yok).
+    S2a şeması Frontend-2'nin partials/schema/s2a.njk dosyasıdır (aynı çizim dili); koyu hero'da çizgi ink %62 + lime vurgu. -#}
+{%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
+{%- set sss = [
+  ["Ne kadar sürer?", "Kapsama bağlıdır; süreyi görüşmede netleştiririz."],
+  ["Fiyat nasıl belirlenir?", "Kapsama göre, yazılı teklifle."],
+  ["Yayından sonra destek var mı?", "Evet; kapsamı teklifte yazılır."],
+  ["Ürünüm gerçekten böyle görünecek mi?", "Ürüne dokunmuyoruz; yalnız arka planı ve ışığı düzenliyoruz. Onay sizde."]
+] -%}
+
+{# ───────── 1 · HERO (koyu) ───────── #}
+<section class="sec hz-hero theme-dark" aria-labelledby="hz-baslik">
+  <div class="hz-hero__fx" aria-hidden="true"><i></i></div>
+  <div class="container hz-hero__grid">
+    <div class="hz-hero__metin">
+      <nav class="hz-kirinti" aria-label="Konum" data-in style="--i:0"><a href="/hizmetler/">Hizmetler</a><span aria-hidden="true">›</span><span aria-current="page">Web sitesi ve e-ticaret</span></nav>
+      <h1 class="h1 hz-hero__h1" id="hz-baslik" data-in style="--i:1">Web sitesi ve <em>e-ticaret</em></h1>
+      <p class="lead hz-hero__lead" data-in style="--i:2">İşinizi anlatan, hızlı açılan, telefonda düzgün çalışan bir web sitesi ya da satış akışı. Gösterişten önce okunurluk ve hız.</p>
+      <div class="hz-hero__cta" data-in style="--i:3">
+        <a class="pill pill--primary" href="{{ nav.cta.href }}">{{ nav.cta.etiket }} {{ ok | safe }}</a>
+        <span class="hz-hero__not">Kısa sürede dönüş yapıyoruz.</span>
+      </div>
+    </div>
+    <div class="hz-hero__sema" data-scene="view" data-reveal="fade">{% include "partials/schema/s2a.njk" %}</div>
+  </div>
+</section>
+
+{# ───────── 2 · KÜNYE (açık, sticky split) ───────── #}
+<section class="sec hz-kunye theme-light" aria-labelledby="kunye-baslik">
+  <div class="container split">
+    <div class="hz-kunye__sol">
+      <span class="kicker" data-reveal><b>01</b><span class="dash"></span>KAPSAM</span>
+      <h2 class="h2" id="kunye-baslik" data-reveal style="--i:1">Kime uygun, <em>ne teslim</em> ederiz</h2>
+    </div>
+    <div class="hz-kunye__sag">
+      <div class="hz-blok" data-reveal>
+        <h3 class="kicker">Kime uygun</h3>
+        <p class="hz-blok__metin">Hizmetini ya da ürününü internette göstermek ve satmak isteyen işletmeler ve girişimler.</p>
+      </div>
+      <div class="hz-blok" data-reveal style="--i:1">
+        <h3 class="kicker">Ne teslim ederiz</h3>
+        <ul class="hz-liste" role="list">
+          {%- for t in ["Tasarım ve yapım", "Telefonda hızlı açılma ve erişilebilirlik", "Alan adı ve yayın kurulumu", "Temel arama (SEO) hazırlığı: başlıklar, açıklamalar, site haritası", "Yayın sonrası destek"] %}
+          <li><span class="hz-liste__no" aria-hidden="true">0{{ loop.index }}</span>{{ t }}</li>
+          {%- endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ───────── 3 · NASIL ÇALIŞIRIZ (koyu, 4 adım) ───────── #}
+<section class="sec hz-adim theme-dark" aria-labelledby="adim-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker" data-reveal><b>02</b><span class="dash"></span>SÜREÇ</span>
+      <h2 class="h2" id="adim-baslik" data-reveal style="--i:1">Nasıl <em>çalışırız</em></h2>
+    </div>
+    <ol class="hz-adimlar" role="list">
+      {%- for a in [["Görüşme", "Hedef ve kitle"], ["Kapsam", "Sayfalar ve içerik"], ["Yapım", "Ara çıktılar"], ["Yayın", "Alan adı ve yayın"]] %}
+      <li class="hz-adim__oge" data-reveal style="--i:{{ loop.index0 }}">
+        <span class="hz-adim__no" aria-hidden="true">0{{ loop.index }}</span>
+        <h3 class="h4">{{ a[0] }}</h3>
+        <p>{{ a[1] }}</p>
+      </li>
+      {%- endfor %}
+    </ol>
+  </div>
+</section>
+
+{# ───────── 4 · E-TİCARET İÇERİĞİ (açık) ───────── #}
+<section class="sec hz-eticaret theme-light" aria-labelledby="eticaret-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker" data-reveal><b>03</b><span class="dash"></span>E-TİCARET İÇERİĞİ</span>
+      <h2 class="h2" id="eticaret-baslik" data-reveal style="--i:1">E-ticaret <em>içeriği</em></h2>
+      <p class="lead" data-reveal style="--i:2">Ürünleriniz için okunur, satışa uygun içerik.</p>
+    </div>
+    <div class="grid grid-3 hz-kartlar">
+      <article class="hz-kart" data-reveal style="--i:0">
+        {% include "partials/schema/ikon-ilke1.njk" %}
+        <h3 class="h4">Ürün açıklaması</h3>
+        <p>Bilgilerinizden okunur, satışa uygun metin.</p>
+      </article>
+      <article class="hz-kart" data-reveal style="--i:1">
+        <svg class="ikon" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><circle cx="18" cy="18" r="10" class="l"/><path d="M26 26l9 9" class="l"/><path d="M13 18h10" class="l"/></svg>
+        <h3 class="h4">Arama başlığı</h3>
+        <p>Pazar yerinde aranan ifadelere göre öneri.</p>
+      </article>
+      <article class="hz-kart" data-reveal style="--i:2">
+        <svg class="ikon" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><rect x="5" y="8" width="30" height="24" rx="6" class="l"/><circle cx="26" cy="16" r="3" class="l"/><path d="M5 27l9-7 8 6 5-4 8 6" class="l"/></svg>
+        <h3 class="h4">Arka plan ve ışık düzenleme</h3>
+        <p>Ürüne dokunmadan: şekli, rengi, yazısı ve logosu aynı kalır; yalnız arka plan ve ışık değişir.</p>
+      </article>
+    </div>
+    <p class="hz-not" data-reveal>Yapay zekâ destekli araçlarla yapılır; nihai görseli siz onaylarsınız; ürünün şekli, rengi ve detayı değişmez.</p>
+    <p class="hz-ornek" data-reveal>Web sitesi örnekleri: <a class="link" href="/calismalar/vesira/">Vesira {{ ok | safe }}</a> <a class="link" href="/calismalar/polishreel/">PolishReel {{ ok | safe }}</a></p>
+  </div>
+</section>
+
+{# ───────── 5 · SSS (açık) ───────── #}
+<section class="sec theme-light" id="sss" aria-labelledby="sss-baslik">
+  <div class="container faq-grid">
+    <h2 class="h2" id="sss-baslik" data-reveal>Sık sorulan <em>sorular</em></h2>
+    <div class="faq-list">
+      {%- for s in sss %}
+      <details class="faq-item" data-reveal style="--i:{{ loop.index0 }}"><summary>{{ s[0] }}<i aria-hidden="true"></i></summary><p class="faq-a">{{ s[1] }}</p></details>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{% include "partials/cta-band.njk" %}

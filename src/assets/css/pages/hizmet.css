@@ -1,0 +1,50 @@
+/* HİZMET DETAYI: Web sitesi ve e-ticaret (Frontend-1). Yalnız anlamsal tema değişkenleri; açık zeminde lime yok. */
+.hz-hero { padding-top: calc(var(--header-top) + var(--header-h) + clamp(32px, 6vw, 88px)); overflow-x: clip; }
+.hz-hero__fx { position: absolute; inset: 0; pointer-events: none; }
+.hz-hero__fx i { position: absolute; right: -6%; top: 6%; width: min(70vw, 880px); aspect-ratio: 1; background: radial-gradient(closest-side, var(--c-glow-2), transparent 70%); }
+.hz-hero__grid { position: relative; display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(24px, 5vw, 80px); align-items: center; }
+.hz-hero__metin { display: grid; justify-items: start; gap: var(--s-5); }
+.hz-kirinti { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 13px; color: var(--fg-muted); }
+.hz-kirinti a { color: var(--fg-muted); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 4px; }
+.hz-kirinti a:hover { color: var(--fg); }
+.hz-kirinti [aria-current] { color: var(--fg); }
+.hz-hero__h1 { margin: 0; font-size: clamp(44px, 6.6vw, 96px); line-height: 1; letter-spacing: var(--ls-h1); text-wrap: balance; }
+.hz-hero__lead { margin: 0; max-width: 36ch; color: var(--fg-muted); }
+.hz-hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-5); }
+.hz-hero__not { font-size: var(--t-small); color: var(--fg-muted); }
+.hz-hero__sema { position: relative; justify-self: center; width: min(100%, 560px); }
+
+/* Künye */
+.hz-kunye__sol { display: grid; gap: var(--s-4); align-self: start; position: sticky; top: calc(var(--header-top) + var(--header-h) + 24px); }
+.hz-kunye__sol .h2 { margin: 0; }
+.hz-kunye__sag { display: grid; gap: clamp(32px, 4vw, 56px); }
+.hz-blok { display: grid; gap: var(--s-4); }
+.hz-blok .kicker { margin: 0; }
+.hz-blok__metin { margin: 0; font-size: clamp(20px, 1.9vw, 26px); line-height: 1.35; letter-spacing: -.01em; font-weight: 500; max-width: 34ch; text-wrap: pretty; }
+.hz-liste { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s-3); }
+.hz-liste li { display: flex; align-items: baseline; gap: var(--s-4); padding: 18px 22px; border: 1px solid var(--line); border-radius: var(--r-m); background: var(--surface); font-size: 18px; line-height: 1.4; font-weight: 500; }
+.hz-liste__no { flex: none; font-family: var(--f-serif); font-style: italic; font-size: 22px; line-height: 1; color: var(--fg-muted); min-width: 2ch; }
+
+/* Süreç (4 adım) */
+.hz-adimlar { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-5); }
+.hz-adim__oge { display: grid; gap: var(--s-3); align-content: start; padding-top: var(--s-5); border-top: 1px solid var(--line-strong); }
+.hz-adim__no { font-family: var(--f-serif); font-style: italic; font-size: 48px; line-height: .9; color: var(--accent); }
+.hz-adim__oge h3 { margin: var(--s-4) 0 0; }
+.hz-adim__oge p { margin: 0; color: var(--fg-muted); }
+
+/* E-ticaret içeriği */
+.hz-kart { display: grid; gap: var(--s-3); align-content: start; padding: clamp(24px, 2.6vw, 32px); border: 1px solid var(--line); border-radius: var(--r-l); background: var(--surface); transition: transform var(--d-base) var(--ease-out), border-color var(--d-base) var(--ease-out); }
+.hz-kart:hover { transform: translateY(-6px); border-color: var(--line-strong); }
+.hz-kart .ikon { margin-bottom: var(--s-4); color: var(--fg); }
+.hz-kart h3, .hz-kart p { margin: 0; }
+.hz-kart p { color: var(--fg-muted); }
+.hz-not { margin: var(--s-6) 0 0; max-width: 62ch; font-size: var(--t-small); line-height: 1.55; color: var(--fg-muted); }
+.hz-ornek { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-6); margin: var(--s-7) 0 0; padding-top: var(--s-5); border-top: 1px solid var(--line); font-weight: 600; }
+
+@media (max-width: 1023px) { .hz-adimlar { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 860px) {
+  .hz-hero__grid { grid-template-columns: minmax(0, 1fr); }
+  .hz-hero__sema { width: min(100%, 420px); }
+  .hz-kunye__sol { position: static; }
+}
+@media (max-width: 560px) { .hz-adimlar { grid-template-columns: minmax(0, 1fr); } }

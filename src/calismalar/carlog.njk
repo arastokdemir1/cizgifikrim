@@ -1,0 +1,199 @@
+---
+layout: layouts/base.njk
+title: "CarLog — Yolculuk masrafı uygulaması | CizgiFikrim"
+description: "CarLog, yolculuğu kendiliğinden algılayıp yakıt, gişe ve köprü masrafını canlı hesaplar. App Store'da; web demosunu tarayıcıda deneyin."
+permalink: /calismalar/carlog/
+sayfaCss: ['components/schema', 'components/demo-frame', 'components/sections', 'pages/carlog']
+sayfaJs: ['demo-frame']
+jsonld:
+  - "@type": BreadcrumbList
+    itemListElement:
+      - { "@type": ListItem, position: 1, name: "Çalışmalar", item: "https://cizgifikrim.net/calismalar/" }
+      - { "@type": ListItem, position: 2, name: "CarLog", item: "https://cizgifikrim.net/calismalar/carlog/" }
+  - "@type": SoftwareApplication
+    name: CarLog
+    operatingSystem: iOS
+    applicationCategory: UtilitiesApplication
+    url: "https://apps.apple.com/tr/app/id6779625494"
+    description: "Yolculuğu kendiliğinden algılayıp yakıt, gişe ve köprü masrafını canlı hesaplayan iOS uygulaması."
+    author: { "@id": "https://cizgifikrim.net/#org" }
+---
+{#- CARLOG DETAY (şartname §6, icerik_ortak B3). Metrik YOK; yalnız durum kartları. App Store görselleri çerçevesiz, kırpılmadan.
+    Ürün 3 özellik kartıyla gösterilir (Koordinatör D2); B3.4'teki 6 metin kaynak olarak durur. -#}
+{%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
+{%- set dis -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg>{%- endset -%}
+{%- set magaza = "https://apps.apple.com/tr/app/id6779625494" -%}
+{%- set cl = projeler.liste | selectattr("slug", "equalto", "carlog") | first -%}
+
+{# ───────── 1 · HERO (koyu) ───────── #}
+<section class="sec cl-hero theme-dark" aria-labelledby="cl-baslik">
+  <div class="cl-hero__fx" aria-hidden="true"><i></i></div>
+  <div class="container cl-hero__grid">
+    <div class="cl-hero__metin">
+      <nav class="cl-kirinti" aria-label="Konum" data-in style="--i:0"><a href="/calismalar/">Çalışmalar</a><span aria-hidden="true">›</span><span aria-current="page">CarLog</span></nav>
+      <span class="kicker" data-in style="--i:1">ÇALIŞMA</span>
+      <h1 class="h1 cl-hero__h1" id="cl-baslik" data-in style="--i:2">CarLog</h1>
+      <p class="lead cl-hero__lead" data-in style="--i:3">Türkiye'deki sürücüler için yolculuğu kendiliğinden algılayıp yakıt, gişe ve köprü masrafını canlı hesaplayan iOS uygulaması.</p>
+      <ul class="tags" data-in style="--i:4">{% for e in cl.etiketler %}<li class="tag">{{ e }}</li>{% endfor %}</ul>
+      <div class="cl-hero__cta" data-in style="--i:5">
+        <a class="pill pill--primary" href="{{ magaza }}" target="_blank" rel="noopener">App Store'da aç {{ dis | safe }}</a>
+        <a class="pill pill--glass" href="#demo">Demoyu dene</a>
+      </div>
+      <dl class="cl-durum" data-in style="--i:6">
+        <div><dt>Platform</dt><dd>iOS · iPhone ve CarPlay</dd></div>
+        <div><dt>Durum</dt><dd><span class="cl-nokta" aria-hidden="true"></span>App Store'da</dd></div>
+        <div><dt>Rol</dt><dd>Baştan sona</dd></div>
+      </dl>
+    </div>
+    <div class="cl-hero__sahne" data-in style="--i:3">
+      <span class="cl-hero__dev" aria-hidden="true">CarLog</span>
+      <div class="cl-hero__yuzen" data-pause-offscreen>
+        <div class="cl-telefon"><div class="cl-telefon__ekran">{% gorsel "src/assets/img/projeler/carlog/demo-poster.webp", "CarLog Özet ekranı: bugünün toplam gideri, mesafe, gişe ve sefer sayısı, son 14 günün grafiği", "700px", [340, 680], "eager" %}</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ───────── 2 · DEMO (koyu) ───────── #}
+<section class="sec cl-demo theme-dark" id="demo" aria-labelledby="demo-baslik">
+  <div class="container">
+    <div class="sec-head center">
+      <span class="kicker" data-reveal><b>01</b><span class="dash"></span>DEMO</span>
+      <h2 class="h2" id="demo-baslik" data-reveal style="--i:1">Gerçek arayüzü <em>deneyin</em>.</h2>
+      <p class="lead" data-reveal style="--i:2">Uygulamanın web demosu, örnek verilerle çalışır. Garajı gezin, bir yolculuk ekleyin, özeti inceleyin.</p>
+    </div>
+    <div class="cl-demo__sahne" data-reveal="fade">
+      <p class="cl-ipucu cl-ipucu--sol">Canlı Sürüş sekmesini deneyin.</p>
+      {% set demo = { src: "/demo/carlog/", baslik: "CarLog web demosu (örnek verilerle)", poster: "src/assets/img/projeler/carlog/demo-poster.webp", posterAlt: "CarLog demosu: Özet ekranı. Demoyu başlat düğmesiyle etkileşimli hâli açılır.", tamEkran: "/demo/carlog/" } %}
+      {% include "partials/demo-frame.njk" %}
+      <p class="cl-ipucu cl-ipucu--sag">Özet sekmesinde gün, hafta ve ay arasında geçin.</p>
+    </div>
+  </div>
+</section>
+
+{# ───────── 3 · SORUN / YAKLAŞIM / SONUÇ (açık, sol yapışkan künye) ───────── #}
+<section class="sec cl-hikaye theme-light" aria-labelledby="hikaye-baslik">
+  <div class="container split cl-hikaye__grid">
+    <aside class="cl-kunye" aria-label="Çalışma künyesi">
+      <h2 class="kicker" id="hikaye-baslik" data-reveal>KÜNYE</h2>
+      <dl>
+        <div data-reveal style="--i:1"><dt>Platform</dt><dd>iOS (iPhone ve CarPlay)</dd></div>
+        <div data-reveal style="--i:2"><dt>Durum</dt><dd>App Store'da (Türkiye)</dd></div>
+        <div data-reveal style="--i:3"><dt>Rol</dt><dd>Baştan sona: fikir, tasarım, geliştirme, veri, yayın</dd></div>
+        <div data-reveal style="--i:4"><dt>Teknoloji</dt><dd>SwiftUI · SwiftData · MapKit · WeatherKit · StoreKit 2 · CarPlay · WidgetKit</dd></div>
+        <div data-reveal style="--i:5"><dt>Bağlantı</dt><dd><a class="link" href="{{ magaza }}" target="_blank" rel="noopener">App Store'da aç {{ dis | safe }}</a></dd></div>
+      </dl>
+    </aside>
+    <div class="cl-bolumler">
+      <article class="cl-bolum" data-reveal>
+        <span class="cl-bolum__no" aria-hidden="true">01</span>
+        <div><p class="kicker">SORUN</p>
+        <h3 class="h3">Masrafın gerçek maliyeti <em>dağınık</em>.</h3>
+        <p>Sürücüler bir yolculuğun ya da aracın aylık gerçek maliyetini bilmiyor. Yakıt, otoyol/köprü ücreti ve tüketim ayrı ayrı yerlerde duruyor.</p></div>
+      </article>
+      <article class="cl-bolum" data-reveal>
+        <span class="cl-bolum__no" aria-hidden="true">02</span>
+        <div><p class="kicker">YAKLAŞIM</p>
+        <h3 class="h3">Önce <em>göster</em>, sürerken kaydet, sonra özetle.</h3>
+        <p>CarLog yola çıkmadan tahmini masrafı gösterir, sürerken kaydeder, sonra özetler.</p></div>
+      </article>
+      <article class="cl-bolum" data-reveal>
+        <span class="cl-bolum__no" aria-hidden="true">03</span>
+        <div><p class="kicker">SONUÇ</p>
+        <h3 class="h3">App Store'da <em>yayında</em>.</h3>
+        <p>App Store'da yayında, aktif geliştirilen bir uygulama.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+{# ───────── 4 · ÖZELLİKLER (açık, 3 kart) ───────── #}
+<section class="sec cl-ozellik theme-light" aria-labelledby="ozellik-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker" data-reveal><b>02</b><span class="dash"></span>ÖZELLİKLER</span>
+      <h2 class="h2" id="ozellik-baslik" data-reveal style="--i:1">Sürücünün <em>ihtiyacı</em> olan üç şey.</h2>
+    </div>
+    <div class="grid grid-3 cl-kartlar">
+      <article class="cl-kart" data-reveal style="--i:0">
+        <svg class="ikon" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><path d="M5 22c4-9 7-9 10 0s6 9 10 0 6-9 10 0" class="l"/><circle cx="20" cy="9" r="2.5" class="l"/></svg>
+        <h3 class="h4">Otomatik yolculuk kaydı</h3>
+        <p>Telefon cebinde, uygulama açılmadan yolculuğu algılar. Araç Bluetooth'u ve CarPlay ile sürücü–yolcu ayrımı yapar.</p>
+      </article>
+      <article class="cl-kart" data-reveal style="--i:1">
+        <svg class="ikon" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><path d="M7 31c0-8 6-6 10-11s2-10 9-10" class="l"/><circle cx="7" cy="31" r="3" class="l"/><circle cx="29" cy="10" r="3" class="l"/><path d="M31 21v10M26 26h10" class="l"/></svg>
+        <h3 class="h4">Yola çıkmadan masraf</h3>
+        <p>Rota, güncel yakıt fiyatı, otoyol gişeleri ve Boğaz köprüleri dahil tahmini maliyeti gösterir.</p>
+      </article>
+      <article class="cl-kart" data-reveal style="--i:2">
+        <svg class="ikon" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><path d="M7 30a14 14 0 1 1 26 0" class="l"/><path d="M20 30l6-10" class="l"/><circle cx="20" cy="30" r="2" class="l"/></svg>
+        <h3 class="h4">Canlı sürüş ve özet</h3>
+        <p>Anlık hız, kilometre, yakıt ve gişe tutarı sürüş sırasında akar. Gün, hafta ve ay özeti ile birden çok araçlı garaj bir arada.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+{# ───────── 5 · EKRAN GALERİSİ (koyu; App Store görselleri çerçevesiz, kırpılmadan) ───────── #}
+<section class="sec cl-galeri theme-dark" aria-labelledby="galeri-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker" data-reveal><b>03</b><span class="dash"></span>EKRANLAR</span>
+      <h2 class="h2" id="galeri-baslik" data-reveal style="--i:1">Uygulamadan <em>üç ekran</em>.</h2>
+    </div>
+    <ul class="cl-galeri__liste" role="list" tabindex="0" aria-label="Uygulama ekranları (yatay kaydırılır)">
+      {%- set ekranlar = [
+        { dosya: "1-canli", alt: "CarLog ekranı: 'Sen sür, CarLog kaydetsin' başlığı ve canlı sürüş görünümü", ad: "Canlı sürüş" },
+        { dosya: "2-hesapla", alt: "CarLog ekranı: yola çıkmadan tahmini masraf hesabı", ad: "Yola çıkmadan masraf" },
+        { dosya: "3-ozet", alt: "CarLog ekranı: gün, hafta ve ay masraf özeti", ad: "Masraf özeti" }
+      ] -%}
+      {%- for e in ekranlar %}
+      <li class="cl-galeri__oge" data-reveal style="--i:{{ loop.index0 }}">
+        <figure>
+          <div class="cl-galeri__gorsel">{% gorsel "src/assets/img/projeler/carlog/" + e.dosya + ".webp", e.alt, "(min-width: 1024px) 560px, 420px", [560, 960, 1320], "lazy" %}</div>
+          <figcaption>{{ e.ad }}</figcaption>
+        </figure>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
+{# ───────── 6 · NASIL YAPTIK (açık) ───────── #}
+<section class="sec cl-yaptik theme-light" aria-labelledby="yaptik-baslik">
+  <div class="container split">
+    <div class="sec-head" style="margin:0">
+      <span class="kicker" data-reveal><b>04</b><span class="dash"></span>NASIL YAPTIK</span>
+      <h2 class="h2" id="yaptik-baslik" data-reveal style="--i:1">Baştan sona <em>bizim işimiz</em>.</h2>
+    </div>
+    <div class="cl-yaptik__govde">
+      <p class="lead" data-reveal>CarLog'un fikri, tasarımı, geliştirmesi, veri altyapısı ve yayını CizgiFikrim'e ait.</p>
+      <ul class="tech" data-reveal style="--i:1">{% for t in ["SwiftUI", "SwiftData", "MapKit", "WeatherKit", "StoreKit 2", "CarPlay", "WidgetKit"] %}<li class="tag">{{ t }}</li>{% endfor %}</ul>
+    </div>
+  </div>
+</section>
+
+{# ───────── 7 · BENZERİNİ İSTİYORUM (koyu) ───────── #}
+<section class="sec cl-cta theme-dark" aria-labelledby="cl-cta-baslik">
+  <div class="cl-cta__fx" aria-hidden="true"><i></i></div>
+  <div class="container cl-cta__in">
+    <h2 class="h2" id="cl-cta-baslik" data-reveal>Benzer bir uygulama mı <em>düşünüyorsunuz</em>?</h2>
+    <p class="lead" data-reveal style="--i:1">Mobil bir ürün fikriniz varsa nasıl yapılacağını kısa bir görüşmede konuşalım.</p>
+    <div class="cl-cta__ac" data-reveal style="--i:2">
+      <a class="pill pill--primary" href="/gorusme/?konu=carlog">Benzerini istiyorum {{ ok | safe }}</a>
+      <a class="link" href="/hizmetler/">Mobil uygulama hizmeti {{ ok | safe }}</a>
+    </div>
+  </div>
+</section>
+
+{# ───────── 8 · DİĞER ÇALIŞMALAR (açık, metin satırları, poster yok) ───────── #}
+<section class="sec sec--tight cl-diger theme-light" aria-labelledby="diger-baslik">
+  <div class="container">
+    <h2 class="h3" id="diger-baslik" data-reveal>Diğer <em>çalışmalar</em></h2>
+    <ul class="cl-diger__liste" role="list">
+      {%- for p in projeler.liste %}{% if p.slug != "carlog" %}
+      <li data-reveal style="--i:{{ loop.index0 }}"><a href="{{ p.url }}"><b>{{ p.baslik }}</b><span>{{ p.cumle }}</span>{{ ok | safe }}</a></li>
+      {%- endif %}{% endfor %}
+    </ul>
+  </div>
+</section>

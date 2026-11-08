@@ -1,0 +1,121 @@
+/* CARLOG DETAY (Frontend-1). Yalnız anlamsal tema değişkenleri (--bg --fg --line --surface --accent ...) okunur; açık zeminde lime yok.
+   Hareket yalnız transform/opacity; reduced-motion'da yüzme kapalı. */
+
+/* ── 1 · Hero ─────────────────────────────────────────────────────────── */
+.cl-hero { padding-top: calc(var(--header-top) + var(--header-h) + clamp(32px, 6vw, 88px)); overflow-x: clip; }
+.cl-hero__fx { position: absolute; inset: 0; pointer-events: none; }
+.cl-hero__fx i { position: absolute; right: -8%; top: 8%; width: min(70vw, 900px); aspect-ratio: 1; background: radial-gradient(closest-side, var(--c-glow-2), transparent 70%); }
+.cl-hero__grid { position: relative; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 80px); align-items: center; }
+.cl-hero__metin { display: grid; justify-items: start; gap: var(--s-4); }
+.cl-kirinti { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--fg-muted); }
+.cl-kirinti a { color: var(--fg-muted); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 4px; }
+.cl-kirinti a:hover { color: var(--fg); }
+.cl-kirinti [aria-current] { color: var(--fg); }
+.cl-hero__h1 { margin: 0; font-size: clamp(64px, 11vw, 148px); line-height: .92; letter-spacing: var(--ls-hero); }
+.cl-hero__lead { max-width: 34ch; color: var(--fg-muted); margin: 0; }
+.cl-hero .tags { display: flex; flex-wrap: wrap; gap: var(--s-2); padding: 0; margin: 0; list-style: none; }
+.cl-hero__cta { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-2); }
+.cl-durum { display: flex; flex-wrap: wrap; gap: var(--s-3); margin: var(--s-5) 0 0; padding: 0; }
+.cl-durum > div { display: grid; gap: 6px; padding: 14px 18px; border: 1px solid var(--line); border-radius: var(--r-m); background: var(--surface); }
+.cl-durum dt { font-size: 11.5px; font-weight: 700; letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--fg-muted); }
+.cl-durum dd { margin: 0; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; letter-spacing: -.005em; }
+.cl-nokta { width: 8px; height: 8px; border-radius: 50%; background: var(--c-accent); flex: none; }
+
+.cl-hero__sahne { position: relative; display: grid; place-items: start center; min-height: clamp(520px, 52vw, 740px); padding-bottom: clamp(70px, 9vw, 130px); }
+.cl-hero__dev { position: absolute; left: 50%; bottom: 0; translate: -50% 0; font: 700 clamp(84px, 11.5vw, 170px)/.8 var(--f-sans); letter-spacing: -.055em; color: rgba(245, 245, 242, .06); white-space: nowrap; user-select: none; pointer-events: none; }
+.cl-hero__yuzen { position: relative; z-index: 1; }
+.cl-telefon { width: clamp(236px, 22vw, 306px); padding: 8px; border-radius: 44px; background: #0E1013; box-shadow: 0 0 0 1px rgba(255, 255, 255, .16), 0 50px 90px -40px rgba(0, 0, 0, .9), inset 0 0 0 2px rgba(255, 255, 255, .05); }
+.cl-telefon__ekran { border-radius: 36px; overflow: hidden; background: #F4F6FB; }
+.cl-telefon__ekran picture, .cl-telefon__ekran img { display: block; width: 100%; height: auto; }
+
+/* ── 2 · Demo ─────────────────────────────────────────────────────────── */
+.cl-demo__sahne { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: center; }
+.cl-demo .demo-cerceve { --demo-w: 360px; }
+.cl-ipucu { margin: 0; max-width: 24ch; font-size: var(--t-small); line-height: 1.5; color: var(--fg-muted); }
+.cl-ipucu--sol { justify-self: end; text-align: right; }
+.cl-ipucu--sag { justify-self: start; }
+.cl-demo .demo-yedek { color: var(--fg); }
+
+/* ── 3 · Künye + anlatı ───────────────────────────────────────────────── */
+.cl-kunye { position: sticky; top: calc(var(--header-top) + var(--header-h) + 24px); display: grid; gap: var(--s-4); align-self: start; }
+.cl-kunye .kicker { margin: 0; }
+.cl-kunye dl { margin: 0; display: grid; }
+.cl-kunye dl > div { display: grid; gap: 6px; padding-block: 16px; border-top: 1px solid var(--line); }
+.cl-kunye dl > div:last-child { border-bottom: 1px solid var(--line); }
+.cl-kunye dt { font-size: 11.5px; font-weight: 700; letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--fg-muted); }
+.cl-kunye dd { margin: 0; font-size: 17px; line-height: 1.45; font-weight: 500; }
+.cl-bolumler { display: grid; }
+.cl-bolum { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(20px, 4vw, 56px); padding-block: clamp(32px, 5vw, 64px); border-top: 1px solid var(--line); }
+.cl-bolum:first-child { border-top: 0; padding-top: 0; }
+.cl-bolum__no { font-family: var(--f-serif); font-style: italic; font-size: var(--t-numeral); line-height: .9; min-width: 2.2ch; padding-bottom: var(--s-3); border-bottom: 1px solid var(--fg); align-self: start; }
+.cl-bolum .kicker { margin: 0 0 var(--s-3); }
+.cl-bolum .h3 { margin: 0 0 var(--s-3); max-width: 22ch; }
+.cl-bolum p:not(.kicker) { margin: 0; max-width: 56ch; color: var(--fg-muted); font-size: var(--t-body); line-height: var(--lh-body); }
+
+/* ── 4 · Özellikler ───────────────────────────────────────────────────── */
+.cl-kart { display: grid; gap: var(--s-3); align-content: start; padding: clamp(24px, 2.6vw, 32px); border: 1px solid var(--line); border-radius: var(--r-l); background: var(--surface); transition: transform var(--d-base) var(--ease-out), border-color var(--d-base) var(--ease-out); }
+.cl-kart:hover { transform: translateY(-6px); border-color: var(--line-strong); }
+.cl-kart .ikon { margin-bottom: var(--s-4); color: var(--fg); }
+.cl-kart h3 { margin: 0; }
+.cl-kart p { margin: 0; color: var(--fg-muted); }
+
+/* ── 5 · Galeri: App Store görselleri çerçevesiz ve kırpılmadan ───────── */
+.cl-galeri__liste { display: flex; gap: clamp(16px, 2.4vw, 32px); margin: 0; padding: 0 0 var(--s-4); list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: thin; }
+.cl-galeri__liste:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; border-radius: var(--r-m); }
+.cl-galeri__oge { flex: none; scroll-snap-align: start; }
+.cl-galeri__oge:first-child { margin-left: auto; }
+.cl-galeri__oge:last-child { margin-right: auto; }
+.cl-galeri figure { margin: 0; display: grid; gap: var(--s-4); justify-items: center; }
+.cl-galeri__gorsel picture { display: block; }
+.cl-galeri__gorsel img { display: block; width: auto; height: clamp(380px, 42vw, 560px); aspect-ratio: 1320 / 2868; border-radius: var(--r-l); }
+.cl-galeri figcaption { font-size: var(--t-small); font-weight: 600; color: var(--fg-muted); }
+
+/* ── 6 · Nasıl yaptık ─────────────────────────────────────────────────── */
+.cl-yaptik__govde { display: grid; gap: var(--s-6); align-content: start; }
+.cl-yaptik__govde .lead { margin: 0; max-width: 34ch; }
+
+/* ── 7 · CTA ──────────────────────────────────────────────────────────── */
+.cl-cta { overflow: hidden; text-align: center; }
+.cl-cta__fx { position: absolute; inset: 0; pointer-events: none; }
+.cl-cta__fx i { position: absolute; left: 50%; bottom: -40%; translate: -50% 0; width: min(120vw, 1200px); aspect-ratio: 2 / 1; background: radial-gradient(closest-side, var(--c-glow), transparent 72%); opacity: .5; }
+.cl-cta__in { position: relative; display: grid; justify-items: center; gap: var(--s-5); }
+.cl-cta__in .h2 { margin: 0; max-width: 18ch; }
+.cl-cta__in .lead { margin: 0; max-width: 40ch; color: var(--fg-muted); }
+.cl-cta__ac { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--s-5); margin-top: var(--s-3); }
+
+/* ── 8 · Diğer çalışmalar (yalnız metin satırları) ────────────────────── */
+.cl-diger .h3 { margin: 0 0 var(--s-5); }
+.cl-diger__liste { margin: 0; padding: 0; list-style: none; display: grid; }
+.cl-diger__liste a { display: grid; grid-template-columns: minmax(120px, 1fr) minmax(0, 4fr) auto; gap: var(--s-5); align-items: center; padding-block: 22px; border-top: 1px solid var(--line); color: var(--fg); text-decoration: none; transition: padding-left var(--d-base) var(--ease-out); }
+.cl-diger__liste li:last-child a { border-bottom: 1px solid var(--line); }
+.cl-diger__liste a:hover { padding-left: 12px; }
+.cl-diger__liste b { font-size: var(--t-h3); font-weight: 600; letter-spacing: var(--ls-h3); }
+.cl-diger__liste span { color: var(--fg-muted); }
+.cl-diger__liste svg { width: 18px; height: 18px; }
+
+/* ── Hareket ──────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .cl-hero__yuzen { animation: cl-yuz 8s ease-in-out infinite alternate; }
+  @keyframes cl-yuz { from { translate: 0 -8px; } to { translate: 0 8px; } }
+}
+
+/* ── Duyarlı ──────────────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+  .cl-demo__sahne { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+  .cl-ipucu--sol, .cl-ipucu--sag { justify-self: center; text-align: center; max-width: 36ch; }
+  .cl-ipucu--sol { order: 2; } .cl-ipucu--sag { order: 3; }
+}
+@media (max-width: 860px) {
+  .cl-hero__grid { grid-template-columns: minmax(0, 1fr); }
+  .cl-hero__sahne { min-height: 460px; }
+  .cl-kunye { position: static; }
+  .cl-hikaye__grid { gap: var(--s-7); }
+  .cl-diger__liste a { grid-template-columns: minmax(0, 1fr) auto; }
+  .cl-diger__liste span { grid-column: 1; grid-row: 2; }
+  .cl-diger__liste svg { grid-column: 2; grid-row: 1 / span 2; }
+}
+@media (max-width: 560px) {
+  .cl-durum > div { padding: 12px 14px; }
+  .cl-bolum { grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
+  .cl-galeri__oge:first-child { margin-left: 0; }
+}

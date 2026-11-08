@@ -1,0 +1,14 @@
+{#- DEMO ÇERÇEVESİ (Frontend-1). Kullanım: {% set demo = { src: "/demo/carlog/", baslik: "CarLog web demosu (örnek verilerle)", poster: "src/assets/img/projeler/carlog/demo-poster.webp", posterAlt: "CarLog Özet ekranı", tamEkran: "/demo/carlog/" } %}{% include "partials/demo-frame.njk" %}
+    Sayfa front matter: sayfaCss: ['components/demo-frame'], sayfaJs: ['demo-frame'].
+    Facade: sayfada yalnız poster + "Demoyu başlat" düğmesi; iframe ({sandbox="allow-scripts"}, srcdoc yok) betik tarafından eklenir. Betik yoksa "Tam ekranda aç" bağlantısı çalışır.
+    Not metni her zaman çerçevenin altındadır. -#}
+<div class="demo-cerceve" data-src="{{ demo.src }}" data-baslik="{{ demo.baslik }}">
+  <div class="demo-telefon">
+    <div class="demo-ekran" data-durum="bekliyor">
+      {% gorsel demo.poster, demo.posterAlt, "700px", [340, 680], "lazy" %}
+      <button type="button" class="demo-ac">Demoyu başlat</button>
+    </div>
+  </div>
+  <p class="demo-not">{{ demo.not | default("Demodaki sayılar örnek veridir. Girdiğiniz değerler kaydedilmez.") }}</p>
+  <a class="link demo-yedek" href="{{ demo.tamEkran }}" target="_blank" rel="noopener">Tam ekranda aç <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg></a>
+</div>

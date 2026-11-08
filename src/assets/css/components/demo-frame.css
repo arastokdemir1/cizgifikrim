@@ -1,0 +1,59 @@
+/* Demo çerçevesi (üretim, Frontend-1): telefon + poster (facade) + yükleme düğmesi + mobil tam ekran katman. Hepsi .demo-* ile başlar.
+   Demo kendi iframe'inde çalıştığı için sayfa CSS'i demoya sızmaz, demo CSS'i sayfaya sızmaz.
+   Renkler sayfa jetonlarından okunur, yoksa Palet 1 yedekleri kullanılır. */
+.demo-cerceve {
+  --demo-bezel: #0E1013;
+  --demo-ring: rgba(255, 255, 255, .16);
+  --demo-ac-bg: var(--c-accent, #CFFF4A);
+  --demo-ac-ink: var(--c-accent-ink, #0A0A0A);
+  --demo-not: var(--c-ink-muted, #9A9A94);
+  --demo-r: 46px;                 /* cihaz kasası köşesi (arayüz değil, cihaz biçimi) */
+  --demo-pad: 10px;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  max-width: 100%; margin-inline: auto;
+}
+.demo-cerceve *, .demo-cerceve *::before, .demo-cerceve *::after { box-sizing: border-box; }
+.demo-telefon {
+  position: relative; width: min(100%, var(--demo-w, 360px)); aspect-ratio: 390 / 800; padding: var(--demo-pad);
+  border-radius: var(--demo-r); background: var(--demo-bezel);
+  box-shadow: 0 0 0 1px var(--demo-ring), 0 36px 70px -34px rgba(0, 0, 0, .8), inset 0 0 0 2px rgba(255, 255, 255, .05);
+}
+.demo-ekran { position: relative; width: 100%; height: 100%; border-radius: calc(var(--demo-r) - var(--demo-pad)); overflow: hidden; background: #F4F6FB; isolation: isolate; }
+.demo-ekran::after { /* Dynamic Island */
+  content: ""; position: absolute; z-index: 3; top: 9px; left: 50%; width: 28%; height: 24px; margin-left: -14%;
+  border-radius: 999px; background: #000; pointer-events: none;
+}
+.demo-ekran > picture { position: absolute; inset: 0; display: block; }
+.demo-ekran > picture img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.demo-ac {
+  position: absolute; z-index: 2; left: 50%; bottom: 17%; translate: -50% 0; min-height: 48px; padding: 12px 24px;
+  border: 0; border-radius: 999px; cursor: pointer; background: var(--demo-ac-bg); color: var(--demo-ac-ink);
+  font: 600 .9375rem/1.2 var(--font-body, system-ui, -apple-system, "Segoe UI", sans-serif); white-space: nowrap;
+  box-shadow: 0 10px 28px -10px rgba(0, 0, 0, .55);
+}
+.demo-ac:hover { filter: brightness(1.06); }
+.demo-ac:focus-visible { outline: 3px solid var(--demo-ac-bg); outline-offset: 3px; }
+.demo-ekran[data-durum="yukleniyor"] .demo-ac { pointer-events: none; opacity: .7; }
+.demo-iframe { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; border: 0; display: block; background: #F4F6FB; border-radius: inherit; }
+.demo-ekran[data-durum="hazir"] > picture, .demo-ekran[data-durum="hazir"] .demo-ac { display: none; }
+.demo-not { margin: 0; max-width: 40ch; text-align: center; font: 500 .75rem/1.5 var(--font-body, system-ui, sans-serif); letter-spacing: .02em; color: var(--demo-not); }
+.demo-yedek { font-size: .8125rem; color: var(--demo-not); }
+@media (prefers-reduced-motion: no-preference) {
+  .demo-iframe { animation: demo-gir 240ms ease-out both; }
+  @keyframes demo-gir { from { opacity: 0; } to { opacity: 1; } }
+}
+
+/* Mobil/tablet: tam ekran katman (<dialog>). Köşe: üst köşeler --r-l (24px). */
+html.demo-kilit { overflow: hidden; }
+.demo-katman {
+  position: fixed; inset: 0; width: 100%; max-width: none; height: 100dvh; max-height: none; margin: 0; padding: 0; border: 0;
+  background: #F4F6FB; overflow: hidden; border-radius: var(--r-l, 24px) var(--r-l, 24px) 0 0;
+}
+.demo-katman::backdrop { background: rgba(0, 0, 0, .6); }
+.demo-katman .demo-iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.demo-kapat {
+  position: absolute; z-index: 5; top: max(10px, env(safe-area-inset-top, 0px)); right: 12px; min-height: 44px; padding: 0 20px; border: 0;
+  border-radius: 999px; cursor: pointer; background: rgba(14, 16, 19, .86); color: #fff; font: 600 .9375rem/1 var(--font-body, system-ui, sans-serif);
+  box-shadow: 0 6px 18px -6px rgba(0, 0, 0, .5);
+}
+.demo-kapat:focus-visible { outline: 3px solid var(--demo-ac-bg, #CFFF4A); outline-offset: 2px; }
