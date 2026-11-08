@@ -1,5 +1,5 @@
 {
-  "_not": "Tek veri, iki çıktı: PLATFORM=gh -> 'taşındı' stub'ları; PLATFORM=cf -> _redirects (301). Yalnız /tr/* eski yollar; korunan yollar buraya girmez. Varsayımlar: products.html, demo.html ve çalışması olmayan eski proje sayfaları -> /calismalar/ (Teknik-1 onayı).",
+  "_not": "Tek veri, iki çıktı: PLATFORM=gh -> 'taşındı' stub'ları; PLATFORM=cf -> _redirects (301). Yalnız /tr/* eski yollar; korunan yollar buraya girmez; /tr/* catch-all YOK. Bayraklar: k2b = Aras K2b kararına bağlı hedef (proje sayfaları), k6b = K6b kararına bağlı (e-ticaret), istasyon = hedef site.json istasyonCanli'ya göre (false: /istasyon-yakinda/, true: istasyon.cizgifikrim.net). Etkin liste: src/_data/yonlendirmeler.js. Kararlar: Teknik-1, uygulama_plani.md §4.1; Koordinatör onayı.",
   "redirects": [
     {
       "from": "/tr/",
@@ -33,58 +33,69 @@
     },
     {
       "from": "/tr/projects/piyasa.html",
-      "to": "/calismalar/",
-      "status": 301
+      "to": "/piyasa/",
+      "status": 301,
+      "k2b": true
     },
     {
       "from": "/tr/projects/sano.html",
       "to": "/calismalar/",
-      "status": 301
+      "status": 301,
+      "k2b": true
     },
     {
       "from": "/tr/projects/ultron.html",
       "to": "/calismalar/",
-      "status": 301
+      "status": 301,
+      "k2b": true
     },
     {
       "from": "/tr/projects/focusgrid.html",
       "to": "/calismalar/",
-      "status": 301
+      "status": 301,
+      "k2b": true
     },
     {
       "from": "/tr/projects/flowgraph.html",
       "to": "/calismalar/",
-      "status": 301
+      "status": 301,
+      "k2b": true
     },
     {
       "from": "/tr/projects/aka.html",
       "to": "/calismalar/",
-      "status": 301
+      "status": 301,
+      "k2b": true
     },
     {
       "from": "/tr/projects/arda.html",
       "to": "/calismalar/",
-      "status": 301
+      "status": 301,
+      "k2b": true
     },
     {
       "from": "/tr/projects/better_motors.html",
       "to": "/calismalar/",
-      "status": 301
+      "status": 301,
+      "k2b": true
     },
     {
       "from": "/tr/projects/ersoy.html",
       "to": "/calismalar/",
-      "status": 301
+      "status": 301,
+      "k2b": true
     },
     {
       "from": "/tr/projects/gnomon.html",
       "to": "/calismalar/",
-      "status": 301
+      "status": 301,
+      "k2b": true
     },
     {
       "from": "/tr/projects/radar.html",
       "to": "/calismalar/",
-      "status": 301
+      "status": 301,
+      "k2b": true
     },
     {
       "from": "/tr/about.html",
@@ -108,8 +119,9 @@
     },
     {
       "from": "/tr/eticaret-paketi.html",
-      "to": "/hizmetler/#e-ticaret",
-      "status": 301
+      "to": "/hizmetler/web-sitesi-ve-e-ticaret/",
+      "status": 301,
+      "k6b": true
     },
     {
       "from": "/tr/hizmetler.html",
@@ -128,18 +140,21 @@
     },
     {
       "from": "/tr/giris.html",
-      "to": "https://istasyon.cizgifikrim.net/",
-      "status": 301
+      "to": "/istasyon-yakinda/",
+      "status": 301,
+      "istasyon": true
     },
     {
       "from": "/tr/panel.html",
-      "to": "https://istasyon.cizgifikrim.net/",
-      "status": 301
+      "to": "/istasyon-yakinda/",
+      "status": 301,
+      "istasyon": true
     },
     {
       "from": "/tr/admin.html",
-      "to": "https://istasyon.cizgifikrim.net/",
-      "status": 301
+      "to": "/istasyon-yakinda/",
+      "status": 301,
+      "istasyon": true
     }
   ]
 }

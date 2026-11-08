@@ -8,5 +8,6 @@
   "email": "cizgifikrimnet@gmail.com",
   "istasyonUrl": "https://istasyon.cizgifikrim.net",
   "defaultOgImage": null,
-  "logo": "/icon-512.png"
+  "logo": "/icon-512.png",
+  "istasyonCanli": false
 }

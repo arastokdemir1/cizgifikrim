@@ -2,7 +2,7 @@
 eleventyExcludeFromCollections: true
 sitemap: false
 ---
-{%- for r in redirects.redirects %}
+{%- for r in yonlendirmeler %}
 {{ r.from }} {{ r.to }} {{ r.status }}
 {%- if r.from.endsWith('.html') %}
 {{ r.from.slice(0, -5) }} {{ r.to }} {{ r.status }}
