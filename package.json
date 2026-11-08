@@ -1,0 +1,24 @@
+{
+  "name": "cizgifikrim-vitrin",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CizgiFikrim vitrin sitesi: Eleventy ile statik derleme. Eski klasorler (sanayi, piyasa, carlog, sano, zihinustasi, p, demo, baupilotaj) bayt aynen kopyalanir.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "eleventy",
+    "build:gh": "cross-env PLATFORM=gh eleventy",
+    "build:cf": "cross-env PLATFORM=cf eleventy",
+    "serve": "eleventy --serve",
+    "kontrol": "node scripts/kontrol-hepsi.mjs",
+    "test": "npm run build:gh && npm run kontrol",
+    "audit": "npm audit --omit=dev --audit-level=high"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-img": "^7.1.1",
+    "cross-env": "^7.0.3"
+  }
+}
