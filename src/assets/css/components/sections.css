@@ -46,10 +46,17 @@
 .works-head-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--s-6); }
 .works-names { margin-bottom: var(--s-3); white-space: nowrap; }
 .works-list { display: grid; gap: 32px; }
-.works-item--kucuk { max-width: 760px; }
-.other-list { display: grid; gap: var(--s-3); }
-.other-row { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr) auto; gap: var(--s-5); align-items: baseline; padding: var(--s-5) var(--s-5); border: 1px solid var(--line); border-radius: var(--r-m); transition: border-color var(--d-base) var(--ease-out), background var(--d-base) var(--ease-out); }
+/* Büyük kart: 16:9 sabit oran yerine içeriğe yakın oran; etiket ile başlık arası boş bant daralır */
+.works-item--buyuk .poster--buyuk { aspect-ratio: 2.15 / 1; }
+.works-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; margin-top: 32px; align-items: stretch; }
+.works-item--kucuk { display: grid; min-width: 0; }
+.works-item--kucuk .poster { width: 100%; aspect-ratio: auto; min-height: 100%; }
+.other { display: grid; align-content: start; gap: var(--s-4); padding: clamp(8px, 2vw, 24px) 0 0; }
+.other-list { display: grid; gap: var(--s-3); margin-top: var(--s-2); }
+.other-row { display: grid; gap: var(--s-2); padding: var(--s-4) var(--s-5); border: 1px solid var(--line); border-radius: var(--r-m); transition: border-color var(--d-base) var(--ease-out), background var(--d-base) var(--ease-out); }
 .other-row:hover { border-color: var(--line-strong); background: var(--surface); }
-.other-row p { color: var(--fg-muted); max-width: 52ch; }
+.other-row p { color: var(--fg-muted); max-width: 52ch; font-size: var(--t-small); line-height: 1.55; }
+.other-row .link { justify-self: start; }
 .other-row h3 a:hover { text-decoration: underline; text-underline-offset: .15em; }
-@media (max-width: 860px) { .other-row { grid-template-columns: minmax(0, 1fr); gap: var(--s-2); } .works-item--kucuk { max-width: none; } .works-head-grid { grid-template-columns: minmax(0, 1fr); } .works-names { display: none; } }
+@media (max-width: 1023px) { .works-row { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 860px) { .works-head-grid { grid-template-columns: minmax(0, 1fr); } .works-names { display: none; } }

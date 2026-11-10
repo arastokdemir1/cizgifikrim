@@ -7,25 +7,33 @@
 .process-texts { display: grid; gap: var(--s-6); margin-top: var(--s-3); }
 .ptext { display: grid; gap: var(--s-3); padding-top: var(--s-5); border-top: 1px solid var(--line); }
 .ptext p { color: var(--fg-muted); max-width: 40ch; }
-.ptext .num { font-size: var(--t-kicker); font-weight: 700; letter-spacing: var(--ls-kicker); color: var(--c-accent); }
+.ptext .num { font-size: var(--t-kicker); font-weight: 700; letter-spacing: var(--ls-kicker); color: var(--accent); }
 .process-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); }
 .pcard { position: relative; display: grid; grid-template-rows: 1fr auto; aspect-ratio: 5 / 4; padding: clamp(18px, 2.2vw, 28px); border-radius: var(--r-l); border: 1px solid var(--line); overflow: hidden;
   background: linear-gradient(160deg, var(--c-main-2), var(--c-main) 78%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14); }
 .pcard::before { content: ""; position: absolute; right: -20%; top: -30%; width: 70%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(closest-side, rgba(207, 255, 74, .07), transparent 70%); pointer-events: none; }
-.pcard .schema { max-width: 78%; margin: 0 auto; align-self: center; }
+.pcard .schema { max-width: 98%; margin: 0 auto; align-self: center; }
 .pcard-foot { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3); }
 .pcard-no { font-family: var(--f-serif); font-style: italic; font-size: var(--t-numeral); line-height: .9; letter-spacing: -.01em; }
 .pcard-name { font-size: var(--t-kicker); font-weight: 700; letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--fg-muted); }
 
 @media (min-width: 0px) and (prefers-reduced-motion: no-preference) {
-  .js .sec.process { height: 400vh; padding: 0; background: color-mix(in srgb, var(--c-main-2) calc(var(--p, 0) * 80%), var(--c-main)); }
+  /* İlerlemeye bağlı koyu → açık geçiş: --k yalnız son ~%14'te 0→1 (orta gri bölge kısa kalır, kontrast korunur); kartlar hep koyu */
+  .js .sec.process { height: 400vh; padding: 0; --k: clamp(0, calc((var(--p, 0) - .84) * 14), 1);
+    background: color-mix(in srgb, var(--c-second) calc(var(--k) * 100%), color-mix(in srgb, var(--c-main-2) calc(var(--p, 0) * 80%), var(--c-main)));
+    --fg: color-mix(in srgb, var(--c-ink-2) calc(var(--k) * 100%), var(--c-ink));
+    --fg-muted: color-mix(in srgb, var(--c-ink-2-muted) calc(var(--k) * 100%), var(--c-ink-muted));
+    --line: color-mix(in srgb, var(--c-line-2) calc(var(--k) * 100%), var(--c-glass-line));
+    --accent: color-mix(in srgb, var(--c-ink-2) calc(var(--k) * 100%), var(--c-accent));
+    --focus: var(--accent); color: var(--fg); }
+  .js .pcard { color: var(--c-ink); --fg-muted: var(--c-ink-muted); }
   .js .process-stage { position: sticky; top: 0; height: 100svh; display: flex; align-items: center; padding-top: calc(var(--header-top) + var(--header-h)); }
   .js .process-grid { width: 100%; }
-  .js .process-counter { display: flex; align-items: baseline; gap: var(--s-4); color: var(--c-accent); }
+  .js .process-counter { display: flex; align-items: baseline; gap: var(--s-4); color: var(--accent); }
   .js .counter-win { height: 1em; overflow: hidden; font-size: clamp(88px, 11vw, 140px); font-weight: 700; line-height: 1; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
   .js .counter-roll { display: grid; transform: translateY(calc((var(--st, 1) - 1) * -1em)); transition: transform 400ms var(--ease-out); }
   .js .counter-roll span { height: 1em; line-height: 1; display: block; }
-  .js .counter-of { font-size: clamp(20px, 2vw, 28px); font-weight: 600; color: var(--c-ink-muted); letter-spacing: -.01em; }
+  .js .counter-of { font-size: clamp(20px, 2vw, 28px); font-weight: 600; color: var(--fg-muted); letter-spacing: -.01em; }
   .js .process-texts { display: grid; margin-top: var(--s-2); gap: 0; min-height: 150px; }
   .js .ptext { grid-area: 1 / 1; --o: calc(var(--st, 1) - var(--i)); border-top: 0; padding-top: 0; align-content: start;
     opacity: calc(1 - min(1, max(var(--o), var(--o) * -1))); transform: translateY(calc(var(--o) * -18px)); transition: opacity 500ms var(--ease-inout), transform 500ms var(--ease-inout); pointer-events: none; }

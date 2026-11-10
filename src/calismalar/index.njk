@@ -26,33 +26,34 @@ sayfaJs: ['poster']
   </div>
 </section>
 
-<section class="sec theme-light works-cards" aria-label="Ürünler">
+<section class="sec theme-light works-cards" aria-label="Çalışmalar">
   <div class="container">
     <div class="works-list">
-      {%- for p in projeler.liste %}
+      {%- for p in projeler.liste %}{% if p.boyut == 'buyuk' %}
       {%- set poster = p %}{% if loop.first %}{% set posterYukleme = 'eager' %}{% else %}{% set posterYukleme = 'lazy' %}{% endif %}
       {%- set posterSeviye = 2 %}
-      <div class="works-item works-item--{{ p.boyut }}">{% include "partials/poster.njk" %}</div>
-      {%- endfor %}
+      <div class="works-item works-item--buyuk">{% include "partials/poster.njk" %}</div>
+      {%- endif %}{% endfor %}
     </div>
-  </div>
-</section>
-
-<section class="sec theme-light" aria-labelledby="diger-baslik">
-  <div class="container split">
-    <div class="sec-head" style="margin:0">
-      <span class="kicker" data-reveal><b>02</b><span class="dash"></span>DİĞER</span>
-      <h2 class="h2" id="diger-baslik" data-reveal style="--i:1">Diğer <em>çalışmalar</em></h2>
+    <div class="works-row">
+      {%- for p in projeler.liste %}{% if p.boyut == 'kucuk' %}
+      {%- set poster = p %}{% set posterYukleme = 'lazy' %}{% set posterSeviye = 2 %}
+      <div class="works-item works-item--kucuk">{% include "partials/poster.njk" %}</div>
+      {%- endif %}{% endfor %}
+      <div class="other" aria-labelledby="diger-baslik">
+        <span class="kicker" data-reveal><b>02</b><span class="dash"></span>DİĞER ÇALIŞMALAR</span>
+        <h2 class="h3" id="diger-baslik" data-reveal style="--i:1">Diğer <em>çalışmalar</em></h2>
+        <ul class="other-list">
+          {%- for d in diger %}
+          <li class="other-row" data-reveal style="--i:{{ loop.index0 }}">
+            <h3 class="h4">{% if d.href %}<a href="{{ d.href }}">{{ d.ad }}</a>{% else %}{{ d.ad }}{% endif %}</h3>
+            <p>{{ d.cumle }}</p>
+            {%- if d.href %}<a class="link" href="{{ d.href }}">Tanıtım sayfası {{ ok | safe }}</a>{% endif %}
+          </li>
+          {%- endfor %}
+        </ul>
+      </div>
     </div>
-    <ul class="other-list">
-      {%- for d in diger %}
-      <li class="other-row" data-reveal style="--i:{{ loop.index0 }}">
-        <h3 class="h3">{% if d.href %}<a href="{{ d.href }}">{{ d.ad }}</a>{% else %}{{ d.ad }}{% endif %}</h3>
-        <p>{{ d.cumle }}</p>
-        {%- if d.href %}<a class="link" href="{{ d.href }}">Tanıtım sayfası {{ ok | safe }}</a>{% endif %}
-      </li>
-      {%- endfor %}
-    </ul>
   </div>
 </section>
 

@@ -35,7 +35,7 @@
   --f-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;   /* yalnız başlıkta italik vurgu */
   --font-body: var(--f-sans); --font-display: var(--f-sans);          /* takma adlar: Frontend-1 bileşenleri bu adları okur */
   --c-accent-ink: var(--c-on-accent);                                  /* takma ad (poster/demo bileşenleri) */
-  --t-hero: clamp(40px, 5.4vw, 80px);   /* ana sayfa hero başlığı: şartname H1 ölçeği, yanlarda istatistik kolonu olduğu için üst sınır 92 */
+  --t-hero: clamp(40px, 4.9vw, 72px);   /* ana sayfa hero başlığı: şartname H1 ölçeği, yanlarda istatistik kolonu olduğu için üst sınır 92 */
   --t-h1: clamp(44px, 7vw, 96px);       /* iç sayfa başlığı */
   --t-h2: clamp(32px, 4.4vw, 60px);
   --t-h3: clamp(22px, 2.4vw, 28px);
