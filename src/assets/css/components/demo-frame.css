@@ -4,8 +4,8 @@
 .demo-cerceve {
   --demo-bezel: #0E1013;
   --demo-ring: rgba(255, 255, 255, .16);
-  --demo-ac-bg: var(--c-accent, #CFFF4A);
-  --demo-ac-ink: var(--c-accent-ink, #0A0A0A);
+  --demo-ac-bg: var(--c-main, #0A0A0A);          /* poster açık zemin: siyah dolgu (lime yalnız koyu zeminde) */
+  --demo-ac-ink: var(--c-second, #F5F5F2);
   --demo-not: var(--c-ink-muted, #9A9A94);
   --demo-r: 46px;                 /* cihaz kasası köşesi (arayüz değil, cihaz biçimi) */
   --demo-pad: 10px;
@@ -31,7 +31,7 @@
   font: 600 .9375rem/1.2 var(--font-body, system-ui, -apple-system, "Segoe UI", sans-serif); white-space: nowrap;
   box-shadow: 0 10px 28px -10px rgba(0, 0, 0, .55);
 }
-.demo-ac:hover { filter: brightness(1.06); }
+.demo-ac:hover { background: #26262A; }
 .demo-ac:focus-visible { outline: 3px solid var(--demo-ac-bg); outline-offset: 3px; }
 .demo-ekran[data-durum="yukleniyor"] .demo-ac { pointer-events: none; opacity: .7; }
 .demo-iframe { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; border: 0; display: block; background: #F4F6FB; border-radius: inherit; }
@@ -56,4 +56,4 @@ html.demo-kilit { overflow: hidden; }
   border-radius: 999px; cursor: pointer; background: rgba(14, 16, 19, .86); color: #fff; font: 600 .9375rem/1 var(--font-body, system-ui, sans-serif);
   box-shadow: 0 6px 18px -6px rgba(0, 0, 0, .5);
 }
-.demo-kapat:focus-visible { outline: 3px solid var(--demo-ac-bg, #CFFF4A); outline-offset: 2px; }
+.demo-kapat:focus-visible { outline: 3px solid #0A0A0A; outline-offset: 2px; }
