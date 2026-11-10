@@ -1,0 +1,35 @@
+{#- Footer (koyu): 4 sütun + dev wordmark (tasarim_sartnamesi §1.7, icerik_ortak C2). Proje adı yok (yalnız tek "Çalışmalar" bağlantısı). "Giriş" yok (nav.giris). -#}
+<footer class="site-footer theme-dark">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <p class="footer-brand">{{ site.name }}</p>
+        <p>{{ site.tagline }}</p>
+      </div>
+      <nav class="footer-col" aria-label="Çalışmalar">
+        <h2>Çalışmalar</h2>
+        <ul><li><a href="/calismalar/">Tüm çalışmalar</a></li></ul>
+      </nav>
+      <nav class="footer-col" aria-label="Sayfalar">
+        <h2>Sayfalar</h2>
+        <ul>
+          {%- for item in nav.ana %}{% if item.href != '/calismalar/' and item.href != nav.cta.href %}<li><a href="{{ item.href }}">{{ item.etiket }}</a></li>{% endif %}{% endfor %}
+          <li><a href="{{ nav.cta.href }}">Görüşme</a></li>
+          {%- if nav.giris %}<li><a href="{{ nav.giris.href }}">{{ nav.giris.etiket }}</a></li>{% endif %}
+        </ul>
+      </nav>
+      <div class="footer-col">
+        <h2>İletişim</h2>
+        <ul>
+          <li><a class="footer-mail" href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+          <li><span class="muted">İstanbul, Türkiye</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 {{ site.name }}</p>
+      <ul>{% for l in nav.alt.yasal %}<li><a href="{{ l.href }}">{{ l.etiket }}</a></li>{% endfor %}</ul>
+    </div>
+  </div>
+  <span class="footer-wordmark" aria-hidden="true" data-reveal="fade" style="transition-duration:800ms">{{ site.name }}</span>
+</footer>

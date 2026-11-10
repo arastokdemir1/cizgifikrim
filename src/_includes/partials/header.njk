@@ -1,0 +1,26 @@
+{#- Üst menü: yüzen pill nav (tasarim_sartnamesi §1.4). Veri: nav (src/_data/nav.js). "Giriş" yalnız nav.giris varsa ({% if nav.giris %}). -#}
+{%- macro okAcik() %}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{% endmacro -%}
+<header class="site-header" id="site-header">
+  <div class="header-bar">
+    <a class="brand" href="/" aria-label="{{ site.name }} ana sayfa">{{ site.name }}</a>
+    <nav class="nav-main" aria-label="Ana menü">
+      <ul>
+      {%- for item in nav.ana %}{% if item.href != nav.cta.href %}
+        <li><a class="nav-link" href="{{ item.href }}"{% if page.url == item.href or (item.href != '/' and page.url.startsWith(item.href)) %} aria-current="page"{% endif %}>{{ item.etiket }}</a></li>
+      {%- endif %}{% endfor %}
+      </ul>
+    </nav>
+    <div class="header-actions">
+      {%- if nav.giris %}<a class="nav-link" href="{{ nav.giris.href }}">{{ nav.giris.etiket }}</a>{% endif %}
+      <a class="pill pill--primary pill--sm" href="{{ nav.cta.href }}">{{ nav.cta.etiket }}</a>
+    </div>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Menüyü aç"><span></span><span></span></button>
+  </div>
+  <div class="menu-panel" id="menu-panel" hidden>
+    {%- for item in nav.ana %}{% if item.href != nav.cta.href %}
+    <a href="{{ item.href }}"{% if page.url == item.href or (item.href != '/' and page.url.startsWith(item.href)) %} aria-current="page"{% endif %}>{{ item.etiket }}</a>
+    {%- endif %}{% endfor %}
+    {%- if nav.giris %}<a href="{{ nav.giris.href }}">{{ nav.giris.etiket }}</a>{% endif %}
+    <a class="pill pill--primary" href="{{ nav.cta.href }}">{{ nav.cta.etiket }} {{ okAcik() | safe }}</a>
+  </div>
+</header>

@@ -1,0 +1,38 @@
+{#- BASE LAYOUT (sahip: Frontend-2). Her sayfa: layout: layouts/base.njk
+    Front-matter: title, description, canonical, ogImage, ogType, noindex, jsonld (partials/seo.njk sözleşmesi); isteğe bağlı: bodyClass, sayfaTema ("dark" varsayılan), headerTema.
+    İçerik bölümleri: .sec.theme-dark / .sec.theme-light (levha ritmi layout.css). Reveal: data-reveal; stagger: style="--i:n". -#}
+<!doctype html>
+<html lang="{{ site.lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% include "partials/seo.njk" %}
+<meta name="theme-color" content="#0A0A0A">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/assets/v1/fonts/hanken-grotesk-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+{%- for css in ['fonts', 'tokens', 'base', 'layout', 'motion', 'components/buttons', 'components/header', 'components/footer', 'components/cta-band'] %}
+<link rel="stylesheet" href="/assets/v1/css/{{ css }}.css">
+{%- endfor %}
+{%- for css in sayfaCss %}
+<link rel="stylesheet" href="/assets/v1/css/{{ css }}.css">
+{%- endfor %}
+</head>
+<body class="theme-dark{% if bodyClass %} {{ bodyClass }}{% endif %}">
+<a class="skip-link" href="#icerik">Ana içeriğe geç</a>
+<span id="top-sentinel" aria-hidden="true" style="position:absolute;top:0;left:0;width:1px;height:96px;pointer-events:none"></span>
+{% include "partials/header.njk" %}
+<main id="icerik" tabindex="-1">
+{{ content | safe }}
+</main>
+{% include "partials/footer.njk" %}
+<script src="/assets/v1/js/ui.js" defer></script>
+{%- for js in sayfaJs %}
+<script src="/assets/v1/js/{{ js }}.js" defer></script>
+{%- endfor %}
+<script src="/assets/v1/js/analytics.js" defer></script>
+</body>
+</html>

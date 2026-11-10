@@ -1,0 +1,31 @@
+/* ŞEMA ÇİZİM DİLİ (şartname §2): izometrik 30°, tek çizgi 1,5 px (non-scaling), yuvarlak köşe, dolgu yok ya da %6–10, vurgu tek eleman.
+   Koyu zeminde çizgi --c-ink %62 + lime vurgu; AÇIK zeminde çizgi --c-ink-2 %72 + SİYAH vurgu (lime yok). Hiçbir şema proje/cihaz/ürün imgesi içermez. */
+.schema {
+  display: block; width: 100%; height: auto; overflow: visible;
+  --sc-line: rgba(245, 245, 242, .62); --sc-fill: rgba(245, 245, 242, .06); --sc-acc: var(--c-accent); --sc-txt: rgba(245, 245, 242, .8); --sc-on-acc: #0A0A0A;
+}
+.theme-light .schema, .schema.on-light { --sc-line: rgba(10, 10, 10, .72); --sc-fill: rgba(10, 10, 10, .05); --sc-acc: #0A0A0A; --sc-txt: rgba(10, 10, 10, .8); --sc-on-acc: #F5F5F2; }
+.schema * { vector-effect: non-scaling-stroke; }
+.schema .l { fill: none; stroke: var(--sc-line); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.schema .l.f { fill: var(--sc-fill); }
+.schema .a { fill: var(--sc-acc); stroke: none; }
+.schema .l.al { stroke: var(--sc-acc); }
+.schema .l.ai { stroke: var(--sc-on-acc); }
+.schema .t { font: 600 11.5px/1 var(--f-sans); letter-spacing: .1em; text-transform: uppercase; fill: var(--sc-txt); }
+.schema .mid { text-anchor: middle; }
+.schema .guide, .schema .lead { opacity: .45; }
+.schema .lv { transition: transform .5s var(--ease-out); }
+
+/* S1: levhalar kaydırmayla aralanır (--p ui.js'ten; JS yoksa tam aralanmış) */
+.schema--s1 { --d: 78; --sp: clamp(0, calc((var(--p, 1) - .08) * 2.4), 1); }
+.schema--s1 .lv { transform: translateY(calc(var(--k) * -1 * var(--d) * 1px * (1 - var(--sp)))); }
+.schema--s1 .guide { opacity: calc(.15 + .35 * var(--sp)); }
+
+/* Küçük ekranda etiketler okunur kalsın (viewBox küçülür → yazı büyütülür) */
+@media (max-width: 760px) {
+  .schema--s1 .t { font-size: 27px; } .schema--s1 .lead { display: none; }
+  .schema--s2 .t { font-size: 19px; } .schema--s2 .lead { display: none; }
+}
+
+.ikon { width: 40px; height: 40px; overflow: visible; }
+.ikon .l { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }

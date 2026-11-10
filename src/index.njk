@@ -1,0 +1,188 @@
+---
+layout: layouts/base.njk
+title: "CizgiFikrim — Web sitesi, mobil uygulama ve yapay zekâ"
+description: "Web sitesi, mobil uygulama ve yapay zekâ çözümlerini fikirden yayına kadar yapıyoruz. Önce sorunu yazarız, sonra yaparız. Ücretsiz keşif görüşmesi ayırın."
+permalink: /
+sayfaCss: ['components/hero', 'components/schema', 'components/services', 'components/process', 'components/sections']
+---
+{#- ANA SAYFA (şartname §4, RAPOR §5.1): hero + S1, hizmetler (sticky split), süreç (sabitlenmiş), ilkeler, teslim (künye), teknoloji + hakkında, SSS, CTA.
+    PROJESİZ: proje adı/görseli/kartı/demosu, "kendi ürünlerimiz", mağaza rozeti, "App Store" YOK. -#}
+{%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
+
+{# ───────── 1 · HERO (koyu) + S1 katmanlı şema ───────── #}
+<section class="sec hero theme-dark" aria-labelledby="hero-baslik" data-pause-offscreen>
+  <div class="hero-fx" aria-hidden="true"><i class="glow-a"></i><i class="glow-b"></i><i class="ridge"></i><i class="grain"></i></div>
+  <div class="container hero-in">
+    <div class="hero-main">
+      <div class="hero-grid">
+        <div class="hero-stats hero-stats--l" data-in style="--i:4">
+          <div class="stat"><div class="stat-v"><span data-count="3">3</span></div><div class="stat-l">hizmet alanı</div></div>
+          <div class="stat"><div class="stat-v"><span data-count="4">4</span></div><div class="stat-l">adımda yayına</div></div>
+        </div>
+        <div class="hero-center">
+          <span class="hero-badge" data-in style="--i:0">Yapay zekâ ve yazılım stüdyosu · İstanbul</span>
+          <h1 class="h-hero" id="hero-baslik">Web sitesi, mobil uygulama ve <em>yapay zekâ</em> çözümlerini <em>baştan sona</em> yapıyoruz.</h1>
+          <p class="hero-sub" data-in style="--i:1">Aynı ekip fikrinizden yayına kadar çalışır. Önce sorunu yazarız, sonra yaparız.</p>
+          <div class="hero-cta" data-in style="--i:2">
+            <a class="pill pill--primary" href="{{ nav.cta.href }}">{{ nav.cta.etiket }} {{ ok | safe }}</a>
+            <a class="pill pill--glass" href="/hizmetler/">Hizmetlere bakın</a>
+          </div>
+        </div>
+        <div class="hero-stats hero-stats--r" data-in style="--i:4">
+          <div class="stat"><div class="stat-v"><span data-count="30">30</span><small>dk görüntülü</small></div><div class="stat-l">ücretsiz keşif görüşmesi</div></div>
+          <div class="stat"><div class="stat-v">İstanbul</div><div class="stat-l">merkezli stüdyo</div></div>
+        </div>
+      </div>
+      <div class="hero-stats-m" data-in style="--i:4">
+        <div class="stat"><div class="stat-v">3</div><div class="stat-l">hizmet alanı</div></div>
+        <div class="stat"><div class="stat-v">4</div><div class="stat-l">adımda yayına</div></div>
+        <div class="stat"><div class="stat-v">30<small>dk görüntülü</small></div><div class="stat-l">ücretsiz keşif görüşmesi</div></div>
+        <div class="stat"><div class="stat-v">İstanbul</div><div class="stat-l">merkezli stüdyo</div></div>
+      </div>
+    </div>
+    <div class="hero-figure" data-scene="view" data-reveal="fade">{% include "partials/schema/s1.njk" %}</div>
+  </div>
+</section>
+
+{# ───────── 2 · HİZMETLER (açık, sticky split) ───────── #}
+<section class="sec svc-pin theme-light" id="hizmetler" aria-labelledby="hizmet-baslik" data-scene="pin" data-steps="3">
+  {# masaüstü: sticky split #}
+  <div class="svc-stage-d">
+    <div class="container svc-grid">
+      <div class="svc-left">
+        <span class="kicker"><b>01</b><span class="dash"></span>HİZMETLER</span>
+        <h2 class="h2" id="hizmet-baslik">Üç alanda, <em>baştan sona</em>.</h2>
+        <div class="svc-tabs" aria-hidden="true">
+          {%- for h in hizmetler %}<div class="svc-tab"><span>0{{ loop.index }}</span>{{ h.ad }}</div>{% endfor %}
+        </div>
+        <div class="svc-details">
+          {%- for h in hizmetler %}
+          <div class="svc-detail">
+            <p class="lead">{{ h.cumle }}</p>
+            <ul class="svc-bullets">{% for m in h.maddeler %}<li>{{ m }}</li>{% endfor %}</ul>
+            <a class="link" href="/hizmetler/{{ h.slug }}/">Ayrıntılar {{ ok | safe }}</a>
+          </div>
+          {%- endfor %}
+        </div>
+        <a class="link svc-all" href="/hizmetler/">Tüm hizmetler {{ ok | safe }}</a>
+      </div>
+      <div class="svc-scenes">
+        {%- for h in hizmetler %}
+        <div class="svc-scene">{% include "partials/schema/" + h.sahne + ".njk" %}</div>
+        {%- endfor %}
+      </div>
+    </div>
+  </div>
+  {# mobil / JS yok: alt alta bloklar #}
+  <div class="container svc-m">
+    <div class="sec-head">
+      <span class="kicker"><b>01</b><span class="dash"></span>HİZMETLER</span>
+      <h2 class="h2">Üç alanda, <em>baştan sona</em>.</h2>
+    </div>
+    {%- for h in hizmetler %}
+    <article class="svc-m-item" data-reveal>
+      <h3 class="h3">{{ h.ad }}</h3>
+      <p class="lead">{{ h.cumle }}</p>
+      <ul class="svc-bullets">{% for m in h.maddeler %}<li>{{ m }}</li>{% endfor %}</ul>
+      <div>{% include "partials/schema/" + h.sahne + ".njk" %}</div>
+      <a class="link" href="/hizmetler/{{ h.slug }}/">Ayrıntılar {{ ok | safe }}</a>
+    </article>
+    {%- endfor %}
+    <a class="link svc-all" href="/hizmetler/">Tüm hizmetler {{ ok | safe }}</a>
+  </div>
+</section>
+
+{# ───────── 3 · SÜREÇ (koyu, sabitlenmiş sahne) ───────── #}
+<section class="sec process theme-dark" id="surec" aria-labelledby="surec-baslik" data-scene="pin" data-steps="4" data-step="1">
+  <div class="process-stage">
+    <div class="container process-grid">
+      <div class="process-left">
+        <span class="kicker"><b>02</b><span class="dash"></span>SÜREÇ</span>
+        <h2 class="h2" id="surec-baslik">Fikirden yayına <em>dört adım</em>.</h2>
+        <div class="process-counter" aria-hidden="true">
+          <span class="counter-win"><span class="counter-roll"><span>01</span><span>02</span><span>03</span><span>04</span></span></span><span class="counter-of">/ 04</span>
+        </div>
+        <ol class="process-texts">
+          {%- for a in adimlar %}
+          <li class="ptext" style="--i:{{ loop.index }}"><span class="num">0{{ loop.index }}</span><h3 class="h3">{{ a.ad }}</h3><p>{{ a.metin }}</p></li>
+          {%- endfor %}
+        </ol>
+        <a class="link" href="/nasil-calisiyoruz/">Süreci ayrıntılı oku {{ ok | safe }}</a>
+      </div>
+      <div class="process-cards" aria-hidden="true">
+        {%- for a in adimlar %}
+        <div class="pcard" style="--i:{{ loop.index }}">
+          {% include "partials/schema/" + a.sema + ".njk" %}
+          <div class="pcard-foot"><span class="pcard-no">0{{ loop.index }}</span><span class="pcard-name">{{ a.etiket }}</span></div>
+        </div>
+        {%- endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ───────── 4 · İLKELER (açık) ───────── #}
+<section class="sec theme-light" id="ilkeler" aria-labelledby="ilke-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker" data-reveal><b>03</b><span class="dash"></span>İLKELER</span>
+      <h2 class="h2" id="ilke-baslik" data-reveal style="--i:1">Üç ilke, <em>her işte</em>.</h2>
+    </div>
+    <div class="principles">
+      {%- for p in ilkeler %}
+      <article class="principle" data-reveal style="--i:{{ loop.index0 }}">
+        <div class="principle-top"><span class="principle-no">0{{ loop.index }}</span>{% include "partials/schema/" + p.ikon + ".njk" %}</div>
+        <h3 class="h3">{{ p.ad }}</h3>
+        <p>{{ p.metin }}</p>
+      </article>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{# ───────── 5 · NE TESLİM EDERİZ (koyu, künye) ───────── #}
+<section class="sec theme-dark" id="teslim" aria-labelledby="teslim-baslik">
+  <div class="container split">
+    <div class="sec-head" style="margin:0">
+      <span class="kicker" data-reveal><b>04</b><span class="dash"></span>TESLİM</span>
+      <h2 class="h2" id="teslim-baslik" data-reveal style="--i:1">Ne <em>teslim</em> ederiz?</h2>
+    </div>
+    <dl class="kunye">
+      {%- for k in kunye %}
+      <div class="kunye-row" data-reveal style="--i:{{ loop.index0 }}"><dt>{{ k[0] }}</dt><dd>{{ k[1] }}</dd></div>
+      {%- endfor %}
+    </dl>
+  </div>
+</section>
+
+{# ───────── 6 · TEKNOLOJİ + HAKKINDA (açık) ───────── #}
+<section class="sec theme-light" id="hakkinda" aria-labelledby="teknoloji-baslik">
+  <div class="container">
+    <div class="sec-head" style="margin-bottom:var(--s-6)">
+      <h2 class="h3" id="teknoloji-baslik" data-reveal>Kullandığımız <em>teknolojiler</em></h2>
+    </div>
+    <ul class="tech">{% for t in teknoloji %}<li class="tag" data-reveal style="--i:{{ loop.index0 }}">{{ t }}</li>{% endfor %}</ul>
+    <div class="about">
+      <h2 class="h2" data-reveal>Küçük bir stüdyo, <em>tam sorumluluk</em>.</h2>
+      <div class="about-body" data-reveal style="--i:1">
+        <p>CizgiFikrim, yapay zekâ ve yazılım alanında çalışan küçük bir stüdyodur. Kurucu Aras Tokdemir; yapay zekâ, otonom sistemler ve mobil ürünler üzerinde çalışan bir geliştiricidir. Araştırmayı, tasarımı ve uygulamayı aynı masada yürütürüz.</p>
+        <a class="link" href="/hakkinda/">Hakkımızda {{ ok | safe }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ───────── 7 · SSS (açık) ───────── #}
+<section class="sec theme-light" id="sss" aria-labelledby="sss-baslik">
+  <div class="container faq-grid">
+    <h2 class="h2" id="sss-baslik" data-reveal>Sık sorulan <em>sorular</em></h2>
+    <div class="faq-list">
+      {%- for s in sss %}
+      <details class="faq-item" data-reveal style="--i:{{ loop.index0 }}"><summary>{{ s[0] }}<i aria-hidden="true"></i></summary><p class="faq-a">{{ s[1] }}</p></details>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{# ───────── 8 · KAPANIŞ CTA (koyu) ───────── #}
+{% include "partials/cta-band.njk" %}

@@ -1,0 +1,45 @@
+/* HEADER: yüzen pill nav (şartname §1.4). 56 px, üstten 16 px, genişlik min(960px, 100% − 32px), cam + blur(12px) (sayfada tek blur'lu öğe).
+   Açık bölüm üstünde de koyu cam kalır (kontrast): zemin --c-main %72. Kaydırınca %96 ölçek + cam yoğunluğu (260 ms). */
+.site-header { position: fixed; inset: var(--header-top) 0 auto 0; z-index: var(--z-header); display: flex; justify-content: center; pointer-events: none; padding-inline: 16px; }
+.header-bar {
+  pointer-events: auto; width: min(960px, 100%); height: var(--header-h); padding: 0 8px 0 24px;
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--s-5);
+  background: rgba(10, 10, 10, .72); -webkit-backdrop-filter: blur(12px) saturate(1.2); backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid var(--c-glass-line); border-radius: var(--r-pill); color: var(--c-ink);
+  box-shadow: 0 10px 40px -16px rgba(0, 0, 0, .6);
+  transition: transform var(--d-base) var(--ease-out), background-color var(--d-base) var(--ease-out);
+  transform-origin: 50% 0;
+}
+.site-header.is-scrolled .header-bar { transform: scale(.96); background: rgba(10, 10, 10, .9); }
+.brand { font-size: 18px; font-weight: 600; letter-spacing: -.02em; color: var(--c-ink); display: inline-flex; align-items: center; gap: 10px; }
+.brand::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--c-accent); flex: none; }
+.nav-main ul { display: flex; justify-content: center; gap: clamp(8px, 1.6vw, 22px); }
+.nav-link { position: relative; display: inline-flex; align-items: center; height: 40px; padding-inline: 12px; font-size: 15px; font-weight: 500; color: var(--c-ink-muted); transition: color var(--d-fast) var(--ease-out); }
+.nav-link:hover { color: var(--c-ink); }
+.nav-link[aria-current="page"] { color: var(--c-ink); }
+.nav-link[aria-current="page"]::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 5px; height: 1px; background: var(--c-ink); border-radius: 1px; }
+.header-actions { display: flex; align-items: center; gap: var(--s-3); justify-self: end; }
+.site-header .pill--primary { --accent: var(--c-accent); --on-accent: var(--c-on-accent); }
+.site-header :focus-visible { outline-color: var(--c-accent); }
+
+.menu-toggle { display: none; width: 44px; height: 44px; border-radius: var(--r-pill); border: 1px solid var(--c-glass-line); background: var(--c-glass); position: relative; justify-self: end; }
+.menu-toggle span { position: absolute; left: 14px; right: 14px; height: 1.5px; background: var(--c-ink); border-radius: 2px; transition: transform var(--d-base) var(--ease-out), opacity var(--d-fast); }
+.menu-toggle span:nth-child(1) { top: 17px; } .menu-toggle span:nth-child(2) { top: 25px; }
+.menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] span:nth-child(2) { transform: translateY(-4px) rotate(-45deg); }
+
+.menu-panel {
+  pointer-events: auto; position: absolute; top: calc(var(--header-h) + 10px); left: 16px; right: 16px; padding: var(--s-3);
+  background: rgba(10, 10, 10, .96); border: 1px solid var(--c-glass-line); border-radius: var(--r-l); box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .7);
+  animation: fade-up var(--d-base) var(--ease-out) both;
+}
+.menu-panel a:not(.pill) { display: flex; align-items: center; min-height: 56px; padding-inline: var(--s-4); font-size: 20px; font-weight: 500; color: var(--c-ink); border-radius: var(--r-m); }
+.menu-panel a:not(.pill):hover, .menu-panel a[aria-current="page"] { background: var(--c-glass); }
+.menu-panel .pill { width: 100%; margin-top: var(--s-3); }
+
+@media (max-width: 899px) {
+  .header-bar { grid-template-columns: 1fr auto; padding: 0 8px 0 20px; }
+  .nav-main, .header-actions { display: none; }
+  .menu-toggle { display: block; }
+}
+@media (min-width: 900px) { .menu-panel { display: none !important; } }

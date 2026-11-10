@@ -1,0 +1,25 @@
+/* MOTION: yalnız transform/opacity. Reveal, hero girişi, ışık, sahne yardımcıları. prefers-reduced-motion tam karşılık.
+   Reveal kuralı (öznitelik: data-reveal; Frontend-1 bileşenleri de bunu kullanır): içerik JS yoksa/geç gelirse GÖRÜNÜR; ui.js yalnız ekran altındaki öğelere .rv-wait ekler. */
+[data-reveal] {
+  transition: opacity var(--d-reveal) var(--ease-out), transform var(--d-reveal) var(--ease-out);
+  transition-delay: calc(var(--i, 0) * var(--stagger));
+}
+[data-reveal].rv-wait { opacity: 0; transform: translateY(24px); }
+[data-reveal="fade"].rv-wait { transform: none; }
+
+/* Hero girişi: H1 ASLA gizlenmez (LCP); rozet, alt metin, CTA, istatistikler kademeli gelir (70 ms) */
+@keyframes fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes line-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes drift-a { from { transform: translate3d(-3%, 0, 0) scale(1); } to { transform: translate3d(3%, 3%, 0) scale(1.06); } }
+[data-in] { animation: fade-up var(--d-reveal) var(--ease-out) both; animation-delay: calc(var(--i, 0) * var(--stagger) + 120ms); }
+
+/* Sonsuz animasyonlar görünmezken durur (ui.js .is-paused ekler) */
+.is-paused, .is-paused *, .is-paused *::before, .is-paused *::after { animation-play-state: paused !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  [data-reveal].rv-wait { opacity: 1; transform: none; }
+  [data-in] { opacity: 1; transform: none; }
+}
