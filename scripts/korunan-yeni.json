@@ -1,0 +1,47 @@
+{
+ "_not": "YENİ korunan yollar (T7). Bunlar origin/main'de yoktur; manifestteki SHA-256 ile bayt bayt korunur. Dosya eklenir/değişirse: node scripts/korunan-yeni-uret.mjs ve manifest commit'i (bilinçli onay). Manifest dışı dosya EKSTRA sayılır.",
+ "yeni": [
+  {
+   "path": "demo/vesira/",
+   "neden": "Vesira interaktif demosu (W2-B, Koordinatör): ürünün kendi arayüzü, hash'li meta CSP, connect-src 'none', yerel fontlar, örnek görseller; sandbox=allow-scripts ile gömülür.",
+   "dosyalar": {
+    "demo/vesira/fonts/figtree.woff2": "6c1ae87863e6f7ca2575a41397c2f48373b19ce9aed63acfaa35454853f3fe65",
+    "demo/vesira/fonts/fraunces-i.woff2": "dcbba12f7f30ac0872b9382477fcf3ee8be72e1086afd4a85b113b2963b4de30",
+    "demo/vesira/fonts/fraunces.woff2": "dc1ed4dfe5905b9426ae759d8f167a6d4a81b40accb4e4d2f3877d0bd3bd001e",
+    "demo/vesira/index.html": "532ac6d73441952f8ba9a386f86b0345d216fb3c7a04d14a4efe8eea16b97ad4",
+    "demo/vesira/odalar/koridor-bastan-tasarim-l.webp": "12f1d615c98499699b6d26e74f331b7029baf2dec899bdface8b6c2b97f39667",
+    "demo/vesira/odalar/koridor-bastan-tasarim-t.webp": "e408f7f65815212a6cc74afbfc95d2ed59da11e9df10db4e0486121d92f61124",
+    "demo/vesira/odalar/koridor-hafif-tazeleme-l.webp": "67ec12057bbc5297d8cbba7760a45bdbe1cd86ce1f667a9cb84f702235a2f402",
+    "demo/vesira/odalar/koridor-hafif-tazeleme-t.webp": "9d5f63762220e2def7b6085431db632896d5d275755c2f9d624da57eafb220cc",
+    "demo/vesira/odalar/koridor-once-l.webp": "7e5cb9f5e12665c127d6336e4a78eb1bb1014957e4542f0e9e1122dcf515cfd2",
+    "demo/vesira/odalar/koridor-once-t.webp": "1416a1cd649de4632c9cd721b2c4abcafa63e646096dcf4dc859899547bb28d0",
+    "demo/vesira/odalar/koridor-yenileme-l.webp": "3c4a219ebbc051e48fa109499a2afb890bdc4c82f5f3e7001bbf948fcc884bc8",
+    "demo/vesira/odalar/koridor-yenileme-t.webp": "906d6fba89f14db75d32e2ec2051774eb6b774677933cf1fa64ff59b65b596d6",
+    "demo/vesira/odalar/mutfak-bastan-tasarim-l.webp": "fe0a5dc9f338da37e2f8048b676e477daa794760f86edd162a186e8fd6e9f186",
+    "demo/vesira/odalar/mutfak-bastan-tasarim-t.webp": "d88d97c808007160d68f4efbab827c216a6f1671559641b11ccc00b929c47b99",
+    "demo/vesira/odalar/mutfak-hafif-tazeleme-l.webp": "0c5d1aa10cf0cf74b8e67359f5bc3549babc0df916e6171ea3ae1b82b5a547b2",
+    "demo/vesira/odalar/mutfak-hafif-tazeleme-t.webp": "eae2e7a78380d4fdff9b7a0c0827668b79e47fe1a62d823e9bb10efd5b0574e3",
+    "demo/vesira/odalar/mutfak-once-l.webp": "bd4d83e07df633f082d750b47a448ef7bb12a92bc7e247108f4bd651e9f8dc61",
+    "demo/vesira/odalar/mutfak-once-t.webp": "c8a290dac4b9f8073c1eae8154c29f850e9de552f027805a187ad56bf480b243",
+    "demo/vesira/odalar/mutfak-yenileme-l.webp": "6468f02b0e0ef67ae631b9704874a2c75068c4f412d208a99dfe5394b4e25bde",
+    "demo/vesira/odalar/mutfak-yenileme-t.webp": "40afb2fc80a40aecb696774ea2c1d24a2924cef851c29e289ad64c5a555632cf",
+    "demo/vesira/odalar/salon-bastan-tasarim-l.webp": "c757977c3ead824d6ff10665edd2dd87af2d505c9ae97a994ff6ad9ab9eec8dc",
+    "demo/vesira/odalar/salon-bastan-tasarim-t.webp": "a2e8d0f41d1d1e69a2d1c721be5ab23a48864225e854fcbd4d2ef321f4579168",
+    "demo/vesira/odalar/salon-hafif-tazeleme-l.webp": "18b931bf6ff0dc62eaf4d1822a4a6ac06b5828f699fc85a181ae7e93b9aef0c5",
+    "demo/vesira/odalar/salon-hafif-tazeleme-t.webp": "14f29fe42dc152c8cf9c08347954881c6845e0ac40e5a2fe8d286936f02e5090",
+    "demo/vesira/odalar/salon-once-l.webp": "2966daf45ef877e50cc59952741815a67d00460c99f52328b307cf6c7fe09d2b",
+    "demo/vesira/odalar/salon-once-t.webp": "11306d45ea5b41934e06cd929657c55a8af2a808de7c72e35be143157ab65c67",
+    "demo/vesira/odalar/salon-yenileme-l.webp": "4f527c19b474d5db909e71f25c466e844d4ddef60406a100069bfdd3fdb29ab7",
+    "demo/vesira/odalar/salon-yenileme-t.webp": "9191f49328ed2e763c8989667f3af66781a376460c423ce142fa721560523453",
+    "demo/vesira/odalar/yatak-bastan-tasarim-l.webp": "84873942628b6b6d1e46416d2043ef74216b296a65b00e5a0c5a06ea2c92043f",
+    "demo/vesira/odalar/yatak-bastan-tasarim-t.webp": "0afc98964e3adf732e924ef203a77b7f3bc0d94eed68f581c30b7ee6309be619",
+    "demo/vesira/odalar/yatak-hafif-tazeleme-l.webp": "47ab66e9932e158c32e2fab24b3492db03324fcce7b90026ecb72c3dde5cd261",
+    "demo/vesira/odalar/yatak-hafif-tazeleme-t.webp": "053452136c26eb554cffb0a38a8446def17ce4bb55879b3baa7a64933a4d7979",
+    "demo/vesira/odalar/yatak-once-l.webp": "9733877c376f08c90029a7e197d21dae7d32456a2ec56c5776e71c2f44d3a602",
+    "demo/vesira/odalar/yatak-once-t.webp": "3f94d3688a9586bce23a618bb148e289e12ce41d85f3e26e3d8b48e5784ff057",
+    "demo/vesira/odalar/yatak-yenileme-l.webp": "c76f822821775e09f451843179e419f80428d875d2f8814b3a41f04fb4bbeff5",
+    "demo/vesira/odalar/yatak-yenileme-t.webp": "4cb70285718f6645ebdeed0c8483a9d5f44ea0d4b2199e990de2246dce54580b"
+   }
+  }
+ ]
+}

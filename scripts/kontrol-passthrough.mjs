@@ -8,6 +8,9 @@ import { agacDosyalari, arg, blobIcerikleri, dosyalar, Rapor, sha256 } from './o
 const site = arg('site', '_site'), baz = arg('base', 'origin/main');
 const r = new Rapor(`Korunan yollar bayt eşitliği (${baz} ↔ ${site})`);
 const istisna = JSON.parse(fs.readFileSync(new URL('./korunan-istisna.json', import.meta.url), 'utf8')).istisnalar.map((x) => x.path);
+const yeni = JSON.parse(fs.readFileSync(new URL('./korunan-yeni.json', import.meta.url), 'utf8')).yeni;
+const yeniManifest = new Map(yeni.flatMap((y) => Object.entries(y.dosyalar || {})));
+const yeniMi = (p) => yeni.some((y) => p.startsWith(y.path));
 const istisnaMi = (p) => istisna.some((i) => (i.endsWith('/') ? p.startsWith(i) : p === i));
 
 const yollar = [...KORUNAN_KLASORLER, ...KORUNAN_DOSYALAR, ESKI_VARLIKLAR];
@@ -29,6 +32,18 @@ for (const { yol, sha1 } of agac) {
   else if (istisnaMi(yol)) { sayac[kok].ayni++; r.not(`istisna (bilinçli fark): ${yol}`); }
   else r.hata(`FARKLI: ${yol}\n      baz  ${beklenen}\n      çıktı ${gercek}`);
 }
+// Yeni korunan yollar: baz ağaçta yok; manifestteki SHA-256 ile bayt eşit olmalı, manifest dışı dosya EKSTRA
+for (const y of yeni) {
+  if (!Object.keys(y.dosyalar || {}).length) r.hata(`yeni korunan yol manifesti boş: ${y.path} (node scripts/korunan-yeni-uret.mjs)`);
+  const s0 = { toplam: 0, ayni: 0 }; sayac[`${y.path} (yeni)`] = s0;
+  for (const [yol, beklenen] of Object.entries(y.dosyalar || {})) {
+    s0.toplam++;
+    const hedef = path.join(site, yol);
+    if (!fs.existsSync(hedef)) { r.hata(`EKSİK (yeni korunan): ${yol}`); continue; }
+    const gercek = sha256(fs.readFileSync(hedef));
+    if (gercek === beklenen) { s0.ayni++; kanit.push({ yol, sha256: gercek }); } else r.hata(`FARKLI (yeni korunan): ${yol}\n      manifest ${beklenen}\n      çıktı    ${gercek}`);
+  }
+}
 // Ekstra dosya: korunan yolda baz ağaçta olmayan her şey (stub, enjeksiyon, .DS_Store, yeni dosya) hata
 for (const k of yollar) {
   const hedef = path.join(site, k);
@@ -36,7 +51,7 @@ for (const k of yollar) {
   for (const f of liste) {
     const goreli = path.relative(site, f).split(path.sep).join('/');
     if (goreli.startsWith('assets/v1/')) continue; // yeni vitrin varlıkları (src/assets), eski assets/ korumasının parçası değil
-    if (!bazSet.has(goreli) && !istisnaMi(goreli)) r.hata(`EKSTRA (baz ağaçta yok): ${goreli}`);
+    if (!bazSet.has(goreli) && !istisnaMi(goreli) && !(yeniMi(goreli) && yeniManifest.has(goreli))) r.hata(`EKSTRA (baz ağaçta ve manifestte yok): ${goreli}`);
   }
 }
 let toplam = 0, ayni = 0;
