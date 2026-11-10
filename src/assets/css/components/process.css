@@ -18,13 +18,16 @@
 .pcard-name { font-size: var(--t-kicker); font-weight: 700; letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--fg-muted); }
 
 @media (min-width: 0px) and (prefers-reduced-motion: no-preference) {
-  /* İlerlemeye bağlı koyu → açık geçiş: --k yalnız son ~%14'te 0→1 (orta gri bölge kısa kalır, kontrast korunur); kartlar hep koyu */
+  /* İlerlemeye bağlı koyu → açık geçiş: --k yalnız son ~%14'te 0→1. Orta gri aşamada kontrast korunur:
+     metin rengi k≈.44'te SERT geçer (saf beyaz↔siyah eşit kontrast noktası, ≈4,6:1), ikincil ton orta bölgede (|k−.5|<.25) birincil renge eşitlenir. Kartlar hep koyu. */
   .js .sec.process { height: 400vh; padding: 0; --k: clamp(0, calc((var(--p, 0) - .84) * 14), 1);
+    --kt: clamp(0, calc((var(--k) - .44) * 1000), 1);
+    --m: clamp(0, calc((max(var(--k) - .5, .5 - var(--k)) - .25) * 6.67), 1);
     background: color-mix(in srgb, var(--c-second) calc(var(--k) * 100%), color-mix(in srgb, var(--c-main-2) calc(var(--p, 0) * 80%), var(--c-main)));
-    --fg: color-mix(in srgb, var(--c-ink-2) calc(var(--k) * 100%), var(--c-ink));
-    --fg-muted: color-mix(in srgb, var(--c-ink-2-muted) calc(var(--k) * 100%), var(--c-ink-muted));
-    --line: color-mix(in srgb, var(--c-line-2) calc(var(--k) * 100%), var(--c-glass-line));
-    --accent: color-mix(in srgb, var(--c-ink-2) calc(var(--k) * 100%), var(--c-accent));
+    --fg: color-mix(in srgb, color-mix(in srgb, var(--c-ink-2) calc(var(--kt) * 100%), var(--c-ink)) calc(var(--m) * 100%), color-mix(in srgb, #000 calc(var(--kt) * 100%), #fff)); /* orta bölgede saf beyaz/siyah */
+    --fg-muted: color-mix(in srgb, color-mix(in srgb, var(--c-ink-2-muted) calc(var(--kt) * 100%), var(--c-ink-muted)) calc(var(--m) * 100%), var(--fg));
+    --line: color-mix(in srgb, var(--c-line-2) calc(var(--kt) * 100%), var(--c-glass-line));
+    --accent: color-mix(in srgb, var(--c-ink-2) calc(var(--kt) * 100%), var(--c-accent));
     --focus: var(--accent); color: var(--fg); }
   .js .pcard { color: var(--c-ink); --fg-muted: var(--c-ink-muted); }
   .js .process-stage { position: sticky; top: 0; height: 100svh; display: flex; align-items: center; padding-top: calc(var(--header-top) + var(--header-h)); }
