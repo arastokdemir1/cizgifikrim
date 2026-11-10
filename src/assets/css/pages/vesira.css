@@ -1,0 +1,38 @@
+/* VESİRA DETAY (Frontend-1): ortak bölümler pages/carlog.css (cl-*) ile paylaşılır; burada pencere çerçevesi, demo notu ve önce/sonra galerisi.
+   Yeni kodda sabit renk yok: yalnız anlamsal tema değişkenleri ve --c-* token'ları. */
+/* Hero penceresi (şartname_2 §1.2): koyu cam kasa, ince başlık çubuğu; telefon değil */
+.vs-pencere { margin: 0; padding: 12px; border-radius: calc(var(--r-l) + 8px); background: var(--c-main-2); box-shadow: 0 0 0 1px var(--c-glass-line), 0 40px 80px -36px var(--c-main); }
+.vs-pencere__bar { display: grid; place-items: center; height: 32px; margin: -2px 0 8px; border-bottom: 1px solid var(--c-glass-line); font-size: 12px; letter-spacing: .02em; color: var(--c-ink-muted); }
+.vs-pencere .os { border-radius: var(--r-l); }
+.cl-hero .vs-pencere { width: 100%; }
+
+/* Demo bölümü notları */
+.vs-cerceve-cumle { margin: 0; color: var(--fg-muted); font-size: var(--t-small); }
+.vs-demo-link { margin: var(--s-6) 0 0; text-align: center; font-weight: 600; }
+
+/* Galeri: oda ve seviye sekmeleri, tek önce/sonra çerçevesi (yatay ≤ 620 px, dikey ≤ 440 px: dosya genişliği ≥ 2× gösterim) */
+.vs-sekmeler { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-bottom: var(--s-5); }
+.vs-sekmeler--seviye { margin-bottom: var(--s-5); }
+.vs-sekme { min-height: 44px; padding: 0 22px; border: 1px solid var(--line-strong); border-radius: var(--r-pill); background: transparent; color: var(--fg); font: 600 15px/1 var(--f-sans); cursor: pointer; transition: background-color var(--d-fast) var(--ease-out), color var(--d-fast) var(--ease-out); }
+.vs-sekme--kucuk { min-height: 40px; padding: 0 18px; font-size: 14px; }
+.vs-sekme:hover { background: var(--surface); }
+.vs-sekme[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.vs-sekme:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.vs-galeri__sahne { width: 100%; }
+.vs-galeri__sahne--yatay { max-width: 620px; }
+.vs-galeri__sahne--dikey { max-width: 440px; }
+@media (max-width: 720px) {
+  .vs-sekmeler { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scrollbar-width: none; }
+  .vs-sekme { flex: none; }
+}
+
+/* Galeri iki sütun: solda başlık ve oda sekmeleri, sağda seviye sekmeleri + çerçeve */
+.vs-galeri__grid { align-items: start; }
+.vs-galeri__sol .sec-head { margin-bottom: var(--s-5); }
+.vs-galeri__sol .vs-sekmeler { margin-bottom: 0; }
+.vs-galeri__sag { min-width: 0; }
+.vs-galeri__sag .vs-galeri__sahne { margin-inline: 0; }
+@media (min-width: 861px) { .vs-galeri__sol { position: sticky; top: calc(var(--header-top) + var(--header-h) + 24px); } }
+
+.cl-diger__bos { display: block; }
+.cl-diger .cl-diger__liste a:has(.cl-diger__bos) { grid-template-columns: minmax(0, 1fr) auto; }

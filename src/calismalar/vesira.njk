@@ -1,0 +1,240 @@
+---
+layout: layouts/base.njk
+title: "Vesira — Oda fotoğrafından yenileme tasarımı | CizgiFikrim"
+description: "Vesira, kendi odanızın fotoğrafında gerçekçi yenileme tasarımları üretir. Web'de yayında; arayüzü tarayıcıda örnek görsellerle deneyin."
+permalink: /calismalar/vesira/
+sayfaCss: ['components/schema', 'components/onceki-sonraki', 'components/demo-frame', 'components/sections', 'pages/carlog', 'pages/vesira']
+sayfaJs: ['demo-frame', 'onceki-sonraki', 'vesira-galeri']
+jsonld:
+  - "@type": BreadcrumbList
+    itemListElement:
+      - { "@type": ListItem, position: 1, name: "Çalışmalar", item: "https://cizgifikrim.net/calismalar/" }
+      - { "@type": ListItem, position: 2, name: "Vesira", item: "https://cizgifikrim.net/calismalar/vesira/" }
+  - "@type": WebApplication
+    name: Vesira
+    url: "https://vesira.app"
+    operatingSystem: Web
+    applicationCategory: DesignApplication
+    description: "Ev sahiplerinin ve dekor/mobilya satıcılarının bir oda fotoğrafından gerçekçi yenileme tasarımları almasını sağlayan yapay zekâ iç mimarlık uygulaması."
+    author: { "@id": "https://cizgifikrim.net/#org" }
+---
+{#- VESİRA DETAY (şartname_2 §2, icerik_ortak B6). iOS/App Store YOK; sayı/metrik YOK; görseller "Örnek" etiketli (yapay zekâ örnekleri, müşteri odası değil).
+    Çerçeveler: hero ve galeri = pencere (§1.2), #demo = telefon çerçevesi (demo mobil arayüz; Koordinatör onayı). Paylaşılan sınıflar pages/carlog.css (cl-*). -#}
+{%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
+{%- set dis -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg>{%- endset -%}
+{%- set site = "https://vesira.app" -%}
+{%- set vs = projeler.liste | projeBul("vesira") -%}
+{%- set odalar = [
+  { anahtar: "salon",   ad: "Salon",       yon: "yatay" },
+  { anahtar: "mutfak",  ad: "Mutfak",      yon: "dikey" },
+  { anahtar: "yatak",   ad: "Yatak odası", yon: "dikey" },
+  { anahtar: "koridor", ad: "Koridor",     yon: "yatay" }
+] -%}
+{%- set seviyeler = [
+  { anahtar: "hafif-tazeleme", ad: "Hafif tazeleme" },
+  { anahtar: "yenileme",       ad: "Yenileme" },
+  { anahtar: "bastan-tasarim", ad: "Baştan tasarım" }
+] -%}
+
+{# ───────── 1 · HERO (koyu) ───────── #}
+<section class="sec cl-hero theme-dark" aria-labelledby="vs-baslik">
+  <div class="cl-hero__fx" aria-hidden="true"><i></i></div>
+  <div class="container cl-hero__grid">
+    <div class="cl-hero__metin">
+      <nav class="cl-kirinti" aria-label="Konum" data-in style="--i:0"><a href="/calismalar/">Çalışmalar</a><span aria-hidden="true">›</span><span aria-current="page">Vesira</span></nav>
+      <span class="kicker" data-in style="--i:1">ÇALIŞMA</span>
+      <h1 class="h1 cl-hero__h1" id="vs-baslik" data-in style="--i:2">Vesira</h1>
+      <p class="lead cl-hero__lead" data-in style="--i:3">Ev sahiplerinin ve dekor/mobilya satıcılarının bir oda fotoğrafından gerçekçi yenileme tasarımları almasını sağlayan yapay zekâ iç mimarlık uygulaması.</p>
+      <ul class="tags" data-in style="--i:4">{% for e in vs.etiketler %}<li class="tag">{{ e }}</li>{% endfor %}</ul>
+      <div class="cl-hero__cta" data-in style="--i:5">
+        <a class="pill pill--primary" href="{{ site }}" target="_blank" rel="noopener">vesira.app'i aç {{ dis | safe }}</a>
+        <a class="pill pill--glass" href="#demo">Demoyu dene</a>
+      </div>
+      <dl class="cl-durum" data-in style="--i:6">
+        <div><dt>Platform</dt><dd>Web</dd></div>
+        <div><dt>Durum</dt><dd><span class="cl-nokta" aria-hidden="true"></span>Web'de yayında</dd></div>
+        <div><dt>Rol</dt><dd>Tasarım ve geliştirme</dd></div>
+      </dl>
+    </div>
+    <div class="cl-hero__sahne" data-in style="--i:3">
+      <span class="cl-hero__dev" aria-hidden="true">Vesira</span>
+      <div class="cl-hero__yuzen" data-pause-offscreen>
+        <figure class="vs-pencere">
+          <div class="vs-pencere__bar" aria-hidden="true"><span>vesira.app — örnek arayüz</span></div>
+          <div class="os os--statik" style="--p:50">
+            <div class="os__katman os__katman--once">{% gorsel "src/assets/img/projeler/vesira/salon-once.webp", "Bir salonun önceki hâli (örnek görsel)", "1280px", [1280], "eager" %}</div>
+            <div class="os__katman os__katman--sonra">{% gorsel "src/assets/img/projeler/vesira/salon-yenileme.webp", "Aynı salonun Vesira ile yenilenmiş hâli (örnek yapay zekâ görseli)", "1280px", [1280], "eager" %}</div>
+            <span class="os__bolme" aria-hidden="true"></span>
+            <span class="os__tutamac" aria-hidden="true">‹›</span>
+            <span class="os__etiket os__etiket--once">Önce</span><span class="os__etiket os__etiket--sonra">Sonra</span>
+            <span class="os__not">Örnek: önce / sonra</span>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ───────── 2 · DEMO (koyu, telefon çerçevesi) ───────── #}
+<section class="sec cl-demo theme-dark" id="demo" aria-labelledby="demo-baslik">
+  <div class="container">
+    <div class="sec-head center">
+      <span class="kicker" data-reveal><b>01</b><span class="dash"></span>DEMO</span>
+      <h2 class="h2" id="demo-baslik" data-reveal style="--i:1">Arayüzü tarayıcıda <em>deneyin</em>.</h2>
+      <p class="lead" data-reveal style="--i:2">Aşağıdaki, Vesira'nın gerçek arayüzüdür; örnek görsellerle çalışan interaktif bir demodur. Bir oda seçin, ne kadar değişeceğini belirleyin, önce/sonrayı karşılaştırın.</p>
+      <p class="vs-cerceve-cumle" data-reveal style="--i:3">Arayüz ürünün diliyle (İngilizce) gösterilir.</p>
+    </div>
+    <div class="cl-demo__sahne" data-reveal="fade">
+      <p class="cl-ipucu cl-ipucu--sol">Bir oda seçin, ne kadar değişeceğini belirleyin.</p>
+      {% set demo = { src: "/demo/vesira/", baslik: "Vesira interaktif demosu (örnek görsellerle)", poster: "src/assets/img/projeler/vesira/demo-poster.webp", posterAlt: "Vesira arayüzü: bir salonun önce ve sonra karşılaştırması (örnek görsel). Demoyu başlat düğmesiyle etkileşimli hâli açılır.", tamEkran: "/demo/vesira/", not: "Odalar yapay zekâ ile üretilmiş örnek görsellerdir; gerçek müşteri odası değildir. Bu demoda fotoğraf yüklenmez ve hiçbir veri gönderilmez." } %}
+      {% include "partials/demo-frame.njk" %}
+      <p class="cl-ipucu cl-ipucu--sag">Sonucu önce/sonra kaydırıcısıyla karşılaştırın.</p>
+    </div>
+    <p class="vs-demo-link" data-reveal><a class="link" href="{{ site }}" target="_blank" rel="noopener noreferrer">vesira.app'te kendi odanla dene {{ dis | safe }}</a></p>
+  </div>
+</section>
+
+{# ───────── 3 · SORUN / YAKLAŞIM / SONUÇ + künye (açık) ───────── #}
+<section class="sec cl-hikaye theme-light" aria-labelledby="hikaye-baslik">
+  <div class="container split cl-hikaye__grid">
+    <aside class="cl-kunye" aria-label="Çalışma künyesi">
+      <h2 class="kicker" id="hikaye-baslik" data-reveal>KÜNYE</h2>
+      <dl>
+        <div data-reveal style="--i:1"><dt>Platform</dt><dd>Web (İngilizce arayüz, Türkçe seçeneği)</dd></div>
+        <div data-reveal style="--i:2"><dt>Durum</dt><dd>Web'de yayında</dd></div>
+        <div data-reveal style="--i:3"><dt>Rol</dt><dd>Tasarım, geliştirme, işletme: CizgiFikrim'in kendi girişimi</dd></div>
+        <div data-reveal style="--i:4"><dt>Teknoloji</dt><dd>Next.js · React · PostgreSQL · Claude · GPT Image</dd></div>
+        <div data-reveal style="--i:5"><dt>Bağlantı</dt><dd><a class="link" href="{{ site }}" target="_blank" rel="noopener">vesira.app'i aç {{ dis | safe }}</a></dd></div>
+      </dl>
+    </aside>
+    <div class="cl-bolumler">
+      <article class="cl-bolum" data-reveal>
+        <span class="cl-bolum__no" aria-hidden="true">01</span>
+        <div><p class="kicker">SORUN</p>
+        <h3 class="h3">Yenilenmiş oda <em>önceden</em> görünmüyor.</h3>
+        <p>İnsanlar odalarının yenilendikten sonra nasıl görüneceğini önceden göremiyor. Genel yapay zekâ görsellerinde de oda başka bir yere dönüşüyor.</p></div>
+      </article>
+      <article class="cl-bolum" data-reveal>
+        <span class="cl-bolum__no" aria-hidden="true">02</span>
+        <div><p class="kicker">YAKLAŞIM</p>
+        <h3 class="h3">Kendi odanızın <em>fotoğrafında</em> çalışır.</h3>
+        <p>Vesira kendi odanızın fotoğrafında çalışır: pencereler, gün ışığı ve odanın yapısı yerinde kalır, değişen yalnız tasarımdır.</p></div>
+      </article>
+      <article class="cl-bolum" data-reveal>
+        <span class="cl-bolum__no" aria-hidden="true">03</span>
+        <div><p class="kicker">SONUÇ</p>
+        <h3 class="h3">Web'de <em>yayında</em>.</h3>
+        <p>Web'de yayında çalışan uygulama (İngilizce arayüz, Türkçe seçeneği var).</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+{# ───────── 4 · ÖZELLİKLER (açık, 5 kart: 3+2) ───────── #}
+<section class="sec cl-ozellik theme-light" aria-labelledby="ozellik-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker" data-reveal><b>02</b><span class="dash"></span>ÖZELLİKLER</span>
+      <h2 class="h2" id="ozellik-baslik" data-reveal style="--i:1">Beş özellik, <em>tek</em> akışta.</h2>
+    </div>
+    <div class="grid grid-3 cl-kartlar">
+      {%- set ozellikler = [
+        ["Kendi odanızın fotoğrafı", "Salon, mutfak, yatak odası, koridor: kendi odanızın fotoğrafında gerçekçi tasarım."],
+        ["Üç seviye", "Hafif tazeleme, yenileme, baştan tasarım: ne kadar değişeceğine siz karar verirsiniz."],
+        ["Odanın yapısını okur", "Odanın mimarisini okuyan, iç mimar gibi düşünen bir yapay zekâ akışı; pencereler ve gün ışığı yerinde kalır."],
+        ["Düzeltme", "Sonuçtan memnun değilseniz \"Refine\" ile yönü değiştirirsiniz; önceki sürüm saklanır."],
+        ["Tasarım profili", "Verdiğiniz geri bildirimden öğrenir; yalnız hesabınızda tutulur, model eğitiminde kullanılmaz."]
+      ] -%}
+      {%- for o in ozellikler %}
+      <article class="cl-kart" data-reveal style="--i:{{ loop.index0 % 3 }}">
+        <div class="cl-kart__sahne">{% include "partials/schema/vs-ozellik-" + loop.index + ".njk" %}</div>
+        <h3 class="h4">{{ o[0] }}</h3>
+        <p>{{ o[1] }}</p>
+      </article>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{# ───────── 5 · ÖNCE/SONRA GALERİSİ (koyu) ───────── #}
+<section class="sec vs-galeri theme-dark" aria-labelledby="galeri-baslik" data-galeri>
+  <div class="container split vs-galeri__grid">
+    <div class="vs-galeri__sol">
+    <div class="sec-head">
+      <span class="kicker" data-reveal><b>03</b><span class="dash"></span>ÖRNEK SONUÇLAR</span>
+      <h2 class="h2" id="galeri-baslik" data-reveal style="--i:1">Önce, <em>sonra</em>.</h2>
+      <p class="lead" data-reveal style="--i:2">Bir oda ve bir seviye seçin; çizgiyi kaydırarak karşılaştırın. Görseller yapay zekâ ile üretilmiş örneklerdir, gerçek müşteri odası değildir.</p>
+    </div>
+    <div class="vs-sekmeler" role="tablist" aria-label="Oda" data-oda-liste>
+      {%- for o in odalar %}
+      <button type="button" class="vs-sekme" role="tab" id="oda-tab-{{ o.anahtar }}" aria-controls="oda-panel-{{ o.anahtar }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ 0 if loop.first else -1 }}" data-oda-tab="{{ o.anahtar }}">{{ o.ad }}</button>
+      {%- endfor %}
+    </div>
+    </div>
+    <div class="vs-galeri__sag">
+    {%- for o in odalar %}
+    <div class="vs-galeri__panel" role="tabpanel" id="oda-panel-{{ o.anahtar }}" aria-labelledby="oda-tab-{{ o.anahtar }}" data-oda="{{ o.anahtar }}"{% if not loop.first %} hidden{% endif %}>
+      <div class="vs-sekmeler vs-sekmeler--seviye" role="tablist" aria-label="Seviye" data-seviye-liste>
+        {%- for s in seviyeler %}
+        <button type="button" class="vs-sekme vs-sekme--kucuk" role="tab" aria-selected="{{ 'true' if s.anahtar == 'yenileme' else 'false' }}" tabindex="{{ 0 if s.anahtar == 'yenileme' else -1 }}" data-seviye-tab="{{ s.anahtar }}">{{ s.ad }}</button>
+        {%- endfor %}
+      </div>
+      <div class="vs-galeri__sahne vs-galeri__sahne--{{ o.yon }}">
+        <div class="os{% if o.yon == 'dikey' %} os--dikey{% endif %}" style="--p:50">
+          {%- set gen = [900] if o.yon == 'dikey' else [1280] -%}
+          {%- set boy = "900px" if o.yon == 'dikey' else "1280px" -%}
+          <div class="os__katman os__katman--once">{% gorsel "src/assets/img/projeler/vesira/galeri/" + o.anahtar + "-once.webp", o.ad + " odasının önceki hâli (örnek görsel)", boy, gen, "lazy" %}</div>
+          {%- for s in seviyeler %}
+          <div class="os__katman os__katman--sonra" data-seviye="{{ s.anahtar }}"{% if s.anahtar != 'yenileme' %} hidden{% endif %}>{% gorsel "src/assets/img/projeler/vesira/galeri/" + o.anahtar + "-" + s.anahtar + ".webp", o.ad + " odasının " + (s.ad | lower) + " sonrası hâli (örnek yapay zekâ görseli)", boy, gen, "lazy" %}</div>
+          {%- endfor %}
+          <span class="os__bolme" aria-hidden="true"></span>
+          <button type="button" class="os__tutamac" role="slider" aria-label="Önce ve sonra karşılaştırma" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">‹›</button>
+          <span class="os__etiket os__etiket--once">Önce</span><span class="os__etiket os__etiket--sonra">Sonra</span>
+          <span class="os__not">Örnek: önce / sonra</span>
+          <div class="os__gecis" role="group" aria-label="Önce ve sonra"><button type="button" data-os-gecis="once" aria-pressed="true">Önce</button><button type="button" data-os-gecis="sonra" aria-pressed="false">Sonra</button></div>
+        </div>
+      </div>
+    </div>
+    {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{# ───────── 6 · NASIL YAPTIK (açık) ───────── #}
+<section class="sec cl-yaptik theme-light" aria-labelledby="yaptik-baslik">
+  <div class="container split">
+    <div class="sec-head" style="margin:0">
+      <span class="kicker" data-reveal><b>04</b><span class="dash"></span>NASIL YAPTIK</span>
+      <h2 class="h2" id="yaptik-baslik" data-reveal style="--i:1">Baştan sona <em>bizim işimiz</em>.</h2>
+    </div>
+    <div class="cl-yaptik__govde">
+      <p class="lead" data-reveal>Vesira'yı tasarladık, geliştirdik ve işletiyoruz; CizgiFikrim'in kendi girişimidir.</p>
+      <ul class="tech" data-reveal style="--i:1">{% for t in ["Next.js", "React", "PostgreSQL", "Claude", "GPT Image"] %}<li class="tag">{{ t }}</li>{% endfor %}</ul>
+    </div>
+  </div>
+</section>
+
+{# ───────── 7 · CTA (koyu) ───────── #}
+<section class="sec cl-cta theme-dark" aria-labelledby="cl-cta-baslik">
+  <div class="cl-cta__fx" aria-hidden="true"><i></i></div>
+  <div class="container cl-cta__in">
+    <h2 class="h2" id="cl-cta-baslik" data-reveal>Yapay zekâ destekli bir ürün mü <em>düşünüyorsunuz</em>?</h2>
+    <p class="lead" data-reveal style="--i:1">Yapay zekâ destekli bir ürün fikriniz varsa nasıl yapılacağını kısa bir görüşmede konuşalım.</p>
+    <div class="cl-cta__ac" data-reveal style="--i:2">
+      <a class="pill pill--primary" href="/gorusme/?konu=vesira">Benzerini istiyorum {{ ok | safe }}</a>
+      <a class="link" href="/hizmetler/yapay-zeka-ve-otomasyon/">Yapay zekâ ve otomasyon hizmeti {{ ok | safe }}</a>
+    </div>
+  </div>
+</section>
+
+{# ───────── 8 · DİĞER ÇALIŞMALAR (açık, metin satırları) ───────── #}
+<section class="sec sec--tight cl-diger theme-light" aria-labelledby="diger-baslik">
+  <div class="container">
+    <h2 class="h3" id="diger-baslik" data-reveal>Diğer <em>çalışmalar</em></h2>
+    <ul class="cl-diger__liste" role="list">
+      {%- for p in projeler.liste %}{% if p.slug != "vesira" %}
+      <li data-reveal style="--i:{{ loop.index0 }}"><a href="{{ p.url }}"{% if p.dis %} target="_blank" rel="noopener noreferrer"{% endif %}><b>{{ p.baslik }}</b><span class="cl-diger__bos"></span>{{ ok | safe }}</a></li>
+      {%- endif %}{% endfor %}
+    </ul>
+  </div>
+</section>
