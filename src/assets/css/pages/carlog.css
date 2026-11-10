@@ -21,12 +21,12 @@
 .cl-durum dd { margin: 0; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; letter-spacing: -.005em; }
 .cl-nokta { width: 8px; height: 8px; border-radius: 50%; background: var(--c-accent); flex: none; }
 
-.cl-hero__sahne { position: relative; display: grid; place-items: start center; min-height: clamp(520px, 52vw, 740px); padding-bottom: clamp(70px, 9vw, 130px); }
-.cl-hero__dev { position: absolute; left: 50%; bottom: 0; translate: -50% 0; font: 700 clamp(84px, 11.5vw, 170px)/.8 var(--f-sans); letter-spacing: -.055em; color: rgba(245, 245, 242, .06); white-space: nowrap; user-select: none; pointer-events: none; }
-.cl-hero__yuzen { position: relative; z-index: 1; }
-.cl-telefon { width: clamp(236px, 22vw, 306px); padding: 8px; border-radius: 44px; background: #0E1013; box-shadow: 0 0 0 1px rgba(255, 255, 255, .16), 0 50px 90px -40px rgba(0, 0, 0, .9), inset 0 0 0 2px rgba(255, 255, 255, .05); }
-.cl-telefon__ekran { border-radius: 36px; overflow: hidden; background: #F4F6FB; }
-.cl-telefon__ekran picture, .cl-telefon__ekran img { display: block; width: 100%; height: auto; }
+
+/* Sahne: kademeli 3 App Store görseli + arkada belirgin dev ürün adı (ad alt kenarda, görsellerin altından taşar) */
+.cl-hero__sahne { position: relative; display: grid; place-items: start center; padding-bottom: clamp(70px, 9vw, 130px); }
+.cl-hero__dev { position: absolute; left: 50%; bottom: 0; translate: -50% 0; font: 700 clamp(96px, 14vw, 210px)/.8 var(--f-sans); letter-spacing: -.055em; color: rgba(245, 245, 242, .1); -webkit-text-stroke: 1px rgba(245, 245, 242, .26); white-space: nowrap; user-select: none; pointer-events: none; }
+.cl-hero__yuzen { position: relative; z-index: 1; width: min(118%, 600px); }
+@media (max-width: 860px) { .cl-hero__yuzen { width: 100%; } }
 
 /* ── 2 · Demo ─────────────────────────────────────────────────────────── */
 .cl-demo__sahne { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 360px) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: center; }
@@ -112,7 +112,7 @@
 }
 @media (max-width: 860px) {
   .cl-hero__grid { grid-template-columns: minmax(0, 1fr); }
-  .cl-hero__sahne { min-height: 460px; }
+  .cl-hero__sahne { min-height: 0; }
   .cl-kunye { position: static; }
   .cl-hikaye__grid { gap: var(--s-7); }
   .cl-diger__liste a { grid-template-columns: minmax(0, 1fr) auto; }

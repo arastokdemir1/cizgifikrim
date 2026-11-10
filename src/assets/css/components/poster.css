@@ -122,3 +122,19 @@
   .poster, .poster::after, .poster__dev-ad { transition: none; }
   .poster:hover, .poster:focus-within, .poster:hover .poster__dev-ad, .poster:focus-within .poster__dev-ad { transform: none; }
 }
+
+/* Kademeli mağaza görselleri (CarLog): 3 App Store görseli, hafif derinlik; çerçevesiz, kırpılmaz. Hero ve poster kartı aynı formülü kullanır. */
+.poster__kademe { width: min(100%, 500px); }
+.kademe { container-type: inline-size; position: relative; width: 100%; aspect-ratio: 1 / 1.02; }
+.kademe__oge { position: absolute; margin: 0; }
+.kademe__oge picture, .kademe__oge img { display: block; width: 100%; height: auto; }
+.kademe__oge img { border-radius: var(--r-l, 24px); box-shadow: 0 0 0 1px rgba(255, 255, 255, .1), 0 40px 70px -30px rgba(0, 0, 0, .9); }
+.kademe__oge--orta { left: 29%; top: 0; width: 42%; z-index: 3; }
+.kademe__oge--sol { left: 0; top: 12%; width: 34%; z-index: 1; rotate: -5deg; filter: brightness(.78); }
+.kademe__oge--sag { left: 66%; top: 18%; width: 34%; z-index: 2; rotate: 5deg; filter: brightness(.88); }
+@media (max-width: 860px) {
+  .poster__kademe { width: min(100%, 300px); }
+  .kademe__oge--sol, .kademe__oge--sag { display: none; }
+  .kademe { aspect-ratio: auto; width: min(64%, 250px); margin-inline: auto; }
+  .kademe__oge--orta { position: relative; left: auto; width: 100%; }
+}

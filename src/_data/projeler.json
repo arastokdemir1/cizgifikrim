@@ -32,15 +32,9 @@
         }
       ],
       "gorsel": {
-        "tur": "telefon",
+        "tur": "magaza",
         "altyazi": null,
-        "ogeler": [
-          {
-            "kaynak": "src/assets/img/projeler/carlog/demo-poster.webp",
-            "alt": "CarLog uygulamasının özet ekranı",
-            "genislik": 680
-          }
-        ]
+        "ogeler": []
       },
       "platform": "iOS"
     },

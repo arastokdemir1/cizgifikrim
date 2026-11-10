@@ -2,7 +2,7 @@
     Kullanım:   {% set poster = p %}{% include "partials/poster.njk" %}      (p = projeler.liste öğesi)
     İsteğe bağlı: posterSeviye (başlık seviyesi, varsayılan 3), posterYukleme ("eager": ilk ekrandaki kart; varsayılan "lazy").
     Veri: src/_data/projeler.json. Stil: /assets/v1/css/components/poster.css. Betik (yüzme/yeniden görünürlük): /assets/v1/js/poster.js (isteğe bağlı).
-    Kurallar: CarLog = telefon içinde demo posteri (App Store görseli cihaza konmaz), Vesira = pencere önce/sonra, PolishReel = 3 küçük 4:5 karo.
+    Kurallar: CarLog = kademeli 3 App Store görseli (çerçevesiz, kırpılmaz; tur 'magaza'); 'telefon' türü demo posterini cihaz içinde gösterir, Vesira = pencere önce/sonra, PolishReel = 3 küçük 4:5 karo.
     Vesira/PolishReel görsellerinde "Örnek" etiketi; naturalWidth >= 2x gösterim; görsel yoksa derleme durur (boş kart yok). -#}
 {%- set _h = posterSeviye or 3 -%}
 {%- set _y = posterYukleme or 'lazy' -%}
@@ -15,7 +15,9 @@
   </header>
   <div class="poster__sahne">
     <div class="poster__yuzen">
-    {%- if _g.tur == 'telefon' %}
+    {%- if _g.tur == 'magaza' %}
+      <div class="poster__kademe">{% include "partials/kademe.njk" %}</div>
+    {%- elif _g.tur == 'telefon' %}
       {%- set o = _g.ogeler[0] %}
       <div class="poster__telefon"><div class="poster__ekran">{% gorsel o.kaynak, o.alt, "(min-width: 720px) 500px, 260px", [340, 680], _y %}</div></div>
     {%- elif _g.tur == 'pencere' %}

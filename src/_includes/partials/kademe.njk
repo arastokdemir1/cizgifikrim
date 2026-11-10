@@ -1,0 +1,14 @@
+{#- KADEME / kademeli mağaza görselleri (Frontend-1): CarLog'un gerçek App Store görsellerinden 3'ü, hafif derinlikli kademeli kompozisyon.
+    Kullanım: {% include "partials/kademe.njk" %}   İsteğe bağlı: kademeYukleme ("eager"/"lazy"), kademeGiris (true: görseller kademeli belirir, hero için).
+    Kurallar: görseller kırpılmaz, çerçeveye sokulmaz (pazarlama görselleri zaten başlıklı), naturalWidth >= 2× gösterim. Stil: components/poster.css (.kademe). -#}
+{%- set _ky = kademeYukleme or posterYukleme or 'lazy' -%}
+{%- set _kd = [
+  { sinif: "sol",  dosya: "3-ozet",    alt: "CarLog ekranı: gün, hafta ve ay masraf özeti, 'Masrafın tek bakışta' başlığı" },
+  { sinif: "sag",  dosya: "2-hesapla", alt: "CarLog ekranı: yola çıkmadan tahmini masraf hesabı, 'Yola çıkmadan masrafı gör' başlığı" },
+  { sinif: "orta", dosya: "1-canli",   alt: "CarLog ekranı: canlı sürüş görünümü, 'Sen sür, CarLog kaydetsin' başlığı" }
+] -%}
+<div class="kademe">
+  {%- for k in _kd %}
+  <figure class="kademe__oge kademe__oge--{{ k.sinif }}"{% if kademeGiris %} data-in style="--i:{{ 3 + loop.index0 }}"{% endif %}>{% gorsel "src/assets/img/projeler/carlog/" + k.dosya + ".webp", k.alt, "(min-width: 1024px) 480px, 560px", [560, 960], ('eager' if (k.sinif == 'orta' and _ky == 'eager') else 'lazy') %}</figure>
+  {%- endfor %}
+</div>

@@ -3,7 +3,7 @@ layout: layouts/base.njk
 title: "CarLog — Yolculuk masrafı uygulaması | CizgiFikrim"
 description: "CarLog, yolculuğu kendiliğinden algılayıp yakıt, gişe ve köprü masrafını canlı hesaplar. App Store'da; web demosunu tarayıcıda deneyin."
 permalink: /calismalar/carlog/
-sayfaCss: ['components/schema', 'components/demo-frame', 'components/sections', 'pages/carlog']
+sayfaCss: ['components/schema', 'components/poster', 'components/demo-frame', 'components/sections', 'pages/carlog']
 sayfaJs: ['demo-frame']
 jsonld:
   - "@type": BreadcrumbList
@@ -48,7 +48,7 @@ jsonld:
     <div class="cl-hero__sahne" data-in style="--i:3">
       <span class="cl-hero__dev" aria-hidden="true">CarLog</span>
       <div class="cl-hero__yuzen" data-pause-offscreen>
-        <div class="cl-telefon"><div class="cl-telefon__ekran">{% gorsel "src/assets/img/projeler/carlog/demo-poster.webp", "CarLog Özet ekranı: bugünün toplam gideri, mesafe, gişe ve sefer sayısı, son 14 günün grafiği", "700px", [340, 680], "eager" %}</div></div>
+        {% set kademeYukleme = "eager" %}{% set kademeGiris = true %}{% include "partials/kademe.njk" %}
       </div>
     </div>
   </div>
