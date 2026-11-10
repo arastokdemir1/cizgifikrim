@@ -75,6 +75,8 @@ export default function (eleventyConfig) {
     .filter((p) => p.url.endsWith('/') || p.url.endsWith('.html'))
     .sort((a, b) => a.url.localeCompare(b.url)));
   eleventyConfig.addFilter('lastmod', (sayfa) => sonDegisiklik(sayfa.inputPath.replace(/^\.\//, '')));
+  // projeler.liste içinden slug ile tek proje: {% set p = projeler.liste | projeBul('vesira') %} (Nunjucks selectattr tek argüman alır, equalto çalışmaz)
+  eleventyConfig.addFilter('projeBul', (liste, slug) => (liste || []).find((p) => p.slug === slug));
   eleventyConfig.addFilter('mutlakUrl', (yol, site) => (/^https?:\/\//.test(yol) ? yol : site.url + yol));
 
   // ── Görsel işleme: AVIF + WebP, width/height, alt ZORUNLU ──────────────

@@ -52,7 +52,11 @@
       {%- for e in poster.etiketler %}<li>{{ e }}</li>{% endfor -%}
     </ul>
     <p class="poster__baglantilar">
+      {%- if poster.dis %}
+      <a class="poster__ana" href="{{ poster.url }}" target="_blank" rel="noopener noreferrer">{{ poster.slug == 'polishreel' and "polishreel.com'u aç" or (poster.baslik + "'i aç") }} <span aria-hidden="true">↗</span></a>
+      {%- else %}
       <a class="poster__ana" href="{{ poster.url }}">Çalışmayı gör <span aria-hidden="true">→</span><span class="poster__sr"> ({{ poster.baslik }})</span></a>
+      {%- endif %}
       {%- for b in poster.ikincil %}
       <a class="poster__ikincil" href="{{ b.href }}"{% if b.dis %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ b.etiket }}{% if b.dis %} <span aria-hidden="true">↗</span>{% endif %}</a>
       {%- endfor %}

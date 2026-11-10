@@ -82,7 +82,7 @@
     {
       "slug": "polishreel",
       "baslik": "PolishReel",
-      "url": "/calismalar/polishreel/",
+      "url": "https://polishreel.com",
       "hizmetSlug": "yapay-zeka-ve-otomasyon",
       "boyut": "kucuk",
       "cumle": "Takı ve aksesuar mağazaları için ürün fotoğrafından aylık fotoğraf seti ve kısa dikey video hazırlayan hizmet.",
@@ -93,13 +93,7 @@
       ],
       "durum": "Geliştiriliyor",
       "girisim": "CizgiFikrim'in kendi girişimi",
-      "ikincil": [
-        {
-          "etiket": "polishreel.com'u aç",
-          "href": "https://polishreel.com",
-          "dis": true
-        }
-      ],
+      "ikincil": [],
       "gorsel": {
         "tur": "karolar",
         "altyazi": "Örnek çıktı",
@@ -121,7 +115,8 @@
           }
         ]
       },
-      "platform": "Web"
+      "platform": "Web",
+      "dis": true
     }
   ]
 }

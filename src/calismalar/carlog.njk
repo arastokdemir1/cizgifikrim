@@ -23,7 +23,7 @@ jsonld:
 {%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
 {%- set dis -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg>{%- endset -%}
 {%- set magaza = "https://apps.apple.com/tr/app/id6779625494" -%}
-{%- set cl = projeler.liste | selectattr("slug", "equalto", "carlog") | first -%}
+{%- set cl = projeler.liste | projeBul("carlog") -%}
 
 {# ───────── 1 · HERO (koyu) ───────── #}
 <section class="sec cl-hero theme-dark" aria-labelledby="cl-baslik">
@@ -208,7 +208,7 @@ jsonld:
     <h2 class="h3" id="diger-baslik" data-reveal>Diğer <em>çalışmalar</em></h2>
     <ul class="cl-diger__liste" role="list">
       {%- for p in projeler.liste %}{% if p.slug != "carlog" %}
-      <li data-reveal style="--i:{{ loop.index0 }}"><a href="{{ p.url }}"><b>{{ p.baslik }}</b><span>{{ p.cumle }}</span>{{ ok | safe }}</a></li>
+      <li data-reveal style="--i:{{ loop.index0 }}"><a href="{{ p.url }}"{% if p.dis %} target="_blank" rel="noopener noreferrer"{% endif %}><b>{{ p.baslik }}</b><span>{{ p.cumle }}</span>{{ ok | safe }}</a></li>
       {%- endif %}{% endfor %}
     </ul>
   </div>
