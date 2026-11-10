@@ -1,0 +1,86 @@
+---
+layout: layouts/base.njk
+title: "Hizmetler — Web, mobil uygulama, yapay zekâ | CizgiFikrim"
+description: "Web sitesi ve e-ticaret, iOS mobil uygulama, yapay zekâ ve otomasyon: baştan sona yapıyoruz. Fiyat ve takvim ücretsiz görüşmede netleşir."
+permalink: /hizmetler/
+sayfaCss: ['components/schema', 'components/sections', 'pages/hizmetler']
+bodyClass: pg-hizmetler
+---
+{#- HİZMETLER GENEL (şartname_2 §5, icerik_ortak C5). Hero → Hangisi size uygun? → 3 sticky-split blok → süreç özeti → SSS(8) → CTA. Süre/fiyat yok; projeye YALNIZ metin linki. -#}
+{%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
+
+<section class="sec theme-dark hzg-hero" aria-labelledby="hzg-baslik">
+  <div class="container">
+    <div class="sec-head" style="margin-bottom:0">
+      <span class="kicker" data-in style="--i:0"><b>01</b><span class="dash"></span>HİZMETLER</span>
+      <h1 class="h1" id="hzg-baslik" data-in style="--i:1">Ne <em>yapıyoruz</em></h1>
+      <p class="lead" data-in style="--i:2">Üç alanda baştan sona çalışıyoruz. Önce sorunu yazarız, sonra yaparız. Fiyat ve takvim görüşmede işinize göre netleşir.</p>
+      <div class="hzg-hero__cta" data-in style="--i:3"><a class="pill pill--primary" href="{{ nav.cta.href }}">{{ nav.cta.etiket }} {{ ok | safe }}</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec theme-light hzg-secim" aria-labelledby="hzg-secim-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker" data-reveal><b>02</b><span class="dash"></span>YÖNLENDİRME</span>
+      <h2 class="h2" id="hzg-secim-baslik" data-reveal style="--i:1">Hangisi size <em>uygun?</em></h2>
+    </div>
+    <ul class="hzg-secim__liste">
+      {%- for y in yonlendirici %}
+      <li data-reveal style="--i:{{ loop.index0 }}"><a href="{{ y.href }}"><span class="hzg-secim__soru">{{ y.soru }}</span><span class="hzg-secim__cevap">{{ y.cevap }} {{ ok | safe }}</span></a></li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
+{%- for b in bloklar %}
+<section class="sec theme-{{ b.tema }} hzg-blok" id="{{ b.anahtar }}" aria-labelledby="hzg-{{ b.anahtar }}-baslik">
+  <div class="container hzg-blok__grid">
+    <div class="hzg-blok__metin">
+      <span class="kicker" data-reveal><b>0{{ loop.index + 2 }}</b><span class="dash"></span>HİZMET {{ loop.index }} / 3</span>
+      <h2 class="h2" id="hzg-{{ b.anahtar }}-baslik" data-reveal style="--i:1">{{ b.ad }}</h2>
+      <p class="lead" data-reveal style="--i:2">{{ b.giris }}</p>
+      <dl class="hzg-blok__liste">
+        <div data-reveal><dt>Kime uygun</dt><dd>{{ b.kime }}</dd></div>
+        <div data-reveal><dt>Ne teslim ederiz</dt><dd><ul class="hzg-teslim">{% for t in b.teslim %}<li>{{ t }}</li>{% endfor %}</ul></dd></div>
+        <div data-reveal><dt>Nasıl çalışırız</dt><dd>{{ b.nasil }}</dd></div>
+      </dl>
+      <p class="hzg-ornek" data-reveal>{% for o in b.ornek %}{{ o.onek }} {% for l in o.link %}<a class="link" href="{{ l.href }}"{% if l.dis %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ l.ad }}{% if l.dis %} ↗{% endif %}</a>{% if not loop.last %} ve {% endif %}{% endfor %}{% if o.son %} {{ o.son }}{% endif %} {{ ok | safe }}{% endfor %}</p>
+      <div class="hzg-blok__cta" data-reveal>
+        <a class="pill pill--primary" href="{{ nav.cta.href }}">{{ nav.cta.etiket }} {{ ok | safe }}</a>
+        <a class="link" href="/hizmetler/{{ b.slug }}/">Ayrıntılar {{ ok | safe }}</a>
+      </div>
+    </div>
+    <div class="hzg-blok__sahne" data-reveal="fade">{% include "partials/schema/" + b.sahne + ".njk" %}</div>
+  </div>
+</section>
+{%- endfor %}
+
+<section class="sec theme-dark hzg-surec" id="surec-ozeti" aria-labelledby="hzg-surec-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker" data-reveal><b>06</b><span class="dash"></span>SÜREÇ</span>
+      <h2 class="h2" id="hzg-surec-baslik" data-reveal style="--i:1">Fikirden yayına <em>dört adım</em>.</h2>
+    </div>
+    <ol class="hzg-adimlar">
+      {%- for a in adimlar %}
+      <li data-reveal style="--i:{{ loop.index0 }}"><span class="hzg-adimlar__no">0{{ loop.index }}</span><h3 class="h3">{{ a.ad }}</h3><p>{{ a.metin }}</p></li>
+      {%- endfor %}
+    </ol>
+    <p class="hzg-surec__link" data-reveal><a class="link" href="/nasil-calisiyoruz/">Süreci ayrıntılı oku {{ ok | safe }}</a></p>
+  </div>
+</section>
+
+<section class="sec theme-light" id="sss" aria-labelledby="sss-baslik">
+  <div class="container faq-grid">
+    <h2 class="h2" id="sss-baslik" data-reveal>Sık sorulan <em>sorular</em></h2>
+    <div class="faq-list">
+      {%- for s in sss %}
+      <details class="faq-item" data-reveal style="--i:{{ loop.index0 }}"><summary>{{ s[0] }}<i aria-hidden="true"></i></summary><p class="faq-a">{{ s[1] }}</p></details>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{% include "partials/cta-band.njk" %}

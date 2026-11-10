@@ -1,0 +1,50 @@
+/* HİZMETLER GENEL (/hizmetler/). Yalnız anlamsal tema değişkenleri ve token'lar; sabit renk yok. */
+.hzg-hero { padding-bottom: clamp(48px, 7vw, 96px); }
+.hzg-hero .sec-head { max-width: 52rem; }
+.hzg-hero__cta { margin-top: var(--s-3); }
+
+/* Hangisi size uygun? */
+.hzg-secim__liste { display: grid; gap: var(--s-3); margin: 0; padding: 0; list-style: none; }
+.hzg-secim__liste a { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--s-5); padding: clamp(18px, 2.2vw, 26px) clamp(20px, 2.6vw, 32px); border: 1px solid var(--line); border-radius: var(--r-m); background: var(--surface); transition: border-color var(--d-base) var(--ease-out), transform var(--d-base) var(--ease-out); }
+.hzg-secim__liste a:hover { border-color: var(--line-strong); }
+.hzg-secim__soru { font-size: clamp(18px, 2vw, 24px); font-weight: 500; letter-spacing: -.01em; }
+.hzg-secim__cevap { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; white-space: nowrap; }
+.hzg-secim__cevap svg { width: 16px; height: 16px; transition: transform var(--d-fast) var(--ease-out); }
+.hzg-secim__liste a:hover .hzg-secim__cevap svg { transform: translateX(4px); }
+
+/* Hizmet blokları: sol 4/12 metin, sağ 8/12 sahne (sahne sticky) */
+.hzg-blok__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.hzg-blok__metin { display: grid; gap: var(--s-5); justify-items: start; }
+.hzg-blok__metin .h2 { margin: 0; }
+.hzg-blok__sahne { position: sticky; top: calc(var(--header-top) + var(--header-h) + 32px); width: 100%; align-self: start; }
+.hzg-blok__liste { display: grid; gap: var(--s-5); margin: 0; width: 100%; }
+.hzg-blok__liste > div { display: grid; gap: 8px; padding-top: var(--s-4); border-top: 1px solid var(--line); }
+.hzg-blok__liste dt { font-size: var(--t-kicker); font-weight: 700; letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--fg-muted); }
+.hzg-blok__liste dd { margin: 0; font-size: var(--t-body); line-height: var(--lh-body); }
+.hzg-teslim { display: grid; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
+.hzg-teslim li { display: flex; gap: var(--s-3); align-items: baseline; font-weight: 500; }
+.hzg-teslim li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; transform: translateY(-2px); }
+.hzg-ornek { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: var(--t-small); color: var(--fg-muted); }
+.hzg-ornek .link { color: var(--fg); }
+.hzg-ornek svg { width: 14px; height: 14px; }
+.hzg-blok__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-5); }
+
+/* Süreç özeti: sticky değil, 4 sütun */
+.hzg-adimlar { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); margin: 0; padding: 0; list-style: none; }
+.hzg-adimlar li { display: grid; gap: var(--s-3); align-content: start; padding-top: var(--s-5); border-top: 1px solid var(--line); }
+.hzg-adimlar__no { font-family: var(--f-serif); font-style: italic; font-size: 48px; line-height: .9; color: var(--accent-text); }
+.hzg-adimlar h3 { margin: var(--s-3) 0 0; }
+.hzg-adimlar p { margin: 0; color: var(--fg-muted); }
+.hzg-surec__link { margin: var(--s-7) 0 0; }
+
+@media (max-width: 1023px) {
+  .hzg-adimlar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 899px) {
+  .hzg-blok__grid { grid-template-columns: minmax(0, 1fr); }
+  .hzg-blok__sahne { position: static; order: -1; max-width: 460px; }
+  .hzg-secim__liste a { grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
+}
+@media (max-width: 560px) {
+  .hzg-adimlar { grid-template-columns: minmax(0, 1fr); }
+}
