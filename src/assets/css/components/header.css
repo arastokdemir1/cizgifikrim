@@ -4,13 +4,13 @@
 .header-bar {
   pointer-events: auto; width: min(960px, 100%); height: var(--header-h); padding: 0 8px 0 24px;
   display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--s-5);
-  background: rgba(10, 10, 10, .72); -webkit-backdrop-filter: blur(12px) saturate(1.2); backdrop-filter: blur(12px) saturate(1.2);
+  background: color-mix(in srgb, var(--c-main) 72%, transparent); -webkit-backdrop-filter: blur(12px) saturate(1.2); backdrop-filter: blur(12px) saturate(1.2);
   border: 1px solid var(--c-glass-line); border-radius: var(--r-pill); color: var(--c-ink);
-  box-shadow: 0 10px 40px -16px rgba(0, 0, 0, .6);
+  box-shadow: 0 10px 40px -16px color-mix(in srgb, var(--c-shadow) 60%, transparent);
   transition: transform var(--d-base) var(--ease-out), background-color var(--d-base) var(--ease-out);
   transform-origin: 50% 0;
 }
-.site-header.is-scrolled .header-bar { transform: scale(.96); background: rgba(10, 10, 10, .9); }
+.site-header.is-scrolled .header-bar { transform: scale(.96); background: color-mix(in srgb, var(--c-main) 90%, transparent); }
 .brand { font-size: 18px; font-weight: 600; letter-spacing: -.02em; color: var(--c-ink); display: inline-flex; align-items: center; gap: 10px; }
 .brand::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--c-accent); flex: none; }
 .nav-main ul { display: flex; justify-content: center; gap: clamp(8px, 1.6vw, 22px); }
@@ -30,7 +30,7 @@
 
 .menu-panel {
   pointer-events: auto; position: absolute; top: calc(var(--header-h) + 10px); left: 16px; right: 16px; padding: var(--s-3);
-  background: rgba(10, 10, 10, .96); border: 1px solid var(--c-glass-line); border-radius: var(--r-l); box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .7);
+  background: color-mix(in srgb, var(--c-main) 96%, transparent); border: 1px solid var(--c-glass-line); border-radius: var(--r-l); box-shadow: 0 30px 80px -20px color-mix(in srgb, var(--c-shadow) 70%, transparent);
   animation: fade-up var(--d-base) var(--ease-out) both;
 }
 .menu-panel a:not(.pill) { display: flex; align-items: center; min-height: 56px; padding-inline: var(--s-4); font-size: 20px; font-weight: 500; color: var(--c-ink); border-radius: var(--r-m); }

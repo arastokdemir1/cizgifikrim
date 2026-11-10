@@ -24,7 +24,7 @@
 
 /* Sahne: kademeli 3 App Store görseli + arkada belirgin dev ürün adı (ad alt kenarda, görsellerin altından taşar) */
 .cl-hero__sahne { position: relative; container-type: inline-size; display: grid; place-items: start center; padding-bottom: clamp(70px, 9vw, 130px); }
-.cl-hero__dev { position: absolute; left: 50%; bottom: 0; translate: -50% 0; font: 700 min(29cqw, 210px)/.8 var(--f-sans); /* ad sütundan taşmaz (≈3,4 em genişlik) */ letter-spacing: -.055em; color: rgba(245, 245, 242, .1); -webkit-text-stroke: 1px rgba(245, 245, 242, .26); white-space: nowrap; user-select: none; pointer-events: none; }
+.cl-hero__dev { position: absolute; left: 50%; bottom: 0; translate: -50% 0; font: 700 min(29cqw, 210px)/.8 var(--f-sans); /* ad sütundan taşmaz (≈3,4 em genişlik) */ letter-spacing: -.055em; color: color-mix(in srgb, var(--c-ink) 10%, transparent); -webkit-text-stroke: 1px color-mix(in srgb, var(--c-ink) 26%, transparent); white-space: nowrap; user-select: none; pointer-events: none; }
 .cl-hero__yuzen { position: relative; z-index: 1; width: min(100%, 560px); }
 @media (max-width: 1365px) { .cl-hero__yuzen { width: min(94%, 560px); } } /* eğik yan görseller kenara değmesin */
 @media (max-width: 860px) { .cl-hero__yuzen { width: 100%; } }

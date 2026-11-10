@@ -28,7 +28,7 @@
 /* Süreç (4 adım) */
 .hz-adimlar { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-5); }
 .hz-adim__oge { display: grid; gap: var(--s-3); align-content: start; padding-top: var(--s-5); border-top: 1px solid var(--line-strong); }
-.hz-adim__no { font-family: var(--f-serif); font-style: italic; font-size: 48px; line-height: .9; color: var(--accent); }
+.hz-adim__no { font-family: var(--f-serif); font-style: italic; font-size: 48px; line-height: .9; color: var(--accent-text); }
 .hz-adim__oge h3 { margin: var(--s-4) 0 0; }
 .hz-adim__oge p { margin: 0; color: var(--fg-muted); }
 

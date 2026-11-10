@@ -11,12 +11,22 @@
   --c-ink-muted: #9A9A94;       /* koyu zemin ikincil metni (7.00:1) */
   --c-ink-2: #0A0A0A;           /* açık zemin metni (18.13:1) */
   --c-ink-2-muted: #5A5A55;     /* açık zemin ikincil metni (6.35:1) */
-  --c-glow: rgba(184, 189, 196, .35);   /* ortadan gümüş ışık */
-  --c-glow-2: rgba(184, 189, 196, .10);
-  --c-glass: rgba(255, 255, 255, .07);  /* cam dolgu */
-  --c-glass-line: rgba(255, 255, 255, .14);
-  --c-line-2: rgba(10, 10, 10, .14);    /* açık zeminde çizgi */
+  --c-accent-text: var(--c-accent);     /* vurgunun KOYU zeminde METİN olarak kullanımı (sayaç, numara); koyu vurguda (mavi/mor) açık bir ton seçilebilir */
+  --c-second-2: #ECECE8;                /* açık zeminde ikinci yüzey */
   --c-card-2: #FFFFFF;                  /* açık zeminde kart yüzeyi */
+  --c-glow-base: #B8BDC4;               /* ortadan ışık rengi (gümüş) */
+  --c-device: #0E1013;                  /* telefon/pencere kasası */
+  --c-shadow: #000000;                  /* gölge rengi */
+  --c-contrast-dark: #000000;           /* geçiş anlarında saf koyu metin (kontrast) */
+  --c-contrast-light: #FFFFFF;          /* geçiş anlarında saf açık metin (kontrast) */
+  --c-mask: #000000;                    /* mask-image kaynağı (görünmez, yalnız alfa) */
+  /* ── Türetilmiş (yukarıdaki renklerden; paleti değiştirirken dokunulmaz) ── */
+  --c-glow: color-mix(in srgb, var(--c-glow-base) 35%, transparent);
+  --c-glow-2: color-mix(in srgb, var(--c-glow-base) 10%, transparent);
+  --c-glass: color-mix(in srgb, var(--c-ink) 7%, transparent);         /* cam dolgu */
+  --c-glass-line: color-mix(in srgb, var(--c-ink) 14%, transparent);
+  --c-line-dark: var(--c-glass-line);
+  --c-line-2: color-mix(in srgb, var(--c-ink-2) 14%, transparent);     /* açık zeminde çizgi */
 
   /* ── Yarıçap (0 px köşe yok) ──────────────────────────────────────────── */
   --r-s: 12px; --r-m: 16px; --r-l: 24px; --r-xl: 32px; --r-pill: 999px;
@@ -68,18 +78,18 @@
 .theme-dark {
   --bg: var(--c-main); --bg-2: var(--c-main-2);
   --fg: var(--c-ink); --fg-muted: var(--c-ink-muted);
-  --line: var(--c-glass-line); --line-strong: rgba(255, 255, 255, .28);
+  --line: var(--c-glass-line); --line-strong: color-mix(in srgb, var(--c-ink) 28%, transparent);
   --surface: var(--c-glass); --surface-solid: var(--c-main-2);
-  --accent: var(--c-accent); --on-accent: var(--c-on-accent);   /* birincil pill: lime dolgu, siyah yazı */
+  --accent: var(--c-accent); --accent-text: var(--c-accent-text); --on-accent: var(--c-on-accent);   /* birincil pill: lime dolgu, siyah yazı */
   --focus: var(--c-accent);
   background: var(--bg); color: var(--fg);
 }
 .theme-light {
-  --bg: var(--c-second); --bg-2: #ECECE8;
+  --bg: var(--c-second); --bg-2: var(--c-second-2);
   --fg: var(--c-ink-2); --fg-muted: var(--c-ink-2-muted);
-  --line: var(--c-line-2); --line-strong: rgba(10, 10, 10, .32);
+  --line: var(--c-line-2); --line-strong: color-mix(in srgb, var(--c-ink-2) 32%, transparent);
   --surface: var(--c-card-2); --surface-solid: var(--c-card-2);
-  --accent: var(--c-ink-2); --on-accent: var(--c-second);        /* açık zeminde vurgu = SİYAH dolgu (lime yasak) */
+  --accent: var(--c-ink-2); --accent-text: var(--c-ink-2); --on-accent: var(--c-second);        /* açık zeminde vurgu = SİYAH dolgu (lime yasak) */
   --focus: var(--c-ink-2);
   background: var(--bg); color: var(--fg);
 }

@@ -2,9 +2,9 @@
    Koyu zeminde çizgi --c-ink %62 + lime vurgu; AÇIK zeminde çizgi --c-ink-2 %72 + SİYAH vurgu (lime yok). Hiçbir şema proje/cihaz/ürün imgesi içermez. */
 .schema {
   display: block; width: 100%; height: auto; overflow: visible;
-  --sc-line: rgba(245, 245, 242, .62); --sc-fill: rgba(245, 245, 242, .06); --sc-acc: var(--c-accent); --sc-txt: rgba(245, 245, 242, .8); --sc-on-acc: #0A0A0A;
+  --sc-line: color-mix(in srgb, var(--c-ink) 62%, transparent); --sc-fill: color-mix(in srgb, var(--c-ink) 6%, transparent); --sc-acc: var(--c-accent); --sc-txt: color-mix(in srgb, var(--c-ink) 80%, transparent); --sc-on-acc: var(--c-on-accent);
 }
-.theme-light .schema, .schema.on-light { --sc-line: rgba(10, 10, 10, .72); --sc-fill: rgba(10, 10, 10, .05); --sc-acc: #0A0A0A; --sc-txt: rgba(10, 10, 10, .8); --sc-on-acc: #F5F5F2; }
+.theme-light .schema, .schema.on-light { --sc-line: color-mix(in srgb, var(--c-ink-2) 72%, transparent); --sc-fill: color-mix(in srgb, var(--c-ink-2) 5%, transparent); --sc-acc: var(--c-ink-2); --sc-txt: color-mix(in srgb, var(--c-ink-2) 80%, transparent); --sc-on-acc: var(--c-second); }
 .schema * { vector-effect: non-scaling-stroke; }
 .schema .l { fill: none; stroke: var(--sc-line); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .schema .l.f { fill: var(--sc-fill); }

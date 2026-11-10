@@ -13,7 +13,7 @@
 .kunye { display: grid; }
 .kunye-row { display: grid; grid-template-columns: minmax(120px, 1fr) minmax(0, 3fr); gap: var(--s-5); padding-block: clamp(20px, 2.4vw, 28px); border-top: 1px solid var(--line); align-items: baseline; }
 .kunye-row:last-child { border-bottom: 1px solid var(--line); }
-.kunye dt { font-size: var(--t-kicker); font-weight: 700; letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--c-accent); }
+.kunye dt { font-size: var(--t-kicker); font-weight: 700; letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--accent-text); }
 .kunye dd { margin: 0; font-size: clamp(19px, 1.7vw, 24px); line-height: 1.35; letter-spacing: -.01em; font-weight: 500; text-wrap: pretty; }
 
 /* Teknoloji çipleri (statik, kayan değil) + Hakkında */

@@ -11,11 +11,11 @@
 .pill:active { transform: scale(.97); transition-duration: 90ms; }
 .pill--primary { background: var(--accent); color: var(--on-accent); }
 .pill--primary:hover { filter: brightness(1.06); }
-.theme-light .pill--primary:hover { filter: none; background: #26262A; }
+.theme-light .pill--primary:hover { filter: none; background: color-mix(in srgb, var(--c-ink-2) 85%, var(--c-second)); }
 .pill--glass { background: var(--c-glass); border-color: var(--line); color: var(--fg); }
-.pill--glass:hover { background: rgba(255, 255, 255, .13); }
+.pill--glass:hover { background: color-mix(in srgb, var(--c-ink) 13%, transparent); }
 .theme-light .pill--glass { background: transparent; border-color: var(--line-strong); }
-.theme-light .pill--glass:hover { background: rgba(10, 10, 10, .06); }
+.theme-light .pill--glass:hover { background: color-mix(in srgb, var(--c-ink-2) 6%, transparent); }
 .pill--sm { height: 40px; padding-inline: 20px; font-size: 15px; }
 
 .link {

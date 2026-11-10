@@ -4,7 +4,7 @@
 .footer-col h2 { font-size: var(--t-kicker); font-weight: 700; letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--fg-muted); margin-bottom: var(--s-4); }
 .footer-col li + li { margin-top: var(--s-1); }
 .footer-col a { display: inline-flex; align-items: center; min-height: 36px; font-size: 16px; color: var(--fg); transition: color var(--d-fast) var(--ease-out); }
-.footer-col a:hover { color: var(--c-accent); }
+.footer-col a:hover { color: var(--accent-text); }
 .footer-brand { font-size: 22px; font-weight: 600; letter-spacing: -.02em; }
 .footer-brand + p { margin-top: var(--s-3); color: var(--fg-muted); max-width: 28ch; font-size: var(--t-small); }
 .footer-mail { word-break: break-word; }
@@ -14,7 +14,7 @@
 .footer-wordmark {
   display: block; margin: 0 0 -.14em; padding: 0 var(--gutter); text-align: center; white-space: nowrap; user-select: none;
   font-size: var(--t-wordmark); font-weight: 700; line-height: .9; letter-spacing: -.045em; color: var(--c-ink); opacity: .1;
-  -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent 98%); mask-image: linear-gradient(180deg, #000 30%, transparent 98%);
+  -webkit-mask-image: linear-gradient(180deg, var(--c-mask) 30%, transparent 98%); mask-image: linear-gradient(180deg, var(--c-mask) 30%, transparent 98%);
 }
 @media (max-width: 899px) { .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .footer-col:first-child { grid-column: 1 / -1; } }
 @media (max-width: 520px) { .footer-grid { grid-template-columns: minmax(0, 1fr); } }

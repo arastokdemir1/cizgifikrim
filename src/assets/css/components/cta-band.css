@@ -1,10 +1,10 @@
 /* CTA BANDI (koyu): ortalı H2 + metin + birincil pill; ışık + statik grain. Her sayfada aynı. */
 .cta-band { position: relative; overflow: hidden; text-align: center; }
 .cta-band::before { content: ""; position: absolute; left: 50%; top: 50%; width: min(1100px, 130%); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; pointer-events: none;
-  background: radial-gradient(closest-side, rgba(184, 189, 196, .22), transparent 70%); }
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--c-glow-base) 22%, transparent), transparent 70%); }
 .cta-band::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .3;
-  background-image: radial-gradient(rgba(245, 245, 242, .4) .6px, transparent .7px); background-size: 7px 7px;
-  -webkit-mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent 85%); mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent 85%); }
+  background-image: radial-gradient(color-mix(in srgb, var(--c-ink) 40%, transparent) .6px, transparent .7px); background-size: 7px 7px;
+  -webkit-mask-image: radial-gradient(70% 70% at 50% 50%, var(--c-mask), transparent 85%); mask-image: radial-gradient(70% 70% at 50% 50%, var(--c-mask), transparent 85%); }
 .cta-band .container { position: relative; z-index: 1; display: grid; justify-items: center; gap: var(--s-5); }
 .cta-band .lead { margin-inline: auto; }
 .cta-band .pill { margin-top: var(--s-3); }

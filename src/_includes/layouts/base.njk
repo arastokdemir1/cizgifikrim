@@ -7,7 +7,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {% include "partials/seo.njk" %}
-<meta name="theme-color" content="#0A0A0A">
 <script>document.documentElement.classList.add('js')</script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -20,6 +19,7 @@
 {%- for css in sayfaCss %}
 <link rel="stylesheet" href="/assets/v1/css/{{ css }}.css">
 {%- endfor %}
+<script>/* theme-color palette'ten (tokens.css --c-main) türetilir: palet değişince yalnız tokens.css değişir */try{var m=document.createElement("meta");m.name="theme-color";m.content=getComputedStyle(document.documentElement).getPropertyValue("--c-main").trim();document.head.appendChild(m)}catch(e){}</script>
 </head>
 <body class="theme-dark{% if bodyClass %} {{ bodyClass }}{% endif %}">
 <a class="skip-link" href="#icerik">Ana içeriğe geç</a>
