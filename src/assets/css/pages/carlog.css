@@ -68,6 +68,7 @@
 .cl-galeri figure { margin: 0; display: grid; gap: var(--s-4); justify-items: center; }
 .cl-galeri__gorsel picture { display: block; }
 .cl-galeri__gorsel img { display: block; width: auto; height: clamp(380px, 42vw, 560px); aspect-ratio: 1320 / 2868; border-radius: var(--r-l); }
+.cl-galeri__ipucu { display: none; margin: var(--s-3) 0 0; font-size: 13px; color: var(--fg-muted); }
 .cl-galeri figcaption { font-size: var(--t-small); font-weight: 600; color: var(--fg-muted); }
 
 /* ── 6 · Nasıl yaptık ─────────────────────────────────────────────────── */
@@ -113,6 +114,12 @@
   .cl-diger__liste a { grid-template-columns: minmax(0, 1fr) auto; }
   .cl-diger__liste span { grid-column: 1; grid-row: 2; }
   .cl-diger__liste svg { grid-column: 2; grid-row: 1 / span 2; }
+}
+/* Galeri dar ekranda ekran kenarına taşar (kaydırmalı şerit); metin kesilmesi kenarda olur, kapsayıcı kenarında olmaz. */
+@media (max-width: 1023px) {
+  .cl-galeri__liste { margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
+  .cl-galeri__oge:first-child { margin-left: 0; } .cl-galeri__oge:last-child { margin-right: 0; }
+  .cl-galeri__ipucu { display: block; }
 }
 @media (max-width: 560px) {
   .cl-durum > div { padding: 12px 14px; }
