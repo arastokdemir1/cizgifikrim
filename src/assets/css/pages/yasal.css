@@ -1,0 +1,17 @@
+/* YASAL SAYFALAR (Gizlilik, Koşullar): okuma sütunu. Yalnız anlamsal tema değişkenleri. */
+.yasal-baslik { padding-top: calc(var(--header-top) + var(--header-h) + clamp(32px, 6vw, 72px)); padding-bottom: clamp(48px, 7vw, 88px); }
+.yasal-baslik .h1 { margin: var(--s-3) 0 var(--s-4); font-size: clamp(36px, 5.4vw, 72px); line-height: 1.02; }
+.yasal-tarih { margin: 0; color: var(--fg-muted); font-size: var(--t-small); }
+.legal { font-size: 17px; line-height: 1.7; }
+.legal > * + * { margin-top: var(--s-4); }
+.legal h2 { margin-top: clamp(36px, 5vw, 56px); font-size: clamp(22px, 2.4vw, 28px); line-height: 1.2; letter-spacing: var(--ls-h3); font-weight: 600; text-wrap: balance; }
+.legal h2 + * { margin-top: var(--s-3); }
+.legal ul { padding-left: 1.2em; display: grid; gap: var(--s-2); }
+.legal li::marker { color: var(--fg-muted); }
+.legal a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 4px; }
+.legal a:hover { text-decoration-color: currentColor; }
+.legal code { padding: 2px 6px; border-radius: 6px; background: var(--bg-2); font: inherit; font-weight: 600; }
+.legal-kutu { padding: var(--s-4) var(--s-5); border: 1px solid var(--line); border-radius: var(--r-m); background: var(--surface); }
+.legal-not { color: var(--fg-muted); font-size: var(--t-small); font-weight: 400; }
+.legal-foot { margin-top: var(--s-7); padding-top: var(--s-4); border-top: 1px solid var(--line); color: var(--fg-muted); }
+.yasal-govde { padding-top: clamp(48px, 6vw, 80px); }

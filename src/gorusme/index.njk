@@ -1,0 +1,88 @@
+---
+layout: layouts/base.njk
+title: "Ücretsiz keşif görüşmesi | CizgiFikrim"
+description: "Kısa bir görüşmede ne istediğinizi dinler, nasıl yapılacağını söyleriz. Takvimden uygun saati seçin ya da formu doldurun; kısa sürede dönüş yapıyoruz."
+permalink: /gorusme/
+sayfaCss: ['pages/gorusme']
+sayfaJs: ['cal-lazy', 'lead-form']
+bodyClass: pg-gorusme
+---
+{#- GÖRÜŞME (şartname_2 §7, icerik_ortak C4 + form_sozlesmesi.md). Takvim (tıklayınca yüklenir) ve form yan yana. Süre yazılmaz.
+    Form: submit-lead sözleşmesi (assets/js/lead-form.js). consent_version = /gizlilik/ "8. Proje talebi formu" sürümü (bekleme-2026-10). -#}
+{%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
+{%- set dis -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg>{%- endset -%}
+{%- set eposta = site.email -%}
+
+<section class="sec gr-hero theme-dark" aria-labelledby="gr-baslik">
+  <div class="gr-hero__fx" aria-hidden="true"><i></i></div>
+  <div class="container">
+    <span class="kicker" data-in style="--i:0">GÖRÜŞME</span>
+    <h1 class="h1" id="gr-baslik" data-in style="--i:1">Ücretsiz keşif <em>görüşmesi</em></h1>
+    <p class="lead" data-in style="--i:2">Kısa bir görüşmede ne istediğinizi dinler, nasıl yapılacağını söyleriz. Takvimden uygun saati seçin ya da formu doldurun; kısa sürede dönüş yapıyoruz.</p>
+  </div>
+</section>
+
+<section class="sec gr-paneller theme-light" aria-label="Takvim ve form">
+  <div class="container gr-grid">
+    {# ───── Takvim paneli ───── #}
+    <section class="gr-panel gr-takvim" aria-labelledby="takvim-baslik" data-cal>
+      <h2 class="h3" id="takvim-baslik">Uygun saati <em>seçin</em></h2>
+      <div class="gr-cal__sahne" data-cal-sahne aria-live="polite">
+        <div class="gr-cal__iskelet" data-cal-iskelet>
+          <p class="gr-cal__metin" data-cal-durum>Takvim, düğmeye bastığınızda yüklenir.</p>
+          <button type="button" class="pill pill--primary" data-cal-ac>Takvimi aç</button>
+        </div>
+      </div>
+      <p class="gr-not">Seçtiğiniz saat için e-posta ile onay gelir.</p>
+      <a class="link gr-cal__yedek" href="https://cal.com/cizgifikrim" target="_blank" rel="noopener noreferrer" data-cal-yedek hidden>Cal.com'da aç {{ dis | safe }}</a>
+    </section>
+
+    {# ───── Form paneli ───── #}
+    <section class="gr-panel gr-form" aria-labelledby="form-baslik" data-lead>
+      <h2 class="h3" id="form-baslik">Ya da bize <em>yazın</em></h2>
+      <p class="gr-mock" data-lead-mock hidden>Önizleme modu: gönderim yapılmaz, mesajınız hiçbir yere iletilmez.</p>
+      <form class="gr-alanlar" data-lead-form novalidate>
+        <div class="gr-alan">
+          <label for="lead-name">Ad soyad</label>
+          <input id="lead-name" name="name" type="text" autocomplete="name" maxlength="120" required>
+          <p class="gr-hata" id="err-name" data-err="name" hidden></p>
+        </div>
+        <div class="gr-alan">
+          <label for="lead-email">E-posta</label>
+          <input id="lead-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+          <p class="gr-hata" id="err-email" data-err="email" hidden></p>
+        </div>
+        <div class="gr-alan">
+          <label for="lead-konu">Konu</label>
+          <select id="lead-konu" name="konu">
+            <option value="web-sitesi-ve-e-ticaret">Web sitesi ve e-ticaret</option>
+            <option value="mobil-uygulama">Mobil uygulama</option>
+            <option value="yapay-zeka-ve-otomasyon">Yapay zekâ ve otomasyon</option>
+            <option value="diger" selected>Diğer</option>
+          </select>
+        </div>
+        <div class="gr-alan">
+          <label for="lead-message">Kısaca anlatın</label>
+          <textarea id="lead-message" name="message" rows="5" maxlength="2000" required></textarea>
+          <p class="gr-hata" id="err-message" data-err="message" hidden></p>
+        </div>
+        <div class="gr-bal" aria-hidden="true"><label for="lead-website">Web sitesi</label><input id="lead-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+        <div class="gr-alan gr-onay">
+          <label class="gr-onay__etiket"><input id="lead-consent" name="consent" type="checkbox" required><span>Gizlilik metnini okudum, bilgilerimin görüşme amacıyla kullanılmasını kabul ediyorum. (<a href="/gizlilik/#iletisim-formu" target="_blank" rel="noopener">Gizlilik</a>)</span></label>
+          <p class="gr-hata" id="err-consent" data-err="consent" hidden></p>
+        </div>
+        <div class="gr-ozet" data-lead-summary tabindex="-1" role="alert" hidden></div>
+        <div class="gr-gonder">
+          <button type="submit" class="pill pill--primary" data-lead-submit>Gönder <span class="gr-gonder__ok" aria-hidden="true">{{ ok | safe }}</span></button>
+          <span class="gr-durum" data-lead-status role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+  </div>
+</section>
+
+<section class="sec sec--tight gr-alt theme-light" aria-label="Alternatif iletişim">
+  <div class="container">
+    <p class="gr-eposta">E-posta ile de yazabilirsiniz: <a class="link" href="mailto:{{ eposta }}">{{ eposta }}</a></p>
+  </div>
+</section>
