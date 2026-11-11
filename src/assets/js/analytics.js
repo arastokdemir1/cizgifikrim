@@ -2,10 +2,10 @@
 // Fark (eski assets/js/analytics.js'e göre): sessiz catch YOK, ağ hatası ve HTTP 2xx dışı yanıt console.warn ile görünür;
 // sayfa yolu yalnız pathname (sorgu dizesi gönderilmez; Backend-2 page regex'i ?/= karakterlerini kabul etmez, gizlilik için de daha iyi).
 // Üçüncü taraf reklam/analitik servisi YOK; veri yalnızca kendi Supabase
-// projemize gider, kimseyle paylaşılmaz. Çerez kullanmaz (localStorage/
-// sessionStorage). Ziyaretçi kimliği rastgele bir dizedir, ada/e-postaya
-// hiç bağlanmaz. "Do Not Track" / "Global Privacy Control" açıksa hiçbir
-// şey kaydedilmez. Yerel geliştirme adreslerinde (localhost vb.) hiçbir istek gitmez. Ayrıntı: /gizlilik/
+// projemize gider, kimseyle paylaşılmaz. Çerez kullanmaz; kalıcı yerel depolama (localStorage) kullanmaz.
+// Tarayıcıda yalnız sekme kapanınca silinen oturum kimliği (sessionStorage cf_sid) tutulur; rastgele bir dizedir,
+// ada/e-postaya hiç bağlanmaz. "Do Not Track" / "Global Privacy Control" açıksa hiçbir şey kaydedilmez.
+// Yerel geliştirme adreslerinde (localhost vb.) hiçbir istek gitmez. Ayrıntı: /gizlilik/
 (() => {
   'use strict';
   try {
@@ -24,14 +24,13 @@
     try { return crypto.randomUUID().replace(/-/g, ''); } catch (_) { return `${Date.now()}${Math.random()}`.replace(/\D/g, '').slice(0, 24); }
   };
   const store = (get, set) => { try { return get(); } catch (_) { try { return set(); } catch (__) { return null; } } };
-  const visitorId = store(
-    () => localStorage.getItem('cf_vid') || (() => { const v = rid(); localStorage.setItem('cf_vid', v); return v; })(),
-    () => rid(),
-  );
+  // Kalıcı ziyaretçi kimliği (localStorage cf_vid) YOK. Yalnız oturum kimliği (sessionStorage cf_sid) vardır; sekme kapanınca silinir.
+  // site_visits/site_clicks şemasında visitor_id zorunlu (NOT NULL, ^[A-Za-z0-9_-]{8,40}$): şemaya dokunmadan oturum kimliği aynı alana yazılır.
   const sessionId = store(
     () => sessionStorage.getItem('cf_sid') || (() => { const v = rid(); sessionStorage.setItem('cf_sid', v); return v; })(),
     () => rid(),
   );
+  const visitorId = sessionId;
   if (!visitorId || !sessionId) return;
 
   const page = () => location.pathname.replace(/^\/+/, '/').slice(0, 200);

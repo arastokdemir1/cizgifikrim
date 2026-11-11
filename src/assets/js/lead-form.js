@@ -3,7 +3,7 @@
    - Her başarısız yanıttan sonra yeni form_token; too_fast ve token_* için bir kez otomatik yeniden deneme.
    - Önizleme/yerel (cizgifikrim.net dışı) ve ?lead=mock: MOCK modu, hiçbir ağ isteği yapılmaz (pages.dev CORS listesinde yok, canlıya yazılmaz).
    - TURNSTILE_MODE=off: site anahtarı boş → widget çizilmez, turnstile_token gönderilmez.
-   - apikey: yalnız eski JWT anon anahtarı (sb_publishable_ bu function'a konamaz). consent_version /gizlilik/ "8. Proje talebi formu" sürümüyle birebir. */
+   - apikey: yalnız eski JWT anon anahtarı (sb_publishable_ bu function'a konamaz). consent_version /gizlilik/ "8. Proje talebi formu: rıza metni" sürümüyle birebir. */
 (function () {
   'use strict';
   var root = document.querySelector('[data-lead]');
@@ -11,7 +11,7 @@
   var CFG = {
     endpoint: 'https://iekdktdhhryqewvcrnmr.supabase.co/functions/v1/submit-lead',
     apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlla2RrdGRoaHJ5cWV3dmNybm1yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQzMTA4NjIsImV4cCI6MjA5OTg4Njg2Mn0.1R70BzCmDdXbTpVGGk19y9ThY9n7dDJ7SMcJWc5Uhl4',
-    consentVersion: 'bekleme-2026-10',
+    consentVersion: 'gizlilik-2026-11',
     turnstileSiteKey: '',                       // TURNSTILE_MODE=off
     eposta: 'cizgifikrimnet@gmail.com', calUrl: 'https://cal.com/cizgifikrim',
     tesekkur: '/gorusme/tesekkurler/', minWaitMs: 3600
