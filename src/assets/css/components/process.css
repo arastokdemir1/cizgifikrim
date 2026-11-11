@@ -28,7 +28,7 @@
     --fg-muted: color-mix(in srgb, color-mix(in srgb, var(--c-ink-2-muted) calc(var(--kt) * 100%), var(--c-ink-muted)) calc(var(--m) * 100%), var(--fg));
     --line: color-mix(in srgb, var(--c-line-2) calc(var(--kt) * 100%), var(--c-glass-line));
     --accent: color-mix(in srgb, var(--c-ink-2) calc(var(--kt) * 100%), var(--c-accent));
-    --accent-text: color-mix(in srgb, var(--c-ink-2) calc(var(--kt) * 100%), var(--c-accent-text));
+    --accent-text: color-mix(in srgb, color-mix(in srgb, var(--c-ink-2) calc(var(--kt) * 100%), var(--c-accent-text)) calc(var(--m) * 100%), color-mix(in srgb, var(--c-contrast-dark) calc(var(--kt) * 100%), var(--c-contrast-light))); /* orta gri bölgede sayaç/numara saf beyaz↔siyah (≥3:1), dışında vurgu */
     --focus: var(--accent); color: var(--fg); }
   .js .pcard { color: var(--c-ink); --fg-muted: var(--c-ink-muted); }
   .js .process-stage { position: sticky; top: 0; height: 100svh; display: flex; align-items: center; padding-top: calc(var(--header-top) + var(--header-h)); }
