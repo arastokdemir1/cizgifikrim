@@ -15,3 +15,5 @@
 .legal-not { color: var(--fg-muted); font-size: var(--t-small); font-weight: 400; }
 .legal-foot { margin-top: var(--s-7); padding-top: var(--s-4); border-top: 1px solid var(--line); color: var(--fg-muted); }
 .yasal-govde { padding-top: clamp(48px, 6vw, 80px); }
+
+body.pg-yasal { --sec-y: clamp(40px, 5vw, 72px); } /* mobilde beyaz kartın üstündeki boşluk */
