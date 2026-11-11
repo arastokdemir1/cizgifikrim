@@ -21,11 +21,11 @@
 .schema--s1 .lv { transform: translateY(calc(var(--k) * -1 * var(--d) * 1px * (1 - var(--sp)))); }
 .schema--s1 .guide { opacity: calc(.15 + .35 * var(--sp)); }
 
-/* Küçük ekranda etiketler okunur kalsın (viewBox küçülür → yazı büyütülür) */
-@media (max-width: 760px) {
-  .schema--s1 .t { font-size: 27px; } .schema--s1 .lead { display: none; }
-  .schema--s2 .t { font-size: 19px; } .schema--s2 .lead { display: none; }
-}
+/* Etiketler her genişlikte ekranda ≥11 px kalsın: ui.js her şemanın ekrandaki genişliğini izler ve --sc-k = viewBox genişliği ÷ ekran genişliği yazar
+   (yazı boyutu viewBox birimidir; ekranda boyut = birim × 1/--sc-k). JS yoksa varsayılan boyut kalır. Dar kutuda (k>1,3) yönlendirme çizgileri gizlenir. */
+.schema .t { font-size: max(11.5px, calc(11.3px * var(--sc-k, 1))); }
+.schema.sc-dar .lead { display: none; }
+.schema.sc-dar .t { letter-spacing: .03em; } /* büyütülen etiket şekle taşmasın */
 
 .ikon { width: 40px; height: 40px; overflow: visible; }
 .ikon .l { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }

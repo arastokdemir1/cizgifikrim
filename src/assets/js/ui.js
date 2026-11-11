@@ -68,6 +68,17 @@
     update();
   }
 
+  /* ── Şema etiketleri ekranda ≥11 px: --sc-k = viewBox genişliği ÷ ekran genişliği (schema.css) ── */
+  if ('ResizeObserver' in window) {
+    const olc = (svg) => {
+      const w = svg.getBoundingClientRect().width; if (!w) return;
+      const vb = svg.viewBox && svg.viewBox.baseVal && svg.viewBox.baseVal.width; if (!vb) return;
+      const k = vb / w; svg.style.setProperty('--sc-k', k.toFixed(3)); svg.classList.toggle('sc-dar', k > 1.3);
+    };
+    const ro = new ResizeObserver((es) => es.forEach((e) => olc(e.target)));
+    $$('svg.schema').forEach((s) => { ro.observe(s); olc(s); });
+  }
+
   /* ── Sonsuz animasyonlar görünmezken durur ── */
   if (hasIO) $$('[data-pause-offscreen]').forEach((el) => new IntersectionObserver((es) => el.classList.toggle('is-paused', !es[0].isIntersecting)).observe(el));
 })();
