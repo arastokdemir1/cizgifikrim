@@ -34,5 +34,6 @@
 .vs-galeri__sag .vs-galeri__sahne { margin-inline: 0; }
 @media (min-width: 861px) { .vs-galeri__sol { position: sticky; top: calc(var(--header-top) + var(--header-h) + 24px); } }
 
-.cl-diger__bos { display: block; }
+.cl-diger__bos { display: none; }
 .cl-diger .cl-diger__liste a:has(.cl-diger__bos) { grid-template-columns: minmax(0, 1fr) auto; }
+.cl-diger .cl-diger__liste a:has(.cl-diger__bos) svg { grid-column: 2; grid-row: 1; }

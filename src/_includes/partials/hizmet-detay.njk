@@ -11,7 +11,7 @@
       <h1 class="h1 hz-hero__h1" id="hz-baslik" data-in style="--i:1">{{ h.ad }} <em>{{ h.vurgu }}</em></h1>
       <p class="lead hz-hero__lead" data-in style="--i:2">{{ h.lead }}</p>
       <p class="hz-hero__p" data-in style="--i:3">{{ h.ek }}</p>
-      {%- if h.etiketler.length %}<ul class="tags" data-in style="--i:3">{% for e in h.etiketler %}<li class="tag">{{ e }}</li>{% endfor %}</ul>{% endif %}
+      {%- if h.etiketler.length %}<ul class="tags{% if h.etiketTekrar %} hz-tags--tekrar{% endif %}" data-in style="--i:3">{% for e in h.etiketler %}<li class="tag">{{ e }}</li>{% endfor %}</ul>{% endif %}
       <div class="hz-hero__cta" data-in style="--i:4">
         <a class="pill pill--primary" href="{{ nav.cta.href }}">{{ nav.cta.etiket }} {{ ok | safe }}</a>
         <span class="hz-hero__not">Kısa sürede dönüş yapıyoruz.</span>

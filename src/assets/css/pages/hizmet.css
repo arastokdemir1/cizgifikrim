@@ -105,3 +105,5 @@
 .hz-adim__meta p { margin: 0; }
 .hz-adim__meta b { color: var(--fg); font-weight: 600; }
 .hz-cipler { margin-top: var(--s-5); }
+
+@media (max-width: 899px) { .hz-tags--tekrar { display: none !important; } } /* şema altı not chip'leriyle aynı bilgi: mobilde biri kalır */

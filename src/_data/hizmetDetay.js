@@ -84,7 +84,8 @@ export default {
     lead: 'Tekrar eden işi azaltan asistanlar ve araçlar. Yapay zekâyı sihir değil, denetlenebilir bir mühendislik bileşeni olarak kurarız; karar insanda kalır.',
     ek: 'Her işe aynı yerden başlarız: hangi iş tekrar ediyor, nerede insanın kararı gerekiyor? Bunu yazmadan modele geçmeyiz.',
     etiketler: ['Sorun tanımı', 'Çalışan araç', 'İnsan kontrolü'],
-    notlar: ['Sorun tanımı', 'Denetlenebilir model', 'İnsan kontrolü', 'Çıktı ve geri bildirim'],
+    notlar: ['Sorun tanımı', 'Denetlenebilir model', 'İnsan kontrolü', 'Çıktı ve geri bildirim', 'Sınırlar'],
+    etiketTekrar: true,
     kime: 'Tekrar eden işleri azaltmak ya da yapay zekâyı ürününe katmak isteyen ekipler.',
     kimeEk: 'Yapay zekâ her sorunun cevabı değildir. Önce işin yapay zekâ gerektirip gerektirmediğine bakarız; gerektirmiyorsa söyleriz.',
     profiller: [
