@@ -55,7 +55,7 @@
 .hz-hero .tags { display: flex; flex-wrap: wrap; gap: var(--s-2); padding: 0; margin: 0; list-style: none; }
 
 /* S2a-detay: etiket boyutu (viewBox 960 → ekranda ≈ 0,62×), callout çizgileri çizilir */
-.schema--detay .t { font-size: 18px; letter-spacing: .1em; }
+.schema--detay .t { font-size: max(18px, calc(11.3px * var(--sc-k, 1))); letter-spacing: .1em; } /* ekranda ≥11,3 px: ui.js --sc-k yazar */
 .schema--detay .l.k { stroke-width: 3.5; }
 .hz-notlar { display: none; }
 @media (prefers-reduced-motion: no-preference) {

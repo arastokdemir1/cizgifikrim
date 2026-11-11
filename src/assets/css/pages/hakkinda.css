@@ -27,5 +27,5 @@
 .hk-kurucu__bio { display: grid; gap: var(--s-5); }
 .hk-posta { margin: 0; }
 
-@media (max-width: 1023px) { .hk-alanlar { grid-template-columns: minmax(0, 1fr); max-width: 560px; } }
+@media (max-width: 1023px) { .hk-prensipler .split { grid-template-columns: minmax(0, 1fr); } .hk-alanlar { grid-template-columns: minmax(0, 1fr); max-width: 560px; } }
 @media (max-width: 860px) { .hk-kurucu__grid { grid-template-columns: minmax(0, 1fr); align-items: start; } .hk-hero { min-height: 0; padding-top: calc(var(--header-top) + var(--header-h) + 40px); } }
