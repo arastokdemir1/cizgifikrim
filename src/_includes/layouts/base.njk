@@ -33,6 +33,6 @@
 {%- for js in sayfaJs %}
 <script src="/assets/v1/js/{{ js }}.js" defer></script>
 {%- endfor %}
-<script src="/assets/v1/js/analytics.js" defer></script>
+{%- if not analitikYok %}<script src="/assets/v1/js/analytics.js" defer></script>{%- endif %}
 </body>
 </html>
