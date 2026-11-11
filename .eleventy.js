@@ -106,7 +106,12 @@ export default function (eleventyConfig) {
     }
     return Image.generateHTML(meta, { alt, sizes, loading: yukleme, decoding: 'async' });
   });
-  eleventyConfig.on('eleventy.after', async () => { await Promise.all(bekleyenGorseller.splice(0)); });
+  eleventyConfig.on('eleventy.after', async ({ dir }) => {
+    await Promise.all(bekleyenGorseller.splice(0));
+    // Eski analytics.js (kalıcı localStorage kimliği cf_vid yazıyordu) çıktıya alınmaz: hiçbir sayfa çağırmıyor (grep ile doğrulandı),
+    // yeni ölçüm /assets/v1/js/analytics.js. scripts/korunan-istisna.json'da bilinçli istisna olarak kayıtlıdır.
+    fs.rmSync(path.join(dir.output, 'assets/js/analytics.js'), { force: true });
+  });
 
   eleventyConfig.setServerOptions({ showVersion: false });
 
