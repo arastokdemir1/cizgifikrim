@@ -111,6 +111,22 @@ export default function (eleventyConfig) {
     // Eski analytics.js (kalıcı localStorage kimliği cf_vid yazıyordu) çıktıya alınmaz: hiçbir sayfa çağırmıyor (grep ile doğrulandı),
     // yeni ölçüm /assets/v1/js/analytics.js. scripts/korunan-istisna.json'da bilinçli istisna olarak kayıtlıdır.
     fs.rmSync(path.join(dir.output, 'assets/js/analytics.js'), { force: true });
+    // Cloudflare _headers: CSP script-src için çıktıdaki satır içi betiklerin sha256 değerlerini hesapla (yalnız yeni vitrin sayfaları, korunan eski klasörler hariç).
+    const basliklar = path.join(dir.output, '_headers');
+    if (fs.existsSync(basliklar)) {
+      const hashler = new Set();
+      const yuru = (d) => { for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+        const p = path.join(d, e.name), goreli = path.relative(dir.output, p).split(path.sep).join('/');
+        if (e.isDirectory()) { if (!KORUNAN_KLASORLER.includes(goreli.split('/')[0]) && goreli !== 'tr' && goreli !== 'assets') yuru(p); }
+        else if (e.name.endsWith('.html')) {
+          for (const m of fs.readFileSync(p, 'utf8').matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)) {
+            if (/\bsrc=/.test(m[1]) || /type="application\/ld\+json"/.test(m[1])) continue;
+            hashler.add(`'sha256-${createHash('sha256').update(m[2]).digest('base64')}'`);
+          }
+        } } };
+      yuru(dir.output);
+      fs.writeFileSync(basliklar, fs.readFileSync(basliklar, 'utf8').replaceAll('__SCRIPT_HASHLERI__', [...hashler].sort().join(' ')));
+    }
   });
 
   eleventyConfig.setServerOptions({ showVersion: false });
