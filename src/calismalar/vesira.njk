@@ -73,11 +73,11 @@ jsonld:
           </figure>
           <figure class="vs-kare vs-kare--a" data-in style="--i:5">
             {% gorsel "src/assets/img/projeler/vesira/galeri/mutfak-yenileme.webp", "Bir mutfağın Vesira ile yenilenmiş hâli (örnek yapay zekâ görseli)", "450px", [450], "eager" %}
-            <figcaption class="vs-kare__etiket">Örnek<span class="vs-kare__seviye"><br>Yenileme</span></figcaption>
+            <figcaption class="vs-kare__etiket">Örnek<span class="vs-kare__seviye"> · Yenileme</span></figcaption>
           </figure>
           <figure class="vs-kare vs-kare--b" data-in style="--i:6">
             {% gorsel "src/assets/img/projeler/vesira/galeri/yatak-hafif-tazeleme.webp", "Bir yatak odasının hafif tazelemeyle yenilenmiş hâli (örnek yapay zekâ görseli)", "450px", [450], "eager" %}
-            <figcaption class="vs-kare__etiket">Örnek<span class="vs-kare__seviye"><br>Hafif tazeleme</span></figcaption>
+            <figcaption class="vs-kare__etiket">Örnek<span class="vs-kare__seviye"> · Hafif</span></figcaption>
           </figure>
         </div>
       </div>
@@ -153,7 +153,7 @@ jsonld:
         ["Üç seviye", "Hafif tazeleme, yenileme, baştan tasarım: ne kadar değişeceğine siz karar verirsiniz."],
         ["Odanın yapısını okur", "Odanın mimarisini okuyan, iç mimar gibi düşünen bir yapay zekâ akışı; pencereler ve gün ışığı yerinde kalır."],
         ["Düzeltme", "Sonuçtan memnun değilseniz \"Refine\" ile yönü değiştirirsiniz; önceki sürüm saklanır."],
-        ["Tasarım profili", "Verdiğiniz geri bildirimden öğrenir; yalnız hesabınızda tutulur, model eğitiminde kullanılmaz."]
+        ["Tasarım profili", "Tasarım profili yalnız hesabınızda tutulur; Vesira onu model eğitiminde kullanmaz."]
       ] -%}
       {%- for o in ozellikler %}
       <article class="cl-kart" data-reveal style="--i:{{ loop.index0 % 3 }}">

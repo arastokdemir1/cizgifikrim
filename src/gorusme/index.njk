@@ -12,13 +12,28 @@ bodyClass: pg-gorusme
 {%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
 {%- set dis -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg>{%- endset -%}
 {%- set eposta = site.email -%}
+{%- set konular = [
+  { ad: "Ne yapmak istiyorsunuz?", metin: "Fikrinizi, ürününüzü ya da sorununuzu anlatırsınız; biz dinler, sorular sorarız.", ikon: '<circle cx="20" cy="14" r="7" class="l"/><path d="M7 35c0-8 6-12 13-12s13 4 13 12" class="l"/>' },
+  { ad: "Hangi yolla?", metin: "Web sitesi, mobil uygulama ya da yapay zekâ: hangisi uygunsa birlikte netleştiririz.", ikon: '<path d="M6 12h10l4 6h14M6 28h10l4-6" class="l"/><circle cx="35" cy="18" r="3" class="l"/>' },
+  { ad: "Sonraki adım", metin: "Görüşmeden sonra kapsamı ve teklifi yazılı olarak veririz.", ikon: '<rect x="7" y="4" width="26" height="32" rx="6" class="l"/><path d="M13 13h14M13 20h14M13 27h8" class="l"/>' }
+] -%}
 
 <section class="sec gr-hero theme-dark" aria-labelledby="gr-baslik">
   <div class="gr-hero__fx" aria-hidden="true"><i></i></div>
-  <div class="container">
-    <span class="kicker" data-in style="--i:0">GÖRÜŞME</span>
-    <h1 class="h1" id="gr-baslik" data-in style="--i:1">Ücretsiz keşif <em>görüşmesi</em></h1>
-    <p class="lead" data-in style="--i:2">Kısa bir görüşmede ne istediğinizi dinler, nasıl yapılacağını söyleriz. Takvimden uygun saati seçin ya da formu doldurun; kısa sürede dönüş yapıyoruz.</p>
+  <div class="container gr-hero__grid">
+    <div class="gr-hero__metin">
+      <span class="kicker" data-in style="--i:0">GÖRÜŞME</span>
+      <h1 class="h1" id="gr-baslik" data-in style="--i:1">Ücretsiz keşif <em>görüşmesi</em></h1>
+      <p class="lead" data-in style="--i:2">Kısa bir görüşmede ne istediğinizi dinler, nasıl yapılacağını söyleriz. Takvimden uygun saati seçin ya da formu doldurun; kısa sürede dönüş yapıyoruz.</p>
+    </div>
+    <div class="gr-konu" data-in style="--i:3">
+      <p class="gr-konu__baslik">Görüşmede ne konuşuruz?</p>
+      <ol class="gr-konu__liste" role="list">
+        {%- for k in konular %}
+        <li><span class="gr-konu__ikon" aria-hidden="true"><svg viewBox="0 0 40 40" width="40" height="40">{{ k.ikon | safe }}</svg></span><div><b>{{ k.ad }}</b><span>{{ k.metin }}</span></div><span class="gr-konu__no" aria-hidden="true">0{{ loop.index }}</span></li>
+        {%- endfor %}
+      </ol>
+    </div>
   </div>
 </section>
 
