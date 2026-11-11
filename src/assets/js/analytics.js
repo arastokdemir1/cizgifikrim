@@ -8,6 +8,8 @@
 // Yerel geliştirme adreslerinde (localhost vb.) hiçbir istek gitmez. Ayrıntı: /gizlilik/
 (() => {
   'use strict';
+  // Eski sürümün bıraktığı kalıcı ziyaretçi kimliği varsa tarayıcıdan sil (yerel depolamada ölçüm anahtarı kalmaz).
+  try { localStorage.removeItem('cf_vid'); } catch (_) { /* depolama kapalı */ }
   try {
     if (navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl) return;
   } catch (_) { /* eski tarayıcı — devam et */ }
