@@ -1,0 +1,18 @@
+/* NASIL ÇALIŞIYORUZ: S3 tam sürüm. Adım başına üç satır (Yaparız / Teslim / Sizden). Yalnız tema değişkenleri. */
+.nsl-hero { padding-bottom: clamp(40px, 6vw, 80px); }
+.nsl-hero .sec-head { max-width: 52rem; }
+.ptext-satirlar { display: grid; gap: var(--s-3); margin: var(--s-2) 0 0; max-width: 46ch; }
+.ptext-satirlar > div { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: var(--s-4); align-items: baseline; padding-top: var(--s-3); border-top: 1px solid var(--line); }
+.ptext-satirlar dt { font-size: var(--t-kicker); font-weight: 700; letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--accent-text); }
+.ptext-satirlar dd { margin: 0; font-size: var(--t-small); line-height: 1.5; color: var(--fg-muted); }
+@media (min-width: 0px) and (prefers-reduced-motion: no-preference) {
+  .js .process--detay .process-texts { min-height: 250px; }
+  .js .process--detay .counter-win { font-size: clamp(72px, 8vw, 112px); }
+  .js .process--detay .process-left { gap: var(--s-4); }
+}
+@media (max-width: 899px) and (prefers-reduced-motion: no-preference) {
+  .js .process--detay .process-texts { min-height: 270px; }
+  .js .process--detay .counter-win { font-size: 56px; }
+  .js .process--detay .process-left { margin-top: 32px; } /* son durumdaki yelpaze sayaca binmesin */
+  .ptext-satirlar > div { grid-template-columns: 4.6rem minmax(0, 1fr); gap: var(--s-3); }
+}

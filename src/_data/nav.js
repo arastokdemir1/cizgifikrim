@@ -6,7 +6,7 @@ export default {
   ana: [
     { etiket: 'Çalışmalar', href: '/calismalar/' },
     { etiket: 'Hizmetler', href: '/hizmetler/' },
-    { etiket: 'Nasıl çalışıyoruz', href: '/#surec' }, // /nasil-calisiyoruz/ sayfası gelince tek yerden güncellenir
+    { etiket: 'Nasıl çalışıyoruz', href: '/nasil-calisiyoruz/' },
     { etiket: 'Hakkında', href: '/hakkinda/' },
   ],
   cta: { etiket: 'Ücretsiz keşif görüşmesi', href: '/gorusme/' },
