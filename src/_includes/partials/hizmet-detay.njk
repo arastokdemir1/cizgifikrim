@@ -1,0 +1,117 @@
+{#- HİZMET DETAYI şablonu (mobil uygulama, yapay zekâ ve otomasyon): web/e-ticaret sayfasıyla aynı yapı. Veri: _data/hizmetDetay.js (h).
+    Süre/fiyat/sıralama sözü yok; telefon/CarPlay/widget imgesi yok; projeye yalnız metin linki. -#}
+{%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
+
+{# 1 · HERO (koyu) #}
+<section class="sec hz-hero theme-dark" aria-labelledby="hz-baslik">
+  <div class="hz-hero__fx" aria-hidden="true"><i></i></div>
+  <div class="container hz-hero__grid">
+    <div class="hz-hero__metin">
+      <nav class="hz-kirinti" aria-label="Konum" data-in style="--i:0"><a href="/hizmetler/">Hizmetler</a><span aria-hidden="true">›</span><span aria-current="page">{{ h.kirinti }}</span></nav>
+      <h1 class="h1 hz-hero__h1" id="hz-baslik" data-in style="--i:1">{{ h.ad }} <em>{{ h.vurgu }}</em></h1>
+      <p class="lead hz-hero__lead" data-in style="--i:2">{{ h.lead }}</p>
+      <p class="hz-hero__p" data-in style="--i:3">{{ h.ek }}</p>
+      {%- if h.etiketler.length %}<ul class="tags" data-in style="--i:3">{% for e in h.etiketler %}<li class="tag">{{ e }}</li>{% endfor %}</ul>{% endif %}
+      <div class="hz-hero__cta" data-in style="--i:4">
+        <a class="pill pill--primary" href="{{ nav.cta.href }}">{{ nav.cta.etiket }} {{ ok | safe }}</a>
+        <span class="hz-hero__not">Kısa sürede dönüş yapıyoruz.</span>
+      </div>
+    </div>
+    <div class="hz-hero__sema" data-reveal="fade">
+      {% include "partials/schema/" + h.sema + ".njk" %}
+      <ul class="hz-notlar" aria-label="Şemadaki notlar">{% for n in h.notlar %}<li>{{ n }}</li>{% endfor %}</ul>
+    </div>
+  </div>
+</section>
+
+{# 2 · KİME UYGUN + NE TESLİM EDERİZ (açık, sticky split) #}
+<section class="sec hz-kunye theme-light" aria-labelledby="kunye-baslik">
+  <div class="container split">
+    <div class="hz-kunye__sol">
+      <span class="kicker" data-reveal><b>01</b><span class="dash"></span>KAPSAM</span>
+      <h2 class="h2" id="kunye-baslik" data-reveal style="--i:1">Kime uygun, <em>ne teslim</em> ederiz</h2>
+    </div>
+    <div class="hz-kunye__sag">
+      <div class="hz-blok" data-reveal>
+        <h3 class="kicker">Kime uygun</h3>
+        <p class="hz-blok__metin">{{ h.kime }}</p>
+        <p class="hz-blok__alt">{{ h.kimeEk }}</p>
+        <ul class="hz-profiller" role="list">
+          {%- for pr in h.profiller %}
+          <li data-reveal style="--i:{{ loop.index0 }}"><span class="hz-profil__no" aria-hidden="true">0{{ loop.index }}</span><h4 class="h4">{{ pr[0] }}</h4><p>{{ pr[1] }}</p></li>
+          {%- endfor %}
+        </ul>
+      </div>
+      <div class="hz-blok" data-reveal>
+        <h3 class="kicker">Ne teslim ederiz</h3>
+        <ul class="hz-liste" role="list">
+          {%- for t in h.teslim %}
+          <li data-reveal style="--i:{{ loop.index0 % 4 }}"><span class="hz-liste__no" aria-hidden="true">0{{ loop.index }}</span><div><b>{{ t[0] }}</b><span>{{ t[1] }}</span></div></li>
+          {%- endfor %}
+        </ul>
+        <p class="hz-not">{{ h.teslimNot }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# 3 · NASIL ÇALIŞIRIZ (koyu, 4 adım) #}
+<section class="sec hz-adim theme-dark" aria-labelledby="adim-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker" data-reveal><b>02</b><span class="dash"></span>SÜREÇ</span>
+      <h2 class="h2" id="adim-baslik" data-reveal style="--i:1">Nasıl <em>çalışırız</em></h2>
+      <p class="lead" data-reveal style="--i:2">{{ h.nasilCumle }}</p>
+    </div>
+    <ol class="hz-adimlar" role="list">
+      {%- for a in h.adimlar %}
+      <li class="hz-adim__oge" data-reveal style="--i:{{ loop.index0 }}">
+        <div class="hz-adim__ust"><span class="hz-adim__no" aria-hidden="true">0{{ loop.index }}</span><svg class="ikon" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">{{ a.ikon | safe }}</svg></div>
+        <h3 class="h4">{{ a.ad }}</h3>
+        <p>{{ a.metin }}</p>
+        <div class="hz-adim__meta">{% for r in a.satirlar %}<p><b>{{ r[0] }}:</b> {{ r[1] }}</p>{% endfor %}</div>
+      </li>
+      {%- endfor %}
+    </ol>
+  </div>
+</section>
+
+{# 4 · ÖZEL BÖLÜM (açık): platform ve teknoloji / insan kontrolü #}
+<section class="sec hz-eticaret theme-light" aria-labelledby="ozel-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker" data-reveal><b>03</b><span class="dash"></span>{{ h.ozel.kicker }}</span>
+      <h2 class="h2" id="ozel-baslik" data-reveal style="--i:1">{{ h.ozel.baslik | safe }}</h2>
+      <p class="lead" data-reveal style="--i:2">{{ h.ozel.lead }}</p>
+    </div>
+    <div class="grid grid-3 hz-kartlar">
+      {%- for k in h.ozel.kartlar %}
+      <article class="hz-kart" data-reveal style="--i:{{ loop.index0 }}">
+        <svg class="ikon" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">{{ k.ikon | safe }}</svg>
+        <h3 class="h4">{{ k.ad }}</h3>
+        <ul class="hz-madde" role="list">{% for m in k.maddeler %}<li>{{ m }}</li>{% endfor %}</ul>
+      </article>
+      {%- endfor %}
+    </div>
+    <p class="hz-not" data-reveal>{{ h.ozel.not }}</p>
+    {%- if h.ozel.cipler.length %}<ul class="tech hz-cipler" data-reveal>{% for c in h.ozel.cipler %}<li class="tag">{{ c }}</li>{% endfor %}</ul>{% endif %}
+    <div class="hz-ornek" data-reveal>
+      <p class="hz-ornek__satir">{{ h.ornek.onek }} {% for l in h.ornek.link %}<a class="link" href="{{ l.href }}">{{ l.ad }} {{ ok | safe }}</a> {% endfor %}</p>
+      <p class="hz-ornek__cumle">{{ h.ornek.cumle }}</p>
+    </div>
+  </div>
+</section>
+
+{# 5 · SSS (açık) #}
+<section class="sec theme-light" id="sss" aria-labelledby="sss-baslik">
+  <div class="container faq-grid">
+    <h2 class="h2" id="sss-baslik" data-reveal>Sık sorulan <em>sorular</em></h2>
+    <div class="faq-list">
+      {%- for q in h.sss %}
+      <details class="faq-item" data-reveal style="--i:{{ loop.index0 % 4 }}"><summary>{{ q[0] }}<i aria-hidden="true"></i></summary><p class="faq-a">{{ q[1] }}</p></details>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{% include "partials/cta-band.njk" %}

@@ -1,4 +1,4 @@
-/* HİZMET DETAYI: Web sitesi ve e-ticaret (Frontend-1). Yalnız anlamsal tema değişkenleri; açık zeminde lime yok. */
+/* HİZMET DETAYI: Web sitesi ve e-ticaret (Frontend-1). Yalnız anlamsal tema değişkenleri; açık zeminde vurgu rengi yok. */
 .hz-hero { padding-top: calc(var(--header-top) + var(--header-h) + clamp(32px, 6vw, 88px)); overflow-x: clip; }
 .hz-hero__fx { position: absolute; inset: 0; pointer-events: none; }
 .hz-hero__fx i { position: absolute; right: -6%; top: 6%; width: min(70vw, 880px); aspect-ratio: 1; background: radial-gradient(closest-side, var(--c-glow-2), transparent 70%); }
@@ -99,3 +99,9 @@
   .hz-notlar { display: flex; flex-wrap: wrap; gap: var(--s-2); margin: var(--s-4) 0 0; padding: 0; list-style: none; }
   .hz-notlar li { padding: 8px 14px; border: 1px solid var(--line); border-radius: var(--r-pill); font-size: 12.5px; font-weight: 700; letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--fg-muted); }
 }
+
+/* Süreç adımı: Sizden / Bizden / Çıktı satırları (C8/C10) */
+.hz-adim__meta { display: grid; gap: 6px; }
+.hz-adim__meta p { margin: 0; }
+.hz-adim__meta b { color: var(--fg); font-weight: 600; }
+.hz-cipler { margin-top: var(--s-5); }

@@ -1,0 +1,21 @@
+---
+layout: layouts/base.njk
+permalink: /hizmetler/yapay-zeka-ve-otomasyon/
+sayfaCss: ['components/schema', 'components/sections', 'pages/hizmet']
+bodyClass: pg-hizmet
+eleventyComputed:
+  title: "{{ hizmetDetay.yapayZeka.baslik }}"
+  description: "{{ hizmetDetay.yapayZeka.aciklama }}"
+  jsonld:
+    - "@type": BreadcrumbList
+      itemListElement:
+        - { "@type": ListItem, position: 1, name: "Hizmetler", item: "https://cizgifikrim.net/hizmetler/" }
+        - { "@type": ListItem, position: 2, name: "{{ hizmetDetay.yapayZeka.kirinti }}", item: "https://cizgifikrim.net/hizmetler/yapay-zeka-ve-otomasyon/" }
+    - "@type": Service
+      name: "{{ hizmetDetay.yapayZeka.kirinti }}"
+      description: "{{ hizmetDetay.yapayZeka.lead }}"
+      provider: { "@id": "https://cizgifikrim.net/#org" }
+      areaServed: TR
+---
+{%- set h = hizmetDetay.yapayZeka -%}
+{% include "partials/hizmet-detay.njk" %}
