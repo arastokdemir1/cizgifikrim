@@ -17,7 +17,7 @@ a { color: inherit; text-decoration: none; }
 [hidden] { display: none !important; }
 ::selection { background: var(--c-accent); color: var(--c-on-accent); }
 
-/* Odak halkası: 2 px, yumuşak köşe, bölüm temasına göre (koyuda lime, açıkta siyah) */
+/* Odak halkası: 2 px, yumuşak köşe, bölüm temasına göre (koyuda vurgu, açıkta siyah) */
 :focus-visible { outline: 2px solid var(--focus, var(--c-accent)); outline-offset: 3px; border-radius: var(--r-s); }
 .pill:focus-visible, .nav-pill:focus-visible { border-radius: var(--r-pill); }
 

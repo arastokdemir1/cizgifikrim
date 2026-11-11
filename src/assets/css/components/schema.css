@@ -1,5 +1,5 @@
 /* ŞEMA ÇİZİM DİLİ (şartname §2): izometrik 30°, tek çizgi 1,5 px (non-scaling), yuvarlak köşe, dolgu yok ya da %6–10, vurgu tek eleman.
-   Koyu zeminde çizgi --c-ink %62 + lime vurgu; AÇIK zeminde çizgi --c-ink-2 %72 + SİYAH vurgu (lime yok). Hiçbir şema proje/cihaz/ürün imgesi içermez. */
+   Koyu zeminde çizgi --c-ink %62 + turuncu vurgu; AÇIK zeminde çizgi --c-ink-2 %72 + SİYAH vurgu (açık zeminde vurgu rengi yok). Hiçbir şema proje/cihaz/ürün imgesi içermez. */
 .schema {
   display: block; width: 100%; height: auto; overflow: visible;
   --sc-line: color-mix(in srgb, var(--c-ink) 62%, transparent); --sc-fill: color-mix(in srgb, var(--c-ink) 6%, transparent); --sc-acc: var(--c-accent); --sc-txt: color-mix(in srgb, var(--c-ink) 80%, transparent); --sc-on-acc: var(--c-on-accent);

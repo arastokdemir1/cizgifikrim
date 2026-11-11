@@ -1,4 +1,4 @@
-/* DÜĞMELER: iki stil (şartname §1.5). Birincil: koyu zeminde lime dolgu + siyah etiket; açık zeminde SİYAH dolgu + açık etiket.
+/* DÜĞMELER: iki stil (şartname §1.5). Birincil: koyu zeminde vurgu dolgu + siyah etiket; açık zeminde SİYAH dolgu + açık etiket.
    İkincil: cam (koyu) / şeffaf + siyah çizgi (açık). Metin bağlantısı: altı 1 px, hover 2 px, ok → */
 .pill {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 52px; padding-inline: 28px;

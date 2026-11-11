@@ -1,21 +1,21 @@
-/* TOKENS: tek kaynak. Tasarım Dili v2 (v0.2), PALET 1 "Gece & Lime". Palet = bu dosya; bileşenlerde hazır renk/ölçü yazılmaz.
-   Oran 60/30/10: --c-main (60) koyu bölümler, --c-second (30) açık bölümler, --c-accent (10) yalnız koyu zeminde. */
+/* TOKENS: tek kaynak. Tasarım Dili v2, PALET "Grafit & Turuncu" (Aras seçti). Palet = bu dosya; bileşenlerde hazır renk/ölçü yazılmaz.
+   Oran 60/30/10: --c-main (60) koyu bölümler, --c-second (30) açık bölümler, --c-accent (10) yalnız koyu zeminde: açık zeminde turuncu YOK (yazı da dolgu da), vurgu orada siyahtır. */
 :root {
-  /* ── Palet 1 (Teknik-1 hesaplı kontrastlar) ───────────────────────────── */
-  --c-main: #0A0A0A;            /* %60: hero, menü, footer, CTA bandı */
-  --c-main-2: #16181B;          /* gradyan/kart zemini */
-  --c-second: #F5F5F2;          /* %30: açık bölümler */
-  --c-accent: #CFFF4A;          /* %10: yalnız KOYU zeminde (açık zeminde 1.06:1, YASAK) */
-  --c-on-accent: #0A0A0A;       /* dolgu üstündeki yazı: siyah (17.02:1) */
-  --c-ink: #F5F5F2;             /* koyu zemin metni (18.13:1) */
-  --c-ink-muted: #9A9A94;       /* koyu zemin ikincil metni (7.00:1) */
-  --c-ink-2: #0A0A0A;           /* açık zemin metni (18.13:1) */
-  --c-ink-2-muted: #5A5A55;     /* açık zemin ikincil metni (6.35:1) */
-  --c-accent-text: var(--c-accent);     /* vurgunun KOYU zeminde METİN olarak kullanımı (sayaç, numara); koyu vurguda (mavi/mor) açık bir ton seçilebilir */
-  --c-second-2: #ECECE8;                /* açık zeminde ikinci yüzey */
-  --c-card-2: #FFFFFF;                  /* açık zeminde kart yüzeyi */
-  --c-glow-base: #B8BDC4;               /* ortadan ışık rengi (gümüş) */
-  --c-device: #0E1013;                  /* telefon/pencere kasası */
+  /* ── Palet (kontrastlar hesaplı: faz1/qa/w2p/kontrast_ciftleri.md) ──────── */
+  --c-main: #0D0D0E;            /* %60: hero, menü, footer, CTA bandı */
+  --c-main-2: #1A1A1C;          /* gradyan/kart zemini */
+  --c-second: #F3F1EC;          /* %30: açık bölümler */
+  --c-accent: #FF6A1A;          /* %10: yalnız KOYU zeminde (açık zeminde ~2,6:1, YASAK) */
+  --c-on-accent: #0D0D0E;       /* dolgu üstündeki yazı: grafit */
+  --c-ink: #F3F1EC;             /* koyu zemin metni */
+  --c-ink-muted: #A09D97;       /* koyu zemin ikincil metni */
+  --c-ink-2: #0D0D0E;           /* açık zemin metni */
+  --c-ink-2-muted: #5C5952;     /* açık zemin ikincil metni */
+  --c-accent-text: var(--c-accent);     /* vurgunun KOYU zeminde METİN olarak kullanımı (sayaç, numara); turuncu koyu zeminde yeterli kontrastta, aynı değer */
+  --c-second-2: #E8E5DE;                /* açık zeminde ikinci yüzey */
+  --c-card-2: #FBFAF7;                  /* açık zeminde kart yüzeyi (sıcak beyaz) */
+  --c-glow-base: #BDB4A8;               /* ortadan ışık rengi (hafif sıcak nötr) */
+  --c-device: #121213;                  /* telefon/pencere kasası */
   --c-shadow: #000000;                  /* gölge rengi */
   --c-contrast-dark: #000000;           /* geçiş anlarında saf koyu metin (kontrast) */
   --c-contrast-light: #FFFFFF;          /* geçiş anlarında saf açık metin (kontrast) */
@@ -80,7 +80,7 @@
   --fg: var(--c-ink); --fg-muted: var(--c-ink-muted);
   --line: var(--c-glass-line); --line-strong: color-mix(in srgb, var(--c-ink) 28%, transparent);
   --surface: var(--c-glass); --surface-solid: var(--c-main-2);
-  --accent: var(--c-accent); --accent-text: var(--c-accent-text); --on-accent: var(--c-on-accent);   /* birincil pill: lime dolgu, siyah yazı */
+  --accent: var(--c-accent); --accent-text: var(--c-accent-text); --on-accent: var(--c-on-accent);   /* birincil pill: vurgu dolgu, siyah yazı */
   --focus: var(--c-accent);
   background: var(--bg); color: var(--fg);
 }
@@ -89,7 +89,7 @@
   --fg: var(--c-ink-2); --fg-muted: var(--c-ink-2-muted);
   --line: var(--c-line-2); --line-strong: color-mix(in srgb, var(--c-ink-2) 32%, transparent);
   --surface: var(--c-card-2); --surface-solid: var(--c-card-2);
-  --accent: var(--c-ink-2); --accent-text: var(--c-ink-2); --on-accent: var(--c-second);        /* açık zeminde vurgu = SİYAH dolgu (lime yasak) */
+  --accent: var(--c-ink-2); --accent-text: var(--c-ink-2); --on-accent: var(--c-second);        /* açık zeminde vurgu = SİYAH dolgu (vurgu yasak) */
   --focus: var(--c-ink-2);
   background: var(--bg); color: var(--fg);
 }

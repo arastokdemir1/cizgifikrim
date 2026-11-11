@@ -5,7 +5,7 @@
   --demo-screen: #F4F6FB;                          /* CarLog demosunun kendi açık ekran zemini (uygulama rengi, site paletinden bağımsız) */
   --demo-bezel: var(--c-device);
   --demo-ring: color-mix(in srgb, var(--c-ink) 16%, transparent);
-  --demo-ac-bg: var(--c-main);          /* poster açık zemin: siyah dolgu (lime yalnız koyu zeminde) */
+  --demo-ac-bg: var(--c-main);          /* poster açık zemin: siyah dolgu (vurgu rengi yalnız koyu zeminde) */
   --demo-ac-ink: var(--c-second);
   --demo-not: var(--c-ink-muted);
   --demo-r: 46px;                 /* cihaz kasası köşesi (arayüz değil, cihaz biçimi) */
