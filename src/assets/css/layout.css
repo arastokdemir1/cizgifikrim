@@ -1,4 +1,4 @@
-/* LAYOUT (X07 İnce): sayfa zemini grafit; koyu bölümler çerçevesiz (1 px ayraç); krem bölümler 28 px yuvarlak "ada".
+/* LAYOUT (X07 İnce): sayfa zemini koyu (--main); koyu bölümler çerçevesiz (1 px ayraç); krem bölümler 28 px yuvarlak "ada".
    Bölüm API'si değişmedi: .sec.theme-dark / .sec.theme-light. Üst menü sabit 64 px → #icerik üstten header kadar boşluk. */
 .container { width: 100%; max-width: calc(var(--w-content) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
 .container--read { max-width: calc(var(--w-read) + 2 * var(--gutter)); }

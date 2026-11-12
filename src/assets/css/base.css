@@ -49,7 +49,7 @@ a { color: inherit; text-decoration: none; }
 .muted { color: var(--fg-muted); }
 p { text-wrap: pretty; }
 
-/* Kicker: 11 px / 500 / .12em büyük harf. Koyuda turuncu yazı + 6 px turuncu nokta; kremde soluk yazı + turuncu DOLGU nokta. */
+/* Kicker: 11 px / 500 / .12em büyük harf. Koyuda vurgu yazı + 6 px vurgu nokta; kremde soluk yazı + vurgu DOLGU nokta. */
 .kicker {
   display: inline-flex; align-items: center; gap: 8px; font-size: var(--t-kicker); font-weight: 500;
   letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--accent-text);

@@ -1,5 +1,5 @@
-/* DÜĞMELER (X07 İnce): hap, 40 px, 14 px/500. Birincil: koyuda turuncu dolgu + koyu yazı; kremde SİYAH dolgu + krem yazı.
-   İkincil (.pill--glass): şeffaf + 1 px çizgi. Metin bağlantısı (.link): koyuda turuncu yazı + %40 turuncu alt çizgi; kremde koyu yazı. Hover yalnız renk (150 ms). */
+/* DÜĞMELER (X07 İnce): hap, 40 px, 14 px/500. Birincil: koyuda vurgu dolgu + koyu yazı; kremde SİYAH dolgu + krem yazı.
+   İkincil (.pill--glass): şeffaf + 1 px çizgi. Metin bağlantısı (.link): koyuda vurgu yazı + %40 vurgu alt çizgi; kremde koyu yazı. Hover yalnız renk (150 ms). */
 .pill {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding-inline: 20px;
   font-size: 14px; font-weight: 500; line-height: 1; letter-spacing: 0; white-space: nowrap; cursor: pointer;
@@ -11,7 +11,7 @@
 .pill--glass { background: transparent; border-color: var(--line-strong); color: var(--fg); }
 .pill--glass:hover { background: var(--chip); }
 .pill--sm { height: 34px; padding-inline: 16px; font-size: 13px; }
-/* koyu zemin üstünde koyu düğme (turuncu bandın içinde): --main dolgu, --ink yazı */
+/* koyu zemin üstünde koyu düğme (vurgu bandın içinde): --main dolgu, --ink yazı */
 .pill--dark { background: var(--c-main); color: var(--c-ink); }
 .pill--dark:hover { background: var(--c-main-2); }
 

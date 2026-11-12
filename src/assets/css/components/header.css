@@ -1,5 +1,5 @@
-/* HEADER (X07 İnce): tam genişlik, 64 px, --main zemin, alt 1 px çizgi, blur/gölge yok. Marka solda (6 px turuncu nokta), sekmeler 13 px düz metin,
-   AKTİF sekme = turuncu dolgu hap (metin --on-accent, 500). Sağda tek kenarlıklı CTA. ≤1023 px: sekmeler gizlenir, "Menü · <aktif sayfa>" düğmesi + --main-2 panel.
+/* HEADER (X07 İnce): tam genişlik, 64 px, --main zemin, alt 1 px çizgi, blur/gölge yok. Marka solda (6 px vurgu nokta), sekmeler 13 px düz metin,
+   AKTİF sekme = vurgu dolgu hap (metin --on-accent, 500). Sağda tek kenarlıklı CTA. ≤1023 px: sekmeler gizlenir, "Menü · <aktif sayfa>" düğmesi + --main-2 panel.
    "/" üzerinde aktif sekmeyi kaydırma belirler (ui.js), diğer sayfalarda sunucu işaretler (aria-current). */
 .site-header { position: fixed; inset: 0 0 auto 0; z-index: var(--z-header); height: var(--header-h); background: var(--c-main); border-bottom: 1px solid var(--line); color: var(--c-ink); }
 .header-bar {
