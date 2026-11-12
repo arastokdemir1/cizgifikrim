@@ -3,11 +3,17 @@ layout: layouts/base.njk
 title: "Çalışmalar — CizgiFikrim"
 description: "CizgiFikrim'in fikirden yayına yaptığı ürünler: CarLog, Vesira ve PolishReel. Diğer çalışmalarımız da bu sayfada; sizinkini de yaparız."
 permalink: /calismalar/
-sayfaCss: ['components/poster', 'components/sections']
-sayfaJs: ['poster']
+sayfaCss: ['components/sections', 'pages/calismalar']
 ---
-{#- ÇALIŞMALAR (şartname §3, icerik_ortak PART C3). Kartlar Frontend-1'in poster bileşeni; "Diğer çalışmalar" görselsiz liste (benim diliminim). -#}
+{#- ÇALIŞMALAR (X07 İnce; icerik_ortak PART C3). Tamamen koyu sayfa: başlık → 3 sade proje kartı (çıplak görseller, ad + durum, 1 cümle, etiket satırı, bağlantılar) → diğer çalışmalar listesi → turuncu CTA adası.
+    Poster bileşeni (partials/poster.njk) burada KULLANILMAZ (Frontend-1'in detay sayfaları kullanır). Kart bağlantıları: ana "Çalışmayı gör →" (PolishReel: "polishreel.com'u aç ↗"), ikincil dış bağlantılar sabit etiketli. -#}
 {%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
+{%- set dis -%}<span aria-hidden="true">↗</span>{%- endset -%}
+{%- set carlogGorseller = [
+  { k: "src/assets/img/projeler/carlog/1-canli.webp", alt: "CarLog ekranı: canlı sürüş görünümü, 'Sen sür, CarLog kaydetsin' başlığı" },
+  { k: "src/assets/img/projeler/carlog/2-hesapla.webp", alt: "CarLog ekranı: yola çıkmadan tahmini masraf hesabı, 'Yola çıkmadan masrafı gör' başlığı" },
+  { k: "src/assets/img/projeler/carlog/3-ozet.webp", alt: "CarLog ekranı: gün, hafta ve ay masraf özeti, 'Masrafın tek bakışta' başlığı" }
+] -%}
 {%- set diger = [
   { ad: 'PiyasApp', cumle: 'Çevrende ne olduğunu canlı bir harita üzerinde gösteren sosyal keşif uygulaması.', href: '/piyasa/' },
   { ad: 'Sano', cumle: '20 soruluk kişisel bir farkındalık özeti ile zihinsel yükünü 4 boyutta gözden geçirmene yardımcı olur.' },
@@ -15,51 +21,61 @@ sayfaJs: ['poster']
   { ad: 'FlowGraph', cumle: 'Gelir-gider hareketlerini kategoriler arası bir akış grafiği olarak görselleştirir.' }
 ] -%}
 
-<section class="sec theme-dark works-head" aria-labelledby="calisma-baslik">
-  <div class="container works-head-grid">
+<section class="sec theme-dark" aria-labelledby="calisma-baslik">
+  <div class="container">
     <div class="sec-head" style="margin-bottom:0">
-      <span class="kicker" data-in style="--i:0"><b>01</b><span class="dash"></span>ÇALIŞMALAR</span>
-      <h1 class="h1" id="calisma-baslik" data-in style="--i:1">Kendi <em>ürünlerimiz</em></h1>
-      <p class="lead" data-in style="--i:2">Üç ürün, üç farklı alan. Hepsini fikirden yayına biz yaptık; sizinkini de yaparız.</p>
+      <span class="kicker">Çalışmalar</span>
+      <h1 class="h1" id="calisma-baslik">Kendi <em>ürünlerimiz</em></h1>
+      <p class="lead">Üç ürün, üç farklı alan. Hepsini fikirden yayına biz yaptık; sizinkini de yaparız.</p>
     </div>
-    <p class="kicker works-names" data-in style="--i:3" aria-hidden="true">CarLog · Vesira · PolishReel</p>
   </div>
 </section>
 
-<section class="sec theme-light works-cards" aria-label="Çalışmalar">
+<section class="sec theme-dark" aria-label="Çalışmalar">
   <div class="container">
-    <div class="works-list">
-      {%- for p in projeler.liste %}{% if p.boyut == 'buyuk' %}
-      {%- set poster = p %}{% if loop.first %}{% set posterYukleme = 'eager' %}{% else %}{% set posterYukleme = 'lazy' %}{% endif %}
-      {%- set posterSeviye = 2 %}
-      <div class="works-item works-item--buyuk">{% include "partials/poster.njk" %}</div>
-      {%- endif %}{% endfor %}
-    </div>
-    <div class="works-row">
-      {%- for p in projeler.liste %}{% if p.boyut == 'kucuk' %}
-      {%- set poster = p %}{% set posterYukleme = 'lazy' %}{% set posterSeviye = 2 %}
-      <div class="works-item works-item--kucuk">{% include "partials/poster.njk" %}</div>
-      {%- endif %}{% endfor %}
-      <div class="other" aria-labelledby="diger-baslik">
-        <span class="kicker" data-reveal><b>02</b><span class="dash"></span>DİĞER ÇALIŞMALAR</span>
-        <h2 class="h3" id="diger-baslik" data-reveal style="--i:1">Diğer <em>çalışmalar</em></h2>
-        <ul class="other-list">
-          {%- for d in diger %}
-          <li class="other-row" data-reveal style="--i:{{ loop.index0 }}">
-            <h3 class="h4">{% if d.href %}<a href="{{ d.href }}">{{ d.ad }}</a>{% else %}{{ d.ad }}{% endif %}</h3>
-            <p>{{ d.cumle }}</p>
-            {%- if d.href %}<a class="link" href="{{ d.href }}">Tanıtım sayfası {{ ok | safe }}</a>{% endif %}
-          </li>
+    <div class="proje-grid">
+      {%- for p in projeler.liste %}
+      <article class="kart proje proje--{{ p.slug }}">
+        <div class="proje-gorsel">
+          {%- if p.slug == 'carlog' %}
+            {%- for g in carlogGorseller %}{% gorsel g.k, g.alt, "(min-width: 1024px) 110px, 120px", [240, 480], ('eager' if loop.first else 'lazy') %}{% endfor %}
+          {%- else %}
+            {%- for o in p.gorsel.ogeler %}{% gorsel o.kaynak, o.alt, "(min-width: 1024px) 160px, 140px", [320, 640], 'lazy' %}{% endfor %}
+          {%- endif %}
+        </div>
+        {%- if p.gorsel.altyazi %}<p class="proje-ornek">{{ p.gorsel.altyazi }}</p>{% elif p.slug == 'polishreel' %}<p class="proje-ornek">Örnek çıktı</p>{% endif %}
+        <div class="proje-ust"><h2 class="h3">{{ p.baslik }}</h2><span class="durum">{{ p.durum }}</span></div>
+        <p>{{ p.cumle }}</p>
+        <p class="proje-etiket">{{ p.etiketler | join(' · ') }}{% if p.girisim %} · {{ p.girisim }}{% endif %}</p>
+        <p class="proje-linkler">
+          {%- if p.dis %}
+          <a class="link" href="{{ p.url }}" target="_blank" rel="noopener noreferrer">polishreel.com'u aç {{ dis | safe }}</a>
+          {%- else %}
+          <a class="link" href="{{ p.url }}">Çalışmayı gör {{ ok | safe }}<span class="sr-only"> ({{ p.baslik }})</span></a>
+          {%- endif %}
+          {%- for b in p.ikincil %}
+          <a class="link link--ikincil" href="{{ b.href }}"{% if b.dis %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ b.etiket }}{% if b.dis %} {{ dis | safe }}{% endif %}</a>
           {%- endfor %}
-        </ul>
-      </div>
+        </p>
+      </article>
+      {%- endfor %}
     </div>
   </div>
 </section>
 
-<section class="sec cta-band theme-dark" aria-labelledby="calisma-cta">
-  <div class="container">
-    <h2 class="h2" id="calisma-cta" data-reveal>Siz de bir ürün mü <em>düşünüyorsunuz?</em></h2>
-    <a class="pill pill--primary" href="{{ nav.cta.href }}" data-reveal style="--i:1">{{ nav.cta.etiket }} {{ ok | safe }}</a>
+<section class="sec theme-dark" aria-labelledby="diger-baslik">
+  <div class="container split">
+    <div class="sec-head" style="margin:0">
+      <span class="kicker">Diğer çalışmalar</span>
+      <h2 class="h2" id="diger-baslik">Küçük ve <em>yan işler</em></h2>
+    </div>
+    <ul class="diger">
+      {%- for d in diger %}
+      <li><b>{% if d.href %}<a href="{{ d.href }}">{{ d.ad }}</a>{% else %}{{ d.ad }}{% endif %}</b><span>{{ d.cumle }}</span>{% if d.href %}<a class="link" href="{{ d.href }}">Tanıtım sayfası {{ ok | safe }}</a>{% endif %}</li>
+      {%- endfor %}
+    </ul>
   </div>
 </section>
+
+{%- set ctaBaslik = 'Siz de bir ürün mü <em>düşünüyorsunuz?</em>' %}
+{% include "partials/cta-band.njk" %}

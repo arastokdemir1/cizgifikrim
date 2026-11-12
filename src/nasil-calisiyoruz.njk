@@ -3,63 +3,50 @@ layout: layouts/base.njk
 title: "Nasıl çalışıyoruz — fikirden yayına dört adım | CizgiFikrim"
 description: "Görüşme, kapsam ve teklif, yapım, yayın ve sonrası: dört adımda ne yaptığımızı, ne teslim ettiğimizi ve sizden ne beklediğimizi yazıyoruz."
 permalink: /nasil-calisiyoruz/
-sayfaCss: ['components/schema', 'components/services', 'components/process', 'components/sections', 'pages/nasil']
+sayfaCss: ['components/process', 'components/sections', 'pages/nasil']
 bodyClass: pg-nasil
 ---
-{#- NASIL ÇALIŞIYORUZ (şartname_2 §8): hero → S3 tam sürüm (her adımda Yaparız / Teslim / Sizden) → ilkeler → teslim ve destek → SSS(4) → CTA. Süre/fiyat yok. -#}
+{#- NASIL ÇALIŞIYORUZ (X07 İnce; şartname_2 §8 + icerik_ortak B1.5/C9): koyu başlık → krem ada: 4 adım (Yaparız / Teslim / Sizden) → koyu: üç ilke + teslim ve destek → krem ada: SSS(4) → turuncu CTA. Süre/fiyat yok. Sticky/sahne/sayaç yok. -#}
 {%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
 
 <section class="sec theme-dark nsl-hero" aria-labelledby="nsl-baslik">
   <div class="container">
     <div class="sec-head" style="margin-bottom:0">
-      <span class="kicker" data-in style="--i:0"><b>01</b><span class="dash"></span>SÜREÇ</span>
-      <h1 class="h1" id="nsl-baslik" data-in style="--i:1">Fikirden yayına <em>dört adım</em></h1>
-      <p class="lead" data-in style="--i:2">Önce sorunu yazarız, sonra yaparız.</p>
+      <span class="kicker">Süreç</span>
+      <h1 class="h1" id="nsl-baslik">Fikirden yayına <em>dört adım</em></h1>
+      <p class="lead">Önce sorunu yazarız, sonra yaparız.</p>
     </div>
   </div>
 </section>
 
-<section class="sec process process--detay theme-dark" id="surec" aria-label="Dört adım" data-scene="pin" data-steps="4" data-step="1">
-  <div class="process-stage">
-    <div class="container process-grid">
-      <div class="process-left">
-        <div class="process-counter" aria-hidden="true">
-          <span class="counter-win"><span class="counter-roll"><span>01</span><span>02</span><span>03</span><span>04</span></span></span><span class="counter-of">/ 04</span>
-        </div>
-        <ol class="process-texts">
-          {%- for a in adimlar %}
-          <li class="ptext" style="--i:{{ loop.index }}"><span class="num">0{{ loop.index }}</span><h2 class="h3">{{ a.ad }}</h2>
-            <dl class="ptext-satirlar">
-              <div><dt>Yaparız</dt><dd>{{ a.yapariz }}</dd></div>
-              <div><dt>Teslim</dt><dd>{{ a.teslim }}</dd></div>
-              <div><dt>Sizden</dt><dd>{{ a.sizden }}</dd></div>
-            </dl>
-          </li>
-          {%- endfor %}
-        </ol>
-      </div>
-      <div class="process-cards" aria-hidden="true">
-        {%- for a in adimlar %}
-        <div class="pcard" style="--i:{{ loop.index }}">
-          {% include "partials/schema/" + a.sema + ".njk" %}
-          <div class="pcard-foot"><span class="pcard-no">0{{ loop.index }}</span><span class="pcard-name">{{ a.etiket }}</span></div>
-        </div>
-        {%- endfor %}
-      </div>
-    </div>
+<section class="sec theme-light" id="adimlar" aria-label="Dört adım">
+  <div class="container">
+    <ol class="adimlar">
+      {%- for a in adimlar %}
+      <li class="kart adim">
+        <span class="no" aria-hidden="true">{{ loop.index }}</span>
+        <h2 class="h3"><span class="sr-only">Adım {{ loop.index }}: </span>{{ a.ad }}</h2>
+        <dl>
+          <div><dt>Yaparız</dt><dd>{{ a.yapariz }}</dd></div>
+          <div><dt>Teslim</dt><dd>{{ a.teslim }}</dd></div>
+          <div><dt>Sizden</dt><dd>{{ a.sizden }}</dd></div>
+        </dl>
+      </li>
+      {%- endfor %}
+    </ol>
   </div>
 </section>
 
-<section class="sec theme-light" id="ilkeler" aria-labelledby="ilke-baslik">
+<section class="sec theme-dark" id="ilkeler" aria-labelledby="ilke-baslik">
   <div class="container">
     <div class="sec-head">
-      <span class="kicker" data-reveal><b>02</b><span class="dash"></span>İLKELER</span>
-      <h2 class="h2" id="ilke-baslik" data-reveal style="--i:1">Üç ilke, <em>her işte</em>.</h2>
+      <span class="kicker">İlkeler</span>
+      <h2 class="h2" id="ilke-baslik">Üç ilke, <em>her işte</em>.</h2>
     </div>
     <div class="principles">
       {%- for p in ilkeler %}
-      <article class="principle" data-reveal style="--i:{{ loop.index0 }}">
-        <div class="principle-top"><span class="principle-no">0{{ loop.index }}</span>{% include "partials/schema/" + p.ikon + ".njk" %}</div>
+      <article class="principle">
+        <div class="principle-top"><span class="principle-no" aria-hidden="true">{{ loop.index }}</span></div>
         <h3 class="h3">{{ p.ad }}</h3>
         <p>{{ p.metin }}</p>
       </article>
@@ -71,12 +58,12 @@ bodyClass: pg-nasil
 <section class="sec theme-dark" id="teslim" aria-labelledby="teslim-baslik">
   <div class="container split">
     <div class="sec-head" style="margin:0">
-      <span class="kicker" data-reveal><b>03</b><span class="dash"></span>TESLİM VE DESTEK</span>
-      <h2 class="h2" id="teslim-baslik" data-reveal style="--i:1">Ne <em>teslim</em> ederiz?</h2>
+      <span class="kicker">Teslim ve destek</span>
+      <h2 class="h2" id="teslim-baslik">Ne <em>teslim</em> ederiz?</h2>
     </div>
     <dl class="kunye">
       {%- for k in kunye %}
-      <div class="kunye-row" data-reveal style="--i:{{ loop.index0 }}"><dt>{{ k[0] }}</dt><dd>{{ k[1] }}</dd></div>
+      <div class="kunye-row"><dt>{{ k[0] }}</dt><dd>{{ k[1] }}</dd></div>
       {%- endfor %}
     </dl>
   </div>
@@ -84,10 +71,10 @@ bodyClass: pg-nasil
 
 <section class="sec theme-light" id="sss" aria-labelledby="sss-baslik">
   <div class="container faq-grid">
-    <h2 class="h2" id="sss-baslik" data-reveal>Sık sorulan <em>sorular</em></h2>
+    <h2 class="h2" id="sss-baslik">Sık sorulan <em>sorular</em></h2>
     <div class="faq-list">
       {%- for s in sss %}
-      <details class="faq-item" data-reveal style="--i:{{ loop.index0 }}"><summary>{{ s[0] }}<i aria-hidden="true"></i></summary><p class="faq-a">{{ s[1] }}</p></details>
+      <details class="faq-item"><summary>{{ s[0] }}<i aria-hidden="true"></i></summary><p class="faq-a">{{ s[1] }}</p></details>
       {%- endfor %}
     </div>
   </div>

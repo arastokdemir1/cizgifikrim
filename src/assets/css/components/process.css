@@ -1,66 +1,11 @@
-/* SÜREÇ: sabitlenmiş sahne (cansincengiz.me "How I work" kalıbı, yumuşak köşeli). Koyu. Bölüm 400vh, sahne sticky; sayaç 01/04 dikey yuvarlanır;
-   kartlar yığından sırayla öne gelir, sonda yelpaze. Mobilde de sticky (tek sütun, yalnız aktif adım metni). JS yoksa / reduced-motion: statik liste + 2×2 kart. */
-.sec.process { padding: var(--sec-y) 0; }
-.process-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
-.process-left { display: grid; gap: var(--s-5); align-content: center; }
-.process-counter { display: none; }
-.process-texts { display: grid; gap: var(--s-6); margin-top: var(--s-3); }
-.ptext { display: grid; gap: var(--s-3); padding-top: var(--s-5); border-top: 1px solid var(--line); }
-.ptext p { color: var(--fg-muted); max-width: 40ch; }
-.ptext .num { font-size: var(--t-kicker); font-weight: 700; letter-spacing: var(--ls-kicker); color: var(--accent-text); }
-.process-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); }
-.pcard { position: relative; display: grid; grid-template-rows: 1fr auto; aspect-ratio: 5 / 4; padding: clamp(18px, 2.2vw, 28px); border-radius: var(--r-l); border: 1px solid var(--line); overflow: hidden;
-  background: linear-gradient(160deg, var(--c-main-2), var(--c-main) 78%); box-shadow: inset 0 1px 0 color-mix(in srgb, var(--c-ink) 14%, transparent); }
-.pcard::before { content: ""; position: absolute; right: -20%; top: -30%; width: 70%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--c-accent) 7%, transparent), transparent 70%); pointer-events: none; }
-.pcard .schema { max-width: 98%; margin: 0 auto; align-self: center; }
-.pcard-foot { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3); }
-.pcard-no { font-family: var(--f-serif); font-style: italic; font-size: var(--t-numeral); line-height: .9; letter-spacing: -.01em; }
-.pcard-name { font-size: var(--t-kicker); font-weight: 700; letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--fg-muted); }
-
-@media (min-width: 0px) and (prefers-reduced-motion: no-preference) {
-  /* İlerlemeye bağlı koyu → açık geçiş: --k yalnız son ~%14'te 0→1. Orta gri aşamada kontrast korunur:
-     metin rengi k≈.44'te SERT geçer (saf beyaz↔siyah eşit kontrast noktası, ≈4,6:1), ikincil ton orta bölgede (|k−.5|<.25) birincil renge eşitlenir. Kartlar hep koyu. */
-  .js .sec.process { height: 400vh; padding: 0; --k: clamp(0, calc((var(--p, 0) - .84) * 14), 1);
-    --kt: clamp(0, calc((var(--k) - .44) * 1000), 1);
-    --m: clamp(0, calc((max(var(--k) - .5, .5 - var(--k)) - .25) * 6.67), 1);
-    background: color-mix(in srgb, var(--c-second) calc(var(--k) * 100%), color-mix(in srgb, var(--c-main-2) calc(var(--p, 0) * 80%), var(--c-main)));
-    --fg: color-mix(in srgb, color-mix(in srgb, var(--c-ink-2) calc(var(--kt) * 100%), var(--c-ink)) calc(var(--m) * 100%), color-mix(in srgb, var(--c-contrast-dark) calc(var(--kt) * 100%), var(--c-contrast-light))); /* orta bölgede saf beyaz/siyah */
-    --fg-muted: color-mix(in srgb, color-mix(in srgb, var(--c-ink-2-muted) calc(var(--kt) * 100%), var(--c-ink-muted)) calc(var(--m) * 100%), var(--fg));
-    --line: color-mix(in srgb, var(--c-line-2) calc(var(--kt) * 100%), var(--c-glass-line));
-    --accent: color-mix(in srgb, var(--c-ink-2) calc(var(--kt) * 100%), var(--c-accent));
-    --accent-text: color-mix(in srgb, color-mix(in srgb, var(--c-ink-2) calc(var(--kt) * 100%), var(--c-accent-text)) calc(var(--m) * 100%), color-mix(in srgb, var(--c-contrast-dark) calc(var(--kt) * 100%), var(--c-contrast-light))); /* orta gri bölgede sayaç/numara saf beyaz↔siyah (≥3:1), dışında vurgu */
-    --focus: var(--accent); color: var(--fg); }
-  .js .pcard { color: var(--c-ink); --fg-muted: var(--c-ink-muted); }
-  .js .process-stage { position: sticky; top: 0; height: 100svh; display: flex; align-items: center; padding-top: calc(var(--header-top) + var(--header-h)); }
-  .js .process-grid { width: 100%; }
-  .js .process-counter { display: flex; align-items: baseline; gap: var(--s-4); color: var(--accent-text); }
-  .js .counter-win { height: 1em; overflow: hidden; font-size: clamp(88px, 11vw, 140px); font-weight: 700; line-height: 1; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
-  .js .counter-roll { display: grid; transform: translateY(calc((var(--st, 1) - 1) * -1em)); transition: transform 400ms var(--ease-out); }
-  .js .counter-roll span { height: 1em; line-height: 1; display: block; }
-  .js .counter-of { font-size: clamp(20px, 2vw, 28px); font-weight: 600; color: var(--fg-muted); letter-spacing: -.01em; }
-  .js .process-texts { display: grid; margin-top: var(--s-2); gap: 0; min-height: 150px; }
-  .js .ptext { grid-area: 1 / 1; --o: calc(var(--st, 1) - var(--i)); border-top: 0; padding-top: 0; align-content: start;
-    opacity: calc(1 - min(1, max(var(--o), var(--o) * -1))); transform: translateY(calc(var(--o) * -18px)); transition: opacity 500ms var(--ease-inout), transform 500ms var(--ease-inout); pointer-events: none; }
-  .js .ptext .num { display: none; }
-  .js .process-cards { display: grid; grid-template-columns: minmax(0, 1fr); position: relative; width: min(100%, 560px); margin-inline: auto; }
-  .js .pcard { grid-area: 1 / 1; --o: calc(var(--st, 1) - var(--i)); --past: max(var(--o), 0); --next: max(var(--o) * -1, 0);
-    transform: translateY(calc(var(--past) * -18px + var(--next) * 56px)) scale(calc(1 - var(--past) * .05));
-    opacity: calc(1 - var(--past) * .16 - min(1, var(--next))); z-index: var(--i);
-    transition: transform 600ms var(--ease-out), opacity 500ms var(--ease-inout); transform-origin: 50% 100%; }
-  .js .process[data-end="1"] .pcard { opacity: 1; transform: translateX(calc((var(--i) - 2.5) * 15%)) translateY(calc((var(--i) - 2.5) * (var(--i) - 2.5) * 4px)) rotate(calc((var(--i) - 2.5) * 6deg)) scale(.74); }
-}
-@media (max-width: 899px) and (prefers-reduced-motion: no-preference) {
-  .js .process-grid { grid-template-columns: minmax(0, 1fr); gap: var(--s-4); align-items: start; }
-  .js .process-left { order: 1; gap: var(--s-3); }
-  .js .process-left .h2 { font-size: clamp(26px, 7vw, 34px); }
-  .js .counter-win { font-size: 72px; }
-  .js .process-cards { order: 0; width: min(100%, 300px); }
-  .js .process-stage { align-items: flex-start; padding-top: calc(var(--header-top) + var(--header-h) + 12px); }
-  .js .process-texts { min-height: 120px; }
-  .js .process[data-end="1"] .pcard { transform: translateX(calc((var(--i) - 2.5) * 14%)) translateY(calc((var(--i) - 2.5) * (var(--i) - 2.5) * 3px + 18px)) rotate(calc((var(--i) - 2.5) * 5deg)) scale(.5); }
-}
-@media (max-width: 899px) {
-  .process-grid { grid-template-columns: minmax(0, 1fr); }
-  .process-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); }
-}
-@media (max-width: 520px) and (prefers-reduced-motion: reduce) { .process-cards { grid-template-columns: minmax(0, 1fr); } }
+/* SÜREÇ ("/" akışı özeti + /nasil-calisiyoruz/ ayrıntı): 4 kart; her kartta turuncu dolgulu numara dairesi, ad ve 1 satır (özet) ya da Yaparız/Teslim/Sizden (ayrıntı).
+   Sticky/sahne/sayaç yok. Kartlar koyuda --main-2, kremde --card (.kart). */
+.adimlar { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.adim .no { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--c-accent); color: var(--c-on-accent); font-size: 12px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.adim h3 { margin: 4px 0 0; }
+.adim dl { display: grid; gap: 10px; margin: 4px 0 0; }
+.adim dt { font-size: 10.5px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-muted); }
+.adim dd { margin: 2px 0 0; font-size: var(--t-small); line-height: 1.5; color: var(--fg); }
+.surec-link { margin-top: var(--s-6); }
+@media (max-width: 1023px) { .adimlar { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .adimlar { grid-template-columns: minmax(0, 1fr); } }

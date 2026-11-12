@@ -1,6 +1,6 @@
-// Ana sayfa verisi (sahip: Frontend-2). Metin kaynağı: faz1/icerik_ortak.md PART C (çelişkide PART C kazanır). Ana sayfada proje/ürün adı, mağaza rozeti, "kendi ürünlerimiz" YOK.
+// Ana sayfa verisi (sahip: Frontend-2). Metin kaynağı: faz1/icerik_ortak.md PART E1 (çelişkide PART E kazanır) + PART C. adimlar/ilkeler/kunye/sss başka sayfalarca da kullanılır. Ana sayfada proje/ürün adı, mağaza rozeti, "kendi ürünlerimiz" YOK.
 const hizmetler = [
-  { slug: 'web-sitesi-ve-e-ticaret', ad: 'Web sitesi ve e-ticaret', sahne: 's2a', cumle: 'İşinizi anlatan, hızlı açılan, telefonda düzgün çalışan site ve satış akışı.',
+  { slug: 'web-sitesi-ve-e-ticaret', ad: 'Web sitesi ve e-ticaret', sahne: 's2a', cumle: 'İşinizi anlatan, hızlı açılan, telefonda düzgün çalışan bir web sitesi ya da satış akışı.',
     maddeler: ['Tasarım ve yapım', 'Yayın ve alan adı kurulumu', 'Temel arama (SEO) hazırlığı'] },
   { slug: 'mobil-uygulama', ad: 'Mobil uygulama', sahne: 's2b', cumle: 'Fikirden App Store yayınına iOS uygulaması.',
     maddeler: ['Tasarım ve geliştirme', 'Mağaza hazırlığı ve yayın', 'Yayın sonrası destek'] },
@@ -13,6 +13,7 @@ const adimlar = [
   { ad: 'Yapım', metin: 'Yapım sürerken ilerlemeyi ve ara çıktıları sizinle paylaşırız.', sema: 's3-3', etiket: 'YAPIM' },
   { ad: 'Yayın ve sonrası', metin: 'Ürün yayına alınır; bakım ve geliştirme kapsamı teklifte ayrıca yazılır.', sema: 's3-4', etiket: 'YAYIN' },
 ];
+const adimOzet = ['Ne istediğinizi dinleriz.', 'Neyin hangi sırayla yapılacağını yazıya geçiririz.', 'İlerlemeyi ve ara çıktıları paylaşarak üretiriz.', 'Ürünü yayına alırız; bakım kapsamı teklifte yazılır.'];
 const ilkeler = [
   { ad: 'Önce sorunu yazarız.', metin: 'Teknoloji, yazılı bir ihtiyacın aracıdır; kendi başına hedef değildir.', ikon: 'ikon-ilke1' },
   { ad: 'Bildiğimizi bilmediğimizden ayırırız.', metin: 'Durum, test ve olgunluk iddialarını ayrı tutarız; belirsizliği saklamayız.', ikon: 'ikon-ilke2' },
@@ -34,11 +35,9 @@ const sss = [
   ['Verilerim ne olur?', 'Yalnız talebinizi yanıtlamak için kullanılır. Ayrıntılar gizlilik sayfasında.'],
 ];
 export default {
-  hizmetler, adimlar, ilkeler, kunye, teknoloji, sss,
+  hizmetler, adimlar, adimOzet, ilkeler, kunye, teknoloji, sss,
   eleventyComputed: {
-    jsonld: (d) => [
-      { '@type': 'FAQPage', mainEntity: d.sss.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
-      ...d.hizmetler.map((h) => ({ '@type': 'Service', name: h.ad, description: h.cumle, provider: { '@id': d.site.url + '/#org' }, url: d.site.url + '/hizmetler/' + h.slug + '/' })),
-    ],
+    // Ana sayfada SSS görünmez (v0.8): FAQPage yapılandırılmış verisi yok; yalnız hizmetler.
+    jsonld: (d) => d.hizmetler.map((h) => ({ '@type': 'Service', name: h.ad, description: h.cumle, provider: { '@id': d.site.url + '/#org' }, url: d.site.url + '/hizmetler/' + h.slug + '/' })),
   },
 };

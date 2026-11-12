@@ -1,32 +1,8 @@
-/* HİZMETLER: sticky split (Vercel/Linear). Açık zemin. Sol 4/12: kicker, H2, 3 başlık "sekme" (aktif vurgulu) + aktif hizmetin ayrıntısı; sağ 8/12: şema sahnesi (crossfade 500 ms).
-   Bölüm yüksekliği 300vh, sahne sticky; JS yoksa ya da <900 px: hizmetler alt alta bloklar (her birinin şeması metnin altında). */
-.svc-pin { position: relative; }
-.svc-stage-d { display: none; }
-.svc-m { display: grid; gap: var(--s-8); }
-.svc-m-item { display: grid; gap: var(--s-4); padding-top: var(--s-6); border-top: 1px solid var(--line); }
-.svc-m-item .schema { max-width: 440px; margin-top: var(--s-4); }
+/* HİZMETLER ÖZETİ ("/" akışı) + ortak madde listesi. Kremde ada; 3 kart (ad + 1 cümle + "Ayrıntılar →"). Hareket yok. */
+.hz-ozet { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.hz-ozet .kart h3 { margin: 0; }
+.svc-all { justify-self: start; margin-top: var(--s-6); }
 .svc-bullets { display: grid; gap: var(--s-2); }
-.svc-bullets li { display: flex; align-items: center; gap: var(--s-3); font-weight: 500; color: var(--fg); }
-.svc-bullets li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; }
-
-@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
-  .js .svc-pin { height: 300vh; }
-  .js .svc-stage-d { display: flex; align-items: center; position: sticky; top: 0; height: 100svh; padding-top: calc(var(--header-top) + var(--header-h)); }
-  .svc-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(32px, 5vw, 88px); align-items: center; }
-  .js .svc-m { display: none; }
-  .svc-left { display: grid; gap: var(--s-5); align-content: center; }
-  .svc-tabs { display: grid; margin-top: var(--s-2); }
-  .svc-tab { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: var(--s-4); padding: var(--s-4) 0; border-top: 1px solid var(--line); font-size: clamp(20px, 1.9vw, 26px); font-weight: 600; letter-spacing: -.015em; color: var(--fg-muted); text-align: left; transition: color var(--d-base) var(--ease-out), transform var(--d-base) var(--ease-out); }
-  .svc-tab:last-child { border-bottom: 1px solid var(--line); }
-  .svc-tab span { font-size: var(--t-kicker); font-weight: 700; letter-spacing: var(--ls-kicker); font-variant-numeric: tabular-nums; }
-  .svc-tab:hover { color: var(--fg); }
-  .svc-pin[data-step="1"] .svc-tab:nth-child(1), .svc-pin[data-step="2"] .svc-tab:nth-child(2), .svc-pin[data-step="3"] .svc-tab:nth-child(3) { color: var(--fg); transform: translateX(8px); }
-  .svc-details { display: grid; min-height: 230px; }
-  .svc-detail { grid-area: 1 / 1; display: grid; gap: var(--s-4); align-content: start; opacity: 0; transform: translateY(14px); pointer-events: none; transition: opacity 500ms var(--ease-inout), transform 500ms var(--ease-inout); }
-  .svc-pin[data-step="1"] .svc-detail:nth-child(1), .svc-pin[data-step="2"] .svc-detail:nth-child(2), .svc-pin[data-step="3"] .svc-detail:nth-child(3) { opacity: 1; transform: none; pointer-events: auto; }
-  .svc-scenes { position: relative; aspect-ratio: 600 / 460; width: 100%; max-height: calc(100svh - var(--header-h) - var(--header-top) - 40px); margin-inline: auto; }
-  .svc-scene { position: absolute; inset: 0; opacity: 0; transform: translateY(16px) scale(.98); transition: opacity 500ms var(--ease-inout), transform 500ms var(--ease-inout); }
-  .svc-pin[data-step="1"] .svc-scene:nth-child(1), .svc-pin[data-step="2"] .svc-scene:nth-child(2), .svc-pin[data-step="3"] .svc-scene:nth-child(3) { opacity: 1; transform: none; }
-}
-.svc-all { justify-self: start; }
-.svc-m .svc-all { margin-top: var(--s-2); }
+.svc-bullets li { display: flex; align-items: baseline; gap: var(--s-3); font-size: var(--t-small); color: var(--fg-muted); }
+.svc-bullets li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--c-accent); flex: none; transform: translateY(-2px); }
+@media (max-width: 1023px) { .hz-ozet { grid-template-columns: minmax(0, 1fr); } }

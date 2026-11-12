@@ -3,7 +3,7 @@ layout: layouts/base.njk
 title: "Hakkında | CizgiFikrim"
 description: "CizgiFikrim, yapay zekâ ve yazılım alanında çalışan küçük bir stüdyodur. Araştırmayı, tasarımı ve uygulamayı aynı masada yürütürüz."
 permalink: /hakkinda/
-sayfaCss: ['components/schema', 'components/services', 'components/sections', 'pages/hakkinda']
+sayfaCss: ['components/sections', 'pages/hakkinda']
 bodyClass: pg-hakkinda
 jsonld:
   - "@type": BreadcrumbList
@@ -14,7 +14,7 @@ jsonld:
     url: "https://cizgifikrim.net/hakkinda/"
     about: { "@id": "https://cizgifikrim.net/#org" }
 ---
-{#- HAKKINDA (şartname_2 §4, icerik_ortak C6). Fotoğraf/avatar/baş harf dairesi YOK; rakam, ödül, müşteri sayısı YOK; Otomotiv/Finans YOK. Metin C6'dan aynen. -#}
+{#- HAKKINDA (X07 İnce; şartname_2 §4, icerik_ortak C6): koyu başlık → krem ada: üç ilke → koyu: prensipler → krem ada: çalışma alanları → koyu: kurucu → turuncu CTA. Fotoğraf/avatar/baş harf dairesi YOK; rakam, ödül, müşteri sayısı YOK; Otomotiv/Finans YOK. Metin C6'dan aynen. -#}
 {%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
 {%- set ilkeler = [
   ['Önce problem', 'Teknoloji kendi başına bir amaç değildir; açıkça tanımlanmış bir ihtiyacın aracıdır.', 'ikon-ilke1'],
@@ -30,9 +30,9 @@ jsonld:
 <section class="sec theme-dark hk-hero" aria-labelledby="hk-baslik">
   <div class="container">
     <div class="sec-head" style="margin-bottom:0">
-      <span class="kicker" data-in style="--i:0">HAKKINDA</span>
-      <h1 class="h1" id="hk-baslik" data-in style="--i:1">Güveni sonradan eklemeyiz; <em>baştan tasarlarız.</em></h1>
-      <p class="lead" data-in style="--i:2">Araştırmayı, tasarımı ve uygulamayı aynı masada yürütürüz. Her teknik kararın sınırını ve kullanıcıya etkisini açıkça yazmaya çalışırız.</p>
+      <span class="kicker">Hakkında</span>
+      <h1 class="h1" id="hk-baslik">Güveni sonradan eklemeyiz; <em>baştan tasarlarız.</em></h1>
+      <p class="lead">Araştırmayı, tasarımı ve uygulamayı aynı masada yürütürüz. Her teknik kararın sınırını ve kullanıcıya etkisini açıkça yazmaya çalışırız.</p>
     </div>
   </div>
 </section>
@@ -40,13 +40,13 @@ jsonld:
 <section class="sec theme-light" id="ilkeler" aria-labelledby="hk-ilke-baslik">
   <div class="container">
     <div class="sec-head">
-      <span class="kicker" data-reveal><b>01</b><span class="dash"></span>İLKELER</span>
-      <h2 class="h2" id="hk-ilke-baslik" data-reveal style="--i:1">Üç ilke, <em>her işte</em>.</h2>
+      <span class="kicker">İlkeler</span>
+      <h2 class="h2" id="hk-ilke-baslik">Üç ilke, <em>her işte</em>.</h2>
     </div>
     <div class="principles">
       {%- for p in ilkeler %}
-      <article class="principle" data-reveal style="--i:{{ loop.index0 }}">
-        <div class="principle-top"><span class="principle-no">0{{ loop.index }}</span>{% include "partials/schema/" + p[2] + ".njk" %}</div>
+      <article class="principle">
+        <div class="principle-top"><span class="principle-no" aria-hidden="true">{{ loop.index }}</span></div>
         <h3 class="h3">{{ p[0] }}</h3>
         <p>{{ p[1] }}</p>
       </article>
@@ -58,12 +58,12 @@ jsonld:
 <section class="sec theme-dark hk-prensipler" id="prensipler" aria-labelledby="hk-prensip-baslik">
   <div class="container split">
     <div class="sec-head" style="margin:0">
-      <span class="kicker" data-reveal><b>02</b><span class="dash"></span>PRENSİPLER</span>
-      <h2 class="h2 hk-prensip-h2" id="hk-prensip-baslik" data-reveal style="--i:1">Sistemleri yalnızca çalıştırmak için değil, <em>anlamak için de</em> kuruyoruz.</h2>
+      <span class="kicker">Prensipler</span>
+      <h2 class="h2" id="hk-prensip-baslik">Sistemleri yalnızca çalıştırmak için değil, <em>anlamak için de</em> kuruyoruz.</h2>
     </div>
     <div class="hk-prensip">
-      <p class="hk-lede" data-reveal>Yapay zekâyı bir “sihir” değil, denetlenebilir bir mühendislik bileşeni olarak görüyoruz. Modelin yanında veri, arayüz, güvenlik sınırları ve insan kararını birlikte tasarlarız.</p>
-      <p class="hk-lede" data-reveal style="--i:1">Abartılı vaatler yerine; yayımlanabilir ürün durumu, anlaşılır arayüzler ve sürdürülebilir teknik kararlar üretmeye odaklanırız.</p>
+      <p>Yapay zekâyı bir “sihir” değil, denetlenebilir bir mühendislik bileşeni olarak görüyoruz. Modelin yanında veri, arayüz, güvenlik sınırları ve insan kararını birlikte tasarlarız.</p>
+      <p class="muted">Abartılı vaatler yerine; yayımlanabilir ürün durumu, anlaşılır arayüzler ve sürdürülebilir teknik kararlar üretmeye odaklanırız.</p>
     </div>
   </div>
 </section>
@@ -71,31 +71,30 @@ jsonld:
 <section class="sec theme-light" id="alanlar" aria-labelledby="hk-alan-baslik">
   <div class="container">
     <div class="sec-head">
-      <span class="kicker" data-reveal><b>03</b><span class="dash"></span>ÇALIŞMA ALANLARI</span>
-      <h2 class="h2" id="hk-alan-baslik" data-reveal style="--i:1">Üç alanda, <em>baştan sona</em>.</h2>
+      <span class="kicker">Çalışma alanları</span>
+      <h2 class="h2" id="hk-alan-baslik">Üç alanda, <em>baştan sona</em>.</h2>
     </div>
     <div class="hk-alanlar">
       {%- for a in alanlar %}
-      <a class="hk-alan" href="/hizmetler/{{ a[1] }}/" data-reveal style="--i:{{ loop.index0 }}">
-        <div class="hk-alan__sema" aria-hidden="true">{% include "partials/schema/" + a[2] + ".njk" %}</div>
+      <article class="kart">
         <h3 class="h3">{{ a[0] }}</h3>
         <p>{{ a[3] }}</p>
-        <span class="link">Ayrıntılar {{ ok | safe }}</span>
-      </a>
+        <a class="link" href="/hizmetler/{{ a[1] }}/">Ayrıntılar {{ ok | safe }}</a>
+      </article>
       {%- endfor %}
     </div>
   </div>
 </section>
 
-<section class="sec theme-light hk-kurucu" id="kurucu" aria-labelledby="hk-kurucu-baslik">
-  <div class="container hk-kurucu__grid">
-    <div class="hk-kurucu__ad">
-      <span class="kicker" data-reveal><b>04</b><span class="dash"></span>KURUCU</span>
-      <h2 class="hk-isim" id="hk-kurucu-baslik" data-reveal style="--i:1">Aras Tokdemir</h2>
+<section class="sec theme-dark hk-kurucu" id="kurucu" aria-labelledby="hk-kurucu-baslik">
+  <div class="container split">
+    <div class="sec-head" style="margin:0">
+      <span class="kicker">Kurucu</span>
+      <h2 class="h2" id="hk-kurucu-baslik">Aras Tokdemir</h2>
     </div>
-    <div class="hk-kurucu__bio" data-reveal style="--i:2">
-      <p class="hk-lede">Yapay zekâ, otonom sistemler ve mobil ürünler üzerinde çalışan geliştirici; CizgiFikrim'de araştırma yönünü ürün sorumluluğuyla birleştirir.</p>
-      <p class="hk-posta"><a class="link" href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+    <div class="hk-kurucu__bio">
+      <p>Yapay zekâ, otonom sistemler ve mobil ürünler üzerinde çalışan geliştirici; CizgiFikrim'de araştırma yönünü ürün sorumluluğuyla birleştirir.</p>
+      <a class="link" href="mailto:{{ site.email }}">{{ site.email }}</a>
     </div>
   </div>
 </section>
