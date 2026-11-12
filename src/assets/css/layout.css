@@ -1,32 +1,40 @@
-/* LAYOUT: konteyner (1280, kenar 24/20), 12 sütun yardımcıları, bölüm "levha" ritmi (şartname §1.3). */
-.container { width: 100%; max-width: var(--w-content); margin-inline: auto; padding-inline: var(--gutter); }
+/* LAYOUT (X07 İnce): sayfa zemini grafit; koyu bölümler çerçevesiz (1 px ayraç); krem bölümler 28 px yuvarlak "ada".
+   Bölüm API'si değişmedi: .sec.theme-dark / .sec.theme-light. Üst menü sabit 64 px → #icerik üstten header kadar boşluk. */
+.container { width: 100%; max-width: calc(var(--w-content) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
 .container--read { max-width: calc(var(--w-read) + 2 * var(--gutter)); }
+#icerik { padding-top: var(--header-h); outline: none; }
 
-/* Bölüm: koyu ↔ açık dönüşümlü. Her sonraki bölüm öncekinin üstüne 24 px biner ve üst köşeleri 24 px yuvarlaktır ("levha", Cuberto kalıbı). */
 .sec { position: relative; padding-block: var(--sec-y); }
-.sec + .sec, .sec-wrap + .sec { margin-top: calc(var(--levha) * -1); border-radius: var(--levha) var(--levha) 0 0; padding-top: calc(var(--sec-y) + var(--levha)); z-index: var(--z-base); }
-.sec.theme-light + .sec.theme-light, .sec.theme-dark + .sec.theme-dark { margin-top: 0; border-radius: 0; padding-top: var(--sec-y); }
-.sec--tight { padding-block: clamp(48px, 7vw, 96px); }
-.sec-head { display: grid; gap: var(--s-4); max-width: 46rem; margin-bottom: clamp(32px, 5vw, 64px); }
+/* Koyu bölümler arası 1 px ayraç (--ink %12); krem adanın üstünde/altında ayraç yok */
+.sec.theme-dark + .sec.theme-dark::before { content: ""; position: absolute; top: 0; left: var(--gutter); right: var(--gutter); height: 1px; max-width: var(--w-content); margin-inline: auto; background: var(--line); }
+/* Krem ada: genişlik ≤ 1120, kenar boşluğu 12–24, köşe 28 (≤640: 20), iç boşluk 28–72 */
+.sec.theme-light { width: min(var(--w-content), calc(100% - 2 * var(--ada-m))); margin-inline: auto; padding-block: var(--ada-pad); border-radius: var(--r-ada); }
+.sec.theme-light > .container { max-width: none; padding-inline: var(--ada-px); }
+.sec--tight { padding-block: clamp(24px, 3vw, 40px); }
+.sec-head { display: grid; gap: var(--s-3); max-width: 46rem; margin-bottom: clamp(24px, 3.5vw, 40px); }
 .sec-head--row { max-width: none; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--s-6); }
-.sec-head .lead { margin-top: var(--s-2); }
+.sec-head .lead { margin-top: var(--s-1); }
 
 .stack > * + * { margin-top: var(--stack, var(--s-4)); }
-.grid { display: grid; gap: var(--gap, var(--s-5)); }
+.grid { display: grid; gap: var(--gap, 14px); }
 .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-/* 4 / 8 bölünmüş düzen (sol başlık-etiket, sağ içerik) */
-.split { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+/* 5 / 7 bölünmüş düzen (sol başlık-etiket, sağ içerik) */
+.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 5vw, 72px); align-items: start; }
 .center { text-align: center; justify-items: center; margin-inline: auto; }
 
-@media (max-width: 1024px) {
-  .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 1023px) {
+  .grid-3, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .split { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 860px) {
-  .grid-2, .grid-3, .split { grid-template-columns: minmax(0, 1fr); }
+  .grid-2 { grid-template-columns: minmax(0, 1fr); }
   .sec-head--row { grid-template-columns: minmax(0, 1fr); align-items: start; gap: var(--s-4); }
 }
-@media (max-width: 560px) {
-  .grid-4 { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 640px) {
+  :root { --r-ada: 20px; }
+  .grid-3, .grid-4 { grid-template-columns: minmax(0, 1fr); }
+  .sec.theme-light { padding-block: 24px; }
+  .sec.theme-light > .container { padding-inline: 18px; }
 }

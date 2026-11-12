@@ -1,71 +1,66 @@
-/* ui.js: site arayüz davranışı (sahip: Frontend-2). Çerçeve/kütüphane yok. Hepsi isteğe bağlı iyileştirme: JS yoksa içerik görünür kalır.
-   Yapar: reveal (data-reveal), üst menü (küçülme + mobil panel), sayaç (data-count), sahne ilerlemesi (data-scene), hero ışığı duraklatma. */
+/* ui.js (X07 İnce; sahip: Frontend-1, tasarım sistemi). Çerçeve/kütüphane yok. Hepsi isteğe bağlı iyileştirme: JS yoksa menü tam sayfa URL'lerine gider.
+   Yapar: (1) üst menü: mobil panel ("Menü · <aktif sayfa>"), (2) "/" üzerinde bölüme ANINDA kayma + kaydırmayla aktif sekme (data-bolum),
+   (3) şema etiketleri ekranda ≥11 px (--sc-k). ANİMASYON YOK: reveal, sayaç, sahne ve sayfa geçişi kaldırıldı; otomatik geçiş yok. */
 (() => {
   'use strict';
-  const d = document, root = d.documentElement;
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const d = document;
   const $$ = (s, c = d) => [...c.querySelectorAll(s)];
-  const hasIO = 'IntersectionObserver' in window;
-
-  /* ── Reveal: yalnız ekran altındaki öğeler gizlenir, görününce açılır (bir kez) ── */
-  if (hasIO && !reduce) {
-    const io = new IntersectionObserver((es) => es.forEach((e) => {
-      if (e.isIntersecting) { e.target.classList.remove('rv-wait'); io.unobserve(e.target); }
-    }), { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-    $$('[data-reveal]').forEach((el) => {
-      if (el.getBoundingClientRect().top > innerHeight * 0.92) { el.classList.add('rv-wait'); io.observe(el); }
-    });
-  }
-
-  /* ── Üst menü ── */
   const header = d.getElementById('site-header');
+
   if (header) {
-    const sentinel = d.getElementById('top-sentinel');
-    if (hasIO && sentinel) new IntersectionObserver((es) => header.classList.toggle('is-scrolled', !es[0].isIntersecting)).observe(sentinel);
     const btn = $$('.menu-toggle', header)[0], panel = d.getElementById('menu-panel');
+    let etiket = btn ? btn.dataset.etiket || 'Ana sayfa' : '';
+    const yaz = () => { if (btn) btn.textContent = panel && !panel.hidden ? 'Kapat' : 'Menü · ' + etiket; };
+    const ac = (open) => { if (!btn || !panel) return; btn.setAttribute('aria-expanded', String(open)); panel.hidden = !open; yaz(); };
     if (btn && panel) {
-      const set = (open) => { btn.setAttribute('aria-expanded', String(open)); btn.setAttribute('aria-label', open ? 'Menüyü kapat' : 'Menüyü aç'); panel.hidden = !open; };
-      btn.addEventListener('click', () => set(panel.hidden));
-      d.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) { set(false); btn.focus(); } });
-      d.addEventListener('click', (e) => { if (!panel.hidden && !header.contains(e.target)) set(false); });
-      panel.addEventListener('click', (e) => { if (e.target.closest('a')) set(false); });
-      matchMedia('(min-width: 900px)').addEventListener('change', (m) => { if (m.matches) set(false); });
+      btn.addEventListener('click', (e) => { e.stopPropagation(); ac(panel.hidden); });
+      d.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) { ac(false); btn.focus(); } });
+      d.addEventListener('click', (e) => { if (!panel.hidden && !header.contains(e.target)) ac(false); });
+      panel.addEventListener('click', (e) => { if (e.target.closest('a')) ac(false); });
+      matchMedia('(min-width: 1024px)').addEventListener('change', (m) => { if (m.matches) ac(false); });
     }
-  }
 
-  /* ── Sayaç: sayı HTML'de metin olarak durur; animasyon yalnız görseldir ── */
-  const count = (el) => {
-    const to = parseFloat(el.dataset.count); if (!isFinite(to)) return;
-    const t0 = performance.now(), dur = 900;
-    const step = (t) => { const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(to * e); if (p < 1) requestAnimationFrame(step); };
-    el.textContent = '0'; requestAnimationFrame(step);
-  };
-  if (hasIO && !reduce) {
-    const co = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { count(e.target); co.unobserve(e.target); } }), { threshold: 0.6 });
-    $$('[data-count]').forEach((el) => co.observe(el));
-  }
-
-  /* ── Sahneler: data-scene="pin" (sabitlenmiş, bölüm yüksekliği boyunca) ya da "view" (görünüm boyunca). --p (0–1) ve data-step (1..data-steps) yazılır ── */
-  const scenes = $$('[data-scene]');
-  if (scenes.length && hasIO && !reduce) {
-    const live = new Set(); let tick = false;
-    const clamp = (v) => Math.max(0, Math.min(1, v));
-    const update = () => {
-      tick = false;
-      live.forEach((el) => {
-        const r = el.getBoundingClientRect(), vh = innerHeight;
-        const p = el.dataset.scene === 'pin' ? clamp(-r.top / Math.max(1, r.height - vh)) : clamp((vh - r.top) / (vh + r.height));
-        el.style.setProperty('--p', p.toFixed(4));
-        const n = parseInt(el.dataset.steps, 10);
-        if (n) { const s = Math.min(n, Math.floor(p * n * 0.999) + 1); if (el.dataset.step !== String(s)) { el.dataset.step = String(s); el.style.setProperty('--st', s); } }
-        el.dataset.end = p > 0.94 ? '1' : '0';
-      });
-    };
-    const req = () => { if (!tick) { tick = true; requestAnimationFrame(update); } };
-    const so = new IntersectionObserver((es) => es.forEach((e) => { e.isIntersecting ? live.add(e.target) : live.delete(e.target); req(); }), { rootMargin: '25% 0px' });
-    scenes.forEach((el) => { so.observe(el); if (el.dataset.steps) { el.dataset.step = '1'; el.style.setProperty('--st', 1); } });
-    addEventListener('scroll', req, { passive: true }); addEventListener('resize', req);
-    update();
+    /* "/" üzerinde: bölüme anında kayma + aktif sekme kaydırmayla. Başka sayfalarda bağlantılar olduğu gibi çalışır. */
+    if (header.dataset.ana === '1') {
+      const baglar = $$('[data-bolum]', header);
+      const hedef = (b) => (b === 'anasayfa' ? null : d.getElementById(b));
+      const mevcut = (b) => b === 'anasayfa' || !!hedef(b);
+      const sirali = ['anasayfa', ...new Set(baglar.map((a) => a.dataset.bolum).filter((b) => b !== 'anasayfa'))].filter(mevcut);
+      const aktifYap = (b) => {
+        baglar.forEach((a) => {
+          if (a.dataset.bolum === b) a.setAttribute('aria-current', 'page');
+          else if (mevcut(a.dataset.bolum)) a.removeAttribute('aria-current');
+        });
+        const a = baglar.find((x) => x.dataset.bolum === b && x.closest('.menu-panel'));
+        if (a) { etiket = a.textContent.trim(); yaz(); }
+      };
+      const ust = () => parseFloat(getComputedStyle(d.documentElement).getPropertyValue('--header-h')) || 64;
+      const git = (b) => {
+        const el = hedef(b);
+        const y = el ? Math.max(0, el.getBoundingClientRect().top + scrollY - ust() - 8) : 0;
+        scrollTo({ top: y, behavior: 'auto' });
+        try { history.replaceState(null, '', b === 'anasayfa' ? location.pathname : '#' + b); } catch (e) { /* sandbox */ }
+        aktifYap(b);
+      };
+      baglar.forEach((a) => a.addEventListener('click', (e) => {
+        const b = a.dataset.bolum;
+        if (!mevcut(b) || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+        e.preventDefault(); git(b);
+      }));
+      let kare = 0;
+      const olc = () => {
+        kare = 0;
+        const probe = ust() + innerHeight * 0.3;
+        let cur = sirali[0];
+        sirali.forEach((b) => { const el = hedef(b); if (el && el.getBoundingClientRect().top <= probe) cur = b; });
+        if (innerHeight + scrollY >= d.documentElement.scrollHeight - 2) cur = sirali[sirali.length - 1];
+        aktifYap(cur);
+      };
+      const iste = () => { if (!kare) kare = requestAnimationFrame(olc); };
+      addEventListener('scroll', iste, { passive: true });
+      addEventListener('resize', iste);
+      olc();
+    }
   }
 
   /* ── Şema etiketleri ekranda ≥11 px: --sc-k = viewBox genişliği ÷ ekran genişliği (schema.css) ── */
@@ -78,7 +73,4 @@
     const ro = new ResizeObserver((es) => es.forEach((e) => olc(e.target)));
     $$('svg.schema').forEach((s) => { ro.observe(s); olc(s); });
   }
-
-  /* ── Sonsuz animasyonlar görünmezken durur ── */
-  if (hasIO) $$('[data-pause-offscreen]').forEach((el) => new IntersectionObserver((es) => el.classList.toggle('is-paused', !es[0].isIntersecting)).observe(el));
 })();

@@ -1,34 +1,31 @@
-/* DÜĞMELER: iki stil (şartname §1.5). Birincil: koyu zeminde vurgu dolgu + siyah etiket; açık zeminde SİYAH dolgu + açık etiket.
-   İkincil: cam (koyu) / şeffaf + siyah çizgi (açık). Metin bağlantısı: altı 1 px, hover 2 px, ok → */
+/* DÜĞMELER (X07 İnce): hap, 40 px, 14 px/500. Birincil: koyuda turuncu dolgu + koyu yazı; kremde SİYAH dolgu + krem yazı.
+   İkincil (.pill--glass): şeffaf + 1 px çizgi. Metin bağlantısı (.link): koyuda turuncu yazı + %40 turuncu alt çizgi; kremde koyu yazı. Hover yalnız renk (150 ms). */
 .pill {
-  display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 52px; padding-inline: 28px;
-  font-size: 16px; font-weight: 600; line-height: 1; letter-spacing: -.005em; white-space: nowrap; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding-inline: 20px;
+  font-size: 14px; font-weight: 500; line-height: 1; letter-spacing: 0; white-space: nowrap; cursor: pointer;
   border: 1px solid transparent; border-radius: var(--r-pill);
-  transition: transform var(--d-fast) var(--ease-out), background-color var(--d-fast) var(--ease-out), border-color var(--d-fast) var(--ease-out), filter var(--d-fast) var(--ease-out);
 }
-.pill svg { width: 16px; height: 16px; flex: none; transition: transform var(--d-fast) var(--ease-out); }
-.pill:hover svg { transform: translateX(4px); }
-.pill:active { transform: scale(.97); transition-duration: 90ms; }
+.pill svg { width: 14px; height: 14px; flex: none; }
 .pill--primary { background: var(--accent); color: var(--on-accent); }
-.pill--primary:hover { filter: brightness(1.06); }
-.theme-light .pill--primary:hover { filter: none; background: color-mix(in srgb, var(--c-ink-2) 85%, var(--c-second)); }
-.pill--glass { background: var(--c-glass); border-color: var(--line); color: var(--fg); }
-.pill--glass:hover { background: color-mix(in srgb, var(--c-ink) 13%, transparent); }
-.theme-light .pill--glass { background: transparent; border-color: var(--line-strong); }
-.theme-light .pill--glass:hover { background: color-mix(in srgb, var(--c-ink-2) 6%, transparent); }
-.pill--sm { height: 40px; padding-inline: 20px; font-size: 15px; }
+.pill--primary:hover { background: color-mix(in srgb, var(--accent) 86%, var(--bg)); }
+.pill--glass { background: transparent; border-color: var(--line-strong); color: var(--fg); }
+.pill--glass:hover { background: var(--chip); }
+.pill--sm { height: 34px; padding-inline: 16px; font-size: 13px; }
+/* koyu zemin üstünde koyu düğme (turuncu bandın içinde): --main dolgu, --ink yazı */
+.pill--dark { background: var(--c-main); color: var(--c-ink); }
+.pill--dark:hover { background: var(--c-main-2); }
 
 .link {
-  display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--fg);
-  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; text-decoration-color: var(--line-strong);
-  transition: text-decoration-color var(--d-fast), text-decoration-thickness var(--d-fast);
+  display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 400; color: var(--accent-text);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent-text) 40%, transparent); text-decoration: none; padding-bottom: 1px;
 }
-.link:hover { text-decoration-thickness: 2px; text-decoration-color: currentColor; }
-.link svg { width: 14px; height: 14px; transition: transform var(--d-fast) var(--ease-out); }
-.link:hover svg { transform: translateX(4px); }
+.link:hover { border-bottom-color: var(--accent-text); }
+.theme-light .link { color: var(--fg); border-bottom-color: var(--line-strong); }
+.theme-light .link:hover { border-bottom-color: var(--fg); }
+.link svg { width: 12px; height: 12px; }
 
 .tag {
-  display: inline-flex; align-items: center; height: 28px; padding-inline: 12px; border: 1px solid var(--line); border-radius: var(--r-pill);
-  font-size: 12.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-muted); white-space: nowrap;
+  display: inline-flex; align-items: center; height: 26px; padding-inline: 11px; border: 1px solid var(--line); border-radius: var(--r-pill);
+  font-size: 12px; font-weight: 500; color: var(--fg-muted); white-space: nowrap;
 }
 .tags { display: flex; flex-wrap: wrap; gap: var(--s-2); }
