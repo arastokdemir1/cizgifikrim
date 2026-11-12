@@ -41,6 +41,7 @@ sayfaCss: ['components/sections', 'pages/calismalar']
     <div class="proje-grid">
       {%- for p in projeler.liste %}
       <article class="kart proje proje--{{ p.slug }}">
+        <div class="proje-medya">
         <div class="proje-gorsel">
           {%- if p.slug == 'carlog' %}
             {%- for g in carlogGorseller %}{% gorsel g.k, g.alt, "(min-width: 1024px) 110px, 120px", [240, 480], ('eager' if loop.first else 'lazy') %}{% endfor %}
@@ -49,6 +50,7 @@ sayfaCss: ['components/sections', 'pages/calismalar']
           {%- endif %}
         </div>
         {%- if p.gorsel.altyazi %}<p class="proje-ornek">{{ p.gorsel.altyazi }}</p>{% elif p.slug == 'polishreel' %}<p class="proje-ornek">Örnek çıktı</p>{% endif %}
+        </div>
         <div class="proje-ust"><h2 class="h3">{{ p.baslik }}</h2><span class="durum">{{ p.durum }}</span></div>
         <p>{{ p.cumle }}</p>
         <dl class="proje-pn">
