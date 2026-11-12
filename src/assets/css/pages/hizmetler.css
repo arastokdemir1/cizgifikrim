@@ -22,7 +22,7 @@
 .hzg-blok__liste dd { margin: 0; font-size: var(--t-body); line-height: var(--lh-body); }
 .hzg-teslim { display: grid; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
 .hzg-teslim li { display: flex; gap: var(--s-3); align-items: baseline; font-weight: 400; font-size: var(--t-small); }
-.hzg-teslim li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--c-accent); flex: none; transform: translateY(-2px); }
+.hzg-teslim li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex: none; transform: translateY(-2px); }
 .hzg-ornek { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: var(--t-small); color: var(--fg-muted); }
 .hzg-ornek .link { color: var(--fg); }
 .hzg-ornek svg { width: 14px; height: 14px; }

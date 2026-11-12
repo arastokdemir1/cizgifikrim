@@ -10,7 +10,7 @@ a.kart:hover { border-color: var(--line-strong); }
 .principle { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; align-content: start; padding: 20px; border: 1px solid var(--line); border-radius: var(--r-m); background: var(--surface); }
 .principle-top { display: flex; align-items: center; justify-content: space-between; color: var(--fg-muted); }
 .principle-top svg { width: 28px; height: 28px; }
-.principle-no { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--c-accent); color: var(--c-on-accent); font: 500 12px/1 var(--f-sans); font-variant-numeric: tabular-nums; }
+.principle-no { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font: 500 12px/1 var(--f-sans); font-variant-numeric: tabular-nums; }
 .principle p { font-size: var(--t-small); color: var(--fg-muted); line-height: 1.55; }
 
 /* Künye: etiket | metin satırları */

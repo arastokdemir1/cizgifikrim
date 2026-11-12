@@ -1,21 +1,21 @@
-/* TOKENS: tek kaynak. TASARIM X07 İNCE (Aras seçti): ince yazı 400/500, bol boşluk, yuvarlak köşe, ANİMASYON YOK. PALET "Grafit & Turuncu" (Aras seçti). Palet = bu dosya; bileşenlerde hazır renk/ölçü yazılmaz.
-   Dağılım ~%60 grafit / %30 krem / %10 turuncu: sayfa zemini --c-main; koyu bölümler çerçevesiz; krem bölümler (.sec.theme-light) "yuvarlak ada"; turuncu = hero/CTA birincil düğmesi, aktif menü hapı, 6 px noktalar, süreç numarası, CTA bandı.
-   Krem zeminde turuncu YAZI yok (dolgu olabilir; üstündeki metin --c-on-accent). */
+/* TOKENS: tek kaynak. TASARIM X07 İNCE (Aras seçti): ince yazı 400/500, bol boşluk, yuvarlak köşe, ANİMASYON YOK. PALET "Gece & Buz Mavisi" (Aras seçti; önceki: Grafit & Turuncu). Palet = bu dosya; bileşenlerde hazır renk/ölçü yazılmaz.
+   Dağılım ~%60 koyu / %30 açık / %10 vurgu: sayfa zemini --c-main; koyu bölümler çerçevesiz; açık bölümler (.sec.theme-light) "yuvarlak ada"; vurgu (buz mavisi) = hero/CTA birincil düğmesi, aktif menü hapı, 6 px noktalar, süreç numarası, CTA bandı (yalnız KOYU zeminde ya da dolgu olarak).
+   Açık zeminde vurgu YAZI/ikon/çizgi YOK (1,67:1): açık zeminde vurgu = koyu --c-ink-2 (siyah dolgu, nokta, düğme). Mavi dolgu üstündeki metin --c-on-accent. Türetilmiş tonlar: faz1/qa/renk_kontrast.md §0. */
 :root {
   /* ── Palet (kontrastlar hesaplı: faz1/qa/w2p/kontrast_ciftleri.md) ──────── */
-  --c-main: #0D0D0E;            /* %60: hero, menü, footer, CTA bandı */
-  --c-main-2: #1A1A1C;          /* gradyan/kart zemini */
-  --c-second: #F3F1EC;          /* %30: açık bölümler */
-  --c-accent: #FF6A1A;          /* %10: yalnız KOYU zeminde (açık zeminde ~2,6:1, YASAK) */
-  --c-on-accent: #0D0D0E;       /* dolgu üstündeki yazı: grafit */
-  --c-ink: #F3F1EC;             /* koyu zemin metni */
-  --c-ink-muted: #A09D97;       /* koyu zemin ikincil metni */
-  --c-ink-2: #0D0D0E;           /* açık zemin metni */
-  --c-ink-2-muted: #5C5952;     /* açık zemin ikincil metni */
-  --c-accent-text: var(--c-accent);     /* vurgunun KOYU zeminde METİN olarak kullanımı (sayaç, numara); turuncu koyu zeminde yeterli kontrastta, aynı değer */
-  --c-second-2: #E8E5DE;                /* açık zeminde ikinci yüzey */
-  --c-card-2: #FBFAF7;                  /* açık zeminde kart yüzeyi (sıcak beyaz) */
-  --c-glow-base: #BDB4A8;               /* ortadan ışık rengi (hafif sıcak nötr) */
+  --c-main: #0A0B0D;            /* %60: hero, menü, footer, koyu bölümler */
+  --c-main-2: #18191B;          /* kart zemini (koyuda; ink 15,97, accent 9,53) */
+  --c-second: #F2F4F7;          /* %30: açık bölümler */
+  --c-accent: #7CC6FF;          /* %10: yalnız KOYU zeminde ya da DOLGU (açık zeminde 1,67:1: metin/ikon/çizgi YASAK) */
+  --c-on-accent: #0A0B0D;       /* vurgu dolgusu üstündeki yazı (10,67:1) */
+  --c-ink: #F2F4F7;             /* koyu zemin metni (17,87:1) */
+  --c-ink-muted: #A1A2A5;       /* koyu zemin ikincil metni (7,71:1) */
+  --c-ink-2: #0A0B0D;           /* açık zemin metni (17,87:1); açık zeminde vurgu = bu */
+  --c-ink-2-muted: #5B5D5F;     /* açık zemin ikincil metni (6,00:1; kartta 6,44) */
+  --c-accent-text: var(--c-accent);     /* vurgunun KOYU zeminde METİN olarak kullanımı (sayaç, numara); vurgu koyu zeminde 10,67:1, aynı değer */
+  --c-second-2: #E4E6E9;                /* açık zeminde ikinci yüzey */
+  --c-card-2: #FBFCFD;                  /* açık zeminde kart yüzeyi (sıcak beyaz) */
+  --c-glow-base: #D8EAF9;               /* ortadan ışık rengi (hafif soğuk nötr) */
   --c-device: #121213;                  /* telefon/pencere kasası */
   --c-shadow: #000000;                  /* gölge rengi */
   --c-contrast-dark: #000000;           /* geçiş anlarında saf koyu metin (kontrast) */
@@ -86,11 +86,11 @@
   --line: color-mix(in srgb, var(--c-ink) 12%, transparent); --line-strong: color-mix(in srgb, var(--c-ink) 26%, transparent);
   --surface: var(--c-main-2); --surface-solid: var(--c-main-2);        /* kart: koyuda --main-2, 1 px %12 kenar */
   --chip: color-mix(in srgb, var(--c-ink) 8%, transparent);
-  --accent: var(--c-accent); --accent-text: var(--c-accent-text); --on-accent: var(--c-on-accent);   /* birincil pill: turuncu dolgu, koyu yazı */
+  --accent: var(--c-accent); --accent-text: var(--c-accent-text); --on-accent: var(--c-on-accent);   /* birincil pill: vurgu dolgu, koyu yazı */
   --focus: var(--c-ink);
   background: var(--bg); color: var(--fg); color-scheme: dark;
 }
-/* Krem ada: değerler BURADA yerel hesaplanır (:root'taki color-mix başka bağlamda miras kalırsa yanlış çıkar). Turuncu YAZI yok; vurgu = siyah dolgu. */
+/* Krem ada: değerler BURADA yerel hesaplanır (:root'taki color-mix başka bağlamda miras kalırsa yanlış çıkar). Vurgu YAZI yok; vurgu = siyah dolgu. */
 .theme-light {
   --bg: var(--c-second); --bg-2: var(--c-second-2);
   --fg: var(--c-ink-2); --fg-muted: var(--c-ink-2-muted);

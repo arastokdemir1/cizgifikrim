@@ -4,5 +4,5 @@
 .svc-all { justify-self: start; margin-top: var(--s-6); }
 .svc-bullets { display: grid; gap: var(--s-2); }
 .svc-bullets li { display: flex; align-items: baseline; gap: var(--s-3); font-size: var(--t-small); color: var(--fg-muted); }
-.svc-bullets li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--c-accent); flex: none; transform: translateY(-2px); }
+.svc-bullets li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex: none; transform: translateY(-2px); }
 @media (max-width: 1023px) { .hz-ozet { grid-template-columns: minmax(0, 1fr); } }
