@@ -3,31 +3,29 @@ layout: layouts/base.njk
 title: "CizgiFikrim — Web sitesi, mobil uygulama ve yapay zekâ"
 description: "Web sitesi, mobil uygulama ve yapay zekâ çözümlerini fikirden yayına kadar yapıyoruz. Önce sorunu yazarız, sonra yaparız. Ücretsiz keşif görüşmesi ayırın."
 permalink: /
-sayfaCss: ['components/hero', 'components/services', 'components/process', 'components/sections', 'components/form', 'pages/ana']
-sayfaJs: ['lead-form', 'cal-lazy']
+sayfaCss: ['components/hero', 'components/services', 'components/process', 'components/sections']
 ---
-{#- ANA SAYFA ("/", KARMA YAPI v0.8; metin kaynağı icerik_ortak PART E1, çelişkide PART E kazanır). TEK AKIŞ, PROJESİZ (proje adı/görseli/kartı/demosu, "kendi ürünlerimiz", mağaza rozeti YOK; Çalışmalar /calismalar/ ayrı sayfa).
-    Sıra: Ana sayfa (koyu) → Hizmetler özeti (krem ada, #hizmetler) → Süreç özeti (koyu, #nasil) → Hakkında özeti (koyu, #hakkinda) → CTA (turuncu ada) → Görüşme (krem ada, #gorusme).
-    Menü sözleşmesi (header/ui.js): id'ler hizmetler | nasil | hakkinda | gorusme. Her özetin sonunda "Devamı →" tam sayfaya gider. Animasyon/otomatik atlama yok.
-    Görüşme: ortak partial'lar (Frontend-1): form + takvim. Sayfada TEK form. -#}
+{#- ANA SAYFA ("/", ÇOK SAYFALI: Aras kararı; karma/tek akış iptal). Bağımsız ve PROJESİZ (proje adı/görseli/kartı/demosu, "kendi ürünlerimiz", mağaza rozeti YOK; Çalışmalar /calismalar/ ayrı sayfa).
+    Bölümler: hero (koyu) → Hizmetler özeti (krem ada) → Süreç özeti (koyu) → Hakkında özeti (koyu) → CTA (vurgu adası). Her özet "Devamı →" ile ilgili tam sayfaya gider; sayfa içi #bölüm sekmesi/bağlantısı YOK.
+    İçerik Teknik-1'in yeni PART'ından genişleyecek (daha dolu ana sayfa); şimdiki metinler PART E1. Görüşme formu burada YOK (yalnız /gorusme/). -#}
 {%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
 
-{# ───────── 1 · ANA SAYFA / HERO (koyu) ───────── #}
-<section class="sec hero theme-dark" id="anasayfa" aria-labelledby="hero-baslik">
+{# ───────── 1 · HERO (koyu) ───────── #}
+<section class="sec hero theme-dark" aria-labelledby="hero-baslik">
   <div class="container hero-in">
     <span class="kicker">Yapay zekâ ve yazılım stüdyosu · İstanbul</span>
     <h1 class="h-hero" id="hero-baslik">Web sitesi, mobil uygulama ve yapay zekâ çözümlerini <em>baştan sona</em> yapıyoruz.</h1>
     <p class="hero-sub">Aynı ekip fikrinizden yayına kadar çalışır. Önce sorunu yazarız, sonra yaparız.</p>
     <div class="hero-cta">
-      <a class="pill pill--primary" href="{{ nav.cta.href }}" data-bolum="gorusme">{{ nav.cta.etiket }} {{ ok | safe }}</a>
-      <a class="pill pill--glass" href="/hizmetler/" data-bolum="hizmetler">Hizmetlere bakın</a>
+      <a class="pill pill--primary" href="{{ nav.cta.href }}">{{ nav.cta.etiket }} {{ ok | safe }}</a>
+      <a class="pill pill--glass" href="/hizmetler/">Hizmetlere bakın</a>
     </div>
     <p class="hero-tech">{{ teknoloji | join(' · ') }}</p>
   </div>
 </section>
 
 {# ───────── 2 · HİZMETLER ÖZETİ (krem ada) ───────── #}
-<section class="sec theme-light" id="hizmetler" aria-labelledby="hizmet-baslik">
+<section class="sec theme-light" aria-labelledby="hizmet-baslik">
   <div class="container">
     <div class="sec-head">
       <span class="kicker">Hizmetler</span>
@@ -47,7 +45,7 @@ sayfaJs: ['lead-form', 'cal-lazy']
 </section>
 
 {# ───────── 3 · SÜREÇ ÖZETİ (koyu) ───────── #}
-<section class="sec theme-dark" id="nasil" aria-labelledby="surec-baslik">
+<section class="sec theme-dark" aria-labelledby="surec-baslik">
   <div class="container">
     <div class="sec-head">
       <span class="kicker">Süreç</span>
@@ -67,7 +65,7 @@ sayfaJs: ['lead-form', 'cal-lazy']
 </section>
 
 {# ───────── 4 · HAKKINDA ÖZETİ (koyu) ───────── #}
-<section class="sec theme-dark" id="hakkinda" aria-labelledby="hakkinda-baslik">
+<section class="sec theme-dark" aria-labelledby="hakkinda-baslik">
   <div class="container about">
     <div class="sec-head" style="margin:0">
       <span class="kicker">Hakkında</span>
@@ -83,22 +81,5 @@ sayfaJs: ['lead-form', 'cal-lazy']
   </div>
 </section>
 
-{# ───────── 5 · CTA (turuncu ada) ───────── #}
-{%- set ctaHref = '#gorusme' %}
+{# ───────── 5 · CTA (vurgu adası) ───────── #}
 {% include "partials/cta-band.njk" %}
-
-{# ───────── 6 · GÖRÜŞME (krem ada; /gorusme/ ile aynı form ve takvim) ───────── #}
-<section class="sec theme-light" id="gorusme" aria-labelledby="gorusme-baslik">
-  <div class="container">
-    <div class="sec-head">
-      <span class="kicker">Görüşme</span>
-      <h2 class="h2" id="gorusme-baslik">Ücretsiz keşif <em>görüşmesi</em></h2>
-      <p class="lead">Kısa bir görüşmede ne istediğinizi dinler, nasıl yapılacağını söyleriz. Takvimden uygun saati seçin ya da formu doldurun; kısa sürede dönüş yapıyoruz.</p>
-    </div>
-    <div class="ana-gr-grid">
-      {%- set takvimSinif = 'gr-panel' %}{% set takvimBaslikSeviye = 'h3' %}{% include "partials/gorusme-takvim.njk" %}
-      {%- set formSinif = 'gr-panel' %}{% set formBaslikSeviye = 'h3' %}{% include "partials/gorusme-form.njk" %}
-    </div>
-    <p class="gr-eposta">E-posta ile de yazabilirsiniz: <a class="link" href="mailto:{{ site.email }}">{{ site.email }}</a></p>
-  </div>
-</section>
