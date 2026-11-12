@@ -1,0 +1,15 @@
+{#- GÖRÜŞME TAKVİMİ (Cal.com, tıklayınca yüklenir; assets/js/cal-lazy.js). Sayfa front matter: sayfaJs: ['cal-lazy'], sayfaCss: ['components/form']. Sahip: Frontend-1.
+    Parametreler (isteğe bağlı): takvimBaslikSeviye "h2" (varsayılan) | "h3"; takvimBaslik (varsayılan: Uygun saati <em>seçin</em>); takvimSinif (ek sınıf). Sayfada tek takvim. -#}
+{%- set _th = takvimBaslikSeviye or 'h2' -%}
+{%- set _tb = takvimBaslik if takvimBaslik != undefined else 'Uygun saati <em>seçin</em>' -%}
+<section class="gr-takvim{% if takvimSinif %} {{ takvimSinif }}{% endif %}" aria-labelledby="takvim-baslik" data-cal>
+  {%- if _tb %}<{{ _th }} class="h3" id="takvim-baslik">{{ _tb | safe }}</{{ _th }}>{% else %}<p class="sr-only" id="takvim-baslik">Takvim</p>{% endif %}
+  <div class="gr-cal__sahne" data-cal-sahne aria-live="polite">
+    <div class="gr-cal__iskelet" data-cal-iskelet>
+      <p class="gr-cal__metin" data-cal-durum>Takvim, düğmeye bastığınızda yüklenir.</p>
+      <button type="button" class="pill pill--primary" data-cal-ac>Takvimi aç</button>
+    </div>
+  </div>
+  <p class="gr-not">Seçtiğiniz saat için e-posta ile onay gelir.</p>
+  <a class="link gr-cal__yedek" href="https://cal.com/cizgifikrim" target="_blank" rel="noopener noreferrer" data-cal-yedek hidden>Cal.com'da aç <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg></a>
+</section>

@@ -10,6 +10,8 @@
 /* Krem ada: genişlik ≤ 1120, kenar boşluğu 12–24, köşe 28 (≤640: 20), iç boşluk 28–72 */
 .sec.theme-light { width: min(var(--w-content), calc(100% - 2 * var(--ada-m))); margin-inline: auto; padding-block: var(--ada-pad); border-radius: var(--r-ada); }
 .sec.theme-light > .container { max-width: none; padding-inline: var(--ada-px); }
+/* ardışık krem adalar arasında boşluk */
+.sec.theme-light + .sec.theme-light { margin-top: var(--ada-m); }
 .sec--tight { padding-block: clamp(24px, 3vw, 40px); }
 .sec-head { display: grid; gap: var(--s-3); max-width: 46rem; margin-bottom: clamp(24px, 3.5vw, 40px); }
 .sec-head--row { max-width: none; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--s-6); }

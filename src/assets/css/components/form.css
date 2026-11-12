@@ -1,0 +1,47 @@
+/* FORM + TAKVİM (X07 İnce; ortak: "/" Görüşme bölümü ve /gorusme/). Alan 12 px yarıçap, 44 px; etiket 12 px soluk; kremde alan zemini --second-2.
+   Partial'lar: partials/gorusme-form.njk, partials/gorusme-takvim.njk. Yalnız anlamsal tema değişkenleri (--fg, --line, --bg-2 …) okunur. */
+.gr-form, .gr-takvim { display: grid; align-content: start; gap: var(--s-4); }
+.gr-form > h2, .gr-form > h3, .gr-takvim > h2, .gr-takvim > h3 { margin: 0; }
+.gr-panel { padding: clamp(20px, 2.6vw, 32px); border: 1px solid var(--line); border-radius: var(--r-m); background: var(--surface); }
+.gr-not { margin: 0; font-size: var(--t-small); color: var(--fg-muted); }
+
+/* Takvim: sabit yükseklikli sahne (yüklenene dek kayma yok), statik iskelet */
+.gr-cal__sahne { position: relative; min-height: 520px; border-radius: var(--r-s); border: 1px solid var(--line); background: var(--bg-2); overflow: hidden; }
+.gr-cal__iskelet { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: var(--s-4); padding: var(--s-5); text-align: center; }
+.gr-cal__metin { margin: 0; max-width: 28ch; color: var(--fg-muted); font-size: var(--t-small); }
+.gr-cal__sahne.is-yuklu .gr-cal__iskelet { display: none; }
+.gr-cal__sahne iframe, .gr-cal__sahne > div { width: 100%; height: 100%; }
+.gr-cal__yedek { justify-self: start; }
+
+/* Form */
+.gr-mock { margin: 0; padding: var(--s-3) var(--s-4); border: 1px dashed var(--line-strong); border-radius: var(--r-s); font-size: var(--t-small); color: var(--fg-muted); }
+.gr-alanlar { display: grid; gap: 12px; }
+.gr-alan { display: grid; gap: 6px; }
+.gr-alan label { font-size: 12px; font-weight: 400; color: var(--fg-muted); }
+.gr-alan input[type="text"], .gr-alan input[type="email"], .gr-alan select, .gr-alan textarea {
+  width: 100%; min-height: 44px; padding: 11px 13px; border: 1px solid var(--line); border-radius: var(--r-s);
+  background: color-mix(in srgb, var(--fg) 4%, transparent); color: var(--fg); font: 400 14px/1.4 var(--f-sans);
+}
+.theme-light .gr-alan input[type="text"], .theme-light .gr-alan input[type="email"], .theme-light .gr-alan select, .theme-light .gr-alan textarea { background: var(--c-second-2); }
+.gr-alan textarea { min-height: 104px; resize: vertical; line-height: 1.5; }
+.gr-alan select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--fg-muted) 50%), linear-gradient(135deg, var(--fg-muted) 50%, transparent 50%); background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%; background-size: 5px 5px; background-repeat: no-repeat; }
+.gr-alan select option { background: var(--surface-solid); color: var(--fg); }
+.gr-alan input:focus-visible, .gr-alan select:focus-visible, .gr-alan textarea:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; border-color: var(--fg); }
+.gr-alan [aria-invalid="true"] { border-color: var(--fg); box-shadow: 0 0 0 1px var(--fg); }
+.gr-hata { margin: 0; display: flex; gap: 8px; align-items: flex-start; font-size: 12.5px; font-weight: 500; color: var(--fg); }
+.gr-hata::before { content: "!"; flex: none; display: grid; place-items: center; width: 16px; height: 16px; margin-top: 1px; border-radius: 50%; background: var(--fg); color: var(--bg); font-size: 11px; font-weight: 500; }
+.gr-hata[hidden] { display: none; }
+/* Honeypot: ekran dışı, görünmez, odak alamaz (aria-hidden + tabindex=-1 + autocomplete=off) */
+.gr-bal { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); opacity: 0; pointer-events: none; }
+.gr-bal * { opacity: 0; }
+.gr-alan .gr-onay__etiket { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; font-weight: 400; color: var(--fg-muted); cursor: pointer; line-height: 1.5; }
+.gr-onay__etiket input { flex: none; width: 18px; height: 18px; margin-top: 1px; accent-color: var(--fg); }
+.gr-onay__etiket a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+.gr-ozet { padding: var(--s-4); border: 1px solid var(--line-strong); border-radius: var(--r-s); background: var(--bg); font-size: 13.5px; line-height: 1.55; }
+.gr-ozet[hidden] { display: none; }
+.gr-ozet a { color: var(--fg); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+.gr-ozet__yedek { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); margin-top: var(--s-2); }
+.gr-gonder { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s-4); }
+.gr-gonder .pill[aria-disabled="true"] { opacity: .7; cursor: progress; }
+.gr-durum { font-size: var(--t-small); color: var(--fg-muted); }
+@media (max-width: 640px) { .gr-cal__sahne { min-height: 460px; } }

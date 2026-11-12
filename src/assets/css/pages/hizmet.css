@@ -1,5 +1,5 @@
 /* HİZMET DETAYI: Web sitesi ve e-ticaret (Frontend-1). Yalnız anlamsal tema değişkenleri; açık zeminde vurgu rengi yok. */
-.hz-hero { padding-top: calc(var(--header-top) + var(--header-h) + clamp(32px, 6vw, 88px)); overflow-x: clip; }
+.hz-hero { padding-top: clamp(24px, 4vw, 48px); overflow-x: clip; }
 .hz-hero__fx { position: absolute; inset: 0; pointer-events: none; }
 .hz-hero__fx i { position: absolute; right: -6%; top: 6%; width: min(70vw, 880px); aspect-ratio: 1; background: radial-gradient(closest-side, var(--c-glow-2), transparent 70%); }
 .hz-hero__grid { position: relative; display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(24px, 5vw, 80px); align-items: center; }
@@ -8,7 +8,7 @@
 .hz-kirinti a { color: var(--fg-muted); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 4px; }
 .hz-kirinti a:hover { color: var(--fg); }
 .hz-kirinti [aria-current] { color: var(--fg); }
-.hz-hero__h1 { margin: 0; font-size: clamp(44px, 6.6vw, 96px); line-height: 1; letter-spacing: var(--ls-h1); text-wrap: balance; }
+.hz-hero__h1 { margin: 0; font-size: var(--t-h1); line-height: var(--lh-tight); letter-spacing: var(--ls-h1); text-wrap: balance; }
 .hz-hero__lead { margin: 0; max-width: 36ch; color: var(--fg-muted); }
 .hz-hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-5); }
 .hz-hero__not { font-size: var(--t-small); color: var(--fg-muted); }
@@ -20,7 +20,7 @@
 .hz-kunye__sag { display: grid; gap: clamp(32px, 4vw, 56px); }
 .hz-blok { display: grid; gap: var(--s-4); }
 .hz-blok .kicker { margin: 0; }
-.hz-blok__metin { margin: 0; font-size: clamp(20px, 1.9vw, 26px); line-height: 1.35; letter-spacing: -.01em; font-weight: 500; max-width: 34ch; text-wrap: pretty; }
+.hz-blok__metin { margin: 0; font-size: clamp(18px, 1.6vw, 20px); line-height: 1.45; letter-spacing: -.01em; font-weight: 500; max-width: 34ch; text-wrap: pretty; }
 .hz-liste { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s-3); }
 .hz-liste li { display: flex; align-items: baseline; gap: var(--s-4); padding: 18px 22px; border: 1px solid var(--line); border-radius: var(--r-m); background: var(--surface); font-size: 18px; line-height: 1.4; font-weight: 500; }
 .hz-liste__no { flex: none; font-family: var(--f-serif); font-style: italic; font-size: 22px; line-height: 1; color: var(--fg-muted); min-width: 2ch; }
@@ -75,7 +75,7 @@
 .hz-profiller h4 { margin: 0; }
 .hz-profiller p { margin: 0; color: var(--fg-muted); }
 .hz-liste li > div { display: grid; gap: 4px; }
-.hz-liste b { font-weight: 600; font-size: 18px; letter-spacing: -.005em; }
+.hz-liste b { font-weight: 500; font-size: 18px; letter-spacing: -.005em; }
 .hz-liste span:not(.hz-liste__no) { color: var(--fg-muted); font-size: 16px; line-height: 1.5; font-weight: 400; }
 .hz-liste li { align-items: flex-start; }
 .hz-not { margin-top: var(--s-4); }
@@ -90,20 +90,22 @@
 .hz-madde li { position: relative; padding-left: 18px; color: var(--fg-muted); line-height: 1.5; }
 .hz-madde li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--fg); }
 .hz-ornek { display: grid; gap: var(--s-2); margin: var(--s-7) 0 0; padding-top: var(--s-5); border-top: 1px solid var(--line); }
-.hz-ornek__satir { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-6); margin: 0; font-weight: 600; }
+.hz-ornek__satir { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-6); margin: 0; font-weight: 500; }
 .hz-ornek__cumle { margin: 0; color: var(--fg-muted); font-weight: 400; }
 .hz-eticaret .sec-head { max-width: 52rem; }
 
 @media (max-width: 899px) {
   .schema--detay .cal { display: none; }
   .hz-notlar { display: flex; flex-wrap: wrap; gap: var(--s-2); margin: var(--s-4) 0 0; padding: 0; list-style: none; }
-  .hz-notlar li { padding: 8px 14px; border: 1px solid var(--line); border-radius: var(--r-pill); font-size: 12.5px; font-weight: 700; letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--fg-muted); }
+  .hz-notlar li { padding: 8px 14px; border: 1px solid var(--line); border-radius: var(--r-pill); font-size: 12.5px; font-weight: 500; letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--fg-muted); }
 }
 
 /* Süreç adımı: Sizden / Bizden / Çıktı satırları (C8/C10) */
 .hz-adim__meta { display: grid; gap: 6px; }
 .hz-adim__meta p { margin: 0; }
-.hz-adim__meta b { color: var(--fg); font-weight: 600; }
+.hz-adim__meta b { color: var(--fg); font-weight: 500; }
 .hz-cipler { margin-top: var(--s-5); }
 
 @media (max-width: 899px) { .hz-tags--tekrar { display: none !important; } } /* şema altı not chip'leriyle aynı bilgi: mobilde biri kalır */
+/* X07 İnce: dev ürün adı ve hero ışığı yok */
+.hz-hero__fx { display: none; }

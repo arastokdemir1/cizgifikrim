@@ -9,8 +9,8 @@
 
   if (header) {
     const btn = $$('.menu-toggle', header)[0], panel = d.getElementById('menu-panel');
-    let etiket = btn ? btn.dataset.etiket || 'Ana sayfa' : '';
-    const yaz = () => { if (btn) btn.textContent = panel && !panel.hidden ? 'Kapat' : 'Menü · ' + etiket; };
+    let etiket = btn ? btn.dataset.etiket || '' : '';
+    const yaz = () => { if (btn) btn.textContent = panel && !panel.hidden ? 'Kapat' : 'Menü' + (etiket ? ' · ' + etiket : ''); };
     const ac = (open) => { if (!btn || !panel) return; btn.setAttribute('aria-expanded', String(open)); panel.hidden = !open; yaz(); };
     if (btn && panel) {
       btn.addEventListener('click', (e) => { e.stopPropagation(); ac(panel.hidden); });

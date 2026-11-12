@@ -1,0 +1,51 @@
+{#- GÖRÜŞME FORMU (tek partial: "/" akışındaki Görüşme bölümü ve /gorusme/ aynı bileşeni kullanır). Sahip: Frontend-1.
+    Gönderim mantığı: assets/js/lead-form.js (submit-lead sözleşmesi, consent_version = gizlilik-2026-11, MOCK modu cizgifikrim.net dışında/?lead=mock). Sayfa front matter'ına: sayfaJs: ['lead-form'], sayfaCss: ['components/form'].
+    Parametreler (include'dan önce {% set %} ile; hepsi isteğe bağlı):
+      formOnek          id öneki, varsayılan "lead" (alan id'leri: <önek>-name, -email, -konu, -message, -website, -consent; hata id'leri err-<önek>-…). Sayfada İKİ form olmayacak; yine de önek benzersiz verilebilir.
+      formBaslikSeviye  başlık etiketi: "h2" (varsayılan) | "h3"; bağlama göre (bölüm başlığı altındaysa "h3").
+      formBaslik        başlık HTML'i (varsayılan: Ya da bize <em>yazın</em>); boş string ("") = başlık yok.
+      formSinif         ek sınıf (ör. "gr-panel" kart çerçevesi için; varsayılan boş = çıplak form, üst bölümün zeminini kullanır). -#}
+{%- set _o = formOnek or 'lead' -%}
+{%- set _h = formBaslikSeviye or 'h2' -%}
+{%- set _b = formBaslik if formBaslik != undefined else 'Ya da bize <em>yazın</em>' -%}
+{%- set _ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
+<section class="gr-form{% if formSinif %} {{ formSinif }}{% endif %}" aria-labelledby="{{ _o }}-baslik" data-lead data-lead-onek="{{ _o }}">
+  {%- if _b %}<{{ _h }} class="h3" id="{{ _o }}-baslik">{{ _b | safe }}</{{ _h }}>{% else %}<p class="sr-only" id="{{ _o }}-baslik">İletişim formu</p>{% endif %}
+  <p class="gr-mock" data-lead-mock hidden>Önizleme modu: gönderim yapılmaz, mesajınız hiçbir yere iletilmez.</p>
+  <form class="gr-alanlar" data-lead-form novalidate>
+    <div class="gr-alan">
+      <label for="{{ _o }}-name">Ad soyad</label>
+      <input id="{{ _o }}-name" name="name" type="text" autocomplete="name" maxlength="120" required>
+      <p class="gr-hata" id="err-{{ _o }}-name" data-err="name" hidden></p>
+    </div>
+    <div class="gr-alan">
+      <label for="{{ _o }}-email">E-posta</label>
+      <input id="{{ _o }}-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+      <p class="gr-hata" id="err-{{ _o }}-email" data-err="email" hidden></p>
+    </div>
+    <div class="gr-alan">
+      <label for="{{ _o }}-konu">Konu</label>
+      <select id="{{ _o }}-konu" name="konu">
+        <option value="web-sitesi-ve-e-ticaret">Web sitesi ve e-ticaret</option>
+        <option value="mobil-uygulama">Mobil uygulama</option>
+        <option value="yapay-zeka-ve-otomasyon">Yapay zekâ ve otomasyon</option>
+        <option value="diger" selected>Diğer</option>
+      </select>
+    </div>
+    <div class="gr-alan">
+      <label for="{{ _o }}-message">Kısaca anlatın</label>
+      <textarea id="{{ _o }}-message" name="message" rows="5" maxlength="2000" required></textarea>
+      <p class="gr-hata" id="err-{{ _o }}-message" data-err="message" hidden></p>
+    </div>
+    <div class="gr-bal" aria-hidden="true"><label for="{{ _o }}-website">Web sitesi</label><input id="{{ _o }}-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+    <div class="gr-alan gr-onay">
+      <label class="gr-onay__etiket"><input id="{{ _o }}-consent" name="consent" type="checkbox" required><span><a href="/gizlilik/#iletisim-formu" target="_blank" rel="noopener">Gizlilik metnini</a> okudum, bilgilerimin görüşme amacıyla işlenmesini ve Avrupa Birliği'ndeki hizmet sağlayıcılarda saklanmasını kabul ediyorum.</span></label>
+      <p class="gr-hata" id="err-{{ _o }}-consent" data-err="consent" hidden></p>
+    </div>
+    <div class="gr-ozet" data-lead-summary tabindex="-1" role="alert" hidden></div>
+    <div class="gr-gonder">
+      <button type="submit" class="pill pill--primary" data-lead-submit>Gönder <span class="gr-gonder__ok" aria-hidden="true">{{ _ok | safe }}</span></button>
+      <span class="gr-durum" data-lead-status role="status" aria-live="polite"></span>
+    </div>
+  </form>
+</section>

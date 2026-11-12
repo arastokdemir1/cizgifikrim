@@ -8,6 +8,7 @@
   'use strict';
   var root = document.querySelector('[data-lead]');
   if (!root) return;
+  var ONEK = root.getAttribute('data-lead-onek') || 'lead';   // id öneki (partials/gorusme-form.njk, aynı sayfada çakışma olmasın)
   var CFG = {
     endpoint: 'https://iekdktdhhryqewvcrnmr.supabase.co/functions/v1/submit-lead',
     apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlla2RrdGRoaHJ5cWV3dmNybm1yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQzMTA4NjIsImV4cCI6MjA5OTg4Njg2Mn0.1R70BzCmDdXbTpVGGk19y9ThY9n7dDJ7SMcJWc5Uhl4',
@@ -74,7 +75,7 @@
     ce.textContent = cm; ce.hidden = !cm;
     if (cm) { c.setAttribute('aria-invalid', 'true'); c.setAttribute('aria-describedby', ce.id); bad.push('consent'); } else { c.removeAttribute('aria-invalid'); c.removeAttribute('aria-describedby'); }
     if (bad.length) {
-      summary.innerHTML = '<strong>Gönderilemedi: ' + bad.length + ' alanı düzeltin.</strong> ' + bad.map(function (n) { return '<a href="#lead-' + n + '">' + (FIELDS[n] ? FIELDS[n].label : 'Onay') + '</a>'; }).join(', ');
+      summary.innerHTML = '<strong>Gönderilemedi: ' + bad.length + ' alanı düzeltin.</strong> ' + bad.map(function (n) { return '<a href="#' + ONEK + '-' + n + '">' + (FIELDS[n] ? FIELDS[n].label : 'Onay') + '</a>'; }).join(', ');
       summary.hidden = false; f(bad[0]).focus(); return false;
     }
     summary.hidden = true; summary.innerHTML = ''; return true;

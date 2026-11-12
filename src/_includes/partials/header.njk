@@ -22,7 +22,7 @@
       {%- if nav.giris %}<a class="nav-link" href="{{ nav.giris.href }}">{{ nav.giris.etiket }}</a>{% endif %}
       <a class="pill pill--glass pill--sm" href="{{ nav.cta.href }}" data-bolum="gorusme"{% if page.url.startsWith(nav.cta.href) %} aria-current="page"{% endif %}>{{ nav.cta.etiket }}</a>
     </div>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-panel" data-etiket="{{ aktifEtiket or 'Ana sayfa' }}">Menü · {{ aktifEtiket or 'Ana sayfa' }}</button>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-panel" data-etiket="{{ aktifEtiket }}">Menü{% if aktifEtiket %} · {{ aktifEtiket }}{% endif %}</button>
   </div>
   <div class="menu-panel" id="menu-panel" hidden>
     {%- for item in menu %}

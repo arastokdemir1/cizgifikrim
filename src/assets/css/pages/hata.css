@@ -4,12 +4,14 @@
 .hata__fx i { position: absolute; left: 50%; top: 45%; translate: -50% -50%; width: min(120vw, 1000px); aspect-ratio: 1; background: radial-gradient(closest-side, var(--c-glow-2), transparent 70%); }
 .hata__no { position: absolute; right: clamp(-40px, -2vw, 0px); bottom: -6%; font: 700 clamp(180px, 34vw, 520px)/.8 var(--f-sans); letter-spacing: -.06em; color: color-mix(in srgb, var(--c-ink) 6%, transparent); -webkit-text-stroke: 1px color-mix(in srgb, var(--c-ink) 18%, transparent); user-select: none; pointer-events: none; }
 .hata__in { position: relative; display: grid; justify-items: start; gap: var(--s-5); }
-.hata .h1 { margin: 0; font-size: clamp(44px, 7vw, 104px); line-height: 1; letter-spacing: var(--ls-h1); }
+.hata .h1 { margin: 0; font-size: var(--t-h1); line-height: var(--lh-tight); letter-spacing: var(--ls-h1); }
 .hata .lead { margin: 0; max-width: 40ch; color: var(--fg-muted); }
 .hata__liste { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: var(--s-3); }
-.hata__liste a { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border: 1px solid var(--line-strong); border-radius: var(--r-pill); color: var(--fg); font-weight: 600; text-decoration: none; transition: background-color var(--d-fast) var(--ease-out), transform var(--d-fast) var(--ease-out); }
+.hata__liste a { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border: 1px solid var(--line-strong); border-radius: var(--r-pill); color: var(--fg); font-weight: 500; text-decoration: none; transition: background-color var(--d-fast) var(--ease-out), transform var(--d-fast) var(--ease-out); }
 .hata__liste a:hover { background: var(--surface); }
 .hata__liste a svg { width: 16px; height: 16px; transition: transform var(--d-fast) var(--ease-out); }
 .hata__liste a:hover svg { transform: translateX(4px); }
 .hata__liste a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 .hata__cta { margin-top: var(--s-2); }
+/* X07 İnce: dev "404" ve ışık yok */
+.hata__no, .hata__fx { display: none; }
