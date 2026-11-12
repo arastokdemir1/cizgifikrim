@@ -5,37 +5,38 @@ description: "Web sitesi, mobil uygulama ve yapay zekâ çözümlerini fikirden 
 permalink: /
 sayfaCss: ['components/hero', 'components/services', 'components/process', 'components/sections']
 ---
-{#- ANA SAYFA ("/", ÇOK SAYFALI: Aras kararı; karma/tek akış iptal). Bağımsız ve PROJESİZ (proje adı/görseli/kartı/demosu, "kendi ürünlerimiz", mağaza rozeti YOK; Çalışmalar /calismalar/ ayrı sayfa).
-    Bölümler: hero (koyu) → Hizmetler özeti (krem ada) → Süreç özeti (koyu) → Hakkında özeti (koyu) → CTA (vurgu adası). Her özet "Devamı →" ile ilgili tam sayfaya gider; sayfa içi #bölüm sekmesi/bağlantısı YOK.
-    İçerik Teknik-1'in yeni PART'ından genişleyecek (daha dolu ana sayfa); şimdiki metinler PART E1. Görüşme formu burada YOK (yalnız /gorusme/). -#}
+{#- ANA SAYFA ("/", ÇOK SAYFALI; metin kaynağı icerik_ortak PART F1, çelişkide PART F kazanır). Bağımsız, dolu, PROJESİZ: proje adı/görseli/kartı/demosu, "kendi ürünlerimiz", mağaza rozeti YOK.
+    9 bölüm: Hero (koyu) · Hizmetler (krem ada) · Nasıl çalışıyoruz (koyu) · İlkeler (koyu) · Teslim + Teknoloji (koyu) · Hakkında kısa (koyu) · SSS (krem ada) · CTA (vurgu adası).
+    Her özet "…→" ile ilgili tam sayfaya gider; sayfa içi #bölüm bağlantısı/sekmesi YOK. Görüşme formu burada yok (/gorusme/). Renk: koyu ağırlık, açık zeminde vurgu siyah, animasyon yok. -#}
 {%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
 
-{# ───────── 1 · HERO (koyu) ───────── #}
+{# F1.1 · HERO (koyu) #}
 <section class="sec hero theme-dark" aria-labelledby="hero-baslik">
   <div class="container hero-in">
     <span class="kicker">Yapay zekâ ve yazılım stüdyosu · İstanbul</span>
-    <h1 class="h-hero" id="hero-baslik">Web sitesi, mobil uygulama ve yapay zekâ çözümlerini <em>baştan sona</em> yapıyoruz.</h1>
+    <h1 class="h-hero" id="hero-baslik">Web sitesi, mobil uygulama ve <em>yapay zekâ</em> çözümlerini <em>baştan sona</em> yapıyoruz.</h1>
     <p class="hero-sub">Aynı ekip fikrinizden yayına kadar çalışır. Önce sorunu yazarız, sonra yaparız.</p>
     <div class="hero-cta">
       <a class="pill pill--primary" href="{{ nav.cta.href }}">{{ nav.cta.etiket }} {{ ok | safe }}</a>
       <a class="pill pill--glass" href="/hizmetler/">Hizmetlere bakın</a>
     </div>
-    <p class="hero-tech">{{ teknoloji | join(' · ') }}</p>
+    <p class="hero-tech">3 hizmet alanı · 4 adımda yayına · 30 dk görüntülü · İstanbul</p>
   </div>
 </section>
 
-{# ───────── 2 · HİZMETLER ÖZETİ (krem ada) ───────── #}
+{# F1.2 · HİZMETLER (krem ada) #}
 <section class="sec theme-light" aria-labelledby="hizmet-baslik">
   <div class="container">
     <div class="sec-head">
-      <span class="kicker">Hizmetler</span>
-      <h2 class="h2" id="hizmet-baslik">Üç alan, <em>baştan sona</em>.</h2>
+      <span class="kicker">Ne yapıyoruz</span>
+      <h2 class="h2" id="hizmet-baslik">Üç alanda, <em>baştan sona</em>.</h2>
     </div>
     <div class="hz-ozet">
       {%- for h in hizmetler %}
       <article class="kart">
         <h3 class="h3">{{ h.ad }}</h3>
         <p>{{ h.cumle }}</p>
+        <ul class="svc-bullets">{% for m in h.maddeler %}<li>{{ m }}</li>{% endfor %}</ul>
         <a class="link" href="/hizmetler/{{ h.slug }}/">Ayrıntılar {{ ok | safe }}</a>
       </article>
       {%- endfor %}
@@ -44,7 +45,7 @@ sayfaCss: ['components/hero', 'components/services', 'components/process', 'comp
   </div>
 </section>
 
-{# ───────── 3 · SÜREÇ ÖZETİ (koyu) ───────── #}
+{# F1.3 · NASIL ÇALIŞIYORUZ (koyu) #}
 <section class="sec theme-dark" aria-labelledby="surec-baslik">
   <div class="container">
     <div class="sec-head">
@@ -56,30 +57,79 @@ sayfaCss: ['components/hero', 'components/services', 'components/process', 'comp
       <li class="kart adim">
         <span class="no" aria-hidden="true">{{ loop.index }}</span>
         <h3 class="h3"><span class="sr-only">Adım {{ loop.index }}: </span>{{ a.ad }}</h3>
-        <p>{{ adimOzet[loop.index0] }}</p>
+        <p>{{ a.metin }}</p>
       </li>
       {%- endfor %}
     </ol>
-    <a class="link surec-link" href="/nasil-calisiyoruz/">Süreci ayrıntılı gör {{ ok | safe }}</a>
+    <a class="link surec-link" href="/nasil-calisiyoruz/">Süreci ayrıntılı oku {{ ok | safe }}</a>
   </div>
 </section>
 
-{# ───────── 4 · HAKKINDA ÖZETİ (koyu) ───────── #}
+{# F1.4 · İLKELER (koyu); kapanış/kanıt cümlesi YOK #}
+<section class="sec theme-dark" aria-labelledby="ilke-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker">Çalışma ilkemiz</span>
+      <h2 class="h2" id="ilke-baslik">Üç ilke, <em>her işte</em>.</h2>
+    </div>
+    <div class="principles">
+      {%- for p in ilkeler %}
+      <article class="principle">
+        <div class="principle-top"><span class="principle-no" aria-hidden="true">{{ loop.index }}</span></div>
+        <h3 class="h3">{{ p.ad }}</h3>
+        <p>{{ p.metin }}</p>
+      </article>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{# F1.5 · TESLİM (künye) + F1.6 · TEKNOLOJİ (koyu) #}
+<section class="sec theme-dark" aria-labelledby="teslim-baslik">
+  <div class="container">
+    <div class="split">
+      <div class="sec-head" style="margin:0">
+        <span class="kicker">Teslim</span>
+        <h2 class="h2" id="teslim-baslik">Ne <em>teslim</em> ederiz?</h2>
+      </div>
+      <dl class="kunye">
+        {%- for k in kunye %}
+        <div class="kunye-row"><dt>{{ k[0] }}</dt><dd>{{ k[1] }}</dd></div>
+        {%- endfor %}
+      </dl>
+    </div>
+    <div class="teknoloji">
+      <h3 class="h4">Kullandığımız <em>teknolojiler</em></h3>
+      <p class="teknoloji__satir">{{ teknoloji | join(' · ') }}</p>
+    </div>
+  </div>
+</section>
+
+{# F1.7 · HAKKINDA KISA (koyu) #}
 <section class="sec theme-dark" aria-labelledby="hakkinda-baslik">
   <div class="container about">
     <div class="sec-head" style="margin:0">
-      <span class="kicker">Hakkında</span>
+      <span class="kicker">Kimiz</span>
       <h2 class="h2" id="hakkinda-baslik">Küçük bir stüdyo, <em>tam sorumluluk</em>.</h2>
     </div>
     <div class="about-body">
       <p>CizgiFikrim, yapay zekâ ve yazılım alanında çalışan küçük bir stüdyodur. Kurucu Aras Tokdemir; yapay zekâ, otonom sistemler ve mobil ürünler üzerinde çalışan bir geliştiricidir. Araştırmayı, tasarımı ve uygulamayı aynı masada yürütürüz.</p>
-      <ul class="about-ilkeler">
-        {%- for p in ilkeler %}<li>{{ p.ad }}</li>{% endfor %}
-      </ul>
       <a class="link" href="/hakkinda/">Hakkımızda {{ ok | safe }}</a>
     </div>
   </div>
 </section>
 
-{# ───────── 5 · CTA (vurgu adası) ───────── #}
+{# F1.8 · SSS (krem ada; 6; FAQPage JSON-LD) #}
+<section class="sec theme-light" aria-labelledby="sss-baslik">
+  <div class="container faq-grid">
+    <h2 class="h2" id="sss-baslik">Sık sorulan <em>sorular</em></h2>
+    <div class="faq-list">
+      {%- for s in sss %}
+      <details class="faq-item"><summary>{{ s[0] }}<i aria-hidden="true"></i></summary><p class="faq-a">{{ s[1] }}{% if loop.last %} <a class="link" href="/gizlilik/">Gizlilik sayfası</a>{% endif %}</p></details>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{# F1.9 · KAPANIŞ CTA (vurgu adası) #}
 {% include "partials/cta-band.njk" %}

@@ -1,7 +1,7 @@
-{#- CTA BANDI (X07 İnce): vurgu (buz mavisi) adası. Parametreler (include'dan önce {% set %}; hepsi isteğe bağlı): ctaBaslik (HTML; varsayılan "Fikriniz <em>var mı?</em>"), ctaMetin, ctaHref (varsayılan nav.cta.href = /gorusme/), ctaEtiket.
+{#- CTA BANDI (X07 İnce): vurgu (buz mavisi) adası. Parametreler (include'dan önce {% set %}; hepsi isteğe bağlı): ctaBaslik (HTML; varsayılan "Fikrinizi <em>konuşalım.</em>" (PART F1.9)), ctaMetin, ctaHref (varsayılan nav.cta.href = /gorusme/), ctaEtiket.
     Sahip: Frontend-2 (içerik/yerleşim); düğme stili .pill--dark (Frontend-1, buttons.css). Aynı bileşen her sayfada. -#}
-{%- set _cb = ctaBaslik or 'Fikriniz <em>var mı?</em>' -%}
-{%- set _cm = ctaMetin or 'Ücretsiz keşif görüşmesinde ne istediğinizi dinler, nasıl yapılacağını söyleriz.' -%}
+{%- set _cb = ctaBaslik or 'Fikrinizi <em>konuşalım.</em>' -%}
+{%- set _cm = ctaMetin or 'Kısa bir görüşmede ne istediğinizi dinler, nasıl yapılacağını söyleriz. Kısa sürede dönüş yapıyoruz.' -%}
 {%- set _ch = ctaHref or nav.cta.href -%}
 {%- set _ce = ctaEtiket or nav.cta.etiket -%}
 <section class="sec cta-band" aria-labelledby="cta-baslik">

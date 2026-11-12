@@ -8,5 +8,5 @@
 .hero .h-hero em { color: var(--accent-text); }
 .hero-sub { max-width: 46ch; font-size: var(--t-body); color: var(--fg-muted); }
 .hero-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: var(--s-1); }
-.hero-tech { margin-top: clamp(24px, 5vh, 56px); font-size: 13px; color: var(--fg-muted); max-width: 60ch; }
+.hero-tech { margin-top: clamp(16px, 3vh, 32px); font-size: 13px; color: var(--fg-muted); max-width: 60ch; }
 @media (max-width: 560px) { .hero-cta .pill { width: 100%; } }
