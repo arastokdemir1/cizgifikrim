@@ -1,12 +1,12 @@
 ---
 layout: layouts/base.njk
-title: "Çalışmalar — CizgiFikrim"
-description: "CizgiFikrim'in fikirden yayına yaptığı ürünler: CarLog, Vesira ve PolishReel. Diğer çalışmalarımız da bu sayfada; sizinkini de yaparız."
+title: "Çalışmalar | CizgiFikrim"
+description: "CarLog, Vesira ve PolishReel: web, mobil ve yapay zekâ alanında fikirden yayına kadar kendi yaptığımız ürünler. Her biri bir sorunla başladı."
 permalink: /calismalar/
 sayfaCss: ['components/sections', 'pages/calismalar']
 ---
-{#- ÇALIŞMALAR (X07 İnce; icerik_ortak PART C3). Tamamen koyu sayfa: başlık → 3 sade proje kartı (çıplak görseller, ad + durum, 1 cümle, etiket satırı, bağlantılar) → diğer çalışmalar listesi → turuncu CTA adası.
-    Poster bileşeni (partials/poster.njk) burada KULLANILMAZ (Frontend-1'in detay sayfaları kullanır). Kart bağlantıları: ana "Çalışmayı gör →" (PolishReel: "polishreel.com'u aç ↗"), ikincil dış bağlantılar sabit etiketli. -#}
+{#- ÇALIŞMALAR (X07 İnce; icerik_ortak PART J, çelişkide J > I > H > G > F > C), 6 bölüm: hero (koyu) · üç ürün kartı (koyu; her kartta "Problem → Ne yaptık") · hizmet bağlantıları (koyu) · diğer çalışmalar (krem ada) · "Her projede aynı çerçeve" köprüsü (koyu) · CTA (vurgu adası).
+    Poster bileşeni (partials/poster.njk) burada KULLANILMAZ (Frontend-1'in detay sayfaları kullanır). Kart bağlantıları: ana "Çalışmayı gör →" (PolishReel: "polishreel.com'u aç ↗"), ikincil dış bağlantılar sabit etiketli. Yeni olgu/sayı/müşteri yok. -#}
 {%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
 {%- set dis -%}<span aria-hidden="true">↗</span>{%- endset -%}
 {%- set carlogGorseller = [
@@ -14,6 +14,11 @@ sayfaCss: ['components/sections', 'pages/calismalar']
   { k: "src/assets/img/projeler/carlog/2-hesapla.webp", alt: "CarLog ekranı: yola çıkmadan tahmini masraf hesabı, 'Yola çıkmadan masrafı gör' başlığı" },
   { k: "src/assets/img/projeler/carlog/3-ozet.webp", alt: "CarLog ekranı: gün, hafta ve ay masraf özeti, 'Masrafın tek bakışta' başlığı" }
 ] -%}
+{%- set pn = {
+  carlog: { problem: 'Sürücüler bir yolculuğun gerçek maliyetini bilmiyor.', yaptik: 'Yolculuğu kendiliğinden algılayıp yakıt, gişe ve köprü masrafını canlı hesaplayan iOS uygulamasını baştan sona yaptık.' },
+  vesira: { problem: 'İnsanlar odalarının yenilendikten sonra nasıl görüneceğini önceden göremiyor.', yaptik: 'Kendi odanızın fotoğrafında gerçekçi yenileme tasarımı üreten yapay zekâ uygulamasını baştan sona yaptık ve işletiyoruz.' },
+  polishreel: { problem: 'Küçük mağazaların ürün fotoğrafları çoğu zaman sahnesiz ve videosuz; yapay zekâ kullanınca da ürün değişebiliyor.', yaptik: 'Ürünü değiştirmeyen, her sonucu bir insanın gerçek ürünle karşılaştırdığı bir fotoğraf ve video hizmeti geliştiriyoruz.' }
+} -%}
 {%- set diger = [
   { ad: 'PiyasApp', cumle: 'Çevrende ne olduğunu canlı bir harita üzerinde gösteren sosyal keşif uygulaması.', href: '/piyasa/' },
   { ad: 'Sano', cumle: '20 soruluk kişisel bir farkındalık özeti ile zihinsel yükünü 4 boyutta gözden geçirmene yardımcı olur.' },
@@ -26,7 +31,7 @@ sayfaCss: ['components/sections', 'pages/calismalar']
     <div class="sec-head" style="margin-bottom:0">
       <span class="kicker">Çalışmalar</span>
       <h1 class="h1" id="calisma-baslik">Kendi <em>ürünlerimiz</em></h1>
-      <p class="lead">Üç ürün, üç farklı alan. Hepsini fikirden yayına biz yaptık; sizinkini de yaparız.</p>
+      <p class="lead">Üç ürün, üç farklı alan. Her biri bir sorunla başladı; sorunu önce yazdık, sonra yaptık. Fikir, tasarım, geliştirme ve yayın bizde. Sizinkini de aynı yoldan yaparız.</p>
     </div>
   </div>
 </section>
@@ -46,6 +51,10 @@ sayfaCss: ['components/sections', 'pages/calismalar']
         {%- if p.gorsel.altyazi %}<p class="proje-ornek">{{ p.gorsel.altyazi }}</p>{% elif p.slug == 'polishreel' %}<p class="proje-ornek">Örnek çıktı</p>{% endif %}
         <div class="proje-ust"><h2 class="h3">{{ p.baslik }}</h2><span class="durum">{{ p.durum }}</span></div>
         <p>{{ p.cumle }}</p>
+        <dl class="proje-pn">
+          <div><dt>Problem</dt><dd>{{ pn[p.slug].problem }}</dd></div>
+          <div><dt>Ne yaptık</dt><dd>{{ pn[p.slug].yaptik }}</dd></div>
+        </dl>
         <p class="proje-etiket">{{ p.etiketler | join(' · ') }}{% if p.girisim %} · {{ p.girisim }}{% endif %}</p>
         <p class="proje-linkler">
           {%- if p.dis %}
@@ -63,7 +72,18 @@ sayfaCss: ['components/sections', 'pages/calismalar']
   </div>
 </section>
 
-<section class="sec theme-dark" aria-labelledby="diger-baslik">
+<section class="sec theme-dark sec--tight" aria-labelledby="hizmet-baglanti-baslik">
+  <div class="container">
+    <h2 class="h3" id="hizmet-baglanti-baslik">Bu işleri <em>nasıl yapıyoruz?</em></h2>
+    <p class="proje-hizmetler">
+      <a class="link" href="/hizmetler/web-sitesi-ve-e-ticaret/">Web sitesi ve e-ticaret {{ ok | safe }}</a>
+      <a class="link" href="/hizmetler/mobil-uygulama/">Mobil uygulama {{ ok | safe }}</a>
+      <a class="link" href="/hizmetler/yapay-zeka-ve-otomasyon/">Yapay zekâ ve otomasyon {{ ok | safe }}</a>
+    </p>
+  </div>
+</section>
+
+<section class="sec theme-light" aria-labelledby="diger-baslik">
   <div class="container split">
     <div class="sec-head" style="margin:0">
       <span class="kicker">Diğer çalışmalar</span>
@@ -74,6 +94,19 @@ sayfaCss: ['components/sections', 'pages/calismalar']
       <li><b>{% if d.href %}<a href="{{ d.href }}">{{ d.ad }}</a>{% else %}{{ d.ad }}{% endif %}</b><span>{{ d.cumle }}</span>{% if d.href %}<a class="link" href="{{ d.href }}">Tanıtım sayfası {{ ok | safe }}</a>{% endif %}</li>
       {%- endfor %}
     </ul>
+  </div>
+</section>
+
+<section class="sec theme-dark" aria-labelledby="cerceve-baslik">
+  <div class="container split">
+    <div class="sec-head" style="margin:0">
+      <span class="kicker">Süreç</span>
+      <h2 class="h2" id="cerceve-baslik">Her projede <em>aynı çerçeve</em>.</h2>
+    </div>
+    <div class="proje-cerceve">
+      <p>Önce sorunu yazarız, kapsamı ve teklifi yazılı veririz, ara çıktılarla yapar, yayına alırız.</p>
+      <a class="link" href="/nasil-calisiyoruz/">Süreci ayrıntılı oku {{ ok | safe }}</a>
+    </div>
   </div>
 </section>
 
