@@ -109,3 +109,18 @@
 @media (max-width: 899px) { .hz-tags--tekrar { display: none !important; } } /* şema altı not chip'leriyle aynı bilgi: mobilde biri kalır */
 /* X07 İnce: dev ürün adı ve hero ışığı yok */
 .hz-hero__fx { display: none; }
+
+/* ── F2 (Web sitesi ve e-ticaret): içindekiler, kapsam/akış, araçlar, diğer hizmetler ── */
+.hz-icindekiler { display: flex; flex-wrap: wrap; gap: 6px 18px; padding-top: var(--s-3); font-size: 13px; }
+.hz-icindekiler a { color: var(--fg-muted); border-bottom: 1px solid var(--line-strong); padding-bottom: 1px; }
+.hz-icindekiler a:hover { color: var(--fg); border-bottom-color: var(--fg); }
+.hz-bolum .sec-head .h2 { max-width: 28ch; }
+.hz-akis .hz-adimlar { margin-top: var(--s-2); }
+.hz-adim__no { font-family: var(--f-sans); font-style: normal; font-size: 12px; font-weight: 500; line-height: 1; display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--c-accent); color: var(--c-on-accent); }
+.hz-adim__oge { gap: var(--s-2); }
+.hz-adim__oge h3 { margin: var(--s-2) 0 0; }
+.hz-araclar { display: grid; gap: var(--s-7); }
+.hz-araclar__blok { display: grid; gap: var(--s-4); justify-items: start; margin: 0; }
+.hz-araclar .hz-ornek { border-top: 0; padding-top: 0; }
+.hz-diger { padding-top: 0; }
+.hz-diger__satir { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-6); color: var(--fg-muted); font-size: var(--t-small); }

@@ -1,7 +1,7 @@
 ---
 layout: layouts/base.njk
 title: "Web sitesi ve e-ticaret | CizgiFikrim"
-description: "İşinizi anlatan, hızlı açılan, telefonda düzgün çalışan web sitesi ve satış akışı: tasarım, yapım ve yayın. Ücretsiz keşif görüşmesi ayırın."
+description: "İşinizi anlatan, hızlı açılan, telefonda düzgün çalışan web sitesi ve satış akışı. Tasarım, yapım, yayın ve temel arama hazırlığı. Ücretsiz keşif görüşmesi ayırın."
 permalink: /hizmetler/web-sitesi-ve-e-ticaret/
 sayfaCss: ['components/schema', 'components/sections', 'pages/hizmet']
 bodyClass: pg-hizmet
@@ -16,8 +16,18 @@ jsonld:
     provider: { "@id": "https://cizgifikrim.net/#org" }
     areaServed: TR
     description: "İşinizi anlatan, hızlı açılan, telefonda düzgün çalışan bir web sitesi ya da satış akışı."
+  - "@type": FAQPage
+    mainEntity:
+      - { "@type": Question, name: "Nasıl başlarız?", acceptedAnswer: { "@type": Answer, text: "Ücretsiz keşif görüşmesi ayırın ya da formu doldurun. Kısa bir görüşmede ne istediğinizi dinler, nasıl yapılacağını söyleriz." } }
+      - { "@type": Question, name: "Ne kadar sürer?", acceptedAnswer: { "@type": Answer, text: "Kapsama bağlıdır; süreyi görüşmede netleştiririz." } }
+      - { "@type": Question, name: "Fiyat nasıl belirlenir?", acceptedAnswer: { "@type": Answer, text: "Kapsama göre, yazılı teklifle." } }
+      - { "@type": Question, name: "Siteyi sonradan kim güncelleyecek?", acceptedAnswer: { "@type": Answer, text: "Kapsama göre belirlenir: kimi sitelerde siz, kimi sitelerde biz güncelleriz. Hangisinin uygun olduğunu görüşmede konuşuruz." } }
+      - { "@type": Question, name: "Alan adı ve yayın işini siz mi yaparsınız?", acceptedAnswer: { "@type": Answer, text: "Alan adı bağlama ve yayına alma teslimata dahildir. Mevcut alan adınız varsa onu kullanırız." } }
+      - { "@type": Question, name: "Arama sonuçlarında üst sırada çıkacak mıyım?", acceptedAnswer: { "@type": Answer, text: "Sıralama garantisi vermeyiz. Başlık, açıklama ve site haritası gibi temel hazırlığı yaparız." } }
+      - { "@type": Question, name: "Yayından sonra destek var mı?", acceptedAnswer: { "@type": Answer, text: "Evet. Kapsamı teklifte ayrıca yazılır." } }
+      - { "@type": Question, name: "Ürünüm gerçekten böyle görünecek mi?", acceptedAnswer: { "@type": Answer, text: "Ürüne dokunmuyoruz; yalnız arka plan ve ışığı düzenliyoruz. Şekil, renk, yazı ve logo aynı kalır; onay sizde." } }
 ---
-{#- HİZMET DETAYI: Web sitesi ve e-ticaret (şartname §7 + S2a-detay, icerik_ortak C5 + C8). Süre aralığı/fiyat/sıralama sözü yok. Projeye YALNIZ metin linki.
+{#- HİZMET DETAYI: Web sitesi ve e-ticaret (icerik_ortak PART F2, 10 bölüm; C5 + C8 + yeni Kapsam/Örnek akış/Araçlar). Süre aralığı/fiyat/sıralama sözü yok. Projeye YALNIZ metin linki.
     Hero şeması: S2a-detay (partials/schema/s2a-detay.njk, Frontend-2'nin çizim dili: izometrik 30°, 1,5 px). -#}
 {%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
 {%- set profiller = [
@@ -35,12 +45,21 @@ jsonld:
   ["Kullanım ve bakım notu", "Sitenin nasıl güncelleneceğini ve nasıl çalıştığını anlatan kısa not."],
   ["Yayın sonrası destek", "Bakım ve geliştirme kapsamı teklifte ayrıca yazılır."]
 ] -%}
-{%- set adimlar = [
-  ["Görüşme", "Hedefi, ziyaretçinin kim olduğunu ve beğendiğiniz örnekleri konuşuruz.", "Sizden: iş tanımı, varsa mevcut site ve içerik. Bizden: görüşme özeti ve sorular.", '<path d="M6 9h20a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H17l-6 5v-5H6a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3z" class="l"/><path d="M10 15h14M10 19h8" class="l"/>'],
-  ["Kapsam", "Sayfaların listesi, içeriğin kimden geleceği ve (e-ticaret varsa) ürün ve kategori yapısı yazıya geçer.", "Çıktı: yazılı kapsam ve teklif.", '<rect x="7" y="4" width="26" height="32" rx="6" class="l"/><path d="M13 13h14M13 20h14M13 27h8" class="l"/>'],
-  ["Yapım", "Tasarım ve yapım ara çıktılarla ilerler; geri bildirimlerinizi geri bildirim turlarında alırız.", "Çıktı: gözden geçirebileceğiniz çalışan sürümler.", '<path d="M20 5l15 8-15 8L5 13z" class="l"/><path d="M5 20l15 8 15-8M5 27l15 8 15-8" class="l"/>'],
-  ["Yayın", "Alan adı bağlanır, site yayına alınır, kullanım ve bakım notu teslim edilir; destek kapsamı teklifteki gibidir.", "", '<circle cx="20" cy="20" r="15" class="l"/><path d="M5 20h30M20 5c-8 8-8 22 0 30M20 5c8 8 8 22 0 30" class="l"/>']
+{%- set kapsam = [
+  ["Sayfa listesi", "Hangi sayfaların yapılacağı."],
+  ["İçerik", "Metin ve görsellerin kimden geleceği; sizden alırız ya da birlikte hazırlarız."],
+  ["İletişim yapısı", "İletişim formu, e-posta bağlantısı ya da takvim (görüşme ayırma) bağlantısı."],
+  ["Alan adı ve yayın", "Mevcut alan adınız varsa kullanılır, yoksa bağlanır."],
+  ["E-ticaret varsa", "Ürün ve kategori yapısı ile satış akışı."],
+  ["Yayın sonrası destek", "Kapsamı ayrıca yazılır."]
 ] -%}
+{%- set akis = [
+  ["Görüşme", "Örnek: küçük bir işletme hizmetlerini ve iletişim bilgisini anlatan bir site istiyor. Hedefi, ziyaretçinin kim olduğunu ve beğendiği örnekleri konuşuruz.", [["Sizden", "iş tanımı, varsa mevcut site ve içerik."], ["Bizden", "görüşme özeti ve sorular."]]],
+  ["Kapsam", "Örnek sayfa listesi: Ana sayfa, Hizmetler, Hakkında, İletişim. İçeriğin kimden geleceği ve iletişim yöntemi (form ya da takvim) yazılı teklife geçer.", [["Çıktı", "yazılı kapsam ve teklif."]]],
+  ["Yapım", "Tasarım ve yapım ara çıktılarla ilerler; geri bildirimlerinizi geri bildirim turlarında alırız.", [["Çıktı", "gözden geçirebileceğiniz çalışan sürümler."]]],
+  ["Yayın", "Alan adı bağlanır, site güvenli bağlantıyla (HTTPS) yayına alınır, kullanım ve bakım notu teslim edilir; destek kapsamı teklifteki gibidir.", []]
+] -%}
+{%- set araclar = ["Next.js", "React", "Tailwind CSS", "Eleventy", "PostgreSQL", "Supabase", "Cloudflare"] -%}
 {%- set eticaret = [
   ["Ürün açıklaması", ["Ürün adı, özellik, malzeme ve kullanım bilgilerinizden yola çıkılır.", "Okunur, satışa uygun, abartısız dil.", "Kendi sitenizde ve pazar yerinde kullanılabilir biçim.", "Son metni siz onaylarsınız."], "ikon-ilke1"],
   ["Arama başlığı", ["Pazar yerinde aranan ifadelere göre başlık önerisi.", "Ürünün ne olduğunu ilk bakışta anlatan düzen.", "Ürün türüne göre tutarlı başlık yapısı."], "ara"],
@@ -57,91 +76,115 @@ jsonld:
   ["Ürünüm gerçekten böyle görünecek mi?", "Ürüne dokunmuyoruz; yalnız arka plan ve ışığı düzenliyoruz. Şekil, renk, yazı ve logo aynı kalır; onay sizde."]
 ] -%}
 
-{# ───────── 1 · HERO (koyu) ───────── #}
+{# ───────── F2.1 · HERO (koyu) ───────── #}
 <section class="sec hz-hero theme-dark" aria-labelledby="hz-baslik">
-  <div class="hz-hero__fx" aria-hidden="true"><i></i></div>
   <div class="container hz-hero__grid">
     <div class="hz-hero__metin">
-      <nav class="hz-kirinti" aria-label="Konum" data-in style="--i:0"><a href="/hizmetler/">Hizmetler</a><span aria-hidden="true">›</span><span aria-current="page">Web sitesi ve e-ticaret</span></nav>
-      <h1 class="h1 hz-hero__h1" id="hz-baslik" data-in style="--i:1">Web sitesi ve <em>e-ticaret</em></h1>
-      <p class="lead hz-hero__lead" data-in style="--i:2">İşinizi anlatan, hızlı açılan, telefonda düzgün çalışan bir web sitesi ya da satış akışı. Gösterişten önce okunurluk ve hız.</p>
-      <p class="hz-hero__p" data-in style="--i:3">Her projeye aynı soruyla başlarız: bu site kimin için, ne yapmasını istiyoruz? Cevap netleşmeden tasarıma geçmeyiz.</p>
-      <ul class="tags" data-in style="--i:4"><li class="tag">Tasarım</li><li class="tag">Yapım</li><li class="tag">Yayın</li></ul>
-      <div class="hz-hero__cta" data-in style="--i:5">
+      <nav class="hz-kirinti" aria-label="Konum"><a href="/hizmetler/">Hizmetler</a><span aria-hidden="true">›</span><span aria-current="page">Web sitesi ve e-ticaret</span></nav>
+      <h1 class="h1 hz-hero__h1" id="hz-baslik">Web sitesi ve <em>e-ticaret</em></h1>
+      <p class="lead hz-hero__lead">İşinizi anlatan, hızlı açılan, telefonda düzgün çalışan bir web sitesi ya da satış akışı. Gösterişten önce okunurluk ve hız.</p>
+      <p class="hz-hero__p">Her projeye aynı soruyla başlarız: bu site kimin için, ne yapmasını istiyoruz? Cevap netleşmeden tasarıma geçmeyiz.</p>
+      <ul class="tags"><li class="tag">Tasarım</li><li class="tag">Yapım</li><li class="tag">Yayın</li></ul>
+      <div class="hz-hero__cta">
         <a class="pill pill--primary" href="{{ nav.cta.href }}">{{ nav.cta.etiket }} {{ ok | safe }}</a>
         <span class="hz-hero__not">Kısa sürede dönüş yapıyoruz.</span>
       </div>
+      <nav class="hz-icindekiler" aria-label="Sayfa içeriği">
+        <a href="#kime-uygun">Kime uygun</a><a href="#kapsam">Kapsam</a><a href="#teslimler">Teslimler</a><a href="#ornek-akis">Örnek akış</a><a href="#eticaret">E-ticaret içeriği</a><a href="#sss">SSS</a>
+      </nav>
     </div>
-    <div class="hz-hero__sema" data-reveal="fade">
+    <div class="hz-hero__sema">
       {% include "partials/schema/s2a-detay.njk" %}
       <ul class="hz-notlar" aria-label="Şemadaki notlar"><li>Alan adı</li><li>İletişim formu</li><li>Arama (SEO)</li><li>Mobil önce</li></ul>
     </div>
   </div>
 </section>
 
-{# ───────── 2 · KİME UYGUN + NE TESLİM EDERİZ (açık, sticky split) ───────── #}
-<section class="sec hz-kunye theme-light" aria-labelledby="kunye-baslik">
-  <div class="container split">
-    <div class="hz-kunye__sol">
-      <span class="kicker" data-reveal><b>01</b><span class="dash"></span>KAPSAM</span>
-      <h2 class="h2" id="kunye-baslik" data-reveal style="--i:1">Kime uygun, <em>ne teslim</em> ederiz</h2>
+{# ───────── F2.2 · KİME UYGUN (krem ada) ───────── #}
+<section class="sec hz-bolum theme-light" id="kime-uygun" aria-labelledby="kime-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker">Kime uygun</span>
+      <h2 class="h2" id="kime-baslik">Kime <em>uygun</em></h2>
+      <p class="lead">Hizmetini ya da ürününü internette göstermek ve satmak isteyen işletmeler ve girişimler.</p>
+      <p class="hz-blok__alt">Sıfırdan bir site mi gerekiyor, yoksa var olan site telefonda zor mu kullanılıyor, güncel durmuyor mu? İkisinde de aynı yoldan gideriz: önce ihtiyacı yazar, sonra yaparız.</p>
     </div>
-    <div class="hz-kunye__sag">
-      <div class="hz-blok" data-reveal>
-        <h3 class="kicker">Kime uygun</h3>
-        <p class="hz-blok__metin">Hizmetini ya da ürününü internette göstermek ve satmak isteyen işletmeler ve girişimler.</p>
-        <p class="hz-blok__alt">Sıfırdan bir site mi gerekiyor, yoksa var olan site telefonda zor mu kullanılıyor, güncel durmuyor mu? İkisinde de aynı yoldan gideriz: önce ihtiyacı yazar, sonra yaparız.</p>
-        <ul class="hz-profiller" role="list">
-          {%- for pr in profiller %}
-          <li data-reveal style="--i:{{ loop.index0 }}"><span class="hz-profil__no" aria-hidden="true">0{{ loop.index }}</span><h4 class="h4">{{ pr[0] }}</h4><p>{{ pr[1] }}</p></li>
-          {%- endfor %}
-        </ul>
-      </div>
-      <div class="hz-blok" data-reveal>
-        <h3 class="kicker">Ne teslim ederiz</h3>
-        <ul class="hz-liste" role="list">
-          {%- for t in teslim %}
-          <li data-reveal style="--i:{{ loop.index0 % 4 }}"><span class="hz-liste__no" aria-hidden="true">0{{ loop.index }}</span><div><b>{{ t[0] }}</b><span>{{ t[1] }}</span></div></li>
-          {%- endfor %}
-        </ul>
-        <p class="hz-not">Kapsamın tamamı görüşmeden sonra yazılı teklifte netleşir; süreyi görüşmede netleştiririz.</p>
-      </div>
-    </div>
+    <ul class="hz-profiller" role="list">
+      {%- for pr in profiller %}
+      <li><span class="hz-profil__no" aria-hidden="true">0{{ loop.index }}</span><h3 class="h4">{{ pr[0] }}</h3><p>{{ pr[1] }}</p></li>
+      {%- endfor %}
+    </ul>
   </div>
 </section>
 
-{# ───────── 3 · NASIL ÇALIŞIRIZ (koyu, 4 adım) ───────── #}
-<section class="sec hz-adim theme-dark" aria-labelledby="adim-baslik">
+{# ───────── F2.3 · KAPSAM (koyu) ───────── #}
+<section class="sec hz-bolum theme-dark" id="kapsam" aria-labelledby="kapsam-baslik">
   <div class="container">
     <div class="sec-head">
-      <span class="kicker" data-reveal><b>02</b><span class="dash"></span>SÜREÇ</span>
-      <h2 class="h2" id="adim-baslik" data-reveal style="--i:1">Nasıl <em>çalışırız</em></h2>
+      <span class="kicker">Kapsam</span>
+      <h2 class="h2" id="kapsam-baslik">Kapsam nasıl <em>belirlenir?</em></h2>
+      <p class="lead">Görüşmeden sonra kapsamı yazılı teklifte netleştiririz. Teklifte şunlar yer alır:</p>
+    </div>
+    <ol class="hz-liste" role="list">
+      {%- for k in kapsam %}
+      <li><span class="hz-liste__no" aria-hidden="true">0{{ loop.index }}</span><div><b>{{ k[0] }}</b><span>{{ k[1] }}</span></div></li>
+      {%- endfor %}
+    </ol>
+    <p class="hz-not">Teklifte yazılmayan iş kapsam dışıdır; kapsam değişirse teklifi birlikte güncelleriz.</p>
+    <p class="hz-not">Süreyi görüşmede netleştiririz; fiyat kapsama göre, yazılı teklifle belirlenir.</p>
+  </div>
+</section>
+
+{# ───────── F2.4 · NE TESLİM EDERİZ (krem ada, 8 madde) ───────── #}
+<section class="sec hz-bolum theme-light" id="teslimler" aria-labelledby="teslim-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker">Teslimler</span>
+      <h2 class="h2" id="teslim-baslik">Ne <em>teslim</em> ederiz</h2>
+    </div>
+    <ul class="hz-liste" role="list">
+      {%- for t in teslim %}
+      <li><span class="hz-liste__no" aria-hidden="true">0{{ loop.index }}</span><div><b>{{ t[0] }}</b><span>{{ t[1] }}</span></div></li>
+      {%- endfor %}
+    </ul>
+    <p class="hz-not">Kapsamın tamamı görüşmeden sonra yazılı teklifte netleşir; süreyi görüşmede netleştiririz.</p>
+  </div>
+</section>
+
+{# ───────── F2.5 · ÖRNEK AKIŞ (koyu; VARSAYIMSAL işletme sitesi, gün/hafta/süre/sayı yok) ───────── #}
+<section class="sec hz-bolum hz-akis theme-dark" id="ornek-akis" aria-labelledby="akis-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker">Örnek akış</span>
+      <h2 class="h2" id="akis-baslik">Bir web sitesi projesi nasıl <em>ilerler?</em></h2>
+      <p class="lead">Aşağıdaki akış varsayımsal bir işletme sitesi içindir; gerçek bir müşteri ya da sonuç değildir.</p>
     </div>
     <ol class="hz-adimlar" role="list">
-      {%- for a in adimlar %}
-      <li class="hz-adim__oge" data-reveal style="--i:{{ loop.index0 }}">
-        <div class="hz-adim__ust"><span class="hz-adim__no" aria-hidden="true">0{{ loop.index }}</span><svg class="ikon" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">{{ a[3] | safe }}</svg></div>
+      {%- for a in akis %}
+      <li class="hz-adim__oge">
+        <span class="hz-adim__no" aria-hidden="true">0{{ loop.index }}</span>
         <h3 class="h4">{{ a[0] }}</h3>
         <p>{{ a[1] }}</p>
-        {%- if a[2] %}<p class="hz-adim__meta">{{ a[2] }}</p>{% endif %}
+        {%- if a[2] | length %}<div class="hz-adim__meta">{% for m in a[2] %}<p><b>{{ m[0] }}:</b> {{ m[1] }}</p>{% endfor %}</div>{% endif %}
       </li>
       {%- endfor %}
     </ol>
+    <p class="hz-not">Sayfa sayısı, içerik ve süre her projede kapsama göre değişir.</p>
   </div>
 </section>
 
-{# ───────── 4 · E-TİCARET İÇERİĞİ (açık) ───────── #}
-<section class="sec hz-eticaret theme-light" aria-labelledby="eticaret-baslik">
+{# ───────── F2.6 · E-TİCARET İÇERİĞİ (krem ada) ───────── #}
+<section class="sec hz-bolum hz-eticaret theme-light" id="eticaret" aria-labelledby="eticaret-baslik">
   <div class="container">
     <div class="sec-head">
-      <span class="kicker" data-reveal><b>03</b><span class="dash"></span>E-TİCARET İÇERİĞİ</span>
-      <h2 class="h2" id="eticaret-baslik" data-reveal style="--i:1">E-ticaret <em>içeriği</em></h2>
-      <p class="lead" data-reveal style="--i:2">Ürünleriniz için okunur, satışa uygun içerik.</p>
-      <p class="hz-blok__alt" data-reveal style="--i:3">İçeriği ürününüzün bilgilerinden yola çıkarak hazırlarız; nihai metni ve görseli siz onaylarsınız.</p>
+      <span class="kicker">E-ticaret içeriği</span>
+      <h2 class="h2" id="eticaret-baslik">E-ticaret <em>içeriği</em></h2>
+      <p class="lead">Ürünleriniz için okunur, satışa uygun içerik.</p>
+      <p class="hz-blok__alt">İçeriği ürününüzün bilgilerinden yola çıkarak hazırlarız; nihai metni ve görseli siz onaylarsınız.</p>
     </div>
     <div class="grid grid-3 hz-kartlar">
       {%- for e in eticaret %}
-      <article class="hz-kart" data-reveal style="--i:{{ loop.index0 }}">
+      <article class="hz-kart">
         {%- if e[2] == "ikon-ilke1" %}{% include "partials/schema/ikon-ilke1.njk" %}
         {%- elif e[2] == "ara" %}<svg class="ikon" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><circle cx="18" cy="18" r="10" class="l"/><path d="M26 26l9 9" class="l"/><path d="M13 18h10" class="l"/></svg>
         {%- else %}<svg class="ikon" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><rect x="5" y="8" width="30" height="24" rx="6" class="l"/><circle cx="26" cy="16" r="3" class="l"/><path d="M5 27l9-7 8 6 5-4 8 6" class="l"/></svg>{% endif %}
@@ -150,24 +193,40 @@ jsonld:
       </article>
       {%- endfor %}
     </div>
-    <p class="hz-not" data-reveal>Yapay zekâ destekli araçlarla yapılır; ürünün şekli, rengi ve detayı değişmez.</p>
-    <div class="hz-ornek" data-reveal>
+    <p class="hz-not">Yapay zekâ destekli araçlarla yapılır; ürünün şekli, rengi ve detayı değişmez.</p>
+  </div>
+</section>
+
+{# ───────── F2.7 · ARAÇLAR + F2.8 · ÖRNEK İŞ (koyu) ───────── #}
+{#- F2.7: teknoloji listesi Teknik-1 tarafından teyitli ve ONAYLI (icerik_ortak F2.7a); araclar listesi bu dosyanın başında. -#}
+<section class="sec hz-bolum theme-dark" id="araclar" aria-labelledby="araclar-baslik">
+  <div class="container hz-araclar">
+    <div class="hz-araclar__blok">
+      <h2 class="h3" id="araclar-baslik">Yapım sırasında kullandığımız <em>teknolojiler</em></h2>
+      <ul class="tags">{% for a in araclar %}<li class="tag">{{ a }}</li>{% endfor %}</ul>
+      <p class="hz-not">Projeye göre seçilir; araç seçimini kapsam görüşmesinde konuşuruz.</p>
+    </div>
+    <div class="hz-ornek hz-araclar__blok">
       <p class="hz-ornek__satir">Web sitesi örnekleri: <a class="link" href="/calismalar/vesira/">Vesira {{ ok | safe }}</a> <a class="link" href="https://polishreel.com" target="_blank" rel="noopener noreferrer">PolishReel {{ ok | safe }}</a></p>
       <p class="hz-ornek__cumle">İki ürünün web sitesini de baştan sona biz tasarlayıp geliştirdik.</p>
     </div>
   </div>
 </section>
 
-{# ───────── 5 · SSS (açık, 8 soru) ───────── #}
+{# ───────── F2.9 · SSS (krem ada, 8 soru; JSON-LD front matter'da) ───────── #}
 <section class="sec theme-light" id="sss" aria-labelledby="sss-baslik">
   <div class="container faq-grid">
-    <h2 class="h2" id="sss-baslik" data-reveal>Sık sorulan <em>sorular</em></h2>
+    <h2 class="h2" id="sss-baslik">Sık sorulan <em>sorular</em></h2>
     <div class="faq-list">
       {%- for q in sss %}
-      <details class="faq-item" data-reveal style="--i:{{ loop.index0 % 4 }}"><summary>{{ q[0] }}<i aria-hidden="true"></i></summary><p class="faq-a">{{ q[1] }}</p></details>
+      <details class="faq-item"><summary>{{ q[0] }}<i aria-hidden="true"></i></summary><p class="faq-a">{{ q[1] }}</p></details>
       {%- endfor %}
     </div>
   </div>
 </section>
 
+{# ───────── F2.10 · KAPANIŞ ───────── #}
 {% include "partials/cta-band.njk" %}
+<section class="sec sec--tight theme-dark hz-diger" aria-label="Diğer hizmetler">
+  <div class="container"><p class="hz-diger__satir">Diğer hizmetler: <a class="link" href="/hizmetler/mobil-uygulama/">Mobil uygulama {{ ok | safe }}</a> <a class="link" href="/hizmetler/yapay-zeka-ve-otomasyon/">Yapay zekâ ve otomasyon {{ ok | safe }}</a></p></div>
+</section>
