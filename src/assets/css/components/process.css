@@ -9,3 +9,8 @@
 .surec-link { margin-top: var(--s-6); }
 @media (max-width: 1023px) { .adimlar { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .adimlar { grid-template-columns: minmax(0, 1fr); } }
+
+/* Ayrıntılı adım kartları (/nasil-calisiyoruz/): 2 sütun, her kartta Ne yaparız / Ne teslim ederiz / Sizden ne bekleriz / Sık sorulan */
+.adimlar--detay { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.adim__soru dd b { display: block; font-weight: 500; margin-bottom: 2px; }
+@media (max-width: 760px) { .adimlar--detay { grid-template-columns: minmax(0, 1fr); } }

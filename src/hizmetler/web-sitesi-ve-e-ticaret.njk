@@ -203,7 +203,7 @@ jsonld:
   <div class="container hz-araclar">
     <div class="hz-araclar__blok">
       <h2 class="h3" id="araclar-baslik">Yapım sırasında kullandığımız <em>teknolojiler</em></h2>
-      <ul class="tags">{% for a in araclar %}<li class="tag">{{ a }}</li>{% endfor %}</ul>
+      <p class="hz-araclar__satir">{{ araclar | join(" · ") }}</p>
       <p class="hz-not">Projeye göre seçilir; araç seçimini kapsam görüşmesinde konuşuruz.</p>
     </div>
     <div class="hz-ornek hz-araclar__blok">

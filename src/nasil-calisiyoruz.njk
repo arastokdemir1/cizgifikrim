@@ -1,35 +1,41 @@
 ---
 layout: layouts/base.njk
-title: "Nasıl çalışıyoruz — fikirden yayına dört adım | CizgiFikrim"
-description: "Görüşme, kapsam ve teklif, yapım, yayın ve sonrası: dört adımda ne yaptığımızı, ne teslim ettiğimizi ve sizden ne beklediğimizi yazıyoruz."
+title: "Nasıl çalışıyoruz | CizgiFikrim"
+description: "Fikirden yayına dört adım: görüşme, kapsam ve teklif, yapım, yayın. Her adımda ne yaptığımızı, ne teslim ettiğimizi ve sizden ne beklediğimizi yazıyoruz."
 permalink: /nasil-calisiyoruz/
 sayfaCss: ['components/process', 'components/sections', 'pages/nasil']
 bodyClass: pg-nasil
 ---
-{#- NASIL ÇALIŞIYORUZ (X07 İnce; şartname_2 §8 + icerik_ortak B1.5/C9): koyu başlık → krem ada: 4 adım (Yaparız / Teslim / Sizden) → koyu: üç ilke + teslim ve destek → krem ada: SSS(4) → turuncu CTA. Süre/fiyat yok. Sticky/sahne/sayaç yok. -#}
+{#- NASIL ÇALIŞIYORUZ (X07 İnce; icerik_ortak PART H1, çelişkide H > G > F > C), 8 bölüm: hero (koyu) · dört adım ayrıntılı (krem ada) · hizmete göre adımlar (koyu) · ilkeler (krem ada) · teslim ve destek (koyu) · iletişim biçimi (koyu) · SSS 4 (krem ada) · CTA.
+    Süre/fiyat yok. Sayfa içi bağlantı satırı aktif sekme DEĞİL. Sticky/sahne/sayaç yok. -#}
 {%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
 
+{# H1.1 · HERO #}
 <section class="sec theme-dark nsl-hero" aria-labelledby="nsl-baslik">
   <div class="container">
     <div class="sec-head" style="margin-bottom:0">
       <span class="kicker">Süreç</span>
-      <h1 class="h1" id="nsl-baslik">Fikirden yayına <em>dört adım</em></h1>
-      <p class="lead">Önce sorunu yazarız, sonra yaparız.</p>
+      <h1 class="h1" id="nsl-baslik">Fikirden yayına <em>dört adım</em>.</h1>
+      <p class="lead">Her projede aynı çerçeveyle çalışırız: önce sorunu yazarız, sonra yaparız.</p>
+      <div class="nsl-hero__cta"><a class="pill pill--primary" href="{{ nav.cta.href }}">{{ nav.cta.etiket }} {{ ok | safe }}</a></div>
+      <p class="sayfa-ici" aria-label="Bu sayfada"><a href="#adimlar">Dört adım</a><a href="#hizmete-gore">Hizmete göre</a><a href="#ilkeler">İlkeler</a><a href="#teslim">Teslim ve destek</a><a href="#sss">SSS</a></p>
     </div>
   </div>
 </section>
 
+{# H1.2 · DÖRT ADIM (ayrıntılı) #}
 <section class="sec theme-light" id="adimlar" aria-label="Dört adım">
   <div class="container">
-    <ol class="adimlar">
+    <ol class="adimlar adimlar--detay">
       {%- for a in adimlar %}
       <li class="kart adim">
         <span class="no" aria-hidden="true">{{ loop.index }}</span>
         <h2 class="h3"><span class="sr-only">Adım {{ loop.index }}: </span>{{ a.ad }}</h2>
         <dl>
-          <div><dt>Yaparız</dt><dd>{{ a.yapariz }}</dd></div>
-          <div><dt>Teslim</dt><dd>{{ a.teslim }}</dd></div>
-          <div><dt>Sizden</dt><dd>{{ a.sizden }}</dd></div>
+          <div><dt>Ne yaparız</dt><dd>{{ a.yapariz }}</dd></div>
+          <div><dt>Ne teslim ederiz</dt><dd>{{ a.teslim }}</dd></div>
+          <div><dt>Sizden ne bekleriz</dt><dd>{{ a.sizden }}</dd></div>
+          <div class="adim__soru"><dt>Sık sorulan</dt><dd><b>{{ a.soru }}</b> {{ a.cevap }}</dd></div>
         </dl>
       </li>
       {%- endfor %}
@@ -37,7 +43,30 @@ bodyClass: pg-nasil
   </div>
 </section>
 
-<section class="sec theme-dark" id="ilkeler" aria-labelledby="ilke-baslik">
+{# H1.3 · HİZMETE GÖRE AYNI DÖRT ADIM #}
+<section class="sec theme-dark" id="hizmete-gore" aria-labelledby="hg-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker">Hizmete göre</span>
+      <h2 class="h2" id="hg-baslik">Adımlar hizmete göre <em>nasıl değişir?</em></h2>
+    </div>
+    <div class="hg-tablo-kap">
+      <table class="hg-tablo">
+        <thead>
+          <tr><th scope="col"><span class="sr-only">Adım</span></th>{% for h in hizmeteGore.basliklar %}<th scope="col"><a class="link" href="{{ h.href }}">{{ h.ad }}</a></th>{% endfor %}</tr>
+        </thead>
+        <tbody>
+          {%- for r in hizmeteGore.satirlar %}
+          <tr><th scope="row"><span class="hg-no" aria-hidden="true">{{ loop.index }}</span>{{ r[0] }}</th>{% for c in r.slice(1) %}<td data-etiket="{{ hizmeteGore.basliklar[loop.index0].ad }}">{{ c }}</td>{% endfor %}</tr>
+          {%- endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{# H1.4 · ÇALIŞMA İLKELERİ #}
+<section class="sec theme-light" id="ilkeler" aria-labelledby="ilke-baslik">
   <div class="container">
     <div class="sec-head">
       <span class="kicker">İlkeler</span>
@@ -55,20 +84,36 @@ bodyClass: pg-nasil
   </div>
 </section>
 
+{# H1.5 · TESLİM VE DESTEK #}
 <section class="sec theme-dark" id="teslim" aria-labelledby="teslim-baslik">
   <div class="container split">
     <div class="sec-head" style="margin:0">
       <span class="kicker">Teslim ve destek</span>
       <h2 class="h2" id="teslim-baslik">Ne <em>teslim</em> ederiz?</h2>
     </div>
-    <dl class="kunye">
-      {%- for k in kunye %}
-      <div class="kunye-row"><dt>{{ k[0] }}</dt><dd>{{ k[1] }}</dd></div>
-      {%- endfor %}
-    </dl>
+    <div>
+      <dl class="kunye">
+        {%- for k in kunye %}
+        <div class="kunye-row"><dt>{{ k[0] }}</dt><dd>{{ k[1] }}</dd></div>
+        {%- endfor %}
+      </dl>
+      <p class="nsl-not">Süre ve fiyat bu sayfada yazılmaz: süreyi görüşmede netleştiririz; fiyat kapsama göre, yazılı teklifle belirlenir.</p>
+    </div>
   </div>
 </section>
 
+{# H1.6 · İLETİŞİM BİÇİMİ #}
+<section class="sec theme-dark" aria-labelledby="iletisim-baslik">
+  <div class="container split">
+    <div class="sec-head" style="margin:0">
+      <span class="kicker">İletişim</span>
+      <h2 class="h2" id="iletisim-baslik">Yapım sırasında nasıl <em>iletişim</em> kurarız?</h2>
+    </div>
+    <p class="nsl-iletisim">Yapım boyunca ilerlemeyi ve ara çıktıları sizinle paylaşırız; iletişim biçimini görüşmede birlikte belirleriz.</p>
+  </div>
+</section>
+
+{# H1.7 · SSS (4) #}
 <section class="sec theme-light" id="sss" aria-labelledby="sss-baslik">
   <div class="container faq-grid">
     <h2 class="h2" id="sss-baslik">Sık sorulan <em>sorular</em></h2>
@@ -80,4 +125,5 @@ bodyClass: pg-nasil
   </div>
 </section>
 
+{# H1.8 · CTA #}
 {% include "partials/cta-band.njk" %}

@@ -1,63 +1,82 @@
 ---
 layout: layouts/base.njk
-title: "Hizmetler — Web, mobil uygulama, yapay zekâ | CizgiFikrim"
-description: "Web sitesi ve e-ticaret, iOS mobil uygulama, yapay zekâ ve otomasyon: baştan sona yapıyoruz. Fiyat ve takvim ücretsiz görüşmede netleşir."
+title: "Hizmetler | CizgiFikrim"
+description: "Web sitesi ve e-ticaret, mobil uygulama, yapay zekâ ve otomasyon: fikirden yayına, yazılı kapsam ve ara çıktılarla. Ücretsiz keşif görüşmesi ayırın."
 permalink: /hizmetler/
 sayfaCss: ['components/schema', 'components/sections', 'components/process', 'pages/hizmetler']
 bodyClass: pg-hizmetler
 ---
-{#- HİZMETLER GENEL (X07 İnce; şartname_2 §5, icerik_ortak C5). Koyu hero → krem: Hangisi size uygun? → 3 blok (koyu/krem/koyu) → koyu süreç özeti → krem SSS(8) → turuncu CTA. Süre/fiyat yok; projeye YALNIZ metin linki. -#}
+{#- HİZMETLER GENEL (X07 İnce; icerik_ortak PART G1, çelişkide G > F > C), 8 bölüm: hero (koyu) · Hangisi size uygun? (krem ada) · üç hizmet bloğu (koyu/krem/koyu) · ortak olanlar (krem ada) · süreç özeti (koyu) · örnek işler (koyu; yalnız metin linki) · SSS 8 (krem ada) · CTA.
+    Süre/fiyat/garanti yok; projeye YALNIZ metin linki. Sayfa içi bağlantı satırı aktif sekme DEĞİL (aktif menü = bu sayfa). -#}
 {%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
 
+{# G1.1 · HERO #}
 <section class="sec theme-dark hzg-hero" aria-labelledby="hzg-baslik">
   <div class="container">
     <div class="sec-head" style="margin-bottom:0">
       <span class="kicker">Hizmetler</span>
-      <h1 class="h1" id="hzg-baslik">Ne <em>yapıyoruz</em></h1>
-      <p class="lead">Üç alanda baştan sona çalışıyoruz. Önce sorunu yazarız, sonra yaparız. Fiyat ve takvim görüşmede işinize göre netleşir.</p>
+      <h1 class="h1" id="hzg-baslik">Üç alanda, <em>baştan sona</em>.</h1>
+      <p class="lead">Web sitesi, mobil uygulama ve yapay zekâ çözümlerini aynı ekiple, fikirden yayına yaparız. Önce sorunu yazarız, sonra yaparız.</p>
       <div class="hzg-hero__cta"><a class="pill pill--primary" href="{{ nav.cta.href }}">{{ nav.cta.etiket }} {{ ok | safe }}</a></div>
+      <p class="sayfa-ici" aria-label="Bu sayfada"><a href="#uygun">Hangisi size uygun?</a><a href="#uc-hizmet">Üç hizmet</a><a href="#ortak">Ortak olanlar</a><a href="#surec">Süreç</a><a href="#sss">SSS</a></p>
     </div>
   </div>
 </section>
 
-<section class="sec theme-light hzg-secim" aria-labelledby="hzg-secim-baslik">
+{# G1.2 · HANGİSİ SİZE UYGUN? #}
+<section class="sec theme-light hzg-secim" id="uygun" aria-labelledby="hzg-secim-baslik">
   <div class="container">
     <div class="sec-head">
       <span class="kicker">Yönlendirme</span>
       <h2 class="h2" id="hzg-secim-baslik">Hangisi size <em>uygun?</em></h2>
+      <p class="lead">Emin değilseniz sorun değil: ihtiyacınızı görüşmede birlikte netleştiririz.</p>
     </div>
     <ul class="hzg-secim__liste">
       {%- for y in yonlendirici %}
       <li><a href="{{ y.href }}"><span class="hzg-secim__soru">{{ y.soru }}</span><span class="hzg-secim__cevap">{{ y.cevap }} {{ ok | safe }}</span></a></li>
       {%- endfor %}
     </ul>
+    <p class="hzg-not">Birden fazlası gerekiyorsa kapsamı teklifte birlikte yazarız.</p>
   </div>
 </section>
 
+{# G1.3 · ÜÇ HİZMET BLOĞU #}
 {%- for b in bloklar %}
-<section class="sec theme-{{ b.tema }} hzg-blok" id="{{ b.anahtar }}" aria-labelledby="hzg-{{ b.anahtar }}-baslik">
+<section class="sec theme-{{ b.tema }} hzg-blok"{% if loop.first %} id="uc-hizmet"{% endif %} aria-labelledby="hzg-{{ b.anahtar }}-baslik">
   <div class="container hzg-blok__grid">
     <div class="hzg-blok__metin">
       <span class="kicker">Hizmet {{ loop.index }} / 3</span>
       <h2 class="h2" id="hzg-{{ b.anahtar }}-baslik">{{ b.ad }}</h2>
-      <p class="lead">{{ b.giris }}</p>
       <dl class="hzg-blok__liste">
         <div><dt>Kime uygun</dt><dd>{{ b.kime }}</dd></div>
         <div><dt>Ne teslim ederiz</dt><dd><ul class="hzg-teslim">{% for t in b.teslim %}<li>{{ t }}</li>{% endfor %}</ul></dd></div>
         <div><dt>Nasıl çalışırız</dt><dd>{{ b.nasil }}</dd></div>
       </dl>
-      <p class="hzg-ornek">{% for o in b.ornek %}{{ o.onek }} {% for l in o.link %}<a class="link" href="{{ l.href }}"{% if l.dis %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ l.ad }}{% if l.dis %} ↗{% endif %}</a>{% if not loop.last %} ve {% endif %}{% endfor %}{% if o.son %} {{ o.son }}{% endif %} {{ ok | safe }}{% endfor %}</p>
-      <div class="hzg-blok__cta">
-        <a class="pill pill--primary" href="{{ nav.cta.href }}">{{ nav.cta.etiket }} {{ ok | safe }}</a>
-        <a class="link" href="/hizmetler/{{ b.slug }}/">Ayrıntılar {{ ok | safe }}</a>
-      </div>
+      <div class="hzg-blok__cta"><a class="link" href="/hizmetler/{{ b.slug }}/">Ayrıntılar {{ ok | safe }}</a></div>
     </div>
     <div class="hzg-blok__sahne">{% include "partials/schema/" + b.sahne + ".njk" %}</div>
   </div>
 </section>
 {%- endfor %}
 
-<section class="sec theme-dark hzg-surec" id="surec-ozeti" aria-labelledby="hzg-surec-baslik">
+{# G1.4 · ÜÇ HİZMETTE ORTAK OLANLAR #}
+<section class="sec theme-light" id="ortak" aria-labelledby="hzg-ortak-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker">Ortak olanlar</span>
+      <h2 class="h2" id="hzg-ortak-baslik">Her işte <em>aynı çerçeve</em>.</h2>
+    </div>
+    <div class="grid grid-4 hzg-ortak">
+      {%- for o in ortak %}
+      <article class="kart"><h3 class="h3">{{ o[0] }}</h3><p>{{ o[1] }}</p></article>
+      {%- endfor %}
+    </div>
+    <p class="hzg-not">Süre ve fiyat bu sayfada yazılmaz: süreyi görüşmede netleştiririz; fiyat kapsama göre, yazılı teklifle belirlenir.</p>
+  </div>
+</section>
+
+{# G1.5 · SÜREÇ ÖZETİ #}
+<section class="sec theme-dark" id="surec" aria-labelledby="hzg-surec-baslik">
   <div class="container">
     <div class="sec-head">
       <span class="kicker">Süreç</span>
@@ -68,19 +87,33 @@ bodyClass: pg-hizmetler
       <li class="kart adim"><span class="no" aria-hidden="true">{{ loop.index }}</span><h3 class="h3"><span class="sr-only">Adım {{ loop.index }}: </span>{{ a.ad }}</h3><p>{{ a.metin }}</p></li>
       {%- endfor %}
     </ol>
-    <p class="surec-link"><a class="link" href="/nasil-calisiyoruz/">Süreci ayrıntılı oku {{ ok | safe }}</a></p>
+    <a class="link surec-link" href="/nasil-calisiyoruz/">Süreci ayrıntılı oku {{ ok | safe }}</a>
   </div>
 </section>
 
+{# G1.6 · ÖRNEK İŞLER (yalnız metin linkleri; kart/görsel/demo yok) #}
+<section class="sec theme-dark sec--tight" aria-labelledby="hzg-ornek-baslik">
+  <div class="container">
+    <h2 class="h3" id="hzg-ornek-baslik">Örnek <em>işler</em></h2>
+    <ul class="hzg-ornekler">
+      <li><span>Web</span><a class="link" href="/calismalar/vesira/">Vesira {{ ok | safe }}</a><a class="link" href="https://polishreel.com" target="_blank" rel="noopener noreferrer">PolishReel ↗</a></li>
+      <li><span>Mobil</span><a class="link" href="/calismalar/carlog/">CarLog {{ ok | safe }}</a></li>
+      <li><span>Yapay zekâ</span><a class="link" href="/calismalar/vesira/">Vesira {{ ok | safe }}</a></li>
+    </ul>
+  </div>
+</section>
+
+{# G1.7 · SSS (8) #}
 <section class="sec theme-light" id="sss" aria-labelledby="sss-baslik">
   <div class="container faq-grid">
     <h2 class="h2" id="sss-baslik">Sık sorulan <em>sorular</em></h2>
     <div class="faq-list">
       {%- for s in sss %}
-      <details class="faq-item"><summary>{{ s[0] }}<i aria-hidden="true"></i></summary><p class="faq-a">{{ s[1] }}</p></details>
+      <details class="faq-item"><summary>{{ s[0] }}<i aria-hidden="true"></i></summary><p class="faq-a">{{ s[1] }}{% if loop.last %} <a class="link" href="/gizlilik/">Gizlilik sayfası</a>{% endif %}</p></details>
       {%- endfor %}
     </div>
   </div>
 </section>
 
+{# G1.8 · CTA #}
 {% include "partials/cta-band.njk" %}

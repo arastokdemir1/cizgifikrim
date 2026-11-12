@@ -1,6 +1,8 @@
 /* HİZMETLER ÖZETİ ("/" akışı) + ortak madde listesi. Kremde ada; 3 kart (ad + 1 cümle + "Ayrıntılar →"). Hareket yok. */
 .hz-ozet { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.hz-ozet .kart { grid-template-rows: auto auto auto 1fr; }
 .hz-ozet .kart h3 { margin: 0; }
+.hz-ozet .kart .link { align-self: end; }
 .svc-all { justify-self: start; margin-top: var(--s-6); }
 .svc-bullets { display: grid; gap: var(--s-2); }
 .svc-bullets li { display: flex; align-items: baseline; gap: var(--s-3); font-size: var(--t-small); color: var(--fg-muted); }

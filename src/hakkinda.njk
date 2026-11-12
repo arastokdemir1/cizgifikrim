@@ -14,7 +14,7 @@ jsonld:
     url: "https://cizgifikrim.net/hakkinda/"
     about: { "@id": "https://cizgifikrim.net/#org" }
 ---
-{#- HAKKINDA (X07 İnce; şartname_2 §4, icerik_ortak C6): koyu başlık → krem ada: üç ilke → koyu: prensipler → krem ada: çalışma alanları → koyu: kurucu → turuncu CTA. Fotoğraf/avatar/baş harf dairesi YOK; rakam, ödül, müşteri sayısı YOK; Otomotiv/Finans YOK. Metin C6'dan aynen. -#}
+{#- HAKKINDA (X07 İnce; icerik_ortak PART H2 + C6, çelişkide H > C), 8 bölüm: hero (koyu) · üç ilke (krem ada) · yaklaşım (koyu) · araçlar YENİ (krem ada) · çalışma alanları (koyu) · kurucu (koyu) · Nasıl çalışıyoruz köprüsü · CTA. Fotoğraf/avatar/rakam/ödül/müşteri sayısı YOK. -#}
 {%- set ok -%}<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg>{%- endset -%}
 {%- set ilkeler = [
   ['Önce problem', 'Teknoloji kendi başına bir amaç değildir; açıkça tanımlanmış bir ihtiyacın aracıdır.', 'ikon-ilke1'],
@@ -68,7 +68,25 @@ jsonld:
   </div>
 </section>
 
-<section class="sec theme-light" id="alanlar" aria-labelledby="hk-alan-baslik">
+<section class="sec theme-light" id="araclar" aria-labelledby="hk-arac-baslik">
+  <div class="container split">
+    <div class="sec-head" style="margin:0">
+      <span class="kicker">Araçlar</span>
+      <h2 class="h2" id="hk-arac-baslik">Projeye göre <em>seçeriz</em>.</h2>
+      <p class="lead">Araç seçimi işin ihtiyacına bağlıdır; kapsam görüşmesinde birlikte konuşuruz.</p>
+    </div>
+    <div class="hk-araclar">
+      <dl class="kunye">
+        <div class="kunye-row"><dt>Mobil</dt><dd>Swift · SwiftUI</dd></div>
+        <div class="kunye-row"><dt>Web</dt><dd>Next.js · React · Tailwind CSS · Eleventy</dd></div>
+        <div class="kunye-row"><dt>Veri ve yayın</dt><dd>PostgreSQL · Supabase · Cloudflare</dd></div>
+      </dl>
+      <p class="hk-araclar__not">Yapay zekâyı gerektiği yerde, denetlenebilir bir bileşen olarak kullanırız; sonucu insan kontrol eder.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec theme-dark" id="alanlar" aria-labelledby="hk-alan-baslik">
   <div class="container">
     <div class="sec-head">
       <span class="kicker">Çalışma alanları</span>
@@ -93,9 +111,15 @@ jsonld:
       <h2 class="h2" id="hk-kurucu-baslik">Aras Tokdemir</h2>
     </div>
     <div class="hk-kurucu__bio">
-      <p>Yapay zekâ, otonom sistemler ve mobil ürünler üzerinde çalışan geliştirici; CizgiFikrim'de araştırma yönünü ürün sorumluluğuyla birleştirir.</p>
+      <p>Yapay zekâ, otonom sistemler ve mobil ürünler üzerinde çalışan geliştirici. CizgiFikrim'de araştırma yönünü ürün sorumluluğuyla birleştirir.</p>
       <a class="link" href="mailto:{{ site.email }}">{{ site.email }}</a>
     </div>
+  </div>
+</section>
+
+<section class="sec theme-dark sec--tight" aria-label="Süreç">
+  <div class="container">
+    <p class="hk-kopru">Süreci adım adım görmek için: <a class="link" href="/nasil-calisiyoruz/">Nasıl çalışıyoruz {{ ok | safe }}</a></p>
   </div>
 </section>
 

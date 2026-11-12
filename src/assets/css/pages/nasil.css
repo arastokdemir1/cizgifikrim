@@ -1,3 +1,23 @@
 /* NASIL ÇALIŞIYORUZ (X07 İnce): başlık bölümü; adım kartları components/process.css (.adimlar/.adim), ilke/künye/SSS components/sections.css. Sticky/sahne yok. */
 .nsl-hero { padding-bottom: clamp(24px, 3vw, 40px); }
 .nsl-hero .sec-head { max-width: 52rem; }
+.nsl-hero__cta { margin-top: var(--s-3); }
+.nsl-not { margin: var(--s-4) 0 0; font-size: var(--t-small); color: var(--fg-muted); max-width: 62ch; }
+.nsl-iletisim { font-size: 17px; line-height: 1.5; max-width: 52ch; }
+
+/* Hizmete göre tablo */
+.hg-tablo-kap { border: 1px solid var(--line); border-radius: var(--r-m); background: var(--surface); overflow: hidden; }
+.hg-tablo { width: 100%; border-collapse: collapse; text-align: left; font-size: var(--t-small); }
+.hg-tablo th, .hg-tablo td { padding: 14px 20px; border-top: 1px solid var(--line); vertical-align: top; font-weight: 400; }
+.hg-tablo thead th { border-top: 0; font-size: var(--t-kicker); font-weight: 500; letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--fg-muted); }
+.hg-tablo thead .link { font-size: 12.5px; text-transform: none; letter-spacing: 0; }
+.hg-tablo tbody th { font-weight: 500; color: var(--fg); white-space: nowrap; }
+.hg-no { display: inline-grid; place-items: center; width: 22px; height: 22px; margin-right: 10px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-size: 11px; font-weight: 500; }
+@media (max-width: 760px) {
+  .hg-tablo, .hg-tablo tbody, .hg-tablo tr, .hg-tablo th, .hg-tablo td { display: block; }
+  .hg-tablo thead { display: none; }
+  .hg-tablo tbody tr { padding: 14px 0; border-top: 1px solid var(--line); }
+  .hg-tablo tbody tr:first-child { border-top: 0; }
+  .hg-tablo th, .hg-tablo td { border: 0; padding: 4px 20px; }
+  .hg-tablo td::before { content: attr(data-etiket); display: block; font-size: var(--t-kicker); font-weight: 500; letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--fg-muted); }
+}

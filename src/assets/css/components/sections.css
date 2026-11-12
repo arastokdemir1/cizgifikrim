@@ -55,3 +55,8 @@ a.kart:hover { border-color: var(--line-strong); }
 /* Teknoloji: düz satır (çip değil), künyenin altında ince çizgiyle ayrılır */
 .teknoloji { display: grid; gap: var(--s-2); margin-top: clamp(24px, 3.5vw, 40px); padding-top: clamp(20px, 3vw, 32px); border-top: 1px solid var(--line); }
 .teknoloji__satir { font-size: var(--t-small); color: var(--fg-muted); }
+
+/* Sayfa içi bağlantı satırı (yalnız yer değiştirir; AKTİF SEKME DEĞİL: aktif menü bulunulan sayfadır) */
+.sayfa-ici { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: var(--s-3); font-size: 13px; color: var(--fg-muted); }
+.sayfa-ici a { color: var(--fg-muted); border-bottom: 1px solid var(--line); }
+.sayfa-ici a:hover { color: var(--fg); border-bottom-color: var(--fg); }
