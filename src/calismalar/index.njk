@@ -46,7 +46,7 @@ sayfaCss: ['components/sections', 'pages/calismalar']
           {%- if p.slug == 'carlog' %}
             {%- for g in carlogGorseller %}{% gorsel g.k, g.alt, "(min-width: 1024px) 110px, 120px", [240, 480], ('eager' if loop.first else 'lazy') %}{% endfor %}
           {%- else %}
-            {%- for o in p.gorsel.ogeler %}{% gorsel o.kaynak, o.alt, "(min-width: 1024px) 160px, 140px", [320, 640], 'lazy' %}{% endfor %}
+            {%- for o in p.gorsel.ogeler %}{% gorsel o.kaynak, o.alt, ("(min-width: 1024px) 320px, 240px" if p.slug == 'vesira' else "(min-width: 1024px) 170px, 150px"), ([320, 640] if p.slug == 'vesira' else [240, 480, 720]), 'lazy' %}{% endfor %}
           {%- endif %}
         </div>
         {%- if p.gorsel.altyazi %}<p class="proje-ornek">{{ p.gorsel.altyazi }}</p>{% elif p.slug == 'polishreel' %}<p class="proje-ornek">Örnek çıktı</p>{% endif %}

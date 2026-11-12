@@ -2,7 +2,13 @@
 .proje-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
 .proje { gap: 12px; align-content: start; grid-template-rows: auto auto auto auto auto 1fr; }
 .proje-medya { display: grid; gap: 8px; align-content: start; }
-@media (min-width: 1024px) { .proje-medya { min-height: 236px; } }  /* ≥1024: görsel alanı eşit yükseklik, kart başlıkları aynı hizada */
+/* ≥1024: görsel alanı eşit yükseklik (CarLog doğal 208 px); Vesira ve PolishReel görselleri aynı yüksekliğe object-fit: cover ile dolar (boş alan yok, büyütme yok), kart başlıkları aynı hizada */
+@media (min-width: 1024px) {
+  .proje-medya { min-height: 236px; }
+  .proje--vesira .proje-gorsel, .proje--polishreel .proje-gorsel { height: 208px; align-items: stretch; }
+  .proje--vesira .proje-gorsel picture, .proje--polishreel .proje-gorsel picture { height: 100%; }
+  .proje--vesira .proje-gorsel img, .proje--polishreel .proje-gorsel img { height: 100%; aspect-ratio: auto; object-fit: cover; }
+}
 .proje-gorsel { display: flex; gap: 8px; align-items: flex-end; min-height: 64px; }
 .proje-gorsel picture { display: block; flex: 1 1 0; min-width: 0; }
 .proje-gorsel img { width: 100%; height: auto; border-radius: 12px; }
