@@ -20,6 +20,7 @@
   var PROD = { 'cizgifikrim.net': 1, 'www.cizgifikrim.net': 1 };
   var mock = !PROD[location.hostname] || /[?&]lead=mock\b/.test(location.search);
   var SLUGS = ['web-sitesi-ve-e-ticaret', 'mobil-uygulama', 'yapay-zeka-ve-otomasyon', 'carlog', 'vesira', 'polishreel'];
+  var ALIAS = { web: 'web-sitesi-ve-e-ticaret', mobil: 'mobil-uygulama', 'yapay-zeka': 'yapay-zeka-ve-otomasyon' };   // ?konu=web|mobil|yapay-zeka (hizmet sayfalarından) → hizmet slug'ı
   var KONU_ESLE = { carlog: 'mobil-uygulama', vesira: 'yapay-zeka-ve-otomasyon', polishreel: 'web-sitesi-ve-e-ticaret' };   // ?konu= proje ise Konu seçimi ilgili hizmete ön dolar
   var SLUG_RE = /^[a-z0-9._-]{1,80}$/;
   var LINK_RE = /https?:\/\/|www\./gi;
@@ -50,7 +51,8 @@
   (function () {
     try {
       var q = new URLSearchParams(location.search).get('konu');
-      if (q && SLUG_RE.test(q) && SLUGS.indexOf(q) > -1) { slug = q; f('konu').value = KONU_ESLE[q] || q; }
+      var g = q && SLUG_RE.test(q) ? (ALIAS[q] || q) : null;
+      if (g && SLUGS.indexOf(g) > -1) { slug = g; f('konu').value = KONU_ESLE[g] || g; }
     } catch (e) { /* eski tarayıcı */ }
   })();
   f('konu').addEventListener('change', function () { var v = f('konu').value; slug = v === 'diger' ? null : v; });

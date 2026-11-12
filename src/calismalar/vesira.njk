@@ -85,26 +85,7 @@ jsonld:
   </div>
 </section>
 
-{# ───────── 2 · DEMO (koyu, telefon çerçevesi) ───────── #}
-<section class="sec cl-demo theme-dark" id="demo" aria-labelledby="demo-baslik">
-  <div class="container">
-    <div class="sec-head center">
-      <span class="kicker" data-reveal><b>01</b><span class="dash"></span>DEMO</span>
-      <h2 class="h2" id="demo-baslik" data-reveal style="--i:1">Arayüzü tarayıcıda <em>deneyin</em>.</h2>
-      <p class="lead" data-reveal style="--i:2">Aşağıdaki, Vesira'nın gerçek arayüzüdür; örnek görsellerle çalışan interaktif bir demodur. Bir oda seçin, ne kadar değişeceğini belirleyin, önce/sonrayı karşılaştırın.</p>
-      <p class="vs-cerceve-cumle" data-reveal style="--i:3">Arayüz ürünün diliyle (İngilizce) gösterilir.</p>
-    </div>
-    <div class="cl-demo__sahne" data-reveal="fade">
-      <p class="cl-ipucu cl-ipucu--sol">Bir oda seçin, ne kadar değişeceğini belirleyin.</p>
-      {% set demo = { src: "/demo/vesira/", baslik: "Vesira interaktif demosu (örnek görsellerle)", poster: "src/assets/img/projeler/vesira/demo-poster.webp", posterAlt: "Vesira arayüzü: bir salonun önce ve sonra karşılaştırması (örnek görsel). Demoyu başlat düğmesiyle etkileşimli hâli açılır.", tamEkran: "/demo/vesira/", not: "Odalar yapay zekâ ile üretilmiş örnek görsellerdir; gerçek müşteri odası değildir. Bu demoda fotoğraf yüklenmez ve hiçbir veri gönderilmez." } %}
-      {% include "partials/demo-frame.njk" %}
-      <p class="cl-ipucu cl-ipucu--sag">Sonucu önce/sonra kaydırıcısıyla karşılaştırın.</p>
-    </div>
-    <p class="vs-demo-link" data-reveal><a class="link" href="{{ site }}" target="_blank" rel="noopener noreferrer">vesira.app'te kendi odanla dene {{ dis | safe }}</a></p>
-  </div>
-</section>
-
-{# ───────── 3 · SORUN / YAKLAŞIM / SONUÇ + künye (açık) ───────── #}
+{# ───────── 3 · PROBLEM / ÇÖZÜM / SONUÇ + künye (açık) ───────── #}
 <section class="sec cl-hikaye theme-light" aria-labelledby="hikaye-baslik">
   <div class="container split cl-hikaye__grid">
     <aside class="cl-kunye" aria-label="Çalışma künyesi">
@@ -120,13 +101,13 @@ jsonld:
     <div class="cl-bolumler">
       <article class="cl-bolum" data-reveal>
         <span class="cl-bolum__no" aria-hidden="true">01</span>
-        <div><p class="kicker">SORUN</p>
+        <div><p class="kicker">PROBLEM</p>
         <h3 class="h3">Yenilenmiş oda <em>önceden</em> görünmüyor.</h3>
         <p>İnsanlar odalarının yenilendikten sonra nasıl görüneceğini önceden göremiyor. Genel yapay zekâ görsellerinde de oda başka bir yere dönüşüyor.</p></div>
       </article>
       <article class="cl-bolum" data-reveal>
         <span class="cl-bolum__no" aria-hidden="true">02</span>
-        <div><p class="kicker">YAKLAŞIM</p>
+        <div><p class="kicker">ÇÖZÜM</p>
         <h3 class="h3">Kendi odanızın <em>fotoğrafında</em> çalışır.</h3>
         <p>Vesira kendi odanızın fotoğrafında çalışır: pencereler, gün ışığı ve odanın yapısı yerinde kalır, değişen yalnız tasarımdır.</p></div>
       </article>
@@ -140,11 +121,46 @@ jsonld:
   </div>
 </section>
 
+{# ───────── I2.1 · NASIL ÇALIŞIR (koyu) ───────── #}
+<section class="sec cl-nasil theme-dark" id="nasil-calisir" aria-labelledby="nasil-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker">Nasıl çalışır</span>
+      <h2 class="h2" id="nasil-baslik">Üç <em>adımda</em>.</h2>
+    </div>
+    <ol class="cl-asama" role="list">
+      <li><span class="cl-asama__no" aria-hidden="true">1</span><h3 class="h4">Odanızın fotoğrafını kullanın</h3><p>Salon, mutfak, yatak odası ya da koridor: kendi odanızın fotoğrafında çalışır.</p></li>
+      <li><span class="cl-asama__no" aria-hidden="true">2</span><h3 class="h4">Seviyeyi seçin</h3><p>Hafif tazeleme, yenileme ya da baştan tasarım: ne kadar değişeceğine siz karar verirsiniz.</p></li>
+      <li><span class="cl-asama__no" aria-hidden="true">3</span><h3 class="h4">Önce/sonrayı karşılaştırın</h3><p>Sonuçtan memnun değilseniz "Refine" ile yönü değiştirirsiniz; önceki sürüm saklanır.</p></li>
+    </ol>
+    <p class="cl-not">Pencereler, gün ışığı ve odanın yapısı yerinde kalır; değişen yalnız tasarımdır.</p>
+  </div>
+</section>
+
+{# ───────── 2 · DEMO (koyu, telefon çerçevesi) ───────── #}
+<section class="sec cl-demo theme-dark" id="demo" aria-labelledby="demo-baslik">
+  <div class="container">
+    <div class="sec-head center">
+      <span class="kicker" data-reveal>DEMO</span>
+      <h2 class="h2" id="demo-baslik" data-reveal style="--i:1">Arayüzü tarayıcıda <em>deneyin</em>.</h2>
+      <p class="lead" data-reveal style="--i:2">Aşağıdaki, Vesira'nın gerçek arayüzüdür; örnek görsellerle çalışan interaktif bir demodur. Bir oda seçin, ne kadar değişeceğini belirleyin, önce/sonrayı karşılaştırın.</p>
+      <p class="vs-cerceve-cumle" data-reveal style="--i:3">Arayüz ürünün diliyle (İngilizce) gösterilir.</p>
+    </div>
+    <div class="cl-demo__sahne" data-reveal="fade">
+      <p class="cl-ipucu cl-ipucu--sol">Bir oda seçin, ne kadar değişeceğini belirleyin.</p>
+      {% set demo = { src: "/demo/vesira/", baslik: "Vesira interaktif demosu (örnek görsellerle)", poster: "src/assets/img/projeler/vesira/demo-poster.webp", posterAlt: "Vesira arayüzü: bir salonun önce ve sonra karşılaştırması (örnek görsel). Demoyu başlat düğmesiyle etkileşimli hâli açılır.", tamEkran: "/demo/vesira/", not: "Odalar yapay zekâ ile üretilmiş örnek görsellerdir; gerçek müşteri odası değildir. Bu demoda fotoğraf yüklenmez ve hiçbir veri gönderilmez." } %}
+      {% include "partials/demo-frame.njk" %}
+      <p class="cl-ipucu cl-ipucu--sag">Sonucu önce/sonra kaydırıcısıyla karşılaştırın.</p>
+    </div>
+    <p class="vs-demo-link" data-reveal><a class="link" href="{{ site }}" target="_blank" rel="noopener noreferrer">vesira.app'te kendi odanla dene {{ dis | safe }}</a></p>
+  </div>
+</section>
+
 {# ───────── 4 · ÖZELLİKLER (açık, 5 kart: 3+2) ───────── #}
 <section class="sec cl-ozellik theme-light" aria-labelledby="ozellik-baslik">
   <div class="container">
     <div class="sec-head">
-      <span class="kicker" data-reveal><b>02</b><span class="dash"></span>ÖZELLİKLER</span>
+      <span class="kicker" data-reveal>ÖZELLİKLER</span>
       <h2 class="h2" id="ozellik-baslik" data-reveal style="--i:1">Beş özellik, <em>tek</em> akışta.</h2>
     </div>
     <div class="grid grid-3 cl-kartlar">
@@ -171,7 +187,7 @@ jsonld:
   <div class="container split vs-galeri__grid">
     <div class="vs-galeri__sol">
     <div class="sec-head">
-      <span class="kicker" data-reveal><b>03</b><span class="dash"></span>ÖRNEK SONUÇLAR</span>
+      <span class="kicker" data-reveal>ÖRNEK SONUÇLAR</span>
       <h2 class="h2" id="galeri-baslik" data-reveal style="--i:1">Önce, <em>sonra</em>.</h2>
       <p class="lead" data-reveal style="--i:2">Bir oda ve bir seviye seçin; çizgiyi kaydırarak karşılaştırın. Görseller yapay zekâ ile üretilmiş örneklerdir, gerçek müşteri odası değildir.</p>
     </div>
@@ -210,16 +226,50 @@ jsonld:
   </div>
 </section>
 
+{# ───────── I2.2 · BU PROJEDE NE YAPTIK (koyu) ───────── #}
+<section class="sec cl-isler-bolum theme-dark" id="yaptigimiz-isler" aria-labelledby="isler-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker">Bu projede ne yaptık?</span>
+      <h2 class="h2" id="isler-baslik">Baştan sona yaptığımız <em>işler</em>.</h2>
+    </div>
+    <ul class="cl-isler" role="list">
+      <li><b>Ürün tasarımı</b><span>Kullanıcının odasını yenilenmiş hâliyle önceden görmesi ihtiyacından yola çıkıldı.</span></li>
+      <li><b>Web uygulaması</b><span>Next.js ve React ile yazıldı; İngilizce arayüz, Türkçe seçeneği var.</span></li>
+      <li><b>Yapay zekâ akışı</b><span>Odanın mimarisini okuyan, iç mimar gibi düşünen bir akış; oda okuma ve tasarım kararları Claude, görsel üretimi GPT Image ile.</span></li>
+      <li><b>Veri</b><span>PostgreSQL.</span></li>
+      <li><b>Yayın ve işletme</b><span>Web'de yayında; ürünü CizgiFikrim işletiyor (kendi girişimimiz).</span></li>
+    </ul>
+    <p class="cl-alt-link"><a class="link" href="/hizmetler/yapay-zeka-ve-otomasyon/">Yapay zekâ ve otomasyon hizmeti {{ ok | safe }}</a></p>
+  </div>
+</section>
+
+{# ───────── I2.3 · SINIRLAR (koyu; dürüstlük bölümü) ───────── #}
+{#- I2.3: "Sonuç bir tasarım önerisidir" uyarı cümlesi Teknik-1 tarafından ONAYLANDI; sayfada gösterilir. -#}
+<section class="sec cl-sinirlar theme-dark" id="sinirlar" aria-labelledby="sinir-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker">Sınırlar</span>
+      <h2 class="h2" id="sinir-baslik">Bilmeniz <em>gerekenler</em>.</h2>
+    </div>
+    <ul class="cl-isler" role="list">
+      <li><b>Galerideki odalar örnektir</b><span>Yapay zekâ ile üretilmiş örnek görsellerdir; gerçek müşteri odası değildir.</span></li>
+      <li><b>Sonuç bir tasarım önerisidir</b><span>Yapay zekâ çıktısı olarak gösterilir; ölçü, uygulama ya da maliyet garantisi değildir.</span></li>
+      <li><b>Karar sizde</b><span>Sonuçtan memnun değilseniz yönü değiştirirsiniz.</span></li>
+    </ul>
+  </div>
+</section>
+
 {# ───────── 6 · NASIL YAPTIK (açık) ───────── #}
 <section class="sec cl-yaptik theme-light" aria-labelledby="yaptik-baslik">
   <div class="container split">
     <div class="sec-head" style="margin:0">
-      <span class="kicker" data-reveal><b>04</b><span class="dash"></span>NASIL YAPTIK</span>
+      <span class="kicker" data-reveal>NASIL YAPTIK</span>
       <h2 class="h2" id="yaptik-baslik" data-reveal style="--i:1">Baştan sona <em>bizim işimiz</em>.</h2>
     </div>
     <div class="cl-yaptik__govde">
       <p class="lead" data-reveal>Vesira'yı tasarladık, geliştirdik ve işletiyoruz; CizgiFikrim'in kendi girişimidir.</p>
-      <ul class="tech" data-reveal style="--i:1">{% for t in ["Next.js", "React", "PostgreSQL", "Claude", "GPT Image"] %}<li class="tag">{{ t }}</li>{% endfor %}</ul>
+      <p class="cl-tech-satir" data-reveal style="--i:1">{{ ["Next.js", "React", "PostgreSQL", "Claude", "GPT Image"] | join(" · ") }}</p>
     </div>
   </div>
 </section>

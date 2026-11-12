@@ -133,3 +133,18 @@
 }
 /* X07 İnce: dev ürün adı ve hero ışığı yok */
 .cl-hero__dev, .cl-hero__fx { display: none; }
+
+/* ── PART I ek bölümler (CarLog + Vesira): Nasıl çalışır / Bu projede ne yaptık / Sınırlar ── */
+.cl-asama { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); }
+.cl-asama li { display: grid; gap: var(--s-2); align-content: start; padding-top: var(--s-5); border-top: 1px solid var(--line-strong); }
+.cl-asama__no { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--c-accent); color: var(--c-on-accent); font-size: 12px; font-weight: 500; line-height: 1; }
+.cl-asama h3 { margin: var(--s-2) 0 0; }
+.cl-asama p { margin: 0; color: var(--fg-muted); }
+.cl-not { margin: var(--s-6) 0 0; max-width: 62ch; font-size: var(--t-small); line-height: 1.55; color: var(--fg-muted); }
+.cl-isler { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s-3); }
+.cl-isler li { display: grid; gap: 4px; padding: 18px 22px; border: 1px solid var(--line); border-radius: var(--r-m); background: var(--surface); }
+.cl-isler b { font-weight: 500; font-size: 16px; letter-spacing: -.005em; }
+.cl-isler span { color: var(--fg-muted); font-size: var(--t-small); line-height: 1.55; }
+.cl-alt-link { margin: var(--s-6) 0 0; }
+@media (max-width: 860px) { .cl-asama { grid-template-columns: minmax(0, 1fr); } }
+.cl-tech-satir { margin: var(--s-4) 0 0; font-size: var(--t-body); line-height: 1.6; color: var(--fg); }

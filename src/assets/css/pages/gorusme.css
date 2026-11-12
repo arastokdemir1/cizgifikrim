@@ -33,3 +33,7 @@
 .gr-konu__no { font-family: var(--f-serif); font-style: italic; font-size: 20px; line-height: 1; color: var(--fg-muted); }
 @media (max-width: 899px) { .gr-hero .gr-hero__grid { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 480px) { .gr-konu__liste li { grid-template-columns: 40px minmax(0, 1fr); } .gr-konu__no { display: none; } }
+
+/* PART I3: takvim bağlantısı (koyu) + tek kolon form (krem ada) */
+.gr-takvim-bolum { padding-top: 0; }
+.gr-form-kolon { max-width: 640px; margin-inline: 0; }

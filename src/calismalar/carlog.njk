@@ -54,24 +54,7 @@ jsonld:
   </div>
 </section>
 
-{# ───────── 2 · DEMO (koyu) ───────── #}
-<section class="sec cl-demo theme-dark" id="demo" aria-labelledby="demo-baslik">
-  <div class="container">
-    <div class="sec-head center">
-      <span class="kicker" data-reveal><b>01</b><span class="dash"></span>DEMO</span>
-      <h2 class="h2" id="demo-baslik" data-reveal style="--i:1">Gerçek arayüzü <em>deneyin</em>.</h2>
-      <p class="lead" data-reveal style="--i:2">Uygulamanın web demosu, örnek verilerle çalışır. Garajı gezin, bir yolculuk ekleyin, özeti inceleyin.</p>
-    </div>
-    <div class="cl-demo__sahne" data-reveal="fade">
-      <p class="cl-ipucu cl-ipucu--sol">Canlı Sürüş sekmesini deneyin.</p>
-      {% set demo = { src: "/demo/carlog/", baslik: "CarLog web demosu (örnek verilerle)", poster: "src/assets/img/projeler/carlog/demo-poster.webp", posterAlt: "CarLog demosu: Özet ekranı. Demoyu başlat düğmesiyle etkileşimli hâli açılır.", tamEkran: "/demo/carlog/" } %}
-      {% include "partials/demo-frame.njk" %}
-      <p class="cl-ipucu cl-ipucu--sag">Özet sekmesinde gün, hafta ve ay arasında geçin.</p>
-    </div>
-  </div>
-</section>
-
-{# ───────── 3 · SORUN / YAKLAŞIM / SONUÇ (açık, sol yapışkan künye) ───────── #}
+{# ───────── 3 · PROBLEM / ÇÖZÜM / SONUÇ (açık, sol yapışkan künye) ───────── #}
 <section class="sec cl-hikaye theme-light" aria-labelledby="hikaye-baslik">
   <div class="container split cl-hikaye__grid">
     <aside class="cl-kunye" aria-label="Çalışma künyesi">
@@ -87,13 +70,13 @@ jsonld:
     <div class="cl-bolumler">
       <article class="cl-bolum" data-reveal>
         <span class="cl-bolum__no" aria-hidden="true">01</span>
-        <div><p class="kicker">SORUN</p>
+        <div><p class="kicker">PROBLEM</p>
         <h3 class="h3">Masrafın gerçek maliyeti <em>dağınık</em>.</h3>
         <p>Sürücüler bir yolculuğun ya da aracın aylık gerçek maliyetini bilmiyor. Yakıt, otoyol/köprü ücreti ve tüketim ayrı ayrı yerlerde duruyor.</p></div>
       </article>
       <article class="cl-bolum" data-reveal>
         <span class="cl-bolum__no" aria-hidden="true">02</span>
-        <div><p class="kicker">YAKLAŞIM</p>
+        <div><p class="kicker">ÇÖZÜM</p>
         <h3 class="h3">Önce <em>göster</em>, sürerken kaydet, sonra özetle.</h3>
         <p>CarLog yola çıkmadan tahmini masrafı gösterir, sürerken kaydeder, sonra özetler.</p></div>
       </article>
@@ -107,11 +90,43 @@ jsonld:
   </div>
 </section>
 
+{# ───────── I1.1 · NASIL ÇALIŞIR (koyu) ───────── #}
+<section class="sec cl-nasil theme-dark" id="nasil-calisir" aria-labelledby="nasil-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker">Nasıl çalışır</span>
+      <h2 class="h2" id="nasil-baslik">Üç aşamada: yola çıkmadan, sürerken, <em>sonra</em>.</h2>
+    </div>
+    <ol class="cl-asama" role="list">
+      <li><span class="cl-asama__no" aria-hidden="true">1</span><h3 class="h4">Yola çıkmadan</h3><p>CarLog rota, güncel yakıt fiyatı, otoyol gişeleri ve Boğaz köprüleri dahil tahmini masrafı gösterir.</p></li>
+      <li><span class="cl-asama__no" aria-hidden="true">2</span><h3 class="h4">Sürerken</h3><p>Telefon cebinde, uygulama açılmadan yolculuğu algılar; anlık hız, kilometre, yakıt ve gişe tutarı akar.</p></li>
+      <li><span class="cl-asama__no" aria-hidden="true">3</span><h3 class="h4">Sonra</h3><p>Gün, hafta ve ay bazında harcama özeti ve birden çok araçlı garaj.</p></li>
+    </ol>
+  </div>
+</section>
+
+{# ───────── 2 · DEMO (koyu) ───────── #}
+<section class="sec cl-demo theme-dark" id="demo" aria-labelledby="demo-baslik">
+  <div class="container">
+    <div class="sec-head center">
+      <span class="kicker" data-reveal>DEMO</span>
+      <h2 class="h2" id="demo-baslik" data-reveal style="--i:1">Gerçek arayüzü <em>deneyin</em>.</h2>
+      <p class="lead" data-reveal style="--i:2">Uygulamanın web demosu, örnek verilerle çalışır. Garajı gezin, bir yolculuk ekleyin, özeti inceleyin.</p>
+    </div>
+    <div class="cl-demo__sahne" data-reveal="fade">
+      <p class="cl-ipucu cl-ipucu--sol">Canlı Sürüş sekmesini deneyin.</p>
+      {% set demo = { src: "/demo/carlog/", baslik: "CarLog web demosu (örnek verilerle)", poster: "src/assets/img/projeler/carlog/demo-poster.webp", posterAlt: "CarLog demosu: Özet ekranı. Demoyu başlat düğmesiyle etkileşimli hâli açılır.", tamEkran: "/demo/carlog/" } %}
+      {% include "partials/demo-frame.njk" %}
+      <p class="cl-ipucu cl-ipucu--sag">Özet sekmesinde gün, hafta ve ay arasında geçin.</p>
+    </div>
+  </div>
+</section>
+
 {# ───────── 4 · ÖZELLİKLER (açık, 3 kart) ───────── #}
 <section class="sec cl-ozellik theme-light" aria-labelledby="ozellik-baslik">
   <div class="container">
     <div class="sec-head">
-      <span class="kicker" data-reveal><b>02</b><span class="dash"></span>ÖZELLİKLER</span>
+      <span class="kicker" data-reveal>ÖZELLİKLER</span>
       <h2 class="h2" id="ozellik-baslik" data-reveal style="--i:1">Altı özellik, <em>tek</em> uygulamada.</h2>
     </div>
     <div class="grid grid-3 cl-kartlar">
@@ -153,7 +168,7 @@ jsonld:
 <section class="sec cl-galeri theme-dark" aria-labelledby="galeri-baslik">
   <div class="container">
     <div class="sec-head">
-      <span class="kicker" data-reveal><b>03</b><span class="dash"></span>EKRANLAR</span>
+      <span class="kicker" data-reveal>EKRANLAR</span>
       <h2 class="h2" id="galeri-baslik" data-reveal style="--i:1">Uygulamadan <em>üç ekran</em>.</h2>
     </div>
     <ul class="cl-galeri__liste" role="list" tabindex="0" aria-label="Uygulama ekranları (yatay kaydırılır)">
@@ -175,16 +190,34 @@ jsonld:
   </div>
 </section>
 
+{# ───────── I1.2 · BU PROJEDE NE YAPTIK (koyu) ───────── #}
+<section class="sec cl-isler-bolum theme-dark" id="yaptigimiz-isler" aria-labelledby="isler-baslik">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker">Bu projede ne yaptık?</span>
+      <h2 class="h2" id="isler-baslik">Baştan sona yaptığımız <em>işler</em>.</h2>
+    </div>
+    <ul class="cl-isler" role="list">
+      <li><b>Fikir ve ürün tanımı</b><span>Sürücünün gerçek maliyeti bilmemesi sorunundan yola çıkıldı.</span></li>
+      <li><b>Arayüz tasarımı</b><span>Yolculuk, özet ve garaj ekranları; CarPlay ve kilit ekranı widget'ı.</span></li>
+      <li><b>iOS geliştirme</b><span>SwiftUI ile iPhone uygulaması.</span></li>
+      <li><b>Veri</b><span>Yakıt fiyatı ve gişe verisi otomatik güncellenen bir veri deposundan gelir.</span></li>
+      <li><b>Yayın</b><span>App Store'da yayında, aktif geliştirilen bir uygulama.</span></li>
+    </ul>
+    <p class="cl-alt-link"><a class="link" href="/hizmetler/mobil-uygulama/">Mobil uygulama hizmeti {{ ok | safe }}</a></p>
+  </div>
+</section>
+
 {# ───────── 6 · NASIL YAPTIK (açık) ───────── #}
 <section class="sec cl-yaptik theme-light" aria-labelledby="yaptik-baslik">
   <div class="container split">
     <div class="sec-head" style="margin:0">
-      <span class="kicker" data-reveal><b>04</b><span class="dash"></span>NASIL YAPTIK</span>
+      <span class="kicker" data-reveal>NASIL YAPTIK</span>
       <h2 class="h2" id="yaptik-baslik" data-reveal style="--i:1">Baştan sona <em>bizim işimiz</em>.</h2>
     </div>
     <div class="cl-yaptik__govde">
       <p class="lead" data-reveal>CarLog'un fikri, tasarımı, geliştirmesi, veri altyapısı ve yayını CizgiFikrim'e ait.</p>
-      <ul class="tech" data-reveal style="--i:1">{% for t in ["SwiftUI", "SwiftData", "MapKit", "WeatherKit", "StoreKit 2", "CarPlay", "WidgetKit"] %}<li class="tag">{{ t }}</li>{% endfor %}</ul>
+      <p class="cl-tech-satir" data-reveal style="--i:1">{{ ["SwiftUI", "SwiftData", "MapKit", "WeatherKit", "StoreKit 2", "CarPlay", "WidgetKit"] | join(" · ") }}</p>
     </div>
   </div>
 </section>
@@ -197,7 +230,7 @@ jsonld:
     <p class="lead" data-reveal style="--i:1">Mobil bir ürün fikriniz varsa nasıl yapılacağını kısa bir görüşmede konuşalım.</p>
     <div class="cl-cta__ac" data-reveal style="--i:2">
       <a class="pill pill--primary" href="/gorusme/?konu=carlog">Benzerini istiyorum {{ ok | safe }}</a>
-      <a class="link" href="/hizmetler/">Mobil uygulama hizmeti {{ ok | safe }}</a>
+      <a class="link" href="/hizmetler/mobil-uygulama/">Mobil uygulama hizmeti {{ ok | safe }}</a>
     </div>
   </div>
 </section>

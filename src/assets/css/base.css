@@ -51,11 +51,12 @@ p { text-wrap: pretty; }
 
 /* Kicker: 11 px / 500 / .12em büyük harf. Koyuda vurgu yazı + 6 px vurgu nokta; kremde soluk yazı + koyu (--ink-2) nokta. */
 .kicker {
-  display: inline-flex; align-items: center; gap: 8px; font-size: var(--t-kicker); font-weight: 500;
+  display: inline-block; font-size: var(--t-kicker); font-weight: 500; text-wrap: balance;
   letter-spacing: var(--ls-kicker); text-transform: uppercase; color: var(--accent-text);
 }
 .theme-light .kicker { color: var(--fg-muted); }
-.kicker::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+/* Nokta satır içi: etiket dar ekranda iki satıra kırılırsa nokta ilk satırın başında kalır (kopmaz) */
+.kicker::before { content: ""; display: inline-block; vertical-align: middle; position: relative; top: -1px; width: 6px; height: 6px; margin-right: 8px; border-radius: 50%; background: var(--accent); }
 .kicker--duz::before { display: none; }
 .kicker b { font-weight: 500; color: var(--fg); font-variant-numeric: tabular-nums; }
 .kicker .dash { display: none; }

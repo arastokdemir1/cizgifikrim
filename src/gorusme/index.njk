@@ -1,14 +1,20 @@
 ---
 layout: layouts/base.njk
-title: "Ücretsiz keşif görüşmesi | CizgiFikrim"
-description: "Kısa bir görüşmede ne istediğinizi dinler, nasıl yapılacağını söyleriz. Takvimden uygun saati seçin ya da formu doldurun; kısa sürede dönüş yapıyoruz."
+title: "Görüşme | CizgiFikrim"
+description: "Ücretsiz keşif görüşmesi ayırın ya da formu doldurun. Kısa bir görüşmede ne istediğinizi dinler, nasıl yapılacağını söyleriz. Kısa sürede dönüş yapıyoruz."
 permalink: /gorusme/
-sayfaCss: ['components/form', 'pages/gorusme']
-sayfaJs: ['cal-lazy', 'lead-form']
+sayfaCss: ['components/form', 'components/sections', 'pages/gorusme']
+sayfaJs: ['lead-form']
 bodyClass: pg-gorusme
+jsonld:
+  - "@type": FAQPage
+    mainEntity:
+      - { "@type": Question, name: "Görüşmede ne olur?", acceptedAnswer: { "@type": Answer, text: "Ne istediğinizi dinler, nasıl yapılacağını söyleriz; sonrasında kapsamı ve teklifi yazılı veririz." } }
+      - { "@type": Question, name: "Ne kadar sürer?", acceptedAnswer: { "@type": Answer, text: "Kapsama bağlıdır; süreyi görüşmede netleştiririz." } }
+      - { "@type": Question, name: "Verilerim ne olur?", acceptedAnswer: { "@type": Answer, text: "Yalnız talebinizi yanıtlamak için kullanılır. Ayrıntılar gizlilik sayfasında." } }
 ---
-{#- GÖRÜŞME (X07 İnce; icerik_ortak C4 + form_sozlesmesi.md). Takvim (tıklayınca yüklenir) ve form yan yana, krem adada. Süre yazılmaz.
-    Form ve takvim ORTAK partial'lardır (partials/gorusme-form.njk, gorusme-takvim.njk): "/" akışındaki Görüşme bölümü aynı bileşenleri kullanır.
+{#- GÖRÜŞME (X07 İnce; icerik_ortak PART I3, 5 bölüm: hero · takvim · form · alternatif iletişim · SSS; CTA bandı YOK). Süre yazılmaz.
+    Takvim = Cal.com bağlantısı (yeni sekme); form ORTAK partial (partials/gorusme-form.njk).
     Form: submit-lead sözleşmesi (assets/js/lead-form.js). consent_version = /gizlilik/ "8. Proje talebi formu: rıza metni" sürümü (gizlilik-2026-11). -#}
 {%- set eposta = site.email -%}
 {%- set konular = [
@@ -21,7 +27,7 @@ bodyClass: pg-gorusme
   <div class="container gr-hero__grid">
     <div class="gr-hero__metin">
       <span class="kicker">Görüşme</span>
-      <h1 class="h1" id="gr-baslik">Ücretsiz keşif <em>görüşmesi</em></h1>
+      <h1 class="h1" id="gr-baslik">Ücretsiz keşif <em>görüşmesi</em>.</h1>
       <p class="lead">Kısa bir görüşmede ne istediğinizi dinler, nasıl yapılacağını söyleriz. Takvimden uygun saati seçin ya da formu doldurun; kısa sürede dönüş yapıyoruz.</p>
     </div>
     <div class="gr-konu">
@@ -35,12 +41,33 @@ bodyClass: pg-gorusme
   </div>
 </section>
 
-<section class="sec gr-paneller theme-light" aria-label="Takvim ve form">
+{# ───────── I3.2 · TAKVİM (koyu): Cal.com bağlantısı, yeni sekme ───────── #}
+<section class="sec gr-takvim-bolum theme-dark" id="takvim" aria-labelledby="takvim-baslik">
   <div class="container">
-    <div class="gr-grid">
-      {%- set takvimSinif = 'gr-panel' %}{% set takvimBaslikSeviye = 'h2' %}{% include "partials/gorusme-takvim.njk" %}
-      {%- set formSinif = 'gr-panel' %}{% set formBaslikSeviye = 'h2' %}{% include "partials/gorusme-form.njk" %}
+    <div class="sec-head">
+      <span class="kicker">Takvim</span>
+      <h2 class="h2" id="takvim-baslik">Takvimden saat <em>seçin</em>.</h2>
     </div>
+    <a class="pill pill--primary" href="https://cal.com/cizgifikrim" target="_blank" rel="noopener noreferrer">Takvimden saat seç <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11l6-6M6 5h5v5"/></svg></a>
+  </div>
+</section>
+
+{# ───────── I3.3 · FORM (krem ada) + I3.4 alternatif iletişim ───────── #}
+<section class="sec gr-paneller theme-light" id="form" aria-label="İletişim formu">
+  <div class="container gr-form-kolon">
+    {%- set formSinif = '' %}{% set formBaslikSeviye = 'h2' %}{% set formBaslik = 'Ya da formu <em>doldurun</em>.' %}{% include "partials/gorusme-form.njk" %}
     <p class="gr-eposta">E-posta ile de yazabilirsiniz: <a class="link" href="mailto:{{ eposta }}">{{ eposta }}</a></p>
+  </div>
+</section>
+
+{# ───────── I3.5 · SSS (koyu, 3 soru; JSON-LD front matter'da) ───────── #}
+<section class="sec theme-dark" id="sss" aria-labelledby="sss-baslik">
+  <div class="container faq-grid">
+    <h2 class="h2" id="sss-baslik">Sık sorulan <em>sorular</em></h2>
+    <div class="faq-list">
+      <details class="faq-item"><summary>Görüşmede ne olur?<i aria-hidden="true"></i></summary><p class="faq-a">Ne istediğinizi dinler, nasıl yapılacağını söyleriz; sonrasında kapsamı ve teklifi yazılı veririz.</p></details>
+      <details class="faq-item"><summary>Ne kadar sürer?<i aria-hidden="true"></i></summary><p class="faq-a">Kapsama bağlıdır; süreyi görüşmede netleştiririz.</p></details>
+      <details class="faq-item"><summary>Verilerim ne olur?<i aria-hidden="true"></i></summary><p class="faq-a">Yalnız talebinizi yanıtlamak için kullanılır. Ayrıntılar <a class="link" href="/gizlilik/">gizlilik sayfasında</a>.</p></details>
+    </div>
   </div>
 </section>
