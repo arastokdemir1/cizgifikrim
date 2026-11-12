@@ -11,7 +11,7 @@
 .schema .a { fill: var(--sc-acc); stroke: none; }
 .schema .l.al { stroke: var(--sc-acc); }
 .schema .l.ai { stroke: var(--sc-on-acc); }
-.schema .t { font: 600 11.5px/1 var(--f-sans); letter-spacing: .1em; text-transform: uppercase; fill: var(--sc-txt); }
+.schema .t { font: 500 11.5px/1 var(--f-sans); letter-spacing: .1em; text-transform: uppercase; fill: var(--sc-txt); }
 .schema .mid { text-anchor: middle; }
 .schema .guide, .schema .lead { opacity: .45; }
 .schema .lv { transition: transform .5s var(--ease-out); }

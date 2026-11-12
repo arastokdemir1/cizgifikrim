@@ -13,7 +13,7 @@
 /* Galeri: oda ve seviye sekmeleri, tek önce/sonra çerçevesi (yatay ≤ 620 px, dikey ≤ 440 px: dosya genişliği ≥ 2× gösterim) */
 .vs-sekmeler { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-bottom: var(--s-5); }
 .vs-sekmeler--seviye { margin-bottom: var(--s-5); }
-.vs-sekme { min-height: 44px; padding: 0 22px; border: 1px solid var(--line-strong); border-radius: var(--r-pill); background: transparent; color: var(--fg); font: 600 15px/1 var(--f-sans); cursor: pointer; transition: background-color var(--d-fast) var(--ease-out), color var(--d-fast) var(--ease-out); }
+.vs-sekme { min-height: 44px; padding: 0 22px; border: 1px solid var(--line-strong); border-radius: var(--r-pill); background: transparent; color: var(--fg); font: 500 15px/1 var(--f-sans); cursor: pointer; transition: background-color var(--d-fast) var(--ease-out), color var(--d-fast) var(--ease-out); }
 .vs-sekme--kucuk { min-height: 40px; padding: 0 18px; font-size: 14px; }
 .vs-sekme:hover { background: var(--surface); }
 .vs-sekme[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }

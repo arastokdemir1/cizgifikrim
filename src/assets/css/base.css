@@ -14,6 +14,7 @@ img { height: auto; border-radius: var(--r-m); }
 :where(button, input, select, textarea) { font: inherit; color: inherit; }
 :where(button) { background: none; border: 0; padding: 0; cursor: pointer; }
 a { color: inherit; text-decoration: none; }
+:where(strong, b, th, dt, summary, button) { font-weight: 500; }   /* X07 İnce: yalnız 400/500 */
 [hidden] { display: none !important; }
 ::selection { background: var(--c-accent); color: var(--c-on-accent); }
 
