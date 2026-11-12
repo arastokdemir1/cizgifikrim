@@ -6,16 +6,6 @@ bodyClass: pg-hizmet
 eleventyComputed:
   title: "{{ hizmetDetay.mobil.baslik }}"
   description: "{{ hizmetDetay.mobil.aciklama }}"
-  jsonld:
-    - "@type": BreadcrumbList
-      itemListElement:
-        - { "@type": ListItem, position: 1, name: "Hizmetler", item: "https://cizgifikrim.net/hizmetler/" }
-        - { "@type": ListItem, position: 2, name: "{{ hizmetDetay.mobil.kirinti }}", item: "https://cizgifikrim.net/hizmetler/mobil-uygulama/" }
-    - "@type": Service
-      name: "{{ hizmetDetay.mobil.kirinti }}"
-      description: "{{ hizmetDetay.mobil.lead }}"
-      provider: { "@id": "https://cizgifikrim.net/#org" }
-      areaServed: TR
 ---
 {%- set h = hizmetDetay.mobil -%}
 {% include "partials/hizmet-detay.njk" %}

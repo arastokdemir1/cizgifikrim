@@ -1,12 +1,6 @@
 // Hizmet detay sayfaları verisi (mobil uygulama, yapay zekâ ve otomasyon): şablon partials/hizmet-detay.njk.
 // Metin kaynağı: icerik_ortak B4 4.2/4.3 + PART C9 (onaylı "Nasıl çalışırız" cümleleri; /hizmetler/ ile aynı dil), tasarim_sartnamesi_2 §6.
 // Kurallar: süre aralığı/fiyat/sıralama sözü yok; telefon/CarPlay/widget imgesi yok; projeye yalnız metin linki; "Yayın sonrası destek" kapsamı teklifte yazılır.
-const adimIkon = {
-  gorusme: '<path d="M6 9h20a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H17l-6 5v-5H6a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3z" class="l"/><path d="M10 15h14M10 19h8" class="l"/>',
-  kapsam: '<rect x="7" y="4" width="26" height="32" rx="6" class="l"/><path d="M13 13h14M13 20h14M13 27h8" class="l"/>',
-  yapim: '<path d="M20 5l15 8-15 8L5 13z" class="l"/><path d="M5 20l15 8 15-8M5 27l15 8 15-8" class="l"/>',
-  yayin: '<circle cx="20" cy="20" r="15" class="l"/><path d="M5 20h30M20 5c-8 8-8 22 0 30M20 5c8 8 8 22 0 30" class="l"/>',
-};
 const ikonlar = {
   tasarim: '<rect x="6" y="6" width="28" height="28" rx="8" class="l"/><path d="M6 16h28M16 16v18" class="l"/>',
   gelistirme: '<path d="M14 12L5 20l9 8M26 12l9 8-9 8M23 8l-6 24" class="l"/>',
@@ -15,7 +9,6 @@ const ikonlar = {
   denetim: '<circle cx="18" cy="18" r="11" class="l"/><path d="M26 26l9 9M13 18l4 4 7-8" class="l"/>',
   kontrol: '<path d="M8 20l8 8L33 11" class="l"/><rect x="4" y="4" width="32" height="32" rx="9" class="l"/>',
 };
-const adimlar = (a) => a.map((x, i) => ({ ad: x[0], metin: x[1], satirlar: x[2], ikon: adimIkon[['gorusme', 'kapsam', 'yapim', 'yayin'][i]] }));
 const NASIL = 'Nasıl başlarız?';
 const BASLA = 'Ücretsiz keşif görüşmesi ayırın ya da formu doldurun. Kısa bir görüşmede ne istediğinizi dinler, nasıl yapılacağını söyleriz.';
 const SURE = ['Ne kadar sürer?', 'Kapsama bağlıdır; süreyi görüşmede netleştiririz.'];
@@ -49,15 +42,27 @@ export default {
       ['Yayın sonrası destek', 'Bakım ve geliştirme kapsamı teklifte ayrıca yazılır.'],
     ],
     teslimNot: 'Kapsamın tamamı görüşmeden sonra yazılı teklifte netleşir; süreyi görüşmede netleştiririz.',
-    nasilCumle: 'Görüşmede fikri ve kullanıcıyı, kapsamda ekranları ve veriyi yazıya geçiririz; ara sürümlerle yapar, mağaza hazırlığı ve yayınla tamamlarız.',
-    adimlar: adimlar([
-      ['Görüşme', 'Fikir ve kullanıcı', [['Sizden', 'fikir, kullanıcı ve varsa örnek uygulamalar.'], ['Bizden', 'sorular ve görüşme özeti.'], ['Çıktı', 'konuşulanların yazılı özeti.']]],
-      ['Kapsam', 'Ekranlar ve veri', [['Sizden', 'öncelikler ve onay.'], ['Bizden', 'ekranların ve verinin listesi, ilk sürümün sınırı.'], ['Çıktı', 'yazılı kapsam ve teklif.']]],
-      ['Yapım', 'Ara sürümler', [['Sizden', 'geri bildirim.'], ['Bizden', 'ara sürümler ve ilerleme paylaşımı.'], ['Çıktı', 'gözden geçirebileceğiniz çalışan sürümler.']]],
-      ['Yayın', 'Mağaza hazırlığı ve yayın', [['Sizden', 'mağaza hesabı bilgileri ve son onay.'], ['Bizden', 'mağaza hazırlığı, yayın ve kullanım/bakım notu.'], ['Çıktı', 'yayın için gönderilmiş uygulama; destek kapsamı teklifteki gibidir.']]],
-    ]),
+    kapsamGiris: 'Görüşmeden sonra kapsamı yazılı teklifte netleştiririz. Teklifte şunlar yer alır:',
+    kapsam: [
+      ['Ekranlar ve akış', 'Hangi ekranlar ve hangi sırayla.'],
+      ['İlk sürümün sınırı', 'Neyin ilk sürümde, neyin sonraya kaldığı.'],
+      ['Veri ve altyapı', 'Verinin cihazda mı sunucuda mı duracağı ve neden.'],
+      ['Sistem entegrasyonları', 'Gerekiyorsa konum ve harita, bildirim, CarPlay ve widget, uygulama içi satın alma.'],
+      ['Mağaza hazırlığı ve yayın', 'Mağaza hesabı bilgileri sizden, hazırlık ve yayın bizden; Apple\'ın inceleme sonucu ve süresi bizim kontrolümüzde değildir.'],
+      ['Yayın sonrası destek', 'Kapsamı ayrıca yazılır.'],
+    ],
+    kapsamNot: 'Teklifte yazılmayan iş kapsam dışıdır; kapsam değişirse teklifi birlikte güncelleriz.',
+    akisBaslik: 'Bir mobil uygulama projesi nasıl <em>ilerler?</em>',
+    akisGiris: 'Aşağıdaki akış varsayımsal bir uygulama fikri içindir; gerçek bir müşteri ya da sonuç değildir.',
+    akis: [
+      ['Görüşme', 'Örnek: bir işletme müşterilerine hizmet eden basit bir iOS uygulaması düşünüyor. Kullanıcının ne yapacağını ve neyi atlayabileceğini konuşuruz.', [['Sizden', 'fikir, kullanıcı, varsa örnek uygulamalar.'], ['Bizden', 'sorular ve görüşme özeti.']]],
+      ['Kapsam', 'Örnek ekranlar yazıya geçer (ör. giriş, liste, detay) ve ilk sürümün sınırı çizilir.', [['Çıktı', 'yazılı kapsam ve teklif.']]],
+      ['Yapım', 'Çalışan ara sürümlerle ilerleriz; geri bildirimlerinizi alırız.', [['Çıktı', 'gözden geçirebileceğiniz sürümler.']]],
+      ['Yayın', 'Mağaza hazırlığı ve yayın yapılır; kullanım ve bakım notu teslim edilir.', [['Sizden', 'mağaza hesabı bilgileri ve son onay.']]],
+    ],
+    akisNot: 'Ekran sayısı ve kapsam her projede farklıdır.',
     ozel: {
-      kicker: 'PLATFORM VE TEKNOLOJİ', baslik: 'Platform ve <em>teknoloji</em>',
+      etiket: 'Platform ve teknoloji', kicker: 'PLATFORM VE TEKNOLOJİ', baslik: 'Platform ve <em>teknoloji</em>',
       lead: 'iOS ağırlıklı çalışıyoruz; teknolojiyi ihtiyaca göre seçeriz.',
       kartlar: [
         { ad: 'Platform', maddeler: ['iPhone için iOS uygulaması.', 'Arayüz SwiftUI ile yazılır.', 'Başka platform ihtiyacınızı görüşmede konuşuruz.'], ikon: ikonlar.tasarim },
@@ -104,15 +109,29 @@ export default {
       ['Yayın sonrası destek', 'Bakım ve geliştirme kapsamı teklifte ayrıca yazılır.'],
     ],
     teslimNot: 'Kapsamın tamamı görüşmeden sonra yazılı teklifte netleşir; süreyi görüşmede netleştiririz.',
-    nasilCumle: 'Önce sorunu ve insanın nerede karar verdiğini yazarız; çalışan bir sürümü ara çıktılarla geliştirir, kullanım notuyla teslim ederiz.',
-    adimlar: adimlar([
-      ['Görüşme', 'Sorun ve karar noktası', [['Sizden', 'işi ve nerede insanın karar verdiğini anlatmanız.'], ['Bizden', 'sorular, işin yapay zekâ gerektirip gerektirmediği.'], ['Çıktı', 'sorun ve karar noktası özeti.']]],
-      ['Kapsam', 'Girdi, çıktı ve insan kontrol adımı', [['Sizden', 'örnek girdi/çıktılar ve onay.'], ['Bizden', 'girdi, çıktı ve insan kontrol adımının tanımı.'], ['Çıktı', 'yazılı kapsam ve teklif.']]],
-      ['Yapım', 'Çalışan sürüm, ara çıktılar', [['Sizden', 'sonuçlar üzerinde geri bildirim.'], ['Bizden', 'çalışan sürüm ve ara çıktılar.'], ['Çıktı', 'denenebilir sürümler.']]],
-      ['Yayın', 'Kullanım ve bakım notu', [['Sizden', 'son onay.'], ['Bizden', 'yayın, kullanım ve bakım notu.'], ['Çıktı', 'çalışan araç; destek kapsamı teklifteki gibidir.']]],
-    ]),
+    kapsamGiris: 'Önce işin yapay zekâ gerektirip gerektirmediğine bakarız; gerektirmiyorsa söyleriz. Gerekiyorsa kapsamı yazılı teklifte netleştiririz:',
+    kapsam: [
+      ['Sorunun tanımı', 'Hangi iş, kim için, ne zaman yapılıyor.'],
+      ['Girdi ve çıktı', 'Araç neyi alacak, ne üretecek.'],
+      ['İnsan kontrol adımı', 'Kararın insanda kaldığı yer.'],
+      ['Veri ve güvenlik sınırları', 'Hangi veri kullanılır, kimin görebildiği.'],
+      ['Sınırların tanımı', 'Aracın neyi yapabildiği ve neyi yapamadığı.'],
+      ['Deneme ve gözden geçirme', 'Çalışan sürümün birlikte denenmesi.'],
+      ['Kullanım ve bakım notu', 'Nasıl kullanılacağı, nasıl izleneceği ve ne zaman insana başvurulacağı.'],
+      ['Yayın sonrası destek', 'Kapsamı ayrıca yazılır.'],
+    ],
+    kapsamNot: 'Teklifte yazılmayan iş kapsam dışıdır; kapsam değişirse teklifi birlikte güncelleriz.',
+    akisBaslik: 'Bir yapay zekâ projesi nasıl <em>ilerler?</em>',
+    akisGiris: 'Aşağıdaki akış varsayımsal bir iş için örnektir; gerçek bir müşteri ya da sonuç değildir.',
+    akis: [
+      ['Görüşme', 'Örnek: bir ekip gelen metinleri düzenli olarak sınıflandırıyor ve her seferinde elle cevap taslağı yazıyor. Hangi kısmın tekrar ettiğini ve nerede insanın karar verdiğini yazarız.', [['Sizden', 'işin anlatımı ve örnekler.'], ['Bizden', 'işin yapay zekâ gerektirip gerektirmediği ve sorular.']]],
+      ['Kapsam', 'Girdi, çıktı ve insan kontrol adımı yazıya geçer.', [['Çıktı', 'yazılı kapsam ve teklif.']]],
+      ['Yapım', 'Çalışan bir sürüm ara çıktılarla geliştirilir; sonuçlar sizinle birlikte gözden geçirilir.', [['Çıktı', 'denenebilir sürümler.']]],
+      ['Yayın', 'Araç yayına alınır; kullanım ve bakım notu teslim edilir.', []],
+    ],
+    akisNot: 'Sonuçların doğruluğu garanti edilmez; aracın sınırları açıkça yazılır ve karar insanda kalır.',
     ozel: {
-      kicker: 'İNSAN KONTROLÜ', baslik: 'İnsan <em>kontrolü</em>',
+      etiket: 'İnsan kontrolü', kicker: 'İNSAN KONTROLÜ', baslik: 'İnsan <em>kontrolü</em>',
       lead: 'Yapay zekâ bir araçtır; karar insanda kalır.',
       kartlar: [
         { ad: 'Karar insanda kalır', maddeler: ['Karar destek akışlarında yetki ve bağlam kullanıcıdadır.', 'Kontrol adımı arayüzde görünür.', 'Önemli işlerde son onay insandan gelir.'], ikon: ikonlar.karar },
