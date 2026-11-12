@@ -22,7 +22,7 @@
   --c-contrast-light: #FFFFFF;          /* geçiş anlarında saf açık metin (kontrast) */
   --c-mask: #000000;                    /* mask-image kaynağı (görünmez, yalnız alfa) */
   /* ── Türetilmiş (yukarıdaki renklerden; paleti değiştirirken dokunulmaz) ── */
-  --c-glow: color-mix(in srgb, var(--c-glow-base) 35%, transparent);
+  --c-glow: color-mix(in srgb, var(--c-glow-base) 18%, transparent);   /* tepe ≈#2F3337: ink-muted üstünde ≥4,5:1 (Teknik-1 uyarısı; eski %35 → 2,78 ✗) */
   --c-glow-2: color-mix(in srgb, var(--c-glow-base) 10%, transparent);
   --c-glass: color-mix(in srgb, var(--c-ink) 7%, transparent);         /* cam dolgu */
   --c-glass-line: color-mix(in srgb, var(--c-ink) 14%, transparent);
