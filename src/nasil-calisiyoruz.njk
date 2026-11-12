@@ -51,13 +51,14 @@ bodyClass: pg-nasil
       <h2 class="h2" id="hg-baslik">Adımlar hizmete göre <em>nasıl değişir?</em></h2>
     </div>
     <div class="hg-tablo-kap">
-      <table class="hg-tablo">
+      <table class="hg-tablo" role="table">
+        <caption class="sr-only">Dört adımın web sitesi, mobil uygulama ve yapay zekâ hizmetlerinde nasıl değiştiği</caption>
         <thead>
-          <tr><th scope="col"><span class="sr-only">Adım</span></th>{% for h in hizmeteGore.basliklar %}<th scope="col"><a class="link" href="{{ h.href }}">{{ h.ad }}</a></th>{% endfor %}</tr>
+          <tr role="row"><th scope="col" role="columnheader"><span class="sr-only">Adım</span></th>{% for h in hizmeteGore.basliklar %}<th scope="col" role="columnheader"><a class="link" href="{{ h.href }}">{{ h.ad }}</a></th>{% endfor %}</tr>
         </thead>
         <tbody>
           {%- for r in hizmeteGore.satirlar %}
-          <tr><th scope="row"><span class="hg-no" aria-hidden="true">{{ loop.index }}</span>{{ r[0] }}</th>{% for c in r.slice(1) %}<td data-etiket="{{ hizmeteGore.basliklar[loop.index0].ad }}">{{ c }}</td>{% endfor %}</tr>
+          <tr role="row"><th scope="row" role="rowheader"><span class="hg-no" aria-hidden="true">{{ loop.index }}</span>{{ r[0] }}</th>{% for c in r.slice(1) %}<td role="cell" data-etiket="{{ hizmeteGore.basliklar[loop.index0].ad }}">{{ c }}</td>{% endfor %}</tr>
           {%- endfor %}
         </tbody>
       </table>
