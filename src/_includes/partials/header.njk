@@ -1,34 +1,32 @@
-{#- Üst menü (X07 İnce; sahip: Frontend-1, tasarım sistemi). Veri: nav (src/_data/nav.js). Menü: Ana sayfa · Çalışmalar · Hizmetler · Nasıl çalışıyoruz · Hakkında + sağda CTA (Görüşme).
-    Davranış (icerik_ortak PART E3): "/" üzerinde Hizmetler/Nasıl/Hakkında/Görüşme bölüme ANINDA kayar (ui.js, data-bolum), aktif sekme kaydırmayla değişir; Çalışmalar /calismalar/'a gider.
-    DİĞER sayfalarda bağlantılar tam sayfa URL'lerine gider; aktif sekme bulunulan sayfadır (aria-current, sunucuda). Otomatik geçiş YOK. JS yoksa "/" üzerinde de tam sayfa URL'leri çalışır.
-    Sözleşme: "/" sayfasındaki bölümler id="hizmetler" | "nasil" | "hakkinda" | "gorusme" taşır (üst bölüm = sayfa başı). -#}
-{%- set bolumler = { '/hizmetler/': 'hizmetler', '/nasil-calisiyoruz/': 'nasil', '/hakkinda/': 'hakkinda', '/gorusme/': 'gorusme' } -%}
-{%- set menu = [{ etiket: 'Ana sayfa', href: '/', bolum: 'anasayfa' }] -%}
-{%- for item in nav.ana %}{% set menu = (menu.push({ etiket: item.etiket, href: item.href, bolum: bolumler[item.href] }), menu) %}{% endfor -%}
+{#- Üst menü (X07 İnce; sahip: Frontend-1, tasarım sistemi). Veri: nav (src/_data/nav.js). Menü: Ana sayfa · Çalışmalar · Hizmetler · Nasıl çalışıyoruz · Hakkında + sağda CTA (Görüşme → /gorusme/).
+    Site ÇOK SAYFALI: geçiş yalnız menü ve düğmelerle; tüm bağlantılar tam sayfa URL'sine gider. Aktif sekme YALNIZ bulunulan sayfaya göre sunucuda işaretlenir (aria-current), kaydırma/hash/otomatik geçiş YOK.
+    Alt sayfalar üst sekmeyi etkin tutar (/calismalar/carlog/ → Çalışmalar, /hizmetler/<x>/ → Hizmetler). /gorusme/ ve /gorusme/tesekkurler/ → sağdaki CTA etkin. -#}
+{%- set menu = [{ etiket: 'Ana sayfa', href: '/' }] -%}
+{%- for item in nav.ana %}{% set menu = (menu.push({ etiket: item.etiket, href: item.href }), menu) %}{% endfor -%}
 {%- set aktifEtiket = '' -%}
 {%- for item in menu %}{% if page.url == item.href or (item.href != '/' and page.url.startsWith(item.href)) %}{% set aktifEtiket = item.etiket %}{% endif %}{% endfor -%}
 {%- if page.url.startsWith(nav.cta.href) %}{% set aktifEtiket = 'Görüşme' %}{% endif -%}
-<header class="site-header" id="site-header" data-ana="{{ '1' if page.url == '/' else '0' }}">
+<header class="site-header" id="site-header">
   <div class="header-bar">
     <a class="brand" href="/" aria-label="{{ site.name }} ana sayfa">{{ site.name }}</a>
     <nav class="nav-main" aria-label="Ana menü">
       <ul>
       {%- for item in menu %}
-        <li><a class="nav-link" href="{{ item.href }}"{% if item.bolum %} data-bolum="{{ item.bolum }}"{% endif %}{% if page.url == item.href or (item.href != '/' and page.url.startsWith(item.href)) %} aria-current="page"{% endif %}>{{ item.etiket }}</a></li>
+        <li><a class="nav-link" href="{{ item.href }}"{% if page.url == item.href or (item.href != '/' and page.url.startsWith(item.href)) %} aria-current="page"{% endif %}>{{ item.etiket }}</a></li>
       {%- endfor %}
       </ul>
     </nav>
     <div class="header-actions">
       {%- if nav.giris %}<a class="nav-link" href="{{ nav.giris.href }}">{{ nav.giris.etiket }}</a>{% endif %}
-      <a class="pill pill--glass pill--sm" href="{{ nav.cta.href }}" data-bolum="gorusme"{% if page.url.startsWith(nav.cta.href) %} aria-current="page"{% endif %}>{{ nav.cta.etiket }}</a>
+      <a class="pill pill--glass pill--sm" href="{{ nav.cta.href }}"{% if page.url.startsWith(nav.cta.href) %} aria-current="page"{% endif %}>{{ nav.cta.etiket }}</a>
     </div>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-panel" data-etiket="{{ aktifEtiket }}">Menü{% if aktifEtiket %} · {{ aktifEtiket }}{% endif %}</button>
   </div>
   <div class="menu-panel" id="menu-panel" hidden>
     {%- for item in menu %}
-    <a href="{{ item.href }}"{% if item.bolum %} data-bolum="{{ item.bolum }}"{% endif %}{% if page.url == item.href or (item.href != '/' and page.url.startsWith(item.href)) %} aria-current="page"{% endif %}>{{ item.etiket }}</a>
+    <a href="{{ item.href }}"{% if page.url == item.href or (item.href != '/' and page.url.startsWith(item.href)) %} aria-current="page"{% endif %}>{{ item.etiket }}</a>
     {%- endfor %}
     {%- if nav.giris %}<a href="{{ nav.giris.href }}">{{ nav.giris.etiket }}</a>{% endif %}
-    <a href="{{ nav.cta.href }}" data-bolum="gorusme"{% if page.url.startsWith(nav.cta.href) %} aria-current="page"{% endif %}>{{ nav.cta.etiket }}</a>
+    <a href="{{ nav.cta.href }}"{% if page.url.startsWith(nav.cta.href) %} aria-current="page"{% endif %}>{{ nav.cta.etiket }}</a>
   </div>
 </header>
