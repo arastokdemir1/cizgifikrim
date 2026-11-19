@@ -19,6 +19,19 @@
   </div>
 </div>
 
+{%- if detay.length %}
+<section class="wrap v6p-detay{% if levha %} v6p-detay--levha{% endif %}" aria-label="{{ p.ad }} hakkında">
+  <dl class="v6p-detay__liste">
+    {%- for x in detay %}
+    <div class="v6p-detay__satir"><dt>{{ x.baslik }}</dt><dd>
+      {%- if x.metin %}<p>{{ x.metin }}</p>{% endif %}
+      {%- if x.liste and x.liste.length %}<ul>{% for m in x.liste %}<li>{{ m }}</li>{% endfor %}</ul>{% endif %}
+    </dd></div>
+    {%- endfor %}
+  </dl>
+</section>
+{%- endif %}
+
 {%- if sergi.length and not levha %}
 <div class="wrap v6p-sergi">
   {%- for b in sergi %}
@@ -46,6 +59,6 @@
   {%- endif %}
   <section class="v6p-iletisim" aria-labelledby="v6p-il">
     <h2 id="v6p-il">Aklınızdaki ürünü konuşalım.</h2>
-    <p class="aksiyon"><a class="btn" href="/#iletisim">Projenizi konuşalım</a><a class="btn btn--line" href="{{ kok }}">Tüm ürünler</a></p>
+    <p class="aksiyon"><a class="btn" href="/tr/iletisim/">Projenizi konuşalım</a><a class="btn btn--line" href="{{ kok }}">Tüm ürünler</a></p>
   </section>
 </div>

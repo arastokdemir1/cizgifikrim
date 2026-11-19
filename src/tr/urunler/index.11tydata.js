@@ -1,4 +1,4 @@
-// V6 /tr/urunler/ katalog verisi (Frontend-2): öne çıkan 3 proje + kalanlar duruma göre gruplar. Kaynak: src/_data/projeler.json.
+// V6.1 /tr/urunler/ katalog verisi (Frontend-2): tüm projeler tek düzende, duruma göre gruplar (one_cikan düzende kullanılmaz). Kaynak: src/_data/projeler.json.
 const SIRA = ['Yayında', "App Store'da", 'Geliştiriliyor', 'Ar-Ge', 'Bakımda'];
 const liste = (d) => (Array.isArray(d) ? d : []).filter((x) => x && x.slug && x.ad);
 // Kart görselinin nasıl gösterileceği: App Store mağaza görseli çerçevesiz (tanitim), gerçek uygulama ekranı telefon çerçevesinde, diğeri fotoğraf, yoksa levha.
@@ -18,13 +18,12 @@ export default {
   eleventyComputed: {
     katalog: (d) => {
       const l = liste(d.projeler).map((p) => ({ ...p, kartTur: kartTur(p, d.gorselBoyut) }));
-      const one = l.filter((p) => p.one_cikan).slice(0, 3);
-      const kalan = l.filter((p) => !one.includes(p));
+      const kalan = l;
       const adlar = [...SIRA, ...kalan.map((p) => p.durum).filter((x) => x && !SIRA.includes(x))];
       const gruplar = [...new Set(adlar)].map((ad) => ({ ad, projeler: kalan.filter((p) => p.durum === ad) })).filter((g) => g.projeler.length);
       const durumsuz = kalan.filter((p) => !p.durum);
       if (durumsuz.length) gruplar.push({ ad: 'Diğer', projeler: durumsuz });
-      return { one, gruplar };
+      return { gruplar };
     },
   },
 };

@@ -23,7 +23,7 @@ function aciklama(p) {
 // Sergi bölümleri: plaka bölümünde müze etiketini tekrar eden başlık ("ne" ile aynı) ve "Durum: X." öneki gösterilmez.
 // Panel (V5 ürün bloklarındaki yüzey paneli): telefon, App Store görseli ve dikey (en<boy) görseller açık yüzey panelinde ortalanır; geniş görseller sütunu kendisi doldurur.
 function dar(b, tur, boyut) {
-  if (tur === 'telefon' || tur === 'tanitim') return true;
+  if (tur === 'telefon' || tur === 'tanitim' || tur === 'demo') return true;
   const o = (boyut || {})[b.sonra || b.gorsel];
   return !!(o && o[0] / o[1] < 1);
 }
@@ -50,6 +50,10 @@ export default {
     description: (d) => aciklama(d.p),
     og: (d) => d.p.og || '/assets/v1/img/og/tr-products.png',
     sergi: (d) => bolumler(d.p, d.gorselBoyut),
+    // canlı demo bölümü varsa ölçekli iframe betiği yüklenir
+    v5Js: (d) => ((d.p.bolumler || []).some((b) => b.tur === 'demo') ? ['v6-demo'] : []),
+    // detay: başlık + metin ya da liste; boş satırlar atlanır
+    detay: (d) => (Array.isArray(d.p.detay) ? d.p.detay : []).filter((x) => x && x.baslik && ((x.metin && String(x.metin).trim()) || (Array.isArray(x.liste) && x.liste.length))),
     // Görseli olmayan proje: tüm bölümler başlıksız levha ise müze etiketinin kendisi levha olur (ad tekrar edilmez), levha metinleri etikete not olarak eklenir.
     levha: (d) => { const b = bolumler(d.p); return b.length === 0 || b.every((x) => x.tur === 'plaka' && !x.baslik); },
     kunyeSayisi: (d) => [d.p.platform, d.p.durum, d.p.yil, d.p.baglanti && d.p.baglanti.url, d.p.cip].filter(Boolean).length,

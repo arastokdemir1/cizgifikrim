@@ -25,6 +25,17 @@
 </div></div>
 {%- elif b.tur == 'plaka' or not b.gorsel -%}
 <div class="v6-plaka"><span class="v6-plaka__ad" aria-hidden="true">{{ p.ad }}</span>{% if b.metin and not b.baslik %}<p class="v6-plaka__cumle">{{ b.metin }}</p>{% endif %}</div>
+{%- elif b.tur == 'demo' -%}
+{#- Canlı demo: varsayılan afiş + "Canlı demoyu aç" (JS yoksa da çalışır). ≥900px'te v6-demo.js afişin yerine aynı çerçevede ölçekli iframe koyar. Demo dosyalarına dokunulmaz; yalnız bağlantı/iframe. -#}
+{%- set yatay = (b.oran == 'yatay') -%}
+<div class="v6-demo v6-demo--{{ 'yatay' if yatay else 'telefon' }}" data-demo="{{ b.url }}" data-baslik="{{ p.ad }} canlı demo">
+{%- if yatay %}
+<div class="v6-tar v6-demo__cerceve"><div class="v6-tar__bar" aria-hidden="true"><i></i><i></i><i></i><span>{{ p.ad }} · canlı demo</span></div><div class="v6-demo__ekran"><img src="{{ b.gorsel }}"{{ olcu(b.gorsel, boyut) }} alt="{{ b.alt }}" loading="lazy" decoding="async"></div></div>
+{%- else %}
+<div class="v6-tel v6-demo__cerceve"><div class="v6-tel__ekran v6-demo__ekran"><img src="{{ b.gorsel }}"{{ olcu(b.gorsel, boyut) }} alt="{{ b.alt }}" loading="lazy" decoding="async"></div></div>
+{%- endif %}
+<p class="v6-demo__ac"><a class="btn btn--line" href="{{ b.url }}" target="_blank" rel="noopener">Canlı demoyu aç<span class="v6-gizli"> (yeni sekmede açılır)</span> <span aria-hidden="true">↗</span></a></p>
+</div>
 {%- elif b.tur == 'tanitim' -%}
 <div class="v6-tanitim v6-medya" style="--oran:{{ oran(b.gorsel, boyut, '1290/2796') }}"><img src="{{ b.gorsel }}"{{ olcu(b.gorsel, boyut) }} alt="{{ b.alt }}" loading="{{ yukle }}" decoding="async"></div>
 {%- else -%}
