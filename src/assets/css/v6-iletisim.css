@@ -5,7 +5,6 @@ main.v6i{margin-bottom:-1.5rem;--v6i-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem)
 .v6i-ust p{margin:0;max-width:38rem;font-size:var(--fs-lg);color:var(--muted)}
 .v6i-bolum{padding-block:calc(var(--v6i-y)/2) calc(var(--v6i-y)/2 - 1.25rem);display:grid;gap:var(--sp-6)}
 .v6i-yaz{padding-bottom:0}
-.v6i-bilgi{padding-top:calc(var(--v6i-y)/2 - 1.625rem)}
 .v6i-bolum h2{margin:0;font-size:var(--fs-sm);font-weight:var(--fw-sub);letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--muted)}
 .v6i-satir,.v6i-liste{margin:0;padding:0;list-style:none;border-top:1px solid var(--line);max-width:44rem}
 .v6i-satir>div,.v6i-liste li{padding:var(--sp-5) 0;border-bottom:1px solid var(--line)}
@@ -15,4 +14,4 @@ main.v6i{margin-bottom:-1.5rem;--v6i-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem)
 .v6i-satir a{text-decoration:underline;text-underline-offset:.2em}
 .v6i h3{margin:0 0 var(--sp-1);font-size:var(--fs-md);font-weight:var(--fw-sub)}
 .v6i-liste p{margin:0;font-size:var(--fs-sm);color:var(--muted);max-width:34rem}
-@media (min-width:861px){.v6i-yaz{grid-template-columns:minmax(0,12rem) minmax(0,1fr);gap:var(--sp-8)}}
+@media (min-width:861px){.v6i-bolum{grid-template-columns:minmax(0,12rem) minmax(0,1fr);gap:var(--sp-8)}}
