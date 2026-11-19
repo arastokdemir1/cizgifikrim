@@ -53,7 +53,7 @@
     },
     {
       "from": "/tr/projects/arda.html",
-      "to": "/tr/urunler/arda/",
+      "to": "/tr/urunler/",
       "status": 301
     },
     {
@@ -329,6 +329,11 @@
     {
       "from": "/tr/iletisim/tesekkurler/",
       "to": "/#iletisim",
+      "status": 301
+    },
+    {
+      "from": "/tr/urunler/arda/",
+      "to": "/tr/urunler/",
       "status": 301
     }
   ]

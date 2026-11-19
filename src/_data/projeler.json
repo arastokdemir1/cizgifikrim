@@ -198,6 +198,15 @@
     "gorsel": "/assets/v1/img/proje/carlog/garaj.webp",
     "alt": "CarLog Garaj ekranı: iki araç",
     "tur": "telefon"
+   },
+   {
+    "tur": "demo",
+    "baslik": "Canlı demo.",
+    "metin": "CarLog'u tarayıcıda, örnek verilerle dene.",
+    "url": "/demo/carlog/",
+    "oran": "telefon",
+    "gorsel": "/assets/v1/img/proje/carlog/ozet.webp",
+    "alt": "CarLog web demosu: Özet ekranı"
    }
   ],
   "kaynaklar": [
@@ -447,6 +456,15 @@
     "gorsel": "/assets/v1/img/proje/baupilotaj/mobil.webp",
     "alt": "Baupilotaj telefon ekranı: Flight Simulator ve EASA Exam Bank kartları",
     "tur": "telefon"
+   },
+   {
+    "tur": "demo",
+    "baslik": "Canlı uygulama.",
+    "metin": "Uçuş simülatörünü ve soru bankasını burada aç.",
+    "url": "/baupilotaj/",
+    "oran": "yatay",
+    "gorsel": "/assets/v1/img/proje/baupilotaj/kart.webp",
+    "alt": "Baupilotaj açılış ekranı"
    }
   ],
   "kaynaklar": [
@@ -540,22 +558,6 @@
   "bolumler": [
    {
     "baslik": "Yerel yapay zekâ asistanı",
-    "metin": "Durum: Geliştiriliyor.",
-    "tur": "plaka"
-   }
-  ],
-  "kaynaklar": [
-   "src/_data/modern.js (eski site verisi, herkese açık)"
-  ]
- },
- {
-  "slug": "arda",
-  "ad": "Arda",
-  "ne": "Masaüstü ve ses odaklı yapay zekâ",
-  "durum": "Geliştiriliyor",
-  "bolumler": [
-   {
-    "baslik": "Masaüstü ve ses odaklı yapay zekâ",
     "metin": "Durum: Geliştiriliyor.",
     "tur": "plaka"
    }

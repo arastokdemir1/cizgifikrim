@@ -26,7 +26,6 @@ const other = [
  ['Emre','Otonom yapay zekâ araştırmaları','Autonomous AI research','Ar-Ge','Research',null],
  ['Ersoy','Web tabanlı yapay zekâ asistanı','Web-based AI assistant','Geliştiriliyor','In development',null],
  ['ALP','Yerel yapay zekâ asistanı','Local AI assistant','Geliştiriliyor','In development',null],
- ['Arda','Masaüstü ve ses odaklı AI','Desktop and voice-focused AI','Geliştiriliyor','In development',null],
  ['Gnomon','macOS proje yönetimi','macOS project management','Geliştiriliyor','In development',null],
  ['Better Motors','Araç içi yazılım çalışmaları','In-vehicle software research','Geliştiriliyor','In development',null],
  ['Radar','BIST hisse tarama çalışması','BIST stock screening project','Bakımda','Maintenance',null]
