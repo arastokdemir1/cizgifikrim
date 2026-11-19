@@ -4,10 +4,6 @@
     {
       "path": "404.html",
       "neden": "Kökteki eski 404.html (eski sitenin sayfası, eski analytics çağırıyordu) çıktıya girmiyordu; yerine yeni vitrin tasarımında src/404.njk /404.html üretir (GitHub Pages kökte kullanır, Cloudflare Pages otomatik). noindex, sitemap dışı. Koordinatör W2-404."
-    },
-    {
-      "path": "assets/js/analytics.js",
-      "neden": "Çıktıdan ÇIKARILDI (silme): kalıcı localStorage ziyaretçi kimliği (cf_vid) yazıyordu, gizlilik metniyle çelişir. Hiçbir sayfa çağırmıyor: _site ve korunan klasörlerde (sanayi, piyasa, carlog, sano, zihinustasi, p, demo, baupilotaj) grep ile doğrulandı; kökteki eski 404.html çıktıya girmiyor. Yeni ölçüm: /assets/v1/js/analytics.js (Koordinatör G2 temizlik kararı)."
     }
   ]
 }

@@ -111,9 +111,7 @@ export default function (eleventyConfig) {
   });
   eleventyConfig.on('eleventy.after', async ({ directories: dir }) => {
     await Promise.all(bekleyenGorseller.splice(0));
-    // Eski analytics.js (kalıcı localStorage kimliği cf_vid yazıyordu) çıktıya alınmaz: hiçbir sayfa çağırmıyor (grep ile doğrulandı),
-    // yeni ölçüm /assets/v1/js/analytics.js. scripts/korunan-istisna.json'da bilinçli istisna olarak kayıtlıdır.
-    fs.rmSync(path.join(dir.output, 'assets/js/analytics.js'), { force: true });
+    // Eski assets/js/analytics.js korunan eski varlıktır ve bayt aynen kopyalanır (hiçbir yeni sayfa yüklemez; yeni ölçüm /assets/v1/js/analytics.js).
     // Cloudflare _headers: CSP script-src için çıktıdaki satır içi betiklerin sha256 değerlerini hesapla (yalnız yeni vitrin sayfaları, korunan eski klasörler hariç).
     const basliklar = path.join(dir.output, '_headers');
     if (fs.existsSync(basliklar)) {
