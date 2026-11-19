@@ -14,6 +14,15 @@
   "kart_gorsel": "/assets/v1/img/proje/vesira/kart.webp",
   "bolumler": [
    {
+    "tur": "demo",
+    "baslik": "Canlı demo.",
+    "metin": "Vesira arayüzünü örnek görsellerle tarayıcıda dene.",
+    "url": "/demo/vesira/",
+    "oran": "telefon",
+    "gorsel": "/assets/v1/img/proje/vesira/demo-ilk-ekran.webp",
+    "alt": "Vesira etkileşimli demosu: ana ekran"
+   },
+   {
     "baslik": "Kendi odan, aynı oda.",
     "metin": "Bir fotoğraftan, aynı odanın yeniden tasarlanmış hali. Pencereler, gün ışığı ve yapı yerinde kalır.",
     "gorsel": "/assets/v1/img/proje/vesira/yatak-sonra.webp",
@@ -77,7 +86,8 @@
   ],
   "kaynaklar": [
    "site-referans/urun-materyalleri/vesira/durum.md",
-   "src/_data/modern.js (eski site verisi, herkese açık)"
+   "src/_data/modern.js (eski site verisi, herkese açık)",
+   "demo/vesira/index.html (sayfa açıklaması)"
   ],
   "detay": [
    {
@@ -328,6 +338,15 @@
   "kart_gorsel": "/assets/v1/img/proje/piyasapp/kart.webp",
   "bolumler": [
    {
+    "tur": "demo",
+    "baslik": "Canlı demo.",
+    "metin": "Konum tabanlı radar, harita ve garaj ekranlarını tarayıcıda dene.",
+    "url": "/demo/piyasa/",
+    "oran": "telefon",
+    "gorsel": "/assets/v1/img/proje/piyasapp/demo-ilk-ekran.webp",
+    "alt": "PiyasApp web demosu: Radar ekranı"
+   },
+   {
     "baslik": "Piyasa cebinde.",
     "metin": "Araba tutkunu arkadaş grupları için sosyal uygulama: ekip nerede, kim caddede, ne çalıyor, hepsi tek yerde.",
     "gorsel": "/assets/v1/img/proje/piyasapp/piyasa.webp",
@@ -372,7 +391,8 @@
   ],
   "kaynaklar": [
    "site-referans/urun-materyalleri/piyasapp/durum.md",
-   "https://apps.apple.com/tr/app/piyasapp/id6786390358"
+   "https://apps.apple.com/tr/app/piyasapp/id6786390358",
+   "demo/piyasa/index.html (sayfa açıklaması)"
   ],
   "detay": [
    {
