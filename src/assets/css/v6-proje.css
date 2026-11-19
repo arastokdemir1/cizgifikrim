@@ -179,3 +179,4 @@
 @media (max-width:55.99rem){.v6p .v6p-detay{margin-top:calc(var(--bolum-y) - 2.25rem)}.v6p .v6p-detay--levha{margin-top:calc(var(--bolum-y) - 1.375rem)}}
 .v6p .v6p-detay+.v6p-sergi{margin-top:calc(var(--bolum-y) - 1.375rem)}
 .v6p .v6p-detay+.v6p-son{margin-top:calc(var(--bolum-y) - var(--sp-6) - 1.375rem)}
+.v6p-detay:has(+.v6p-son) .v6p-detay__liste{border-bottom:0} /* önceki/sonraki çizgisiyle çift çizgi olmasın */

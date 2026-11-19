@@ -53,7 +53,8 @@ export default {
     // canlı demo bölümü varsa ölçekli iframe betiği yüklenir
     v5Js: (d) => ((d.p.bolumler || []).some((b) => b.tur === 'demo') ? ['v6-demo'] : []),
     // detay: başlık + metin ya da liste; boş satırlar atlanır
-    detay: (d) => (Array.isArray(d.p.detay) ? d.p.detay : []).filter((x) => x && x.baslik && ((x.metin && String(x.metin).trim()) || (Array.isArray(x.liste) && x.liste.length))),
+    // müze etiketindeki cümleyi aynen tekrar eden satır (ör. "Ne") gösterilmez
+    detay: (d) => (Array.isArray(d.p.detay) ? d.p.detay : []).filter((x) => x && x.baslik && ((x.metin && String(x.metin).trim()) || (Array.isArray(x.liste) && x.liste.length))).filter((x) => x.liste || nokta(x.metin) !== nokta(d.p.ne)),
     // Görseli olmayan proje: tüm bölümler başlıksız levha ise müze etiketinin kendisi levha olur (ad tekrar edilmez), levha metinleri etikete not olarak eklenir.
     levha: (d) => { const b = bolumler(d.p); return b.length === 0 || b.every((x) => x.tur === 'plaka' && !x.baslik); },
     kunyeSayisi: (d) => [d.p.platform, d.p.durum, d.p.yil, d.p.baglanti && d.p.baglanti.url, d.p.cip].filter(Boolean).length,
