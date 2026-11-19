@@ -372,21 +372,111 @@
   "ne": "Zihinsel yükünü sakin bir dille anlamana yardımcı olan 20 soruluk kişisel farkındalık özeti.",
   "platform": "iOS",
   "durum": "App Store'da",
+  "yil": "2026",
+  "baglanti": {
+   "etiket": "App Store",
+   "url": "https://apps.apple.com/tr/app/sano-mental-wellness-plan/id6784807414"
+  },
+  "kart_gorsel": "/assets/v1/img/proje/sano/kart.webp",
   "bolumler": [
    {
-    "baslik": "Zihinsel yükünü sakin bir dille anlamana yardımcı olan 20 soruluk kişisel farkındalık özeti.",
-    "metin": "Sano tıbbi ya da psikolojik bir tanı koymaz ve tedavi önermez; yalnızca kişisel farkındalık içindir.",
+    "baslik": "Yükünü sakin bir dille anla.",
+    "metin": "Gündelik yorgunluğu 20 soruda görünür kılan kişisel bir özet. Sano tıbbi ya da psikolojik tanı koymaz; yalnızca kişisel farkındalık içindir.",
+    "gorsel": "/assets/v1/img/proje/sano/giris.webp",
+    "alt": "Sano mağaza görseli: 'Understand your load, calmly' başlığı ve açılış ekranı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Kısa, nazik sorular.",
+    "metin": "Kendi hızında, her soruda tek dokunuş.",
+    "gorsel": "/assets/v1/img/proje/sano/sorular.webp",
+    "alt": "Sano mağaza görseli: 'Short, gentle questions' başlığı ve soru ekranı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Puanını ve düzeyini gör.",
+    "metin": "Kısa, sakin bir notla.",
+    "gorsel": "/assets/v1/img/proje/sano/puan.webp",
+    "alt": "Sano mağaza görseli: 'See your score and level' başlığı ve puan ekranı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Haftalık planın hazır.",
+    "metin": "Her gün küçük, yapılabilir adımlar.",
+    "gorsel": "/assets/v1/img/proje/sano/plan.webp",
+    "alt": "Sano mağaza görseli: 'Your weekly plan is ready' başlığı ve haftalık plan",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Dört alanda tek bakış.",
+    "metin": "Duygusal, zihinsel, fiziksel ve sosyal.",
+    "gorsel": "/assets/v1/img/proje/sano/alanlar.webp",
+    "alt": "Sano mağaza görseli: 'One view across four areas' başlığı ve analiz ekranı",
+    "tur": "tanitim"
+   }
+  ],
+  "kaynaklar": [
+   "https://apps.apple.com/tr/app/sano-mental-wellness-plan/id6784807414 (iTunes lookup, herkese açık)",
+   "site-referans/urun-materyalleri/sano/itunes_lookup.json",
+   "sano/index.html"
+  ]
+ },
+ {
+  "slug": "baupilotaj",
+  "ad": "Baupilotaj",
+  "ne": "PPL teorik sınavına hazırlanmak için tarayıcıda çalışan uçuş simülatörü ve EASA soru bankası.",
+  "platform": "Web",
+  "durum": "Yayında",
+  "baglanti": {
+   "etiket": "Uygulamayı aç",
+   "url": "/baupilotaj/"
+  },
+  "kart_gorsel": "/assets/v1/img/proje/baupilotaj/kart.webp",
+  "bolumler": [
+   {
+    "baslik": "Uçarak çalış.",
+    "metin": "Bir Cessna 172 ile 6 uçuş evresi, 28 karışık EASA sorusu, canlı ICAO kule telsizi ve uçuş içi arıza senaryoları.",
+    "gorsel": "/assets/v1/img/proje/baupilotaj/acilis.webp",
+    "alt": "Baupilotaj açılış ekranı: Flight Simulator ve EASA Exam Bank seçenekleri",
+    "tur": "tarayici"
+   },
+   {
+    "baslik": "280 soruluk soru bankası.",
+    "metin": "Dokuz resmî EASA konusuna göre filtrele; her soruda ilgili mevzuat atfı anında görünür. Telefonda da çalışır.",
+    "gorsel": "/assets/v1/img/proje/baupilotaj/mobil.webp",
+    "alt": "Baupilotaj telefon ekranı: Flight Simulator ve EASA Exam Bank kartları",
+    "tur": "telefon"
+   }
+  ],
+  "kaynaklar": [
+   "baupilotaj/index.html (herkese açık sayfa metni: 'EASA ECQB 280-question preparation suite', 'Cessna 172 through 6 flight phases with 28 randomized EASA questions', '9 official EASA subjects')"
+  ]
+ },
+ {
+  "slug": "zihin-ustasi",
+  "ad": "ZihinUstası",
+  "ne": "Çocuklar ve aileler için görsel hafıza ve dikkat oyunu.",
+  "platform": "Telefon ve tablet",
+  "durum": "Yayında",
+  "baglanti": {
+   "etiket": "Destek sayfası",
+   "url": "/zihinustasi/support.html"
+  },
+  "bolumler": [
+   {
+    "baslik": "Sahneyi hatırla, zarı at.",
+    "metin": "Ekrana gelen sahneyi 10 saniye incele. Zarı at: gelen sayı sorulacak soruyu belirler. Doğru hatırladıysan kart koleksiyonuna eklenir.",
+    "tur": "plaka"
+   },
+   {
+    "baslik": "Ücretsiz, reklamsız, internetsiz.",
+    "metin": "Tamamen cihazda çalışır; hesap, reklam, uygulama içi satın alma ve abonelik yok. Birden fazla kişiyle sırayla oynanabilir.",
     "tur": "plaka"
    }
   ],
   "kaynaklar": [
-   "sano/index.html (herkese açık destek sayfası)",
-   "https://apps.apple.com/tr/app/sano-mental-wellness-plan/id6784807414"
-  ],
-  "baglanti": {
-   "etiket": "App Store",
-   "url": "https://apps.apple.com/tr/app/sano-mental-wellness-plan/id6784807414"
-  }
+   "zihinustasi/support.html, terms.html, privacy.html (herkese açık sayfa metinleri; mağaza bağlantısı sayfalarda yok, durum 'Yayında' destek sayfasının varlığından)"
+  ]
  },
  {
   "slug": "ersoy",
