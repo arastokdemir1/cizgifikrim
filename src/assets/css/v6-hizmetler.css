@@ -30,6 +30,7 @@
 .v6h-eylem{display:flex;flex-wrap:wrap;gap:var(--sp-3)}
 @media (min-width:861px){
   .v6h-satir{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(2rem,1rem + 5vw,5rem)}
+  .v6h-satir--ters{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
   .v6h-satir--ters .v6h-gorsel{order:2}
   .v6h-satir--ters .v6h-metin{order:1}
 }
