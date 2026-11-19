@@ -373,7 +373,7 @@
    },
    {
     "baslik": "Canlı sürüş ekranı.",
-    "metin": "Yolculuk sürerken hız ve anlık maliyet.",
+    "metin": "Yolculuk sürerken hız ve o ana kadarki maliyet.",
     "gorsel": "/assets/v1/img/proje/carlog/canli.webp",
     "alt": "CarLog canlı sürüş ekranı: harita üzerinde anlık rota ve hız",
     "tur": "telefon"
@@ -490,7 +490,7 @@
    {
     "tur": "manset",
     "baslik": "Yolculuklar kendiliğinden kaydedilir.",
-    "metin": "Uygulama yolculuğu algılar; listede aylara göre görürsün. Yolculuk sürerken canlı sürüş ekranında hız ve anlık maliyet."
+    "metin": "Uygulama yolculuğu algılar; listede aylara göre görürsün. Yolculuk sürerken canlı sürüş ekranında hız ve yolculuğun o ana kadarki maliyeti."
    },
    {
     "tur": "telefonlar",
