@@ -1,5 +1,5 @@
 /* V6 /tr/hizmetler/: sergi satırları (görsel bir yanda, metin öbür yanda, dönüşümlü). Yalnız ortak jetonlar. Frontend-1 */
-.v6h{--v6h-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem))}
+main.v6h{margin-bottom:-.875rem;--v6h-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem))}
 .v6h-ust{padding-block:var(--v6h-y) calc(var(--v6h-y)/2);display:grid;gap:var(--sp-3)}
 .v6h-ust h1{margin:0;font-size:clamp(2rem,1.4rem + 2.4vw,3rem);line-height:var(--lh-head);letter-spacing:var(--ls-head);font-weight:var(--fw-head)}
 .v6h-ust p{margin:0;max-width:38rem;font-size:var(--fs-lg);color:var(--muted)}
@@ -25,7 +25,7 @@
 .v6h-foto{position:relative;margin:0;width:min(100%,22rem)}
 .v6h-foto img{display:block;width:100%;height:auto;border-radius:var(--r-ctl)}
 .v6h-chip{position:absolute;left:.75rem;bottom:.75rem;padding:.2rem .6rem;border-radius:var(--r-pill);font-size:var(--fs-xs);background:color-mix(in srgb,var(--bg) 85%,transparent);color:var(--ink);backdrop-filter:blur(8px)}
-.v6h-son{padding-block:calc(var(--v6h-y)/2) var(--v6h-y);display:grid;gap:var(--sp-5)}
+.v6h-son{padding-block:calc(var(--v6h-y)/2) 0;display:grid;gap:var(--sp-5)}
 .v6h-son p{margin:0;max-width:34rem;font-size:var(--fs-lg);color:var(--muted)}
 .v6h-eylem{display:flex;flex-wrap:wrap;gap:var(--sp-3)}
 @media (min-width:861px){
@@ -34,3 +34,5 @@
   .v6h-satir--ters .v6h-gorsel{order:2}
   .v6h-satir--ters .v6h-metin{order:1}
 }
+
+@media (max-width:37.5rem){.v6h-teller li:nth-child(n+2){display:none}.v6h-teller li{width:min(62%,13rem)}}
