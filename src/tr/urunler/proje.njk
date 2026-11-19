@@ -2,7 +2,7 @@
 {%- from "v6/gorsel.njk" import cerceve -%}
 <div class="wrap v6p-ust">
   <a class="v6p-geri" href="{{ kok }}"><span aria-hidden="true">←</span> Ürünler</a>
-  <header class="v6p-etiket{% if levha %} v6p-etiket--levha{% endif %}">
+  <header class="v6p-etiket{% if levha %} v6p-etiket--levha{% if kunyeSayisi <= 2 %} v6p-etiket--tek{% endif %}{% endif %}">
     <div class="v6p-etiket__ad">
       {%- if p.ikon %}<img class="v6p-ikon" src="{{ p.ikon }}" width="56" height="56" alt="">{% endif %}
       <h1>{{ p.ad }}</h1>

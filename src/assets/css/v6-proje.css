@@ -115,3 +115,10 @@
   .v6p-etiket--levha .v6p-not{grid-column:1/8}
   .v6p-etiket--levha .v6p-kunye{grid-row:1/4}
 }
+/* levha + künye ≤2 satır: tek sütun (ad → cümle → not → dar künye); yapay yükseklik yok */
+.v6p-etiket--tek{width:fit-content;min-width:min(26rem,100%);max-width:min(46rem,100%);padding:calc(var(--bolum-y) / 2) clamp(1.5rem,1rem + 3vw,3.5rem)}
+.v6p-etiket--tek .v6p-kunye{width:100%;max-width:24rem;margin-top:var(--sp-2)}
+@media (min-width:56rem){
+  .v6p-etiket--levha.v6p-etiket--tek{display:grid;grid-template-columns:none;min-height:0;row-gap:var(--sp-5)}
+  .v6p-etiket--tek>*,.v6p-etiket--tek .v6p-kunye,.v6p-etiket--tek .v6p-not{grid-column:auto;grid-row:auto}
+}

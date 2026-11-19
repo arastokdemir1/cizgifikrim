@@ -46,6 +46,7 @@ export default {
     sergi: (d) => bolumler(d.p),
     // Görseli olmayan proje: tüm bölümler başlıksız levha ise müze etiketinin kendisi levha olur (ad tekrar edilmez), levha metinleri etikete not olarak eklenir.
     levha: (d) => { const b = bolumler(d.p); return b.length === 0 || b.every((x) => x.tur === 'plaka' && !x.baslik); },
+    kunyeSayisi: (d) => [d.p.platform, d.p.durum, d.p.yil, d.p.baglanti && d.p.baglanti.url, d.p.cip].filter(Boolean).length,
     levhaNot: (d) => bolumler(d.p).filter((x) => x.tur === 'plaka' && !x.baslik && x.metin).map((x) => x.metin),
     komsu: (d) => {
       const l = liste(d.projeler); const n = l.length; const i = l.findIndex((x) => x.slug === d.p.slug);
