@@ -76,7 +76,40 @@
    }
   ],
   "kaynaklar": [
-   "site-referans/urun-materyalleri/vesira/durum.md"
+   "site-referans/urun-materyalleri/vesira/durum.md",
+   "src/_data/modern.js (eski site verisi, herkese açık)"
+  ],
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "Kendi odanın tek bir fotoğrafından, aynı odanın yeniden tasarlanmış, gerçekçi halini gösteren iç tasarım uygulaması."
+   },
+   {
+    "baslik": "Sorun",
+    "metin": "Bir odayı değiştirmeden önce sonucu hayal etmek zor. Vesira seçenekleri kendi mekânının fotoğrafında gösterir."
+   },
+   {
+    "baslik": "Nasıl çalışır",
+    "metin": "Odanın fotoğrafını yüklersin, değişim seviyesini seçersin ve sonucu önce/sonra kaydırıcısıyla karşılaştırırsın. Hazır seçeneklerle ya da kısa bir notla yeni sürüm isteyebilirsin."
+   },
+   {
+    "baslik": "Özellikler",
+    "liste": [
+     "Pencereler, gün ışığı ve yapı yerinde kalır",
+     "Üç değişim seviyesi: Light touch, Refresh, Full redesign",
+     "Stil seçmek zorunlu değil; on tasarım stilinden biri seçilebilir",
+     "Eski sürümler kaybolmaz",
+     "Tasarım profili: seçimlerinden öğrenir, yalnız senin hesabında tutulur"
+    ]
+   },
+   {
+    "baslik": "Platform ve teknoloji",
+    "metin": "Web uygulaması ve yerel SwiftUI iOS uygulaması; web tarafı Next.js, React ve PostgreSQL ile çalışır. Varsayılan dil İngilizce, Türkçe seçeneği var. Aylık abonelikle sunulur."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "Web'de 20 Ekim 2026'dan beri canlı. iOS uygulaması henüz yayında değil."
+   }
   ]
  },
  {
@@ -139,7 +172,40 @@
   ],
   "kaynaklar": [
    "site-referans/urun-materyalleri/polishreel/durum.md",
-   "durum.md 'Sunulan çıktılar': kısa dikey video yaklaşık 10–30 sn; 'Görseller': ornek-video-dikey-yazisiz-720x1280.mp4 (20 sn, yazısız, sessiz); ffprobe süre 20.0 sn; 'Videodaki kişi yapay zekâ üretimi'"
+   "durum.md 'Sunulan çıktılar': kısa dikey video yaklaşık 10–30 sn; 'Görseller': ornek-video-dikey-yazisiz-720x1280.mp4 (20 sn, yazısız, sessiz); ffprobe süre 20.0 sn; 'Videodaki kişi yapay zekâ üretimi'",
+   "src/_data/modern.js (eski site verisi, herkese açık)"
+  ],
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "Takı ve aksesuar mağazalarının elindeki ürün fotoğrafından her ay satışa hazır fotoğraf setleri ve kısa dikey videolar hazırlayan, yönetilen bir içerik hizmeti."
+   },
+   {
+    "baslik": "Sorun",
+    "metin": "Her ürün için yeni bir çekim organize etmek zaman ister. PolishReel mevcut ürün fotoğrafını farklı kullanım alanlarına uygun içeriklere dönüştürür."
+   },
+   {
+    "baslik": "Nasıl çalışır",
+    "metin": "Mağaza bağlantını ya da ürün fotoğrafını paylaşırsın. Önce ücretsiz bir örnek hazırlanır, genellikle 3 iş günü içinde; kurulum gerekmez. Beğenirsen aylık içerik planı konuşulur."
+   },
+   {
+    "baslik": "Özellikler",
+    "liste": [
+     "Ürün başına fotoğraf seti: stüdyo, yaşam, takılı ve yakın çekim",
+     "Kısa dikey video, yaklaşık 10–30 saniye",
+     "Dikey, kare ve yatay formatlar",
+     "Her sonuç bir insan tarafından gerçek ürünle karşılaştırılır ve onaylanır",
+     "Değişiklik talepleri pakete dahil"
+    ]
+   },
+   {
+    "baslik": "Platform ve teknoloji",
+    "metin": "Yönetilen hizmet: içerik yapay zekâ ile üretilir, ardından insan kontrolünden geçer. Tanıtım sitesi İngilizce, React ve TanStack Start ile yazıldı ve Cloudflare Workers üzerinde çalışır."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "Geliştiriliyor. Satış öncesi aşamada; tanıtım sitesi yayında."
+   }
   ]
  },
  {
@@ -211,7 +277,40 @@
   ],
   "kaynaklar": [
    "site-referans/urun-materyalleri/carlog/durum.md",
-   "https://apps.apple.com/tr/app/id6779625494"
+   "https://apps.apple.com/tr/app/id6779625494",
+   "src/_data/modern.js (eski site verisi, herkese açık)"
+  ],
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "Türkiye'deki sürücüler için yolculuğu kendiliğinden algılayıp yakıt, gişe ve köprü masrafını hesaplayan iOS uygulaması."
+   },
+   {
+    "baslik": "Sorun",
+    "metin": "Mesafe tek başına yolculuğun maliyetini anlatmaz. CarLog aracı ve rotayı birlikte değerlendirip masrafı görünür kılar."
+   },
+   {
+    "baslik": "Nasıl çalışır",
+    "metin": "Yola çıkmadan rotanın maliyeti hesaplanır, yolculuk kendiliğinden kaydedilir; sonrasında özet ve analiz ekranlarında görürsün."
+   },
+   {
+    "baslik": "Özellikler",
+    "liste": [
+     "Bluetooth ile sürücü/yolcu ayrımı: taksi, servis, dolmuş ya da başkasının arabası masrafa eklenmez",
+     "Araç tüketim değerleri her gün katalogla kontrol edilir",
+     "CarPlay navigasyonu",
+     "Kilit ekranı ve ana ekran widget'ı",
+     "Canlı sürüş ekranı"
+    ]
+   },
+   {
+    "baslik": "Platform ve teknoloji",
+    "metin": "iOS 17.0 ve üstü. Mağaza adı: CarLog - Yakıt ve Gişe Hesabı (Navigasyon). Pro abonelikle canlı yakıt haritası açılır."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "App Store'da, güncel sürüm 5.3.1 (8 Kasım 2026)."
+   }
   ]
  },
  {
@@ -274,6 +373,30 @@
   "kaynaklar": [
    "site-referans/urun-materyalleri/piyasapp/durum.md",
    "https://apps.apple.com/tr/app/piyasapp/id6786390358"
+  ],
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "Araba tutkunu arkadaş grupları için iOS sosyal uygulaması: ekibin haritada nerede olduğunu, kimin piyasaya (caddeye) girdiğini, ortak rotayı, müziği ve sohbeti tek yerde toplar."
+   },
+   {
+    "baslik": "Özellikler",
+    "liste": [
+     "Harita: ekip nerede, hangi arabayla",
+     "Piyasaya giriş: arkadaşın caddeye girince bildirim, Selektör yak",
+     "Ortak rota",
+     "Müzik ve sohbet",
+     "Haritada herkesin yalnız son günkü yolculukları görünür"
+    ]
+   },
+   {
+    "baslik": "Platform ve teknoloji",
+    "metin": "iOS, en az iOS 17.6. App Store kategorisi: Sosyal Ağ."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "App Store'da, güncel sürüm 4.1 (8 Kasım 2026). İlk yayın 15 Temmuz 2026."
+   }
   ]
  },
  {
@@ -320,7 +443,31 @@
   ],
   "kaynaklar": [
    "FocusGrid | Genel mesajı 2026-11-20 (Apple herkese açık kayıt + App Store Connect)",
-   "https://apps.apple.com/tr/app/focusgrid-task-routine/id6762910729"
+   "https://apps.apple.com/tr/app/focusgrid-task-routine/id6762910729",
+   "FocusGrid | Genel mesajı 2026-11-20 (Apple herkese açık arama kaydı + App Store Connect)"
+  ],
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "Görev, rutin ve odak oturumlarını tek yerde planlayan iPhone uygulaması."
+   },
+   {
+    "baslik": "Özellikler",
+    "liste": [
+     "Görev planlama",
+     "Rutinler",
+     "Odak oturumu ve dikkat dağıtan uygulamaları engelleme",
+     "Haftalık ilerleme grafikleri"
+    ]
+   },
+   {
+    "baslik": "Platform ve teknoloji",
+    "metin": "iPhone, iOS 18.6 ve üstü. İndirmesi ücretsiz; uygulama içi abonelik var."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "App Store'da, mağazadaki güncel sürüm 2.0.6 (24 Ağustos 2026). İlk yayın 4 Mayıs 2026."
+   }
   ]
  },
  {
