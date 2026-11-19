@@ -1,0 +1,14 @@
+---
+pagination:
+  data: modern.pages
+  size: 1
+  alias: entry
+  addAllPagesToCollections: true
+permalink: "{{ entry.url }}"
+layout: layouts/modern.njk
+---
+{% set c = modern.copy[entry.lang] %}
+{% set links = modern.links[entry.lang] %}
+{% set en = entry.lang == 'en' %}
+{% from "modern/macros.njk" import arrow, chevron, productVisual, productCard, serviceRows, updateList, cta, studioProduct %}
+{% include "modern/" + entry.view + ".njk" %}
