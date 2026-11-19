@@ -1,5 +1,0 @@
-/* CarLog web demosu: yazı tipleri kendi sunucumuzdan (Google Fonts yerine). Inter + Space Grotesk, Türkçe için gereken alt küme (OFL). */
-@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/inter-tr-1.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2190-2193, U+2212; }
-@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/inter-tr-2.woff2) format('woff2'); unicode-range: U+011E-011F, U+0130, U+015E-015F, U+20BA; }
-@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 500 700; font-display: swap; src: url(fonts/space-grotesk-tr-1.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2190-2193, U+2212; }
-@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 500 700; font-display: swap; src: url(fonts/space-grotesk-tr-2.woff2) format('woff2'); unicode-range: U+011E-011F, U+0130, U+015E-015F, U+20BA; }
