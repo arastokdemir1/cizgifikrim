@@ -1,5 +1,7 @@
 /* V5 gizlilik ve kullanım koşulları: ortak jetonlarla yalın okuma sayfası (Frontend-1). İçerik değişmedi. */
-.v5-yasal{padding-block:var(--bolum-y,5rem)}
+.v5-yasal{padding-block:var(--bolum-y,5rem) 0}
+.v5-yasal__govde>:last-child{margin-bottom:0}
+main:has(>.v5-yasal){margin-bottom:-.25rem}
 .v5-yasal h1{margin:0 0 var(--sp-2);font-size:clamp(2.25rem,1.5rem + 3vw,3.5rem);line-height:1.1}
 .v5-yasal__tarih{margin:0 0 var(--sp-10);color:var(--muted);font-size:var(--fs-sm,.9rem)}
 .v5-yasal__govde{max-width:44rem}
