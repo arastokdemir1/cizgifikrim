@@ -1,5 +1,5 @@
 {
-  "_not": "Bilingual product site migration. Explicit aliases only; product-owned support/legal/demo paths are never redirected.",
+  "_not": "V5 (Turkish-only) migration. Explicit aliases only; product-owned support/legal/demo paths are never redirected. Targets may carry a #fragment (home sections); GH stubs keep it via meta refresh + redirect.js.",
   "redirects": [
     {
       "from": "/tr/projeler.html",
@@ -78,32 +78,32 @@
     },
     {
       "from": "/tr/about.html",
-      "to": "/tr/hakkimizda/",
+      "to": "/#hakkimizda",
       "status": 301
     },
     {
       "from": "/tr/contact.html",
-      "to": "/tr/iletisim/",
+      "to": "/#iletisim",
       "status": 301
     },
     {
       "from": "/tr/randevu.html",
-      "to": "/tr/iletisim/",
+      "to": "/#iletisim",
       "status": 301
     },
     {
       "from": "/tr/kayit.html",
-      "to": "/tr/iletisim/",
+      "to": "/#iletisim",
       "status": 301
     },
     {
       "from": "/tr/eticaret-paketi.html",
-      "to": "/tr/cozumler/web-yazilimi/",
+      "to": "/#hizmetler",
       "status": 301
     },
     {
       "from": "/tr/hizmetler.html",
-      "to": "/tr/cozumler/",
+      "to": "/#hizmetler",
       "status": 301
     },
     {
@@ -118,17 +118,17 @@
     },
     {
       "from": "/tr/giris.html",
-      "to": "/tr/iletisim/",
+      "to": "/#iletisim",
       "status": 301
     },
     {
       "from": "/tr/panel.html",
-      "to": "/tr/iletisim/",
+      "to": "/#iletisim",
       "status": 301
     },
     {
       "from": "/tr/admin.html",
-      "to": "/tr/iletisim/",
+      "to": "/#iletisim",
       "status": 301
     },
     {
@@ -148,22 +148,22 @@
     },
     {
       "from": "/hakkinda/",
-      "to": "/tr/hakkimizda/",
+      "to": "/#hakkimizda",
       "status": 301
     },
     {
       "from": "/gorusme/",
-      "to": "/tr/iletisim/",
+      "to": "/#iletisim",
       "status": 301
     },
     {
       "from": "/hizmetler/",
-      "to": "/tr/cozumler/",
+      "to": "/#hizmetler",
       "status": 301
     },
     {
       "from": "/hizmetler/web-sitesi-ve-e-ticaret/",
-      "to": "/tr/cozumler/web-yazilimi/",
+      "to": "/#hizmetler",
       "status": 301
     },
     {
@@ -178,7 +178,7 @@
     },
     {
       "from": "/istasyon-yakinda/",
-      "to": "/tr/iletisim/",
+      "to": "/#iletisim",
       "status": 301
     },
     {
@@ -188,21 +188,146 @@
     },
     {
       "from": "/hizmetler/mobil-uygulama/",
-      "to": "/tr/cozumler/mobil-uygulama/",
+      "to": "/#hizmetler",
       "status": 301
     },
     {
       "from": "/hizmetler/yapay-zeka-ve-otomasyon/",
-      "to": "/tr/cozumler/yapay-zeka-otomasyon/",
+      "to": "/#hizmetler",
       "status": 301
     },
     {
       "from": "/nasil-calisiyoruz/",
-      "to": "/tr/hakkimizda/",
+      "to": "/#hakkimizda",
       "status": 301
     },
     {
       "from": "/gorusme/tesekkurler/",
+      "to": "/tr/iletisim/tesekkurler/",
+      "status": 301
+    },
+    {
+      "from": "/tr/",
+      "to": "/",
+      "status": 301
+    },
+    {
+      "from": "/tr/hakkimizda/",
+      "to": "/#hakkimizda",
+      "status": 301
+    },
+    {
+      "from": "/tr/cozumler/",
+      "to": "/#hizmetler",
+      "status": 301
+    },
+    {
+      "from": "/tr/cozumler/yapay-zeka-otomasyon/",
+      "to": "/#hizmetler",
+      "status": 301
+    },
+    {
+      "from": "/tr/cozumler/mobil-uygulama/",
+      "to": "/#hizmetler",
+      "status": 301
+    },
+    {
+      "from": "/tr/cozumler/web-yazilimi/",
+      "to": "/#hizmetler",
+      "status": 301
+    },
+    {
+      "from": "/tr/iletisim/",
+      "to": "/#iletisim",
+      "status": 301
+    },
+    {
+      "from": "/tr/guncellemeler/",
+      "to": "/tr/urunler/",
+      "status": 301
+    },
+    {
+      "from": "/tr/guncellemeler/carlog-carplay/",
+      "to": "/tr/urunler/",
+      "status": 301
+    },
+    {
+      "from": "/en/",
+      "to": "/",
+      "status": 301
+    },
+    {
+      "from": "/en/products/",
+      "to": "/tr/urunler/",
+      "status": 301
+    },
+    {
+      "from": "/en/products/vesira/",
+      "to": "/tr/urunler/vesira/",
+      "status": 301
+    },
+    {
+      "from": "/en/products/polishreel/",
+      "to": "/tr/urunler/polishreel/",
+      "status": 301
+    },
+    {
+      "from": "/en/products/carlog/",
+      "to": "/tr/urunler/carlog/",
+      "status": 301
+    },
+    {
+      "from": "/en/solutions/",
+      "to": "/#hizmetler",
+      "status": 301
+    },
+    {
+      "from": "/en/solutions/ai-automation/",
+      "to": "/#hizmetler",
+      "status": 301
+    },
+    {
+      "from": "/en/solutions/mobile-apps/",
+      "to": "/#hizmetler",
+      "status": 301
+    },
+    {
+      "from": "/en/solutions/web-development/",
+      "to": "/#hizmetler",
+      "status": 301
+    },
+    {
+      "from": "/en/about/",
+      "to": "/#hakkimizda",
+      "status": 301
+    },
+    {
+      "from": "/en/contact/",
+      "to": "/#iletisim",
+      "status": 301
+    },
+    {
+      "from": "/en/updates/",
+      "to": "/tr/urunler/",
+      "status": 301
+    },
+    {
+      "from": "/en/updates/carlog-carplay/",
+      "to": "/tr/urunler/",
+      "status": 301
+    },
+    {
+      "from": "/en/privacy/",
+      "to": "/tr/gizlilik/",
+      "status": 301
+    },
+    {
+      "from": "/en/terms/",
+      "to": "/tr/kosullar/",
+      "status": 301
+    },
+    {
+      "from": "/en/contact/thank-you/",
       "to": "/tr/iletisim/tesekkurler/",
       "status": 301
     }

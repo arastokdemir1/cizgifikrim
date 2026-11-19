@@ -9,7 +9,8 @@ import {agacDosyalari,arg,Rapor} from './ortak.mjs';
 const site=arg('site','_site'),r=new Rapor(`Bilingual redirects (${site})`);
 const actual=new Set(modern.pages.map(p=>p.url));
 const sources=new Set();
-const output=p=>path.join(site,p.endsWith('/')?p+'index.html':p);
+const noHash=p=>p.split('#')[0];
+const output=p=>{p=noHash(p);return path.join(site,p.endsWith('/')?p+'index.html':p)};
 const protectedPaths=[...KORUNAN_KLASORLER.map(k=>`/${k}/`),...KORUNAN_DOSYALAR.map(k=>`/${k}`)];
 for(const {from,to,status} of rules){
  if(sources.has(from))r.hata(`Duplicate alias: ${from}`);sources.add(from);
@@ -17,13 +18,13 @@ for(const {from,to,status} of rules){
  if(actual.has(from))r.hata(`Alias overrides a real page: ${from}`);
  if(protectedPaths.some(k=>from===k||from.startsWith(k)))r.hata(`Protected path redirected: ${from}`);
  if(status!==301)r.hata(`Expected 301: ${from}`);
- if(!actual.has(to)&&to!=='/piyasa/')r.hata(`Unexpected destination: ${from} -> ${to}`);
+ if(!actual.has(noHash(to))&&noHash(to)!=='/piyasa/'&&noHash(to)!=='/')r.hata(`Unexpected destination: ${from} -> ${to}`);
  if(!fs.existsSync(output(to)))r.hata(`Missing target: ${to}`);
 }
-for(const {from,to} of rules)if(sources.has(to))r.hata(`Chain/loop: ${from} -> ${to}`);
+for(const {from,to} of rules)if(sources.has(noHash(to)))r.hata(`Chain/loop: ${from} -> ${to}`);
 const historical=agacDosyalari(arg('base','origin/main'),['tr']).map(x=>'/'+x.yol).filter(p=>p.endsWith('.html'));
 for(const p of historical)if(!sources.has(p)&&p!=='/tr/index.html')r.hata(`Historical URL missing: ${p}`);
-const required={'/tr/projeler.html':'/tr/urunler/','/tr/projects/carlog.html':'/tr/urunler/carlog/','/tr/randevu.html':'/tr/iletisim/','/calismalar/vesira/':'/tr/urunler/vesira/','/gizlilik/':'/tr/gizlilik/'};
+const required={'/tr/projeler.html':'/tr/urunler/','/tr/projects/carlog.html':'/tr/urunler/carlog/','/tr/randevu.html':'/#iletisim','/en/products/vesira/':'/tr/urunler/vesira/','/tr/hakkimizda/':'/#hakkimizda','/en/':'/','/calismalar/vesira/':'/tr/urunler/vesira/','/gizlilik/':'/tr/gizlilik/'};
 for(const [from,to]of Object.entries(required))if(!rules.some(r=>r.from===from&&r.to===to))r.hata(`Required migration missing: ${from} -> ${to}`);
 const cf=fs.existsSync(path.join(site,'_redirects'));
 if(cf){const contents=fs.readFileSync(path.join(site,'_redirects'),'utf8');for(const {from,to}of rules)if(!contents.includes(`${from} ${to} 301`))r.hata(`Missing CF rule: ${from}`);}

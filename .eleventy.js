@@ -12,7 +12,7 @@ const PLATFORM = (process.env.PLATFORM || 'gh').toLowerCase(); // gh = GitHub Pa
 if (!['gh', 'cf'].includes(PLATFORM)) throw new Error(`PLATFORM gh ya da cf olmalı, verilen: ${PLATFORM}`);
 
 // Korunan yollar: sahibi başka ekipler olan ya da paylaşılan bağlantı taşıyan yollar. Build bunlara dokunmaz.
-export const KORUNAN_KLASORLER = ['sanayi', 'piyasa', 'carlog', 'sano', 'zihinustasi', 'p', 'demo', 'baupilotaj'];
+export const KORUNAN_KLASORLER = ['sanayi', 'piyasa', 'carlog', 'sano', 'zihinustasi', 'p', 'demo', 'baupilotaj', 'flowgraph'];
 export const KORUNAN_DOSYALAR = ['CNAME', 'favicon.ico', 'favicon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png', 'site.webmanifest'];
 // Eski site varlıkları: demo/ ve p/ sayfaları /assets/... yoluna başvurur, bu yüzden aynen kalır. Yeni varlıklar /assets/v1/ altına gider.
 export const ESKI_VARLIKLAR = 'assets';

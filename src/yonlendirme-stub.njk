@@ -18,7 +18,7 @@ stub: true
 <script src="/assets/v1/js/redirect.js" data-target="{{ stub.to }}"></script>
 <meta http-equiv="refresh" content="0; url={{ stub.to }}">
 {%- if not stub.dis %}
-<link rel="canonical" href="{{ site.url }}{{ stub.to }}">
+<link rel="canonical" href="{{ site.url }}{{ stub.to.split('#')[0] }}">
 {%- endif %}
 </head>
 <body>
