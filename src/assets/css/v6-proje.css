@@ -184,3 +184,14 @@
 .v6p .v6p-detay+.v6p-sergi{margin-top:calc(var(--bolum-y) - 1.375rem)}
 .v6p .v6p-detay+.v6p-son{margin-top:calc(var(--bolum-y) - var(--sp-6) - 1.375rem)}
 .v6p-detay:has(+.v6p-son) .v6p-detay__liste{border-bottom:0} /* önceki/sonraki çizgisiyle çift çizgi olmasın */
+/* canlı demo: pasif/etkin (tekerlek tuzağı yok). Pasifken iframe olay almaz; üstteki saydam düğme tıklanınca etkinleşir. */
+.v6-demo__ekran iframe{pointer-events:none}
+.v6-demo--aktif .v6-demo__ekran iframe{pointer-events:auto}
+.v6-demo__etkin{position:absolute;inset:0;z-index:2;display:none;width:100%;height:100%;margin:0;padding:0;border:0;background:transparent;cursor:pointer;font:inherit;color:inherit}
+.v6-demo--hazir .v6-demo__etkin{display:block}
+.v6-demo--aktif .v6-demo__etkin{display:none}
+.v6-demo__ipucu{position:absolute;left:50%;bottom:1rem;transform:translateX(-50%);padding:.375rem .875rem;border-radius:var(--r-pill);background:color-mix(in srgb,var(--panel) 92%,transparent);border:1px solid var(--line);color:var(--ink);font-size:var(--fs-xs);font-weight:var(--fw-sub);white-space:nowrap;opacity:0;transition:opacity .2s ease;pointer-events:none;box-shadow:0 .25rem .75rem color-mix(in srgb,var(--ink) 10%,transparent)}
+.v6-demo__etkin:hover .v6-demo__ipucu,.v6-demo__etkin:focus-visible .v6-demo__ipucu{opacity:1}
+.v6-demo__etkin:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+.v6-demo--telefon .v6-demo__ipucu{font-size:.75rem}
+@media (prefers-reduced-motion:reduce){.v6-demo__ipucu{transition:none}}
