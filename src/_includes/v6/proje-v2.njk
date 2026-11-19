@@ -87,7 +87,7 @@
   {%- elif x.tur == 'ozellikler' %}
   <section class="wrap v2-blok v2-ozellik"{% if x.baslik %} aria-labelledby="v2b{{ no }}"{% else %} aria-label="Özellikler"{% endif %}>
     {%- if x.baslik %}<h2 id="v2b{{ no }}">{{ x.baslik }}</h2>{% endif %}
-    <ul class="v2-ozellik__liste">
+    <ul class="v2-ozellik__liste v2-ozellik__liste--{{ x.maddeler.length }}">
       {%- for m in x.maddeler %}
       <li class="v2-ozellik__oge"><span class="v2-ozellik__no" aria-hidden="true">{{ m.isaret }}</span><span class="v2-ozellik__metin">{{ m.metin }}</span></li>
       {%- endfor %}
