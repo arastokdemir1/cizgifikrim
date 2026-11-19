@@ -23,8 +23,8 @@
 <div class="wrap v6p-sergi">
   {%- for b in sergi %}
   {%- set yalniz = (b.tur == 'plaka' and not b.baslik) %}
-  <section class="v6p-bolum v6p-bolum--{{ b.tur }}{% if yalniz %} v6p-bolum--tek{% endif %}"{% if yalniz %} aria-label="{{ p.ad }}"{% else %} aria-labelledby="b{{ loop.index }}"{% endif %}>
-    <div class="v6p-gorsel">{{ cerceve(b, p, gorselBoyut, loop.first) }}</div>
+  <section class="v6p-bolum v6p-bolum--{{ b.tur }}{% if b.pano %} v6p-bolum--pano{% endif %}{% if yalniz %} v6p-bolum--tek{% endif %}"{% if yalniz %} aria-label="{{ p.ad }}"{% else %} aria-labelledby="b{{ loop.index }}"{% endif %}>
+    <div class="v6p-gorsel">{% if b.pano %}<div class="v6-pano">{{ cerceve(b, p, gorselBoyut, loop.first) }}</div>{% else %}{{ cerceve(b, p, gorselBoyut, loop.first) }}{% endif %}</div>
     {%- if not yalniz %}
     <div class="v6p-metin">
       {%- if sergi.length > 1 %}<p class="v6p-no" aria-hidden="true">{{ '0' if loop.index < 10 }}{{ loop.index }}</p>{% endif %}

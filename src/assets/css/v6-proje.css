@@ -69,11 +69,12 @@
 .v6p-metin h2{margin:0;font-size:clamp(1.375rem,1.05rem + 1vw,1.875rem);font-weight:var(--fw-head);line-height:1.15;letter-spacing:-.025em;text-wrap:balance}
 .v6p-metin p:not(.v6p-no){margin:var(--sp-3) 0 0;max-width:36ch;color:var(--muted);font-size:var(--fs-md);line-height:var(--lh-body);text-wrap:pretty}
 @media (min-width:56rem){
-  .v6p-bolum{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--sp-6)}
-  .v6p-gorsel{grid-column:1/8;grid-row:1}
-  .v6p-metin{grid-column:9/13;grid-row:1}
-  .v6p-bolum:nth-child(even) .v6p-gorsel{grid-column:6/13}
-  .v6p-bolum:nth-child(even) .v6p-metin{grid-column:1/5}
+  .v6p-bolum{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:clamp(2.5rem,1rem + 4vw,5rem)}
+  .v6p-gorsel{grid-column:1;grid-row:1}
+  .v6p-metin{grid-column:2;grid-row:1}
+  .v6p-bolum:nth-child(even){grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+  .v6p-bolum:nth-child(even) .v6p-gorsel{grid-column:2}
+  .v6p-bolum:nth-child(even) .v6p-metin{grid-column:1}
 }
 @media (max-width:55.99rem){
   .v6p{--medya-h:min(70svh,36rem)}
@@ -122,3 +123,13 @@
   .v6p-etiket--levha.v6p-etiket--tek{display:grid;grid-template-columns:none;min-height:0;row-gap:var(--sp-5)}
   .v6p-etiket--tek>*,.v6p-etiket--tek .v6p-kunye,.v6p-etiket--tek .v6p-not{grid-column:auto;grid-row:auto}
 }
+
+/* yüzey paneli (V5 .ur5 dili): dar medya sütunu dolduran açık panelde ortalanır */
+.v6-pano{display:grid;place-items:center;padding:clamp(2rem,1rem + 4vw,4.5rem) clamp(1.5rem,1rem + 3vw,4rem);border-radius:var(--r-panel);background:var(--surface)}
+.v6-pano{--medya-h:min(66svh,36rem)}
+.v6-pano .v6-medya{margin-inline:auto}
+.v6-pano .v6-tel{width:clamp(10.5rem,17.5vw,16.5rem)}
+.v6-pano .v6-tel{box-shadow:inset 0 0 0 1px var(--kenar),0 .25rem .75rem color-mix(in srgb,var(--ink) 8%,transparent),0 1.75rem 3rem -1.75rem var(--golge)}
+@media (max-width:55.99rem){.v6-pano{--medya-h:min(62svh,30rem)}.v6-pano .v6-tel{width:min(56vw,14rem)}}
+.v6p .v6-pano .v6-tanitim{--medya-h:min(66svh,35rem)}
+@media (max-width:55.99rem){.v6p .v6-pano .v6-tanitim{--medya-h:min(62svh,30rem)}}

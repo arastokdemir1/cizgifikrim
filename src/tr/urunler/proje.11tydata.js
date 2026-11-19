@@ -21,10 +21,16 @@ function aciklama(p) {
 }
 
 // Sergi bölümleri: plaka bölümünde müze etiketini tekrar eden başlık ("ne" ile aynı) ve "Durum: X." öneki gösterilmez.
-function bolumler(p) {
+// Panel (V5 ürün bloklarındaki yüzey paneli): telefon, App Store görseli ve dikey (en<boy) görseller açık yüzey panelinde ortalanır; geniş görseller sütunu kendisi doldurur.
+function dar(b, tur, boyut) {
+  if (tur === 'telefon' || tur === 'tanitim') return true;
+  const o = (boyut || {})[b.sonra || b.gorsel];
+  return !!(o && o[0] / o[1] < 1);
+}
+function bolumler(p, boyut) {
   return (p.bolumler || []).map((b) => {
     const tur = b.tur || (b.gorsel ? 'foto' : 'plaka');
-    if (tur !== 'plaka') return { ...b, tur };
+    if (tur !== 'plaka') return { ...b, tur, pano: dar(b, tur, boyut) };
     const baslik = nokta(b.baslik) && nokta(b.baslik) !== nokta(p.ne) ? b.baslik : '';
     const metin = (b.metin || '').replace(new RegExp('^\\s*Durum:\\s*' + (p.durum || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\.?\\s*'), '').trim();
     return { ...b, tur, baslik, metin };
@@ -43,7 +49,7 @@ export default {
     title: (d) => `${d.p.ad} | CizgiFikrim`,
     description: (d) => aciklama(d.p),
     og: (d) => d.p.og || '/assets/v1/img/og/tr-products.png',
-    sergi: (d) => bolumler(d.p),
+    sergi: (d) => bolumler(d.p, d.gorselBoyut),
     // Görseli olmayan proje: tüm bölümler başlıksız levha ise müze etiketinin kendisi levha olur (ad tekrar edilmez), levha metinleri etikete not olarak eklenir.
     levha: (d) => { const b = bolumler(d.p); return b.length === 0 || b.every((x) => x.tur === 'plaka' && !x.baslik); },
     kunyeSayisi: (d) => [d.p.platform, d.p.durum, d.p.yil, d.p.baglanti && d.p.baglanti.url, d.p.cip].filter(Boolean).length,
