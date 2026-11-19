@@ -1,0 +1,53 @@
+{
+ "_not": "Korunan (bayt aynen kopyalanan) eski sayfalar: canlı sitemap'ten (origin/main) alındı, sitemap'te KALIR. lastmod = canlı sitemap değeri.",
+ "sayfalar": [
+  {
+   "path": "/piyasa/",
+   "lastmod": "2026-10-24"
+  },
+  {
+   "path": "/piyasa/privacy.html",
+   "lastmod": "2026-08-19"
+  },
+  {
+   "path": "/piyasa/support.html",
+   "lastmod": "2026-08-19"
+  },
+  {
+   "path": "/piyasa/terms.html",
+   "lastmod": "2026-08-19"
+  },
+  {
+   "path": "/carlog/gizlilik.html",
+   "lastmod": "2026-05-26"
+  },
+  {
+   "path": "/carlog/kosullar.html",
+   "lastmod": "2026-05-26"
+  },
+  {
+   "path": "/sano/sano-privacy.html",
+   "lastmod": "2026-08-19"
+  },
+  {
+   "path": "/sano/sano-terms.html",
+   "lastmod": "2026-08-19"
+  },
+  {
+   "path": "/zihinustasi/privacy.html",
+   "lastmod": "2026-08-01"
+  },
+  {
+   "path": "/zihinustasi/support.html",
+   "lastmod": "2026-08-01"
+  },
+  {
+   "path": "/zihinustasi/terms.html",
+   "lastmod": "2026-08-01"
+  },
+  {
+   "path": "/flowgraph/privacy.html",
+   "lastmod": "2026-11-16"
+  }
+ ]
+}

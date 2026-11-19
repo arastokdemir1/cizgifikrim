@@ -12,7 +12,7 @@ for(const p of modern.pages){
  const html=fs.readFileSync(file,'utf8');checked++;
  if(!html.includes(`<html lang="${p.lang}">`))r.hata(`Wrong language ${p.url}`);
  if((html.match(/<h1[\s>]/g)||[]).length!==1)r.hata(`Expected one h1 ${p.url}`);
- if(!p.noindex&&!html.includes(`hreflang="${p.lang==='en'?'tr':'en'}" href="https://cizgifikrim.net${p.alternate}"`))r.hata(`Missing language counterpart ${p.url}`);
+ if(p.alternate&&!p.noindex&&!html.includes(`hreflang="${p.lang==='en'?'tr':'en'}" href="https://cizgifikrim.net${p.alternate}"`))r.hata(`Missing language counterpart ${p.url}`);
  if(!fs.existsSync(output(p.og)))r.hata(`Sharing image missing ${p.url}: ${p.og}`);
  if(p.noindex&&!html.includes('content="noindex,follow"'))r.hata(`Noindex missing ${p.url}`);
  for(const [,attribute,raw]of html.matchAll(/\b(href|src|poster)="([^"<>]*)"/g)){

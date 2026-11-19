@@ -8,4 +8,7 @@ sitemap: false
 {%- for p in collections.all | sitemapSayfalari %}
   <url><loc>{{ site.url }}{{ p.url | xml }}</loc><lastmod>{{ p | lastmod }}</lastmod>{% if p.data.entry.alternate %}<xhtml:link rel="alternate" hreflang="{{ p.data.entry.lang }}" href="{{ site.url }}{{ p.url }}"/><xhtml:link rel="alternate" hreflang="{{ 'tr' if p.data.entry.lang == 'en' else 'en' }}" href="{{ site.url }}{{ p.data.entry.alternate }}"/>{% endif %}</url>
 {%- endfor %}
+{%- for k in korunanSitemap.sayfalar %}
+  <url><loc>{{ site.url }}{{ k.path | xml }}</loc><lastmod>{{ k.lastmod }}</lastmod></url>
+{%- endfor %}
 </urlset>

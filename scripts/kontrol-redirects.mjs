@@ -18,7 +18,7 @@ for(const {from,to,status} of rules){
  if(actual.has(from))r.hata(`Alias overrides a real page: ${from}`);
  if(protectedPaths.some(k=>from===k||from.startsWith(k)))r.hata(`Protected path redirected: ${from}`);
  if(status!==301)r.hata(`Expected 301: ${from}`);
- if(!actual.has(noHash(to))&&noHash(to)!=='/piyasa/'&&noHash(to)!=='/')r.hata(`Unexpected destination: ${from} -> ${to}`);
+ {const t=output(to);if(noHash(to)!=='/piyasa/'&&fs.existsSync(t)&&/<meta http-equiv="refresh"/.test(fs.readFileSync(t,'utf8')))r.hata(`Destination is itself a redirect: ${from} -> ${to}`);}
  if(!fs.existsSync(output(to)))r.hata(`Missing target: ${to}`);
 }
 for(const {from,to} of rules)if(sources.has(noHash(to)))r.hata(`Chain/loop: ${from} -> ${to}`);

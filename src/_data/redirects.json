@@ -203,7 +203,7 @@
     },
     {
       "from": "/gorusme/tesekkurler/",
-      "to": "/tr/iletisim/tesekkurler/",
+      "to": "/#iletisim",
       "status": 301
     },
     {
@@ -328,7 +328,12 @@
     },
     {
       "from": "/en/contact/thank-you/",
-      "to": "/tr/iletisim/tesekkurler/",
+      "to": "/#iletisim",
+      "status": 301
+    },
+    {
+      "from": "/tr/iletisim/tesekkurler/",
+      "to": "/#iletisim",
       "status": 301
     }
   ]
