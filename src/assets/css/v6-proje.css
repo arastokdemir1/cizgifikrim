@@ -133,3 +133,9 @@
 @media (max-width:55.99rem){.v6-pano{--medya-h:min(62svh,30rem)}.v6-pano .v6-tel{width:min(56vw,14rem)}}
 .v6p .v6-pano .v6-tanitim{--medya-h:min(66svh,35rem)}
 @media (max-width:55.99rem){.v6p .v6-pano .v6-tanitim{--medya-h:min(62svh,30rem)}}
+/* v45 mürekkep aralıkları (--bolum-y): önceki/sonraki çizgisinin üst dolgusu (sp-6) ve künyenin son satır dolgusu düşülür */
+.v6p .v6p-son{margin-top:calc(var(--bolum-y) - var(--sp-6))}
+@media (max-width:55.99rem){
+  .v6p .v6p-sergi{margin-top:calc(var(--bolum-y) - .875rem)}
+  .v6p .v6p-son{margin-bottom:-.75rem}
+}
