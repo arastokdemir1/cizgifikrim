@@ -1,0 +1,14 @@
+const L=(tr,en)=>({tr,en});
+export default {
+ intro:L('CizgiFikrim; yapay zekâ, web ve mobil alanında kendi ürünlerini geliştiren bir teknoloji girişimi. İşletmeler için de ihtiyaçlarına ve çalışma biçimlerine uygun yazılım üretiyoruz.','CizgiFikrim builds its own AI, web and mobile products. We also create software around the needs and workflows of businesses.'),
+ contact:L('Projenizi konuşalım','Discuss your project'),
+ businessTitle:L('İşinize uygun teknoloji.','Technology that fits your business.'),
+ businessIntro:L('Bir iş akışını kolaylaştırmak, yeni bir dijital ürün geliştirmek veya mevcut deneyimi iyileştirmek. Nereden başlayacağımızı ihtiyacınız belirler.','Simplify a workflow, develop a digital product or improve an existing experience. Your needs determine where we start.'),
+ serviceOutcomes:[L('Tekrar eden işleri azaltan, kullandığınız araçlarla çalışan otomasyonlar.','Automations that reduce repetitive work and work with your existing tools.'),L('Fikrinizin, insanların kullanabileceği bir mobil deneyime dönüşmesi.','Turn your idea into a mobile experience people can use.'),L('İşletmenizi anlatan siteler ve süreçlerinize uygun web uygulamaları.','Websites that explain your business and web applications that fit your workflows.')],
+ productsIntro:L('Kendi ürünlerimizde de aynı sorudan yola çıkıyoruz: Hangi ihtiyacı, nasıl daha iyi çözebiliriz?','Our own products start with the same question: which need can we solve better, and how?'),
+ approachTitle:L('Önce ihtiyacı anlarız.','First, we understand the need.'),
+ approachIntro:L('Bir fikrin değerini, nasıl kullanıldığı belirler. Araştırma, tasarım ve yazılımı birlikte ele alıyor; günlük hayatta karşılığı olan ürünler geliştirmek için çalışıyoruz.','An idea gains value through use. We bring research, design and software together to build products that make a difference in everyday life.'),
+ process:[{title:L('İhtiyacı netleştiririz.','Define the need.'),body:L('Kimin kullanacağını, hangi sorunu çözeceğini ve kapsamı birlikte belirleriz.','Together, we define who will use it, what problem it solves and the scope.')},{title:L('Birlikte geliştiririz.','Build together.'),body:L('Tasarım ve teknik kararları aynı hedef etrafında şekillendiririz.','Design and technical decisions are shaped around the same goal.')},{title:L('Kullanımla iyileştiririz.','Improve through use.'),body:L('Geri bildirimleri değerlendirir, deneyimi gerçek ihtiyaçlara göre geliştiririz.','We review feedback and refine the experience around real needs.')}],
+ closing:L('Bir sonraki adımı birlikte belirleyelim.','Let’s work out your next step.'),
+ closingText:L('Yeni bir ürün, daha iyi bir iş akışı veya mevcut yazılımınız için bir geliştirme. İhtiyacınızı birkaç cümleyle anlatın.','A new product, a better workflow or an improvement to your existing software. Tell us what you need in a few sentences.')
+};

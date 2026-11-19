@@ -24,3 +24,6 @@ _site/
 _site-test/
 .cache/
 url-listesi.txt
+
+_site-cf/
+.impeccable/review/

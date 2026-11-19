@@ -1,0 +1,3 @@
+<section class="page-hero shell"><h1>{{ c.solutionsHeading | replace('\n','<br>') | safe }}</h1><p>{{ c.serviceIntro }}</p><a class="button" href="{{ links.contact }}">{{ homepage.contact[entry.lang] }} {{ arrow() }}</a></section>
+<section class="shell solution-offers" aria-label="{{ c.serviceList }}">{% for s in modern.services %}<article><div><h2>{{ s.name[entry.lang] }}</h2><p>{{ s.description[entry.lang] }}</p><a class="text-link" href="{{ links.solutions }}{{ s.route[entry.lang] }}/">{{ c.studioServiceDetails }} {{ arrow(true) }}</a></div><ul>{% for item in s.deliverables %}<li>{{ item[entry.lang] }}</li>{% endfor %}</ul></article>{% endfor %}</section>
+{% include 'modern/page-process.njk' %}{{ cta(c,links) }}

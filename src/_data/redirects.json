@@ -1,160 +1,210 @@
 {
-  "_not": "Tek veri, iki çıktı: PLATFORM=gh -> 'taşındı' stub'ları; PLATFORM=cf -> _redirects (301). Yalnız /tr/* eski yollar; korunan yollar buraya girmez; /tr/* catch-all YOK. Bayraklar: k2b = Aras K2b kararına bağlı hedef (proje sayfaları), k6b = K6b kararına bağlı (e-ticaret), istasyon = hedef site.json istasyonCanli'ya göre (false: /istasyon-yakinda/, true: istasyon.cizgifikrim.net). Etkin liste: src/_data/yonlendirmeler.js. Kararlar: Teknik-1, uygulama_plani.md §4.1; Koordinatör onayı.",
+  "_not": "Bilingual product site migration. Explicit aliases only; product-owned support/legal/demo paths are never redirected.",
   "redirects": [
     {
-      "from": "/tr/",
-      "to": "/",
-      "status": 301
-    },
-    {
-      "from": "/tr/index.html",
-      "to": "/",
-      "status": 301
-    },
-    {
       "from": "/tr/projeler.html",
-      "to": "/calismalar/",
+      "to": "/tr/urunler/",
       "status": 301
     },
     {
       "from": "/tr/products.html",
-      "to": "/calismalar/",
+      "to": "/tr/urunler/",
       "status": 301
     },
     {
       "from": "/tr/demo.html",
-      "to": "/calismalar/",
+      "to": "/tr/urunler/",
       "status": 301
     },
     {
       "from": "/tr/projects/carlog.html",
-      "to": "/calismalar/carlog/",
+      "to": "/tr/urunler/carlog/",
       "status": 301
     },
     {
       "from": "/tr/projects/piyasa.html",
       "to": "/piyasa/",
-      "status": 301,
-      "k2b": true
+      "status": 301
     },
     {
       "from": "/tr/projects/sano.html",
-      "to": "/calismalar/",
-      "status": 301,
-      "k2b": true
+      "to": "/tr/urunler/",
+      "status": 301
     },
     {
       "from": "/tr/projects/ultron.html",
-      "to": "/calismalar/",
-      "status": 301,
-      "k2b": true
+      "to": "/tr/urunler/",
+      "status": 301
     },
     {
       "from": "/tr/projects/focusgrid.html",
-      "to": "/calismalar/",
-      "status": 301,
-      "k2b": true
+      "to": "/tr/urunler/",
+      "status": 301
     },
     {
       "from": "/tr/projects/flowgraph.html",
-      "to": "/calismalar/",
-      "status": 301,
-      "k2b": true
+      "to": "/tr/urunler/",
+      "status": 301
     },
     {
       "from": "/tr/projects/aka.html",
-      "to": "/calismalar/",
-      "status": 301,
-      "k2b": true
+      "to": "/tr/urunler/",
+      "status": 301
     },
     {
       "from": "/tr/projects/arda.html",
-      "to": "/calismalar/",
-      "status": 301,
-      "k2b": true
+      "to": "/tr/urunler/",
+      "status": 301
     },
     {
       "from": "/tr/projects/better_motors.html",
-      "to": "/calismalar/",
-      "status": 301,
-      "k2b": true
+      "to": "/tr/urunler/",
+      "status": 301
     },
     {
       "from": "/tr/projects/ersoy.html",
-      "to": "/calismalar/",
-      "status": 301,
-      "k2b": true
+      "to": "/tr/urunler/",
+      "status": 301
     },
     {
       "from": "/tr/projects/gnomon.html",
-      "to": "/calismalar/",
-      "status": 301,
-      "k2b": true
+      "to": "/tr/urunler/",
+      "status": 301
     },
     {
       "from": "/tr/projects/radar.html",
-      "to": "/calismalar/",
-      "status": 301,
-      "k2b": true
+      "to": "/tr/urunler/",
+      "status": 301
     },
     {
       "from": "/tr/about.html",
-      "to": "/hakkinda/",
+      "to": "/tr/hakkimizda/",
       "status": 301
     },
     {
       "from": "/tr/contact.html",
-      "to": "/gorusme/",
+      "to": "/tr/iletisim/",
       "status": 301
     },
     {
       "from": "/tr/randevu.html",
-      "to": "/gorusme/",
+      "to": "/tr/iletisim/",
       "status": 301
     },
     {
       "from": "/tr/kayit.html",
-      "to": "/gorusme/",
+      "to": "/tr/iletisim/",
       "status": 301
     },
     {
       "from": "/tr/eticaret-paketi.html",
-      "to": "/hizmetler/web-sitesi-ve-e-ticaret/",
-      "status": 301,
-      "k6b": true
+      "to": "/tr/cozumler/web-yazilimi/",
+      "status": 301
     },
     {
       "from": "/tr/hizmetler.html",
-      "to": "/hizmetler/",
+      "to": "/tr/cozumler/",
       "status": 301
     },
     {
       "from": "/tr/gizlilik.html",
-      "to": "/gizlilik/",
+      "to": "/tr/gizlilik/",
       "status": 301
     },
     {
       "from": "/tr/kosullar.html",
-      "to": "/kosullar/",
+      "to": "/tr/kosullar/",
       "status": 301
     },
     {
       "from": "/tr/giris.html",
-      "to": "/istasyon-yakinda/",
-      "status": 301,
-      "istasyon": true
+      "to": "/tr/iletisim/",
+      "status": 301
     },
     {
       "from": "/tr/panel.html",
-      "to": "/istasyon-yakinda/",
-      "status": 301,
-      "istasyon": true
+      "to": "/tr/iletisim/",
+      "status": 301
     },
     {
       "from": "/tr/admin.html",
-      "to": "/istasyon-yakinda/",
-      "status": 301,
-      "istasyon": true
+      "to": "/tr/iletisim/",
+      "status": 301
+    },
+    {
+      "from": "/calismalar/",
+      "to": "/tr/urunler/",
+      "status": 301
+    },
+    {
+      "from": "/calismalar/carlog/",
+      "to": "/tr/urunler/carlog/",
+      "status": 301
+    },
+    {
+      "from": "/calismalar/vesira/",
+      "to": "/tr/urunler/vesira/",
+      "status": 301
+    },
+    {
+      "from": "/hakkinda/",
+      "to": "/tr/hakkimizda/",
+      "status": 301
+    },
+    {
+      "from": "/gorusme/",
+      "to": "/tr/iletisim/",
+      "status": 301
+    },
+    {
+      "from": "/hizmetler/",
+      "to": "/tr/cozumler/",
+      "status": 301
+    },
+    {
+      "from": "/hizmetler/web-sitesi-ve-e-ticaret/",
+      "to": "/tr/cozumler/web-yazilimi/",
+      "status": 301
+    },
+    {
+      "from": "/gizlilik/",
+      "to": "/tr/gizlilik/",
+      "status": 301
+    },
+    {
+      "from": "/kosullar/",
+      "to": "/tr/kosullar/",
+      "status": 301
+    },
+    {
+      "from": "/istasyon-yakinda/",
+      "to": "/tr/iletisim/",
+      "status": 301
+    },
+    {
+      "from": "/calismalar/polishreel/",
+      "to": "/tr/urunler/polishreel/",
+      "status": 301
+    },
+    {
+      "from": "/hizmetler/mobil-uygulama/",
+      "to": "/tr/cozumler/mobil-uygulama/",
+      "status": 301
+    },
+    {
+      "from": "/hizmetler/yapay-zeka-ve-otomasyon/",
+      "to": "/tr/cozumler/yapay-zeka-otomasyon/",
+      "status": 301
+    },
+    {
+      "from": "/nasil-calisiyoruz/",
+      "to": "/tr/hakkimizda/",
+      "status": 301
+    },
+    {
+      "from": "/gorusme/tesekkurler/",
+      "to": "/tr/iletisim/tesekkurler/",
+      "status": 301
     }
   ]
 }

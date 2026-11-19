@@ -4,8 +4,8 @@ eleventyExcludeFromCollections: true
 sitemap: false
 ---
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 {%- for p in collections.all | sitemapSayfalari %}
-  <url><loc>{{ site.url }}{{ p.url | xml }}</loc><lastmod>{{ p | lastmod }}</lastmod></url>
+  <url><loc>{{ site.url }}{{ p.url | xml }}</loc><lastmod>{{ p | lastmod }}</lastmod>{% if p.data.entry.alternate %}<xhtml:link rel="alternate" hreflang="{{ p.data.entry.lang }}" href="{{ site.url }}{{ p.url }}"/><xhtml:link rel="alternate" hreflang="{{ 'tr' if p.data.entry.lang == 'en' else 'en' }}" href="{{ site.url }}{{ p.data.entry.alternate }}"/>{% endif %}</url>
 {%- endfor %}
 </urlset>

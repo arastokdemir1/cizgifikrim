@@ -2,6 +2,8 @@
    Yüklenene dek sabit yükseklikli kutu + statik iskelet; yavaşsa/başarısızsa Cal.com bağlantısı görünür. Süre bilgisi yazılmaz. */
 (function () {
   'use strict';
+  var EN = document.documentElement.lang === 'en';
+  var systemTheme = matchMedia('(prefers-color-scheme: dark)');
   var kok = document.querySelector('[data-cal]');
   if (!kok) return;
   var sahne = kok.querySelector('[data-cal-sahne]'), durum = kok.querySelector('[data-cal-durum]');
@@ -27,22 +29,23 @@
   }
   function baslat() {
     if (basladi) return; basladi = true;
-    ac.hidden = true; durum.textContent = 'Takvim yükleniyor…';
+    ac.hidden = true; durum.textContent = EN ? 'Loading calendar…' : 'Takvim yükleniyor…';
     calYukle();
     var bitti = false, t0 = performance.now();
     function bitir() { if (bitti) return; bitti = true; sahne.classList.add('is-yuklu'); clearInterval(tick); }
     var tick = setInterval(function () {
       var s = (performance.now() - t0) / 1000;
-      if (s >= 45) { durum.textContent = 'Takvim yüklenemedi. Cal.com bağlantısını kullanabilirsiniz.'; yedek.hidden = false; clearInterval(tick); ac.hidden = false; ac.textContent = 'Yeniden dene'; basladi = false; }
-      else if (s >= 8) { durum.textContent = 'Takvim beklenenden yavaş yükleniyor. İsterseniz Cal.com\'da açın.'; yedek.hidden = false; }
+      if (s >= 45) { durum.textContent = EN ? 'The calendar could not load. Use the Cal.com link.' : 'Takvim yüklenemedi. Cal.com bağlantısını kullanabilirsiniz.'; yedek.hidden = false; clearInterval(tick); ac.hidden = false; ac.textContent = EN ? 'Try again' : 'Yeniden dene'; basladi = false; }
+      else if (s >= 8) { durum.textContent = EN ? 'The calendar is taking longer than expected. Open it on Cal.com.' : 'Takvim beklenenden yavaş yükleniyor. İsterseniz Cal.com\'da açın.'; yedek.hidden = false; }
     }, 1000);
     var mo = new MutationObserver(function () { var f = sahne.querySelector('iframe'); if (f && !f.__w) { f.__w = true; f.addEventListener('load', bitir); setTimeout(bitir, 6000); } });
     mo.observe(sahne, { childList: true, subtree: true });
     var ns = 'gorusme';
     Cal('init', ns, { origin: 'https://cal.com' });
     Cal.ns[ns]('on', { action: 'linkReady', callback: bitir });
-    Cal.ns[ns]('inline', { elementOrSelector: sahne, calLink: CAL_LINK, layout: 'month_view', config: { theme: 'light', layout: 'month_view' } });
-    Cal.ns[ns]('ui', { theme: 'light', hideEventTypeDetails: false, layout: 'month_view', cssVarsPerTheme: { light: { 'cal-brand': renk('--c-ink-2', '#000'), 'cal-brand-text': renk('--c-second', '#fff') }, dark: { 'cal-brand': renk('--c-ink-2', '#000'), 'cal-brand-text': renk('--c-second', '#fff') } } });
+    Cal.ns[ns]('inline', { elementOrSelector: sahne, calLink: CAL_LINK, layout: 'month_view', config: { theme: systemTheme.matches ? 'dark' : 'light', layout: 'month_view' } });
+    Cal.ns[ns]('ui', { theme: systemTheme.matches ? 'dark' : 'light', hideEventTypeDetails: false, layout: 'month_view', cssVarsPerTheme: { light: { 'cal-brand': '#171817', 'cal-brand-text': '#ffffff' }, dark: { 'cal-brand': '#f4f5ef', 'cal-brand-text': '#151614' } } });
   }
+  systemTheme.addEventListener('change', function () { if (basladi && window.Cal && Cal.ns && Cal.ns.gorusme) Cal.ns.gorusme('ui', {theme: systemTheme.matches ? 'dark' : 'light'}); });
   ac.addEventListener('click', baslat);
 })();

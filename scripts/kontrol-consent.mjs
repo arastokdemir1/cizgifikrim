@@ -11,7 +11,7 @@ const kod = js.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');   
 const m = js.match(/consentVersion:\s*'([^']+)'/);
 const surum = m && m[1];
 if (!surum) r.hata('lead-form.js consentVersion bulunamadı');
-const dosya = path.join(site, 'gizlilik', 'index.html');
+const dosya = path.join(site, 'tr', 'gizlilik', 'index.html');
 if (!fs.existsSync(dosya)) r.hata(`${dosya} yok (gh/cf derlemesi gerekli)`);
 else if (surum) {
   const html = fs.readFileSync(dosya, 'utf8');

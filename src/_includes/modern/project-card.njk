@@ -1,0 +1,5 @@
+<article class="project-entry" id="{{ projectPrefix }}{{ project.id }}">
+  <div class="project-entry-top"><h3>{{ project.name }}</h3><span class="project-state">{{ project.status[entry.lang] }}</span></div>
+  <p>{{ project.description[entry.lang] }}</p>
+  {% if project.detail %}<a class="text-link" href="{{ links.products }}{{ project.detail }}/">{{ c.explore }} {{ arrow(true) }}</a>{% elif project.url %}<a class="text-link" href="{{ project.url }}" target="_blank" rel="noopener noreferrer">{{ 'Mağazada incele' if not en else 'View store listing' }} {{ arrow(true) }}</a>{% else %}<span class="project-pending">{{ 'Henüz erişime açık değil' if not en else 'Not yet publicly available' }}</span>{% endif %}
+</article>

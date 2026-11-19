@@ -36,7 +36,7 @@ for (const y of ayriYollar) { const k = kurallar.find((x) => x.yol === y); if (!
 // Hash'ler çıktıdaki satır içi betiklerle birebir
 const hashler = new Set();
 (function yuru(d) { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const p = path.join(d, e.name), g = path.relative(site, p).split(path.sep).join('/');
-  if (e.isDirectory()) { if (!KORUNAN_KLASORLER.includes(g.split('/')[0]) && g !== 'tr' && g !== 'assets') yuru(p); }
+  if (e.isDirectory()) { if (!KORUNAN_KLASORLER.includes(g.split('/')[0]) && g !== 'assets') yuru(p); }
   else if (e.name.endsWith('.html')) for (const m of fs.readFileSync(p, 'utf8').matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)) { if (/\bsrc=/.test(m[1]) || /ld\+json/.test(m[1])) continue; hashler.add(`'sha256-${createHash('sha256').update(m[2]).digest('base64')}'`); } } })(site);
 const ana = (tum?.h.find((x) => x.startsWith('Content-Security-Policy')) || '');
 for (const h of hashler) if (!ana.includes(h)) r.hata(`satır içi betik hash'i CSP'de yok: ${h}`);

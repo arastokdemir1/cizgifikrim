@@ -17,6 +17,9 @@
     eposta: 'cizgifikrimnet@gmail.com', calUrl: 'https://cal.com/cizgifikrim',
     tesekkur: '/gorusme/tesekkurler/', minWaitMs: 3600
   };
+  CFG.tesekkur = root.getAttribute('data-thanks') || CFG.tesekkur;
+  var EN = document.documentElement.lang === 'en';
+  function t(tr, en) { return EN ? en : tr; }
   var PROD = { 'cizgifikrim.net': 1, 'www.cizgifikrim.net': 1 };
   var mock = !PROD[location.hostname] || /[?&]lead=mock\b/.test(location.search);
   var SLUGS = ['web-sitesi-ve-e-ticaret', 'mobil-uygulama', 'yapay-zeka-ve-otomasyon', 'carlog', 'vesira', 'polishreel'];
@@ -27,16 +30,16 @@
 
   // Hata tablosu (tek yer). Her hatada e-posta ve Cal.com yedeği görünür kalır.
   var ERR = {
-    captcha_failed: 'Doğrulama tamamlanamadı, lütfen yeniden deneyin.',
-    captcha_unavailable: 'Doğrulama servisine ulaşılamadı, birazdan tekrar deneyin.',
-    invalid_input: 'Bilgilerden biri kabul edilmedi. Alanları kontrol edip tekrar deneyin.',
-    too_large: 'Mesajınız çok uzun.',
-    rate_limited: 'Kısa sürede çok fazla deneme yapıldı. Biraz bekleyip tekrar deneyin.',
-    busy: 'Şu an yoğunuz. Birazdan tekrar deneyin ya da e-posta/takvim kullanın.',
-    server_error: 'Şu an gönderemedik; mesajınız kaydedilmedi.',
-    unavailable: 'Şu an gönderemedik; mesajınız kaydedilmedi.',
-    network: 'Şu an gönderemedik; mesajınız kaydedilmedi.',
-    _genel: 'Gönderilemedi. Lütfen biraz sonra tekrar deneyin ya da e-posta ile yazın.'
+    captcha_failed: t("Doğrulama tamamlanamadı, lütfen yeniden deneyin.","Verification failed. Please try again."),
+    captcha_unavailable: t("Doğrulama servisine ulaşılamadı, birazdan tekrar deneyin.","Verification is unavailable. Please try again shortly."),
+    invalid_input: t("Bilgilerden biri kabul edilmedi. Alanları kontrol edip tekrar deneyin.","Some information was not accepted. Check the fields and try again."),
+    too_large: t("Mesajınız çok uzun.","Your message is too long."),
+    rate_limited: t("Kısa sürede çok fazla deneme yapıldı. Biraz bekleyip tekrar deneyin.","Too many attempts. Please wait and try again."),
+    busy: t("Şu an yoğunuz. Birazdan tekrar deneyin ya da e-posta/takvim kullanın.","We are busy right now. Try again shortly, or use email or the calendar."),
+    server_error: t("Şu an gönderemedik; mesajınız kaydedilmedi.","Unable to send. Your message was not saved."),
+    unavailable: t("Şu an gönderemedik; mesajınız kaydedilmedi.","Unable to send. Your message was not saved."),
+    network: t("Şu an gönderemedik; mesajınız kaydedilmedi.","Unable to send. Your message was not saved."),
+    _genel: t("Gönderilemedi. Lütfen biraz sonra tekrar deneyin ya da e-posta ile yazın.","Unable to send. Please try again shortly or email us.")
   };
 
   var form = root.querySelector('[data-lead-form]'), summary = root.querySelector('[data-lead-summary]'), status = root.querySelector('[data-lead-status]');
@@ -59,9 +62,9 @@
 
   // ── Doğrulama ────────────────────────────────────────────────────────────
   var FIELDS = {
-    name: { label: 'Ad soyad', check: function (v) { if (LINK_RE.test(v)) { LINK_RE.lastIndex = 0; return 'Ad alanına bağlantı yazmayın.'; } LINK_RE.lastIndex = 0; return v.length >= 2 && v.length <= 120 ? '' : 'Adınızı yazın.'; } },
-    email: { label: 'E-posta', check: function (v) { return v.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? '' : 'Geçerli bir e-posta adresi yazın.'; } },
-    message: { label: 'Mesaj', check: function (v) { var n = (v.match(LINK_RE) || []).length; LINK_RE.lastIndex = 0; if (n > 2) return 'Mesajda en fazla 2 bağlantı bırakın; fazlasını e-postayla paylaşabilirsiniz.'; return v.length >= 10 && v.length <= 2000 ? '' : 'Mesajınızı birkaç cümleyle yazın (en az 10 karakter).'; } }
+    name: { label: t("Ad soyad","Full name"), check: function (v) { if (LINK_RE.test(v)) { LINK_RE.lastIndex = 0; return t("Ad alanına bağlantı yazmayın.","Please do not put links in the name field."); } LINK_RE.lastIndex = 0; return v.length >= 2 && v.length <= 120 ? '' : t("Adınızı yazın.","Please enter your name."); } },
+    email: { label: t("E-posta","Email"), check: function (v) { return v.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? '' : t("Geçerli bir e-posta adresi yazın.","Please enter a valid email address."); } },
+    message: { label: t("Mesaj","Message"), check: function (v) { var n = (v.match(LINK_RE) || []).length; LINK_RE.lastIndex = 0; if (n > 2) return t("Mesajda en fazla 2 bağlantı bırakın; fazlasını e-postayla paylaşabilirsiniz.","Please include no more than two links. You can share more by email."); return v.length >= 10 && v.length <= 2000 ? '' : t("Mesajınızı birkaç cümleyle yazın (en az 10 karakter).","Please describe your enquiry (at least 10 characters)."); } }
   };
   function errEl(n) { return form.querySelector('[data-err="' + n + '"]'); }
   function setErr(n, msg) {
@@ -69,15 +72,15 @@
     e.textContent = msg || ''; e.hidden = !msg;
     if (msg) { el.setAttribute('aria-invalid', 'true'); el.setAttribute('aria-describedby', e.id); } else { el.removeAttribute('aria-invalid'); el.removeAttribute('aria-describedby'); }
   }
-  function yedekHtml() { return '<span class="gr-ozet__yedek"><a href="mailto:' + CFG.eposta + '">E-posta ile yazın</a><a href="' + CFG.calUrl + '" target="_blank" rel="noopener noreferrer">Takvimden görüşme seçin</a></span>'; }
+  function yedekHtml() { return '<span class="gr-ozet__yedek"><a href="mailto:' + CFG.eposta + '">' + t('E-posta ile yazın', 'Email us') + '</a><a href="' + CFG.calUrl + '" target="_blank" rel="noopener noreferrer">' + t('Takvimden görüşme seçin', 'Book a meeting') + '</a></span>'; }
   function validate() {
     var bad = [];
     Object.keys(FIELDS).forEach(function (n) { var m = FIELDS[n].check((f(n).value || '').trim()); setErr(n, m); if (m) bad.push(n); });
-    var c = f('consent'), ce = errEl('consent'), cm = c.checked ? '' : 'Devam etmek için onay kutusunu işaretleyin.';
+    var c = f('consent'), ce = errEl('consent'), cm = c.checked ? '' : t("Devam etmek için onay kutusunu işaretleyin.","Please check the consent box to continue.");
     ce.textContent = cm; ce.hidden = !cm;
     if (cm) { c.setAttribute('aria-invalid', 'true'); c.setAttribute('aria-describedby', ce.id); bad.push('consent'); } else { c.removeAttribute('aria-invalid'); c.removeAttribute('aria-describedby'); }
     if (bad.length) {
-      summary.innerHTML = '<strong>Gönderilemedi: ' + bad.length + ' alanı düzeltin.</strong> ' + bad.map(function (n) { return '<a href="#' + ONEK + '-' + n + '">' + (FIELDS[n] ? FIELDS[n].label : 'Onay') + '</a>'; }).join(', ');
+      summary.innerHTML = '<strong>' + t('Gönderilemedi: ' + bad.length + ' alanı düzeltin.', 'Please correct ' + bad.length + ' fields.') + '</strong> ' + bad.map(function (n) { return '<a href="#' + ONEK + '-' + n + '">' + (FIELDS[n] ? FIELDS[n].label : t("Onay","Consent")) + '</a>'; }).join(', ');
       summary.hidden = false; f(bad[0]).focus(); return false;
     }
     summary.hidden = true; summary.innerHTML = ''; return true;
@@ -140,12 +143,12 @@
 
   function fail(r) {
     var kod = r && r.error, msg = ERR[kod] || (r && r.status >= 500 ? ERR.server_error : ERR._genel);
-    summary.innerHTML = '<strong>' + msg + '</strong> Şunları kullanabilirsiniz:' + yedekHtml();
+    summary.innerHTML = '<strong>' + msg + '</strong> ' + t('Şunları kullanabilirsiniz:', 'You can also use:') + yedekHtml();
     summary.hidden = false; summary.focus();
   }
   function durumAyarla(on) {
-    busy = on; btn.setAttribute('aria-disabled', on ? 'true' : 'false'); btn.setAttribute('aria-busy', on ? 'true' : 'false');
-    status.textContent = on ? 'Gönderiliyor…' : '';
+    busy = on; btn.disabled = on; btn.setAttribute('aria-disabled', on ? 'true' : 'false'); btn.setAttribute('aria-busy', on ? 'true' : 'false');
+    status.textContent = on ? t("Gönderiliyor…","Sending\u2026") : '';
   }
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -154,7 +157,10 @@
     var fields = { name: f('name').value.trim(), email: f('email').value.trim(), message: f('message').value.trim(), consent: true, website: f('website').value };
     gonder(fields).then(function (r) {
       durumAyarla(false);
-      if (r.ok) { form.reset(); location.assign(CFG.tesekkur); } else fail(r);   // yalnız ok===true başarıdır; ref kullanılmaz
+      if (r.ok) { form.reset(); location.assign(CFG.tesekkur + (mock ? '?preview=1' : '')); } else fail(r);   // yalnız ok===true başarıdır; ref kullanılmaz
     });
   });
+  // Enable submission only after all handlers are installed. With unavailable JS,
+  // the disabled POST form cannot leak message contents into a GET URL.
+  btn.disabled = false;
 })();

@@ -7,7 +7,7 @@ import { arg, dosyalar, Rapor } from './ortak.mjs';
 const site = arg('site', '_site');
 const r = new Rapor(`SEO etiketleri (${site})`);
 const SITE_URL = JSON.parse(fs.readFileSync('src/_data/site.json', 'utf8')).url;
-const atla = [...KORUNAN_KLASORLER, ESKI_VARLIKLAR, 'tr'];
+const atla = [...KORUNAN_KLASORLER, ESKI_VARLIKLAR];
 let sayi = 0;
 for (const f of dosyalar(site).filter((x) => x.endsWith('.html'))) {
   const goreli = path.relative(site, f).split(path.sep).join('/');

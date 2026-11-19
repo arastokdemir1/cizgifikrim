@@ -53,6 +53,9 @@ function sonDegisiklik(girdiYolu) {
 }
 
 export default function (eleventyConfig) {
+  // The bilingual product site replaces these presentation routes. Product-owned
+  // directories and demos continue to pass through without modification.
+  for (const pattern of ['src/index.njk', 'src/hakkinda.njk', 'src/nasil-calisiyoruz.njk', 'src/istasyon-yakinda.njk', 'src/404.njk', 'src/calismalar/**', 'src/hizmetler/**', 'src/gorusme/**', 'src/gizlilik/**', 'src/kosullar/**']) eleventyConfig.ignores.add(pattern);
   // ── Bayt aynı kopya (passthrough) ───────────────────────────────────────
   const var_ = (p) => fs.existsSync(p);
   for (const d of KORUNAN_KLASORLER) if (var_(d)) eleventyConfig.addPassthroughCopy({ [d]: d });
@@ -106,7 +109,7 @@ export default function (eleventyConfig) {
     }
     return Image.generateHTML(meta, { alt, sizes, loading: yukleme, decoding: 'async' });
   });
-  eleventyConfig.on('eleventy.after', async ({ dir }) => {
+  eleventyConfig.on('eleventy.after', async ({ directories: dir }) => {
     await Promise.all(bekleyenGorseller.splice(0));
     // Eski analytics.js (kalıcı localStorage kimliği cf_vid yazıyordu) çıktıya alınmaz: hiçbir sayfa çağırmıyor (grep ile doğrulandı),
     // yeni ölçüm /assets/v1/js/analytics.js. scripts/korunan-istisna.json'da bilinçli istisna olarak kayıtlıdır.
@@ -117,7 +120,7 @@ export default function (eleventyConfig) {
       const hashler = new Set();
       const yuru = (d) => { for (const e of fs.readdirSync(d, { withFileTypes: true })) {
         const p = path.join(d, e.name), goreli = path.relative(dir.output, p).split(path.sep).join('/');
-        if (e.isDirectory()) { if (!KORUNAN_KLASORLER.includes(goreli.split('/')[0]) && goreli !== 'tr' && goreli !== 'assets') yuru(p); }
+        if (e.isDirectory()) { if (!KORUNAN_KLASORLER.includes(goreli.split('/')[0]) && goreli !== 'assets') yuru(p); }
         else if (e.name.endsWith('.html')) {
           for (const m of fs.readFileSync(p, 'utf8').matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)) {
             if (/\bsrc=/.test(m[1]) || /type="application\/ld\+json"/.test(m[1])) continue;

@@ -15,9 +15,10 @@
     "kontrol": "node scripts/kontrol-hepsi.mjs",
     "test": "npm run build:gh && npm run kontrol",
     "audit": "npm audit --omit=dev --audit-level=high",
-    "build:fixture": "npm run clean && cross-env PLATFORM=gh ELEVENTY_FIXTURE=1 eleventy --output=_site-test",
+    "build:fixture": "cross-env ELEVENTY_FIXTURE=1 eleventy --output=_site-test",
     "test:fixture": "npm run build:fixture && node scripts/kontrol-hepsi.mjs --site _site-test --no-audit",
-    "clean": "node -e \"for (const d of ['_site','_site-test']) require('fs').rmSync(d,{recursive:true,force:true})\""
+    "clean": "node -e \"for (const d of ['_site','_site-test']) require('fs').rmSync(d,{recursive:true,force:true})\"",
+    "assets:social": "node scripts/generate-share-images.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",

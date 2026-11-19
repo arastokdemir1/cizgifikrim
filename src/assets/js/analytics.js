@@ -16,7 +16,7 @@
 
   // Geliştirme/test ortamı üretim tablosuna ziyaret yazmaz (localhost, 127.0.0.1, ::1, *.localhost, file://).
   const host = location.hostname;
-  if (!host || host === 'localhost' || host === '127.0.0.1' || host === '[::1]' || host.endsWith('.localhost')) return;
+  if (!['cizgifikrim.net', 'www.cizgifikrim.net'].includes(host)) return;
 
   const REST = `${(typeof SUPABASE_URL !== 'undefined' && SUPABASE_URL) || 'https://iekdktdhhryqewvcrnmr.supabase.co'}/rest/v1`;
   const KEY = (typeof SUPABASE_ANON_KEY !== 'undefined' && SUPABASE_ANON_KEY)

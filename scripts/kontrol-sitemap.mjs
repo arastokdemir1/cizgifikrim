@@ -10,8 +10,9 @@ const SITE_URL = JSON.parse(fs.readFileSync('src/_data/site.json', 'utf8')).url;
 const dosya = path.join(site, 'sitemap.xml');
 if (!fs.existsSync(dosya)) { r.hata('sitemap.xml üretilmemiş'); r.bitir(); }
 const xml = fs.readFileSync(dosya, 'utf8');
-const girisler = [...xml.matchAll(/<url><loc>([^<]*)<\/loc><lastmod>([^<]*)<\/lastmod><\/url>/g)];
-const yasak = [...KORUNAN_KLASORLER, ESKI_VARLIKLAR, 'tr'];
+const girisler = [...xml.matchAll(/<url><loc>([^<]*)<\/loc><lastmod>([^<]*)<\/lastmod>(?:<xhtml:link[^>]*\/>)*<\/url>/g)];
+if (!girisler.length) r.hata('Sitemap boş: hiçbir gerçek URL denetlenemedi');
+const yasak = [...KORUNAN_KLASORLER, ESKI_VARLIKLAR];
 const gorulen = new Set();
 for (const [, loc, lastmod] of girisler) {
   if (!loc.startsWith(SITE_URL + '/')) { r.hata(`yanlış köken: ${loc}`); continue; }
