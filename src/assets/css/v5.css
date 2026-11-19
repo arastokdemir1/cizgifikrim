@@ -1,0 +1,310 @@
+/* V5 ortak CSS: V3 jetonları + üst menü + footer + ortak bileşenler (Frontend-1). Fontlar gerçek woff2. */
+/* V3 tokenlar (Teknik-1): V2 "Saf gri" paleti, R=G=B, açık + koyu (prefers-color-scheme). Palet seçici YOK.
+   Herkes yalnız bu tokenları kullanır; sabit renk yazılmaz. Yeşil/renkli nötr yok.
+   AA (WCAG 2.x, ölçüldü): açık: ink/bg 17.01 · ink/surface 15.72 · ink/panel 17.76 · ink/soft 14.49 · muted/bg 6.21 · muted/surface 5.74 · muted/panel 6.48 · muted/soft 5.29 · button-ink/button 17.76 · focus/bg 17.01
+   koyu: ink/bg 17.67 · ink/surface 16.3 · ink/panel 17.03 · ink/soft 14.11 · muted/bg 9.27 · muted/surface 8.55 · muted/panel 8.93 · muted/soft 7.4 · button-ink/button 17.67 · focus/bg 17.67. Ölçüler V2 palet_aa.md'dedir.
+   Aralıklar 4px ızgarası (rem), en küçük metin 0,75rem (12px), tipografi Nunito 425/550/600/650. */
+:root{
+  color-scheme:light dark;
+  /* renk (açık) */
+  --bg:#fafafa;--surface:#f1f1f1;--panel:#ffffff;--line:#dddddd;--soft:#e8e8e8;
+  --ink:#181818;--muted:#5e5e5e;--button:#181818;--button-ink:#ffffff;--focus:#181818;
+  /* tipografi */
+  --font:'Nunito',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --fw-body:425;--fw-menu:550;--fw-sub:600;--fw-head:650;
+  --fs-xs:.75rem;--fs-sm:.875rem;--fs-md:1rem;--fs-lg:1.125rem;--fs-xl:1.5rem;--fs-2xl:2rem;
+  --lh-body:1.6;--lh-head:1.15;--ls-head:-.02em;--ls-label:.06em;
+  /* aralık: 4px ızgarası */
+  --sp-1:.25rem;--sp-2:.5rem;--sp-3:.75rem;--sp-4:1rem;--sp-5:1.25rem;--sp-6:1.5rem;--sp-8:2rem;--sp-10:2.5rem;--sp-12:3rem;--sp-16:4rem;--sp-20:5rem;--sp-24:6rem;
+  /* köşe */
+  --r-panel:1.75rem;--r-card:1.25rem;--r-ctl:1rem;--r-pill:999px;
+  --measure:1280px;--gutter:max(1rem,env(safe-area-inset-left,0px));
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#0d0d0d;--surface:#171717;--panel:#121212;--line:#303030;--soft:#242424;
+    --ink:#f4f4f4;--muted:#b3b3b3;--button:#f4f4f4;--button-ink:#0d0d0d;--focus:#f4f4f4;
+  }}
+:root[data-theme="dark"]{
+    --bg:#0d0d0d;--surface:#171717;--panel:#121212;--line:#303030;--soft:#242424;
+    --ink:#f4f4f4;--muted:#b3b3b3;--button:#f4f4f4;--button-ink:#0d0d0d;--focus:#f4f4f4;
+  }
+/* bölümler arası tek dikey boşluk token'ı (V4.5): 375≈64px, 1440≈112px */
+:root{--bolum-y:clamp(4rem, 2rem + 6vw, 7rem)}
+/* V3 taban (Frontend-1): sıfırlama, tipografi, üst menü, düğme, ortak parçalar. Yalnız tokenlar (tokenlar.css); sabit renk yok. rem, 4px ızgarası. */
+@font-face{font-family:'Nunito';font-weight:200 1000;font-style:normal;font-display:swap;src:url(/assets/v1/fonts/nunito-latin-ext-wght.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Nunito';font-weight:200 1000;font-style:normal;font-display:swap;src:url(/assets/v1/fonts/nunito-latin-wght.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:auto}
+body{margin:0;background:var(--bg);color:var(--ink);font:var(--fw-body) var(--fs-md)/var(--lh-body) var(--font);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+p,h1,h2,h3,dl,dd,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+:focus-visible{outline:2px solid var(--focus);outline-offset:.25rem;border-radius:.75rem}
+.wrap{width:min(var(--measure),100% - 2*var(--sp-6));margin-inline:auto}
+.atla{position:absolute;left:var(--sp-4);top:-4rem;z-index:20;padding:var(--sp-2) var(--sp-4);border-radius:var(--r-pill);background:var(--button);color:var(--button-ink);font-weight:var(--fw-sub)}
+.atla:focus{top:var(--sp-3)}
+/* üst menü */
+.nav{position:sticky;top:0;z-index:10;background:var(--bg);padding-block:var(--sp-3)}
+.nav__in{flex-wrap:wrap;display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);min-height:3.5rem;padding:0 var(--sp-3) 0 var(--sp-5);border:1px solid var(--line);border-radius:var(--r-pill);background:var(--bg)}
+.brand{display:inline-flex;align-items:center;color:var(--ink)}
+.brand svg{height:1.5rem;width:auto}
+.links{display:flex;flex-wrap:wrap;gap:var(--sp-1)}
+.links a{padding:var(--sp-2) var(--sp-4);border-radius:var(--r-pill);font-weight:var(--fw-menu);font-size:.9375rem;color:var(--muted)}
+.links a:hover{color:var(--ink);background:var(--surface)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--sp-2);min-height:2.75rem;padding:0 var(--sp-6);border-radius:var(--r-pill);border:1px solid transparent;background:var(--button);color:var(--button-ink);font:var(--fw-sub) .9375rem/1 var(--font);cursor:pointer}
+.btn--line{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn--line:hover{background:var(--surface)}
+.durum{display:inline-flex;align-items:center;gap:var(--sp-2);font-size:.8125rem;font-weight:var(--fw-sub);color:var(--muted)}
+.durum::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--ink)}
+@media(max-width:860px){.links{display:none}}
+@media(max-width:380px){.nav__in{padding:0 var(--sp-2) 0 var(--sp-4);gap:var(--sp-2)}.nav__in .btn{padding:0 var(--sp-4)}}
+/* ortak üst menü ek stilleri (Frontend-1): Ürünler açılır menüsü, mobil menü, geri bağlantısı */
+.nav{--nav-h:3.5rem}
+.nav__in{position:relative}
+.links>a,.urun-menu>a{padding:var(--sp-2) var(--sp-4);border-radius:var(--r-pill);font-weight:var(--fw-menu);font-size:.9375rem;color:var(--muted);display:inline-block}
+.urun-menu>a::after{content:"";display:inline-block;width:.4rem;height:.4rem;margin-left:.5rem;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-.15rem) rotate(45deg)}
+.links>a:hover,.urun-menu>a:hover,.urun-menu:focus-within>a,.urun-menu:hover>a{color:var(--ink);background:var(--surface)}
+.links a[aria-current],.mobil__panel a[aria-current],.urun-menu__panel a[aria-current]{color:var(--ink);font-weight:var(--fw-head)}
+.links>a[aria-current],.urun-menu>a[aria-current]{background:var(--soft);box-shadow:inset 0 0 0 1px var(--line)}
+.links{align-items:center}
+.urun-menu{position:relative}
+.urun-menu__panel,.mobil__panel{position:absolute;z-index:20;display:grid;gap:var(--sp-1);padding:var(--sp-2);background:var(--panel);border:1px solid var(--line);border-radius:var(--r-card);box-shadow:0 .75rem 2rem -1rem color-mix(in srgb,var(--ink) 30%,transparent)}
+.urun-menu__panel{top:100%;left:0;min-width:16rem;margin-top:0}
+.urun-menu__panel{display:none}
+.urun-menu:hover .urun-menu__panel,.urun-menu:focus-within .urun-menu__panel{display:grid}
+.urun-menu__panel::before{content:"";position:absolute;left:0;right:0;top:calc(-1 * var(--sp-2));height:var(--sp-2)}
+.urun-menu__panel a,.mobil__panel a{display:grid;gap:0;padding:var(--sp-2) var(--sp-3);border-radius:var(--r-ctl);font-weight:var(--fw-sub);font-size:.9375rem;color:var(--ink)}
+.urun-menu__panel a span{font-weight:var(--fw-body);font-size:.8125rem;color:var(--muted)}
+.urun-menu__panel a:hover,.mobil__panel a:hover{background:var(--surface)}
+.mobil{display:none}
+.mobil>summary{list-style:none;cursor:pointer}
+.mobil>summary::-webkit-details-marker{display:none}
+.mobil__panel{top:calc(100% + var(--sp-2));right:0;left:0}
+.mobil__panel .alt{padding-left:var(--sp-6)}
+@media(max-width:860px){.mobil{display:block;margin-left:auto}.nav__in>.btn{display:none}}
+.geri{display:inline-flex;align-items:center;gap:var(--sp-2);font-size:.875rem;font-weight:var(--fw-menu);color:var(--muted);padding:var(--sp-2) 0}
+.geri:hover{color:var(--ink);text-decoration:underline;text-underline-offset:.2em}
+.mobil__panel a[aria-current],.urun-menu__panel a[aria-current]{background:var(--soft);box-shadow:inset 0 0 0 1px var(--line);border-radius:var(--r-pill)}
+/* ortak cihaz çerçeveleri (Frontend-1): .sahne konteyneri içinde .tarayici/.tablet/.telefon, boyutlar cqw. Hero sürükleyicisi (.ayrac/.tutac/.et) bu sahneye bağlı. */
+.sahne{--cihaz:color-mix(in srgb,var(--ink) 94%,var(--bg));--kenar:color-mix(in srgb,var(--ink) 18%,transparent);--golge:color-mix(in srgb,var(--ink) 30%,transparent);position:relative;container-type:inline-size;width:100%;aspect-ratio:1.2/1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sahne{--cihaz:color-mix(in srgb,var(--ink) 14%,var(--bg));--kenar:color-mix(in srgb,var(--ink) 22%,transparent);--golge:color-mix(in srgb,var(--bg) 70%,transparent)}}
+:root[data-theme="dark"] .sahne{--cihaz:color-mix(in srgb,var(--ink) 14%,var(--bg));--kenar:color-mix(in srgb,var(--ink) 22%,transparent);--golge:color-mix(in srgb,var(--bg) 70%,transparent)}
+.cihaz{position:absolute;margin:0}
+/* tarayıcı */
+.tarayici{right:0;top:0;width:60cqw;border-radius:1.8cqw;background:var(--panel);border:1px solid var(--line);overflow:hidden;box-shadow:0 .2cqw .5cqw color-mix(in srgb,var(--ink) 8%,transparent),0 1.6cqw 4cqw -2cqw var(--golge)}
+.tarayici__bar{display:flex;align-items:center;gap:.9cqw;height:4.6cqw;padding:0 1.8cqw;background:var(--surface);border-bottom:1px solid var(--line)}
+.tarayici__bar i{width:1.2cqw;height:1.2cqw;border-radius:50%;background:var(--line)}
+.tarayici__bar span{margin-left:1.6cqw;flex:1;max-width:58%;height:2.8cqw;display:flex;align-items:center;padding:0 1.6cqw;border-radius:99px;background:var(--bg);font-size:max(.75rem,1.7cqw);color:var(--muted);font-weight:var(--fw-menu)}
+.tarayici img{width:100%;height:auto;aspect-ratio:1200/525;object-fit:cover;object-position:50% 0}
+/* tablet: dış yarıçap 3cqw − kasa 1.2cqw = ekran 1.8cqw (eşmerkezli) */
+.tablet{left:0;top:25cqw;width:57cqw;padding:1.2cqw;border-radius:3cqw;z-index:2;background:var(--cihaz);box-shadow:inset 0 0 0 1px var(--kenar),0 .3cqw .8cqw color-mix(in srgb,var(--ink) 14%,transparent),0 2.4cqw 5cqw -2.4cqw var(--golge)}
+.tablet__bar{height:3.2cqw;display:flex;align-items:center;justify-content:center;font-size:max(.75rem,1.6cqw);font-weight:var(--fw-menu);letter-spacing:.01em;color:color-mix(in srgb,var(--bg) 72%,transparent)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tablet__bar{color:var(--muted)}}
+:root[data-theme="dark"] .tablet__bar{color:var(--muted)}
+.tablet__ekran{position:relative;width:100%;aspect-ratio:3/2;border-radius:1.8cqw;overflow:hidden;background:var(--surface);touch-action:pan-y;cursor:ew-resize;user-select:none;-webkit-user-select:none}
+.yar{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.yar--once{clip-path:inset(0 calc(100% - var(--p) * 1%) 0 0)}
+.ayrac{z-index:1;position:absolute;top:0;bottom:0;left:calc(var(--p) * 1%);width:2.4cqw;margin-left:-1.2cqw;cursor:ew-resize;touch-action:none}
+.ayrac::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--panel);box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 22%,transparent)}
+.tutac{position:absolute;left:50%;top:50%;width:4.4cqw;height:4.4cqw;margin:-2.2cqw 0 0 -2.2cqw;border-radius:50%;background:var(--panel);border:1px solid color-mix(in srgb,var(--ink) 22%,transparent);box-shadow:0 .4cqw 1.2cqw color-mix(in srgb,var(--ink) 28%,transparent)}
+.tutac::before,.tutac::after{content:"";position:absolute;top:50%;width:.8cqw;height:.8cqw;margin-top:-.4cqw;border-top:2px solid var(--ink);border-left:2px solid var(--ink)}
+.tutac::before{left:1.1cqw;transform:rotate(-45deg)}
+.tutac::after{right:1.1cqw;transform:rotate(135deg)}
+.ayrac:focus-visible{outline:none}
+.ayrac:focus-visible .tutac{outline:2px solid var(--focus);outline-offset:.25rem}
+.et,.etiket-ai{z-index:2;position:absolute;display:inline-flex;align-items:center;padding:.5cqw 1.6cqw;border-radius:99px;background:var(--panel);color:var(--ink);border:1px solid var(--line);font-size:max(.75rem,1.6cqw);font-weight:var(--fw-sub);pointer-events:none}
+.et{top:1.6cqw}
+.et--sol{left:1.6cqw}
+.et--sag{right:1.6cqw}
+.etiket-ai{left:1.6cqw;bottom:1.6cqw}
+/* telefon: dış 3.6cqw − kasa .8cqw = ekran 2.8cqw */
+.telefon{--pad:.375rem;--rt:3.6cqw;right:3cqw;top:34cqw;width:22cqw;padding:var(--pad);border-radius:var(--rt);z-index:3;background:var(--cihaz);box-shadow:inset 0 0 0 1px var(--kenar),0 .3cqw .8cqw color-mix(in srgb,var(--ink) 14%,transparent),0 2.4cqw 5cqw -2.4cqw var(--golge)}
+.telefon__ekran{width:100%;aspect-ratio:1320/2868;border-radius:calc(var(--rt) - var(--pad));overflow:hidden;background:var(--surface)}
+.telefon__ekran img{display:block;width:100%;height:100%;object-fit:contain}
+/* dar ekran: tablet büyür (etiketler sığsın), tarayıcı ve telefon arkada/önde küçülür */
+@media(max-width:640px){
+
+.tarayici{width:70cqw}
+.tablet{width:80cqw;top:32cqw}
+.telefon{width:27cqw;right:1cqw;top:49cqw;--pad:.25rem;--rt:4.4cqw}
+.tablet__bar{font-size:.75rem;height:5cqw}
+.tablet{padding:1.6cqw;border-radius:4cqw}.tablet__ekran{border-radius:2.4cqw}
+.sahne{aspect-ratio:1/1.1}
+.tutac{width:7cqw;height:7cqw;margin:-3.5cqw 0 0 -3.5cqw}.tutac::before{left:1.8cqw}.tutac::after{right:1.8cqw}
+.ayrac{width:5cqw;margin-left:-2.5cqw}
+.et,.etiket-ai{padding:.8cqw 2.4cqw}
+}
+@media(max-width:640px){
+.ayrac{width:2.75rem;margin-left:-1.375rem}
+.tutac{width:1.75rem;height:1.75rem;margin:-.875rem 0 0 -.875rem}
+.tutac::before,.tutac::after{width:.5rem;height:.5rem;margin-top:-.25rem}
+.tutac::before{left:.5rem}.tutac::after{right:.5rem}
+}
+/* ortak önce/sonra karşılaştırma (kart boyutu, rem). Biçim: <div class="kk" data-kars style="--p:50"> <img class="kk-sonra"> <img class="kk-once"> <span class="kk-et kk-et--sol">Önce</span> <span class="kk-et kk-et--sag">Sonra</span> <div class="kk-ayrac" role="slider" tabindex="0" aria-orientation="horizontal" aria-label="Önce ve sonra karşılaştırması" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="Önce yüzde 50, sonra yüzde 50"><span class="kk-tutac" aria-hidden="true"></span></div></div>
+   Kapsayıcının oranını sayfa CSS'i verir (örn. aspect-ratio:3/2 ya da 2/3). Davranış ortak.js. Kendiliğinden hareket yok. */
+.kk{position:relative;overflow:hidden;border-radius:var(--r-card);background:var(--surface);touch-action:pan-y;cursor:ew-resize;user-select:none;-webkit-user-select:none;border:1px solid var(--line)}
+.kk>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.kk-once{clip-path:inset(0 calc(100% - var(--p) * 1%) 0 0)}
+.kk-ayrac{position:absolute;z-index:1;top:0;bottom:0;left:calc(var(--p) * 1%);width:2.75rem;margin-left:-1.375rem;cursor:ew-resize;touch-action:none}
+.kk-ayrac::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--panel);box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 22%,transparent)}
+.kk-tutac{position:absolute;left:50%;top:50%;width:2.25rem;height:2.25rem;margin:-1.125rem 0 0 -1.125rem;border-radius:50%;background:var(--panel);border:1px solid color-mix(in srgb,var(--ink) 22%,transparent);box-shadow:0 .25rem .75rem color-mix(in srgb,var(--ink) 28%,transparent)}
+.kk-tutac::before,.kk-tutac::after{content:"";position:absolute;top:50%;width:.5rem;height:.5rem;margin-top:-.25rem;border-top:2px solid var(--ink);border-left:2px solid var(--ink)}
+.kk-tutac::before{left:.625rem;transform:rotate(-45deg)}
+.kk-tutac::after{right:.625rem;transform:rotate(135deg)}
+.kk-ayrac:focus-visible{outline:none}
+.kk-ayrac:focus-visible .kk-tutac{outline:2px solid var(--focus);outline-offset:.25rem}
+.kk-et,.kk-ai{position:absolute;z-index:2;display:inline-flex;align-items:center;min-height:1.75rem;padding:0 .75rem;border-radius:var(--r-pill);background:var(--panel);color:var(--ink);border:1px solid var(--line);font-size:.75rem;font-weight:var(--fw-sub);pointer-events:none}
+.kk-et{top:.75rem}
+.kk-et--sol{left:.75rem}
+.kk-et--sag{right:.75rem}
+.kk-ai{left:.75rem;bottom:.75rem}
+/* V3 bölümleri (Teknik-1): çalışma biçimi, son güncelleme, iletişim çağrısı, footer. Yalnız tokenlar.css tokenları; sabit renk yok; hareket yok (yalnız renk geçişsiz :hover); 4px ızgarası (rem); en küçük metin .75rem. */
+.t1-wrap{width:100%;max-width:var(--measure);margin-inline:auto;padding-inline:max(var(--sp-4),env(safe-area-inset-left,0px)) max(var(--sp-4),env(safe-area-inset-right,0px));box-sizing:border-box}
+.t1-wrap *{box-sizing:border-box}
+.t1-sec{font-family:var(--font);font-weight:var(--fw-body);color:var(--ink);line-height:var(--lh-body);padding-block:var(--sp-20)}
+.t1-sec a{color:inherit}
+.t1-sec a:focus-visible,.t1-foot a:focus-visible{outline:2px solid var(--focus);outline-offset:var(--sp-1);border-radius:var(--sp-2)}
+.t1-h2{margin:0;font-size:clamp(var(--fs-xl),3.2vw,var(--fs-2xl));font-weight:var(--fw-head);line-height:var(--lh-head);letter-spacing:var(--ls-head);text-wrap:balance}
+.t1-lead{margin:var(--sp-4) 0 0;max-width:56ch;color:var(--muted);font-size:var(--fs-md)}
+.t1-link{display:inline-block;margin-top:var(--sp-6);font-weight:var(--fw-sub);font-size:var(--fs-sm);text-decoration:none;border-bottom:1px solid var(--line)}
+.t1-link:hover{border-color:var(--ink)}
+.t1-sec-flush{padding-top:0}
+/* çalışma biçimi */
+.t1-method{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--sp-12);align-items:start}
+.t1-steps{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.t1-steps li{display:grid;grid-template-columns:var(--sp-12) 1fr;gap:var(--sp-4);padding:var(--sp-6) 0;border-bottom:1px solid var(--line)}
+.t1-n{font-size:var(--fs-sm);font-weight:var(--fw-sub);letter-spacing:var(--ls-label);color:var(--muted);font-variant-numeric:tabular-nums;padding-top:var(--sp-1)}
+.t1-steps h3{margin:0;font-size:var(--fs-lg);font-weight:var(--fw-sub);letter-spacing:var(--ls-head);line-height:1.3}
+.t1-steps p{margin:var(--sp-1) 0 0;color:var(--muted);font-size:var(--fs-md);max-width:52ch}
+/* son güncelleme */
+.t1-upd{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--sp-12);align-items:start;border-top:1px solid var(--line);padding-top:var(--sp-12)}
+.t1-card{display:grid;grid-template-columns:auto 1fr;gap:var(--sp-6);align-items:start;padding:var(--sp-8);background:var(--panel);border:1px solid var(--line);border-radius:var(--r-panel)}
+.t1-icon{width:4rem;height:4rem;border-radius:var(--r-card);border:1px solid var(--line);background:var(--surface);display:block}
+.t1-meta{display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-3);align-items:center;margin:0 0 var(--sp-2);font-size:var(--fs-sm);font-weight:var(--fw-sub);color:var(--muted)}
+.t1-card h3{margin:0;font-size:var(--fs-xl);font-weight:var(--fw-head);letter-spacing:var(--ls-head);line-height:var(--lh-head)}
+.t1-card ul{margin:var(--sp-4) 0 0;padding:0;list-style:none;display:grid;gap:var(--sp-3)}
+.t1-card li{position:relative;padding-left:var(--sp-5);color:var(--muted);font-size:var(--fs-md)}
+.t1-card li::before{content:"";position:absolute;left:0;top:.7em;width:var(--sp-2);height:1px;background:var(--muted)}
+/* iletişim çağrısı */
+.t1-cta{border:1px solid var(--line);border-radius:var(--r-panel);background:var(--surface);padding:var(--sp-16) var(--sp-8);margin-block:var(--sp-8)}
+.t1-cta-in{max-width:44rem;margin-inline:auto;text-align:center}
+.t1-cta .t1-lead{margin-inline:auto}
+.t1-btn{display:inline-flex;align-items:center;justify-content:center;min-height:3rem;margin-top:var(--sp-8);padding:0 var(--sp-6);border-radius:var(--r-pill);background:var(--button);color:var(--button-ink)!important;font-weight:var(--fw-sub);font-size:var(--fs-md);text-decoration:none}
+.t1-btn:hover{opacity:.88}
+/* footer */
+.t1-foot{font-family:var(--font);font-weight:var(--fw-body);color:var(--ink);padding-block:var(--sp-16) var(--sp-8);line-height:var(--lh-body)}
+.t1-foot-top{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--sp-12);padding-bottom:var(--sp-12);border-bottom:1px solid var(--line)}
+.t1-logo{height:1.25rem;width:auto;color:var(--ink);display:block}
+.t1-foot-top p{margin:var(--sp-4) 0 0;max-width:36ch;color:var(--muted);font-size:var(--fs-md)}
+.t1-foot nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-12)}
+.t1-foot h2{margin:0 0 var(--sp-3);font-size:var(--fs-sm);font-weight:var(--fw-sub);color:var(--muted)}
+.t1-foot nav a{display:block;padding:var(--sp-1) 0;font-size:var(--fs-sm);font-weight:var(--fw-menu);text-decoration:none;color:var(--ink)}
+.t1-foot nav a:hover{text-decoration:underline;text-underline-offset:var(--sp-1)}
+.t1-foot-bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--sp-3) var(--sp-6);padding-top:var(--sp-6);font-size:var(--fs-xs);color:var(--muted)}
+.t1-foot-bot div{display:flex;gap:var(--sp-6)}
+@media (max-width:900px){
+ .t1-sec{padding-block:var(--sp-12)}
+ .t1-method,.t1-upd,.t1-foot-top{grid-template-columns:1fr;gap:var(--sp-8)}
+ .t1-upd{padding-top:var(--sp-8)}
+ .t1-card{padding:var(--sp-5);gap:var(--sp-4)}
+ .t1-cta{padding:var(--sp-10) var(--sp-5)}
+ .t1-foot nav{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:480px){.t1-card{grid-template-columns:1fr}.t1-foot nav{grid-template-columns:1fr}}
+/* ortak entegrasyon */
+/* bölüm sınırında üst üste çizgi olmasın: bir section'ın ilk çocuğu liste ise listenin ilk satır üst çizgisi görünmez (boyut korunur) */
+main section>:is(ul,ol,dl):first-child>:first-child{border-top-color:transparent}
+.t1-foot{padding-block-start:var(--bolum-y)}
+.t1-cta{margin-block:0}
+main{padding-bottom:0;margin-bottom:0}
+main>:last-child{margin-bottom:0}
+main>:last-child>:last-child{margin-bottom:0}
+.nb{white-space:nowrap;hyphens:none;overflow-wrap:normal}
+.wrap,.t1-wrap{width:min(var(--measure),100% - 2*var(--sp-6));max-width:none;margin-inline:auto;padding-inline:0}
+h1,h2,h3,p,li,dd,dt,.btn,.durum,figcaption{overflow-wrap:anywhere;hyphens:auto}
+.btn{white-space:normal;text-align:center}
+svg{max-width:100%}
+a:active,button:active,.btn:active{opacity:.85;transform:none}
+.btn.btn{color:var(--button-ink)}
+.btn.btn--line{color:var(--ink)}
+.nav .brand{color:var(--ink)}
+.brand{flex:0 1 auto;width:auto;min-width:0}
+.brand svg{width:8.875rem;height:auto;max-width:100%}
+.nav__in .btn{flex:none}
+@media(min-width:861px){.nav__in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}.nav__in .brand{justify-self:start}.links{margin:0;justify-self:center}.nav__in .btn{justify-self:end;margin:0}}
+.t1-foot-top>*,.t1-foot nav>*{min-width:0}
+.t1-foot nav a,.t1-foot h2,.t1-foot-bot *{overflow-wrap:anywhere}
+.t1-foot nav{grid-template-columns:repeat(auto-fit,minmax(min(100%,8rem),1fr))}
+.t1-btn{white-space:normal;max-width:100%;text-align:center}
+@media(max-width:380px){.nav__in{padding:0 var(--sp-2) 0 var(--sp-4);gap:var(--sp-2)}.nav__in .btn{padding:0 var(--sp-4)}}
+/* V5 tek sayfa */
+main[data-sayfa]:focus{outline:none}
+main[hidden]{display:none!important}
+/* V5 QA düzeltmeleri */
+.mobil:not([open])>.mobil__panel{display:none}
+/* V5 menü: tam ortalama */
+@media(min-width:861px){.nav__in{padding-inline:var(--sp-3)}.nav__in .brand{margin-left:var(--sp-2)}}
+/* V3 tokenlar (Teknik-1): V2 "Saf gri" paleti, R=G=B, açık + koyu (prefers-color-scheme). Palet seçici YOK.
+   Herkes yalnız bu tokenları kullanır; sabit renk yazılmaz. Yeşil/renkli nötr yok.
+   AA (WCAG 2.x, ölçüldü): açık: ink/bg 17.01 · ink/surface 15.72 · ink/panel 17.76 · ink/soft 14.49 · muted/bg 6.21 · muted/surface 5.74 · muted/panel 6.48 · muted/soft 5.29 · button-ink/button 17.76 · focus/bg 17.01
+   koyu: ink/bg 17.67 · ink/surface 16.3 · ink/panel 17.03 · ink/soft 14.11 · muted/bg 9.27 · muted/surface 8.55 · muted/panel 8.93 · muted/soft 7.4 · button-ink/button 17.67 · focus/bg 17.67. Ölçüler V2 palet_aa.md'dedir.
+   Aralıklar 4px ızgarası (rem), en küçük metin 0,75rem (12px), tipografi Nunito 425/550/600/650. */
+@media (prefers-color-scheme:dark){}
+/* V3 taban (Frontend-1): sıfırlama, tipografi, üst menü, düğme, ortak parçalar. Yalnız tokenlar (tokenlar.css); sabit renk yok. rem, 4px ızgarası. */
+@font-face{font-family:'Nunito';font-weight:200 1000;font-style:normal;font-display:swap;src:url(/assets/v1/fonts/nunito-latin-ext-wght.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Nunito';font-weight:200 1000;font-style:normal;font-display:swap;src:url(/assets/v1/fonts/nunito-latin-wght.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+/* üst menü */
+/* ortak üst menü ek stilleri (Frontend-1): Ürünler açılır menüsü, mobil menü, geri bağlantısı */
+/* ortak cihaz çerçeveleri (Frontend-1): .sahne konteyneri içinde .tarayici/.tablet/.telefon, boyutlar cqw. Hero sürükleyicisi (.ayrac/.tutac/.et) bu sahneye bağlı. */
+/* tarayıcı */
+/* tablet: dış yarıçap 3cqw − kasa 1.2cqw = ekran 1.8cqw (eşmerkezli) */
+/* telefon: dış 3.6cqw − kasa .8cqw = ekran 2.8cqw */
+/* dar ekran: tablet büyür (etiketler sığsın), tarayıcı ve telefon arkada/önde küçülür */
+/* ortak önce/sonra karşılaştırma (kart boyutu, rem). Biçim: <div class="kk" data-kars style="--p:50"> <img class="kk-sonra"> <img class="kk-once"> <span class="kk-et kk-et--sol">Önce</span> <span class="kk-et kk-et--sag">Sonra</span> <div class="kk-ayrac" role="slider" tabindex="0" aria-orientation="horizontal" aria-label="Önce ve sonra karşılaştırması" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="Önce yüzde 50, sonra yüzde 50"><span class="kk-tutac" aria-hidden="true"></span></div></div>
+   Kapsayıcının oranını sayfa CSS'i verir (örn. aspect-ratio:3/2 ya da 2/3). Davranış ortak.js. Kendiliğinden hareket yok. */
+/* V3 bölümleri (Teknik-1): çalışma biçimi, son güncelleme, iletişim çağrısı, footer. Yalnız tokenlar.css tokenları; sabit renk yok; hareket yok (yalnız renk geçişsiz :hover); 4px ızgarası (rem); en küçük metin .75rem. */
+/* çalışma biçimi */
+/* son güncelleme */
+/* iletişim çağrısı */
+/* footer */
+/* ortak entegrasyon */
+/* V3 ilk ekran (Frontend-1): T5 cihaz sahnesi. Yalnız tokenlar; cihaz kasası/gölge tokenlardan türetilir. Hareket yalnız kullanıcının sürüklediği ayraç. */
+/* ürün listesi */
+/* V3 bölümler (Frontend-2). Yalnız tokenlar (tokenlar.css); sabit renk yok; hareket yok; 4px ızgarası (rem); en küçük metin .75rem.
+   Cihaz dili T5'e uyar: ince çerçeve, yumuşak nötr gölge, eşmerkezli köşeler (dış yarıçap = iç yarıçap + çerçeve). Görseller kaynak boyutundan büyük gösterilmez. */
+/* Hizmet satırları: asimetrik zig-zag (metin / cihaz), kart yok */
+/* Cihazlar */
+/* Öne çıkan projeler: hikâye (sol) + cihazlar (sağ), dönüşümlü */
+/* V5 ana sayfa bölümleri (Frontend-1): tanıtım. Yalnız token; tek aralık jetonu --bolum-y. */
+/* ==== vesira ==== */
+/* Vesira sayfası (Frontend-2). Yalnız tokenlar; sabit renk yok; hareket yok (yalnız kullanıcı sürüklerken ayraç); 4px ızgarası; en küçük metin .75rem. */
+/* Üst */
+/* Cihaz dili (T5/hero ile aynı) */
+/* Bölümler */
+/* Sorun/çözüm, kimler için, adımlar */
+/* Özellikler: asimetrik */
+/* CTA */
+/* ==== polishreel ==== */
+/* tarayıcı ve telefon çerçeveleri (pr- yerel; ortak.css cihaz çerçeveleri gelince değiştirilebilir) */
+/* görsel hikâye */
+/* sorun/çözüm, çıktılar */
+/* kalite kontrol */
+/* nasıl çalışır */
+/* çağrı */
+/* ==== carlog ==== */
+/* carlog.html sayfa stili (Frontend-1). Yalnız tokenlar; 4px ızgarası; rem. Cihaz kasası ilk ekranla aynı mantık (tokenlardan türetilir). */
+/* V4.5: boşluklar, yarı boş sütun yok */
+/* V4.5.2: vesira deseni — Kimler için 2 sütun, CTA kutusu sola yaslı */
+/* ==== urunler ==== */
+/* V5 Ürünlerimiz sayfası (Frontend-2). Kapsam: .ur5. Yalnız site tokenları (saf gri), Nunito, rem/4px ızgara, animasyon yok.
+   Boşluk: bölümler arası görünür aralık = --bolum-y (her bölüm padding-block: --bolum-y / 2). */
+/* ürün satırı: sahne | metin (çift sayılı satır ters) */
+/* sahne: yüzey üzerinde gerçek görseller */
+/* telefon: kasa + eşmerkezli ekran (dış 2.4rem − kasa .5rem = 1.9rem) */
+/* fotoğraf ızgarası 2×2 */
+/* metin */
+/* orta ve dar ekran */
+/* masaüstü: satır yüksekliğini METİN belirler; sahne ona uyar (boş üst/alt kalmaz). contain:size ile sahnenin kendi yüksekliği satırı büyütmez. */
+/* bölüm aralığı (Teknik-2 ölçümü, mürekkepten mürekkebe): son ürün → footer arasını footer'ın kendi üst boşluğu (--bolum-y) verir.
+   Dar ekranda düğme metni kutusunun 12px üstünde biter; satır altı o kadar kısaltılır. */

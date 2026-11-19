@@ -1,0 +1,6 @@
+/* V5 404 sayfası: yalnız ortak jetonlar (Frontend-1). */
+.v5-404{padding-block:var(--bolum-y,5rem);min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:var(--sp-3)}
+.v5-404__kod{margin:0;font-size:clamp(4rem,3rem + 8vw,9rem);font-weight:800;line-height:1;letter-spacing:-.04em;color:var(--muted)}
+.v5-404 h1{margin:0}
+.v5-404 .lead{max-width:36rem;margin:0}
+.v5-404 .aksiyon{margin:0}

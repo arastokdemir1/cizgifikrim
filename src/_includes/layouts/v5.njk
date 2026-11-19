@@ -1,0 +1,41 @@
+{#- V5 ortak sayfa iskeleti (Frontend-1). Front matter: title, description, og (isteğe bağlı), v5Sayfa (ana|urunler|vesira|polishreel|carlog), v5Css (ek CSS adları, /assets/v1/css/<ad>.css), v5Js (ek JS adları), v5MainSinif, v5Alternatif (isteğe bağlı), noindex, analitikYok. -#}
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark">
+<title>{{ title }}</title>
+<meta name="description" content="{{ description }}">
+<link rel="canonical" href="{{ site.url }}{{ page.url }}">
+{%- if noindex or env.onizleme %}
+<meta name="robots" content="noindex,follow">
+{%- endif %}
+{%- set ogYol = og or '/assets/v1/img/og/tr-home.png' %}
+<meta property="og:title" content="{{ title }}"><meta property="og:description" content="{{ description }}"><meta property="og:url" content="{{ site.url }}{{ page.url }}"><meta property="og:type" content="website"><meta property="og:site_name" content="CizgiFikrim"><meta property="og:locale" content="tr_TR"><meta property="og:image" content="{{ site.url }}{{ ogYol }}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{{ title }}">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{{ title }}"><meta name="twitter:description" content="{{ description }}"><meta name="twitter:image" content="{{ site.url }}{{ ogYol }}">
+<meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme:light)"><meta name="theme-color" content="#101010" media="(prefers-color-scheme:dark)">
+<link rel="icon" href="/assets/v1/img/brand/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/v1/img/brand/apple-touch-icon.png">
+<link rel="preload" href="/assets/v1/fonts/nunito-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/v1/css/v5.css?v=20261119">
+{%- for c in v5Css %}
+<link rel="stylesheet" href="/assets/v1/css/{{ c }}.css?v=20261119">
+{%- endfor %}
+{%- if jsonld %}
+<script type="application/ld+json">{{ jsonld | jsonld | safe }}</script>
+{%- endif %}
+</head>
+<body>
+<a class="atla" href="#icerik">İçeriğe geç</a>
+{% include "v5/header.njk" %}
+
+<main id="icerik" data-sayfa="{{ v5Sayfa }}" tabindex="-1"{% if v5MainSinif %} class="{{ v5MainSinif }}"{% endif %}>
+{{ content | safe }}
+</main>
+{% include "v5/footer.njk" %}
+<script src="/assets/v1/js/v5.js?v=20261119" defer></script>
+{%- for j in v5Js %}
+<script src="/assets/v1/js/{{ j }}.js?v=20261119" defer></script>
+{%- endfor %}
+{%- if not analitikYok %}
+<script src="/assets/v1/js/analytics.js" defer></script>
+{%- endif %}
+</body></html>
