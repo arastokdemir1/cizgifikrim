@@ -1,122 +1,207 @@
-{
-  "_not": "Çalışma kartı ve poster verisi. Metinler icerik_ortak.md §5 + PART C'den birebir (çelişkide C kazanır); metin değişikliği Teknik-1'in kapısından geçer. Görsel yolları src/assets/img/projeler/. 'gorsel.tur': telefon (gerçek uygulama ekranı, demo posteri; App Store görseli cihaza KONMAZ), pencere (web uygulaması, önce/sonra bölünmüş), karolar (3 küçük 4:5 örnek çıktı). tasarim_sartnamesi.md §3.",
-  "hizmetSlugs": [
-    "web-sitesi-ve-e-ticaret",
-    "mobil-uygulama",
-    "yapay-zeka-ve-otomasyon"
+[
+ {
+  "slug": "vesira",
+  "ad": "Vesira",
+  "ne": "Kendi odanın fotoğrafından, aynı odanın yeniden tasarlanmış halini gösteren iç tasarım uygulaması.",
+  "platform": "Web · iOS (hazırlanıyor)",
+  "durum": "Yayında",
+  "yil": "2026",
+  "one_cikan": true,
+  "baglanti": {
+   "etiket": "vesira.app",
+   "url": "https://vesira.app"
+  },
+  "kart_gorsel": "/assets/v1/img/proje/vesira/kart.webp",
+  "bolumler": [
+   {
+    "baslik": "Kendi odan, aynı oda.",
+    "metin": "Bir fotoğraftan, aynı odanın yeniden tasarlanmış hali. Pencereler, gün ışığı ve yapı yerinde kalır.",
+    "gorsel": "/assets/v1/img/proje/vesira/yatak-sonra.webp",
+    "alt": "Yatak odası yeniden tasarlandıktan sonra: ahşap panel, koyu mavi yastıklar, desenli halı",
+    "tur": "oncesonra",
+    "cift": "/assets/v1/img/proje/vesira/yatak-once.webp",
+    "once": "/assets/v1/img/proje/vesira/yatak-once.webp",
+    "sonra": "/assets/v1/img/proje/vesira/yatak-sonra.webp",
+    "alt_once": "Yenilenmeden önce yatak odası: sade yatak, perdeli pencere"
+   },
+   {
+    "baslik": "Değişimin boyutunu sen seç.",
+    "metin": "Light touch, Refresh ya da Full redesign. Mobilyaların kalsın mı, her şey yenilensin mi, sen karar verirsin.",
+    "gorsel": "/assets/v1/img/proje/vesira/ios-yeni-oda.webp",
+    "alt": "Vesira iOS ekranı: değişim seviyesi (Light touch, Refresh, Full redesign) ve renk teması seçimi",
+    "tur": "telefon"
+   },
+   {
+    "baslik": "Mutfak, baştan.",
+    "metin": "Full redesign: kabuk sabit kalır, içerideki her şey yenilenir.",
+    "gorsel": "/assets/v1/img/proje/vesira/mutfak-sonra.webp",
+    "alt": "Mutfak yeniden tasarlandıktan sonra: yeşil dolaplar, desenli koşucu halı, bar taburesi",
+    "tur": "oncesonra",
+    "cift": "/assets/v1/img/proje/vesira/mutfak-once.webp",
+    "once": "/assets/v1/img/proje/vesira/mutfak-once.webp",
+    "sonra": "/assets/v1/img/proje/vesira/mutfak-sonra.webp",
+    "alt_once": "Yenilenmeden önce mutfak: açık renk dolaplar, buzdolabı, küçük masa"
+   },
+   {
+    "baslik": "Sonucu birkaç dokunuşla düzelt.",
+    "metin": "Hazır seçeneklerle ya da kısa bir notla yeni sürüm iste. Eski sürümler kaybolmaz.",
+    "gorsel": "/assets/v1/img/proje/vesira/ios-duzelt.webp",
+    "alt": "Vesira iOS düzeltme ekranı: Brighter, Warmer tones, Simpler gibi hazır seçenekler",
+    "tur": "telefon"
+   },
+   {
+    "baslik": "Stil seçmek zorunlu değil.",
+    "metin": "Varsayılan olarak Vesira senin için önerir; istersen on tasarım stilinden birini seçersin.",
+    "gorsel": "/assets/v1/img/proje/vesira/web-stiller.webp",
+    "alt": "vesira.app stil seçimi bölümü: 'Suggest for me' ve on tasarım stili",
+    "tur": "tarayici"
+   },
+   {
+    "baslik": "Salon, Refresh.",
+    "metin": "Renk, ışık ve birkaç parça değişir; oda aynı oda kalır.",
+    "gorsel": "/assets/v1/img/proje/vesira/salon-sonra.webp",
+    "alt": "Salon Refresh sonrası: yeşil duvar, sanat eseri, turuncu yastıklar",
+    "tur": "oncesonra",
+    "cift": "/assets/v1/img/proje/vesira/salon-once.webp",
+    "once": "/assets/v1/img/proje/vesira/salon-once.webp",
+    "sonra": "/assets/v1/img/proje/vesira/salon-sonra.webp",
+    "alt_once": "Yenilenmeden önce salon: gri koltuk, perdeli pencere"
+   },
+   {
+    "baslik": "Odaların tek yerde.",
+    "metin": "Web ile aynı hesap, odalar ve kredilerle çalışan yerel iOS uygulaması yolda; henüz yayında değil.",
+    "gorsel": "/assets/v1/img/proje/vesira/ios-odalarim.webp",
+    "alt": "Vesira iOS Odalarım ekranı: salon, koridor ve mutfak",
+    "tur": "telefon"
+   }
   ],
-  "liste": [
-    {
-      "slug": "carlog",
-      "baslik": "CarLog",
-      "url": "/calismalar/carlog/",
-      "hizmetSlug": "mobil-uygulama",
-      "boyut": "buyuk",
-      "cumle": "Yolculuğu kendiliğinden algılar; yakıt, gişe ve köprü masrafını canlı hesaplayan iOS uygulaması.",
-      "etiketler": [
-        "iOS",
-        "CarPlay",
-        "Araç masrafı"
-      ],
-      "durum": "App Store'da",
-      "ikincil": [
-        {
-          "etiket": "Tarayıcıda dene",
-          "href": "/calismalar/carlog/#demo",
-          "dis": false
-        },
-        {
-          "etiket": "App Store'da aç",
-          "href": "https://apps.apple.com/tr/app/id6779625494",
-          "dis": true
-        }
-      ],
-      "gorsel": {
-        "tur": "magaza",
-        "altyazi": null,
-        "ogeler": []
-      },
-      "platform": "iOS"
-    },
-    {
-      "slug": "vesira",
-      "baslik": "Vesira",
-      "url": "/calismalar/vesira/",
-      "hizmetSlug": "yapay-zeka-ve-otomasyon",
-      "boyut": "buyuk",
-      "cumle": "Odanın kendi fotoğrafından gerçekçi yenileme tasarımı üreten yapay zekâ iç mimarlık uygulaması.",
-      "etiketler": [
-        "Web",
-        "Yapay zekâ",
-        "İç mimarlık"
-      ],
-      "durum": "Web'de yayında",
-      "ikincil": [
-        {
-          "etiket": "vesira.app'i aç",
-          "href": "https://vesira.app",
-          "dis": true
-        }
-      ],
-      "gorsel": {
-        "tur": "pencere",
-        "altyazi": "Örnek: önce / sonra",
-        "pencereAdi": "vesira.app",
-        "ogeler": [
-          {
-            "kaynak": "src/assets/img/projeler/vesira/salon-once.webp",
-            "alt": "Örnek salon fotoğrafı, yenilemeden önce",
-            "etiket": "Önce",
-            "genislik": 1280
-          },
-          {
-            "kaynak": "src/assets/img/projeler/vesira/salon-yenileme.webp",
-            "alt": "Aynı salonun yenilenmiş tasarımı, örnek",
-            "etiket": "Sonra",
-            "genislik": 1280
-          }
-        ]
-      },
-      "platform": "Web"
-    },
-    {
-      "slug": "polishreel",
-      "baslik": "PolishReel",
-      "url": "https://polishreel.com",
-      "hizmetSlug": "yapay-zeka-ve-otomasyon",
-      "boyut": "kucuk",
-      "cumle": "Takı ve aksesuar mağazaları için ürün fotoğrafından aylık fotoğraf seti ve kısa dikey video hazırlayan hizmet.",
-      "etiketler": [
-        "Web",
-        "Yapay zekâ",
-        "Ürün görseli"
-      ],
-      "durum": "Geliştiriliyor",
-      "girisim": "CizgiFikrim'in kendi girişimi",
-      "ikincil": [],
-      "gorsel": {
-        "tur": "karolar",
-        "altyazi": "Örnek çıktı",
-        "ogeler": [
-          {
-            "kaynak": "src/assets/img/projeler/polishreel/ornek-studio.jpg",
-            "alt": "Örnek çıktı: stüdyo sahnesi",
-            "genislik": 720
-          },
-          {
-            "kaynak": "src/assets/img/projeler/polishreel/ornek-lifestyle.jpg",
-            "alt": "Örnek çıktı: yaşam sahnesi",
-            "genislik": 720
-          },
-          {
-            "kaynak": "src/assets/img/projeler/polishreel/ornek-yakin-cekim.jpg",
-            "alt": "Örnek çıktı: yakın çekim",
-            "genislik": 720
-          }
-        ]
-      },
-      "platform": "Web",
-      "dis": true
-    }
+  "kaynaklar": [
+   "site-referans/urun-materyalleri/vesira/durum.md"
   ]
-}
+ },
+ {
+  "slug": "polishreel",
+  "ad": "PolishReel",
+  "ne": "Takı ve aksesuar mağazaları için ürün fotoğrafından fotoğraf setleri ve kısa dikey videolar hazırlayan yönetilen içerik hizmeti.",
+  "platform": "Yönetilen hizmet · tanıtım sitesi yayında",
+  "durum": "Geliştiriliyor",
+  "one_cikan": true,
+  "baglanti": {
+   "etiket": "polishreel.com",
+   "url": "https://polishreel.com"
+  },
+  "cip": "Örnek çıktı",
+  "kart_gorsel": "/assets/v1/img/proje/polishreel/kart.webp",
+  "bolumler": [
+   {
+    "baslik": "Tek ürün, dört sahne.",
+    "metin": "Mağazanın elindeki ürün fotoğrafından stüdyo, yaşam, takılı ve yakın çekim görselleri hazırlanır. Önce stüdyo.",
+    "gorsel": "/assets/v1/img/proje/polishreel/studio.webp",
+    "alt": "Gümüş örgü bileklik koyu taş yüzeyde, stüdyo çekimi",
+    "tur": "foto"
+   },
+   {
+    "baslik": "Yaşam sahnesi.",
+    "metin": "Aynı ürün, gerçek bir kullanım anında.",
+    "gorsel": "/assets/v1/img/proje/polishreel/lifestyle.webp",
+    "alt": "Bileklikli bir kol masada, yumuşak gün ışığı",
+    "tur": "foto"
+   },
+   {
+    "baslik": "Takılı.",
+    "metin": "Ürünün bilekteki duruşu.",
+    "gorsel": "/assets/v1/img/proje/polishreel/worn.webp",
+    "alt": "Bileklik takılı bilek, elin cebe girdiği bir poz",
+    "tur": "foto"
+   },
+   {
+    "baslik": "Yakın çekim.",
+    "metin": "Detaylar görünür kalır.",
+    "gorsel": "/assets/v1/img/proje/polishreel/closeup.webp",
+    "alt": "Bilekliğin bilekte yakın çekimi",
+    "tur": "foto"
+   },
+   {
+    "baslik": "Kısa dikey video.",
+    "metin": "Yaklaşık 10–30 saniye, sessiz ya da ses efektli. Videodaki kişi yapay zekâ ile üretildi.",
+    "gorsel": "/assets/v1/img/proje/polishreel/video-poster.webp",
+    "alt": "Kısa dikey video: bileklik taş yüzeyde, sonra bilekte",
+    "tur": "video",
+    "video": "/assets/v1/video/urun/pr-ornek-video.mp4"
+   },
+   {
+    "baslik": "Her sonuç gerçek ürünle karşılaştırılır.",
+    "metin": "Renk, şekil ya da parça sayısı değişmişse sonuç reddedilir ve yeniden yapılır. Bu kare reddedildi: altı siyah parça var, doğrusu dört.",
+    "gorsel": "/assets/v1/img/proje/polishreel/reddedilen.webp",
+    "alt": "Yapay zekânın hatalı ürettiği bileklik karesi: altı siyah parça var",
+    "tur": "foto"
+   }
+  ],
+  "kaynaklar": [
+   "site-referans/urun-materyalleri/polishreel/durum.md"
+  ]
+ },
+ {
+  "slug": "carlog",
+  "ad": "CarLog",
+  "ne": "Yolculuğu kendiliğinden algılayıp yakıt, gişe ve köprü masrafını hesaplayan iOS uygulaması.",
+  "platform": "iOS · sürüm 5.3.1",
+  "durum": "App Store'da",
+  "yil": "2026",
+  "one_cikan": true,
+  "baglanti": {
+   "etiket": "App Store",
+   "url": "https://apps.apple.com/tr/app/id6779625494"
+  },
+  "ikon": "/assets/v1/img/proje/carlog/ikon.webp",
+  "kart_gorsel": "/assets/v1/img/proje/carlog/kart.webp",
+  "bolumler": [
+   {
+    "baslik": "Bir bakışta toplam gider.",
+    "metin": "Tüm araçların masrafı, gün, hafta ya da ay olarak tek ekranda.",
+    "gorsel": "/assets/v1/img/proje/carlog/ozet.webp",
+    "alt": "CarLog Özet ekranı: tüm araçlar, toplam gider, harcama seyri",
+    "tur": "telefon"
+   },
+   {
+    "baslik": "Yola çıkmadan maliyet.",
+    "metin": "Nereden nereye gideceğini seç; yakıt, gişe ve köprü masrafı birlikte hesaplanır.",
+    "gorsel": "/assets/v1/img/proje/carlog/hesapla.webp",
+    "alt": "CarLog Hesapla ekranı: başlangıç ve varış seçimi, tahmini toplam maliyet",
+    "tur": "telefon"
+   },
+   {
+    "baslik": "Yolculuklar kendiliğinden kaydedilir.",
+    "metin": "Uygulama yolculuğu algılar; listede aylara göre görürsün.",
+    "gorsel": "/assets/v1/img/proje/carlog/yolculuk.webp",
+    "alt": "CarLog Yolculuklar ekranı: aylara göre örnek yolculuk listesi",
+    "tur": "telefon"
+   },
+   {
+    "baslik": "Canlı sürüş ekranı.",
+    "metin": "Yolculuk sürerken hız ve anlık maliyet.",
+    "gorsel": "/assets/v1/img/proje/carlog/canli.webp",
+    "alt": "CarLog canlı sürüş ekranı: harita üzerinde anlık rota ve hız",
+    "tur": "telefon"
+   },
+   {
+    "baslik": "Giderin nereye gittiği.",
+    "metin": "Yakıt, gişe ve diğer giderlerin dağılımı.",
+    "gorsel": "/assets/v1/img/proje/carlog/analiz.webp",
+    "alt": "CarLog Analiz ekranı: gider dağılımı ve grafik",
+    "tur": "telefon"
+   },
+   {
+    "baslik": "Birden fazla araç.",
+    "metin": "Çok araçlı aileler için garaj; her aracın kendi tüketim değerleri.",
+    "gorsel": "/assets/v1/img/proje/carlog/garaj.webp",
+    "alt": "CarLog Garaj ekranı: iki araç",
+    "tur": "telefon"
+   }
+  ],
+  "kaynaklar": [
+   "site-referans/urun-materyalleri/carlog/durum.md",
+   "https://apps.apple.com/tr/app/id6779625494"
+  ]
+ }
+]
