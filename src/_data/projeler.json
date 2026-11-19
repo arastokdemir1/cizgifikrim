@@ -204,7 +204,7 @@
    },
    {
     "baslik": "Durum",
-    "metin": "Geliştiriliyor. Satış öncesi aşamada; tanıtım sitesi yayında."
+    "metin": "Satış öncesi aşamada; tanıtım sitesi yayında."
    }
   ]
  },
@@ -271,8 +271,8 @@
     "metin": "CarLog'u tarayıcıda, örnek verilerle dene.",
     "url": "/demo/carlog/",
     "oran": "telefon",
-    "gorsel": "/assets/v1/img/proje/carlog/ozet.webp",
-    "alt": "CarLog web demosu: Özet ekranı"
+    "gorsel": "/assets/v1/img/proje/carlog/demo-ozet.webp",
+    "alt": "CarLog web demosu: bugünün gideri ve son 14 günlük grafik"
    }
   ],
   "kaynaklar": [
@@ -309,7 +309,7 @@
    },
    {
     "baslik": "Durum",
-    "metin": "App Store'da, güncel sürüm 5.3.1 (8 Kasım 2026)."
+    "metin": "Güncel sürüm 5.3.1 (8 Kasım 2026)."
    }
   ]
  },
@@ -395,7 +395,7 @@
    },
    {
     "baslik": "Durum",
-    "metin": "App Store'da, güncel sürüm 4.1 (8 Kasım 2026). İlk yayın 15 Temmuz 2026."
+    "metin": "Güncel sürüm 4.1 (8 Kasım 2026). İlk yayın 15 Temmuz 2026."
    }
   ]
  },
@@ -466,7 +466,7 @@
    },
    {
     "baslik": "Durum",
-    "metin": "App Store'da, mağazadaki güncel sürüm 2.0.6 (24 Ağustos 2026). İlk yayın 4 Mayıs 2026."
+    "metin": "Mağazadaki güncel sürüm 2.0.6 (24 Ağustos 2026). İlk yayın 4 Mayıs 2026."
    }
   ]
  },
@@ -540,10 +540,6 @@
    {
     "baslik": "Platform ve teknoloji",
     "metin": "iPhone. Türkçe, İngilizce ve Almanca. Veriler yalnızca cihazda tutulur; hesap, reklam ve takip yok, internete yalnızca döviz kurları için bağlanır. FlowGraph Pro aylık ve yıllık abonelikle sunulur."
-   },
-   {
-    "baslik": "Durum",
-    "metin": "App Store'da."
    }
   ]
  },
@@ -626,7 +622,7 @@
    },
    {
     "baslik": "Durum",
-    "metin": "App Store'da. İlk yayın 2 Temmuz 2026."
+    "metin": "İlk yayın 2 Temmuz 2026."
    }
   ]
  },
@@ -643,13 +639,6 @@
   "kart_gorsel": "/assets/v1/img/proje/baupilotaj/kart.webp",
   "bolumler": [
    {
-    "baslik": "Uçarak çalış.",
-    "metin": "Bir Cessna 172 ile 6 uçuş evresi, 28 karışık EASA sorusu, canlı ICAO kule telsizi ve uçuş içi arıza senaryoları.",
-    "gorsel": "/assets/v1/img/proje/baupilotaj/acilis.webp",
-    "alt": "Baupilotaj açılış ekranı: Flight Simulator ve EASA Exam Bank seçenekleri",
-    "tur": "tarayici"
-   },
-   {
     "baslik": "280 soruluk soru bankası.",
     "metin": "Dokuz resmî EASA konusuna göre filtrele; her soruda ilgili mevzuat atfı anında görünür. Telefonda da çalışır.",
     "gorsel": "/assets/v1/img/proje/baupilotaj/mobil.webp",
@@ -658,12 +647,12 @@
    },
    {
     "tur": "demo",
-    "baslik": "Canlı uygulama.",
-    "metin": "Uçuş simülatörünü ve soru bankasını burada aç.",
+    "baslik": "Uçarak çalış.",
+    "metin": "Bir Cessna 172 ile 6 uçuş evresi, 28 karışık EASA sorusu, canlı ICAO kule telsizi ve uçuş içi arıza senaryoları.",
     "url": "/baupilotaj/",
     "oran": "yatay",
     "gorsel": "/assets/v1/img/proje/baupilotaj/kart.webp",
-    "alt": "Baupilotaj açılış ekranı"
+    "alt": "Baupilotaj açılış ekranı: Flight Simulator ve EASA Exam Bank seçenekleri"
    }
   ],
   "kaynaklar": [
@@ -687,10 +676,6 @@
    {
     "baslik": "Platform ve teknoloji",
     "metin": "Web; tarayıcıda çalışır, telefonda da kullanılabilir. Arayüz İngilizce."
-   },
-   {
-    "baslik": "Durum",
-    "metin": "Yayında."
    }
   ]
  },
@@ -782,7 +767,7 @@
    },
    {
     "baslik": "Durum",
-    "metin": "App Store'da. İlk yayın 15 Ağustos 2026."
+    "metin": "İlk yayın 15 Ağustos 2026."
    }
   ]
  },
@@ -813,7 +798,7 @@
    },
    {
     "baslik": "Durum",
-    "metin": "Geliştiriliyor. Herkese açık bir ürün değil."
+    "metin": "Herkese açık bir ürün değil."
    }
   ]
  },
@@ -837,10 +822,6 @@
    {
     "baslik": "Ne",
     "metin": "Tamamen yerel çalışan, gizlilik odaklı yapay zekâ asistanı."
-   },
-   {
-    "baslik": "Durum",
-    "metin": "Geliştiriliyor."
    }
   ]
  },
@@ -877,10 +858,6 @@
    {
     "baslik": "Platform ve teknoloji",
     "metin": "macOS; yerel depolama için Core Data."
-   },
-   {
-    "baslik": "Durum",
-    "metin": "Geliştiriliyor."
    }
   ]
  },
@@ -904,10 +881,6 @@
    {
     "baslik": "Ne",
     "metin": "ECU yazılımları ve araç içi dijital sistemlere yönelik çözüm."
-   },
-   {
-    "baslik": "Durum",
-    "metin": "Geliştiriliyor."
    }
   ]
  },
@@ -931,10 +904,6 @@
    {
     "baslik": "Ne",
     "metin": "LLM'den bağımsız bilişsel karar çekirdeği üzerine otonom yapay zekâ araştırması."
-   },
-   {
-    "baslik": "Durum",
-    "metin": "Ar-Ge."
    }
   ]
  },
@@ -958,10 +927,6 @@
    {
     "baslik": "Ne",
     "metin": "Filtre tabanlı BIST hisse tarama uygulaması."
-   },
-   {
-    "baslik": "Durum",
-    "metin": "Bakımda."
    }
   ]
  }
