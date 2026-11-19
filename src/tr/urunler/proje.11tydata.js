@@ -49,7 +49,8 @@ export default {
     title: (d) => `${d.p.ad} | CizgiFikrim`,
     description: (d) => aciklama(d.p),
     og: (d) => d.p.og || '/assets/v1/img/og/tr-products.png',
-    sergi: (d) => bolumler(d.p, d.gorselBoyut),
+    // canlı demo en değerli etkileşimli bölüm: ilk sıraya alınır (detay bloğundan hemen sonra), diğerleri kendi sırasında
+    sergi: (d) => { const b = bolumler(d.p, d.gorselBoyut); return [...b.filter((x) => x.tur === 'demo'), ...b.filter((x) => x.tur !== 'demo')]; },
     // canlı demo bölümü varsa ölçekli iframe betiği yüklenir
     v5Js: (d) => ((d.p.bolumler || []).some((b) => b.tur === 'demo') ? ['v6-demo'] : []),
     // detay: başlık + metin ya da liste; boş satırlar atlanır

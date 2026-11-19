@@ -164,7 +164,11 @@
 .v6-demo__ekran{position:relative;display:block;overflow:hidden}
 .v6-demo__ekran>img{display:block;width:100%;height:auto}
 .v6-demo__ekran--canli{aspect-ratio:var(--oran)}
-.v6-demo__ekran--canli>img{display:none}
+.v6-demo__ekran--canli>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.v6-demo__ekran iframe{opacity:0;transition:opacity .25s ease}
+.v6-demo--hazir .v6-demo__ekran iframe{opacity:1}
+.v6-demo--hazir .v6-demo__ekran>img{visibility:hidden}
+@media (prefers-reduced-motion:reduce){.v6-demo__ekran iframe{transition:none}}
 .v6-demo__ekran iframe{position:absolute;left:0;top:0;border:0;transform:scale(var(--olcek,1));transform-origin:0 0;background:var(--panel)}
 .v6-pano .v6-demo--telefon .v6-tel{width:clamp(14rem,20vw,18.5rem)}
 .v6-demo__ac{margin:0}
