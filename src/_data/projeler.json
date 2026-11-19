@@ -123,7 +123,7 @@
    },
    {
     "baslik": "Kısa dikey video.",
-    "metin": "Yaklaşık 10–30 saniye, sessiz ya da ses efektli. Videodaki kişi yapay zekâ ile üretildi.",
+    "metin": "Hizmette video yaklaşık 10–30 saniye sürer; bu örnek 20 saniye, yazısız ve sessiz. Videodaki kişi yapay zekâ ile üretildi.",
     "gorsel": "/assets/v1/img/proje/polishreel/video-poster.webp",
     "alt": "Kısa dikey video: bileklik taş yüzeyde, sonra bilekte",
     "tur": "video",
@@ -138,7 +138,8 @@
    }
   ],
   "kaynaklar": [
-   "site-referans/urun-materyalleri/polishreel/durum.md"
+   "site-referans/urun-materyalleri/polishreel/durum.md",
+   "durum.md 'Sunulan çıktılar': kısa dikey video yaklaşık 10–30 sn; 'Görseller': ornek-video-dikey-yazisiz-720x1280.mp4 (20 sn, yazısız, sessiz); ffprobe süre 20.0 sn; 'Videodaki kişi yapay zekâ üretimi'"
   ]
  },
  {
@@ -509,7 +510,8 @@
   "kaynaklar": [
    "https://apps.apple.com/tr/app/zihinustas%C4%B1/id6800084874 (iTunes lookup, herkese açık)",
    "site-referans/urun-materyalleri/zihin-ustasi/itunes_lookup.json",
-   "zihinustasi/support.html"
+   "zihinustasi/support.html",
+   "iTunes lookup description: 'sahneyi 10 saniye boyunca dikkatle incele', '5 farklı kategori, 200 kart'; zihinustasi/support.html: 10 saniye"
   ],
   "yil": "2026",
   "kart_gorsel": "/assets/v1/img/proje/zihin-ustasi/kart.webp"
