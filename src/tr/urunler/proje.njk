@@ -1,5 +1,8 @@
 {#- V6 proje sergi sayfası (Frontend-2). Veri ve pagination: proje.11tydata.js (src/_data/projeler.json). -#}
 {%- from "v6/gorsel.njk" import cerceve -%}
+{%- if v2 %}
+{% include "v6/proje-v2.njk" %}
+{%- else %}
 <div class="wrap v6p-ust">
   <a class="v6p-geri" href="{{ kok }}"><span aria-hidden="true">←</span> Ürünler</a>
   <div class="v6p-etiket{% if levha %} v6p-etiket--levha{% if kunyeSayisi <= 2 %} v6p-etiket--tek{% endif %}{% endif %}">
@@ -48,6 +51,7 @@
   </section>
   {%- endfor %}
 </div>
+{%- endif %}
 {%- endif %}
 
 <div class="wrap v6p-son">

@@ -37,6 +37,26 @@ function bolumler(p, boyut) {
   });
 }
 
+// V6.2 şablon v2 (opt-in: proje.sablon === 'v2'): ürünün kendi rengi + anlatı akışı. Kahraman = ilk manşet + hemen ardındaki görsel/telefonlar.
+const parlaklik = (h) => { const m = /^#?([0-9a-f]{6})$/i.exec(h || ''); if (!m) return 1; const n = parseInt(m[1], 16); const c = [n >> 16, (n >> 8) & 255, n & 255].map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
+function v2(p) {
+  if (p.sablon !== 'v2' || !Array.isArray(p.anlati) || !p.anlati.length) return null;
+  const r = p.renk || {};
+  const zemin = r.zemin || '#0d0d0d'; const zeminKoyu = r.zemin_koyu || zemin;
+  const tonA = parlaklik(zemin) > 0.4 ? 'acik' : 'koyu'; const tonK = parlaklik(zeminKoyu) > 0.4 ? 'acik' : 'koyu';
+  const stil = [`--u-zemin:${zemin}`, `--u-zemin-k:${zeminKoyu}`, `--u-vurgu:${r.vurgu || '#888888'}`, `--u-mv:${r.metin_vurgu || r.vurgu || 'currentColor'}`, `--u-mv-k:${r.metin_vurgu_koyu || r.metin_vurgu || r.vurgu || 'currentColor'}`].join(';');
+  const a = p.anlati.filter((x) => x && x.tur);
+  let hero = null; let i = 0;
+  if (a[0] && a[0].tur === 'manset') { hero = { manset: a[0], gorsel: null }; i = 1; if (a[1] && (a[1].tur === 'telefonlar' || a[1].tur === 'gorsel')) { hero.gorsel = a[1]; i = 2; } }
+  const akis = [];
+  for (const x of a.slice(i)) {
+    const son = akis[akis.length - 1];
+    if (x.tur === 'gorsel' && x.genislik === 'yarim') { if (son && son.tur === 'ikili') son.ogeler.push(x); else akis.push({ tur: 'ikili', ogeler: [x] }); }
+    else akis.push(x);
+  }
+  return { stil, sinif: `v2--${tonA} v2-k--${tonK}`, hero, akis, demo: a.some((x) => x.tur === 'demo') };
+}
+
 export default {
   layout: 'layouts/v5.njk',
   pagination: { data: 'projeler', size: 1, alias: 'p', before: liste, addAllPagesToCollections: true },
@@ -52,7 +72,10 @@ export default {
     // canlı demo en değerli etkileşimli bölüm: ilk sıraya alınır (detay bloğundan hemen sonra), diğerleri kendi sırasında
     sergi: (d) => { const b = bolumler(d.p, d.gorselBoyut); return [...b.filter((x) => x.tur === 'demo'), ...b.filter((x) => x.tur !== 'demo')]; },
     // canlı demo bölümü varsa ölçekli iframe betiği yüklenir
-    v5Js: (d) => ((d.p.bolumler || []).some((b) => b.tur === 'demo') ? ['v6-demo'] : []),
+    v2: (d) => v2(d.p),
+    v5Css: (d) => (v2(d.p) ? ['v6-proje', 'v6-proje-v2'] : ['v6-proje']),
+    v5MainSinif: (d) => (v2(d.p) ? 'v6p v6p2' : 'v6p'),
+    v5Js: (d) => (((v2(d.p) ? d.p.anlati : d.p.bolumler) || []).some((b) => b && b.tur === 'demo') ? ['v6-demo'] : []),
     // detay: başlık + metin ya da liste; boş satırlar atlanır
     // müze etiketindeki cümleyi aynen tekrar eden satır (ör. "Ne") gösterilmez
     detay: (d) => (Array.isArray(d.p.detay) ? d.p.detay : []).filter((x) => x && x.baslik && ((x.metin && String(x.metin).trim()) || (Array.isArray(x.liste) && x.liste.length))).filter((x) => x.liste || nokta(x.metin) !== nokta(d.p.ne)),

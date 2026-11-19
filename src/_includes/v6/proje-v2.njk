@@ -1,0 +1,114 @@
+{#- V6.2 proje sayfası şablon v2 (Frontend-2). Yalnız proje.sablon === 'v2' olan projeler (proje.njk dallanır).
+    Ürünün kendi rengi (renk) + anlatı akışı (anlati): kahraman (ad + büyük manşet + büyük görsel) → manşet / görsel / telefonlar / özellikler / demo → küçük künye notu.
+    Veri: proje.11tydata.js → v2 { stil, sinif, hero, akis }. Metinler yalnız projenin mevcut ne/detay/bolumler alanlarından. -#}
+{%- from "v6/gorsel.njk" import cerceve, olcu, oran -%}
+
+{%- macro telefonlar(x, boyut, ilk) -%}
+{%- set yalin = (x.cerceve === false) -%}
+<div class="v2-tels v2-tels--{{ x.gorseller.length }} v2-tels--{{ x.dizilim or 'yan' }}{% if yalin %} v2-tels--yalin{% endif %}">
+  {%- for g in x.gorseller %}
+  <figure class="v2-tel">
+    {%- if yalin %}<img class="v2-tanitim" src="{{ g }}"{{ olcu(g, boyut) }} alt="{{ x.altlar[loop.index0] if x.altlar else '' }}" loading="{{ 'eager' if ilk else 'lazy' }}" decoding="async">
+    {%- else %}<div class="v6-tel"><div class="v6-tel__ekran"><img src="{{ g }}"{{ olcu(g, boyut) }} alt="{{ x.altlar[loop.index0] if x.altlar else '' }}" loading="{{ 'eager' if ilk else 'lazy' }}" decoding="async"></div></div>{% endif %}
+  </figure>
+  {%- endfor %}
+</div>
+{%- endmacro -%}
+
+{%- macro gorsel(x, boyut, ilk) -%}
+{%- set yukle = 'eager' if ilk else 'lazy' -%}
+{%- if x.cift -%}
+<div class="kk v2-kk" data-kars style="--p:50;aspect-ratio:{{ oran(x.gorsel, boyut, '3/2') }}">
+<img class="kk-sonra" src="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} alt="{{ x.alt }}" loading="{{ yukle }}" decoding="async">
+<img class="kk-once" src="{{ x.cift }}"{{ olcu(x.cift, boyut) }} alt="{{ x.alt_once or 'Önceki hali' }}" loading="{{ yukle }}" decoding="async">
+<span class="kk-et kk-et--sol">Önce</span><span class="kk-et kk-et--sag">Sonra</span>
+<div class="kk-ayrac" role="slider" tabindex="0" aria-orientation="horizontal" aria-label="{{ x.baslik or 'Görsel' }} Önce ve sonra karşılaştırması" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="Önce yüzde 50, sonra yüzde 50"><span class="kk-tutac" aria-hidden="true"></span></div>
+</div>
+{%- elif x.cerceve == 'tarayici' -%}
+<div class="v6-tar v2-tar"><div class="v6-tar__bar" aria-hidden="true"><i></i><i></i><i></i>{% if p.baglanti and ('.' in p.baglanti.etiket) %}<span>{{ p.baglanti.etiket }}</span>{% endif %}</div><img src="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} alt="{{ x.alt }}" loading="{{ yukle }}" decoding="async"></div>
+{%- else -%}
+<img class="v2-foto" src="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} alt="{{ x.alt }}" loading="{{ yukle }}" decoding="async">
+{%- endif -%}
+{%- endmacro -%}
+
+
+<div class="v2 {{ v2.sinif }}" style="{{ v2.stil }}">
+  {%- set h = v2.hero %}
+  <section class="v2-hero" aria-labelledby="v2-h1">
+    <div class="wrap v2-hero__metin">
+      <a class="v2-geri" href="{{ kok }}"><span aria-hidden="true">←</span> Ürünler</a>
+      <h1 id="v2-h1"><span class="v2-ad">{% if p.ikon %}<img src="{{ p.ikon }}" width="40" height="40" alt="">{% endif %}{{ p.ad }}</span>{% if h %}<span class="v2-baslik">{{ h.manset.baslik }}</span>{% endif %}</h1>
+      <p class="v2-giris">{{ h.manset.metin if h else p.ne }}</p>
+      <p class="v2-cta">
+        {%- if v2.demo %}<a class="btn v2-btn" href="#v2-demo">Canlı demoyu dene</a>{% endif %}
+        {%- if p.baglanti and p.baglanti.url %}{% set dis = p.baglanti.url.indexOf('http') == 0 %}<a class="v2-link" href="{{ p.baglanti.url }}"{% if dis %} rel="noopener" target="_blank"{% endif %}>{{ p.baglanti.etiket }}{% if dis %}<span class="v6-gizli"> (yeni sekmede açılır)</span> <span aria-hidden="true">↗</span>{% endif %}</a>{% endif %}
+      </p>
+    </div>
+    {%- if h and h.gorsel %}
+    <div class="v2-hero__gorsel{% if h.gorsel.tur == 'gorsel' %} wrap{% endif %}">
+      {%- if h.gorsel.tur == 'telefonlar' %}{{ telefonlar(h.gorsel, gorselBoyut, true) }}{% else %}{{ gorsel(h.gorsel, gorselBoyut, true) }}{% endif %}
+    </div>
+    {%- endif %}
+  </section>
+
+  {%- for x in v2.akis %}
+  {%- set no = loop.index %}
+  {%- if x.tur == 'manset' %}
+  <section class="wrap v2-blok v2-manset" aria-labelledby="v2b{{ no }}">
+    <h2 id="v2b{{ no }}">{{ x.baslik }}</h2>
+    {%- if x.metin %}<p>{{ x.metin }}</p>{% endif %}
+  </section>
+
+  {%- elif x.tur == 'telefonlar' %}
+  {%- set bolunmus = (x.baslik and x.gorseller.length <= 2) %}
+  <section class="v2-blok v2-telbolum{% if bolunmus %} v2-telbolum--bol{% endif %}"{% if x.baslik %} aria-labelledby="v2b{{ no }}"{% else %} aria-label="{{ p.ad }} ekranları"{% endif %}>
+    <div class="wrap v2-telbolum__ic">
+      {%- if x.baslik %}<div class="v2-telbolum__metin"><h2 id="v2b{{ no }}">{{ x.baslik }}</h2>{% if x.metin %}<p>{{ x.metin }}</p>{% endif %}</div>{% endif %}
+      {{ telefonlar(x, gorselBoyut, false) }}
+    </div>
+  </section>
+
+  {%- elif x.tur == 'gorsel' %}
+  <section class="v2-blok v2-gorselbolum v2-gorselbolum--{{ x.genislik or 'genis' }}"{% if x.baslik %} aria-labelledby="v2b{{ no }}"{% else %} aria-label="{{ x.alt }}"{% endif %}>
+    {%- if x.metin %}<div class="wrap v2-manset v2-manset--ust"><h2 id="v2b{{ no }}">{{ x.baslik }}</h2><p>{{ x.metin }}</p></div>{% endif %}
+    <figure class="{{ 'v2-tam' if x.genislik == 'tam' else 'wrap' }} v2-figur">
+      {{ gorsel(x, gorselBoyut, false) }}
+      {%- if x.baslik and not x.metin %}<figcaption id="v2b{{ no }}">{{ x.baslik }}</figcaption>{% endif %}
+    </figure>
+  </section>
+
+  {%- elif x.tur == 'ikili' %}
+  <section class="wrap v2-blok v2-ikili" aria-label="{{ p.ad }} örnekleri">
+    {%- for y in x.ogeler %}
+    <figure class="v2-figur">{{ gorsel(y, gorselBoyut, false) }}{% if y.baslik %}<figcaption>{{ y.baslik }}</figcaption>{% endif %}</figure>
+    {%- endfor %}
+  </section>
+
+  {%- elif x.tur == 'ozellikler' %}
+  <section class="wrap v2-blok v2-ozellik"{% if x.baslik %} aria-labelledby="v2b{{ no }}"{% else %} aria-label="Özellikler"{% endif %}>
+    {%- if x.baslik %}<h2 id="v2b{{ no }}">{{ x.baslik }}</h2>{% endif %}
+    <ul class="v2-ozellik__liste">
+      {%- for m in x.maddeler %}
+      <li class="v2-ozellik__oge"><span class="v2-ozellik__no" aria-hidden="true">{{ m.isaret }}</span><span class="v2-ozellik__metin">{{ m.metin }}</span></li>
+      {%- endfor %}
+    </ul>
+  </section>
+
+  {%- elif x.tur == 'demo' %}
+  <section class="v2-blok v2-demo" id="v2-demo" aria-labelledby="v2b{{ no }}">
+    <div class="wrap v2-manset v2-manset--ust"><h2 id="v2b{{ no }}">{{ x.baslik }}</h2>{% if x.metin %}<p>{{ x.metin }}</p>{% endif %}</div>
+    <div class="wrap v2-demo__sahne">{{ cerceve(x, p, gorselBoyut, false) }}</div>
+  </section>
+  {%- endif %}
+  {%- endfor %}
+
+  <div class="wrap v2-kunye">
+    <p class="v2-kunye__ad">{{ p.ad }}</p>
+    <dl>
+      {%- if p.platform %}<div><dt>Platform</dt><dd>{{ p.platform }}</dd></div>{% endif %}
+      <div><dt>Durum</dt><dd>{{ p.durum }}</dd></div>
+      {%- if p.yil %}<div><dt>Yıl</dt><dd>{{ p.yil }}</dd></div>{% endif %}
+      {%- if p.baglanti and p.baglanti.url %}{% set dis = p.baglanti.url.indexOf('http') == 0 %}<div><dt>Bağlantı</dt><dd><a href="{{ p.baglanti.url }}"{% if dis %} rel="noopener" target="_blank"{% endif %}>{{ p.baglanti.etiket }}{% if dis %}<span class="v6-gizli"> (yeni sekmede açılır)</span> <span aria-hidden="true">↗</span>{% endif %}</a></dd></div>{% endif %}
+    </dl>
+  </div>
+</div>

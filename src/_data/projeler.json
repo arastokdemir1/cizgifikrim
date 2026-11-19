@@ -120,6 +120,123 @@
     "baslik": "Durum",
     "metin": "Web'de 20 Ekim 2026'dan beri canlı. iOS uygulaması henüz yayında değil."
    }
+  ],
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#b4623c",
+   "zemin": "#f4ede3",
+   "zemin_koyu": "#1b1612",
+   "metin_vurgu": "#8f4524",
+   "metin_vurgu_koyu": "#e3a27c"
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "Kendi odan, aynı oda.",
+    "metin": "Kendi odanın tek bir fotoğrafından, aynı odanın yeniden tasarlanmış, gerçekçi hali. Pencereler, gün ışığı ve yapı yerinde kalır."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "genis",
+    "gorsel": "/assets/v1/img/proje/vesira/salon-sonra.webp",
+    "cift": "/assets/v1/img/proje/vesira/salon-once.webp",
+    "alt": "Salon Refresh sonrası: yeşil duvar, sanat eseri, turuncu yastıklar",
+    "alt_once": "Yenilenmeden önce salon: gri koltuk, perdeli pencere",
+    "baslik": "Salon, Refresh."
+   },
+   {
+    "tur": "demo",
+    "baslik": "Canlı demo.",
+    "metin": "Vesira arayüzünü örnek görsellerle tarayıcıda dene.",
+    "url": "/demo/vesira/",
+    "oran": "telefon",
+    "gorsel": "/assets/v1/img/proje/vesira/demo-ilk-ekran.webp",
+    "alt": "Vesira etkileşimli demosu: ana ekran"
+   },
+   {
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "baslik": "Değişimin boyutunu sen seç.",
+    "metin": "Light touch, Refresh ya da Full redesign. Sonucu hazır seçeneklerle ya da kısa bir notla düzelt; eski sürümler kaybolmaz.",
+    "gorseller": [
+     "/assets/v1/img/proje/vesira/ios-yeni-oda.webp",
+     "/assets/v1/img/proje/vesira/ios-duzelt.webp"
+    ],
+    "altlar": [
+     "Vesira iOS ekranı: değişim seviyesi (Light touch, Refresh, Full redesign) ve renk teması seçimi",
+     "Vesira iOS düzeltme ekranı: Brighter, Warmer tones, Simpler gibi hazır seçenekler"
+    ]
+   },
+   {
+    "tur": "manset",
+    "baslik": "Mutfak, baştan.",
+    "metin": "Full redesign: kabuk sabit kalır, içerideki her şey yenilenir. Ayracı sürükle, önceki ve sonraki hali karşılaştır."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "yarim",
+    "gorsel": "/assets/v1/img/proje/vesira/mutfak-sonra.webp",
+    "cift": "/assets/v1/img/proje/vesira/mutfak-once.webp",
+    "alt": "Mutfak yeniden tasarlandıktan sonra: yeşil dolaplar, desenli koşucu halı, bar taburesi",
+    "alt_once": "Yenilenmeden önce mutfak: açık renk dolaplar, buzdolabı, küçük masa",
+    "baslik": "Mutfak, Full redesign."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "yarim",
+    "gorsel": "/assets/v1/img/proje/vesira/yatak-sonra.webp",
+    "cift": "/assets/v1/img/proje/vesira/yatak-once.webp",
+    "alt": "Yatak odası yeniden tasarlandıktan sonra: ahşap panel, koyu mavi yastıklar, desenli halı",
+    "alt_once": "Yenilenmeden önce yatak odası: sade yatak, perdeli pencere",
+    "baslik": "Yatak odası."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "genis",
+    "cerceve": "tarayici",
+    "gorsel": "/assets/v1/img/proje/vesira/web-stiller.webp",
+    "alt": "vesira.app stil seçimi bölümü: 'Suggest for me' ve on tasarım stili",
+    "baslik": "Stil seçmek zorunlu değil.",
+    "metin": "Varsayılan olarak Vesira senin için önerir; istersen on tasarım stilinden birini seçersin."
+   },
+   {
+    "tur": "ozellikler",
+    "baslik": "Senin odan, senin seçimlerin.",
+    "maddeler": [
+     {
+      "isaret": "01",
+      "metin": "Pencereler, gün ışığı ve yapı yerinde kalır."
+     },
+     {
+      "isaret": "02",
+      "metin": "Üç değişim seviyesi: Light touch, Refresh, Full redesign."
+     },
+     {
+      "isaret": "03",
+      "metin": "Stil seçmek zorunlu değil; on tasarım stilinden biri seçilebilir."
+     },
+     {
+      "isaret": "04",
+      "metin": "Eski sürümler kaybolmaz."
+     },
+     {
+      "isaret": "05",
+      "metin": "Tasarım profili: seçimlerinden öğrenir, yalnız senin hesabında tutulur."
+     }
+    ]
+   },
+   {
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "baslik": "Odaların tek yerde.",
+    "metin": "Web ile aynı hesap, odalar ve kredilerle çalışan yerel iOS uygulaması yolda; henüz yayında değil.",
+    "gorseller": [
+     "/assets/v1/img/proje/vesira/ios-odalarim.webp"
+    ],
+    "altlar": [
+     "Vesira iOS Odalarım ekranı: salon, koridor ve mutfak"
+    ]
+   }
   ]
  },
  {
@@ -321,6 +438,98 @@
     "baslik": "Durum",
     "metin": "Güncel sürüm 5.3.1 (8 Kasım 2026)."
    }
+  ],
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#3b82f6",
+   "zemin": "#07112e",
+   "zemin_koyu": "#07112e",
+   "metin_vurgu": "#7fb0ff"
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "Yolculuğun maliyeti, görünür.",
+    "metin": "Yolculuğu kendiliğinden algılar; yakıt, gişe ve köprü masrafını hesaplar."
+   },
+   {
+    "tur": "telefonlar",
+    "dizilim": "ust_uste",
+    "gorseller": [
+     "/assets/v1/img/proje/carlog/analiz.webp",
+     "/assets/v1/img/proje/carlog/ozet.webp",
+     "/assets/v1/img/proje/carlog/garaj.webp"
+    ],
+    "altlar": [
+     "CarLog Analiz ekranı: gider dağılımı ve grafik",
+     "CarLog Özet ekranı: tüm araçlar, toplam gider, harcama seyri",
+     "CarLog Garaj ekranı: iki araç"
+    ]
+   },
+   {
+    "tur": "demo",
+    "baslik": "Canlı demo.",
+    "metin": "CarLog'u tarayıcıda, örnek verilerle dene.",
+    "url": "/demo/carlog/",
+    "oran": "telefon",
+    "gorsel": "/assets/v1/img/proje/carlog/demo-ozet.webp",
+    "alt": "CarLog web demosu: bugünün gideri ve son 14 günlük grafik"
+   },
+   {
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "baslik": "Yola çıkmadan maliyet.",
+    "metin": "Nereden nereye gideceğini seç; yakıt, gişe ve köprü masrafı birlikte hesaplanır.",
+    "gorseller": [
+     "/assets/v1/img/proje/carlog/hesapla.webp"
+    ],
+    "altlar": [
+     "CarLog Hesapla ekranı: başlangıç ve varış seçimi, tahmini toplam maliyet"
+    ]
+   },
+   {
+    "tur": "manset",
+    "baslik": "Yolculuklar kendiliğinden kaydedilir.",
+    "metin": "Uygulama yolculuğu algılar; listede aylara göre görürsün. Yolculuk sürerken canlı sürüş ekranında hız ve anlık maliyet."
+   },
+   {
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "gorseller": [
+     "/assets/v1/img/proje/carlog/yolculuk.webp",
+     "/assets/v1/img/proje/carlog/canli.webp"
+    ],
+    "altlar": [
+     "CarLog Yolculuklar ekranı: aylara göre örnek yolculuk listesi",
+     "CarLog canlı sürüş ekranı: harita üzerinde anlık rota ve hız"
+    ]
+   },
+   {
+    "tur": "ozellikler",
+    "baslik": "Taksi, servis ya da dolmuş masrafa eklenmez.",
+    "maddeler": [
+     {
+      "isaret": "01",
+      "metin": "Bluetooth ile sürücü/yolcu ayrımı: taksi, servis, dolmuş ya da başkasının arabası masrafa eklenmez."
+     },
+     {
+      "isaret": "02",
+      "metin": "Araç tüketim değerleri her gün katalogla kontrol edilir."
+     },
+     {
+      "isaret": "03",
+      "metin": "Çok araçlı aileler için garaj; her aracın kendi tüketim değerleri."
+     },
+     {
+      "isaret": "04",
+      "metin": "CarPlay navigasyonu."
+     },
+     {
+      "isaret": "05",
+      "metin": "Kilit ekranı ve ana ekran widget'ı."
+     }
+    ]
+   }
   ]
  },
  {
@@ -416,6 +625,92 @@
    {
     "baslik": "Durum",
     "metin": "Güncel sürüm 4.1 (8 Kasım 2026). İlk yayın 15 Temmuz 2026."
+   }
+  ],
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#f2cf00",
+   "zemin": "#0a0a0a",
+   "zemin_koyu": "#0a0a0a",
+   "metin_vurgu": "#f2cf00"
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "Piyasa cebinde.",
+    "metin": "Araba tutkunu arkadaş grupları için sosyal uygulama: ekip nerede, kim caddede, ne çalıyor, hepsi tek yerde."
+   },
+   {
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "cerceve": false,
+    "gorseller": [
+     "/assets/v1/img/proje/piyasapp/harita.webp",
+     "/assets/v1/img/proje/piyasapp/piyasa.webp",
+     "/assets/v1/img/proje/piyasapp/piyasaya-giris.webp"
+    ],
+    "altlar": [
+     "PiyasApp mağaza görseli: 'Ekibin haritada' başlığı ve araçların göründüğü harita ekranı",
+     "PiyasApp mağaza görseli: 'Piyasa cebinde' başlığı, gece sokakta turuncu bir araba",
+     "PiyasApp mağaza görseli: 'Piyasaya gir, selektör yak' başlığı ve piyasaya giriş kartı"
+    ]
+   },
+   {
+    "tur": "demo",
+    "baslik": "Canlı demo.",
+    "metin": "Konum tabanlı radar, harita ve garaj ekranlarını tarayıcıda dene.",
+    "url": "/demo/piyasa/",
+    "oran": "telefon",
+    "gorsel": "/assets/v1/img/proje/piyasapp/demo-ilk-ekran.webp",
+    "alt": "PiyasApp web demosu: Radar ekranı"
+   },
+   {
+    "tur": "manset",
+    "baslik": "Arkadaşın caddeye girince haberin olur.",
+    "metin": "Kim nerede, hangi arabayla; canlı, bir bakışta. Piyasaya girene Selektör yak."
+   },
+   {
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "cerceve": false,
+    "baslik": "Aynı rota, aynı anda.",
+    "metin": "Hedefi paylaş, ekiple birlikte sür. Listeni aktar, sıradakini gör; fotoğraf, şarkı ve rota tek sohbette.",
+    "gorseller": [
+     "/assets/v1/img/proje/piyasapp/ortak-rota.webp",
+     "/assets/v1/img/proje/piyasapp/muzik.webp",
+     "/assets/v1/img/proje/piyasapp/sohbet.webp"
+    ],
+    "altlar": [
+     "PiyasApp mağaza görseli: 'Aynı rota, aynı anda' başlığı ve ortak rota ekranı",
+     "PiyasApp mağaza görseli: 'Müzik yolda seninle' başlığı ve müzik ekranı",
+     "PiyasApp mağaza görseli: 'Rotanı paylaş' başlığı ve sohbet ekranı"
+    ]
+   },
+   {
+    "tur": "ozellikler",
+    "baslik": "Ekip için, tek yerde.",
+    "maddeler": [
+     {
+      "isaret": "01",
+      "metin": "Harita: ekip nerede, hangi arabayla."
+     },
+     {
+      "isaret": "02",
+      "metin": "Piyasaya giriş: arkadaşın caddeye girince bildirim, Selektör yak."
+     },
+     {
+      "isaret": "03",
+      "metin": "Ortak rota."
+     },
+     {
+      "isaret": "04",
+      "metin": "Müzik ve sohbet."
+     },
+     {
+      "isaret": "05",
+      "metin": "Haritada herkesin yalnız son günkü yolculukları görünür."
+     }
+    ]
    }
   ]
  },
