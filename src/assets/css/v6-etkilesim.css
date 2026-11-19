@@ -1,0 +1,26 @@
+/* V6.2 ortak etkileşim: düğme, bağlantı ve kart (Frontend-1). Yalnız transform/renk/gölge; sayfa geçişi YOK.
+   Eğri: yay hissi cubic-bezier(.2,.8,.2,1), 200ms. prefers-reduced-motion: reduce → hiçbiri uygulanmaz. */
+:root{--yay:cubic-bezier(.2,.8,.2,1)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:.25rem}
+@media (prefers-reduced-motion:no-preference){
+  .btn,.nav .links>a,.urun-menu>a,.urun-menu__panel a,.mobil__panel a,.t1-foot nav a,.t1-foot-bot a,.v6h-kanit a,.v6-kart,a.v6i-kart,.v6a-etiket{transition:transform .2s var(--yay),background-color .2s var(--yay),color .2s var(--yay),border-color .2s var(--yay),box-shadow .2s var(--yay),opacity .2s var(--yay)}
+  .btn [aria-hidden="true"],.v6i-kart [aria-hidden="true"]{display:inline-block;transition:transform .2s var(--yay)}
+  .v6-kart img,a.v6i-kart img,.v6a-ekran img{transition:transform .25s var(--yay)}
+}
+@media (prefers-reduced-motion:no-preference) and (hover:hover){
+  .btn:hover{transform:translateY(-1px)}
+  .btn:not(.btn--line):hover{box-shadow:0 8px 18px -10px color-mix(in srgb,var(--ink) 55%,transparent)}
+  .btn:hover [aria-hidden="true"]{transform:translateX(3px)}
+  .nav .links>a:hover,.urun-menu__panel a:hover,.mobil__panel a:hover{color:var(--ink)}
+  .t1-foot nav a:hover,.t1-foot-bot a:hover{color:var(--muted);transform:translateX(2px)}
+  .v6h-kanit a:hover{transform:translateX(2px)}
+  .v6-kart:hover,a.v6i-kart:hover{transform:translateY(-2px)}
+  .v6-kart:hover img,a.v6i-kart:hover img,.v6a-ekran:hover img{transform:scale(1.02)}
+  a.v6i-kart:hover [aria-hidden="true"]{transform:translate(3px,-3px)}
+}
+@media (prefers-reduced-motion:no-preference){
+  .btn:active,.v6-kart:active,a.v6i-kart:active{transform:scale(.97);opacity:1}
+}
+@media (prefers-reduced-motion:reduce){
+  .btn,.v6-kart,a.v6i-kart,.btn:active,.btn:hover{transition:none;transform:none}
+}
