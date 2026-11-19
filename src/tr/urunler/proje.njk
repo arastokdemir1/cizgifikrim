@@ -1,0 +1,51 @@
+{#- V6 proje sergi sayfası (Frontend-2). Veri ve pagination: proje.11tydata.js (src/_data/projeler.json). -#}
+{%- from "v6/gorsel.njk" import cerceve -%}
+<div class="wrap v6p-ust">
+  <a class="v6p-geri" href="{{ kok }}"><span aria-hidden="true">←</span> Ürünler</a>
+  <header class="v6p-etiket{% if levha %} v6p-etiket--levha{% endif %}">
+    <div class="v6p-etiket__ad">
+      {%- if p.ikon %}<img class="v6p-ikon" src="{{ p.ikon }}" width="56" height="56" alt="">{% endif %}
+      <h1>{{ p.ad }}</h1>
+    </div>
+    <p class="v6p-ne">{{ p.ne }}</p>
+    {%- if levha %}{% for n in levhaNot %}<p class="v6p-not">{{ n }}</p>{% endfor %}{% endif %}
+    <dl class="v6p-kunye">
+      {%- if p.platform %}<div><dt>Platform</dt><dd>{{ p.platform }}</dd></div>{% endif %}
+      <div><dt>Durum</dt><dd>{{ p.durum }}</dd></div>
+      {%- if p.yil %}<div><dt>Yıl</dt><dd>{{ p.yil }}</dd></div>{% endif %}
+      {%- if p.baglanti and p.baglanti.url %}{% set dis = p.baglanti.url.indexOf('http') == 0 %}<div><dt>Bağlantı</dt><dd><a href="{{ p.baglanti.url }}"{% if dis %} rel="noopener" target="_blank"{% endif %}>{{ p.baglanti.etiket }}{% if dis %}<span class="v6-gizli"> (yeni sekmede açılır)</span> <span aria-hidden="true">↗</span>{% endif %}</a></dd></div>{% endif %}
+      {%- if p.cip %}<div><dt>Not</dt><dd><span class="v6-cip">{{ p.cip }}</span></dd></div>{% endif %}
+    </dl>
+  </header>
+</div>
+
+{%- if sergi.length and not levha %}
+<div class="wrap v6p-sergi">
+  {%- for b in sergi %}
+  {%- set yalniz = (b.tur == 'plaka' and not b.baslik) %}
+  <section class="v6p-bolum v6p-bolum--{{ b.tur }}{% if yalniz %} v6p-bolum--tek{% endif %}"{% if yalniz %} aria-label="{{ p.ad }}"{% else %} aria-labelledby="b{{ loop.index }}"{% endif %}>
+    <div class="v6p-gorsel">{{ cerceve(b, p, gorselBoyut, loop.first) }}</div>
+    {%- if not yalniz %}
+    <div class="v6p-metin">
+      {%- if sergi.length > 1 %}<p class="v6p-no" aria-hidden="true">{{ '0' if loop.index < 10 }}{{ loop.index }}</p>{% endif %}
+      <h2 id="b{{ loop.index }}">{{ b.baslik }}</h2>
+      {%- if b.metin %}<p>{{ b.metin }}</p>{% endif %}
+    </div>
+    {%- endif %}
+  </section>
+  {%- endfor %}
+</div>
+{%- endif %}
+
+<div class="wrap v6p-son">
+  {%- if komsu %}
+  <nav class="v6p-sira" aria-label="Diğer projeler">
+    <a class="v6p-sira__a" href="{{ kok }}{{ komsu.onceki.slug }}/" rel="prev"><span class="v6p-sira__yon"><span aria-hidden="true">←</span> Önceki</span><span class="v6p-sira__ad">{{ komsu.onceki.ad }}</span></a>
+    <a class="v6p-sira__a v6p-sira__a--sag" href="{{ kok }}{{ komsu.sonraki.slug }}/" rel="next"><span class="v6p-sira__yon">Sonraki <span aria-hidden="true">→</span></span><span class="v6p-sira__ad">{{ komsu.sonraki.ad }}</span></a>
+  </nav>
+  {%- endif %}
+  <section class="v6p-iletisim" aria-labelledby="v6p-il">
+    <h2 id="v6p-il">Aklınızdaki ürünü konuşalım.</h2>
+    <p class="aksiyon"><a class="btn" href="/#iletisim">Projenizi konuşalım</a><a class="btn btn--line" href="{{ kok }}">Tüm ürünler</a></p>
+  </section>
+</div>

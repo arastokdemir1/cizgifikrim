@@ -1,0 +1,47 @@
+{#- V6 sergi görsel çerçeveleri (Frontend-2). b: projeler.json bölümü, p: proje, boyut: gorselBoyut verisi.
+    tur: telefon | tarayici | foto | video | oncesonra | tanitim (App Store mağaza görseli, çerçevesiz) | plaka. App Store tanıtım görseli telefon çerçevesine KONMAZ (tur tanitim ile verilir). -#}
+{%- macro olcu(yol, boyut) -%}
+{%- set o = boyut[yol] -%}{% if o %} width="{{ o[0] }}" height="{{ o[1] }}"{% endif %}
+{%- endmacro -%}
+{%- macro oran(yol, boyut, varsayilan) -%}
+{%- set o = boyut[yol] -%}{% if o %}{{ o[0] }}/{{ o[1] }}{% else %}{{ varsayilan }}{% endif %}
+{%- endmacro -%}
+
+{%- macro cerceve(b, p, boyut, ilk) -%}
+{%- set yukle = 'eager' if ilk else 'lazy' -%}
+{%- if b.tur == 'telefon' -%}
+<div class="v6-tel"><div class="v6-tel__ekran"><img src="{{ b.gorsel }}"{{ olcu(b.gorsel, boyut) }} alt="{{ b.alt }}" loading="{{ yukle }}" decoding="async"></div></div>
+{%- elif b.tur == 'tarayici' -%}
+<div class="v6-tar v6-medya" style="--oran:{{ oran(b.gorsel, boyut, '16/10') }}"><div class="v6-tar__bar" aria-hidden="true"><i></i><i></i><i></i>{% if p.baglanti and ('.' in p.baglanti.etiket) %}<span>{{ p.baglanti.etiket }}</span>{% endif %}</div><img src="{{ b.gorsel }}"{{ olcu(b.gorsel, boyut) }} alt="{{ b.alt }}" loading="{{ yukle }}" decoding="async"></div>
+{%- elif b.tur == 'video' -%}
+<div class="v6-kare v6-medya" style="--oran:{{ oran(b.gorsel, boyut, '9/16') }}"><video controls muted playsinline preload="none" poster="{{ b.gorsel }}"{{ olcu(b.gorsel, boyut) }} aria-label="{{ b.alt }}"><source src="{{ b.video }}" type="video/mp4"></video>{% if p.cip %}<span class="v6-cip v6-cip--ust">{{ p.cip }}</span>{% endif %}</div>
+{%- elif b.tur == 'oncesonra' -%}
+{%- set sonra = b.sonra or b.gorsel -%}{%- set once = b.once or b.cift -%}
+<div class="v6-medya" style="--oran:{{ oran(sonra, boyut, '3/2') }}"><div class="kk v6-kk" data-kars style="--p:50;aspect-ratio:{{ oran(sonra, boyut, '3/2') }}">
+<img class="kk-sonra" src="{{ sonra }}"{{ olcu(sonra, boyut) }} alt="{{ b.alt }}" loading="{{ yukle }}" decoding="async">
+<img class="kk-once" src="{{ once }}"{{ olcu(once, boyut) }} alt="{{ b.alt_once or 'Önceki hali' }}" loading="{{ yukle }}" decoding="async">
+<span class="kk-et kk-et--sol">Önce</span><span class="kk-et kk-et--sag">Sonra</span>
+<div class="kk-ayrac" role="slider" tabindex="0" aria-orientation="horizontal" aria-label="{{ b.baslik }} Önce ve sonra karşılaştırması" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="Önce yüzde 50, sonra yüzde 50"><span class="kk-tutac" aria-hidden="true"></span></div>
+</div></div>
+{%- elif b.tur == 'plaka' or not b.gorsel -%}
+<div class="v6-plaka"><span class="v6-plaka__ad" aria-hidden="true">{{ p.ad }}</span>{% if b.metin and not b.baslik %}<p class="v6-plaka__cumle">{{ b.metin }}</p>{% endif %}</div>
+{%- elif b.tur == 'tanitim' -%}
+<div class="v6-tanitim v6-medya" style="--oran:{{ oran(b.gorsel, boyut, '1290/2796') }}"><img src="{{ b.gorsel }}"{{ olcu(b.gorsel, boyut) }} alt="{{ b.alt }}" loading="{{ yukle }}" decoding="async"></div>
+{%- else -%}
+<div class="v6-kare v6-medya" style="--oran:{{ oran(b.gorsel, boyut, '4/5') }}"><img src="{{ b.gorsel }}"{{ olcu(b.gorsel, boyut) }} alt="{{ b.alt }}" loading="{{ yukle }}" decoding="async">{% if p.cip %}<span class="v6-cip v6-cip--ust">{{ p.cip }}</span>{% endif %}</div>
+{%- endif -%}
+{%- endmacro -%}
+
+{#- Katalog görseli (Frontend-2): p.kartTur (index.11tydata.js) → plaka | telefon (gerçek ekran, çerçeveli) | tanitim (App Store mağaza görseli, çerçevesiz) | foto. -#}
+{%- macro kart(p, boyut, buyuk) -%}
+{%- set k = p.kart_gorsel -%}
+{%- if p.kartTur == 'plaka' or not k -%}
+<span class="v6-plaka v6-plaka--kart{% if not buyuk %} v6-plaka--kucuk{% endif %}" aria-hidden="true"><span class="v6-plaka__ad">{{ p.ad if buyuk else p.ad[0] }}</span></span>
+{%- elif p.kartTur == 'telefon' -%}
+<span class="v6-kart v6-kart--telefon"><span class="v6-tel v6-tel--kart"><span class="v6-tel__ekran"><img src="{{ k }}"{{ olcu(k, boyut) }} alt="" loading="lazy" decoding="async"></span></span></span>
+{%- elif p.kartTur == 'tanitim' -%}
+<span class="v6-kart v6-kart--tanitim"><img src="{{ k }}"{{ olcu(k, boyut) }} alt="" loading="lazy" decoding="async"></span>
+{%- else -%}
+<span class="v6-kart v6-kart--foto"><img src="{{ k }}"{{ olcu(k, boyut) }} alt="" loading="lazy" decoding="async"></span>
+{%- endif -%}
+{%- endmacro -%}

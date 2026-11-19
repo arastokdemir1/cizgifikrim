@@ -1,0 +1,71 @@
+/* V6 /tr/urunler/ katalog (Frontend-2). v6-proje.css'teki ortak çerçevelerle birlikte yüklenir. Yalnız v5.css tokenları.
+   Öne çıkan 3: solda büyük, sağda iki küçük (asimetrik). Kalanlar: duruma göre gruplar, kart değil satır (ince çizgi + boşluk). */
+.v6k-ust{padding-top:clamp(2rem,1rem + 3vw,4.5rem)}
+.v6k-ust h1{margin:0;font-size:clamp(2.25rem,1.5rem + 2.6vw,3.5rem);font-weight:var(--fw-head);line-height:1.02;letter-spacing:-.035em}
+.v6k-giris{margin:var(--sp-4) 0 0;max-width:42ch;color:var(--muted);font-size:clamp(var(--fs-md),.95rem + .3vw,var(--fs-lg));line-height:1.55;text-wrap:pretty}
+
+/* ---- öne çıkanlar ---- */
+.v6k-one{display:grid;gap:var(--sp-10);margin-top:clamp(2.5rem,1.5rem + 3vw,4.5rem)}
+.v6k-oc{display:grid;gap:var(--sp-4);align-content:start;color:var(--ink)}
+.v6k-oc__gorsel{position:relative;display:block;aspect-ratio:4/3}
+.v6k-oc__metin{display:grid;gap:var(--sp-1)}
+.v6k-oc__ad{font-size:var(--fs-xl);font-weight:var(--fw-head);letter-spacing:-.02em;line-height:1.2;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:.2em;transition:text-decoration-color .2s ease}
+.v6k-oc:hover .v6k-oc__ad{text-decoration-color:currentColor}
+.v6k-oc__ne{max-width:44ch;color:var(--muted);font-size:var(--fs-md);line-height:1.5;text-wrap:pretty}
+.v6k-meta{margin-top:var(--sp-1);color:var(--muted);font-size:var(--fs-xs);font-weight:var(--fw-sub);letter-spacing:var(--ls-label);text-transform:uppercase}
+@media (min-width:56rem){
+  .v6k-one{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--sp-6);row-gap:var(--sp-12)}
+  .v6k-oc{grid-column:8/13}
+  .v6k-oc--buyuk{grid-column:1/8;grid-row:1/3;grid-template-rows:1fr auto}
+  .v6k-oc--buyuk .v6k-oc__gorsel{aspect-ratio:auto;min-height:24rem}
+  .v6k-oc--buyuk .v6k-oc__ad{font-size:var(--fs-2xl)}
+}
+
+/* katalog görsel sahnesi */
+.v6-kart{display:block;width:100%;height:100%;overflow:hidden;border-radius:var(--r-card);background:var(--surface);container-type:inline-size}
+.v6-kart--foto img{display:block;width:100%;height:100%;object-fit:cover}
+.v6-kart--tanitim{display:flex;justify-content:center;align-items:center;padding:6% 0}
+.v6-kart--tanitim img{display:block;height:100%;width:auto;max-width:90%;object-fit:contain;border-radius:.75rem}
+.v6-kart--telefon{display:flex;justify-content:center;align-items:flex-start;padding-top:7%}
+.v6-tel--kart{width:min(36cqw,15rem);margin:0}
+.v6k-oc--buyuk .v6-tel--kart{width:min(40cqw,17rem)}
+.v6-plaka--kart{height:100%;aspect-ratio:auto;border-radius:var(--r-card)}
+
+/* ---- tüm projeler: duruma göre gruplar ---- */
+.v6k-tum{margin-top:var(--bolum-y)}
+.v6k-tum__h{margin:0 0 var(--sp-8);font-size:clamp(var(--fs-xl),1.1rem + 1.2vw,var(--fs-2xl));font-weight:var(--fw-head);line-height:var(--lh-head);letter-spacing:var(--ls-head)}
+.v6k-grup{display:grid;gap:var(--sp-3)}
+.v6k-grup+.v6k-grup{margin-top:var(--sp-12)}
+.v6k-grup__h{margin:0;color:var(--muted);font-size:var(--fs-xs);font-weight:var(--fw-sub);letter-spacing:var(--ls-label);text-transform:uppercase}
+.v6k-liste{margin:0;padding:0;list-style:none;border-bottom:1px solid var(--line)}
+.v6k-liste li{border-top:1px solid var(--line)}
+.v6k-satir{display:grid;grid-template-columns:3.5rem minmax(0,1fr) 1.25rem;gap:var(--sp-4);align-items:center;padding:var(--sp-4) 0;color:var(--ink)}
+.v6k-satir__gorsel{display:block;width:3.5rem;aspect-ratio:4/5}
+.v6k-satir__gorsel .v6-kart{border-radius:.625rem}
+.v6k-satir__gorsel .v6-kart--tanitim,.v6k-satir__gorsel .v6-kart--telefon{padding:0}
+.v6k-satir__gorsel .v6-kart--tanitim img,.v6k-satir__gorsel .v6-kart--telefon img{width:100%;height:100%;max-width:none;object-fit:cover;object-position:50% 0;border-radius:0}
+.v6k-satir__gorsel .v6-tel--kart{width:100%;height:100%;padding:0;border-radius:0;box-shadow:none;background:none}
+.v6k-satir__gorsel .v6-tel__ekran{height:100%;border-radius:0}
+.v6-plaka--kucuk{display:grid;place-items:center;align-content:center;justify-content:center;padding:0;border-radius:.625rem}
+.v6-plaka--kucuk .v6-plaka__ad{font-size:var(--fs-xl);letter-spacing:-.02em}
+.v6k-satir__metin{display:grid;gap:.125rem;min-width:0}
+.v6k-satir__ad{font-size:var(--fs-md);font-weight:var(--fw-head);letter-spacing:-.01em}
+.v6k-satir__ne{color:var(--muted);font-size:var(--fs-sm);line-height:1.45;text-wrap:pretty}
+.v6k-satir__platform{display:none;color:var(--muted);font-size:var(--fs-sm)}
+.v6k-satir__ok{color:var(--muted);transition:transform .2s ease,color .2s ease}
+.v6k-satir:hover .v6k-satir__ok{color:var(--ink);transform:translateX(.25rem)}
+.v6k-satir:hover .v6k-satir__ad{text-decoration:underline;text-underline-offset:.2em}
+@media (min-width:56rem){
+  .v6k-grup{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--sp-6);align-items:start}
+  .v6k-grup__h{grid-column:1/4;padding-top:var(--sp-5)}
+  .v6k-liste{grid-column:4/13}
+  .v6k-satir{grid-template-columns:3.5rem minmax(0,1fr) minmax(8rem,13rem) 1.25rem;gap:var(--sp-6)}
+  .v6k-satir__platform{display:block}
+}
+
+/* ---- iletişim ---- */
+.v6k-son{display:grid;gap:var(--sp-5);margin-top:var(--bolum-y)}
+.v6k-son h2{margin:0;font-size:clamp(var(--fs-xl),1.1rem + 1.2vw,var(--fs-2xl));font-weight:var(--fw-head);line-height:var(--lh-head);letter-spacing:var(--ls-head)}
+.v6k-son .aksiyon{margin:0}
+@media (min-width:56rem){.v6k-son{grid-template-columns:1fr auto;align-items:center}}
+@media (prefers-reduced-motion:reduce){.v6k-oc__ad,.v6k-satir__ok{transition:none}}

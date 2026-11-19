@@ -1,0 +1,57 @@
+---
+layout: layouts/v5.njk
+title: "Ürünler · CizgiFikrim"
+description: "CizgiFikrim'in tüm ürün ve projeleri: Vesira, PolishReel, CarLog ve App Store'daki, geliştirilen ya da Ar-Ge aşamasındaki diğer çalışmalar."
+permalink: /tr/urunler/
+v5Sayfa: urunler
+v5MainSinif: v6k
+v5Css: ['v6-proje', 'v6-katalog']
+og: /assets/v1/img/og/tr-products.png
+---
+{#- V6 katalog (Frontend-2): öne çıkan 3 proje büyük, kalanlar duruma göre sakin listeler. Veri: index.11tydata.js → katalog. -#}
+{%- from "v6/gorsel.njk" import kart -%}
+<section class="wrap v6k-ust" aria-labelledby="v6k-h1">
+  <h1 id="v6k-h1">Ürünler</h1>
+  <p class="v6k-giris">Kendi ürünlerimiz ve üzerinde çalıştığımız projeler. Her biri kendi sayfasında, gerçek ekranlarıyla.</p>
+</section>
+
+{%- if katalog.one.length %}
+<section class="wrap v6k-one" aria-label="Öne çıkan ürünler">
+  {%- for p in katalog.one %}
+  <a class="v6k-oc{% if loop.first %} v6k-oc--buyuk{% endif %}" href="/tr/urunler/{{ p.slug }}/">
+    <span class="v6k-oc__gorsel">{{ kart(p, gorselBoyut, true) }}{% if p.cip %}<span class="v6-cip v6-cip--ust">{{ p.cip }}</span>{% endif %}</span>
+    <span class="v6k-oc__metin">
+      <span class="v6k-oc__ad">{{ p.ad }}</span>
+      <span class="v6k-oc__ne">{{ p.ne }}</span>
+      <span class="v6k-meta">{{ p.durum }}{% if p.platform %} · {{ p.platform }}{% endif %}</span>
+    </span>
+  </a>
+  {%- endfor %}
+</section>
+{%- endif %}
+
+{%- if katalog.gruplar.length %}
+<div class="wrap v6k-tum">
+  <h2 class="v6k-tum__h">Tüm projeler</h2>
+  {%- for g in katalog.gruplar %}
+  <section class="v6k-grup" aria-labelledby="g{{ loop.index }}">
+    <h3 id="g{{ loop.index }}" class="v6k-grup__h">{{ g.ad }}</h3>
+    <ul class="v6k-liste">
+      {%- for p in g.projeler %}
+      <li><a class="v6k-satir" href="/tr/urunler/{{ p.slug }}/">
+        <span class="v6k-satir__gorsel">{{ kart(p, gorselBoyut, false) }}</span>
+        <span class="v6k-satir__metin"><span class="v6k-satir__ad">{{ p.ad }}</span><span class="v6k-satir__ne">{{ p.ne }}</span></span>
+        <span class="v6k-satir__platform">{{ p.platform }}</span>
+        <span class="v6k-satir__ok" aria-hidden="true">→</span>
+      </a></li>
+      {%- endfor %}
+    </ul>
+  </section>
+  {%- endfor %}
+</div>
+{%- endif %}
+
+<section class="wrap v6k-son" aria-labelledby="v6k-il">
+  <h2 id="v6k-il">Aklınızdaki ürünü konuşalım.</h2>
+  <p class="aksiyon"><a class="btn" href="/#iletisim">Projenizi konuşalım</a></p>
+</section>
