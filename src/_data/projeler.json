@@ -521,6 +521,30 @@
   "kaynaklar": [
    "site-referans/urun-materyalleri/flowgraph/durum.md",
    "https://apps.apple.com/tr/app/flowgraph/id6764540044"
+  ],
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "Gelir, gider ve düzenli ödemeleri tek akışta gösteren kişisel finans uygulaması."
+   },
+   {
+    "baslik": "Özellikler",
+    "liste": [
+     "Gider takvimi: bütün ay tek ekranda",
+     "Kategoriye, haftaya ve aya göre dağılım",
+     "Düzenli ödemeler: kira, faturalar ve gelirler",
+     "Lira, dolar ya da euro ile kayıt",
+     "Canlı döviz kurları"
+    ]
+   },
+   {
+    "baslik": "Platform ve teknoloji",
+    "metin": "iPhone. Türkçe, İngilizce ve Almanca. Veriler yalnızca cihazda tutulur; hesap, reklam ve takip yok, internete yalnızca döviz kurları için bağlanır. FlowGraph Pro aylık ve yıllık abonelikle sunulur."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "App Store'da."
+   }
   ]
  },
  {
@@ -576,6 +600,34 @@
    "https://apps.apple.com/tr/app/sano-mental-wellness-plan/id6784807414 (iTunes lookup, herkese açık)",
    "site-referans/urun-materyalleri/sano/itunes_lookup.json",
    "sano/index.html"
+  ],
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "Zihinsel yükünü sakin bir dille anlamana yardımcı olan 20 soruluk kişisel farkındalık özeti."
+   },
+   {
+    "baslik": "Nasıl çalışır",
+    "metin": "Enerjin, düşüncelerin, bedenin ve ilişkilerin üzerine 20 soruyu yanıtlarsın; yükünü duygusal tükenmişlik, zihinsel yük, fiziksel belirtiler ve sosyal kopukluk alanlarında görürsün. Sonuç, küçük günlük görevlerden oluşan kişisel bir 7 günlük plana dönüşür."
+   },
+   {
+    "baslik": "Özellikler",
+    "liste": [
+     "20 soruluk kısa kontrol",
+     "Dört alanda puan ve özet",
+     "Kısa, uygulanabilir görevlerden 7 günlük plan",
+     "Her görev neye yaradığını ve hangi beceriyi geliştirdiğini gösterir",
+     "Dilediğinde kontrolü yeniden yapabilirsin"
+    ]
+   },
+   {
+    "baslik": "Platform ve teknoloji",
+    "metin": "iOS 17.0 ve üstü. Yanıtlar cihazında kalır; hesap ve reklam yok. Premium, aylık ve yıllık abonelikle ayrıntılı raporu açar. Sano tıbbi bir cihaz değildir; tanı koymaz."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "App Store'da. İlk yayın 2 Temmuz 2026."
+   }
   ]
  },
  {
@@ -615,7 +667,31 @@
    }
   ],
   "kaynaklar": [
-   "baupilotaj/index.html (herkese açık sayfa metni: 'EASA ECQB 280-question preparation suite', 'Cessna 172 through 6 flight phases with 28 randomized EASA questions', '9 official EASA subjects')"
+   "baupilotaj/index.html (herkese açık sayfa metni: 'EASA ECQB 280-question preparation suite', 'Cessna 172 through 6 flight phases with 28 randomized EASA questions', '9 official EASA subjects')",
+   "baupilotaj/index.html (herkese açık sayfa metni)"
+  ],
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "PPL teorik sınavına hazırlanmak için tarayıcıda çalışan uçuş simülatörü ve EASA soru bankası."
+   },
+   {
+    "baslik": "Özellikler",
+    "liste": [
+     "Cessna 172 ile 6 uçuş evresi ve 28 karışık EASA sorusu",
+     "Canlı ICAO kule telsizi ve uçuş içi arıza senaryoları",
+     "280 soruluk soru bankası",
+     "Dokuz EASA konusuna göre filtre; mevzuat atfı anında görünür"
+    ]
+   },
+   {
+    "baslik": "Platform ve teknoloji",
+    "metin": "Web; tarayıcıda çalışır, telefonda da kullanılabilir. Arayüz İngilizce."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "Yayında."
+   }
   ]
  },
  {
@@ -676,10 +752,39 @@
    "https://apps.apple.com/tr/app/zihinustas%C4%B1/id6800084874 (iTunes lookup, herkese açık)",
    "site-referans/urun-materyalleri/zihin-ustasi/itunes_lookup.json",
    "zihinustasi/support.html",
-   "iTunes lookup description: 'sahneyi 10 saniye boyunca dikkatle incele', '5 farklı kategori, 200 kart'; zihinustasi/support.html: 10 saniye"
+   "iTunes lookup description: 'sahneyi 10 saniye boyunca dikkatle incele', '5 farklı kategori, 200 kart'; zihinustasi/support.html: 10 saniye",
+   "https://apps.apple.com/tr/app/zihinustas%C4%B1/id6800084874 (iTunes lookup)",
+   "zihinustasi/support.html, terms.html, privacy.html"
   ],
   "yil": "2026",
-  "kart_gorsel": "/assets/v1/img/proje/zihin-ustasi/kart.webp"
+  "kart_gorsel": "/assets/v1/img/proje/zihin-ustasi/kart.webp",
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "Çocuklar ve aileler için hazırlanmış görsel hafıza ve dikkat oyunu."
+   },
+   {
+    "baslik": "Nasıl çalışır",
+    "metin": "Ekrana gelen renkli sahneyi 10 saniye incelersin. Zarı atarsın: gelen sayı sorulacak soruyu belirler. Doğru hatırladıysan puan ve coin kazanırsın."
+   },
+   {
+    "baslik": "Özellikler",
+    "liste": [
+     "5 kategori, 200 kart",
+     "Tek başına ya da aileyle sırayla oyun; herkes kendi puanını biriktirir",
+     "Market'ten yeni zar, tema ve çerçeve",
+     "Koleksiyonda kazanılan kartlar saklanır"
+    ]
+   },
+   {
+    "baslik": "Platform ve teknoloji",
+    "metin": "iOS 17.0 ve üstü. Tamamen cihazda, internetsiz çalışır; reklam, uygulama içi satın alma ve abonelik yok."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "App Store'da. İlk yayın 15 Ağustos 2026."
+   }
+  ]
  },
  {
   "slug": "ersoy",
@@ -694,7 +799,22 @@
    }
   ],
   "kaynaklar": [
-   "Ersoy | Genel mesajı 2026-11-20 (Aras kararıyla): ekran görüntüsü yok, 'asistan' yazılmaz, platform/yıl yazılmaz"
+   "Ersoy | Genel mesajı 2026-11-20 (Aras kararıyla): ekran görüntüsü yok, 'asistan' yazılmaz, platform/yıl yazılmaz",
+   "Ersoy | Genel mesajı 2026-11-20 (Aras kararıyla)"
+  ],
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "Kendi aklı ve iradesi olan, sürekli düşünen kişisel yapay zekâ."
+   },
+   {
+    "baslik": "Platform ve teknoloji",
+    "metin": "Kişisel bir sistem."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "Geliştiriliyor. Herkese açık bir ürün değil."
+   }
   ]
  },
  {
@@ -710,7 +830,18 @@
    }
   ],
   "kaynaklar": [
-   "src/_data/modern.js (eski site verisi, herkese açık)"
+   "src/_data/modern.js (eski site verisi, herkese açık)",
+   "assets/js/render.js (eski vitrin kataloğu, origin/main, herkese açık)"
+  ],
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "Tamamen yerel çalışan, gizlilik odaklı yapay zekâ asistanı."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "Geliştiriliyor."
+   }
   ]
  },
  {
@@ -726,7 +857,31 @@
    }
   ],
   "kaynaklar": [
-   "src/_data/modern.js (eski site verisi, herkese açık)"
+   "src/_data/modern.js (eski site verisi, herkese açık)",
+   "assets/js/render.js (eski vitrin kataloğu, origin/main, herkese açık)",
+   "/Users/aras/Documents/PROJECTS/gnomon/GNOMON_SPEC.md (proje klasörü, §1)"
+  ],
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "macOS için sade, dikkat dağıtmayan proje yönetimi; bağımlılık kilitleme motoruyla çalışır."
+   },
+   {
+    "baslik": "Özellikler",
+    "liste": [
+     "Yerel öncelikli: veriler cihazda yerel olarak saklanır",
+     "Karmaşık görevler sade, analitik görünümlerle sunulur",
+     "İsteğe bağlı ağ görünümü sistem bağımlılıklarını gösterir"
+    ]
+   },
+   {
+    "baslik": "Platform ve teknoloji",
+    "metin": "macOS; yerel depolama için Core Data."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "Geliştiriliyor."
+   }
   ]
  },
  {
@@ -742,7 +897,18 @@
    }
   ],
   "kaynaklar": [
-   "src/_data/modern.js (eski site verisi, herkese açık)"
+   "src/_data/modern.js (eski site verisi, herkese açık)",
+   "assets/js/render.js (eski vitrin kataloğu, origin/main, herkese açık)"
+  ],
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "ECU yazılımları ve araç içi dijital sistemlere yönelik çözüm."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "Geliştiriliyor."
+   }
   ]
  },
  {
@@ -758,7 +924,18 @@
    }
   ],
   "kaynaklar": [
-   "src/_data/modern.js (eski site verisi, herkese açık)"
+   "src/_data/modern.js (eski site verisi, herkese açık)",
+   "assets/js/render.js (eski vitrin kataloğu, origin/main, herkese açık)"
+  ],
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "LLM'den bağımsız bilişsel karar çekirdeği üzerine otonom yapay zekâ araştırması."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "Ar-Ge."
+   }
   ]
  },
  {
@@ -774,7 +951,18 @@
    }
   ],
   "kaynaklar": [
-   "src/_data/modern.js (eski site verisi, herkese açık)"
+   "src/_data/modern.js (eski site verisi, herkese açık)",
+   "assets/js/render.js (eski vitrin kataloğu, origin/main, herkese açık)"
+  ],
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "Filtre tabanlı BIST hisse tarama uygulaması."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "Bakımda."
+   }
   ]
  }
 ]
