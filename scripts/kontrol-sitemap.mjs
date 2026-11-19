@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { KORUNAN_KLASORLER, ESKI_VARLIKLAR } from '../.eleventy.js';
-import { arg, git, Rapor } from './ortak.mjs';
+import { arg, dosyalar, git, Rapor } from './ortak.mjs';
 import rules from '../src/_data/yonlendirmeler.js';
 
 const site = arg('site', '_site');
@@ -41,6 +41,18 @@ for (const [, loc] of eskiXml.matchAll(/<loc>([^<]*)<\/loc>/g)) {
   if (!gorulen.has(yol)) r.hata(`canlı sitemap'te olan URL yeni sitemap'ten düşmüş (gerileme): ${yol}`);
 }
 r.not(`canlı sitemap ⊆ yeni: ${eskiSay} URL, ${yonSay} yönlendirilen, ${eskiSay - yonSay} aynen kalan`);
+// Tersi: derlenen her indekslenebilir sayfa (stub, noindex, 404 ve korunan klasörler hariç) sitemap'te olmalı
+let indekslenebilir = 0;
+for (const f of dosyalar(site).filter((x) => x.endsWith('.html'))) {
+  const g = path.relative(site, f).split(path.sep).join('/');
+  if (g === '404.html' || yasak.some((k) => g.startsWith(`${k}/`))) continue;
+  const h = fs.readFileSync(f, 'utf8');
+  if (/<meta http-equiv="refresh"/.test(h) || /<meta name="robots" content="noindex/.test(h)) continue;
+  indekslenebilir++;
+  const yol = '/' + g.replace(/index\.html$/, '');
+  if (!gorulen.has(yol)) r.hata(`indekslenebilir sayfa sitemap'te yok: ${yol}`);
+}
+r.not(`${indekslenebilir} indekslenebilir sayfa sitemap'te`);
 const robots = fs.existsSync(path.join(site, 'robots.txt')) ? fs.readFileSync(path.join(site, 'robots.txt'), 'utf8') : '';
 if (!robots.includes(`Sitemap: ${SITE_URL}/sitemap.xml`)) r.hata('robots.txt sitemap satırı yok');
 r.not(`${girisler.length} URL`);
