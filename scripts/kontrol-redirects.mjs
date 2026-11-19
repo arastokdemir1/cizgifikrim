@@ -24,7 +24,7 @@ for(const {from,to,status} of rules){
 for(const {from,to} of rules)if(sources.has(noHash(to)))r.hata(`Chain/loop: ${from} -> ${to}`);
 const historical=agacDosyalari(arg('base','origin/main'),['tr']).map(x=>'/'+x.yol).filter(p=>p.endsWith('.html'));
 for(const p of historical)if(!sources.has(p)&&p!=='/tr/index.html')r.hata(`Historical URL missing: ${p}`);
-const required={'/tr/projeler.html':'/tr/urunler/','/tr/projects/carlog.html':'/tr/urunler/carlog/','/tr/randevu.html':'/#iletisim','/en/products/vesira/':'/tr/urunler/vesira/','/hakkinda/':'/tr/hakkimizda/','/hizmetler/':'/tr/hizmetler/','/en/':'/','/calismalar/vesira/':'/tr/urunler/vesira/','/gizlilik/':'/tr/gizlilik/'};
+const required={'/tr/projeler.html':'/tr/urunler/','/tr/projects/carlog.html':'/tr/urunler/carlog/','/tr/randevu.html':'/tr/iletisim/','/en/products/vesira/':'/tr/urunler/vesira/','/hakkinda/':'/tr/hakkimizda/','/hizmetler/':'/tr/hizmetler/','/en/':'/','/calismalar/vesira/':'/tr/urunler/vesira/','/gizlilik/':'/tr/gizlilik/'};
 for(const [from,to]of Object.entries(required))if(!rules.some(r=>r.from===from&&r.to===to))r.hata(`Required migration missing: ${from} -> ${to}`);
 const cf=fs.existsSync(path.join(site,'_redirects'));
 if(cf){const contents=fs.readFileSync(path.join(site,'_redirects'),'utf8');for(const {from,to}of rules)if(!contents.includes(`${from} ${to} 301`))r.hata(`Missing CF rule: ${from}`);}

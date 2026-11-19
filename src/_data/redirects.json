@@ -83,17 +83,17 @@
     },
     {
       "from": "/tr/contact.html",
-      "to": "/#iletisim",
+      "to": "/tr/iletisim/",
       "status": 301
     },
     {
       "from": "/tr/randevu.html",
-      "to": "/#iletisim",
+      "to": "/tr/iletisim/",
       "status": 301
     },
     {
       "from": "/tr/kayit.html",
-      "to": "/#iletisim",
+      "to": "/tr/iletisim/",
       "status": 301
     },
     {
@@ -118,17 +118,17 @@
     },
     {
       "from": "/tr/giris.html",
-      "to": "/#iletisim",
+      "to": "/tr/iletisim/",
       "status": 301
     },
     {
       "from": "/tr/panel.html",
-      "to": "/#iletisim",
+      "to": "/tr/iletisim/",
       "status": 301
     },
     {
       "from": "/tr/admin.html",
-      "to": "/#iletisim",
+      "to": "/tr/iletisim/",
       "status": 301
     },
     {
@@ -153,7 +153,7 @@
     },
     {
       "from": "/gorusme/",
-      "to": "/#iletisim",
+      "to": "/tr/iletisim/",
       "status": 301
     },
     {
@@ -178,7 +178,7 @@
     },
     {
       "from": "/istasyon-yakinda/",
-      "to": "/#iletisim",
+      "to": "/tr/iletisim/",
       "status": 301
     },
     {
@@ -203,7 +203,7 @@
     },
     {
       "from": "/gorusme/tesekkurler/",
-      "to": "/#iletisim",
+      "to": "/tr/iletisim/",
       "status": 301
     },
     {
@@ -229,11 +229,6 @@
     {
       "from": "/tr/cozumler/web-yazilimi/",
       "to": "/tr/hizmetler/",
-      "status": 301
-    },
-    {
-      "from": "/tr/iletisim/",
-      "to": "/#iletisim",
       "status": 301
     },
     {
@@ -298,7 +293,7 @@
     },
     {
       "from": "/en/contact/",
-      "to": "/#iletisim",
+      "to": "/tr/iletisim/",
       "status": 301
     },
     {
@@ -323,17 +318,22 @@
     },
     {
       "from": "/en/contact/thank-you/",
-      "to": "/#iletisim",
+      "to": "/tr/iletisim/",
       "status": 301
     },
     {
       "from": "/tr/iletisim/tesekkurler/",
-      "to": "/#iletisim",
+      "to": "/tr/iletisim/",
       "status": 301
     },
     {
       "from": "/tr/urunler/arda/",
       "to": "/tr/urunler/",
+      "status": 301
+    },
+    {
+      "from": "/iletisim/",
+      "to": "/tr/iletisim/",
       "status": 301
     }
   ]
