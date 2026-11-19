@@ -4,7 +4,7 @@ import { arg, bayrak } from './ortak.mjs';
 
 const ortak = ['--site', arg('site', '_site'), '--base', arg('base', 'origin/main')];
 const adimlar = [
-  ['kontrol-passthrough.mjs', ortak], ['kontrol-redirects.mjs', ortak], ['kontrol-sitemap.mjs', ortak],
+  ['kontrol-passthrough.mjs', ortak], ['kontrol-redirects.mjs', ortak], ['kontrol-linkler.mjs', ['--site', arg('site', '_site')]], ['kontrol-sitemap.mjs', ortak],
   ['kontrol-seo.mjs', ortak], ['kontrol-modern.mjs', ['--site', arg('site', '_site')]], ['kontrol-url-listesi.mjs', ortak], ['kontrol-consent.mjs', ['--site', arg('site', '_site')]], ['kontrol-basliklar.mjs', ['--site', arg('site', '_site')]],
 ];
 let kalan = 0;
