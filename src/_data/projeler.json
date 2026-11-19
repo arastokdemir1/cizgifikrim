@@ -203,5 +203,301 @@
    "site-referans/urun-materyalleri/carlog/durum.md",
    "https://apps.apple.com/tr/app/id6779625494"
   ]
+ },
+ {
+  "slug": "piyasapp",
+  "ad": "PiyasApp",
+  "ne": "Araba tutkunu arkadaş grupları için sosyal uygulama: harita, piyasaya giriş, ortak rota, müzik ve sohbet.",
+  "platform": "iOS",
+  "durum": "App Store'da",
+  "yil": "2026",
+  "baglanti": {
+   "etiket": "App Store",
+   "url": "https://apps.apple.com/tr/app/piyasapp/id6786390358"
+  },
+  "ikon": "/assets/v1/img/proje/piyasapp/ikon.webp",
+  "kart_gorsel": "/assets/v1/img/proje/piyasapp/kart.webp",
+  "bolumler": [
+   {
+    "baslik": "Piyasa cebinde.",
+    "metin": "Araba tutkunu arkadaş grupları için sosyal uygulama: ekip nerede, kim caddede, ne çalıyor, hepsi tek yerde.",
+    "gorsel": "/assets/v1/img/proje/piyasapp/piyasa.webp",
+    "alt": "PiyasApp mağaza görseli: 'Piyasa cebinde' başlığı, gece sokakta turuncu bir araba",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Ekibin haritada.",
+    "metin": "Kim nerede, hangi arabayla. Canlı, bir bakışta.",
+    "gorsel": "/assets/v1/img/proje/piyasapp/harita.webp",
+    "alt": "PiyasApp mağaza görseli: 'Ekibin haritada' başlığı ve araçların göründüğü harita ekranı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Piyasaya giriş.",
+    "metin": "Arkadaşın caddeye girince haberin olur; Selektör yak.",
+    "gorsel": "/assets/v1/img/proje/piyasapp/piyasaya-giris.webp",
+    "alt": "PiyasApp mağaza görseli: 'Piyasaya gir, selektör yak' başlığı ve piyasaya giriş kartı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Aynı rota, aynı anda.",
+    "metin": "Hedefi paylaş, ekiple birlikte sür.",
+    "gorsel": "/assets/v1/img/proje/piyasapp/ortak-rota.webp",
+    "alt": "PiyasApp mağaza görseli: 'Aynı rota, aynı anda' başlığı ve ortak rota ekranı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Müzik yolda seninle.",
+    "metin": "Listeni aktar, sıradakini gör, sürüşten kopma.",
+    "gorsel": "/assets/v1/img/proje/piyasapp/muzik.webp",
+    "alt": "PiyasApp mağaza görseli: 'Müzik yolda seninle' başlığı ve müzik ekranı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Rotanı paylaş.",
+    "metin": "Fotoğraf, şarkı, rota. Ekiple tek sohbet.",
+    "gorsel": "/assets/v1/img/proje/piyasapp/sohbet.webp",
+    "alt": "PiyasApp mağaza görseli: 'Rotanı paylaş' başlığı ve sohbet ekranı",
+    "tur": "tanitim"
+   }
+  ],
+  "kaynaklar": [
+   "site-referans/urun-materyalleri/piyasapp/durum.md",
+   "https://apps.apple.com/tr/app/piyasapp/id6786390358"
+  ]
+ },
+ {
+  "slug": "focusgrid",
+  "ad": "FocusGrid",
+  "ne": "Görev, rutin ve odak oturumlarını tek yerde planlayan iPhone uygulaması.",
+  "platform": "iOS (iPhone)",
+  "durum": "App Store'da",
+  "yil": "2026",
+  "baglanti": {
+   "etiket": "App Store",
+   "url": "https://apps.apple.com/tr/app/focusgrid-task-routine/id6762910729"
+  },
+  "kart_gorsel": "/assets/v1/img/proje/focusgrid/kart.webp",
+  "bolumler": [
+   {
+    "baslik": "Günün tek ekranda.",
+    "metin": "Görevler, saatler ve ilerleme bir arada.",
+    "gorsel": "/assets/v1/img/proje/focusgrid/bugun.webp",
+    "alt": "FocusGrid mağaza görseli: 'Plan your day at a glance' başlığı ve Bugün ekranı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Rutinleri alışkanlığa çevir.",
+    "metin": "Her gün tekrarladığın şeyleri takip et.",
+    "gorsel": "/assets/v1/img/proje/focusgrid/rutinler.webp",
+    "alt": "FocusGrid mağaza görseli: 'Turn routines into habits' başlığı ve Rutinler ekranı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Dikkat dağıtanı engelle.",
+    "metin": "Odak oturumunu başlat, dikkat dağıtan uygulamaları kilitle.",
+    "gorsel": "/assets/v1/img/proje/focusgrid/odak.webp",
+    "alt": "FocusGrid mağaza görseli: 'Block distractions, stay focused' başlığı ve Odak ekranı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Haftanın ilerlemesi.",
+    "metin": "Haftalık grafiklerle nereye geldiğini gör.",
+    "gorsel": "/assets/v1/img/proje/focusgrid/ilerleme.webp",
+    "alt": "FocusGrid mağaza görseli: 'See your progress every week' başlığı ve İlerleme ekranı",
+    "tur": "tanitim"
+   }
+  ],
+  "kaynaklar": [
+   "FocusGrid | Genel mesajı 2026-11-20 (Apple herkese açık kayıt + App Store Connect)",
+   "https://apps.apple.com/tr/app/focusgrid-task-routine/id6762910729"
+  ]
+ },
+ {
+  "slug": "flowgraph",
+  "ad": "FlowGraph",
+  "ne": "Gelir, gider ve düzenli ödemeleri tek akışta gösteren kişisel finans uygulaması.",
+  "platform": "iOS (iPhone)",
+  "durum": "App Store'da",
+  "baglanti": {
+   "etiket": "App Store",
+   "url": "https://apps.apple.com/tr/app/flowgraph/id6764540044"
+  },
+  "kart_gorsel": "/assets/v1/img/proje/flowgraph/kart.webp",
+  "bolumler": [
+   {
+    "baslik": "Her gider, her gün.",
+    "metin": "Bütün ay tek takvimde.",
+    "gorsel": "/assets/v1/img/proje/flowgraph/takvim.webp",
+    "alt": "FlowGraph mağaza görseli: 'Every expense, day by day' başlığı ve gider takvimi",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Paranın nereye gittiğini gör.",
+    "metin": "Kategoriye, haftaya ve aya göre dağılım.",
+    "gorsel": "/assets/v1/img/proje/flowgraph/icgoru.webp",
+    "alt": "FlowGraph mağaza görseli: 'Know where your money goes' başlığı ve kategori dağılımı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Hiçbir ödemeyi kaçırma.",
+    "metin": "Kira, faturalar ve gelirler tek takvimde.",
+    "gorsel": "/assets/v1/img/proje/flowgraph/odemeler.webp",
+    "alt": "FlowGraph mağaza görseli: 'Never miss a payment' başlığı ve ödemeler ekranı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Saniyeler içinde kayıt.",
+    "metin": "Lira, dolar ya da euro ile.",
+    "gorsel": "/assets/v1/img/proje/flowgraph/ekle.webp",
+    "alt": "FlowGraph mağaza görseli: 'Add an entry in seconds' başlığı ve gider ekleme ekranı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Para birimini sen seç.",
+    "metin": "Canlı kurlar toplamı güncel tutar. Veriler yalnızca cihazında kalır; hesap, reklam ve takip yok.",
+    "gorsel": "/assets/v1/img/proje/flowgraph/para-birimi.webp",
+    "alt": "FlowGraph mağaza görseli: 'Your currency, your way' başlığı ve ayarlar ekranı",
+    "tur": "tanitim"
+   }
+  ],
+  "kaynaklar": [
+   "site-referans/urun-materyalleri/flowgraph/durum.md",
+   "https://apps.apple.com/tr/app/flowgraph/id6764540044"
+  ]
+ },
+ {
+  "slug": "sano",
+  "ad": "Sano",
+  "ne": "Zihinsel yükünü sakin bir dille anlamana yardımcı olan 20 soruluk kişisel farkındalık özeti.",
+  "platform": "iOS",
+  "durum": "App Store'da",
+  "bolumler": [
+   {
+    "baslik": "Zihinsel yükünü sakin bir dille anlamana yardımcı olan 20 soruluk kişisel farkındalık özeti.",
+    "metin": "Sano tıbbi ya da psikolojik bir tanı koymaz ve tedavi önermez; yalnızca kişisel farkındalık içindir.",
+    "tur": "plaka"
+   }
+  ],
+  "kaynaklar": [
+   "sano/index.html (herkese açık destek sayfası)",
+   "https://apps.apple.com/tr/app/sano-mental-wellness-plan/id6784807414"
+  ],
+  "baglanti": {
+   "etiket": "App Store",
+   "url": "https://apps.apple.com/tr/app/sano-mental-wellness-plan/id6784807414"
+  }
+ },
+ {
+  "slug": "ersoy",
+  "ad": "Ersoy",
+  "ne": "Web tabanlı yapay zekâ asistanı",
+  "durum": "Geliştiriliyor",
+  "bolumler": [
+   {
+    "baslik": "Web tabanlı yapay zekâ asistanı",
+    "metin": "Durum: Geliştiriliyor.",
+    "tur": "plaka"
+   }
+  ],
+  "kaynaklar": [
+   "src/_data/modern.js (eski site verisi, herkese açık)"
+  ]
+ },
+ {
+  "slug": "alp",
+  "ad": "ALP",
+  "ne": "Yerel yapay zekâ asistanı",
+  "durum": "Geliştiriliyor",
+  "bolumler": [
+   {
+    "baslik": "Yerel yapay zekâ asistanı",
+    "metin": "Durum: Geliştiriliyor.",
+    "tur": "plaka"
+   }
+  ],
+  "kaynaklar": [
+   "src/_data/modern.js (eski site verisi, herkese açık)"
+  ]
+ },
+ {
+  "slug": "arda",
+  "ad": "Arda",
+  "ne": "Masaüstü ve ses odaklı yapay zekâ",
+  "durum": "Geliştiriliyor",
+  "bolumler": [
+   {
+    "baslik": "Masaüstü ve ses odaklı yapay zekâ",
+    "metin": "Durum: Geliştiriliyor.",
+    "tur": "plaka"
+   }
+  ],
+  "kaynaklar": [
+   "src/_data/modern.js (eski site verisi, herkese açık)"
+  ]
+ },
+ {
+  "slug": "gnomon",
+  "ad": "Gnomon",
+  "ne": "macOS proje yönetimi",
+  "durum": "Geliştiriliyor",
+  "bolumler": [
+   {
+    "baslik": "macOS proje yönetimi",
+    "metin": "Durum: Geliştiriliyor.",
+    "tur": "plaka"
+   }
+  ],
+  "kaynaklar": [
+   "src/_data/modern.js (eski site verisi, herkese açık)"
+  ]
+ },
+ {
+  "slug": "better-motors",
+  "ad": "Better Motors",
+  "ne": "Araç içi yazılım çalışmaları",
+  "durum": "Geliştiriliyor",
+  "bolumler": [
+   {
+    "baslik": "Araç içi yazılım çalışmaları",
+    "metin": "Durum: Geliştiriliyor.",
+    "tur": "plaka"
+   }
+  ],
+  "kaynaklar": [
+   "src/_data/modern.js (eski site verisi, herkese açık)"
+  ]
+ },
+ {
+  "slug": "emre",
+  "ad": "Emre",
+  "ne": "Otonom yapay zekâ araştırmaları",
+  "durum": "Ar-Ge",
+  "bolumler": [
+   {
+    "baslik": "Otonom yapay zekâ araştırmaları",
+    "metin": "Durum: Ar-Ge.",
+    "tur": "plaka"
+   }
+  ],
+  "kaynaklar": [
+   "src/_data/modern.js (eski site verisi, herkese açık)"
+  ]
+ },
+ {
+  "slug": "radar",
+  "ad": "Radar",
+  "ne": "BIST hisse tarama çalışması",
+  "durum": "Bakımda",
+  "bolumler": [
+   {
+    "baslik": "BIST hisse tarama çalışması",
+    "metin": "Durum: Bakımda.",
+    "tur": "plaka"
+   }
+  ],
+  "kaynaklar": [
+   "src/_data/modern.js (eski site verisi, herkese açık)"
+  ]
  }
 ]
