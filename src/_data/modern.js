@@ -63,8 +63,8 @@ for (const lang of ['tr','en']) {
  for(const service of services) pages.push({key:service.slug,view:'service',lang,title:`${service.name[lang]} — CizgiFikrim`,description:service.description[lang],url:links[lang].solutions+service.route[lang]+'/',service,section:'solutions'});
  for(const update of updates) pages.push({key:update.slug,view:'article',lang,title:update.title[lang],description:update.summary[lang],url:links[lang].updates+update.slug+'/',update,section:'updates'});
 }
-// V5 canlı geçişi: Türkçe vitrin sayfalarını (ana, ürünler, ürün, hizmet, hakkımızda, güncellemeler, iletişim) V5 şablonları üretir (src/v5, src/tr/urunler); EN sayfaları TR'ye yönlenir. Yalnız gizlilik, koşullar, teşekkür modern şablonuyla kalır.
-const TUTULAN_TR=['privacy','terms','thanks'];
+// V5 canlı geçişi: Türkçe vitrin sayfalarını (ana, ürünler, ürün, hizmet, hakkımızda, güncellemeler, iletişim) V5 şablonları üretir (src/v5, src/tr/urunler); EN sayfaları TR'ye yönlenir. Gizlilik ve koşullar src/v5/gizlilik.njk, kosullar.njk (V5 layout); yalnız teşekkür modern şablonuyla kalır.
+const TUTULAN_TR=[];
 for(let i=pages.length-1;i>=0;i--) if(pages[i].lang==='en'||!TUTULAN_TR.includes(pages[i].key)) pages.splice(i,1);
 for(const p of pages) { p.alternate=pages.find(q=>q.key===p.key&&q.lang!==p.lang)?.url; p.og='/assets/v1/img/og/'+p.lang+'-'+(['home','products','solutions','about','updates','contact','privacy','terms','thanks'].includes(p.key)?p.key:(p.product?.slug||p.service?.slug||p.update?.product||'home'))+'.png'; }
 // 404: src/v5/404.njk

@@ -19,6 +19,7 @@
 {%- for c in v5Css %}
 <link rel="stylesheet" href="/assets/v1/css/{{ c }}.css?v=20261119">
 {%- endfor %}
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"{{ site.url }}/#org","name":"CizgiFikrim","url":"{{ site.url }}","logo":"{{ site.url }}/icon-512.png"},{"@type":"WebPage","name":{{ title | jsonld | safe }},"url":"{{ site.url }}{{ page.url }}","inLanguage":"tr","isPartOf":{"@id":"{{ site.url }}/#org"}}]}</script>
 {%- if jsonld %}
 <script type="application/ld+json">{{ jsonld | jsonld | safe }}</script>
 {%- endif %}
