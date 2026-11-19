@@ -456,27 +456,63 @@
   "slug": "zihin-ustasi",
   "ad": "ZihinUstası",
   "ne": "Çocuklar ve aileler için görsel hafıza ve dikkat oyunu.",
-  "platform": "Telefon ve tablet",
-  "durum": "Yayında",
+  "platform": "iOS (iPhone)",
+  "durum": "App Store'da",
   "baglanti": {
-   "etiket": "Destek sayfası",
-   "url": "/zihinustasi/support.html"
+   "etiket": "App Store",
+   "url": "https://apps.apple.com/tr/app/zihinustas%C4%B1/id6800084874"
   },
   "bolumler": [
    {
-    "baslik": "Sahneyi hatırla, zarı at.",
-    "metin": "Ekrana gelen sahneyi 10 saniye incele. Zarı at: gelen sayı sorulacak soruyu belirler. Doğru hatırladıysan kart koleksiyonuna eklenir.",
-    "tur": "plaka"
+    "baslik": "Sahneyi 10 saniye incele.",
+    "metin": "5 kategori, 200 kart. Her turda karşına yeni bir sahne çıkar.",
+    "gorsel": "/assets/v1/img/proje/zihin-ustasi/kategoriler.webp",
+    "alt": "ZihinUstası mağaza görseli: '10 saniye bak. Zarı at. Hatırla.' başlığı ve kategori ekranı",
+    "tur": "tanitim"
    },
    {
-    "baslik": "Ücretsiz, reklamsız, internetsiz.",
-    "metin": "Tamamen cihazda çalışır; hesap, reklam, uygulama içi satın alma ve abonelik yok. Birden fazla kişiyle sırayla oynanabilir.",
-    "tur": "plaka"
+    "baslik": "Küçük detayları yakala.",
+    "metin": "Fotogerçekçi sahnelerde hafızanı test et.",
+    "gorsel": "/assets/v1/img/proje/zihin-ustasi/sahne.webp",
+    "alt": "ZihinUstası mağaza görseli: 'Fotogerçekçi sahnelerde detay avı' başlığı ve bir sınıf sahnesi",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Zarı at, soruyu keşfet.",
+    "metin": "Gelen sayı, sana sorulacak soruyu belirler.",
+    "gorsel": "/assets/v1/img/proje/zihin-ustasi/zar.webp",
+    "alt": "ZihinUstası mağaza görseli: 'Zarı at, soruyu keşfet' başlığı ve zar ekranı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Ne kadar dikkatliydin?",
+    "metin": "Dört seçenekten doğrusunu bul, puanını ve coin'ini topla.",
+    "gorsel": "/assets/v1/img/proje/zihin-ustasi/soru.webp",
+    "alt": "ZihinUstası mağaza görseli: 'Ne kadar dikkatliydin?' başlığı ve soru ekranı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Doğru cevapla ödülünü kazan.",
+    "metin": "Kazandıkça Market'ten yeni zar, tema ve çerçeve açılır.",
+    "gorsel": "/assets/v1/img/proje/zihin-ustasi/dogru.webp",
+    "alt": "ZihinUstası mağaza görseli: 'Doğru cevapla ödülünü kazan' başlığı ve sonuç ekranı",
+    "tur": "tanitim"
+   },
+   {
+    "baslik": "Ücretsiz, reklamsız.",
+    "metin": "Uygulama içi satın alma ve abonelik yok. Herkes kendi puanını biriktirerek sırayla oynayabilir.",
+    "gorsel": "/assets/v1/img/proje/zihin-ustasi/market.webp",
+    "alt": "ZihinUstası mağaza görseli: 'Kendi tarzını seç' başlığı ve Market ekranı",
+    "tur": "tanitim"
    }
   ],
   "kaynaklar": [
-   "zihinustasi/support.html, terms.html, privacy.html (herkese açık sayfa metinleri; mağaza bağlantısı sayfalarda yok, durum 'Yayında' destek sayfasının varlığından)"
-  ]
+   "https://apps.apple.com/tr/app/zihinustas%C4%B1/id6800084874 (iTunes lookup, herkese açık)",
+   "site-referans/urun-materyalleri/zihin-ustasi/itunes_lookup.json",
+   "zihinustasi/support.html"
+  ],
+  "yil": "2026",
+  "kart_gorsel": "/assets/v1/img/proje/zihin-ustasi/kart.webp"
  },
  {
   "slug": "ersoy",
