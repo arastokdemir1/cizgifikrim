@@ -1,5 +1,5 @@
 {
-  "_not": "V5 (Turkish-only) migration. Explicit aliases only; product-owned support/legal/demo paths are never redirected. Targets may carry a #fragment (home sections); GH stubs keep it via meta refresh + redirect.js.",
+  "_not": "V6: /tr/hizmetler/ ve /tr/hakkimizda/ ayrı sayfa; eski ve EN yollar bunlara ya da /tr/urunler/<slug>/ sayfalarına yönlenir. Hedefler hash'li olabilir (#iletisim).",
   "redirects": [
     {
       "from": "/tr/projeler.html",
@@ -23,12 +23,12 @@
     },
     {
       "from": "/tr/projects/piyasa.html",
-      "to": "/piyasa/",
+      "to": "/tr/urunler/piyasapp/",
       "status": 301
     },
     {
       "from": "/tr/projects/sano.html",
-      "to": "/tr/urunler/",
+      "to": "/tr/urunler/sano/",
       "status": 301
     },
     {
@@ -38,12 +38,12 @@
     },
     {
       "from": "/tr/projects/focusgrid.html",
-      "to": "/tr/urunler/",
+      "to": "/tr/urunler/focusgrid/",
       "status": 301
     },
     {
       "from": "/tr/projects/flowgraph.html",
-      "to": "/tr/urunler/",
+      "to": "/tr/urunler/flowgraph/",
       "status": 301
     },
     {
@@ -53,32 +53,32 @@
     },
     {
       "from": "/tr/projects/arda.html",
-      "to": "/tr/urunler/",
+      "to": "/tr/urunler/arda/",
       "status": 301
     },
     {
       "from": "/tr/projects/better_motors.html",
-      "to": "/tr/urunler/",
+      "to": "/tr/urunler/better-motors/",
       "status": 301
     },
     {
       "from": "/tr/projects/ersoy.html",
-      "to": "/tr/urunler/",
+      "to": "/tr/urunler/ersoy/",
       "status": 301
     },
     {
       "from": "/tr/projects/gnomon.html",
-      "to": "/tr/urunler/",
+      "to": "/tr/urunler/gnomon/",
       "status": 301
     },
     {
       "from": "/tr/projects/radar.html",
-      "to": "/tr/urunler/",
+      "to": "/tr/urunler/radar/",
       "status": 301
     },
     {
       "from": "/tr/about.html",
-      "to": "/#hakkimizda",
+      "to": "/tr/hakkimizda/",
       "status": 301
     },
     {
@@ -98,12 +98,12 @@
     },
     {
       "from": "/tr/eticaret-paketi.html",
-      "to": "/#hizmetler",
+      "to": "/tr/hizmetler/",
       "status": 301
     },
     {
       "from": "/tr/hizmetler.html",
-      "to": "/#hizmetler",
+      "to": "/tr/hizmetler/",
       "status": 301
     },
     {
@@ -148,7 +148,7 @@
     },
     {
       "from": "/hakkinda/",
-      "to": "/#hakkimizda",
+      "to": "/tr/hakkimizda/",
       "status": 301
     },
     {
@@ -158,12 +158,12 @@
     },
     {
       "from": "/hizmetler/",
-      "to": "/#hizmetler",
+      "to": "/tr/hizmetler/",
       "status": 301
     },
     {
       "from": "/hizmetler/web-sitesi-ve-e-ticaret/",
-      "to": "/#hizmetler",
+      "to": "/tr/hizmetler/",
       "status": 301
     },
     {
@@ -188,17 +188,17 @@
     },
     {
       "from": "/hizmetler/mobil-uygulama/",
-      "to": "/#hizmetler",
+      "to": "/tr/hizmetler/",
       "status": 301
     },
     {
       "from": "/hizmetler/yapay-zeka-ve-otomasyon/",
-      "to": "/#hizmetler",
+      "to": "/tr/hizmetler/",
       "status": 301
     },
     {
       "from": "/nasil-calisiyoruz/",
-      "to": "/#hakkimizda",
+      "to": "/tr/hakkimizda/",
       "status": 301
     },
     {
@@ -212,28 +212,23 @@
       "status": 301
     },
     {
-      "from": "/tr/hakkimizda/",
-      "to": "/#hakkimizda",
-      "status": 301
-    },
-    {
       "from": "/tr/cozumler/",
-      "to": "/#hizmetler",
+      "to": "/tr/hizmetler/",
       "status": 301
     },
     {
       "from": "/tr/cozumler/yapay-zeka-otomasyon/",
-      "to": "/#hizmetler",
+      "to": "/tr/hizmetler/",
       "status": 301
     },
     {
       "from": "/tr/cozumler/mobil-uygulama/",
-      "to": "/#hizmetler",
+      "to": "/tr/hizmetler/",
       "status": 301
     },
     {
       "from": "/tr/cozumler/web-yazilimi/",
-      "to": "/#hizmetler",
+      "to": "/tr/hizmetler/",
       "status": 301
     },
     {
@@ -278,27 +273,27 @@
     },
     {
       "from": "/en/solutions/",
-      "to": "/#hizmetler",
+      "to": "/tr/hizmetler/",
       "status": 301
     },
     {
       "from": "/en/solutions/ai-automation/",
-      "to": "/#hizmetler",
+      "to": "/tr/hizmetler/",
       "status": 301
     },
     {
       "from": "/en/solutions/mobile-apps/",
-      "to": "/#hizmetler",
+      "to": "/tr/hizmetler/",
       "status": 301
     },
     {
       "from": "/en/solutions/web-development/",
-      "to": "/#hizmetler",
+      "to": "/tr/hizmetler/",
       "status": 301
     },
     {
       "from": "/en/about/",
-      "to": "/#hakkimizda",
+      "to": "/tr/hakkimizda/",
       "status": 301
     },
     {
