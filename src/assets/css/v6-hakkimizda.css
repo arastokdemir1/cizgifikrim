@@ -1,0 +1,18 @@
+/* V6 /tr/hakkimizda/: yalnız yazı, çizgilerle ayrılmış, kart yok. Frontend-1 */
+.v6a{--v6a-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem))}
+.v6a-ust{padding-block:var(--v6a-y) calc(var(--v6a-y)/2);display:grid;gap:var(--sp-4)}
+.v6a-ust h1{margin:0;font-size:clamp(2rem,1.4rem + 2.4vw,3rem);line-height:var(--lh-head);letter-spacing:var(--ls-head);font-weight:var(--fw-head)}
+.v6a-ust p{margin:0;max-width:40rem;font-size:var(--fs-lg);color:var(--muted)}
+.v6a-bolum{padding-block:calc(var(--v6a-y)/2);display:grid;gap:var(--sp-6)}
+.v6a-bolum h2{margin:0;font-size:var(--fs-sm);font-weight:var(--fw-sub);letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--muted)}
+.v6a-adim,.v6a-ilke{margin:0;padding:0;list-style:none;border-top:1px solid var(--line);max-width:44rem}
+.v6a-adim li,.v6a-ilke li{padding:var(--sp-5) 0;border-bottom:1px solid var(--line)}
+.v6a-adim li{display:grid;grid-template-columns:3rem 1fr;gap:var(--sp-3)}
+.v6a-adim span{font-size:var(--fs-sm);color:var(--muted);font-variant-numeric:tabular-nums}
+.v6a h3{margin:0 0 var(--sp-1);font-size:var(--fs-md);font-weight:var(--fw-sub)}
+.v6a-adim p,.v6a-ilke p{margin:0;font-size:var(--fs-sm);color:var(--muted);max-width:34rem}
+.v6a-arac p{margin:0;max-width:40rem;font-size:var(--fs-md);color:var(--muted)}
+.v6a-son{padding-block:calc(var(--v6a-y)/2) var(--v6a-y);display:grid;gap:var(--sp-5)}
+.v6a-son p{margin:0;max-width:34rem;font-size:var(--fs-lg);color:var(--muted)}
+.v6a-eylem{display:flex;flex-wrap:wrap;gap:var(--sp-3)}
+@media (min-width:861px){.v6a-bolum{grid-template-columns:minmax(0,12rem) minmax(0,1fr);gap:var(--sp-8)}.v6a-bolum h2{padding-top:var(--sp-5)}}

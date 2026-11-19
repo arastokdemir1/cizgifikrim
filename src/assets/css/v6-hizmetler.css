@@ -1,0 +1,35 @@
+/* V6 /tr/hizmetler/: sergi satırları (görsel bir yanda, metin öbür yanda, dönüşümlü). Yalnız ortak jetonlar. Frontend-1 */
+.v6h{--v6h-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem))}
+.v6h-ust{padding-block:var(--v6h-y) calc(var(--v6h-y)/2);display:grid;gap:var(--sp-3)}
+.v6h-ust h1{margin:0;font-size:clamp(2rem,1.4rem + 2.4vw,3rem);line-height:var(--lh-head);letter-spacing:var(--ls-head);font-weight:var(--fw-head)}
+.v6h-ust p{margin:0;max-width:38rem;font-size:var(--fs-lg);color:var(--muted)}
+.v6h-satir{display:grid;grid-template-columns:1fr;gap:var(--sp-8);align-items:center;padding-block:calc(var(--v6h-y)/2)}
+.v6h-gorsel{min-width:0;border-radius:var(--r-panel);background:var(--surface);padding:clamp(1rem,.5rem + 3vw,2.5rem);display:grid;place-items:center}
+.v6h-metin{min-width:0;display:grid;gap:var(--sp-4);align-content:center;max-width:30rem}
+.v6h-metin h2{margin:0;font-size:var(--fs-xl);line-height:var(--lh-head);letter-spacing:var(--ls-head);font-weight:var(--fw-head)}
+.v6h-lead{margin:0;color:var(--muted);font-size:var(--fs-md)}
+.v6h-liste{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.v6h-liste li{padding:var(--sp-3) 0;border-bottom:1px solid var(--line);font-size:var(--fs-sm)}
+.v6h-kanit{margin:0;font-size:var(--fs-sm);color:var(--muted)}
+.v6h-kanit a{color:var(--ink);text-decoration:underline;text-underline-offset:.2em}
+.v6h-tarayici{margin:0;width:100%;border:1px solid var(--line);border-radius:var(--r-ctl);overflow:hidden;background:var(--bg)}
+.v6h-bar{display:flex;align-items:center;gap:.375rem;padding:.5rem .75rem;border-bottom:1px solid var(--line);font-size:var(--fs-xs);color:var(--muted)}
+.v6h-bar i{width:.5rem;height:.5rem;border-radius:50%;background:var(--line)}
+.v6h-bar span{margin-left:.5rem}
+.v6h-tarayici img{display:block;width:100%;height:auto}
+.v6h-teller{display:flex;gap:clamp(.75rem,.25rem + 2vw,1.5rem);justify-content:center;margin:0;padding:0;list-style:none}
+.v6h-teller li{width:min(42%,12rem)}
+.v6h-tel{margin:0;padding:.375rem;border-radius:1.75rem;background:color-mix(in srgb,var(--ink) 94%,var(--bg))}
+.v6h-tel__ekran{border-radius:1.4rem;overflow:hidden}
+.v6h-tel img{display:block;width:100%;height:auto}
+.v6h-foto{position:relative;margin:0;width:min(100%,22rem)}
+.v6h-foto img{display:block;width:100%;height:auto;border-radius:var(--r-ctl)}
+.v6h-chip{position:absolute;left:.75rem;bottom:.75rem;padding:.2rem .6rem;border-radius:var(--r-pill);font-size:var(--fs-xs);background:color-mix(in srgb,var(--bg) 85%,transparent);color:var(--ink);backdrop-filter:blur(8px)}
+.v6h-son{padding-block:calc(var(--v6h-y)/2) var(--v6h-y);display:grid;gap:var(--sp-5)}
+.v6h-son p{margin:0;max-width:34rem;font-size:var(--fs-lg);color:var(--muted)}
+.v6h-eylem{display:flex;flex-wrap:wrap;gap:var(--sp-3)}
+@media (min-width:861px){
+  .v6h-satir{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(2rem,1rem + 5vw,5rem)}
+  .v6h-satir--ters .v6h-gorsel{order:2}
+  .v6h-satir--ters .v6h-metin{order:1}
+}

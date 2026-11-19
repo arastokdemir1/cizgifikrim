@@ -17,7 +17,7 @@ document.addEventListener('click',(e)=>{menuler().forEach((d)=>{if(d.open&&!d.co
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')menuler().forEach((d)=>{if(d.open){d.open=false;const s=d.querySelector('summary');s&&s.focus();}});});
 })();
 
-/* Ana sayfada eski #urunler/#vesira/#polishreel/#carlog bağlantılarını gerçek adrese yönlendirir (V5 tek sayfa sürümünden kalan paylaşılmış bağlantılar). Yükleme anında ve sayfadayken hash değişince çalışır; #hakkimizda/#hizmetler/#iletisim yalnız kaydırır. */
-(()=>{const H={urunler:'/tr/urunler/',vesira:'/tr/urunler/vesira/',polishreel:'/tr/urunler/polishreel/',carlog:'/tr/urunler/carlog/'};
+/* Ana sayfada eski #urunler/#vesira/#polishreel/#carlog bağlantılarını gerçek adrese yönlendirir (V5 tek sayfa sürümünden kalan paylaşılmış bağlantılar). Yükleme anında ve sayfadayken hash değişince çalışır; yalnız #iletisim ana sayfada kaydırır (hizmetler ve hakkımızda artık ayrı sayfa). */
+(()=>{const H={urunler:'/tr/urunler/',vesira:'/tr/urunler/vesira/',polishreel:'/tr/urunler/polishreel/',carlog:'/tr/urunler/carlog/',hizmetler:'/tr/hizmetler/',hakkimizda:'/tr/hakkimizda/'};
 const git=()=>{const h=(location.hash||'').replace(/^#/,'');if(location.pathname==='/'&&Object.prototype.hasOwnProperty.call(H,h))location.replace(H[h]);};
 git();window.addEventListener('hashchange',git);})();
