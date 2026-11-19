@@ -44,5 +44,7 @@
 .ur5 .ur5-urun--son:where([data-sayfa="ana"],[data-sayfa="ana"] *){padding-bottom:0}
 @media (max-width:40rem){.ur5 .ur5-urun:where([data-sayfa="ana"],[data-sayfa="ana"] *){padding-bottom:calc(var(--ur-y) - .75rem)}.ur5 .ur5-urun--son:where([data-sayfa="ana"],[data-sayfa="ana"] *){padding-bottom:0;margin-bottom:-.75rem}}
 .ur5-tum:where([data-sayfa="ana"],[data-sayfa="ana"] *){padding-block:var(--ur-y,2rem) calc(var(--bolum-y) - 1rem);display:flex;justify-content:center}
-#iletisim.v5-ilet:where([data-sayfa="ana"],[data-sayfa="ana"] *){padding-top:0}
+.v5-ilet:where([data-sayfa="ana"],[data-sayfa="ana"] *){padding-top:0}
 .ur5 .ur5-urun:first-child:where([data-sayfa="ana"],[data-sayfa="ana"] *){padding-top:calc(var(--ur-y) - 1rem)}
+.v6-serit:where([data-sayfa="ana"],[data-sayfa="ana"] *){display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--sp-5) var(--sp-8);padding:var(--sp-8) clamp(1.25rem,.5rem + 3vw,2.5rem);border-radius:var(--r-panel);background:var(--surface)}
+.v6-serit p:where([data-sayfa="ana"],[data-sayfa="ana"] *){margin:0;max-width:32rem;font-size:var(--fs-lg)}
