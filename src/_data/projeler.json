@@ -391,17 +391,17 @@
  {
   "slug": "ersoy",
   "ad": "Ersoy",
-  "ne": "Web tabanlı yapay zekâ asistanı",
+  "ne": "Kendi aklı ve iradesi olan, sürekli düşünen kişisel yapay zekâ.",
   "durum": "Geliştiriliyor",
   "bolumler": [
    {
-    "baslik": "Web tabanlı yapay zekâ asistanı",
-    "metin": "Durum: Geliştiriliyor.",
+    "baslik": "Kendi aklı ve iradesi olan, sürekli düşünen kişisel yapay zekâ.",
+    "metin": "Durum: Geliştiriliyor. Kişisel bir sistem; herkese açık bir ürün değil.",
     "tur": "plaka"
    }
   ],
   "kaynaklar": [
-   "src/_data/modern.js (eski site verisi, herkese açık)"
+   "Ersoy | Genel mesajı 2026-11-20 (Aras kararıyla): ekran görüntüsü yok, 'asistan' yazılmaz, platform/yıl yazılmaz"
   ]
  },
  {
