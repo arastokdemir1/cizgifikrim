@@ -13,7 +13,7 @@
     "build:cf": "npm run clean && cross-env PLATFORM=cf eleventy",
     "serve": "eleventy --serve",
     "kontrol": "node scripts/kontrol-hepsi.mjs",
-    "test": "npm run build:gh && npm run kontrol",
+    "test": "npm run build:cf && node scripts/kontrol-basliklar.mjs --site _site && npm run build:gh && npm run kontrol",
     "audit": "npm audit --omit=dev --audit-level=high",
     "build:fixture": "cross-env ELEVENTY_FIXTURE=1 eleventy --output=_site-test",
     "test:fixture": "npm run build:fixture && node scripts/kontrol-hepsi.mjs --site _site-test --no-audit",

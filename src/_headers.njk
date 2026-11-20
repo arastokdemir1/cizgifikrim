@@ -20,18 +20,10 @@ sitemap: false
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Content-Security-Policy: default-src 'none'; script-src 'self' __SCRIPT_HASHLERI__; style-src-elem 'self'; style-src-attr 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self' {{ SB }}/rest/v1/; frame-src 'self'; frame-ancestors 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; manifest-src 'self'
 
-# Görüşme (yalnız bu sayfa): Cal.com (betik, çerçeve, bağlantı) ve submit-lead uç noktası
-/gorusme/
-  ! Content-Security-Policy
-  Content-Security-Policy: default-src 'none'; script-src 'self' __SCRIPT_HASHLERI__ https://app.cal.com; style-src-elem 'self' 'unsafe-inline'; style-src-attr 'unsafe-inline'; img-src 'self' data: https://app.cal.com https://cal.com; font-src 'self' https://app.cal.com; connect-src 'self' {{ SB }}/rest/v1/ {{ SB }}/functions/v1/submit-lead https://app.cal.com https://cal.com; frame-src 'self' https://app.cal.com https://cal.com; frame-ancestors 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; manifest-src 'self'
-
+# İletişim (yalnız bu sayfa): Cal.com satır içi takvim (v6-iletisim.js, app.cal.com betik/çerçeve/stil/yazı tipi/görsel/bağlantı). Form yok: submit-lead uç noktası YOK.
 /tr/iletisim/
   ! Content-Security-Policy
-  Content-Security-Policy: default-src 'none'; script-src 'self' __SCRIPT_HASHLERI__ https://app.cal.com; style-src-elem 'self' 'unsafe-inline'; style-src-attr 'unsafe-inline'; img-src 'self' data: https://app.cal.com https://cal.com; font-src 'self' https://app.cal.com; connect-src 'self' {{ SB }}/rest/v1/ {{ SB }}/functions/v1/submit-lead https://app.cal.com https://cal.com; frame-src 'self' https://app.cal.com https://cal.com; frame-ancestors 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; manifest-src 'self'
-
-/en/contact/
-  ! Content-Security-Policy
-  Content-Security-Policy: default-src 'none'; script-src 'self' __SCRIPT_HASHLERI__ https://app.cal.com; style-src-elem 'self' 'unsafe-inline'; style-src-attr 'unsafe-inline'; img-src 'self' data: https://app.cal.com https://cal.com; font-src 'self' https://app.cal.com; connect-src 'self' {{ SB }}/rest/v1/ {{ SB }}/functions/v1/submit-lead https://app.cal.com https://cal.com; frame-src 'self' https://app.cal.com https://cal.com; frame-ancestors 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; manifest-src 'self'
+  Content-Security-Policy: default-src 'none'; script-src 'self' __SCRIPT_HASHLERI__ https://app.cal.com; style-src-elem 'self' 'unsafe-inline'; style-src-attr 'unsafe-inline'; img-src 'self' data: https://app.cal.com https://cal.com; font-src 'self' https://app.cal.com; connect-src 'self' {{ SB }}/rest/v1/ https://app.cal.com https://cal.com; frame-src 'self' https://app.cal.com https://cal.com; frame-ancestors 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; manifest-src 'self'
 
 # Demolar: kendi meta CSP'leri var (hash'li, connect-src 'none'); site CSP'si kesişip bozmasın. Fontlar için ACAO (opak köken iframe).
 /demo/*
@@ -56,6 +48,8 @@ sitemap: false
 /sano/*
   ! Content-Security-Policy
 /zihinustasi/*
+  ! Content-Security-Policy
+/flowgraph/*
   ! Content-Security-Policy
 /assets/*
   ! Content-Security-Policy

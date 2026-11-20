@@ -31,6 +31,18 @@ for (const c of cspler) {
   if (!/default-src 'none'/.test(c.csp) || !/object-src 'none'/.test(c.csp) || !/base-uri 'none'/.test(c.csp)) r.hata(`${c.yol}: default-src/object-src/base-uri 'none' eksik`);
   if (c.yol !== '/*' && !c.ayir) r.hata(`${c.yol}: ikinci CSP "! Content-Security-Policy" ile ayrılmamış (iki CSP kesişir)`);
 }
+// Cal.com istisnası YALNIZ /tr/iletisim/ içindir: ana CSP'de ve başka kuralda cal.com yok; iletişim kuralında script-src ve frame-src'de app.cal.com var; form uç noktası (submit-lead) hiçbir yerde yok
+for (const c of cspler) {
+  const calVar = /cal\.com/.test(c.csp);
+  if (c.yol !== '/tr/iletisim/' && calVar) r.hata(`${c.yol}: cal.com yalnız /tr/iletisim/ kuralında olmalı`);
+  if (/submit-lead/.test(c.csp)) r.hata(`${c.yol}: form uç noktası (submit-lead) CSP'de olmamalı (sitede form yok)`);
+}
+const il = cspler.find((c) => c.yol === '/tr/iletisim/');
+if (!il) r.hata('/tr/iletisim/ için ayrı CSP kuralı yok (Cal.com takvimi)');
+else {
+  if (!/script-src [^;]*https:\/\/app\.cal\.com/.test(il.csp)) r.hata('/tr/iletisim/: script-src app.cal.com içermiyor');
+  if (!/frame-src [^;]*https:\/\/app\.cal\.com/.test(il.csp)) r.hata('/tr/iletisim/: frame-src app.cal.com içermiyor');
+}
 const ayriYollar = ['/demo/*', ...KORUNAN_KLASORLER.filter((k) => k !== 'demo').map((k) => `/${k}/*`)];
 for (const y of ayriYollar) { const k = kurallar.find((x) => x.yol === y); if (!k || !k.h.includes('! Content-Security-Policy')) r.hata(`${y}: site CSP'sinden ayrılmamış`); }
 // Hash'ler çıktıdaki satır içi betiklerle birebir
