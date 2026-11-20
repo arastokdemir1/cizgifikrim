@@ -215,7 +215,7 @@
    Kahraman başlığı ~58px, bölüm başlıkları ~40px, gövde 17–18px; görseller ~%70-75; telefonlar ~380–420px yükseklik (eski ≥560 kuralı kaldırıldı).
    Tam genişlik görsel/video artık kap genişliğinde, köşeli. 375'te mobil ölçüler değişmez. ==== */
 @media (min-width:56rem){
-  .v2{--kap:1100px;--tel-w:clamp(11.25rem,8.5rem + 3vw,12rem);--v2-medya-h:min(62svh,34rem)}
+  .v2{--kap:1100px;--tel-w:clamp(11.75rem,9rem + 3vw,12.5rem);--v2-medya-h:min(62svh,34rem)}
   .v2 .wrap{width:min(var(--kap),100% - 2*var(--sp-6))}
   /* tipografi */
   .v2-baslik{max-width:16ch;font-size:clamp(2.75rem,1.6rem + 2.4vw,3.625rem);letter-spacing:-.04em;line-height:1.02}
