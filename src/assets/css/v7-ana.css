@@ -1,0 +1,19 @@
+/* V7 ana sayfa (Frontend-1): "İşletmeler için" Sanayi alanı (ürünün kendi rengi, tipografik, görsel yuvası hazır) + Vesira'nın öne çıkarılması. */
+/* Vesira: ilk ve en güçlü blok, sahne daha geniş ve başlık daha büyük */
+@media (min-width:63.8125rem){.ur5 #ur5-vesira{grid-template-columns:minmax(0,8fr) minmax(0,4fr)}.ur5 #ur5-vesira.ur5-urun:first-child{padding-top:calc(var(--ur-y) - .3rem)}}
+.ur5 #ur5-vesira .ur5-baslik h2{font-size:clamp(2.5rem,1.6rem + 3vw,4rem);line-height:1.02;letter-spacing:-.035em}
+/* İşletmeler için */
+.v7i{padding-block:.25rem var(--bolum-y,clamp(4rem,2rem + 6vw,7rem))}
+.v7i-panel{--z:#3d2b57;--m:#fff;--m2:#d9d0e6;position:relative;overflow:hidden;display:grid;gap:var(--sp-8);align-items:center;padding:clamp(1.75rem,.5rem + 5vw,5rem);border-radius:var(--r-panel);background:var(--z);color:var(--m)}
+.v7i-metin{position:relative;z-index:1;display:grid;gap:var(--sp-4);align-content:center;justify-items:start}
+.v7i-et{margin:0;font-size:var(--fs-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--m2)}
+.v7i-metin h2{margin:0;font-size:clamp(3.5rem,2rem + 7vw,8rem);line-height:.95;letter-spacing:-.05em;font-weight:var(--fw-head)}
+.v7i-cumle{margin:0;max-width:32rem;font-size:var(--fs-lg);color:var(--m)}
+.v7i-durum{margin:0;font-size:var(--fs-sm);color:var(--m2)}
+.v7i-eylem{margin:var(--sp-2) 0 0}
+.v7i .v7i-btn{background:#fff;color:#2a1d3d;border-color:#fff}
+.v7i .v7i-btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.v7i-gorsel{position:relative;display:grid;place-items:center;min-height:12rem;color:transparent;font-size:clamp(10rem,6rem + 18vw,24rem);line-height:.8;font-weight:var(--fw-head);letter-spacing:-.06em;-webkit-text-stroke:2px rgba(255,255,255,.28);user-select:none}
+.v7i-gorsel>img{display:block;width:100%;height:auto;border-radius:var(--r-card)}
+@media (min-width:861px){.v7i-panel{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}}
+@media (max-width:860px){.v7i-gorsel{min-height:9rem;font-size:9rem;justify-self:end;margin-top:calc(var(--sp-8) * -1)}}
