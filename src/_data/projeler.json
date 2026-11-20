@@ -1611,6 +1611,60 @@
   ]
  },
  {
+  "slug": "sanayi",
+  "ad": "Sanayi",
+  "ne": "Oto yedek parça dükkânları için tek aramada birçok tedarikçinin fiyat ve stok bilgisini toplayan Chrome eklentisi.",
+  "platform": "Chrome eklentisi",
+  "durum": "Geliştiriliyor",
+  "bolumler": [
+   {
+    "baslik": "Oto yedek parça dükkânları için tek aramada birçok tedarikçinin fiyat ve stok bilgisini toplayan Chrome eklentisi.",
+    "metin": "Tek dükkânda saha denemesinde.",
+    "tur": "plaka"
+   }
+  ],
+  "kaynaklar": [
+   "Sanayi | Genel mesajı 2026-11-20 (metin ve durum satırı Aras'ın onayıyla; Yönetici Aras'tan 'Evet, ekle' diye doğruladı). Tedarikçi adı, fiyat, indirme şifresi ve adres yazılmaz; ekran görüntüsü kullanılmaz."
+  ],
+  "detay": [
+   {
+    "baslik": "Ne",
+    "metin": "Oto yedek parça dükkânları için tek aramada birçok tedarikçinin fiyat ve stok bilgisini toplayan Chrome eklentisi."
+   },
+   {
+    "baslik": "Platform ve teknoloji",
+    "metin": "Chrome eklentisi."
+   },
+   {
+    "baslik": "Durum",
+    "metin": "Tek dükkânda saha denemesinde."
+   }
+  ],
+  "katalog_ikon": {
+   "tur": "monogram",
+   "zemin": "#3d2b57"
+  },
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#a48cc4",
+   "zemin": "#3d2b57",
+   "zemin_koyu": "#1b1226",
+   "metin_vurgu": "#d3c6e4",
+   "metin_vurgu_koyu": "#bba6d6"
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "Tek aramada birçok tedarikçi."
+   },
+   {
+    "tur": "manset",
+    "etiket": "Ne",
+    "baslik": "Oto yedek parça dükkânları için tek aramada birçok tedarikçinin fiyat ve stok bilgisini toplayan Chrome eklentisi."
+   }
+  ]
+ },
+ {
   "slug": "ersoy",
   "ad": "Ersoy",
   "ne": "Kendi aklı ve iradesi olan, sürekli düşünen kişisel yapay zekâ.",
