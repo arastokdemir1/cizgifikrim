@@ -1,0 +1,8 @@
+/* JS kapalıyken (noscript ile yüklenir): ada sabit çubuk olarak kalır, bağlantılar görünür, panel/menü düğmesi yok. */
+.nav .nav__panel,.nav .nav__menu{display:none}
+@media (max-width:860px){
+  .nav .nav__slot{height:auto}
+  .nav .nav__in{position:static;transform:none;width:100%}
+  .nav .nav__bar{height:auto;grid-template-columns:1fr;gap:var(--sp-2);padding-block:var(--sp-3)}
+  .nav .links,.nav .nav__ilet{display:flex;flex-wrap:wrap;justify-self:start}
+}
