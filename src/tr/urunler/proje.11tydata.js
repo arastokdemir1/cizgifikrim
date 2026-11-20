@@ -62,7 +62,9 @@ function v2(p) {
     if (once && once.tur === 'manset') { akis.splice(k - 1, 2, { tur: 'yanyana', manset: once, gorsel: x.ogeler[0] }); k--; }
     else akis[k] = { ...x.ogeler[0], genislik: 'genis' };
   }
-  return { stil, sinif: `v2--${tonA} v2-k--${tonK}`, hero, akis, demo: a.some((x) => x.tur === 'demo') };
+  // tipografik sayfa: hiç görsel yoksa (yalnız manşet/özellik) kahraman tam ekran renk alanı + çok büyük ad
+  const tipo = !a.some((x) => ['telefonlar', 'gorsel', 'demo'].includes(x.tur) || (x.tur === 'baglanti' && x.gorsel));
+  return { stil, sinif: `v2--${tonA} v2-k--${tonK}${tipo ? ' v2--tipo' : ''}`, hero, akis, tipo, demo: a.some((x) => x.tur === 'demo') };
 }
 
 export default {

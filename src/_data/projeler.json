@@ -1643,7 +1643,27 @@
   "katalog_ikon": {
    "tur": "monogram",
    "zemin": "#0f4c4a"
-  }
+  },
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#7b9d9b",
+   "zemin": "#0f4c4a",
+   "zemin_koyu": "#072221",
+   "metin_vurgu": "#bccdcc",
+   "metin_vurgu_koyu": "#9fb7b7"
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "Kendi aklı ve iradesi olan, sürekli düşünen kişisel yapay zekâ."
+   },
+   {
+    "tur": "manset",
+    "etiket": "Durum",
+    "baslik": "Kişisel bir sistem.",
+    "metin": "Herkese açık bir ürün değil; geliştiriliyor."
+   }
+  ]
  },
  {
   "slug": "alp",
@@ -1670,7 +1690,26 @@
   "katalog_ikon": {
    "tur": "monogram",
    "zemin": "#1f5a3a"
-  }
+  },
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#84a493",
+   "zemin": "#1f5a3a",
+   "zemin_koyu": "#0e281a",
+   "metin_vurgu": "#c0d1c8",
+   "metin_vurgu_koyu": "#a5bdb0"
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "Yerel yapay zekâ asistanı."
+   },
+   {
+    "tur": "manset",
+    "etiket": "Ne",
+    "baslik": "Tamamen yerel çalışan, gizlilik odaklı yapay zekâ asistanı."
+   }
+  ]
  },
  {
   "slug": "gnomon",
@@ -1735,6 +1774,70 @@
    "tur": "monogram",
    "zemin": "#4a3b2a"
   },
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#9b938a",
+   "zemin": "#4a3b2a",
+   "zemin_koyu": "#211b13",
+   "metin_vurgu": "#ccc8c3",
+   "metin_vurgu_koyu": "#b7b1aa"
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "Sade, dikkat dağıtmayan proje yönetimi.",
+    "metin": "macOS için; bağımlılık kilitleme motoruyla çalışır."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "genis",
+    "gorsel": "/assets/v1/img/proje/gnomon/pano.webp",
+    "alt": "Gnomon pano görünümü: Open, In progress, Done sütunları",
+    "baslik": "Pano: açık, devam eden ve tamamlanan görevler üç sütunda."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "genis",
+    "gorsel": "/assets/v1/img/proje/gnomon/liste.webp",
+    "alt": "Gnomon liste görünümü: örnek proje, görevler ve alt görevler, odak sayacı",
+    "baslik": "Liste.",
+    "metin": "Görevler, alt görevler ve odak sayacı bir arada."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "genis",
+    "gorsel": "/assets/v1/img/proje/gnomon/graf.webp",
+    "alt": "Gnomon bağımlılık grafiği: görev düğümleri ve aralarındaki bağlantı",
+    "baslik": "Bağımlılık grafiği.",
+    "metin": "Bir görevin hangi görevden sonra gelebileceğini bağlantılarla gör."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "genis",
+    "gorsel": "/assets/v1/img/proje/gnomon/zaman-cizelgesi.webp",
+    "alt": "Gnomon zaman çizelgesi görünümü",
+    "baslik": "Zaman çizelgesi.",
+    "metin": "Görevleri günlere yayarak gör."
+   },
+   {
+    "tur": "ozellikler",
+    "baslik": "macOS; yerel depolama için Core Data.",
+    "maddeler": [
+     {
+      "isaret": "01",
+      "metin": "Yerel öncelikli: veriler cihazda yerel olarak saklanır."
+     },
+     {
+      "isaret": "02",
+      "metin": "Karmaşık görevler sade, analitik görünümlerle sunulur."
+     },
+     {
+      "isaret": "03",
+      "metin": "İsteğe bağlı ağ görünümü sistem bağımlılıklarını gösterir."
+     }
+    ]
+   }
+  ],
   "kart_gorsel": "/assets/v1/img/proje/gnomon/pano.webp"
  },
  {
@@ -1762,7 +1865,26 @@
   "katalog_ikon": {
    "tur": "monogram",
    "zemin": "#8a1c1c"
-  }
+  },
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#bf8282",
+   "zemin": "#8a1c1c",
+   "zemin_koyu": "#3e0d0d",
+   "metin_vurgu": "#debfbf",
+   "metin_vurgu_koyu": "#d0a4a4"
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "Araç içi yazılım çalışmaları."
+   },
+   {
+    "tur": "manset",
+    "etiket": "Ne",
+    "baslik": "ECU yazılımları ve araç içi dijital sistemlere yönelik çözüm."
+   }
+  ]
  },
  {
   "slug": "emre",
@@ -1789,7 +1911,27 @@
   "katalog_ikon": {
    "tur": "monogram",
    "zemin": "#2f4a6b"
-  }
+  },
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#8d9bae",
+   "zemin": "#2f4a6b",
+   "zemin_koyu": "#152130",
+   "metin_vurgu": "#c5ccd6",
+   "metin_vurgu_koyu": "#acb7c4"
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "Otonom yapay zekâ araştırmaları."
+   },
+   {
+    "tur": "manset",
+    "etiket": "Ne",
+    "baslik": "LLM'den bağımsız bilişsel karar çekirdeği.",
+    "metin": "Bu çekirdek üzerine otonom yapay zekâ araştırması."
+   }
+  ]
  },
  {
   "slug": "radar",
@@ -1816,6 +1958,25 @@
   "katalog_ikon": {
    "tur": "monogram",
    "zemin": "#7a3b12"
-  }
+  },
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#b6937d",
+   "zemin": "#7a3b12",
+   "zemin_koyu": "#371b08",
+   "metin_vurgu": "#dac8bd",
+   "metin_vurgu_koyu": "#cab1a0"
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "BIST hisse tarama çalışması."
+   },
+   {
+    "tur": "manset",
+    "etiket": "Ne",
+    "baslik": "Filtre tabanlı BIST hisse tarama uygulaması."
+   }
+  ]
  }
 ]

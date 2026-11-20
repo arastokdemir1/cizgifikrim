@@ -36,10 +36,10 @@
 
 <div class="v2 {{ v2.sinif }}" style="{{ v2.stil }}">
   {%- set h = v2.hero %}
-  <section class="v2-hero" aria-labelledby="v2-h1">
+  <section class="v2-hero{% if v2.tipo %} v2-hero--tipo{% endif %}" aria-labelledby="v2-h1">
     <div class="wrap v2-hero__metin">
       <a class="v2-geri" href="{{ kok }}"><span aria-hidden="true">←</span> Ürünler</a>
-      <h1 id="v2-h1"><span class="v2-ad">{% if p.ikon %}<img src="{{ p.ikon }}" width="40" height="40" alt="">{% endif %}{{ p.ad }}</span>{% if h %}<span class="v2-baslik">{{ h.manset.baslik }}</span>{% endif %}</h1>
+      <h1 id="v2-h1"><span class="v2-ad"{% if v2.tipo %} style="--ad-uz:{{ (p.ad | length) if (p.ad | length) > 4 else 4 }}"{% endif %}>{% if p.ikon %}<img src="{{ p.ikon }}" width="40" height="40" alt="">{% endif %}{{ p.ad }}</span>{% if h %}<span class="v2-baslik">{{ h.manset.baslik }}</span>{% endif %}</h1>
       <p class="v2-giris">{{ h.manset.metin if h else p.ne }}</p>
       <p class="v2-cta">
         {%- if p.cta and p.cta.url %}{% set cdis = (p.cta.dis or p.cta.url.indexOf('http') == 0) %}<a class="btn v2-btn" href="{{ p.cta.url }}"{% if cdis %} rel="noopener" target="_blank"{% endif %}>{{ p.cta.etiket }}{% if cdis %}<span class="v6-gizli"> (yeni sekmede açılır)</span> <span aria-hidden="true">↗</span>{% endif %}</a>
@@ -58,6 +58,7 @@
   {%- set no = loop.index %}
   {%- if x.tur == 'manset' %}
   <section class="wrap v2-blok v2-manset" aria-labelledby="v2b{{ no }}">
+    {%- if x.etiket %}<p class="v2-etiket">{{ x.etiket }}</p>{% endif %}
     <h2 id="v2b{{ no }}">{{ x.baslik }}</h2>
     {%- if x.metin %}<p>{{ x.metin }}</p>{% endif %}
   </section>

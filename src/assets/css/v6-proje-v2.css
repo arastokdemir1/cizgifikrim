@@ -167,3 +167,21 @@
 .v2-medya .v6-cip--ust{top:1rem;left:1rem}
 /* 4 görsellik ikili: 2×2, sayfada aşırı büyümesin */
 @media (min-width:48rem){.v2-ikili--4{max-width:60rem;margin-inline:auto}.v2-ikili--3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* ---- V6.5 tipografik sayfa (görseli olmayan proje): tam ekran renk alanı, çok büyük ad, büyük anlatı blokları ---- */
+.v2--tipo{--muted:color-mix(in srgb,var(--ink) 84%,var(--u-zemin))}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .v2--tipo{--muted:color-mix(in srgb,var(--ink) 84%,var(--u-zemin-k))}}
+.v2-hero--tipo{display:grid;grid-template-rows:1fr;min-height:min(calc(100svh - 5.5rem),56rem);padding-bottom:clamp(2.5rem,1.5rem + 4vw,5.5rem);text-align:left}
+.v2-hero--tipo .v2-hero__metin{justify-items:start;grid-template-rows:auto 1fr auto auto;width:min(var(--measure),100% - 2*var(--sp-6))}
+.v2-hero--tipo h1{align-self:end;justify-items:start;gap:clamp(1rem,.5rem + 1.5vw,2rem);margin-top:var(--sp-8);width:100%}
+.v2-hero--tipo .v2-ad{display:block;font-size:min(16rem,calc(150vw / var(--ad-uz,6)),calc((100vw - 3rem) * 1.6 / var(--ad-uz,6)));font-weight:760;line-height:.9;letter-spacing:-.055em}
+.v2-hero--tipo .v2-baslik{max-width:22ch;font-size:clamp(1.5rem,1rem + 1.8vw,2.75rem);font-weight:var(--fw-sub);line-height:1.15;letter-spacing:-.025em;color:var(--muted)}
+.v2-hero--tipo .v2-giris:empty{display:none}
+.v2-hero--tipo .v2-cta{justify-content:flex-start}
+.v2-hero--tipo .v2-cta:empty{display:none}
+/* anlatı blokları: sola yaslı, ince çizgiyle ayrılmış büyük cümleler */
+.v2--tipo .v2-manset{justify-items:start;text-align:left;padding-top:clamp(1.5rem,1rem + 1.5vw,2.5rem);border-top:1px solid var(--line)}
+.v2--tipo .v2-manset h2{max-width:22ch;font-size:clamp(2rem,1.2rem + 3.2vw,4.25rem)}
+.v2--tipo .v2-manset p:not(.v2-etiket){max-width:46ch}
+.v2-etiket{margin:0 0 var(--sp-4);color:var(--vurgu-metin);font-size:var(--fs-xs);font-weight:var(--fw-sub);letter-spacing:var(--ls-label);text-transform:uppercase}
+@media (max-width:55.99rem){.v2-hero--tipo{min-height:min(62svh,34rem)}}
