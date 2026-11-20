@@ -28,3 +28,6 @@ main.v6i{margin-bottom:-.125rem}
   .v6i-alan{margin-top:var(--sp-10)}
   .v6i-takvim{border-radius:var(--r-card)}
 }
+/* Cal iframe'i kendi belgesinde color-scheme bildirmiyor (normal = açık); sayfa koyu temadayken tarayıcı uyumsuzlukta iframe'e opak beyaz zemin boyar.
+   iframe öğesinin şemasını içerikle eşitle: zemin saydam kalır, kartın --surface rengi görünür. */
+.v6i-cal iframe,.v6i-cal .cal-embed{color-scheme:light!important} /* Cal kendi stilinde "light dark" veriyor; !important gerekli */
