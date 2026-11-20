@@ -63,7 +63,7 @@ og: /assets/v1/img/og/tr-solutions.png
     <p class="v6h-bant__ad">{{ g.ad }}</p>
     <div class="v6h-bant__pencere"><div class="v6h-bant__kayis">
       {%- for kopya in range(0, 2) %}
-      <ul class="v6h-bant__grup" role="list"{% if kopya == 1 %} aria-hidden="true"{% endif %}>{% for r in range(0, tekrar) %}{% for o in g.liste %}<li>{{ o.ad }}</li>{% endfor %}{% endfor %}</ul>
+      <ul class="v6h-bant__grup" role="list"{% if kopya == 1 %} aria-hidden="true"{% endif %}>{% for r in range(0, tekrar) %}{% for o in g.liste %}<li{% if kopya == 1 or r > 0 %} class="v6h-kopya" aria-hidden="true"{% endif %}>{{ o.ad }}</li>{% endfor %}{% endfor %}</ul>
       {%- endfor %}
     </div></div>
   </div>

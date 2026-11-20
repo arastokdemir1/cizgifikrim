@@ -73,6 +73,6 @@ main.v6h{--v6h-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem));--yay:cubic-bezier(.
   .v6h-bant__pencere{-webkit-mask-image:none;mask-image:none}
   .v6h-bant__kayis{animation:none;width:auto;flex-wrap:wrap}
   .v6h-bant__grup{flex-wrap:wrap}
-  .v6h-bant__grup[aria-hidden="true"]{display:none}
+  .v6h-bant__grup[aria-hidden="true"],.v6h-kopya{display:none}
 }
 .v6h-kart:not([data-k="0"]) .v6h-gorsel{border-radius:var(--r-panel)}
