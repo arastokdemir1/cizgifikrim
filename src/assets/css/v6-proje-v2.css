@@ -210,3 +210,62 @@
 .v2-dongu__btn--oyna .v2-dongu__ikon::before{left:.15rem;width:0;height:0;background:none;border-style:solid;border-width:.4375rem 0 .4375rem .75rem;border-color:transparent transparent transparent currentColor;border-radius:0}
 .v2-dongu__btn--oyna .v2-dongu__ikon::after{display:none}
 .v2-hero__gorsel--tam .v2-dongu__btn{right:max(1rem,calc((100vw - var(--measure)) / 2))}
+
+/* ==== V7 ölçek (Aras: "çok büyük"): tüm v2 sayfaları tek yerden. Geniş ekranda içerik en çok 1100px ortada, renkli zemin tam genişlik kalır.
+   Kahraman başlığı ~58px, bölüm başlıkları ~40px, gövde 17–18px; görseller ~%70-75; telefonlar ~380–420px yükseklik (eski ≥560 kuralı kaldırıldı).
+   Tam genişlik görsel/video artık kap genişliğinde, köşeli. 375'te mobil ölçüler değişmez. ==== */
+@media (min-width:56rem){
+  .v2{--kap:1100px;--tel-w:clamp(11.25rem,8.5rem + 3vw,12rem);--v2-medya-h:min(62svh,34rem)}
+  .v2 .wrap{width:min(var(--kap),100% - 2*var(--sp-6))}
+  /* tipografi */
+  .v2-baslik{max-width:16ch;font-size:clamp(2.75rem,1.6rem + 2.4vw,3.625rem);letter-spacing:-.04em;line-height:1.02}
+  .v2-ad{font-size:var(--fs-lg)}
+  .v2-giris{max-width:44ch;font-size:clamp(1.0625rem,.95rem + .25vw,1.125rem)}
+  .v2-manset h2,.v2-telbolum__metin h2,.v2-ozellik h2{max-width:20ch;font-size:clamp(2rem,1.4rem + 1.2vw,2.5rem);letter-spacing:-.03em;line-height:1.08}
+  .v2-manset p,.v2-telbolum__metin p{font-size:1.0625rem;max-width:48ch}
+  .v2-ozellik__no{font-size:clamp(2rem,1.4rem + 1.2vw,2.75rem)}
+  .v2-ozellik__metin{font-size:var(--fs-md)}
+  .v2-btn{min-height:2.75rem;padding:0 var(--sp-6);font-size:.9375rem}
+  /* boşluk: biraz daha nefes (öğeler küçüldü) */
+  .v2-hero{padding-top:clamp(2rem,1rem + 2.5vw,3.5rem)}
+  .v2 h1{margin-top:clamp(1.75rem,1rem + 2vw,3rem)}
+  .v2-hero__gorsel{margin-top:clamp(3rem,2rem + 3vw,4.5rem)}
+  .v2-manset--ust{margin-bottom:clamp(2.25rem,1.5rem + 2vw,3.5rem)}
+  /* tam genişlik → kap genişliğinde, köşeli */
+  .v2-hero__gorsel--tam{width:min(var(--kap),100% - 2*var(--sp-6));margin-inline:auto}
+  .v2-hero__gorsel--tam .v2-kk,.v2-tam .v2-kk{border-radius:var(--r-panel)}
+  .v2-dongu--tam{border-radius:var(--r-panel)}
+  .v2-tam{width:min(var(--kap),100% - 2*var(--sp-6));margin-inline:auto}
+  .v2-tam .v2-foto{border-radius:var(--r-panel)}
+  .v2-hero__gorsel--tam .v2-dongu__btn{right:1rem}
+  /* görsel yükseklikleri ~%70 */
+  .v2-hero__gorsel .v2-kk,.v2-hero__gorsel--tam .v2-kk,.v2-dongu--tam,.v2-dongu--tam .v2-dongu__video{max-height:var(--v2-medya-h)}
+  .v2-dongu:not(.v2-dongu--tam){width:min(100%,calc(var(--v2-medya-h) * (var(--oran))))}
+  .v2-medya--video{width:min(100%,calc(var(--v2-medya-h) * (var(--oran))))}
+  .v2-yanyana__gorsel{width:min(100%,calc(var(--v2-medya-h) * (var(--oran))))}
+  .v2-hero__gorsel .v2-tels{max-height:none}
+  .v2-tanitim{border-radius:1.25rem}
+  .v2-tel .v6-tel{padding:.375rem;border-radius:2rem}
+  .v2-tel .v6-tel__ekran{border-radius:1.65rem}
+  .v2-demo .v6-demo--telefon .v6-tel,.v2-baglanti__tel{width:clamp(12rem,9rem + 3vw,13rem)}
+  .v2-baglanti__gorsel{max-width:56rem}
+  .v2-baglanti__kare{width:clamp(10rem,7rem + 5vw,13rem)}
+  .v2-demo .v6-demo--yatay{max-width:52rem}
+  .v2-ikili--4{max-width:46rem}
+  .v2-ikili:not(.v2-ikili--4):not(.v2-ikili--3){max-width:56rem;margin-inline:auto}
+  /* tipografik ad orantılı küçülür */
+  .v2-hero--tipo{min-height:min(calc(100svh - 5.5rem),40rem)}
+  .v2-hero--tipo .v2-ad{font-size:min(9.5rem,calc(100vw / var(--ad-uz,6)))}
+  .v2-hero--tipo .v2-baslik{font-size:clamp(1.375rem,1rem + 1vw,1.875rem)}
+  .v2--tipo .v2-manset h2{font-size:clamp(2rem,1.4rem + 1.2vw,2.75rem)}
+}
+@media (min-width:56rem){
+  /* küçülen telefon/görsel yanında yarı boş sütun kalmasın: metin | görsel çifti dar ortalı kapta, görsel kendi genişliğinde */
+  .v2-telbolum--bol .v2-telbolum__ic,.v2-yanyana__ic{max-width:58rem;margin-inline:auto;grid-template-columns:minmax(0,1fr) auto}
+  .v2-telbolum--bol+.v2-telbolum--bol .v2-telbolum__ic{grid-template-columns:auto minmax(0,1fr)}
+  .v2-yanyana__gorsel{width:calc(var(--v2-medya-h) * (var(--oran)));max-width:34rem}
+}
+@media (min-width:56rem){
+  .v2-telbolum--bol .v2-telbolum__ic,.v2-yanyana__ic,.v2-telbolum--bol+.v2-telbolum--bol .v2-telbolum__ic{grid-template-columns:minmax(0,26rem) auto;justify-content:center;column-gap:clamp(3rem,1rem + 4vw,5.5rem)}
+  .v2-telbolum--bol+.v2-telbolum--bol .v2-telbolum__ic{grid-template-columns:auto minmax(0,26rem)}
+}
