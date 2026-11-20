@@ -83,13 +83,47 @@
     "gorsel": "/assets/v1/img/proje/vesira/web-stiller.webp",
     "alt": "vesira.app stil seçimi bölümü: 'Suggest for me' ve on tasarım stili",
     "tur": "tarayici"
+   },
+   {
+    "baslik": "Salon.",
+    "metin": "Aynı oda, aynı kadraj: ahşap TV duvarı ve nişli raf.",
+    "gorsel": "/assets/v1/img/proje/vesira/salon-abd-sonra.webp",
+    "alt": "ABD salonu yeniden tasarlandıktan sonra: aydınlık, krem koltuk, ahşap TV duvarı, nişli raf",
+    "tur": "oncesonra",
+    "cift": "/assets/v1/img/proje/vesira/salon-abd-once.webp",
+    "once": "/assets/v1/img/proje/vesira/salon-abd-once.webp",
+    "sonra": "/assets/v1/img/proje/vesira/salon-abd-sonra.webp",
+    "alt_once": "ABD salonu önceki hali: koyu koltuk, dağınık oda"
+   },
+   {
+    "baslik": "Mutfak.",
+    "metin": "Meşe dolaplardan açık ahşap ve beyaza; çelik beyaz eşya ve yeni zemin.",
+    "gorsel": "/assets/v1/img/proje/vesira/mutfak-abd-sonra.webp",
+    "alt": "ABD mutfağı yeniden tasarlandıktan sonra: açık ahşap ve beyaz dolaplar, çelik beyaz eşya, yeni zemin",
+    "tur": "oncesonra",
+    "cift": "/assets/v1/img/proje/vesira/mutfak-abd-once.webp",
+    "once": "/assets/v1/img/proje/vesira/mutfak-abd-once.webp",
+    "sonra": "/assets/v1/img/proje/vesira/mutfak-abd-sonra.webp",
+    "alt_once": "ABD mutfağı önceki hali: meşe dolaplar, eski zemin"
+   },
+   {
+    "baslik": "Giriş holü.",
+    "metin": "Askıda yığılmış montlar yerine ahşap çıtalı duvar, bank ve ayna.",
+    "gorsel": "/assets/v1/img/proje/vesira/giris-holu-sonra.webp",
+    "alt": "Giriş holü yeniden tasarlandıktan sonra: ahşap çıtalı duvar, bank ve ayna",
+    "tur": "oncesonra",
+    "cift": "/assets/v1/img/proje/vesira/giris-holu-once.webp",
+    "once": "/assets/v1/img/proje/vesira/giris-holu-once.webp",
+    "sonra": "/assets/v1/img/proje/vesira/giris-holu-sonra.webp",
+    "alt_once": "Giriş holü önceki hali: askıda yığılmış montlar"
    }
   ],
   "kaynaklar": [
    "site-referans/urun-materyalleri/vesira/durum.md",
    "src/_data/modern.js (eski site verisi, herkese açık)",
    "site-referans/urun-materyalleri/vesira/guncel_2026-11-20/NOT.md (iOS build 12 akış ekranları, ham önce/sonra, logo; web 20 Ekim 2026'dan beri canlı; varsayılan dil İngilizce, Türkçe seçenek)",
-   "katalog ikonu: vesira-logo.svg (vektör, köşe yuvarlaması kaldırılarak tam kare 512 px)"
+   "katalog ikonu: vesira-logo.svg (vektör, köşe yuvarlaması kaldırılarak tam kare 512 px)",
+   "site-referans/urun-materyalleri/vesira/hype_2026-11-21/NOT.md (yazısız önce/sonra: ABD salonu, ABD mutfağı, giriş holü; her 'sonra' aynı kadraj; Aras kararıyla etiket yok, müşteri işi gibi sunulmaz)"
   ],
   "detay": [
    {
