@@ -1,38 +1,46 @@
-/* V6 /tr/hizmetler/: sergi satırları (görsel bir yanda, metin öbür yanda, dönüşümlü). Yalnız ortak jetonlar. Frontend-1 */
+/* V6.5 /tr/hizmetler/: v2 dili. Her hizmet ürünün kendi renginde geniş bir alan: güçlü başlık, kısa metin, büyük gerçek görsel. Yalnız ortak jetonlar + ürün renkleri. Frontend-1 */
 main.v6h{margin-bottom:-.875rem;--v6h-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem))}
 .v6h-ust{padding-block:var(--v6h-y) calc(var(--v6h-y)/2);display:grid;gap:var(--sp-3)}
 .v6h-ust h1{margin:0;font-size:clamp(2rem,1.4rem + 2.4vw,3rem);line-height:var(--lh-head);letter-spacing:var(--ls-head);font-weight:var(--fw-head)}
 .v6h-ust p{margin:0;max-width:38rem;font-size:var(--fs-lg);color:var(--muted)}
-.v6h-satir{display:grid;grid-template-columns:1fr;gap:var(--sp-8);align-items:center;padding-block:calc(var(--v6h-y)/2)}
-.v6h-gorsel{min-width:0;border-radius:var(--r-panel);background:var(--surface);padding:clamp(1rem,.5rem + 3vw,2.5rem);display:grid;place-items:center}
-.v6h-metin{min-width:0;display:grid;gap:var(--sp-4);align-content:center;max-width:30rem}
-.v6h-metin h2{margin:0;font-size:var(--fs-xl);line-height:var(--lh-head);letter-spacing:var(--ls-head);font-weight:var(--fw-head)}
-.v6h-lead{margin:0;color:var(--muted);font-size:var(--fs-md)}
-.v6h-liste{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
-.v6h-liste li{padding:var(--sp-3) 0;border-bottom:1px solid var(--line);font-size:var(--fs-sm)}
-.v6h-kanit{margin:0;font-size:var(--fs-sm);color:var(--muted)}
-.v6h-kanit a{color:var(--ink);text-decoration:underline;text-underline-offset:.2em}
-.v6h-tarayici{margin:0;width:100%;border:1px solid var(--line);border-radius:var(--r-ctl);overflow:hidden;background:var(--bg)}
-.v6h-bar{display:flex;align-items:center;gap:.375rem;padding:.5rem .75rem;border-bottom:1px solid var(--line);font-size:var(--fs-xs);color:var(--muted)}
-.v6h-bar i{width:.5rem;height:.5rem;border-radius:50%;background:var(--line)}
+.v6h-blok{padding-block:calc(var(--v6h-y)/4)}
+.v6h-panel{--z:#14213e;--m:#fff;--m2:rgba(255,255,255,.72);--ln:rgba(255,255,255,.16);border-radius:var(--r-panel);background:var(--z);color:var(--m);padding:clamp(1.5rem,.5rem + 4vw,4rem) clamp(1.25rem,.5rem + 4vw,4rem) 0;overflow:hidden;display:grid;gap:clamp(2rem,1rem + 4vw,4rem)}
+.v6h-blok--vesira .v6h-panel{--z:#f4ede3;--m:#1b1612;--m2:#5a4a3c;--ln:rgba(27,22,18,.16)}
+.v6h-blok--carlog .v6h-panel{--z:#07112e}
+.v6h-blok--pr .v6h-panel{--z:#14213e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .v6h-blok--vesira .v6h-panel{--z:#1b1612;--m:#f4ede3;--m2:#cdbfae;--ln:rgba(244,237,227,.18)}}
+:root[data-theme="dark"] .v6h-blok--vesira .v6h-panel{--z:#1b1612;--m:#f4ede3;--m2:#cdbfae;--ln:rgba(244,237,227,.18)}
+.v6h-ust2{display:grid;gap:var(--sp-5);align-items:end}
+.v6h-ust2 h2{margin:0;font-size:clamp(2rem,1.2rem + 3.2vw,3.5rem);line-height:1.05;letter-spacing:-.03em;font-weight:var(--fw-head)}
+.v6h-ozet{display:grid;gap:var(--sp-3);max-width:32rem}
+.v6h-ozet p{margin:0}
+.v6h-lead{font-size:var(--fs-md);color:var(--m2)}
+.v6h-satir-metin{font-size:var(--fs-sm);color:var(--m2);padding-top:var(--sp-3);border-top:1px solid var(--ln)}
+.v6h-kanit{font-size:var(--fs-sm);color:var(--m2)}
+.v6h-kanit a{color:var(--m);text-decoration:underline;text-underline-offset:.2em}
+.v6h-kanit a:focus-visible{outline:2px solid var(--m);outline-offset:3px;border-radius:2px}
+.v6h-tarayici{margin:0;border:1px solid var(--ln);border-bottom:0;border-radius:var(--r-ctl) var(--r-ctl) 0 0;overflow:hidden;background:#fff}
+.v6h-bar{display:flex;align-items:center;gap:.375rem;padding:.625rem .875rem;border-bottom:1px solid rgba(0,0,0,.1);font-size:var(--fs-xs);color:#5a4a3c;background:#faf6ef}
+.v6h-bar i{width:.5rem;height:.5rem;border-radius:50%;background:rgba(0,0,0,.15)}
 .v6h-bar span{margin-left:.5rem}
 .v6h-tarayici img{display:block;width:100%;height:auto}
-.v6h-teller{display:flex;gap:clamp(.75rem,.25rem + 2vw,1.5rem);justify-content:center;margin:0;padding:0;list-style:none}
-.v6h-teller li{width:min(42%,12rem)}
-.v6h-tel{margin:0;padding:.375rem;border-radius:1.75rem;background:color-mix(in srgb,var(--ink) 94%,var(--bg))}
-.v6h-tel__ekran{border-radius:1.4rem;overflow:hidden}
-.v6h-tel img{display:block;width:100%;height:auto}
-.v6h-foto{position:relative;margin:0;width:min(100%,22rem)}
-.v6h-foto img{display:block;width:100%;height:auto;border-radius:var(--r-ctl)}
-.v6h-chip{position:absolute;left:.75rem;bottom:.75rem;padding:.2rem .6rem;border-radius:var(--r-pill);font-size:var(--fs-xs);background:color-mix(in srgb,var(--bg) 85%,transparent);color:var(--ink);backdrop-filter:blur(8px)}
+.v6h-teller,.v6h-fotolar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(.5rem,.1rem + 2vw,2rem);margin:0;padding:0;list-style:none}
+.v6h-teller li{overflow:hidden}
+.v6h-teller img{display:block;width:100%;height:auto;border-radius:clamp(.75rem,.4rem + 1.4vw,1.75rem) clamp(.75rem,.4rem + 1.4vw,1.75rem) 0 0}
+.v6h-teller li:nth-child(2){margin-top:clamp(1rem,.5rem + 3vw,3.5rem)}
+.v6h-fotolar{padding-bottom:0}
+.v6h-fotolar img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:clamp(.5rem,.2rem + 1vw,1.25rem)}
+.v6h-fotolar li:nth-child(2){margin-top:clamp(1rem,.5rem + 3vw,3.5rem)}
+.v6h-etiket{margin:0;padding-bottom:clamp(1.25rem,.5rem + 3vw,2.5rem);margin-top:calc(-1 * clamp(.75rem,.25rem + 2vw,2rem));font-size:var(--fs-xs);color:var(--m2)}
 .v6h-son{padding-block:calc(var(--v6h-y)/2) 0;display:grid;gap:var(--sp-5)}
 .v6h-son p{margin:0;max-width:34rem;font-size:var(--fs-lg);color:var(--muted)}
 .v6h-eylem{display:flex;flex-wrap:wrap;gap:var(--sp-3)}
 @media (min-width:861px){
-  .v6h-satir{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(2rem,1rem + 5vw,5rem)}
-  .v6h-satir--ters{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
-  .v6h-satir--ters .v6h-gorsel{order:2}
-  .v6h-satir--ters .v6h-metin{order:1}
+  .v6h-ust2{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(2rem,1rem + 5vw,5rem)}
 }
-
-@media (max-width:37.5rem){.v6h-teller li:nth-child(n+2){display:none}.v6h-teller li{width:min(62%,13rem)}}
+@media (max-width:37.5rem){
+  .v6h-teller,.v6h-fotolar{grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}
+  .v6h-teller li:nth-child(3),.v6h-fotolar li:nth-child(3){display:none}
+  .v6h-teller li:nth-child(2),.v6h-fotolar li:nth-child(2){margin-top:1.5rem}
+  .v6h-tarayici img{width:170%;max-width:none}
+}

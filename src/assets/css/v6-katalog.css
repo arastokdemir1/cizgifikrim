@@ -56,5 +56,6 @@
 .v6-ikon--logo img{width:60%;height:60%;object-fit:contain}
 .v6-ikon--harf{display:grid;place-items:center;background:var(--surface)}
 .v6-ikon--harf span{font-size:clamp(1.5rem,1.1rem + 1vw,2.125rem);font-weight:var(--fw-head);letter-spacing:-.03em;color:var(--ink);line-height:1}
+.v6-ikon--renkli span{color:#fff} /* ürün renginde karo: beyaz baş harf, hepsi AA (≥8:1) */
 /* kendi zemini olan logo (ör. lacivert plaka üstünde yazı logosu): karo o renkle dolar, logo genişliğe göre ~%80 */
 .v6-ikon--zeminli img{width:88%;height:auto;max-height:80%}

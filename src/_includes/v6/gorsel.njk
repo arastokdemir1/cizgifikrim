@@ -65,6 +65,6 @@
 {%- elif ki and ki.dosya and ki.tur == 'logo' -%}
 <span class="v6-ikon v6-ikon--logo{% if ki.zemin %} v6-ikon--zeminli{% endif %}"{% if ki.zemin %} style="background:{{ ki.zemin }}"{% endif %}><img src="{{ ki.dosya }}"{{ olcu(ki.dosya, boyut) }} alt="" loading="lazy" decoding="async"></span>
 {%- else -%}
-<span class="v6-ikon v6-ikon--harf" aria-hidden="true"><span>{{ p.ad[0] }}</span></span>
+<span class="v6-ikon v6-ikon--harf{% if ki and ki.zemin %} v6-ikon--renkli{% endif %}"{% if ki and ki.zemin %} style="background:{{ ki.zemin }}"{% endif %} aria-hidden="true"><span>{{ p.ad[0] }}</span></span>
 {%- endif -%}
 {%- endmacro -%}

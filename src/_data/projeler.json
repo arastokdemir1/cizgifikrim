@@ -343,7 +343,113 @@
    "tur": "logo",
    "dosya": "/assets/v1/img/proje/polishreel/ikon.png",
    "zemin": "#14213e"
-  }
+  },
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#c9b28a",
+   "zemin": "#14213e",
+   "zemin_koyu": "#14213e",
+   "metin_vurgu": "#e9d9b8"
+  },
+  "cta": {
+   "etiket": "polishreel.com'u aç",
+   "url": "https://polishreel.com",
+   "dis": true
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "Tek ürün fotoğrafından, satışa hazır içerik.",
+    "metin": "Takı ve aksesuar mağazalarının elindeki ürün fotoğrafından her ay satışa hazır fotoğraf setleri ve kısa dikey videolar hazırlayan, yönetilen bir içerik hizmeti."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "genis",
+    "gorsel": "/assets/v1/img/proje/polishreel/video-poster.webp",
+    "video": "/assets/v1/video/urun/pr-ornek-video.mp4",
+    "alt": "Kısa dikey video: bileklik taş yüzeyde, sonra bilekte",
+    "baslik": "Örnek kısa dikey video: 20 saniye, yazısız ve sessiz. Videodaki kişi yapay zekâ ile üretildi."
+   },
+   {
+    "tur": "manset",
+    "baslik": "Tek ürün, dört sahne.",
+    "metin": "Mağazanın elindeki ürün fotoğrafından stüdyo, yaşam, takılı ve yakın çekim görselleri hazırlanır."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "yarim",
+    "gorsel": "/assets/v1/img/proje/polishreel/studio.webp",
+    "alt": "Gümüş örgü bileklik koyu taş yüzeyde, stüdyo çekimi",
+    "baslik": "Stüdyo."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "yarim",
+    "gorsel": "/assets/v1/img/proje/polishreel/lifestyle.webp",
+    "alt": "Bileklikli bir kol masada, yumuşak gün ışığı",
+    "baslik": "Yaşam."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "yarim",
+    "gorsel": "/assets/v1/img/proje/polishreel/worn.webp",
+    "alt": "Bileklik takılı bilek, elin cebe girdiği bir poz",
+    "baslik": "Takılı."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "yarim",
+    "gorsel": "/assets/v1/img/proje/polishreel/closeup.webp",
+    "alt": "Bilekliğin bilekte yakın çekimi",
+    "baslik": "Yakın çekim."
+   },
+   {
+    "tur": "manset",
+    "baslik": "Her sonuç gerçek ürünle karşılaştırılır.",
+    "metin": "Renk, şekil ya da parça sayısı değişmişse sonuç reddedilir ve yeniden yapılır. Bu kare reddedildi: altı siyah parça var, doğrusu dört."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "yarim",
+    "gorsel": "/assets/v1/img/proje/polishreel/reddedilen.webp",
+    "alt": "Yapay zekânın hatalı ürettiği bileklik karesi: altı siyah parça var",
+    "baslik": "Reddedilen kare."
+   },
+   {
+    "tur": "ozellikler",
+    "baslik": "Fotoğraf seti, video ve insan kontrolü.",
+    "maddeler": [
+     {
+      "isaret": "01",
+      "metin": "Ürün başına fotoğraf seti: stüdyo, yaşam, takılı ve yakın çekim."
+     },
+     {
+      "isaret": "02",
+      "metin": "Kısa dikey video, yaklaşık 10–30 saniye."
+     },
+     {
+      "isaret": "03",
+      "metin": "Dikey, kare ve yatay formatlar."
+     },
+     {
+      "isaret": "04",
+      "metin": "Her sonuç bir insan tarafından gerçek ürünle karşılaştırılır ve onaylanır."
+     },
+     {
+      "isaret": "05",
+      "metin": "Değişiklik talepleri pakete dahil."
+     }
+    ]
+   },
+   {
+    "tur": "baglanti",
+    "baslik": "Önce bir örnek.",
+    "metin": "Mağaza bağlantını ya da ürün fotoğrafını paylaşırsın. Önce ücretsiz bir örnek hazırlanır, genellikle 3 iş günü içinde; kurulum gerekmez.",
+    "etiket": "polishreel.com'u aç",
+    "url": "https://polishreel.com",
+    "dis": true
+   }
+  ]
  },
  {
   "slug": "carlog",
@@ -802,7 +908,71 @@
   "katalog_ikon": {
    "tur": "app",
    "dosya": "/assets/v1/img/proje/focusgrid/ikon.png"
-  }
+  },
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#8f9bb3",
+   "zemin": "#1c1e26",
+   "zemin_koyu": "#1c1e26",
+   "metin_vurgu": "#b8c3dd"
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "Görev, rutin ve odak. Tek yerde.",
+    "metin": "Görev, rutin ve odak oturumlarını tek yerde planlayan iPhone uygulaması. Görevler, saatler ve ilerleme bir arada."
+   },
+   {
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "cerceve": false,
+    "gorseller": [
+     "/assets/v1/img/proje/focusgrid/rutinler.webp",
+     "/assets/v1/img/proje/focusgrid/bugun.webp",
+     "/assets/v1/img/proje/focusgrid/odak.webp"
+    ],
+    "altlar": [
+     "FocusGrid mağaza görseli: 'Turn routines into habits' başlığı ve Rutinler ekranı",
+     "FocusGrid mağaza görseli: 'Plan your day at a glance' başlığı ve Bugün ekranı",
+     "FocusGrid mağaza görseli: 'Block distractions, stay focused' başlığı ve Odak ekranı"
+    ]
+   },
+   {
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "cerceve": false,
+    "gorseller": [
+     "/assets/v1/img/proje/focusgrid/ilerleme.webp"
+    ],
+    "altlar": [
+     "FocusGrid mağaza görseli: 'See your progress every week' başlığı ve İlerleme ekranı"
+    ],
+    "baslik": "Haftanın ilerlemesi.",
+    "metin": "Haftalık grafiklerle nereye geldiğini gör. Odak oturumunu başlat, dikkat dağıtan uygulamaları kilitle; her gün tekrarladığın şeyleri rutin olarak takip et."
+   },
+   {
+    "tur": "ozellikler",
+    "baslik": "Planla, tekrarla, odaklan.",
+    "maddeler": [
+     {
+      "isaret": "01",
+      "metin": "Görev planlama."
+     },
+     {
+      "isaret": "02",
+      "metin": "Rutinler."
+     },
+     {
+      "isaret": "03",
+      "metin": "Odak oturumu ve dikkat dağıtan uygulamaları engelleme."
+     },
+     {
+      "isaret": "04",
+      "metin": "Haftalık ilerleme grafikleri."
+     }
+    ]
+   }
+  ]
  },
  {
   "slug": "flowgraph",
@@ -880,7 +1050,77 @@
   "katalog_ikon": {
    "tur": "app",
    "dosya": "/assets/v1/img/proje/flowgraph/ikon.png"
-  }
+  },
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#5b8cff",
+   "zemin": "#0c1018",
+   "zemin_koyu": "#0c1018",
+   "metin_vurgu": "#8fb1ff"
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "Her gider, her gün.",
+    "metin": "Gelir, gider ve düzenli ödemeleri tek akışta gösteren kişisel finans uygulaması. Bütün ay tek takvimde."
+   },
+   {
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "cerceve": false,
+    "gorseller": [
+     "/assets/v1/img/proje/flowgraph/icgoru.webp",
+     "/assets/v1/img/proje/flowgraph/takvim.webp",
+     "/assets/v1/img/proje/flowgraph/odemeler.webp"
+    ],
+    "altlar": [
+     "FlowGraph mağaza görseli: 'Know where your money goes' başlığı ve kategori dağılımı",
+     "FlowGraph mağaza görseli: 'Every expense, day by day' başlığı ve gider takvimi",
+     "FlowGraph mağaza görseli: 'Never miss a payment' başlığı ve ödemeler ekranı"
+    ]
+   },
+   {
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "cerceve": false,
+    "gorseller": [
+     "/assets/v1/img/proje/flowgraph/ekle.webp",
+     "/assets/v1/img/proje/flowgraph/para-birimi.webp"
+    ],
+    "altlar": [
+     "FlowGraph mağaza görseli: 'Add an entry in seconds' başlığı ve gider ekleme ekranı",
+     "FlowGraph mağaza görseli: 'Your currency, your way' başlığı ve ayarlar ekranı"
+    ],
+    "baslik": "Saniyeler içinde kayıt.",
+    "metin": "Lira, dolar ya da euro ile. Canlı kurlar toplamı güncel tutar."
+   },
+   {
+    "tur": "ozellikler",
+    "baslik": "Veriler yalnızca cihazında kalır.",
+    "maddeler": [
+     {
+      "isaret": "01",
+      "metin": "Gider takvimi: bütün ay tek ekranda."
+     },
+     {
+      "isaret": "02",
+      "metin": "Kategoriye, haftaya ve aya göre dağılım."
+     },
+     {
+      "isaret": "03",
+      "metin": "Düzenli ödemeler: kira, faturalar ve gelirler."
+     },
+     {
+      "isaret": "04",
+      "metin": "Lira, dolar ya da euro ile kayıt."
+     },
+     {
+      "isaret": "05",
+      "metin": "Canlı döviz kurları."
+     }
+    ]
+   }
+  ]
  },
  {
   "slug": "sano",
@@ -968,7 +1208,77 @@
   "katalog_ikon": {
    "tur": "app",
    "dosya": "/assets/v1/img/proje/sano/ikon.png"
-  }
+  },
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#c9965c",
+   "zemin": "#0b0906",
+   "zemin_koyu": "#0b0906",
+   "metin_vurgu": "#dcb07a"
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "Yükünü sakin bir dille anla.",
+    "metin": "Gündelik yorgunluğu 20 soruda görünür kılan kişisel bir özet. Sano tıbbi ya da psikolojik tanı koymaz; yalnızca kişisel farkındalık içindir."
+   },
+   {
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "cerceve": false,
+    "gorseller": [
+     "/assets/v1/img/proje/sano/sorular.webp",
+     "/assets/v1/img/proje/sano/giris.webp",
+     "/assets/v1/img/proje/sano/puan.webp"
+    ],
+    "altlar": [
+     "Sano mağaza görseli: 'Short, gentle questions' başlığı ve soru ekranı",
+     "Sano mağaza görseli: 'Understand your load, calmly' başlığı ve açılış ekranı",
+     "Sano mağaza görseli: 'See your score and level' başlığı ve puan ekranı"
+    ]
+   },
+   {
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "cerceve": false,
+    "gorseller": [
+     "/assets/v1/img/proje/sano/alanlar.webp",
+     "/assets/v1/img/proje/sano/plan.webp"
+    ],
+    "altlar": [
+     "Sano mağaza görseli: 'One view across four areas' başlığı ve analiz ekranı",
+     "Sano mağaza görseli: 'Your weekly plan is ready' başlığı ve haftalık plan"
+    ],
+    "baslik": "Dört alanda tek bakış.",
+    "metin": "Yükünü duygusal tükenmişlik, zihinsel yük, fiziksel belirtiler ve sosyal kopukluk alanlarında görürsün. Sonuç, küçük günlük görevlerden oluşan kişisel bir 7 günlük plana dönüşür."
+   },
+   {
+    "tur": "ozellikler",
+    "baslik": "Yanıtlar cihazında kalır.",
+    "maddeler": [
+     {
+      "isaret": "01",
+      "metin": "20 soruluk kısa kontrol."
+     },
+     {
+      "isaret": "02",
+      "metin": "Dört alanda puan ve özet."
+     },
+     {
+      "isaret": "03",
+      "metin": "Kısa, uygulanabilir görevlerden 7 günlük plan."
+     },
+     {
+      "isaret": "04",
+      "metin": "Her görev neye yaradığını ve hangi beceriyi geliştirdiğini gösterir."
+     },
+     {
+      "isaret": "05",
+      "metin": "Dilediğinde kontrolü yeniden yapabilirsin."
+     }
+    ]
+   }
+  ]
  },
  {
   "slug": "pilotaj-sinav-simulatoru",
@@ -1130,7 +1440,8 @@
    }
   ],
   "katalog_ikon": {
-   "tur": "monogram"
+   "tur": "monogram",
+   "zemin": "#060c1c"
   }
  },
  {
@@ -1228,7 +1539,76 @@
   "katalog_ikon": {
    "tur": "app",
    "dosya": "/assets/v1/img/proje/zihin-ustasi/ikon.png"
-  }
+  },
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#e5476b",
+   "zemin": "#fff1c2",
+   "zemin_koyu": "#24161c",
+   "metin_vurgu": "#b0173f",
+   "metin_vurgu_koyu": "#ff8fab"
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "10 saniye bak. Zarı at. Hatırla.",
+    "metin": "Çocuklar ve aileler için görsel hafıza ve dikkat oyunu. Ekrana gelen renkli sahneyi 10 saniye incelersin; zarda gelen sayı sorulacak soruyu belirler."
+   },
+   {
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "cerceve": false,
+    "gorseller": [
+     "/assets/v1/img/proje/zihin-ustasi/kategoriler.webp",
+     "/assets/v1/img/proje/zihin-ustasi/sahne.webp",
+     "/assets/v1/img/proje/zihin-ustasi/zar.webp"
+    ],
+    "altlar": [
+     "ZihinUstası mağaza görseli: '10 saniye bak. Zarı at. Hatırla.' başlığı ve kategori ekranı",
+     "ZihinUstası mağaza görseli: 'Fotogerçekçi sahnelerde detay avı' başlığı ve bir sınıf sahnesi",
+     "ZihinUstası mağaza görseli: 'Zarı at, soruyu keşfet' başlığı ve zar ekranı"
+    ]
+   },
+   {
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "cerceve": false,
+    "gorseller": [
+     "/assets/v1/img/proje/zihin-ustasi/soru.webp",
+     "/assets/v1/img/proje/zihin-ustasi/dogru.webp",
+     "/assets/v1/img/proje/zihin-ustasi/market.webp"
+    ],
+    "altlar": [
+     "ZihinUstası mağaza görseli: 'Ne kadar dikkatliydin?' başlığı ve soru ekranı",
+     "ZihinUstası mağaza görseli: 'Doğru cevapla ödülünü kazan' başlığı ve sonuç ekranı",
+     "ZihinUstası mağaza görseli: 'Kendi tarzını seç' başlığı ve Market ekranı"
+    ],
+    "baslik": "Ne kadar dikkatliydin?",
+    "metin": "Dört seçenekten doğrusunu bul, puanını ve coin'ini topla. Kazandıkça Market'ten yeni zar, tema ve çerçeve açılır."
+   },
+   {
+    "tur": "ozellikler",
+    "baslik": "Ücretsiz, reklamsız.",
+    "maddeler": [
+     {
+      "isaret": "01",
+      "metin": "5 kategori, 200 kart."
+     },
+     {
+      "isaret": "02",
+      "metin": "Tek başına ya da aileyle sırayla oyun; herkes kendi puanını biriktirir."
+     },
+     {
+      "isaret": "03",
+      "metin": "Market'ten yeni zar, tema ve çerçeve."
+     },
+     {
+      "isaret": "04",
+      "metin": "Koleksiyonda kazanılan kartlar saklanır."
+     }
+    ]
+   }
+  ]
  },
  {
   "slug": "ersoy",
@@ -1261,7 +1641,8 @@
    }
   ],
   "katalog_ikon": {
-   "tur": "monogram"
+   "tur": "monogram",
+   "zemin": "#0f4c4a"
   }
  },
  {
@@ -1287,7 +1668,8 @@
    }
   ],
   "katalog_ikon": {
-   "tur": "monogram"
+   "tur": "monogram",
+   "zemin": "#1f5a3a"
   }
  },
  {
@@ -1326,7 +1708,8 @@
    }
   ],
   "katalog_ikon": {
-   "tur": "monogram"
+   "tur": "monogram",
+   "zemin": "#4a3b2a"
   }
  },
  {
@@ -1352,7 +1735,8 @@
    }
   ],
   "katalog_ikon": {
-   "tur": "monogram"
+   "tur": "monogram",
+   "zemin": "#8a1c1c"
   }
  },
  {
@@ -1378,7 +1762,8 @@
    }
   ],
   "katalog_ikon": {
-   "tur": "monogram"
+   "tur": "monogram",
+   "zemin": "#2f4a6b"
   }
  },
  {
@@ -1404,7 +1789,8 @@
    }
   ],
   "katalog_ikon": {
-   "tur": "monogram"
+   "tur": "monogram",
+   "zemin": "#7a3b12"
   }
  }
 ]
