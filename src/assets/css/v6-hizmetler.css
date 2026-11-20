@@ -20,6 +20,7 @@ main.v6h{--v6h-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem));--yay:cubic-bezier(.
 .v6h-kart:not([data-k="0"]) .v6h-yazi{opacity:0;visibility:hidden;transition:opacity .2s var(--yay),visibility 0s .2s}
 .v6h-gorsel{position:relative;aspect-ratio:1600/650;overflow:hidden;background:var(--soft)}
 .v6h-gorsel>img{display:block;width:100%;height:100%;object-fit:cover}
+.v6h-gorsel--web{aspect-ratio:1600/712} /* alt kenar başlık ile paragraf arasındaki boşluğa düşer: hiçbir yazı yarıda kesilmez */
 .v6h-gorsel--web>img{object-position:top center}
 .v6h-gorsel--foto>img{object-position:center 58%}
 .v6h-gorsel--mobil{background:#07112e}
