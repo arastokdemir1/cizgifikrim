@@ -181,14 +181,10 @@
     "baslik": "Karşılaştır, düzelt, sakla.",
     "metin": "Önce/sonra kaydırıcısıyla odanın iki halini gör; hazır seçenekle ya da kısa bir notla yeni sürüm iste. Eski sürümler kaybolmaz.",
     "gorseller": [
-     "/assets/v1/img/proje/vesira/akis-sonuc.webp",
-     "/assets/v1/img/proje/vesira/akis-duzelt.webp",
-     "/assets/v1/img/proje/vesira/akis-surumler.webp"
+     "/assets/v1/img/proje/vesira/akis-sonuc.webp"
     ],
     "altlar": [
-     "Vesira iOS: sonuç ekranı, önce/sonra kaydırıcısı",
-     "Vesira iOS: düzelt, hazır seçenek ya da kısa notla yeni sürüm",
-     "Vesira iOS: her fikir yeni bir sürüm olarak saklanır"
+     "Vesira iOS: sonuç ekranı, önce/sonra kaydırıcısı"
     ]
    },
    {
@@ -946,7 +942,8 @@
   "durum": "Yayında",
   "baglanti": {
    "etiket": "Uygulamayı aç",
-   "url": "/baupilotaj/"
+   "url": "/baupilotaj/",
+   "dis": true
   },
   "kart_gorsel": "/assets/v1/img/proje/pilotaj-sinav-simulatoru/giris.webp",
   "bolumler": [
