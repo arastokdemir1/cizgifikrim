@@ -269,3 +269,7 @@
   .v2-telbolum--bol .v2-telbolum__ic,.v2-yanyana__ic,.v2-telbolum--bol+.v2-telbolum--bol .v2-telbolum__ic{grid-template-columns:minmax(0,26rem) auto;justify-content:center;column-gap:clamp(3rem,1rem + 4vw,5.5rem)}
   .v2-telbolum--bol+.v2-telbolum--bol .v2-telbolum__ic{grid-template-columns:auto minmax(0,26rem)}
 }
+@media (min-width:56rem){
+  /* metin | dikey görsel çiftinde görsel telefonlarla aynı yükseklik bandında (~420px): kısa metnin altında/üstünde büyük boşluk kalmaz */
+  .v2-yanyana__gorsel{width:min(34rem,calc(min(52svh,26.5rem) * (var(--oran))))}
+}
