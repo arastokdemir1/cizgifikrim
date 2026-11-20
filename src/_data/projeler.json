@@ -1509,7 +1509,7 @@
   ],
   "katalog_ikon": {
    "tur": "monogram",
-   "zemin": "#060c1c"
+   "zemin": "#1f4fb0"
   }
  },
  {
@@ -1684,8 +1684,8 @@
   }
  },
  {
-  "slug": "sanayi",
-  "ad": "Sanayi",
+  "slug": "parcafiyat",
+  "ad": "ParçaFiyat",
   "ne": "Oto yedek parça dükkânları için tek aramada birçok tedarikçinin fiyat ve stok bilgisini toplayan Chrome eklentisi.",
   "platform": "Chrome eklentisi",
   "durum": "Geliştiriliyor",
@@ -1697,7 +1697,7 @@
    }
   ],
   "kaynaklar": [
-   "Sanayi | Genel mesajı 2026-11-20 (metin ve durum satırı Aras'ın onayıyla; Yönetici Aras'tan 'Evet, ekle' diye doğruladı). Tedarikçi adı, fiyat, indirme şifresi ve adres yazılmaz; ekran görüntüsü kullanılmaz."
+   "ParçaFiyat proje oturumu mesajı 2026-11-20 (metin ve durum satırı Aras'ın onayıyla; Yönetici Aras'tan 'Evet, ekle' diye doğruladı). Tedarikçi adı, fiyat, indirme şifresi ve adres yazılmaz; ekran görüntüsü kullanılmaz."
   ],
   "detay": [
    {

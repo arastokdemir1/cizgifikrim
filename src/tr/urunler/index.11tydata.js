@@ -18,8 +18,8 @@ export default {
   eleventyComputed: {
     katalog: (d) => {
       const l = liste(d.projeler).map((p) => ({ ...p, kartTur: kartTur(p, d.gorselBoyut) }));
-      // V7: işletmelere yönelik ürünler (proje.kitle === 'isletme'; veri gelene kadar sanayi) en üstte tek grup, durum satırda gösterilir
-      const isletme = l.filter((p) => p.kitle === 'isletme' || (!l.some((x) => x.kitle) && p.slug === 'sanayi'));
+      // V7: işletmelere yönelik ürünler (proje.kitle === 'isletme'; veri gelene kadar parcafiyat) en üstte tek grup, durum satırda gösterilir
+      const isletme = l.filter((p) => p.kitle === 'isletme' || (!l.some((x) => x.kitle) && p.slug === 'parcafiyat'));
       const kalan = l.filter((p) => !isletme.includes(p));
       const adlar = [...SIRA, ...kalan.map((p) => p.durum).filter((x) => x && !SIRA.includes(x))];
       const gruplar = [...new Set(adlar)].map((ad) => ({ ad, projeler: kalan.filter((p) => p.durum === ad) })).filter((g) => g.projeler.length);

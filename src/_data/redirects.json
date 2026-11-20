@@ -335,6 +335,11 @@
       "from": "/tr/urunler/baupilotaj/",
       "to": "/tr/urunler/pilotaj-sinav-simulatoru/",
       "status": 301
+    },
+    {
+      "from": "/tr/urunler/sanayi/",
+      "to": "/tr/urunler/parcafiyat/",
+      "status": 301
     }
   ]
 }

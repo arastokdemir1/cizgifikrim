@@ -1,4 +1,4 @@
-/* V7 ana sayfa (Frontend-1): "İşletmeler için" Sanayi alanı (ürünün kendi rengi, tipografik, görsel yuvası hazır) + Vesira'nın öne çıkarılması. */
+/* V7 ana sayfa (Frontend-1): "İşletmeler için" ParçaFiyat alanı (ürünün kendi rengi, tipografik, görsel yuvası hazır) + Vesira'nın öne çıkarılması. */
 /* Vesira: ilk ve en güçlü blok, sahne daha geniş ve başlık daha büyük */
 @media (min-width:63.8125rem){.ur5 #ur5-vesira{grid-template-columns:minmax(0,8fr) minmax(0,4fr)}.ur5 #ur5-vesira.ur5-urun:first-child{padding-top:calc(var(--ur-y) - .3rem)}}
 .ur5 #ur5-vesira .ur5-baslik h2{font-size:clamp(2.5rem,1.6rem + 3vw,4rem);line-height:1.02;letter-spacing:-.035em}

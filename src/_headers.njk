@@ -6,7 +6,7 @@ sitemap: false
     Cloudflare kuralları: eşleşen TÜM kurallar dosya sırasıyla uygulanır; aynı başlık ikinci kuralda EKLENİR (iki CSP = kesişim), bu yüzden
     farklı CSP gereken yollarda önce "! Content-Security-Policy" ile ayrılır, sonra yenisi yazılır. __SCRIPT_HASHLERI__ derleme sonunda
     (eleventy.after) çıktıdaki satır içi betiklerin sha256 değerleriyle doldurulur (.eleventy.js).
-    Korunan eski yollar (/sanayi/ vb.) site CSP'si almaz: eski sayfalar satır içi betik/harici kaynak kullanır, bozulmasın. Sanayi için başlık kararı Sanayi | Genel'e aittir. -#}
+    Korunan eski yollar (/sanayi/ klasörü vb.) site CSP'si almaz: eski sayfalar satır içi betik/harici kaynak kullanır, bozulmasın. /sanayi/ klasörü için başlık kararı proje sahibine aittir. -#}
 {%- set SB = "https://iekdktdhhryqewvcrnmr.supabase.co" -%}
 {%- if env.onizleme %}
 /*
@@ -34,7 +34,7 @@ sitemap: false
 /assets/v1/fonts/*
   Access-Control-Allow-Origin: *
 
-# Korunan eski yollar: site CSP'si uygulanmaz (eski sayfalar bozulmasın; /sanayi/ için karar Sanayi | Genel'de)
+# Korunan eski yollar: site CSP'si uygulanmaz (eski sayfalar bozulmasın; /sanayi/ klasörü için karar proje sahibinde)
 /sanayi/*
   ! Content-Security-Policy
 /piyasa/*
