@@ -49,9 +49,9 @@
 /* üst üste: ortadaki önde, yanlar arkada */
 .v2-tels--ust_uste{position:relative;gap:0}
 .v2-tels--ust_uste .v2-tel{position:relative}
-.v2-tels--ust_uste.v2-tels--3 .v2-tel:nth-child(1),.v2-tels--ust_uste.v2-tels--3 .v2-tel:nth-child(3){transform:scale(var(--yan-olcek,.91));transform-origin:50% 100%;margin-top:clamp(3rem,2rem + 3vw,5rem);z-index:1;opacity:.92}
-.v2-tels--ust_uste.v2-tels--3 .v2-tel:nth-child(1){margin-right:calc(var(--tel-w) * -.28)}
-.v2-tels--ust_uste.v2-tels--3 .v2-tel:nth-child(3){margin-left:calc(var(--tel-w) * -.28)}
+.v2-tels--ust_uste.v2-tels--3 .v2-tel:nth-child(1),.v2-tels--ust_uste.v2-tels--3 .v2-tel:nth-child(3){transform:scale(var(--yan-olcek,.96));transform-origin:50% 100%;margin-top:clamp(3rem,2rem + 3vw,5rem);z-index:1;opacity:.92}
+.v2-tels--ust_uste.v2-tels--3 .v2-tel:nth-child(1){margin-right:calc(var(--tel-w) * -.36)}
+.v2-tels--ust_uste.v2-tels--3 .v2-tel:nth-child(3){margin-left:calc(var(--tel-w) * -.36)}
 .v2-tels--ust_uste.v2-tels--3 .v2-tel:nth-child(2){z-index:2}
 .v2-hero .v2-tels{align-items:flex-end}
 .v2-hero .v2-tels--yan .v2-tel:nth-child(2){margin-top:0;margin-bottom:clamp(2rem,1rem + 3vw,4rem)}
@@ -108,7 +108,7 @@
 
 /* demo: büyük, ortada (pasif başlangıç v6-demo.js) */
 .v2-demo__sahne{display:grid;justify-items:center}
-.v2-demo .v6-demo--telefon .v6-tel{width:clamp(15.5rem,12rem + 8vw,20rem);padding:.5rem;border-radius:2.75rem}
+.v2-demo .v6-demo--telefon .v6-tel{width:clamp(16.5rem,12rem + 8vw,20rem);padding:.5rem;border-radius:2.75rem}
 .v2-demo .v6-demo--telefon .v6-tel__ekran{border-radius:2.3rem}
 .v2-demo .v6-demo--yatay{max-width:64rem;width:100%}
 .v2-demo .v6-demo__ac .btn{color:var(--ink)}
@@ -125,7 +125,7 @@
 
 /* ---- dar ekran: telefonlar ≥240px; yan yana olanlar yatay kaydırılır (sayfa yatay kaymaz) ---- */
 @media (max-width:55.99rem){
-  .v2{--tel-w:max(15.5rem,66vw);--yan-olcek:.98}
+  .v2{--tel-w:max(16.5rem,70vw);--yan-olcek:.98} /* ekran (çerçeve içi) ≥240px */
   .v2-geri{justify-self:start}
   .v2-tels--yan:not(.v2-tels--1){justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:calc(-1 * var(--sp-6));padding:0 var(--sp-6) var(--sp-4);scroll-padding-inline:var(--sp-6)}
   .v2-tels--yan:not(.v2-tels--1)::-webkit-scrollbar{display:none}
