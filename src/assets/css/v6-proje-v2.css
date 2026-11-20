@@ -273,3 +273,7 @@
   /* metin | dikey görsel çiftinde görsel telefonlarla aynı yükseklik bandında (~420px): kısa metnin altında/üstünde büyük boşluk kalmaz */
   .v2-yanyana__gorsel{width:min(34rem,calc(min(52svh,26.5rem) * (var(--oran))))}
 }
+
+/* kirp: ekran görüntüsünün üst kısmı (alt kenar boş alanda biter; içerik düzenlenmez) */
+.v6-tel__ekran.v2-kirp>img,img.v2-kirp{display:block;width:100%;height:auto;object-fit:cover;object-position:50% 0}
+.v6-tel__ekran.v2-kirp>img{height:100%}

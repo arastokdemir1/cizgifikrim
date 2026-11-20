@@ -9,13 +9,13 @@
   {%- for g in x.gorseller %}
   <figure class="v2-tel">
     {%- if yalin %}<img class="v2-tanitim" src="{{ g }}"{{ olcu(g, boyut) }} alt="{{ x.altlar[loop.index0] if x.altlar else '' }}" loading="{{ 'eager' if ilk else 'lazy' }}" decoding="async">
-    {%- else %}<div class="v6-tel"><div class="v6-tel__ekran"><img src="{{ g }}"{{ olcu(g, boyut) }} alt="{{ x.altlar[loop.index0] if x.altlar else '' }}" loading="{{ 'eager' if ilk else 'lazy' }}" decoding="async"></div></div>{% endif %}
+    {%- else %}<div class="v6-tel"><div class="v6-tel__ekran{% if x.kirp %} v2-kirp{% endif %}"{% if x.kirp %} style="aspect-ratio:{{ x.kirp }}"{% endif %}><img src="{{ g }}"{{ olcu(g, boyut) }} alt="{{ x.altlar[loop.index0] if x.altlar else '' }}" loading="{{ 'eager' if ilk else 'lazy' }}" decoding="async"></div></div>{% endif %}
   </figure>
   {%- endfor %}
 </div>
 {%- endmacro -%}
 
-{#- dongu: true + video → sessiz döngü video (otomatik oynatma yalnız görünürken ve hareket azaltma kapalıyken; köşede duraklat/oynat düğmesi, WCAG 2.2.2). gorsel_mobil (isteğe bağlı): ≤600px ekranda aynı görselin okunur yakın kırpımı (<picture>). -#}
+{#- kirp (isteğe bağlı, "en/boy" kaynak px): ekran görüntüsünün yalnız üst kısmı gösterilir (object-position üst; içerik düzenlenmez). dongu: true + video → sessiz döngü video (otomatik oynatma yalnız görünürken ve hareket azaltma kapalıyken; köşede duraklat/oynat düğmesi, WCAG 2.2.2). gorsel_mobil (isteğe bağlı): ≤600px ekranda aynı görselin okunur yakın kırpımı (<picture>). -#}
 {%- macro gorsel(x, boyut, ilk) -%}
 {%- set yukle = 'eager' if ilk else 'lazy' -%}
 {%- if x.cift -%}
@@ -27,7 +27,7 @@
 <div class="kk-ayrac" role="slider" tabindex="0" aria-orientation="horizontal" aria-label="{{ x.aria or x.baslik or 'Görsel' }}: önce ve sonra karşılaştırması" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ kp }}" aria-valuetext="Önce yüzde {{ kp }}, sonra yüzde {{ 100 - kp }}"><span class="kk-tutac" aria-hidden="true"></span></div>
 </div>
 {%- elif x.cerceve == 'tarayici' -%}
-<div class="v6-tar v2-tar"><div class="v6-tar__bar" aria-hidden="true"><i></i><i></i><i></i>{% if p.baglanti and ('.' in p.baglanti.etiket) %}<span>{{ p.baglanti.etiket }}</span>{% endif %}</div>{% if x.gorsel_mobil %}<picture><source media="(max-width: 600px)" srcset="{{ x.gorsel_mobil }}"{{ olcu(x.gorsel_mobil, boyut) }}>{% endif %}<img src="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} alt="{{ x.alt }}" loading="{{ yukle }}" decoding="async">{% if x.gorsel_mobil %}</picture>{% endif %}</div>
+<div class="v6-tar v2-tar"><div class="v6-tar__bar" aria-hidden="true"><i></i><i></i><i></i>{% if p.baglanti and ('.' in p.baglanti.etiket) %}<span>{{ p.baglanti.etiket }}</span>{% endif %}</div>{% if x.gorsel_mobil %}<picture><source media="(max-width: 600px)" srcset="{{ x.gorsel_mobil }}"{{ olcu(x.gorsel_mobil, boyut) }}>{% endif %}<img{% if x.kirp %} class="v2-kirp" style="aspect-ratio:{{ x.kirp }}"{% endif %} src="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} alt="{{ x.alt }}" loading="{{ yukle }}" decoding="async">{% if x.gorsel_mobil %}</picture>{% endif %}</div>
 {%- elif x.video and x.dongu -%}
 <span class="v2-medya v2-dongu{% if x.genislik == 'tam' %} v2-dongu--tam{% endif %}" style="--oran:{{ oran(x.gorsel, boyut, '3/2') }}"><video class="v2-dongu__video" muted loop playsinline preload="none" poster="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} aria-label="{{ x.alt }}" data-dongu><source src="{{ x.video }}" type="video/mp4"></video><button type="button" class="v2-dongu__btn" data-dongu-btn aria-label="Videoyu oynat" hidden><span class="v2-dongu__ikon" aria-hidden="true"></span></button></span>
 {%- elif x.video -%}

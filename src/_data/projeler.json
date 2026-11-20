@@ -176,18 +176,17 @@
    {
     "tur": "telefonlar",
     "dizilim": "yan",
-    "baslik": "Tek fotoğraf, üç seviye.",
-    "metin": "Odanın fotoğrafını yükle, değişimin dozunu seç: Light touch, Refresh ya da Full redesign. Tarayıcıda çalışır, kurulum yok; telefonda ve bilgisayarda aynı ekranlar.",
+    "baslik": "Tek fotoğraf, yeni hali.",
+    "metin": "Odanın fotoğrafını yükle, aynı odanın yeni halini gör. Tarayıcıda çalışır, kurulum yok; telefonda ve bilgisayarda aynı ekranlar.",
     "gorseller": [
      "/assets/v1/img/proje/vesira/ekran-acilis-m-2611.webp",
-     "/assets/v1/img/proje/vesira/ekran-nasil-calisir-m-2611.webp",
      "/assets/v1/img/proje/vesira/ekran-giris-m-2611.webp"
     ],
     "altlar": [
      "vesira.app açılış ekranı, telefonda: 'See the new look before you renovate.'",
-     "vesira.app 'How it works' bölümü, telefonda: üç adım",
      "vesira.app giriş ekranı, telefonda: Google, GitHub ya da e-posta ile giriş"
-    ]
+    ],
+    "kirp": "739/1560"
    },
    {
     "tur": "manset",
@@ -232,10 +231,11 @@
     "tur": "gorsel",
     "genislik": "genis",
     "cerceve": "tarayici",
-    "gorsel": "/assets/v1/img/proje/vesira/ekran-oda-sayfasi-d-2611.webp",
-    "alt": "vesira.app mutfak sayfası (/kitchen-remodel-ideas): 'See your kitchen's new look before you tear anything out.'",
-    "baslik": "İngilizce öncelikli, ABD odaklı.",
-    "metin": "Sayfa adresleri İngilizce (ör. /kitchen-remodel-ideas), örnek odalar Amerikan evleri. Türkçe seçeneği de var."
+    "gorsel": "/assets/v1/img/proje/vesira/ekran-nasil-calisir-d-2611.webp",
+    "alt": "vesira.app 'How it works' bölümü: üç adım ve Light touch, Refresh, Full redesign seviye seçimi",
+    "baslik": "Üç adım, üç seviye.",
+    "metin": "İngilizce öncelikli ve ABD odaklı: sayfa adresleri İngilizce (ör. /kitchen-remodel-ideas), örnek odalar Amerikan evleri. Türkçe seçeneği de var.",
+    "kirp": "1600/880"
    },
    {
     "tur": "ozellikler",
