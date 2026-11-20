@@ -5,6 +5,7 @@
   var n=kartlar.length, aktif=0, zamanlayici=null, sureMs=4500;
   var azHareket=window.matchMedia('(prefers-reduced-motion: reduce)'), kullaniciDurdurdu=false, imlecIcinde=false, odakta=false, gizli=document.hidden;
   function konum(i){var d=(i-aktif+n)%n; return d===0?0:(d===1?1:-1)}
+  function boyla(){var k=kartlar[aktif]; if(k) sahne.style.height=k.offsetHeight+'px'}
   function ciz(){
     kartlar.forEach(function(k,i){
       var p=konum(i); k.setAttribute('data-k',String(p));
@@ -12,6 +13,7 @@
       [].forEach.call(k.querySelectorAll('a'),function(a){a.tabIndex=on?0:-1});
     });
     noktalar.forEach(function(d,i){d.setAttribute('aria-current',i===aktif?'true':'false')});
+    boyla();
   }
   function git(i){aktif=(i+n)%n; ciz()}
   function calisiyor(){return !azHareket.matches&&!kullaniciDurdurdu&&!imlecIcinde&&!odakta&&!gizli}
@@ -47,5 +49,6 @@
   sahne.style.touchAction='pan-y';
   /* odak sırası: yalnız öndeki kartın bağlantısı sekmeye girer */
   kok.setAttribute('tabindex','-1'); kok.style.outline='none';
+  if(window.ResizeObserver){var ro=new ResizeObserver(boyla); kartlar.forEach(function(k){ro.observe(k)})} else window.addEventListener('resize',boyla);
   ciz(); guncelle();
 })();
