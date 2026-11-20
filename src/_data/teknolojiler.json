@@ -1,0 +1,103 @@
+{
+ "_not": "Yalnız açıkça bize ait projelerin depo/manifest dosyalarından ya da ürün durum.md'lerinden doğrulanan teknolojiler (yalnız adlar). kaynak: depo yolu (Documents/CizgiFikrim altı ya da Documents/PROJECTS altı) + dosya. Ersoy ve iç sistemlerin teknolojileri bilerek YOK (Ersoy | Genel: model/sağlayıcı/mimari yazılmaz). Üretim: 2026-11-20.",
+ "web": [
+  {
+   "ad": "Next.js",
+   "kaynak": "site-referans/urun-materyalleri/vesira/durum.md (Teknoloji); PROJECTS/better_motors/better-wechiles-portal/package.json (next)"
+  },
+  {
+   "ad": "React",
+   "kaynak": "site-referans/urun-materyalleri/polishreel/durum.md (Teknoloji) (React 19); PROJECTS/radar/frontend/package.json (react); PROJECTS/better_motors/better-wechiles-portal/package.json (react)"
+  },
+  {
+   "ad": "TypeScript",
+   "kaynak": "PROJECTS/better_motors/better-wechiles-portal/package.json (devDependencies: typescript)"
+  },
+  {
+   "ad": "Tailwind CSS",
+   "kaynak": "site-referans/urun-materyalleri/polishreel/durum.md (Teknoloji) (Tailwind CSS 4); PROJECTS/radar/frontend/package.json (tailwindcss); PROJECTS/better_motors/better-wechiles-portal/package.json (tailwindcss)"
+  },
+  {
+   "ad": "Vite",
+   "kaynak": "site-referans/urun-materyalleri/polishreel/durum.md (Teknoloji); PROJECTS/radar/frontend/package.json (vite)"
+  },
+  {
+   "ad": "TanStack Start",
+   "kaynak": "site-referans/urun-materyalleri/polishreel/durum.md (Teknoloji)"
+  },
+  {
+   "ad": "Eleventy",
+   "kaynak": "cizgifikrim_live_work/package.json (@11ty/eleventy)"
+  }
+ ],
+ "mobil": [
+  {
+   "ad": "Swift",
+   "kaynak": "PROJECTS/CarLog, PROJECTS/FlowGraph, PROJECTS/FocusGrid (*.swift); PROJECTS/gnomon/project.yml (SWIFT_VERSION)"
+  },
+  {
+   "ad": "SwiftUI",
+   "kaynak": "PROJECTS/CarLog, FlowGraph, FocusGrid (import SwiftUI); site-referans/urun-materyalleri/vesira/durum.md (Teknoloji) (yerel SwiftUI iOS uygulaması)"
+  },
+  {
+   "ad": "SwiftData",
+   "kaynak": "PROJECTS/CarLog, FlowGraph, FocusGrid (import SwiftData)"
+  },
+  {
+   "ad": "WidgetKit",
+   "kaynak": "PROJECTS/CarLog, FlowGraph, FocusGrid (import WidgetKit); site-referans/urun-materyalleri/carlog/durum.md (widget)"
+  },
+  {
+   "ad": "StoreKit",
+   "kaynak": "PROJECTS/CarLog, FlowGraph, FocusGrid (import StoreKit)"
+  },
+  {
+   "ad": "MapKit",
+   "kaynak": "PROJECTS/CarLog (import MapKit)"
+  },
+  {
+   "ad": "Swift Charts",
+   "kaynak": "PROJECTS/CarLog (import Charts)"
+  },
+  {
+   "ad": "CarPlay",
+   "kaynak": "site-referans/urun-materyalleri/carlog/durum.md (CarPlay navigasyonu)"
+  },
+  {
+   "ad": "Screen Time API",
+   "kaynak": "PROJECTS/FocusGrid (import FamilyControls, ManagedSettings, DeviceActivity)"
+  }
+ ],
+ "backend": [
+  {
+   "ad": "PostgreSQL",
+   "kaynak": "site-referans/urun-materyalleri/vesira/durum.md (Teknoloji); PROJECTS/radar/backend/requirements.txt (psycopg2-binary, sqlalchemy)"
+  },
+  {
+   "ad": "Supabase",
+   "kaynak": "cizgifikrim_live_work/supabase/ (migrations, functions/cal-webhook)"
+  },
+  {
+   "ad": "FastAPI",
+   "kaynak": "PROJECTS/radar/backend/requirements.txt (fastapi)"
+  },
+  {
+   "ad": "Cloudflare Workers",
+   "kaynak": "site-referans/urun-materyalleri/polishreel/durum.md (Teknoloji)"
+  },
+  {
+   "ad": "Cloudflare R2",
+   "kaynak": "site-referans/urun-materyalleri/vesira/durum.md (Teknoloji)"
+  }
+ ],
+ "ai": [
+  {
+   "ad": "Anthropic Claude",
+   "kaynak": "site-referans/urun-materyalleri/vesira/durum.md (Teknoloji) (oda okuma ve tasarım kararları; durum.md bu bilgiyi 'istenirse' paylaşılabilir diye işaretler)"
+  },
+  {
+   "ad": "OpenAI GPT Image",
+   "kaynak": "site-referans/urun-materyalleri/vesira/durum.md (Teknoloji) (görsel üretimi; aynı not)"
+  }
+ ]
+}
