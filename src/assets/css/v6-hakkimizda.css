@@ -20,7 +20,7 @@ main.v6a{--v6a-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem));--ray:2.5rem;margin-
 .v6a-sayilar dd{margin:0;font-size:clamp(3rem,2rem + 4vw,5.5rem);line-height:1;letter-spacing:-.04em;font-weight:var(--fw-head);font-variant-numeric:tabular-nums}
 .v6a-sayilar dt{font-size:var(--fs-sm);color:var(--muted)}
 /* ürün rafı */
-.v6a-raf__liste{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-6) var(--sp-4)}
+.v6a-raf__liste{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-6) var(--sp-3)}
 .v6a-raf__oge{display:grid;gap:var(--sp-2);justify-items:start;color:var(--ink);text-decoration:none;border-radius:var(--r-card)}
 .v6a-raf__ikon{display:block;width:100%;max-width:8rem;aspect-ratio:1/1;transition:transform .2s var(--yay,cubic-bezier(.2,.8,.2,1))}
 .v6a-raf__ikon .v6-ikon{width:100%;height:100%}
@@ -46,9 +46,10 @@ main.v6a{--v6a-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem));--ray:2.5rem;margin-
 .v6a-yol li{padding:var(--sp-5) 0;border-bottom:1px solid var(--line);font-size:clamp(1.25rem,1rem + 1.2vw,1.75rem);line-height:1.25;letter-spacing:-.02em;max-width:40rem}
 .v6a-son p{margin:0;max-width:34rem;font-size:var(--fs-lg);color:var(--muted)}
 .v6a-eylem{display:flex;flex-wrap:wrap;gap:var(--sp-3)}
+@media (max-width:599px){.v6a-sayilar div:last-child{grid-column:1/-1}.v6a-raf__ad{font-size:.8125rem}}
 @media (min-width:600px){
   .v6a-sayilar dl{grid-template-columns:repeat(5,minmax(0,1fr))}
-  .v6a-raf__liste{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .v6a-raf__liste{gap:var(--sp-6) var(--sp-4)}
 }
 @media (min-width:861px){
   .v6a-raf__liste{grid-template-columns:repeat(8,minmax(0,1fr));gap:var(--sp-8) var(--sp-5)}
@@ -65,3 +66,9 @@ main.v6a{--v6a-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem));--ray:2.5rem;margin-
 .v6a-yol{padding-top:calc(var(--v6a-y) - 1.3rem)}
 .v6a-son{padding-top:calc(var(--v6a-y) - 1.4rem)}
 @media (max-width:860px){.v6a-sayilar{padding-top:var(--v6a-y)}}
+
+@media (min-width:861px){
+  .v6a-yol ul{grid-template-columns:repeat(3,minmax(0,1fr));gap:0 var(--sp-8);border-top:0}
+  .v6a-yol li{max-width:none;border-bottom:0;border-top:1px solid var(--line);padding-block:var(--sp-5) 0}
+}
+@media (min-width:861px){.v6a-son{padding-top:calc(var(--v6a-y) - .1rem)}}
