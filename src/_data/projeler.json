@@ -341,7 +341,8 @@
   ],
   "katalog_ikon": {
    "tur": "logo",
-   "dosya": "/assets/v1/img/proje/polishreel/ikon.png"
+   "dosya": "/assets/v1/img/proje/polishreel/ikon.png",
+   "zemin": "#14213e"
   }
  },
  {
