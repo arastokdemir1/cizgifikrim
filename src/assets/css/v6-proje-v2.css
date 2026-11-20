@@ -187,3 +187,8 @@
 @media (max-width:55.99rem){.v2-hero--tipo{min-height:min(62svh,34rem)}}
 .v2-medya picture,.v2-tar picture{display:block}
 .v2-tar picture img{display:block;width:100%;height:auto}
+/* art arda iki metin | telefon bölümü: ikincisi ters yönde (telefon solda, metin sağda) */
+@media (min-width:56rem){
+  .v2-telbolum--bol+.v2-telbolum--bol .v2-telbolum__ic{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+  .v2-telbolum--bol+.v2-telbolum--bol .v2-telbolum__metin{order:2}
+}
