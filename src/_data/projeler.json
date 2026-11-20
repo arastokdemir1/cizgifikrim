@@ -547,61 +547,59 @@
   "kart_gorsel": "/assets/v1/img/proje/piyasapp/kart.webp",
   "bolumler": [
    {
-    "tur": "demo",
-    "baslik": "Canlı demo.",
-    "metin": "Konum tabanlı radar, harita ve garaj ekranlarını tarayıcıda dene.",
-    "url": "/demo/piyasa/",
-    "oran": "telefon",
-    "gorsel": "/assets/v1/img/proje/piyasapp/demo-ilk-ekran.webp",
-    "alt": "PiyasApp web demosu: Radar ekranı"
-   },
-   {
-    "baslik": "Piyasa cebinde.",
-    "metin": "Araba tutkunu arkadaş grupları için sosyal uygulama: ekip nerede, kim caddede, ne çalıyor, hepsi tek yerde.",
-    "gorsel": "/assets/v1/img/proje/piyasapp/piyasa.webp",
-    "alt": "PiyasApp mağaza görseli: 'Piyasa cebinde' başlığı, gece sokakta turuncu bir araba",
-    "tur": "tanitim"
+    "baslik": "Sokak seni bekliyor.",
+    "metin": "Arkadaşların, yolların, şarkıların. Hepsi tek yerde.",
+    "gorsel": "/assets/v1/img/proje/piyasapp/g-acilis.webp",
+    "alt": "PiyasApp açılış ekranı: 'Sokak seni bekliyor' ve Hadi girelim düğmesi",
+    "tur": "telefon"
    },
    {
     "baslik": "Ekibin haritada.",
-    "metin": "Kim nerede, hangi arabayla. Canlı, bir bakışta.",
-    "gorsel": "/assets/v1/img/proje/piyasapp/harita.webp",
-    "alt": "PiyasApp mağaza görseli: 'Ekibin haritada' başlığı ve araçların göründüğü harita ekranı",
-    "tur": "tanitim"
+    "metin": "Kim nerede, hangi arabayla.",
+    "gorsel": "/assets/v1/img/proje/piyasapp/g-harita.webp",
+    "alt": "PiyasApp harita ekranı: arkadaşlar ve araçları",
+    "tur": "telefon"
    },
    {
     "baslik": "Piyasaya giriş.",
     "metin": "Arkadaşın caddeye girince haberin olur; Selektör yak.",
-    "gorsel": "/assets/v1/img/proje/piyasapp/piyasaya-giris.webp",
-    "alt": "PiyasApp mağaza görseli: 'Piyasaya gir, selektör yak' başlığı ve piyasaya giriş kartı",
-    "tur": "tanitim"
+    "gorsel": "/assets/v1/img/proje/piyasapp/g-piyasaya-giris.webp",
+    "alt": "PiyasApp: Kayra Aydın piyasaya girdi kartı ve Selektör yak düğmesi",
+    "tur": "telefon"
    },
    {
     "baslik": "Aynı rota, aynı anda.",
     "metin": "Hedefi paylaş, ekiple birlikte sür.",
-    "gorsel": "/assets/v1/img/proje/piyasapp/ortak-rota.webp",
-    "alt": "PiyasApp mağaza görseli: 'Aynı rota, aynı anda' başlığı ve ortak rota ekranı",
-    "tur": "tanitim"
+    "gorsel": "/assets/v1/img/proje/piyasapp/g-ortak-rota.webp",
+    "alt": "PiyasApp ortak rota ve sürüş ekranı",
+    "tur": "telefon"
    },
    {
     "baslik": "Müzik yolda seninle.",
-    "metin": "Listeni aktar, sıradakini gör, sürüşten kopma.",
-    "gorsel": "/assets/v1/img/proje/piyasapp/muzik.webp",
-    "alt": "PiyasApp mağaza görseli: 'Müzik yolda seninle' başlığı ve müzik ekranı",
-    "tur": "tanitim"
+    "metin": "Çalma listeni aktar, sıradakini gör.",
+    "gorsel": "/assets/v1/img/proje/piyasapp/g-muzik.webp",
+    "alt": "PiyasApp müzik ekranı: Ne dinleyelim? ve çalma sırası",
+    "tur": "telefon"
    },
    {
     "baslik": "Rotanı paylaş.",
-    "metin": "Fotoğraf, şarkı, rota. Ekiple tek sohbet.",
-    "gorsel": "/assets/v1/img/proje/piyasapp/sohbet.webp",
-    "alt": "PiyasApp mağaza görseli: 'Rotanı paylaş' başlığı ve sohbet ekranı",
-    "tur": "tanitim"
+    "metin": "Fotoğraf, çalma listesi ve rota ekiple tek sohbette.",
+    "gorsel": "/assets/v1/img/proje/piyasapp/g-sohbet.webp",
+    "alt": "PiyasApp sohbet: fotoğraf, çalma listesi ve rota paylaşımı",
+    "tur": "telefon"
+   },
+   {
+    "baslik": "Dünya düğmesi.",
+    "metin": "4.1 ile haritayı 3D küreye uzaklaştırabilirsin; Beni bul seni küreden konumuna uçarak getirir.",
+    "gorsel": "/assets/v1/img/proje/piyasapp/g-kure.webp",
+    "alt": "PiyasApp'te 4.1 ile gelen 3D küre görünümü",
+    "tur": "telefon"
    }
   ],
   "kaynaklar": [
    "site-referans/urun-materyalleri/piyasapp/durum.md",
    "https://apps.apple.com/tr/app/piyasapp/id6786390358",
-   "demo/piyasa/index.html (sayfa açıklaması)"
+   "site-referans/urun-materyalleri/piyasapp/guncel_2026-11-20/NOT.md (ekranlar: düz simülatör, demo veri; 4.1 notları: App Store Connect What's New; iTunes lookup id 6786390358)"
   ],
   "detay": [
    {
@@ -615,7 +613,7 @@
      "Piyasaya giriş: arkadaşın caddeye girince bildirim, Selektör yak",
      "Ortak rota",
      "Müzik ve sohbet",
-     "Haritada herkesin yalnız son günkü yolculukları görünür"
+     "Haritada herkesin yalnız son günkü yolculukları görünür; Dünya düğmesi haritayı 3D küreye uzaklaştırır"
     ]
    },
    {
@@ -643,53 +641,43 @@
    {
     "tur": "telefonlar",
     "dizilim": "yan",
-    "cerceve": false,
     "gorseller": [
-     "/assets/v1/img/proje/piyasapp/harita.webp",
-     "/assets/v1/img/proje/piyasapp/piyasa.webp",
-     "/assets/v1/img/proje/piyasapp/sohbet.webp"
+     "/assets/v1/img/proje/piyasapp/g-acilis.webp",
+     "/assets/v1/img/proje/piyasapp/g-harita.webp",
+     "/assets/v1/img/proje/piyasapp/g-kure.webp"
     ],
     "altlar": [
-     "PiyasApp mağaza görseli: 'Ekibin haritada' başlığı ve araçların göründüğü harita ekranı",
-     "PiyasApp mağaza görseli: 'Piyasa cebinde' başlığı, gece sokakta turuncu bir araba",
-     "PiyasApp mağaza görseli: 'Rotanı paylaş' başlığı ve sohbet ekranı"
+     "PiyasApp açılış ekranı: 'Sokak seni bekliyor' ve Hadi girelim düğmesi",
+     "PiyasApp harita ekranı: arkadaşlar ve araçları",
+     "PiyasApp'te 4.1 ile gelen 3D küre görünümü"
     ]
-   },
-   {
-    "tur": "demo",
-    "baslik": "Canlı demo.",
-    "metin": "Konum tabanlı radar, harita ve garaj ekranlarını tarayıcıda dene.",
-    "url": "/demo/piyasa/",
-    "oran": "telefon",
-    "gorsel": "/assets/v1/img/proje/piyasapp/demo-ilk-ekran.webp",
-    "alt": "PiyasApp web demosu: Radar ekranı"
    },
    {
     "tur": "telefonlar",
     "dizilim": "yan",
-    "cerceve": false,
     "baslik": "Arkadaşın caddeye girince haberin olur.",
     "metin": "Kim nerede, hangi arabayla; canlı, bir bakışta. Piyasaya girene Selektör yak.",
     "gorseller": [
-     "/assets/v1/img/proje/piyasapp/piyasaya-giris.webp"
+     "/assets/v1/img/proje/piyasapp/g-piyasaya-giris.webp"
     ],
     "altlar": [
-     "PiyasApp mağaza görseli: 'Piyasaya gir, selektör yak' başlığı ve piyasaya giriş kartı"
+     "PiyasApp: Kayra Aydın piyasaya girdi kartı ve Selektör yak düğmesi"
     ]
    },
    {
     "tur": "telefonlar",
     "dizilim": "yan",
-    "cerceve": false,
     "baslik": "Aynı rota, aynı anda.",
     "metin": "Hedefi paylaş, ekiple birlikte sür. Listeni aktar, sıradakini gör, sürüşten kopma.",
     "gorseller": [
-     "/assets/v1/img/proje/piyasapp/ortak-rota.webp",
-     "/assets/v1/img/proje/piyasapp/muzik.webp"
+     "/assets/v1/img/proje/piyasapp/g-ortak-rota.webp",
+     "/assets/v1/img/proje/piyasapp/g-muzik.webp",
+     "/assets/v1/img/proje/piyasapp/g-sohbet.webp"
     ],
     "altlar": [
-     "PiyasApp mağaza görseli: 'Aynı rota, aynı anda' başlığı ve ortak rota ekranı",
-     "PiyasApp mağaza görseli: 'Müzik yolda seninle' başlığı ve müzik ekranı"
+     "PiyasApp ortak rota ve sürüş ekranı",
+     "PiyasApp müzik ekranı: Ne dinleyelim? ve çalma sırası",
+     "PiyasApp sohbet: fotoğraf, çalma listesi ve rota paylaşımı"
     ]
    },
    {
@@ -714,7 +702,7 @@
      },
      {
       "isaret": "05",
-      "metin": "Haritada herkesin yalnız son günkü yolculukları görünür."
+      "metin": "Haritada herkesin yalnız son günkü yolculukları görünür; Dünya düğmesi haritayı 3D küreye uzaklaştırır."
      }
     ]
    }
