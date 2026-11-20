@@ -8,7 +8,7 @@
   .v6-kart img,a.v6i-kart img,.v6a-ekran img{transition:transform .25s var(--yay)}
 }
 @media (prefers-reduced-motion:no-preference) and (hover:hover){
-  .btn:hover{transform:translateY(-1px)}
+  html .btn:hover{transform:translateY(-1px)}
   .btn:not(.btn--line):hover{box-shadow:0 8px 18px -10px color-mix(in srgb,var(--ink) 55%,transparent)}
   .btn:hover [aria-hidden="true"]{transform:translateX(3px)}
   .nav .links>a:hover,.urun-menu__panel a:hover,.mobil__panel a:hover{color:var(--ink)}
@@ -19,8 +19,8 @@
   a.v6i-kart:hover [aria-hidden="true"]{transform:translate(3px,-3px)}
 }
 @media (prefers-reduced-motion:no-preference){
-  .btn:active,.v6-kart:active,a.v6i-kart:active{transform:scale(.97);opacity:1}
+  html .btn:active,html .v6-kart:active,html a.v6i-kart:active{transform:scale(.97);opacity:1}
 }
 @media (prefers-reduced-motion:reduce){
-  .btn,.v6-kart,a.v6i-kart,.btn:active,.btn:hover{transition:none;transform:none}
+  html .btn,html .v6-kart,html a.v6i-kart,html .btn:active,html .btn:hover{transition:none;transform:none}
 }
