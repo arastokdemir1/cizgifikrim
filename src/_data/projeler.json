@@ -2,8 +2,8 @@
  {
   "slug": "vesira",
   "ad": "Vesira",
-  "ne": "Kendi odanın fotoğrafından, aynı odanın yeniden tasarlanmış halini gösteren iç tasarım uygulaması.",
-  "platform": "Web · iOS (hazırlanıyor)",
+  "ne": "Kendi odanın tek fotoğrafından, aynı odanın yeniden tasarlanmış halini gösteren iç tasarım uygulaması; İngilizce öncelikli, ABD odaklı.",
+  "platform": "Web · iOS (yolda)",
   "durum": "Yayında",
   "yil": "2026",
   "one_cikan": true,
@@ -114,13 +114,15 @@
    "src/_data/modern.js (eski site verisi, herkese açık)",
    "site-referans/urun-materyalleri/vesira/guncel_2026-11-20/NOT.md (iOS build 12 akış ekranları, ham önce/sonra, logo; web 20 Ekim 2026'dan beri canlı; varsayılan dil İngilizce, Türkçe seçenek)",
    "katalog ikonu: vesira-logo.svg (vektör, köşe yuvarlaması kaldırılarak tam kare 512 px)",
-   "site-referans/urun-materyalleri/vesira/hype_2026-11-21/NOT.md (yazısız önce/sonra: ABD salonu, ABD mutfağı, giriş holü; her 'sonra' aynı kadraj; Aras kararıyla etiket yok, müşteri işi gibi sunulmaz)",
-   "site-referans/urun-materyalleri/vesira/hype_2026-11-21/video/{salon,giris,mutfak}-abd-gecis.mp4 (kaynak 5,5 sn; sitede 17,6 sn döngü: 3,5 sn sonra → geri (sonra→önce) → 0,6 sn önce → ileri → 2,5 sn sonra; ilk ve son kare 'sonra'; H.264 CRF 27, ≤1,5 MB, sessiz)"
+   "site-referans/urun-materyalleri/vesira/yenilenmis_2026-11-21/NOT.md (İngilizce öncelikli, ABD odaklı; web 20 Ekim 2026'dan beri canlı; diller İngilizce ve Türkçe; iOS yayında değil; ücretsiz deneme/fiyat/App Store ifadesi kullanılmaz)",
+   "site-referans/urun-materyalleri/vesira/yenilenmis_2026-11-21/once-sonra/ (yazısız önce/sonra, *-2611.webp; salon-tr yalnız ana sayfa açılışı için; Aras kararıyla etiket yok, müşteri işi gibi sunulmaz)",
+   "site-referans/urun-materyalleri/vesira/yenilenmis_2026-11-21/video/{salon,giris,mutfak}-abd-gecis.mp4 (kaynak 5,5 sn; sitede 17,6 sn döngü: 3,5 sn sonra → geri → 0,6 sn önce → ileri → 2,5 sn sonra; ilk ve son kare 'sonra'; H.264 CRF 27, ≤1,5 MB, sessiz)",
+   "site-referans/urun-materyalleri/vesira/yenilenmis_2026-11-21/ekran/ (yalnız damgasız ekranlar: masaüstü nasıl-çalışır, oda-sayfası, giriş; mobil açılış, nasıl-çalışır, oda-sayfası, giriş)"
   ],
   "detay": [
    {
     "baslik": "Ne",
-    "metin": "Kendi odanın tek bir fotoğrafından, aynı odanın yeniden tasarlanmış, gerçekçi halini gösteren iç tasarım uygulaması."
+    "metin": "Kendi odanın tek bir fotoğrafından, aynı odanın yeniden tasarlanmış, gerçekçi halini gösteren iç tasarım uygulaması. İngilizce öncelikli ve ABD odaklıdır; örnek odalar Amerikan evleridir."
    },
    {
     "baslik": "Sorun",
@@ -128,7 +130,7 @@
    },
    {
     "baslik": "Nasıl çalışır",
-    "metin": "Odanın fotoğrafını yüklersin, değişim seviyesini seçersin ve sonucu önce/sonra kaydırıcısıyla karşılaştırırsın. Hazır seçeneklerle ya da kısa bir notla yeni sürüm isteyebilirsin."
+    "metin": "Odanın tek fotoğrafını yüklersin, değişimin dozunu seçersin (Light touch, Refresh ya da Full redesign) ve aynı odanın yeni halini önce/sonra kaydırıcısıyla karşılaştırırsın. Hazır seçeneklerle ya da kısa bir notla yeni sürüm isteyebilirsin."
    },
    {
     "baslik": "Özellikler",
@@ -142,11 +144,11 @@
    },
    {
     "baslik": "Platform ve teknoloji",
-    "metin": "Web uygulaması ve yerel SwiftUI iOS uygulaması; web tarafı Next.js, React ve PostgreSQL ile çalışır. Varsayılan dil İngilizce, Türkçe seçeneği var. Aylık abonelikle sunulur."
+    "metin": "Web uygulaması (telefonda ve bilgisayarda tarayıcıdan, kurulum yok) ve yerel SwiftUI iOS uygulaması; web tarafı Next.js, React ve PostgreSQL ile çalışır. Varsayılan dil İngilizce, Türkçe seçeneği var. Aylık abonelikle sunulur."
    },
    {
     "baslik": "Durum",
-    "metin": "Web'de 20 Ekim 2026'dan beri canlı. iOS uygulaması henüz yayında değil."
+    "metin": "Web'de 20 Ekim 2026'dan beri canlı. iOS uygulaması yolda."
    }
   ],
   "sablon": "v2",
@@ -161,7 +163,7 @@
    {
     "tur": "manset",
     "baslik": "Kendi odan, aynı oda.",
-    "metin": "Bir fotoğraftan, aynı odanın yeniden tasarlanmış hali. Filtre değil, tasarımın kendisi: fotoğraf önce bir iç mimar gibi okunur; mimari, pencere yeri ve ışık yerinde kalır."
+    "metin": "Tek bir fotoğraftan, aynı odanın yeniden tasarlanmış hali; değişimin dozunu üç seviyeden sen seçersin. Filtre değil, tasarımın kendisi: mimari, pencere yeri ve ışık yerinde kalır."
    },
    {
     "tur": "gorsel",
@@ -260,7 +262,7 @@
    {
     "tur": "baglanti",
     "baslik": "Web'de de.",
-    "metin": "Vesira web uygulaması 20 Ekim 2026'dan beri canlı; telefonda ve bilgisayarda tarayıcıdan çalışır. Varsayılan dil İngilizce, Türkçe seçeneği var.",
+    "metin": "Vesira web uygulaması 20 Ekim 2026'dan beri canlı; telefonda ve bilgisayarda tarayıcıdan çalışır. İngilizce öncelikli, Türkçe seçeneği var. iOS uygulaması yolda.",
     "gorsel": "/assets/v1/img/proje/vesira/logo.webp",
     "alt": "Vesira logosu",
     "etiket": "vesira.app",
