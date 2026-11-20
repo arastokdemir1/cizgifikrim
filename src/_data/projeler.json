@@ -1679,15 +1679,39 @@
   "durum": "Geliştiriliyor",
   "bolumler": [
    {
-    "baslik": "macOS proje yönetimi",
-    "metin": "Durum: Geliştiriliyor.",
-    "tur": "plaka"
+    "baslik": "Liste.",
+    "metin": "Görevler, alt görevler ve odak sayacı bir arada.",
+    "gorsel": "/assets/v1/img/proje/gnomon/liste.webp",
+    "alt": "Gnomon liste görünümü: örnek proje, görevler ve alt görevler, odak sayacı",
+    "tur": "foto"
+   },
+   {
+    "baslik": "Pano.",
+    "metin": "Açık, devam eden ve tamamlanan görevler üç sütunda.",
+    "gorsel": "/assets/v1/img/proje/gnomon/pano.webp",
+    "alt": "Gnomon pano görünümü: Open, In progress, Done sütunları",
+    "tur": "foto"
+   },
+   {
+    "baslik": "Zaman çizelgesi.",
+    "metin": "Görevleri günlere yayarak gör.",
+    "gorsel": "/assets/v1/img/proje/gnomon/zaman-cizelgesi.webp",
+    "alt": "Gnomon zaman çizelgesi görünümü",
+    "tur": "foto"
+   },
+   {
+    "baslik": "Bağımlılık grafiği.",
+    "metin": "Bir görevin hangi görevden sonra gelebileceğini bağlantılarla gör.",
+    "gorsel": "/assets/v1/img/proje/gnomon/graf.webp",
+    "alt": "Gnomon bağımlılık grafiği: görev düğümleri ve aralarındaki bağlantı",
+    "tur": "foto"
    }
   ],
   "kaynaklar": [
    "src/_data/modern.js (eski site verisi, herkese açık)",
    "assets/js/render.js (eski vitrin kataloğu, origin/main, herkese açık)",
-   "/Users/aras/Documents/PROJECTS/gnomon/GNOMON_SPEC.md (proje klasörü, §1)"
+   "/Users/aras/Documents/PROJECTS/gnomon/GNOMON_SPEC.md (proje klasörü, §1)",
+   "Gnomon kendi Xcode projesi (/Users/aras/Documents/PROJECTS/gnomon) yerelde derlendi ve gömülü SeedData örnek verisiyle (bellek içi, gerçek veri yok) çalıştırıldı; ekran görüntüleri 2026-11-20, imzasız yerel derleme"
   ],
   "detay": [
    {
@@ -1710,7 +1734,8 @@
   "katalog_ikon": {
    "tur": "monogram",
    "zemin": "#4a3b2a"
-  }
+  },
+  "kart_gorsel": "/assets/v1/img/proje/gnomon/pano.webp"
  },
  {
   "slug": "better-motors",
