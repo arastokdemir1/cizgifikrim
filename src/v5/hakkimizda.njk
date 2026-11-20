@@ -1,39 +1,62 @@
 ---
 layout: layouts/v5.njk
 title: "Hakkımızda · CizgiFikrim"
-description: "CizgiFikrim, fikirleri çalışan ürünlere dönüştüren küçük bir teknoloji girişimi. Önce ihtiyacı anlar; araştırma, tasarım ve yazılımı birlikte yaparız."
+description: "CizgiFikrim, kendi ürünlerini geliştiren küçük bir teknoloji girişimi: App Store ve web'deki ürünler, gelişen çalışmalar, çalışma biçimimiz."
 permalink: /tr/hakkimizda/
 v5Sayfa: hakkimizda
-v5Css: ['v6-koyu','v6-hakkimizda']
+v5Css: ['v6-koyu','v6-katalog','v6-hakkimizda']
+v5Js: ['v6-hakkimizda']
 v5Koyu: true
 v5MainSinif: v6a
 og: /assets/v1/img/og/tr-about.png
 ---
-<section class="wrap k-sahne v6a-ac" aria-labelledby="v6a-h1">
-  <h1 id="v6a-h1">Fikirleri, çalışan ürünlere dönüştürüyoruz.</h1>
-  <ul class="v6a-ekranlar" role="list" aria-label="Geliştirdiğimiz ürünlerden ekranlar">
-    <li><img src="/assets/v1/img/proje/sano/sorular.webp" width="720" height="1565" loading="eager" alt="Sano soru ekranı"></li>
-    <li><img src="/assets/v1/img/proje/carlog/ozet.webp" width="480" height="1043" loading="eager" alt="CarLog özet ekranı"></li>
-    <li><img src="/assets/v1/img/proje/piyasapp/piyasa.webp" width="720" height="1564" loading="eager" alt="PiyasApp piyasa ekranı"></li>
-    <li><img src="/assets/v1/img/proje/focusgrid/bugun.webp" width="720" height="1564" loading="eager" alt="FocusGrid bugün ekranı"></li>
-    <li><img src="/assets/v1/img/proje/flowgraph/takvim.webp" width="720" height="1564" loading="eager" alt="FlowGraph harcama takvimi ekranı"></li>
+{%- from "v6/gorsel.njk" import ikon -%}
+{%- set veri = hakkimizda -%}
+<section class="wrap v6a-s v6a-hero" aria-labelledby="v6a-h1">
+  <p class="v6a-et">Hakkımızda</p>
+  <h1 id="v6a-h1">Fikir bizde başlamıyor, ürün olunca bitmiyor.</h1>
+  <p class="v6a-alt">CizgiFikrim, fikirleri günlük hayatta kullanılan dijital ürünlere dönüştüren küçük bir teknoloji girişimi. Kendi ürünlerimizi geliştiriyoruz.</p>
+</section>
+
+<section class="wrap v6a-s v6a-sayilar" aria-label="Rakamlarla CizgiFikrim">
+  <dl>
+  {%- for s in veri.sayilar %}
+    <div><dt>{{ s.etiket }}</dt><dd>{{ s.deger }}</dd></div>
+  {%- endfor %}
+  </dl>
+</section>
+
+<section class="wrap v6a-s v6a-raf" aria-labelledby="v6a-raf-h">
+  <h2 id="v6a-raf-h">Ürünlerimiz</h2>
+  <ul class="v6a-raf__liste" role="list" data-raf>
+  {%- for p in projeler %}
+    <li><a class="v6a-raf__oge" href="/tr/urunler/{{ p.slug }}/" data-ne="{{ p.ne }}" data-ad="{{ p.ad }}"><span class="v6a-raf__ikon">{{ ikon(p, gorselBoyut) }}</span><span class="v6a-raf__ad">{{ p.ad }}</span></a></li>
+  {%- endfor %}
+  </ul>
+  <p class="v6a-raf__yazi" data-raf-yazi aria-live="polite">Her biri kendi sayfasında.</p>
+</section>
+
+{%- if veri.zaman and veri.zaman.length %}
+<section class="wrap v6a-s v6a-zaman" aria-labelledby="v6a-zaman-h">
+  <h2 id="v6a-zaman-h">Yol haritamız</h2>
+  <ol class="v6a-zaman__liste">
+  {%- for z in veri.zaman %}
+    {%- set zp = null %}{% for p in projeler %}{% if p.slug == z.slug %}{% set zp = p %}{% endif %}{% endfor %}
+    <li><a href="/tr/urunler/{{ z.slug }}/"><span class="v6a-zaman__ikon">{{ ikon(zp, gorselBoyut) if zp }}</span><span class="v6a-zaman__tarih">{{ z.tarih }}</span><span class="v6a-zaman__metin">{{ z.metin }}</span></a></li>
+  {%- endfor %}
+  </ol>
+</section>
+{%- endif %}
+
+<section class="wrap v6a-s v6a-yol" aria-label="Nasıl çalışırız">
+  <ul role="list">
+    <li>Kimin kullanacağını, hangi sorunu çözeceğini ve kapsamı birlikte belirleriz.</li>
+    <li>Araştırma, tasarım ve yazılımı aynı masada yürütürüz.</li>
+    <li>Geri bildirimleri değerlendirir, deneyimi gerçek ihtiyaçlara göre geliştiririz.</li>
   </ul>
 </section>
 
-<section class="wrap v6a-yol" aria-label="Nasıl çalışırız">
-  <ol>
-    <li><span class="v6a-no">01 · İhtiyaç</span><h2>Kimin kullanacağını, hangi sorunu çözeceğini ve kapsamı birlikte belirleriz.</h2></li>
-    <li><span class="v6a-no">02 · Tasarım</span><h2>Tasarım ve teknik kararları aynı hedef etrafında şekillendiririz.</h2></li>
-    <li><span class="v6a-no">03 · Geliştirme</span><h2>Araştırma, tasarım ve yazılımı aynı masada yürütürüz.</h2></li>
-    <li><span class="v6a-no">04 · İyileştirme</span><h2>Geri bildirimleri değerlendirir, deneyimi gerçek ihtiyaçlara göre geliştiririz.</h2></li>
-  </ol>
-</section>
-
-<section class="wrap v6a-arac" aria-label="Kullandığımız araçlar">
-  <p>Swift · SwiftUI · Next.js · React · Eleventy · PostgreSQL · Supabase · Cloudflare</p>
-</section>
-
-<section class="wrap v6a-son">
+<section class="wrap v6a-s v6a-son">
   <p>Kendi ürünlerimizi geliştiriyor, işletmelere özel yazılım çözümleri sunuyoruz.</p>
   <p class="v6a-eylem"><a class="btn" href="/tr/iletisim/">Projenizi konuşalım</a><a class="btn btn--line" href="/tr/hizmetler/">Hizmetler <span aria-hidden="true">→</span></a></p>
 </section>
