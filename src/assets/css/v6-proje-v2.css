@@ -196,3 +196,17 @@
 .v2-tam .v2-kk,.v2-hero__gorsel--tam .v2-kk{border-radius:0}
 .v2-hero__gorsel--tam .v2-kk{max-height:min(82svh,56rem)}
 .v2-hero__gorsel--tam .v2-figur figcaption{padding-inline:var(--sp-6)}
+
+/* V7 döngü video: afiş ve video aynı oran, köşede küçük duraklat/oynat düğmesi */
+.v2-dongu{position:relative;display:block;width:min(100%,calc(min(82svh,56rem) * (var(--oran))));margin-inline:auto;overflow:hidden;border-radius:var(--r-panel);background:var(--surface)}
+.v2-dongu--tam{width:100%;border-radius:0;max-height:min(82svh,56rem)}
+.v2-dongu__video{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:var(--oran)}
+.v2-dongu--tam .v2-dongu__video{max-height:min(82svh,56rem)}
+.v2-dongu__btn{position:absolute;right:1rem;bottom:1rem;z-index:2;display:grid;place-items:center;width:2.75rem;height:2.75rem;border-radius:50%;border:1px solid color-mix(in srgb,#fff 35%,transparent);background:color-mix(in srgb,#0b0b0b 55%,transparent);color:#fff;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.v2-dongu__btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.v2-dongu__ikon{position:relative;width:.875rem;height:.875rem}
+.v2-dongu__ikon::before,.v2-dongu__ikon::after{content:"";position:absolute;top:0;bottom:0;width:.3rem;background:currentColor;border-radius:1px}
+.v2-dongu__ikon::before{left:.05rem}.v2-dongu__ikon::after{right:.05rem}
+.v2-dongu__btn--oyna .v2-dongu__ikon::before{left:.15rem;width:0;height:0;background:none;border-style:solid;border-width:.4375rem 0 .4375rem .75rem;border-color:transparent transparent transparent currentColor;border-radius:0}
+.v2-dongu__btn--oyna .v2-dongu__ikon::after{display:none}
+.v2-hero__gorsel--tam .v2-dongu__btn{right:max(1rem,calc((100vw - var(--measure)) / 2))}

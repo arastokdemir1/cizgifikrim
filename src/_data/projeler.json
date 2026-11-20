@@ -165,10 +165,10 @@
    },
    {
     "tur": "gorsel",
-    "gorsel": "/assets/v1/img/proje/vesira/salon-abd-sonra.webp",
-    "cift": "/assets/v1/img/proje/vesira/salon-abd-once.webp",
-    "alt": "ABD salonu yeniden tasarlandıktan sonra: aydınlık, krem koltuk, ahşap TV duvarı, nişli raf",
-    "alt_once": "ABD salonu önceki hali: koyu koltuk, dağınık oda",
+    "dongu": true,
+    "video": "/assets/v1/video/proje/vesira/salon-abd-gecis.mp4",
+    "gorsel": "/assets/v1/img/proje/vesira/salon-abd-gecis.webp",
+    "alt": "ABD salonu: dağınık odadan yeniden tasarlanmış, aydınlık salona geçiş",
     "genislik": "tam"
    },
    {
@@ -194,18 +194,18 @@
    },
    {
     "tur": "gorsel",
-    "gorsel": "/assets/v1/img/proje/vesira/mutfak-abd-sonra.webp",
-    "cift": "/assets/v1/img/proje/vesira/mutfak-abd-once.webp",
-    "alt": "ABD mutfağı yeniden tasarlandıktan sonra: açık ahşap ve beyaz dolaplar, çelik beyaz eşya, yeni zemin",
-    "alt_once": "ABD mutfağı önceki hali: meşe dolaplar, eski zemin",
+    "dongu": true,
+    "video": "/assets/v1/video/proje/vesira/mutfak-abd-gecis.mp4",
+    "gorsel": "/assets/v1/img/proje/vesira/mutfak-abd-gecis.webp",
+    "alt": "ABD mutfağı: meşe dolaplı eski mutfaktan açık ahşap ve beyaz mutfağa geçiş",
     "genislik": "yarim"
    },
    {
     "tur": "gorsel",
-    "gorsel": "/assets/v1/img/proje/vesira/giris-holu-sonra.webp",
-    "cift": "/assets/v1/img/proje/vesira/giris-holu-once.webp",
-    "alt": "Giriş holü yeniden tasarlandıktan sonra: ahşap çıtalı duvar, bank ve ayna",
-    "alt_once": "Giriş holü önceki hali: askıda yığılmış montlar",
+    "dongu": true,
+    "video": "/assets/v1/video/proje/vesira/giris-abd-gecis.mp4",
+    "gorsel": "/assets/v1/img/proje/vesira/giris-abd-gecis.webp",
+    "alt": "Giriş holü: askıda yığılmış montlardan ahşap çıtalı duvara, banka ve aynaya geçiş",
     "genislik": "genis",
     "baslik": "Giriş holü.",
     "metin": "Aynı kadraj, yeni bir giriş: ahşap çıtalı duvar, bank ve ayna."

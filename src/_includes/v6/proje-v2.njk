@@ -15,7 +15,7 @@
 </div>
 {%- endmacro -%}
 
-{#- gorsel_mobil (isteğe bağlı): ≤600px ekranda aynı görselin okunur yakın kırpımı (<picture>). -#}
+{#- dongu: true + video → sessiz döngü video (otomatik oynatma yalnız görünürken ve hareket azaltma kapalıyken; köşede duraklat/oynat düğmesi, WCAG 2.2.2). gorsel_mobil (isteğe bağlı): ≤600px ekranda aynı görselin okunur yakın kırpımı (<picture>). -#}
 {%- macro gorsel(x, boyut, ilk) -%}
 {%- set yukle = 'eager' if ilk else 'lazy' -%}
 {%- if x.cift -%}
@@ -27,6 +27,8 @@
 </div>
 {%- elif x.cerceve == 'tarayici' -%}
 <div class="v6-tar v2-tar"><div class="v6-tar__bar" aria-hidden="true"><i></i><i></i><i></i>{% if p.baglanti and ('.' in p.baglanti.etiket) %}<span>{{ p.baglanti.etiket }}</span>{% endif %}</div>{% if x.gorsel_mobil %}<picture><source media="(max-width: 600px)" srcset="{{ x.gorsel_mobil }}"{{ olcu(x.gorsel_mobil, boyut) }}>{% endif %}<img src="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} alt="{{ x.alt }}" loading="{{ yukle }}" decoding="async">{% if x.gorsel_mobil %}</picture>{% endif %}</div>
+{%- elif x.video and x.dongu -%}
+<span class="v2-medya v2-dongu{% if x.genislik == 'tam' %} v2-dongu--tam{% endif %}" style="--oran:{{ oran(x.gorsel, boyut, '3/2') }}"><video class="v2-dongu__video" muted loop playsinline preload="none" poster="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} aria-label="{{ x.alt }}" data-dongu><source src="{{ x.video }}" type="video/mp4"></video><button type="button" class="v2-dongu__btn" data-dongu-btn aria-label="Videoyu oynat" hidden><span class="v2-dongu__ikon" aria-hidden="true"></span></button></span>
 {%- elif x.video -%}
 <span class="v2-medya v2-medya--video" style="--oran:{{ oran(x.gorsel, boyut, '9/16') }}"><video class="v2-video" controls muted playsinline preload="none" poster="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} aria-label="{{ x.alt }}"><source src="{{ x.video }}" type="video/mp4"></video>{% if p.cip %}<span class="v6-cip v6-cip--ust">{{ p.cip }}</span>{% endif %}</span>
 {%- else -%}

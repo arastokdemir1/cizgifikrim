@@ -85,7 +85,10 @@ export default {
     v2: (d) => v2(d.p),
     v5Css: (d) => (v2(d.p) ? ['v6-proje', 'v6-proje-v2'] : ['v6-proje']),
     v5MainSinif: (d) => (v2(d.p) ? 'v6p v6p2' : 'v6p'),
-    v5Js: (d) => (((v2(d.p) ? d.p.anlati : d.p.bolumler) || []).some((b) => b && b.tur === 'demo') ? ['v6-demo'] : []),
+    v5Js: (d) => {
+      const l = (v2(d.p) ? d.p.anlati : d.p.bolumler) || [];
+      return [...(l.some((b) => b && b.tur === 'demo') ? ['v6-demo'] : []), ...(l.some((b) => b && b.video && b.dongu) ? ['v6-dongu'] : [])];
+    },
     // detay: başlık + metin ya da liste; boş satırlar atlanır
     // müze etiketindeki cümleyi aynen tekrar eden satır (ör. "Ne") gösterilmez
     detay: (d) => (Array.isArray(d.p.detay) ? d.p.detay : []).filter((x) => x && x.baslik && ((x.metin && String(x.metin).trim()) || (Array.isArray(x.liste) && x.liste.length))).filter((x) => x.liste || nokta(x.metin) !== nokta(d.p.ne)),
