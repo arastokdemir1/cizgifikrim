@@ -89,7 +89,7 @@
    "site-referans/urun-materyalleri/vesira/durum.md",
    "src/_data/modern.js (eski site verisi, herkese açık)",
    "site-referans/urun-materyalleri/vesira/guncel_2026-11-20/NOT.md (iOS build 12 akış ekranları, ham önce/sonra, logo; web 20 Ekim 2026'dan beri canlı; varsayılan dil İngilizce, Türkçe seçenek)",
-   "katalog ikonu: site-referans/urun-materyalleri/vesira/gorseller/vesira-logo.svg (Vesira logosu, vektör, şeffaf arka planla 512 px'e çizildi)"
+   "katalog ikonu: vesira-logo.svg (vektör, köşe yuvarlaması kaldırılarak tam kare 512 px)"
   ],
   "detay": [
    {
@@ -239,7 +239,7 @@
    "dis": true
   },
   "katalog_ikon": {
-   "tur": "logo",
+   "tur": "app",
    "dosya": "/assets/v1/img/proje/vesira/ikon.png"
   }
  },
@@ -305,7 +305,7 @@
    "site-referans/urun-materyalleri/polishreel/durum.md",
    "durum.md 'Sunulan çıktılar': kısa dikey video yaklaşık 10–30 sn; 'Görseller': ornek-video-dikey-yazisiz-720x1280.mp4 (20 sn, yazısız, sessiz); ffprobe süre 20.0 sn; 'Videodaki kişi yapay zekâ üretimi'",
    "src/_data/modern.js (eski site verisi, herkese açık)",
-   "katalog ikonu: site-referans/urun-materyalleri/polishreel/gorseller/yazi-logo-sitedeki-baslik.png (sitedeki 'PolishReel' yazısı, 230×80, büyütülmedi; durum.md: logo dosyası yok, yazı logosu var)"
+   "katalog ikonu: site-referans/urun-materyalleri/polishreel/gorseller/yazi-logo-sitedeki-baslik.png (sitedeki 'PolishReel' yazısı, 230×80, büyütülmedi; durum.md: logo dosyası yok, yazı logosu var); çevre boşluğu yazıya sıkı kırpıldı (192×47)"
   ],
   "detay": [
    {
@@ -774,7 +774,7 @@
    "FocusGrid | Genel mesajı 2026-11-20 (Apple herkese açık kayıt + App Store Connect)",
    "https://apps.apple.com/tr/app/focusgrid-task-routine/id6762910729",
    "FocusGrid | Genel mesajı 2026-11-20 (Apple herkese açık arama kaydı + App Store Connect)",
-   "katalog ikonu: iTunes lookup artworkUrl (kendi uygulamamız, herkese açık): Purple221/v4/04/28/76/0428763d-7c4a-b421-97a8-8b703c5387fa… (id ile https://itunes.apple.com/lookup?id=…&country=tr)"
+   "katalog ikonu: iTunes lookup artworkUrl (kendi uygulamamız, herkese açık): Purple221/v4/04/28/76/0428763d-7c4a-b421-97a8-8b703c5387fa… (id ile https://itunes.apple.com/lookup?id=…&country=tr); açık dış plaka ve gölge kırpıldı, ikonun kendi karesi 512 px'e kesildi"
   ],
   "detay": [
    {
@@ -855,7 +855,7 @@
   "kaynaklar": [
    "site-referans/urun-materyalleri/flowgraph/durum.md",
    "https://apps.apple.com/tr/app/flowgraph/id6764540044",
-   "katalog ikonu: iTunes lookup artworkUrl (kendi uygulamamız, herkese açık): Purple221/v4/1d/f7/c8/1df7c8d6-0123-2c23-8d6b-be009b469b3b… (id ile https://itunes.apple.com/lookup?id=…&country=tr)"
+   "katalog ikonu: iTunes lookup artworkUrl (kendi uygulamamız, herkese açık): Purple221/v4/1d/f7/c8/1df7c8d6-0123-2c23-8d6b-be009b469b3b… (id ile https://itunes.apple.com/lookup?id=…&country=tr); açık dış plaka ve gölge kırpıldı, ikonun kendi karesi 512 px'e kesildi"
   ],
   "detay": [
    {
