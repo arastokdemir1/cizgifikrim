@@ -89,15 +89,5 @@
    "ad": "Cloudflare R2",
    "kaynak": "site-referans/urun-materyalleri/vesira/durum.md (Teknoloji)"
   }
- ],
- "ai": [
-  {
-   "ad": "Anthropic Claude",
-   "kaynak": "site-referans/urun-materyalleri/vesira/durum.md (Teknoloji) (oda okuma ve tasarım kararları; durum.md bu bilgiyi 'istenirse' paylaşılabilir diye işaretler)"
-  },
-  {
-   "ad": "OpenAI GPT Image",
-   "kaynak": "site-referans/urun-materyalleri/vesira/durum.md (Teknoloji) (görsel üretimi; aynı not)"
-  }
  ]
 }
