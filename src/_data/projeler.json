@@ -115,7 +115,7 @@
    "site-referans/urun-materyalleri/vesira/guncel_2026-11-20/NOT.md (iOS build 12 akış ekranları, ham önce/sonra, logo; web 20 Ekim 2026'dan beri canlı; varsayılan dil İngilizce, Türkçe seçenek)",
    "katalog ikonu: vesira-logo.svg (vektör, köşe yuvarlaması kaldırılarak tam kare 512 px)",
    "site-referans/urun-materyalleri/vesira/hype_2026-11-21/NOT.md (yazısız önce/sonra: ABD salonu, ABD mutfağı, giriş holü; her 'sonra' aynı kadraj; Aras kararıyla etiket yok, müşteri işi gibi sunulmaz)",
-   "site-referans/urun-materyalleri/vesira/hype_2026-11-21/video/{salon,giris,mutfak}-abd-gecis.mp4 (5,5 sn, sessiz, yazısız; her kare kontrol edildi; ≤1,3 MB, yeniden kodlama gerekmedi)"
+   "site-referans/urun-materyalleri/vesira/hype_2026-11-21/video/{salon,giris,mutfak}-abd-gecis.mp4 (kaynak 5,5 sn; sitede 13,6 sn döngü: 1,0 sn sonra → geri (sonra→önce) → 0,6 sn önce → ileri → 1,0 sn sonra; ilk ve son kare 'sonra'; H.264 CRF 27, ≤1,2 MB, sessiz)"
   ],
   "detay": [
    {
