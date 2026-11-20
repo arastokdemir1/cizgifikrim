@@ -25,7 +25,7 @@ og: /assets/v1/img/og/tr-products.png
       <li><a class="v6k-satir" href="/tr/urunler/{{ p.slug }}/">
         <span class="v6k-satir__gorsel">{{ ikon(p, gorselBoyut) }}</span>
         <span class="v6k-satir__metin"><span class="v6k-satir__ad">{{ p.ad }}{% if p.cip %} <span class="v6-cip">{{ p.cip }}</span>{% endif %}</span><span class="v6k-satir__ne">{{ p.ne }}</span></span>
-        <span class="v6k-satir__platform">{{ p.platform }}</span>
+        <span class="v6k-satir__platform">{{ p.platform }}{% if g.durumGoster and p.durum %}{% if p.platform %} · {% endif %}{{ p.durum }}{% endif %}</span>
         <span class="v6k-satir__ok" aria-hidden="true">→</span>
       </a></li>
       {%- endfor %}

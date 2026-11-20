@@ -192,3 +192,7 @@
   .v2-telbolum--bol+.v2-telbolum--bol .v2-telbolum__ic{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
   .v2-telbolum--bol+.v2-telbolum--bol .v2-telbolum__metin{order:2}
 }
+/* V7: tam genişlik görsel/önce-sonra (kenardan kenara; köşesiz) */
+.v2-tam .v2-kk,.v2-hero__gorsel--tam .v2-kk{border-radius:0}
+.v2-hero__gorsel--tam .v2-kk{max-height:min(82svh,56rem)}
+.v2-hero__gorsel--tam .v2-figur figcaption{padding-inline:var(--sp-6)}

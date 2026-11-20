@@ -49,7 +49,7 @@
       </p>
     </div>
     {%- if h and h.gorsel %}
-    <div class="v2-hero__gorsel{% if h.gorsel.tur == 'gorsel' %} wrap{% endif %}">
+    <div class="v2-hero__gorsel{% if h.gorsel.tur == 'gorsel' and h.gorsel.genislik != 'tam' %} wrap{% endif %}{% if h.gorsel.genislik == 'tam' %} v2-hero__gorsel--tam{% endif %}">
       {%- if h.gorsel.tur == 'telefonlar' %}{{ telefonlar(h.gorsel, gorselBoyut, true) }}{% else %}<figure class="v2-figur">{{ gorsel(h.gorsel, gorselBoyut, true) }}{% if h.gorsel.baslik %}<figcaption>{{ h.gorsel.baslik }}</figcaption>{% endif %}</figure>{% endif %}
     </div>
     {%- endif %}
