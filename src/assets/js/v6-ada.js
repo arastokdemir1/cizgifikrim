@@ -6,7 +6,7 @@
   var nav=document.querySelector('[data-ada]'); if(!nav) return;
   var kutu=nav.querySelector('.nav__in'), urun=nav.querySelector('[data-ada-urun]'), menu=nav.querySelector('[data-ada-menu]'), panel=nav.querySelector('[data-ada-panel]');
   if(!kutu||!urun||!menu||!panel) return;
-  var mq=window.matchMedia('(min-width:861px)'); var acik=''; var t=null;
+  var mq=window.matchMedia('(min-width:861px)'); var acik=''; var t=null; var geriOdak=false, odakAcildi=false;
   function masaustu(){return mq.matches}
   function ayarla(k,odakla){
     clearTimeout(t); acik=k||'';
@@ -16,7 +16,7 @@
     if(acik) panel.removeAttribute('inert'); else panel.setAttribute('inert','');
     if(acik&&odakla){var ilk=(acik==='menu'?panel.querySelector('.nav__mobil a'):null)||panel.querySelector('.nav__izgara a'); if(ilk) setTimeout(function(){ilk.focus()},30)}
   }
-  function kapat(geri){var onceki=acik; ayarla(''); if(geri){(onceki==='menu'?menu:urun).focus()}}
+  function kapat(geri){var onceki=acik; ayarla(''); odakAcildi=false; if(geri){geriOdak=true;(onceki==='menu'?menu:urun).focus()}}
   /* --- kompakt / geniş (kaydırma) --- */
   var sonY=window.pageYOffset, birik=0, kucuk=false, bekle=false;
   function kaydir(){
@@ -31,14 +31,24 @@
   urun.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse'&&masaustu()){clearTimeout(t);t=setTimeout(function(){ayarla('urunler')},70)}});
   kutu.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse')clearTimeout(t)});
   kutu.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'&&acik==='urunler'){clearTimeout(t);t=setTimeout(function(){ayarla('')},220)}});
+  function panele(){ayarla('urunler',true)}
   urun.addEventListener('click',function(e){
     if(!masaustu()) return;
     e.preventDefault();
-    if(acik==='urunler') kapat(); else ayarla('urunler',e.detail===0);
+    if(acik==='urunler'){ if(odakAcildi){odakAcildi=false;panele()} else kapat() }
+    else {odakAcildi=false;ayarla('urunler',e.detail===0)}
   });
-  urun.addEventListener('keydown',function(e){if(masaustu()&&e.key==='ArrowDown'){e.preventDefault();ayarla('urunler',true)}});
-  urun.addEventListener('focus',function(){if(masaustu()&&!acik&&urun.matches(':focus-visible'))ayarla('urunler')});
+  urun.addEventListener('keydown',function(e){
+    if(!masaustu()) return;
+    if(e.key==='ArrowDown'||e.key===' '||(e.key==='Enter'&&acik==='urunler'&&odakAcildi)){
+      e.preventDefault(); odakAcildi=false; panele(); return;
+    }
+    if(e.key!=='Escape'&&e.key!=='Tab') geriOdak=false;
+  });
+  urun.addEventListener('blur',function(){geriOdak=false});
+  urun.addEventListener('focus',function(){if(geriOdak){return} if(masaustu()&&!acik&&urun.matches(':focus-visible')){ayarla('urunler');odakAcildi=true}});
   kutu.addEventListener('focusin',function(e){ if(acik==='urunler'&&!panel.contains(e.target)&&e.target!==urun) ayarla('') });
+  kutu.addEventListener('focusout',function(e){if(acik&&e.relatedTarget&&!kutu.contains(e.relatedTarget))ayarla('')});
   /* --- Menü (mobil) --- */
   menu.addEventListener('click',function(){ if(acik==='menu') kapat(true); else ayarla('menu',false) });
   /* --- ortak: Esc, dışarı tıklama, odak tuzağı, boyut değişimi --- */
