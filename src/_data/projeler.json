@@ -241,6 +241,11 @@
   "katalog_ikon": {
    "tur": "app",
    "dosya": "/assets/v1/img/proje/vesira/ikon.png"
+  },
+  "cikis": {
+   "tarih": "2026-10-20",
+   "etiket": "Web'de yayında",
+   "kaynak": "site-referans/urun-materyalleri/vesira/durum.md (Web: 20 Ekim 2026'dan beri canlıda)"
   }
  },
  {
@@ -653,6 +658,11 @@
   "katalog_ikon": {
    "tur": "app",
    "dosya": "/assets/v1/img/proje/carlog/ikon.png"
+  },
+  "cikis": {
+   "tarih": "2026-07-01",
+   "etiket": "App Store'da",
+   "kaynak": "iTunes lookup releaseDate (https://itunes.apple.com/lookup?id=6779625494&country=tr, 20 Kasım 2026)"
   }
  },
  {
@@ -834,6 +844,11 @@
   "katalog_ikon": {
    "tur": "app",
    "dosya": "/assets/v1/img/proje/piyasapp/ikon.png"
+  },
+  "cikis": {
+   "tarih": "2026-07-15",
+   "etiket": "App Store'da",
+   "kaynak": "iTunes lookup releaseDate (https://itunes.apple.com/lookup?id=6786390358&country=tr, 20 Kasım 2026); piyasapp/durum.md: ilk yayın 15 Tem 2026"
   }
  },
  {
@@ -974,7 +989,12 @@
      }
     ]
    }
-  ]
+  ],
+  "cikis": {
+   "tarih": "2026-05-04",
+   "etiket": "App Store'da",
+   "kaynak": "iTunes lookup releaseDate (https://itunes.apple.com/lookup?id=6762910729&country=tr, 20 Kasım 2026); FocusGrid | Genel: ilk yayın 4 Mayıs 2026"
+  }
  },
  {
   "slug": "flowgraph",
@@ -1122,7 +1142,12 @@
      }
     ]
    }
-  ]
+  ],
+  "cikis": {
+   "tarih": "2026-05-05",
+   "etiket": "App Store'da",
+   "kaynak": "iTunes lookup releaseDate (https://itunes.apple.com/lookup?id=6764540044&country=tr, 20 Kasım 2026)"
+  }
  },
  {
   "slug": "sano",
@@ -1280,7 +1305,12 @@
      }
     ]
    }
-  ]
+  ],
+  "cikis": {
+   "tarih": "2026-07-02",
+   "etiket": "App Store'da",
+   "kaynak": "iTunes lookup releaseDate (https://itunes.apple.com/lookup?id=6784807414&country=tr, 20 Kasım 2026)"
+  }
  },
  {
   "slug": "pilotaj-sinav-simulatoru",
@@ -1610,7 +1640,12 @@
      }
     ]
    }
-  ]
+  ],
+  "cikis": {
+   "tarih": "2026-08-15",
+   "etiket": "App Store'da",
+   "kaynak": "iTunes lookup releaseDate (https://itunes.apple.com/lookup?id=6800084874&country=tr, 20 Kasım 2026)"
+  }
  },
  {
   "slug": "sanayi",
@@ -1806,7 +1841,8 @@
    "src/_data/modern.js (eski site verisi, herkese açık)",
    "assets/js/render.js (eski vitrin kataloğu, origin/main, herkese açık)",
    "yerel proje klasörü: gnomon/GNOMON_SPEC.md (proje klasörü, §1)",
-   "Gnomon kendi Xcode projesi (yerel proje klasörü: gnomon) yerelde derlendi ve projenin kendi SeedData biçiminde genişletilmiş genel örnek veriyle (10 görev, bağımlılıklar, tarihler; bellek içi, gerçek veri yok) çalıştırıldı; ekran görüntüleri 2026-11-20, imzasız yerel derleme"
+   "Gnomon kendi Xcode projesi (yerel proje klasörü: gnomon) yerelde derlendi ve projenin kendi SeedData biçiminde genişletilmiş genel örnek veriyle (10 görev, bağımlılıklar, tarihler; bellek içi, gerçek veri yok) çalıştırıldı; ekran görüntüleri 2026-11-20, imzasız yerel derleme",
+   "platform: macOS (eski katalog 'macOS proje yönetimi' + proje spec'i)"
   ],
   "detay": [
    {
@@ -1898,7 +1934,8 @@
     ]
    }
   ],
-  "kart_gorsel": "/assets/v1/img/proje/gnomon/pano.webp"
+  "kart_gorsel": "/assets/v1/img/proje/gnomon/pano.webp",
+  "platform": "macOS"
  },
  {
   "slug": "better-motors",
