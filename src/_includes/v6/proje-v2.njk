@@ -26,8 +26,10 @@
 </div>
 {%- elif x.cerceve == 'tarayici' -%}
 <div class="v6-tar v2-tar"><div class="v6-tar__bar" aria-hidden="true"><i></i><i></i><i></i>{% if p.baglanti and ('.' in p.baglanti.etiket) %}<span>{{ p.baglanti.etiket }}</span>{% endif %}</div><img src="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} alt="{{ x.alt }}" loading="{{ yukle }}" decoding="async"></div>
+{%- elif x.video -%}
+<span class="v2-medya v2-medya--video" style="--oran:{{ oran(x.gorsel, boyut, '9/16') }}"><video class="v2-video" controls muted playsinline preload="none" poster="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} aria-label="{{ x.alt }}"><source src="{{ x.video }}" type="video/mp4"></video>{% if p.cip %}<span class="v6-cip v6-cip--ust">{{ p.cip }}</span>{% endif %}</span>
 {%- else -%}
-<img class="v2-foto" src="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} alt="{{ x.alt }}" loading="{{ yukle }}" decoding="async">
+<span class="v2-medya"><img class="v2-foto" src="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} alt="{{ x.alt }}" loading="{{ yukle }}" decoding="async">{% if p.cip %}<span class="v6-cip v6-cip--ust">{{ p.cip }}</span>{% endif %}</span>
 {%- endif -%}
 {%- endmacro -%}
 
@@ -47,7 +49,7 @@
     </div>
     {%- if h and h.gorsel %}
     <div class="v2-hero__gorsel{% if h.gorsel.tur == 'gorsel' %} wrap{% endif %}">
-      {%- if h.gorsel.tur == 'telefonlar' %}{{ telefonlar(h.gorsel, gorselBoyut, true) }}{% else %}{{ gorsel(h.gorsel, gorselBoyut, true) }}{% endif %}
+      {%- if h.gorsel.tur == 'telefonlar' %}{{ telefonlar(h.gorsel, gorselBoyut, true) }}{% else %}<figure class="v2-figur">{{ gorsel(h.gorsel, gorselBoyut, true) }}{% if h.gorsel.baslik %}<figcaption>{{ h.gorsel.baslik }}</figcaption>{% endif %}</figure>{% endif %}
     </div>
     {%- endif %}
   </section>
@@ -87,7 +89,7 @@
   </section>
 
   {%- elif x.tur == 'ikili' %}
-  <section class="wrap v2-blok v2-ikili" aria-label="{{ p.ad }} örnekleri">
+  <section class="wrap v2-blok v2-ikili v2-ikili--{{ x.ogeler.length }}" aria-label="{{ p.ad }} örnekleri">
     {%- for y in x.ogeler %}
     <figure class="v2-figur">{{ gorsel(y, gorselBoyut, false) }}{% if y.baslik %}<figcaption>{{ y.baslik }}</figcaption>{% endif %}</figure>
     {%- endfor %}
