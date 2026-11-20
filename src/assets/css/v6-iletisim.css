@@ -20,6 +20,7 @@ main.v6i{margin-bottom:-.125rem}
 .v6i-takvim[data-durum="yuklendi"] .v6i-yedek{display:none}
 .v6i-takvim[data-durum="yuklendi"]{min-height:0}
 .v6i-takvim[data-durum="yedek"] .v6i-cal{display:none}
+.v6i-takvim[data-durum="yedek"]{min-height:14rem} /* yedek durumda boş büyük kart kalmasın */
 .v6i-not{margin:var(--sp-3) 0 0;font-size:.8125rem;line-height:1.5;color:var(--muted);text-align:center}
 .v6i-not a{color:var(--ink);text-decoration:underline;text-underline-offset:.2em}
 .v6i-not a:focus-visible,.v6i-eposta__a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
