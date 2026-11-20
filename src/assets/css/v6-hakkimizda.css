@@ -1,15 +1,18 @@
 /* V6.10 /tr/hakkimizda/: "Kendi ürünlerimizi yapıyoruz." Koyu, sade. Sayfa boyunca ince, durağan çizgi (logodaki çizgi motifi) bölümleri bağlar. Frontend-1 */
 main.v6a{--v6a-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem));--ray:2.5rem;margin-bottom:-.875rem}
 .v6a-s{position:relative;padding-block:var(--v6a-y) 0;display:grid;gap:var(--sp-5);align-content:start}
-.v6a-hero{padding-block-start:clamp(2rem,1rem + 4vw,4.5rem)}
+.v6a-hero{padding-block-start:clamp(2rem,1rem + 4vw,4.5rem);justify-items:center;text-align:center}
+.v6a-hero .v6a-alt{margin-inline:auto}
 .v6a-et{margin:0;font-size:var(--fs-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.v6a-hero h1{margin:0;font-size:clamp(2.25rem,1.1rem + 4.8vw,4.75rem);line-height:1.04;letter-spacing:-.035em;font-weight:var(--fw-head);max-width:16ch;text-wrap:balance}
+.v6a-hero h1{margin:0;font-size:clamp(2.25rem,1.1rem + 4.8vw,4.75rem);line-height:1.04;letter-spacing:-.035em;font-weight:var(--fw-head);max-width:18ch;text-wrap:balance}
 .v6a-alt{margin:0;max-width:36rem;font-size:var(--fs-lg);color:var(--muted)}
 .v6a-s h2{margin:0;font-size:var(--fs-xs);letter-spacing:.1em;text-transform:uppercase;font-weight:var(--fw-body);color:var(--muted)}
 /* ince çizgi: her bölümün solunda, bölümler arasında kesintisiz; düğüm noktası bölüm başında */
 @media (min-width:861px){
   .v6a-s{padding-left:var(--ray)}
+  .v6a-hero{padding-left:0}
   .v6a-s::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--line);transform-origin:top}
+  .v6a-hero::before{left:0}
   .v6a-s::after{content:"";position:absolute;left:-3px;top:calc(var(--v6a-y) + .35rem);width:7px;height:7px;border-radius:50%;background:var(--ink)}
   .v6a-hero::after{top:calc(clamp(2rem,1rem + 4vw,4.5rem) + .35rem)}
   .v6a-son::after{display:none}
@@ -72,3 +75,12 @@ main.v6a{--v6a-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem));--ray:2.5rem;margin-
   .v6a-yol li{max-width:none;border-bottom:0;border-top:1px solid var(--line);padding-block:var(--sp-5) 0}
 }
 @media (min-width:861px){.v6a-son{padding-top:calc(var(--v6a-y) - .1rem)}}
+
+/* yol haritası: büyük ikon, okunur tarih ve metin, belirgin bağlantı çizgisi */
+.v6a-zaman__liste::before{background:color-mix(in srgb,var(--ink) 35%,transparent)}
+.v6a-zaman__ikon{position:relative;z-index:1;width:4rem;height:4rem}
+.v6a-zaman__tarih{font-size:.8125rem}
+.v6a-zaman__metin{font-size:1rem}
+.v6a-zaman__liste a{grid-template-columns:4rem 1fr}
+@media (min-width:861px){.v6a-zaman__liste::before{top:2rem}.v6a-zaman__liste a{grid-template-columns:1fr}}
+@media (max-width:860px){.v6a-zaman__liste::before{left:2rem;top:2rem;bottom:2rem}}
