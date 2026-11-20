@@ -1,0 +1,10 @@
+/* V6.6 koyu yüzey (x.ai / Apple sade): açık ve koyu temada da siyah. Jetonlar body'de yeniden tanımlanır; üst menü ve footer aynı yapıyla kendiliğinden uyar. Frontend-1 */
+body.v6-koyu{color-scheme:dark;--bg:#050505;--surface:#111;--panel:#0d0d0d;--line:#2a2a2a;--soft:#1a1a1a;--ink:#f5f5f5;--muted:#a8a8a8;--button:#f5f5f5;--button-ink:#0a0a0a;--focus:#f5f5f5}
+/* ince, geniş sahne: bir cümle + bir büyük görsel */
+.k-sahne{padding-block:var(--bolum-y);display:grid;gap:clamp(2rem,1rem + 4vw,4.5rem);align-content:center}
+.k-sahne h1,.k-sahne h2{margin:0;font-size:clamp(2.25rem,1.2rem + 4.6vw,5rem);line-height:1.04;letter-spacing:-.035em;font-weight:var(--fw-head);max-width:18ch;text-wrap:balance}
+.k-sahne .k-satir{margin:0;max-width:34rem;font-size:var(--fs-lg);color:var(--muted)}
+.k-alt{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--sp-3) var(--sp-8);margin:0;font-size:var(--fs-sm);color:var(--muted)}
+.k-alt ul{display:flex;flex-wrap:wrap;gap:.25rem var(--sp-5);margin:0;padding:0;list-style:none}
+.k-alt a{color:var(--ink);text-decoration:underline;text-underline-offset:.2em}
+.k-alt a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}

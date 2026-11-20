@@ -12,7 +12,7 @@
 {%- set ogYol = og or '/assets/v1/img/og/tr-home.png' %}
 <meta property="og:title" content="{{ title }}"><meta property="og:description" content="{{ description }}"><meta property="og:url" content="{{ site.url }}{{ page.url }}"><meta property="og:type" content="website"><meta property="og:site_name" content="CizgiFikrim"><meta property="og:locale" content="tr_TR"><meta property="og:image" content="{{ site.url }}{{ ogYol }}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{{ title }}">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{{ title }}"><meta name="twitter:description" content="{{ description }}"><meta name="twitter:image" content="{{ site.url }}{{ ogYol }}">
-<meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme:light)"><meta name="theme-color" content="#101010" media="(prefers-color-scheme:dark)">
+{%- if v5Koyu %}<meta name="theme-color" content="#050505">{% else %}<meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme:light)">{% endif %}{%- if not v5Koyu %}<meta name="theme-color" content="#101010" media="(prefers-color-scheme:dark)">{% endif %}
 <link rel="icon" href="/assets/v1/img/brand/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/v1/img/brand/apple-touch-icon.png">
 <link rel="preload" href="/assets/v1/fonts/nunito-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/v1/css/v5.css?v=20261119">
@@ -25,7 +25,7 @@
 <script type="application/ld+json">{{ jsonld | jsonld | safe }}</script>
 {%- endif %}
 </head>
-<body>
+<body{% if v5Koyu %} class="v6-koyu"{% endif %}>
 <a class="atla" href="#icerik">İçeriğe geç</a>
 {% include "v5/header.njk" %}
 

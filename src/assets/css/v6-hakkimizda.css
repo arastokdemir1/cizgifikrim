@@ -1,50 +1,20 @@
-/* V6.2 /tr/hakkimizda/: büyük ürün ekranları, görsel adımlar, rozet bandı. Yalnız gerçek ürün ekranları. Frontend-1 */
-main.v6a{margin-bottom:-.875rem;--v6a-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem));--v6a-g:var(--sp-4)}
-.v6a-ust{padding-block:var(--v6a-y) calc(var(--v6a-y)/2);display:grid;gap:var(--sp-4)}
-.v6a-ust h1{margin:0;font-size:clamp(2rem,1.4rem + 2.4vw,3rem);line-height:var(--lh-head);letter-spacing:var(--ls-head);font-weight:var(--fw-head)}
-.v6a-ust p{margin:0;max-width:40rem;font-size:var(--fs-lg);color:var(--muted)}
-.v6a-ekran{position:relative;display:block;overflow:hidden;border-radius:var(--r-ctl);background:var(--surface)}
-.v6a-ekran img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0}
-.v6a-etiket{position:absolute;left:.75rem;bottom:.75rem;padding:.25rem .7rem;border-radius:var(--r-pill);font-size:var(--fs-xs);font-weight:var(--fw-sub);background:color-mix(in srgb,var(--bg) 82%,transparent);color:var(--ink);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-/* mozaik: dar ekranda 2 sütun */
-.v6a-mozaik{padding-block:calc(var(--v6a-y)/2);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--v6a-g)}
-.v6a-ekran--a{grid-column:1;grid-row:1;aspect-ratio:720/1564}
-.v6a-ekran--d{grid-column:2;grid-row:1}
-.v6a-ekran--b{grid-column:1/-1;grid-row:2;aspect-ratio:3/2}
-.v6a-ekran--c{grid-column:1;grid-row:3;aspect-ratio:4/5}
-.v6a-ekran--e{grid-column:2;grid-row:3;aspect-ratio:4/5}
-@media (min-width:861px){
-  .v6a-mozaik{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(3,auto)}
-  .v6a-ekran--a{grid-column:1;grid-row:1/4;aspect-ratio:720/1564}
-  .v6a-ekran--b{grid-column:2;grid-row:1;aspect-ratio:auto}
-  .v6a-ekran--c{grid-column:2;grid-row:2/4;aspect-ratio:auto}
-  .v6a-ekran--d{grid-column:3;grid-row:1/4}
-  .v6a-ekran--e{grid-column:4;grid-row:1/4;aspect-ratio:720/1564}
-}
-/* bölümler */
-.v6a-bolum{padding-block:calc(var(--v6a-y)/2) calc(var(--v6a-y)/2 - 1.25rem);display:grid;gap:var(--sp-6)}
-.v6a-bolum h2{margin:0;font-size:var(--fs-sm);font-weight:var(--fw-sub);letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--muted)}
-.v6a h3{margin:0;font-size:var(--fs-md);font-weight:var(--fw-sub)}
-/* adımlar */
-.v6a-adim{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-8) var(--v6a-g)}
-.v6a-adim li{display:grid;gap:var(--sp-2);align-content:start}
-.v6a-adim .v6a-ekran{aspect-ratio:4/5;margin-bottom:var(--sp-3)}
-.v6a-no{font-size:var(--fs-sm);color:var(--muted);font-variant-numeric:tabular-nums}
-.v6a-adim p{margin:0;font-size:var(--fs-sm);color:var(--muted);max-width:22rem}
-@media (min-width:861px){.v6a-adim{grid-template-columns:repeat(4,minmax(0,1fr))}}
-/* ilkeler */
-.v6a-ilke{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:minmax(0,1fr);gap:0}
-.v6a-ilke li{padding:var(--sp-5) 0;border-top:1px solid var(--line)}
-.v6a-ilke p{margin:var(--sp-1) 0 0;font-size:var(--fs-sm);color:var(--muted);max-width:26rem}
-@media (min-width:861px){.v6a-ilke{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--v6a-g)}.v6a-ilke li{padding-right:var(--sp-6)}}
-/* araç rozetleri */
-.v6a-bant{display:grid;gap:var(--sp-6);padding:clamp(1.25rem,.5rem + 3vw,2.5rem);border-radius:var(--r-panel);background:var(--surface)}
-.v6a-bant>div{display:grid;gap:var(--sp-3);align-content:start}
-.v6a-grup{font-size:var(--fs-xs);letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--muted)}
-.v6a-bant ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:var(--sp-2)}
-.v6a-bant li{padding:.5rem 1rem;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--bg);font-size:var(--fs-md);font-weight:var(--fw-sub)}
-@media (min-width:861px){.v6a-bant{grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr) minmax(0,1fr);gap:var(--sp-8)}}
-.v6a-son{padding-block:calc(var(--v6a-y)/2) 0;display:grid;gap:var(--sp-5)}
+/* V6.6 /tr/hakkimizda/: koyu, sade. Bir açılış cümlesi, tek büyük ürün kompozisyonu, yaklaşımın dört cümlesi, sessiz araç satırı. Frontend-1 */
+main.v6a{--v6a-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem));margin-bottom:-.875rem}
+.v6a-ac{padding-bottom:0}
+.v6a-ekranlar{display:flex;justify-content:center;align-items:flex-start;gap:clamp(.5rem,.1rem + 1.6vw,1.75rem);margin:0;padding:0;list-style:none;max-height:clamp(24rem,42vw,40rem);overflow:hidden}
+.v6a-ekranlar li{flex:0 1 clamp(7rem,17vw,15rem)}
+.v6a-ekranlar li:nth-child(odd){margin-top:clamp(1.5rem,4vw,4rem)}
+.v6a-ekranlar img{display:block;width:100%;height:auto;border-radius:clamp(.75rem,.4rem + 1.2vw,1.75rem)}
+.v6a-yol{padding-block:calc(var(--v6a-y) - 1.4rem) 0;display:grid;gap:var(--sp-10)}
+.v6a-yol ol{margin:0;padding:0;list-style:none;display:grid;gap:var(--sp-10)}
+.v6a-yol li{display:grid;align-content:start;gap:var(--sp-3);padding-top:var(--sp-5);border-top:1px solid var(--line)}
+.v6a-yol .v6a-no{font-size:var(--fs-sm);color:var(--muted)}
+.v6a-yol h2{margin:0;font-size:clamp(1.75rem,1rem + 3vw,3.5rem);line-height:1.08;letter-spacing:-.03em;font-weight:var(--fw-head);max-width:24ch;text-wrap:balance}
+.v6a-yol h2 span{color:var(--muted)}
+.v6a-arac{padding-block:var(--v6a-y) 0}
+.v6a-arac p{margin:0;font-size:var(--fs-sm);color:var(--muted);letter-spacing:.01em}
+.v6a-son{padding-block:var(--v6a-y) 0;display:grid;gap:var(--sp-5)}
 .v6a-son p{margin:0;max-width:34rem;font-size:var(--fs-lg);color:var(--muted)}
 .v6a-eylem{display:flex;flex-wrap:wrap;gap:var(--sp-3)}
-.v6a-bolum:has(.v6a-adim),.v6a-arac{padding-bottom:calc(var(--v6a-y)/2)}
+@media (min-width:861px){.v6a-yol ol{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-10) clamp(2rem,1rem + 5vw,5rem)}}
+@media (max-width:37.5rem){.v6a-ekranlar li:nth-child(n+4){display:none}.v6a-ekranlar li{flex-basis:30%}}
