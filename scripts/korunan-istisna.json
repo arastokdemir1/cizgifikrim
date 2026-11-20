@@ -4,6 +4,30 @@
     {
       "path": "404.html",
       "neden": "Kökteki eski 404.html (eski sitenin sayfası, eski analytics çağırıyordu) çıktıya girmiyordu; yerine yeni vitrin tasarımında src/404.njk /404.html üretir (GitHub Pages kökte kullanır, Cloudflare Pages otomatik). noindex, sitemap dışı. Koordinatör W2-404."
+    },
+    {
+      "path": "favicon.ico",
+      "neden": "2026-11-20 favicon yenileme, Aras onayı (Yönetici üzerinden): eski altın C logosu yerine güncel logo işareti."
+    },
+    {
+      "path": "favicon.svg",
+      "neden": "2026-11-20 favicon yenileme, Aras onayı (Yönetici üzerinden): eski altın C logosu yerine güncel logo işareti."
+    },
+    {
+      "path": "icon-192.png",
+      "neden": "2026-11-20 favicon yenileme, Aras onayı (Yönetici üzerinden): eski altın C logosu yerine güncel logo işareti."
+    },
+    {
+      "path": "icon-512.png",
+      "neden": "2026-11-20 favicon yenileme, Aras onayı (Yönetici üzerinden): eski altın C logosu yerine güncel logo işareti."
+    },
+    {
+      "path": "apple-touch-icon.png",
+      "neden": "2026-11-20 favicon yenileme, Aras onayı (Yönetici üzerinden): eski altın C logosu yerine güncel logo işareti."
+    },
+    {
+      "path": "site.webmanifest",
+      "neden": "2026-11-20 favicon yenileme, Aras onayı (Yönetici üzerinden): eski altın C logosu yerine güncel logo işareti."
     }
   ]
 }
