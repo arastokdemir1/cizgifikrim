@@ -43,6 +43,16 @@
 .v6k-son{display:grid;gap:var(--sp-5);margin-top:calc(var(--bolum-y) - var(--sp-4) - .75rem)} /* son satırın iç dolgusu + satır aralığı düşülür: mürekkepten mürekkebe --bolum-y */
 .v6k-son h2{margin:0;font-size:clamp(var(--fs-xl),1.1rem + 1.2vw,var(--fs-2xl));font-weight:var(--fw-head);line-height:var(--lh-head);letter-spacing:var(--ls-head)}
 .v6k-son .aksiyon{display:flex;flex-wrap:wrap;gap:var(--sp-3);margin:0}
-@media (min-width:56rem){.v6k-son{grid-template-columns:1fr auto;align-items:center;margin-top:calc(var(--bolum-y) - var(--sp-5) - 2.0625rem)}.v6k-tum{margin-top:calc(var(--bolum-y) - 1.5rem)}} /* geniş satırda metin uzun küçük görselin ortasında: satır altı boşluğu düşülür */
+@media (min-width:56rem){.v6k-son{grid-template-columns:1fr auto;align-items:center;margin-top:calc(var(--bolum-y) - var(--sp-5) - 1.375rem)}.v6k-tum{margin-top:calc(var(--bolum-y) - 1.5rem)}} /* geniş satırda metin uzun küçük görselin ortasında: satır altı boşluğu düşülür */
 @media (max-width:55.99rem){.v6k .v6k-son{margin-bottom:-.75rem}} /* düğme satırı → footer mürekkep aralığı 64 */
 @media (prefers-reduced-motion:reduce){.v6k-satir__ok{transition:none}}
+
+/* V6.4 katalog ikonları: hepsi aynı kare çerçeve (1440: 88px, 375: 64px), iOS uygulama ikonu köşesi ≈ %22.5 */
+.v6k-satir__gorsel{aspect-ratio:1/1}
+.v6-ikon{position:relative;display:block;width:100%;height:100%;overflow:hidden;border-radius:22.5%}
+.v6-ikon::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 12%,transparent);pointer-events:none}
+.v6-ikon img{display:block;width:100%;height:100%;object-fit:cover}
+.v6-ikon--logo{display:grid;place-items:center;background:var(--surface)}
+.v6-ikon--logo img{width:60%;height:60%;object-fit:contain}
+.v6-ikon--harf{display:grid;place-items:center;background:var(--surface)}
+.v6-ikon--harf span{font-size:clamp(1.5rem,1.1rem + 1vw,2.125rem);font-weight:var(--fw-head);letter-spacing:-.03em;color:var(--ink);line-height:1}

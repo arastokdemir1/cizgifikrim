@@ -56,3 +56,15 @@
 <span class="v6-kart v6-kart--foto"><img src="{{ k }}"{{ olcu(k, boyut) }} alt="" loading="lazy" decoding="async"></span>
 {%- endif -%}
 {%- endmacro -%}
+
+{#- V6.4 katalog ikonu (Frontend-2): proje.katalog_ikon {tur: app|logo|monogram, dosya}. Hepsi aynı kare çerçeve ve ölçüde; dosya yoksa monogram. -#}
+{%- macro ikon(p, boyut) -%}
+{%- set ki = p.katalog_ikon -%}
+{%- if ki and ki.dosya and ki.tur == 'app' -%}
+<span class="v6-ikon v6-ikon--app"><img src="{{ ki.dosya }}"{{ olcu(ki.dosya, boyut) }} alt="" loading="lazy" decoding="async"></span>
+{%- elif ki and ki.dosya and ki.tur == 'logo' -%}
+<span class="v6-ikon v6-ikon--logo"><img src="{{ ki.dosya }}"{{ olcu(ki.dosya, boyut) }} alt="" loading="lazy" decoding="async"></span>
+{%- else -%}
+<span class="v6-ikon v6-ikon--harf" aria-hidden="true"><span>{{ p.ad[0] }}</span></span>
+{%- endif -%}
+{%- endmacro -%}
