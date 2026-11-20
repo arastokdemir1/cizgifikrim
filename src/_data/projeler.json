@@ -936,8 +936,8 @@
   ]
  },
  {
-  "slug": "baupilotaj",
-  "ad": "Baupilotaj",
+  "slug": "pilotaj-sinav-simulatoru",
+  "ad": "Pilotaj Sınav Simülatörü",
   "ne": "PPL teorik sınavına hazırlanmak için tarayıcıda çalışan uçuş simülatörü ve EASA soru bankası.",
   "platform": "Web",
   "durum": "Yayında",
@@ -945,28 +945,46 @@
    "etiket": "Uygulamayı aç",
    "url": "/baupilotaj/"
   },
-  "kart_gorsel": "/assets/v1/img/proje/baupilotaj/kart.webp",
+  "kart_gorsel": "/assets/v1/img/proje/pilotaj-sinav-simulatoru/giris.webp",
   "bolumler": [
    {
-    "baslik": "280 soruluk soru bankası.",
-    "metin": "Dokuz resmî EASA konusuna göre filtrele; her soruda ilgili mevzuat atfı anında görünür. Telefonda da çalışır.",
-    "gorsel": "/assets/v1/img/proje/baupilotaj/mobil.webp",
-    "alt": "Baupilotaj telefon ekranı: Flight Simulator ve EASA Exam Bank kartları",
-    "tur": "telefon"
+    "baslik": "Uçuş simülatörü ve soru bankası.",
+    "metin": "Açılışta iki mod: Cessna 172 kokpitinde uçuş simülatörü ve EASA soru bankası.",
+    "gorsel": "/assets/v1/img/proje/pilotaj-sinav-simulatoru/giris.webp",
+    "alt": "Pilotaj Sınav Simülatörü açılış ekranı: Flight Simulator ve EASA Exam Bank seçenekleri",
+    "tur": "tarayici"
    },
    {
-    "tur": "demo",
     "baslik": "Uçarak çalış.",
-    "metin": "Bir Cessna 172 ile 6 uçuş evresi, 28 karışık EASA sorusu, canlı ICAO kule telsizi ve uçuş içi arıza senaryoları.",
-    "url": "/baupilotaj/",
-    "oran": "yatay",
-    "gorsel": "/assets/v1/img/proje/baupilotaj/kart.webp",
-    "alt": "Baupilotaj açılış ekranı: Flight Simulator ve EASA Exam Bank seçenekleri"
+    "metin": "Cessna 172 ile 6 uçuş evresi boyunca 28 karışık EASA sorusu.",
+    "gorsel": "/assets/v1/img/proje/pilotaj-sinav-simulatoru/kokpit.webp",
+    "alt": "Simülatörde Cessna 172 kokpiti, gösterge paneli ve bir EASA sorusu",
+    "tur": "tarayici"
+   },
+   {
+    "baslik": "Telsiz ve arıza.",
+    "metin": "Kuleden canlı ATIS ve telsiz konuşmaları, uçuş sırasında motor arızası gibi acil durumlar. Telsiz metninin Türkçe çevirisi de görünür.",
+    "gorsel": "/assets/v1/img/proje/pilotaj-sinav-simulatoru/telsiz-ariza.webp",
+    "alt": "Simülatörde kule ATIS mesajı, Türkçe çevirisi ve motor arızası dumanı",
+    "tur": "tarayici"
+   },
+   {
+    "baslik": "Yanıtı açıklamasıyla gör.",
+    "metin": "Doğru ve yanlış seçenek işaretlenir; EASA mevzuat atfı açıklamayla birlikte gelir.",
+    "gorsel": "/assets/v1/img/proje/pilotaj-sinav-simulatoru/aciklama.webp",
+    "alt": "Yanıtlanmış bir soru: doğru seçenek yeşil, yanlış seçenek kırmızı; EASA mevzuat açıklaması",
+    "tur": "tarayici"
+   },
+   {
+    "baslik": "280 soruluk soru bankası.",
+    "metin": "Dokuz EASA konusuna göre filtrele.",
+    "gorsel": "/assets/v1/img/proje/pilotaj-sinav-simulatoru/soru-bankasi.webp",
+    "alt": "EASA soru bankası ekranı: dokuz konu filtresi ve bir soru",
+    "tur": "tarayici"
    }
   ],
   "kaynaklar": [
-   "baupilotaj/index.html (herkese açık sayfa metni: 'EASA ECQB 280-question preparation suite', 'Cessna 172 through 6 flight phases with 28 randomized EASA questions', '9 official EASA subjects')",
-   "baupilotaj/index.html (herkese açık sayfa metni)"
+   "baupilotaj/index.html (herkese açık sayfa metni ve ekranları; Playwright ekran görüntüleri 1440x900, 2026-11-20)"
   ],
   "detay": [
    {
@@ -977,7 +995,7 @@
     "baslik": "Özellikler",
     "liste": [
      "Cessna 172 ile 6 uçuş evresi ve 28 karışık EASA sorusu",
-     "Canlı ICAO kule telsizi ve uçuş içi arıza senaryoları",
+     "Canlı ICAO kule telsizi ve uçuş içi arıza senaryoları; telsiz metninin Türkçe çevirisi",
      "280 soruluk soru bankası",
      "Dokuz EASA konusuna göre filtre; mevzuat atfı anında görünür"
     ]

@@ -335,6 +335,11 @@
       "from": "/iletisim/",
       "to": "/tr/iletisim/",
       "status": 301
+    },
+    {
+      "from": "/tr/urunler/baupilotaj/",
+      "to": "/tr/urunler/pilotaj-sinav-simulatoru/",
+      "status": 301
     }
   ]
 }
