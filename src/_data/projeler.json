@@ -1805,8 +1805,8 @@
   "kaynaklar": [
    "src/_data/modern.js (eski site verisi, herkese açık)",
    "assets/js/render.js (eski vitrin kataloğu, origin/main, herkese açık)",
-   "/Users/aras/Documents/PROJECTS/gnomon/GNOMON_SPEC.md (proje klasörü, §1)",
-   "Gnomon kendi Xcode projesi (/Users/aras/Documents/PROJECTS/gnomon) yerelde derlendi ve projenin kendi SeedData biçiminde genişletilmiş genel örnek veriyle (10 görev, bağımlılıklar, tarihler; bellek içi, gerçek veri yok) çalıştırıldı; ekran görüntüleri 2026-11-20, imzasız yerel derleme"
+   "yerel proje klasörü: gnomon/GNOMON_SPEC.md (proje klasörü, §1)",
+   "Gnomon kendi Xcode projesi (yerel proje klasörü: gnomon) yerelde derlendi ve projenin kendi SeedData biçiminde genişletilmiş genel örnek veriyle (10 görev, bağımlılıklar, tarihler; bellek içi, gerçek veri yok) çalıştırıldı; ekran görüntüleri 2026-11-20, imzasız yerel derleme"
   ],
   "detay": [
    {
