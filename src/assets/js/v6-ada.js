@@ -47,7 +47,7 @@
   });
   urun.addEventListener('blur',function(){geriOdak=false});
   urun.addEventListener('focus',function(){if(geriOdak){return} if(masaustu()&&!acik&&urun.matches(':focus-visible')){ayarla('urunler');odakAcildi=true}});
-  kutu.addEventListener('focusin',function(e){ if(acik==='urunler'&&!panel.contains(e.target)&&e.target!==urun) ayarla('') });
+  kutu.addEventListener('focusin',function(e){ if(acik==='urunler'&&!panel.contains(e.target)&&e.target!==urun&&e.target.matches(':focus-visible')) ayarla('') }); /* yalnız klavye odağı kapatır: fareyle basınca ada oynamaz, düğme kaçmaz */
   kutu.addEventListener('focusout',function(e){if(acik&&e.relatedTarget&&!kutu.contains(e.relatedTarget))ayarla('')});
   /* --- Menü (mobil) --- */
   menu.addEventListener('click',function(){ if(acik==='menu') kapat(true); else ayarla('menu',false) });

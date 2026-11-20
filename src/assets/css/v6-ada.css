@@ -12,7 +12,7 @@
 .nav .nav__dolgu{pointer-events:auto;background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);clip-path:inset(1px calc(var(--k) + 1px) round calc(var(--ada-r) - 1px))}
 .nav[data-acik] .nav__dolgu{background:color-mix(in srgb,var(--bg) 99.5%,transparent);-webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4)}
 /* çubuk: içerik transform ile kaydırılır/ölçeklenir */
-.nav .nav__bar{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--ada-bar);padding-inline:var(--sp-5) var(--sp-3);pointer-events:none}
+.nav .nav__bar{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--ada-bar);padding-inline:var(--sp-4);pointer-events:none}
 .nav .nav__bar>*{pointer-events:auto}
 .nav .brand{justify-self:start;margin-left:0;transform-origin:left center;transform:translateX(var(--k));transition:transform var(--ada-sure) var(--ada-ease)}
 .nav .brand svg{width:8.875rem}
@@ -21,12 +21,13 @@
 .nav .links>.ada-urun::after{content:"";display:inline-block;width:.4rem;height:.4rem;margin-left:.5rem;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-.15rem) rotate(45deg);transition:transform var(--ada-sure) var(--ada-ease)}
 .nav[data-acik="urunler"] .links>.ada-urun{color:var(--ink);background:var(--surface)}
 .nav[data-acik="urunler"] .links>.ada-urun::after{transform:translateY(.05rem) rotate(225deg)}
-.nav .nav__ilet,.nav .nav__menu{justify-self:end;transform-origin:right center;transform:translateX(calc(var(--k) * -1));transition:transform var(--ada-sure) var(--ada-ease)}
+/* konum dönüşümü SARMALAYICIDA: düğmenin kendi transform'u (hover/basma) serbest kalır, düğme kaçamaz */
+.nav .nav__sag{justify-self:end;display:flex;align-items:center;transform-origin:right center;transform:translateX(calc(var(--k) * -1));transition:transform var(--ada-sure) var(--ada-ease)}
 .nav .nav__menu{display:none}
 /* kompakt: aynı ölçülerin küçültülmüş hali, yalnız transform */
 .nav[data-durum="kucuk"]:not([data-acik]) .brand{transform:translateX(var(--k)) scale(.8)}
 .nav[data-durum="kucuk"]:not([data-acik]) .links{transform:scale(.92)}
-.nav[data-durum="kucuk"]:not([data-acik]) .nav__ilet,.nav[data-durum="kucuk"]:not([data-acik]) .nav__menu{transform:translateX(calc(var(--k) * -1)) scale(.9)}
+.nav[data-durum="kucuk"]:not([data-acik]) .nav__sag{transform:translateX(calc(var(--k) * -1)) scale(.9)}
 /* panel: grid-template-rows 0fr→1fr ile adanın içinde açılır (yükseklik animasyonu, içerik kaymaz) */
 .nav .nav__panel{position:relative;z-index:1;display:grid;pointer-events:none;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows var(--ada-sure) var(--ada-ease),visibility 0s var(--ada-sure)}
 .nav[data-acik] .nav__panel{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows var(--ada-sure) var(--ada-ease),visibility 0s}
@@ -58,8 +59,9 @@
 /* mobil */
 @media (max-width:860px){
   .nav .links,.nav .nav__ilet{display:none}
-  .nav .nav__menu{display:inline-flex;grid-column:2}
-  .nav .nav__bar{grid-template-columns:1fr auto;padding-inline:var(--sp-5) var(--sp-2)}
+  .nav .nav__sag{grid-column:2}
+  .nav .nav__menu{display:inline-flex}
+  .nav .nav__bar{grid-template-columns:1fr auto}
   .nav[data-durum="kucuk"] .nav__slot{--k:max(0px,calc((100cqw - 16rem) / 2))}
   .nav[data-acik] .nav__slot{--k:0px}
   .nav .nav__slot{--kp:0px}
@@ -77,5 +79,5 @@
 }
 @media (min-width:861px){.nav[data-acik="menu"] .nav__mobil{display:none}}
 @media (prefers-reduced-motion:reduce){
-  .nav .nav__halka,.nav .nav__dolgu,.nav .brand,.nav .links,.nav .links>a,.nav .links>.ada-urun::after,.nav .nav__ilet,.nav .nav__menu,.nav .nav__panel,.nav .nav__panel-ic,.nav__izgara a{transition:none!important}
+  .nav .nav__halka,.nav .nav__dolgu,.nav .brand,.nav .links,.nav .links>a,.nav .links>.ada-urun::after,.nav .nav__sag,.nav .nav__panel,.nav .nav__panel-ic,.nav__izgara a{transition:none!important}
 }

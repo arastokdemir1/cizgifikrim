@@ -7,8 +7,10 @@
     <a class="ada-urun" href="/tr/urunler/" aria-haspopup="true" aria-expanded="false" aria-controls="ada-panel" data-ada-urun{% if v5Sayfa == "urunler" %} aria-current="page"{% elif v5Sayfa == "sergi" %} aria-current="true"{% endif %}>Ürünler</a>
     <a href="/tr/hizmetler/"{% if v5Sayfa == "hizmetler" %} aria-current="page"{% endif %}>Hizmetler</a><a href="/tr/hakkimizda/"{% if v5Sayfa == "hakkimizda" %} aria-current="page"{% endif %}>Hakkımızda</a>
   </nav>
-  <button type="button" class="btn btn--line nav__menu" aria-expanded="false" aria-controls="ada-panel" data-ada-menu>Menü</button>
-  <a class="btn nav__ilet" href="/tr/iletisim/"{% if v5Sayfa == "iletisim" %} aria-current="page"{% endif %}>İletişim</a>
+  <span class="nav__sag">
+    <button type="button" class="btn btn--line nav__menu" aria-expanded="false" aria-controls="ada-panel" data-ada-menu>Menü</button>
+    <a class="btn nav__ilet" href="/tr/iletisim/"{% if v5Sayfa == "iletisim" %} aria-current="page"{% endif %}>İletişim</a>
+  </span>
   </div>
   <div class="nav__panel" id="ada-panel" role="region" aria-label="Menü" data-ada-panel inert>
     <div class="nav__panel-ic">
