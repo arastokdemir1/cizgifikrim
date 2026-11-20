@@ -1047,7 +1047,8 @@
   "kaynaklar": [
    "site-referans/urun-materyalleri/flowgraph/durum.md",
    "https://apps.apple.com/tr/app/flowgraph/id6764540044",
-   "katalog ikonu: iTunes lookup artworkUrl (kendi uygulamamız, herkese açık): Purple221/v4/1d/f7/c8/1df7c8d6-0123-2c23-8d6b-be009b469b3b… (id ile https://itunes.apple.com/lookup?id=…&country=tr); açık dış plaka ve gölge kırpıldı, ikonun kendi karesi 512 px'e kesildi"
+   "katalog ikonu: iTunes lookup artworkUrl (kendi uygulamamız, herkese açık): Purple221/v4/1d/f7/c8/1df7c8d6-0123-2c23-8d6b-be009b469b3b… (id ile https://itunes.apple.com/lookup?id=…&country=tr); açık dış plaka ve gölge kırpıldı, ikonun kendi karesi 512 px'e kesildi",
+   "yıl: iTunes lookup releaseDate 2026-05-05 (https://itunes.apple.com/lookup?id=6764540044&country=tr, 20 Kasım 2026)"
   ],
   "detay": [
    {
@@ -1147,7 +1148,8 @@
    "tarih": "2026-05-05",
    "etiket": "App Store'da",
    "kaynak": "iTunes lookup releaseDate (https://itunes.apple.com/lookup?id=6764540044&country=tr, 20 Kasım 2026)"
-  }
+  },
+  "yil": "2026"
  },
  {
   "slug": "sano",
