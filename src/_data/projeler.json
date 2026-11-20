@@ -169,16 +169,15 @@
    {
     "tur": "manset",
     "baslik": "Kendi odan, aynı oda.",
-    "metin": "Kendi odanın tek bir fotoğrafından, aynı odanın yeniden tasarlanmış, gerçekçi hali. Pencereler, gün ışığı ve yapı yerinde kalır."
+    "metin": "Bir fotoğraftan, aynı odanın yeniden tasarlanmış hali. Filtre değil, tasarımın kendisi: fotoğraf önce bir iç mimar gibi okunur; mimari, pencere yeri ve ışık yerinde kalır."
    },
    {
     "tur": "gorsel",
-    "genislik": "genis",
-    "gorsel": "/assets/v1/img/proje/vesira/yatak-sonra.webp",
-    "cift": "/assets/v1/img/proje/vesira/yatak-once.webp",
-    "alt": "Yatak odası yeniden tasarlandıktan sonra: ahşap panel, koyu mavi yastıklar, desenli halı",
-    "alt_once": "Yenilenmeden önce yatak odası: sade yatak, perdeli pencere",
-    "baslik": "Yatak odası, Full redesign."
+    "gorsel": "/assets/v1/img/proje/vesira/salon-abd-sonra.webp",
+    "cift": "/assets/v1/img/proje/vesira/salon-abd-once.webp",
+    "alt": "ABD salonu yeniden tasarlandıktan sonra: aydınlık, krem koltuk, ahşap TV duvarı, nişli raf",
+    "alt_once": "ABD salonu önceki hali: koyu koltuk, dağınık oda",
+    "genislik": "tam"
    },
    {
     "tur": "telefonlar",
@@ -203,12 +202,21 @@
    },
    {
     "tur": "gorsel",
-    "genislik": "yarim",
-    "gorsel": "/assets/v1/img/proje/vesira/mutfak-sonra.webp",
-    "cift": "/assets/v1/img/proje/vesira/mutfak-once.webp",
-    "alt": "Mutfak yeniden tasarlandıktan sonra: yeşil dolaplar, desenli koşucu halı, bar taburesi",
-    "alt_once": "Yenilenmeden önce mutfak: açık renk dolaplar, buzdolabı, küçük masa",
-    "baslik": "Mutfak, Full redesign."
+    "gorsel": "/assets/v1/img/proje/vesira/mutfak-abd-sonra.webp",
+    "cift": "/assets/v1/img/proje/vesira/mutfak-abd-once.webp",
+    "alt": "ABD mutfağı yeniden tasarlandıktan sonra: açık ahşap ve beyaz dolaplar, çelik beyaz eşya, yeni zemin",
+    "alt_once": "ABD mutfağı önceki hali: meşe dolaplar, eski zemin",
+    "genislik": "yarim"
+   },
+   {
+    "tur": "gorsel",
+    "gorsel": "/assets/v1/img/proje/vesira/giris-holu-sonra.webp",
+    "cift": "/assets/v1/img/proje/vesira/giris-holu-once.webp",
+    "alt": "Giriş holü yeniden tasarlandıktan sonra: ahşap çıtalı duvar, bank ve ayna",
+    "alt_once": "Giriş holü önceki hali: askıda yığılmış montlar",
+    "genislik": "genis",
+    "baslik": "Giriş holü.",
+    "metin": "Aynı kadraj, yeni bir giriş: ahşap çıtalı duvar, bank ve ayna."
    },
    {
     "tur": "telefonlar",
@@ -260,7 +268,7 @@
    {
     "tur": "baglanti",
     "baslik": "Web'de de.",
-    "metin": "Vesira web uygulaması 20 Ekim 2026'dan beri canlı. Varsayılan dil İngilizce, Türkçe seçeneği var.",
+    "metin": "Vesira web uygulaması 20 Ekim 2026'dan beri canlı; telefonda ve bilgisayarda tarayıcıdan çalışır. Varsayılan dil İngilizce, Türkçe seçeneği var.",
     "gorsel": "/assets/v1/img/proje/vesira/logo.webp",
     "alt": "Vesira logosu",
     "etiket": "vesira.app",
