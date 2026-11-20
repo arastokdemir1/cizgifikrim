@@ -1700,6 +1700,11 @@
     "tur": "manset",
     "etiket": "Ne",
     "baslik": "Oto yedek parça dükkânları için tek aramada birçok tedarikçinin fiyat ve stok bilgisini toplayan Chrome eklentisi."
+   },
+   {
+    "tur": "manset",
+    "etiket": "Durum",
+    "baslik": "Tek dükkânda saha denemesinde."
    }
   ],
   "kitle": "isletme"
