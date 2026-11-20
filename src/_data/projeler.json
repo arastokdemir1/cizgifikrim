@@ -488,6 +488,13 @@
     "tur": "telefon"
    },
    {
+    "baslik": "Yolculuk özeti.",
+    "metin": "Rota, mesafe, hız ve tahmini maliyet (yakıt ve gişe) tek ekranda.",
+    "gorsel": "/assets/v1/img/proje/carlog/yolculuk-ozeti.webp",
+    "alt": "CarLog Yolculuk Özeti ekranı: harita üzerinde rota, mesafe, hız, araç ve rol, tahmini maliyet",
+    "tur": "telefon"
+   },
+   {
     "baslik": "Canlı sürüş ekranı.",
     "metin": "Yolculuk sürerken hız ve o ana kadarki maliyet.",
     "gorsel": "/assets/v1/img/proje/carlog/canli.webp",
@@ -507,22 +514,14 @@
     "gorsel": "/assets/v1/img/proje/carlog/garaj.webp",
     "alt": "CarLog Garaj ekranı: iki araç",
     "tur": "telefon"
-   },
-   {
-    "tur": "demo",
-    "baslik": "Canlı demo.",
-    "metin": "CarLog'u tarayıcıda, örnek verilerle dene.",
-    "url": "/demo/carlog/",
-    "oran": "telefon",
-    "gorsel": "/assets/v1/img/proje/carlog/demo-ozet.webp",
-    "alt": "CarLog web demosu: bugünün gideri ve son 14 günlük grafik"
    }
   ],
   "kaynaklar": [
    "site-referans/urun-materyalleri/carlog/durum.md",
    "https://apps.apple.com/tr/app/id6779625494",
    "src/_data/modern.js (eski site verisi, herkese açık)",
-   "katalog ikonu: site-referans/urun-materyalleri/carlog/gorseller/ikon_1024.png (5.3.1 uygulama ikonu, CarLog | Genel)"
+   "katalog ikonu: site-referans/urun-materyalleri/carlog/gorseller/ikon_1024.png (5.3.1 uygulama ikonu, CarLog | Genel)",
+   "site-referans/urun-materyalleri/carlog/simulator/ana-sayfa-aday-1.png (17 Kasım, 5.3.1 kodu, simülatör; Yolculuk Özeti)"
   ],
   "detay": [
    {
@@ -584,13 +583,16 @@
     ]
    },
    {
-    "tur": "demo",
-    "baslik": "Canlı demo.",
-    "metin": "CarLog'u tarayıcıda, örnek verilerle dene.",
-    "url": "/demo/carlog/",
-    "oran": "telefon",
-    "gorsel": "/assets/v1/img/proje/carlog/demo-ozet.webp",
-    "alt": "CarLog web demosu: bugünün gideri ve son 14 günlük grafik"
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "baslik": "Yolculuk özeti.",
+    "metin": "Rota, mesafe, hız ve tahmini maliyet (yakıt ve gişe) tek ekranda; aracını ve rolünü seçersin.",
+    "gorseller": [
+     "/assets/v1/img/proje/carlog/yolculuk-ozeti.webp"
+    ],
+    "altlar": [
+     "CarLog Yolculuk Özeti ekranı: harita üzerinde rota, mesafe, hız, araç ve rol, tahmini maliyet"
+    ]
    },
    {
     "tur": "telefonlar",
