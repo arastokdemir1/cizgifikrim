@@ -1,4 +1,4 @@
-/* V6.8 satır içi Cal.com takvimi (Frontend-1; V6.9 düzen + e-posta kopyalama: Frontend-2): yalnız bu sayfada, görünüme yaklaşınca yüklenir. Resmi gömme kodunun harici dosyaya alınmış hali (CSP için satır içi betik yok).
+/* V7: tema sistemle (açık/koyu) — Cal teması matchMedia ile seçilir. V6.8 satır içi Cal.com takvimi (Frontend-1; V6.9 düzen + e-posta kopyalama: Frontend-2): yalnız bu sayfada, görünüme yaklaşınca yüklenir. Resmi gömme kodunun harici dosyaya alınmış hali (CSP için satır içi betik yok).
    Yedek: 10 sn içinde hazır olmazsa, engelleyici/JS yoksa "Takvimi yeni sekmede aç" bağlantısı görünür kalır. */
 (function(){
   var kutu=document.querySelector('[data-takvim]'); if(!kutu) return;
@@ -13,8 +13,10 @@
       p(cal,ar)}})(window,'https://app.cal.com/embed/embed.js','init');
     var Cal=window.Cal;
     Cal('init',{origin:'https://app.cal.com'});
-    Cal('inline',{elementOrSelector:'#cal-ic',calLink:link,layout:'month_view',config:{theme:'dark'}});
-    Cal('ui',{theme:'dark',hideEventTypeDetails:true,layout:'month_view',cssVarsPerTheme:{light:{'cal-brand':'#f5f5f5','cal-bg':'transparent','cal-bg-muted':'transparent','cal-border-booker':'transparent'},dark:{'cal-brand':'#f5f5f5','cal-bg':'transparent','cal-bg-muted':'transparent','cal-border-booker':'transparent'}}});
+    var koyu=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)'); var tema=function(){return koyu&&koyu.matches?'dark':'light'};
+    Cal('inline',{elementOrSelector:'#cal-ic',calLink:link,layout:'month_view',config:{theme:tema()}});
+    Cal('ui',{theme:tema(),hideEventTypeDetails:true,layout:'month_view',cssVarsPerTheme:{light:{'cal-brand':'#181818','cal-bg':'transparent','cal-bg-muted':'transparent','cal-border-booker':'transparent'},dark:{'cal-brand':'#f5f5f5','cal-bg':'transparent','cal-bg-muted':'transparent','cal-border-booker':'transparent'}}});
+    if(koyu&&koyu.addEventListener) koyu.addEventListener('change',function(){Cal('ui',{theme:tema()})}); /* sistem teması değişince takvim de değişir */
     Cal('on',{action:'linkReady',callback:function(){clearTimeout(zamanAsimi);kutu.setAttribute('data-durum','yuklendi')}});
   }
   if('IntersectionObserver' in window){

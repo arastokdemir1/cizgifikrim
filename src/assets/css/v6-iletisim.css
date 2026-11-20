@@ -1,4 +1,4 @@
-/* V6.9 /tr/iletisim/ (Frontend-2, Yönetici tarifi): koyu sayfa; başlık ve takvim tek kompozisyon (tek section, v45 aralığı yok, 1440×900 tek ekran). Üstte ortalı başlık + tek satır + güçlü e-posta satırı (mailto + Kopyala),
+/* V6.9 /tr/iletisim/ (Frontend-2, Yönetici tarifi): V7'den beri tema sistemle (açık/koyu), yalnız v5.css tokenları; başlık ve takvim tek kompozisyon (tek section, v45 aralığı yok, 1440×900 tek ekran). Üstte ortalı başlık + tek satır + güçlü e-posta satırı (mailto + Kopyala),
    altında TEK ortalı takvim kartı (780px: Cal booker 720px + eşit kenar, iframe ≥768 olduğu için saatler sağda kalır; Cal.com month_view, saatler takvimin sağında; 1440×900'de tek ekrana sığar), altında okunur not satırı.
    375: başlık → e-posta → tam genişlik takvim (Cal mobil düzeni). Kart içinde kart yok: kartın kenarı bizde, Cal'ın kendi kenarı kapalı (v6-iletisim.js cssVars). */
 main.v6i{margin-bottom:-.125rem}
