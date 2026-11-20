@@ -151,3 +151,11 @@
 .v2-baglanti__gorsel:hover img{transform:scale(1.01)}
 .v2-baglanti__ac{display:flex;justify-content:center;margin:clamp(1.5rem,1rem + 1.5vw,2.5rem) 0 0}
 @media (prefers-reduced-motion:reduce){.v2-baglanti__gorsel img{transition:none}.v2-baglanti__gorsel:hover img{transform:none}}
+.v2-baglanti__gorsel:has(.v2-baglanti__kare){width:auto}
+.v2-baglanti__kare{display:block;width:clamp(12rem,8rem + 10vw,18rem);overflow:hidden;border-radius:22.5%;box-shadow:0 1.5rem 3rem -1.75rem var(--golge),0 0 0 1px var(--line)}
+.v2-baglanti__kare img{display:block;width:100%;height:auto}
+/* manşet + tek görsel: metin | görsel (dikey görsel ekran yüksekliğini aşmaz) */
+.v2-yanyana__ic{display:grid;gap:clamp(2rem,1.5rem + 2vw,3.5rem);align-items:center}
+.v2-yanyana__gorsel{width:min(100%,calc(min(80svh,48rem) * (var(--oran))));justify-self:center}
+@media (min-width:56rem){.v2-yanyana__ic{grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:clamp(2rem,1rem + 4vw,5rem)}}
+@media (max-width:55.99rem){.v2-yanyana .v2-telbolum__metin{display:grid;justify-items:center;text-align:center}}

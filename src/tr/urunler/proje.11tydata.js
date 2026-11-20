@@ -54,6 +54,14 @@ function v2(p) {
     if (x.tur === 'gorsel' && x.genislik === 'yarim') { if (son && son.tur === 'ikili') son.ogeler.push(x); else akis.push({ tur: 'ikili', ogeler: [x] }); }
     else akis.push(x);
   }
+  // tek kalan 'yarim' görsel boş hücre bırakmasın: önünde manşet varsa metin | görsel yan yana, yoksa geniş görsel
+  for (let k = 0; k < akis.length; k++) {
+    const x = akis[k];
+    if (x.tur !== 'ikili' || x.ogeler.length !== 1) continue;
+    const once = akis[k - 1];
+    if (once && once.tur === 'manset') { akis.splice(k - 1, 2, { tur: 'yanyana', manset: once, gorsel: x.ogeler[0] }); k--; }
+    else akis[k] = { ...x.ogeler[0], genislik: 'genis' };
+  }
   return { stil, sinif: `v2--${tonA} v2-k--${tonK}`, hero, akis, demo: a.some((x) => x.tur === 'demo') };
 }
 

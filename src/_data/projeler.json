@@ -235,7 +235,12 @@
     "etiket": "vesira.app",
     "url": "https://vesira.app"
    }
-  ]
+  ],
+  "cta": {
+   "etiket": "vesira.app'i aç",
+   "url": "https://vesira.app",
+   "dis": true
+  }
  },
  {
   "slug": "polishreel",

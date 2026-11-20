@@ -78,6 +78,14 @@
     </figure>
   </section>
 
+  {%- elif x.tur == 'yanyana' %}
+  <section class="v2-blok v2-yanyana" aria-labelledby="v2b{{ no }}">
+    <div class="wrap v2-yanyana__ic">
+      <div class="v2-telbolum__metin"><h2 id="v2b{{ no }}">{{ x.manset.baslik }}</h2>{% if x.manset.metin %}<p>{{ x.manset.metin }}</p>{% endif %}</div>
+      <figure class="v2-figur v2-yanyana__gorsel" style="--oran:{{ oran(x.gorsel.gorsel, gorselBoyut, '3/2') }}">{{ gorsel(x.gorsel, gorselBoyut, false) }}{% if x.gorsel.baslik %}<figcaption>{{ x.gorsel.baslik }}</figcaption>{% endif %}</figure>
+    </div>
+  </section>
+
   {%- elif x.tur == 'ikili' %}
   <section class="wrap v2-blok v2-ikili" aria-label="{{ p.ad }} örnekleri">
     {%- for y in x.ogeler %}
@@ -105,6 +113,7 @@
     <div class="wrap v2-baglanti__sahne">
       <a class="v2-baglanti__gorsel" href="{{ x.url }}"{% if bdis %} rel="noopener" target="_blank"{% endif %} tabindex="-1" aria-hidden="true">
       {%- if bo and (bo[0] / bo[1]) < 0.6 %}<span class="v6-tel v2-baglanti__tel"><span class="v6-tel__ekran"><img src="{{ x.gorsel }}"{{ olcu(x.gorsel, gorselBoyut) }} alt="" loading="lazy" decoding="async"></span></span>
+      {%- elif bo and (bo[0] / bo[1]) > 0.8 and (bo[0] / bo[1]) < 1.25 %}<span class="v2-baglanti__kare"><img src="{{ x.gorsel }}"{{ olcu(x.gorsel, gorselBoyut) }} alt="" loading="lazy" decoding="async"></span>
       {%- else %}<span class="v6-tar v2-tar v2-baglanti__tar"><span class="v6-tar__bar"><i></i><i></i><i></i><span>{{ alan }}</span></span><img src="{{ x.gorsel }}"{{ olcu(x.gorsel, gorselBoyut) }} alt="" loading="lazy" decoding="async"></span>{% endif %}
       </a>
     </div>
