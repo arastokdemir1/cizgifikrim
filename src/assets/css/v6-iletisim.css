@@ -1,34 +1,28 @@
-/* V6.2 /tr/iletisim/: güçlü hero (başlık + gerçek ürün ekranları), büyük tıklanabilir kartlar, form yok. Frontend-1 */
-main.v6i{margin-bottom:-1.5rem;--v6i-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem));--v6i-g:var(--sp-4)}
-.v6i-hero{padding-block:var(--v6i-y) calc(var(--v6i-y)/2 - 1rem);display:grid;gap:var(--sp-8);align-items:center}
-.v6i-metin{display:grid;gap:var(--sp-4);align-content:center}
-.v6i-metin h1{margin:0;max-width:30rem;font-size:clamp(2rem,1.4rem + 2.4vw,3rem);line-height:var(--lh-head);letter-spacing:var(--ls-head);font-weight:var(--fw-head)}
-.v6i-metin p{margin:0;max-width:30rem;font-size:var(--fs-lg);color:var(--muted)}
-.v6i-sahne{margin:0;padding:0;list-style:none;display:flex;gap:var(--v6i-g);align-items:flex-start;justify-content:center}
-.v6i-sahne li{flex:1 1 0;min-width:0;max-width:15rem;overflow:hidden;border-radius:var(--r-ctl);background:var(--surface);aspect-ratio:720/1564}
-.v6i-sahne li:nth-child(2){margin-top:clamp(1.5rem,1rem + 2vw,3rem)}
-.v6i-sahne li:nth-child(3){display:none}
-.v6i-sahne img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0}
-.v6i-bolum{padding-block:calc(var(--v6i-y)/2)}
-.v6i-kartlar{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--v6i-g)}
-.v6i-kart{position:relative;display:grid;align-content:space-between;gap:var(--sp-8);min-height:11rem;padding:clamp(1.25rem,.75rem + 2vw,2rem);border-radius:var(--r-panel);background:var(--surface);color:var(--ink);text-decoration:none}
-.v6i-kart--sabit{min-height:0;gap:var(--sp-3)}
-.v6i-etiket{font-size:var(--fs-sm);color:var(--muted)}
-.v6i-deger{font-size:clamp(1.25rem,1rem + 1.2vw,1.75rem);font-weight:var(--fw-sub);letter-spacing:var(--ls-head);line-height:1.2;overflow-wrap:anywhere}
-.v6i-ok{position:absolute;right:clamp(1.25rem,.75rem + 2vw,2rem);top:clamp(1.25rem,.75rem + 2vw,2rem);font-size:var(--fs-xl);line-height:1}
-a.v6i-kart:hover{background:color-mix(in srgb,var(--ink) 8%,var(--surface))}
-.v6i-yaz{gap:var(--sp-6);padding-bottom:0}
-.v6i-yaz h2{margin:0;font-size:var(--fs-sm);font-weight:var(--fw-sub);letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--muted)}
-.v6i-liste{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:minmax(0,1fr);gap:0}
-.v6i-liste li{padding:var(--sp-5) 0;border-top:1px solid var(--line);display:grid;gap:var(--sp-1);align-content:start}
-.v6i-no{font-size:var(--fs-sm);color:var(--muted);font-variant-numeric:tabular-nums}
-.v6i h3{margin:0;font-size:var(--fs-md);font-weight:var(--fw-sub)}
-.v6i-liste p{margin:0;font-size:var(--fs-sm);color:var(--muted);max-width:24rem}
-@media (min-width:600px){.v6i-sahne li:nth-child(3){display:block}}
+/* V6.8 /tr/iletisim/: koyu, sade. Solda tek başlık + e-posta + konum, sağda satır içi Cal.com takvimi. Yedek: takvim yüklenmezse "yeni sekmede aç" bağlantısı. Frontend-1 */
+main.v6i{--v6i-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem));margin-bottom:-.875rem}
+.v6i-sahne{padding-block:clamp(1.5rem,.5rem + 3vw,3rem) 0;display:grid;gap:var(--sp-8);align-items:start}
+.v6i-metin{display:grid;gap:var(--sp-5);align-content:start}
+.v6i-metin h1{margin:0;font-size:clamp(2.25rem,1.2rem + 3.6vw,4.25rem);line-height:1.04;letter-spacing:-.035em;font-weight:var(--fw-head);text-wrap:balance}
+.v6i-satir{margin:0;font-size:var(--fs-lg);color:var(--muted);max-width:26rem}
+.v6i-bilgi{margin:0;padding:0;list-style:none;display:grid;gap:var(--sp-3)}
+.v6i-bilgi li{display:grid;gap:.125rem}
+.v6i-etiket{font-size:var(--fs-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.v6i-bilgi a,.v6i-bilgi span:not(.v6i-etiket){font-size:var(--fs-md);color:var(--ink)}
+.v6i-bilgi a{text-decoration:underline;text-underline-offset:.2em;width:fit-content}
+.v6i-bilgi a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+.v6i-takvim{position:relative;min-height:36rem;border:1px solid var(--line);border-radius:var(--r-panel);background:var(--surface);overflow:hidden}
+.v6i-cal{position:relative;z-index:1;width:100%;min-height:36rem;overflow:auto}
+.v6i-yedek{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:var(--sp-4);text-align:center;padding:var(--sp-6)}
+.v6i-yedek p{margin:0;color:var(--muted);font-size:var(--fs-sm)}
+.v6i-takvim[data-durum="yuklendi"] .v6i-yedek{display:none}
+.v6i-takvim[data-durum="yuklendi"]{background:transparent}
+.v6i-takvim[data-durum="yedek"] .v6i-cal{display:none}
+.v6i-takvim[data-durum="yedek"] .v6i-yedek p{font-size:var(--fs-sm)}
+.v6i-not{margin:calc(var(--sp-8) * -.5) 0 0;font-size:var(--fs-xs);color:var(--muted)}
+.v6i-not a{color:var(--ink);text-decoration:underline;text-underline-offset:.2em}
 @media (min-width:861px){
-  .v6i-hero{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:var(--sp-16);padding-bottom:calc(var(--v6i-y)/2 - 1.75rem)}
-  .v6i-kartlar{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .v6i-kart--sabit{grid-column:1/-1}
-  .v6i-liste{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--v6i-g)}
-  .v6i-liste li{padding-right:var(--sp-6)}
+  .v6i-not{grid-column:2}
+  .v6i-sahne{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(2rem,1rem + 5vw,5rem);align-items:start}
+  .v6i-metin{padding-top:clamp(1rem,2vw,2rem)}
 }
+@media (max-width:860px){.v6i-takvim,.v6i-cal{min-height:32rem}}

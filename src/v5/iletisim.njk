@@ -1,38 +1,30 @@
 ---
 layout: layouts/v5.njk
 title: "İletişim · CizgiFikrim"
-description: "CizgiFikrim ile iletişime geçin: e-posta gönderin ya da görüşme saati seçin. Projenizi, zamanlamanızı ve platformunuzu birkaç cümleyle anlatmanız yeterli."
+description: "CizgiFikrim ile iletişime geçin: e-posta gönderin ya da takvimden görüşme saati seçin. Projenizi, zamanlamanızı ve platformunuzu birkaç cümleyle anlatmanız yeterli."
 permalink: /tr/iletisim/
 v5Sayfa: iletisim
-v5Css: ['v6-iletisim']
+v5Css: ['v6-koyu','v6-iletisim']
+v5Js: ['v6-iletisim']
+v5Koyu: true
 v5MainSinif: v6i
 og: /assets/v1/img/og/tr-contact.png
 ---
-<section class="wrap v6i-hero" aria-labelledby="v6i-h1">
+<section class="wrap v6i-sahne" aria-labelledby="v6i-h1">
   <div class="v6i-metin">
-    <h1 id="v6i-h1">Bir sonraki adımı birlikte belirleyelim.</h1>
-    <p>Yeni bir ürün, daha iyi bir iş akışı ya da mevcut yazılımınız için bir geliştirme. İhtiyacınızı birkaç cümleyle anlatın.</p>
+    <h1 id="v6i-h1">Bir saat seçin, konuşalım.</h1>
+    <p class="v6i-satir">Projenizi birkaç cümleyle anlatmanız yeterli.</p>
+    <ul class="v6i-bilgi" role="list">
+      <li><span class="v6i-etiket">E-posta</span><a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></li>
+      <li><span class="v6i-etiket">Konum</span><span>İstanbul, Türkiye</span></li>
+    </ul>
   </div>
-  <ul class="v6i-sahne" role="list" aria-hidden="true">
-    <li><img src="/assets/v1/img/proje/carlog/canli.webp" width="480" height="1043" alt="" loading="eager"></li>
-    <li><img src="/assets/v1/img/proje/piyasapp/harita.webp" width="720" height="1564" alt="" loading="eager"></li>
-    <li><img src="/assets/v1/img/proje/sano/puan.webp" width="720" height="1565" alt="" loading="eager"></li>
-  </ul>
-</section>
-
-<section class="wrap v6i-bolum" aria-label="İletişim bilgileri">
-  <div class="v6i-kartlar">
-    <a class="v6i-kart" href="mailto:cizgifikrimnet@gmail.com"><span class="v6i-etiket">E-posta</span><span class="v6i-deger">cizgifikrimnet@gmail.com</span><span class="v6i-ok" aria-hidden="true">→</span></a>
-    <a class="v6i-kart" href="https://cal.com/cizgifikrim" target="_blank" rel="noopener"><span class="v6i-etiket">Görüşme</span><span class="v6i-deger">Görüşme saati seçin</span><span class="v6i-ok" aria-hidden="true">↗</span></a>
-    <div class="v6i-kart v6i-kart--sabit"><span class="v6i-etiket">Konum</span><span class="v6i-deger">İstanbul, Türkiye</span></div>
+  <div class="v6i-takvim" data-takvim data-cal-link="cizgifikrim" data-durum="bekliyor">
+    <div class="v6i-yedek">
+      <p>Takvim yükleniyor…</p>
+      <a class="btn btn--line" href="https://cal.com/cizgifikrim" target="_blank" rel="noopener">Takvimi yeni sekmede aç <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="v6i-cal" id="cal-ic"></div>
   </div>
-</section>
-
-<section class="wrap v6i-bolum v6i-yaz" aria-labelledby="v6i-yaz">
-  <h2 id="v6i-yaz">Ne yazmalısınız</h2>
-  <ol class="v6i-liste">
-    <li><span class="v6i-no" aria-hidden="true">01</span><h3>Proje fikriniz</h3><p>Ne yapmak istediğinizi ve kimin kullanacağını kısaca yazın.</p></li>
-    <li><span class="v6i-no" aria-hidden="true">02</span><h3>Zamanlama</h3><p>Ne zaman başlamak ya da yayına almak istediğinizi belirtin.</p></li>
-    <li><span class="v6i-no" aria-hidden="true">03</span><h3>Platform</h3><p>Web sitesi, iOS uygulaması ya da ikisi birden; emin değilseniz bunu da yazın.</p></li>
-  </ol>
+  <p class="v6i-not">Takvim Cal.com tarafından sağlanır; ayrıntılar <a href="/tr/gizlilik/">Gizlilik</a>'te.</p>
 </section>
