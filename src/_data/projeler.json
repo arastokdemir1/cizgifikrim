@@ -24,12 +24,12 @@
    {
     "baslik": "Kendi odan, aynı oda.",
     "metin": "Bir fotoğraftan, aynı odanın yeniden tasarlanmış hali. Pencereler, gün ışığı ve yapı yerinde kalır.",
-    "gorsel": "/assets/v1/img/proje/vesira/yatak-sonra.webp",
+    "gorsel": "/assets/v1/img/proje/vesira/yatak-abd-sonra-2611.webp",
     "alt": "Yatak odası yeniden tasarlandıktan sonra: ahşap panel, koyu mavi yastıklar, desenli halı",
     "tur": "oncesonra",
-    "cift": "/assets/v1/img/proje/vesira/yatak-once.webp",
-    "once": "/assets/v1/img/proje/vesira/yatak-once.webp",
-    "sonra": "/assets/v1/img/proje/vesira/yatak-sonra.webp",
+    "cift": "/assets/v1/img/proje/vesira/yatak-abd-once-2611.webp",
+    "once": "/assets/v1/img/proje/vesira/yatak-abd-once-2611.webp",
+    "sonra": "/assets/v1/img/proje/vesira/yatak-abd-sonra-2611.webp",
     "alt_once": "Yenilenmeden önce yatak odası: sade yatak, perdeli pencere"
    },
    {
@@ -56,12 +56,12 @@
    {
     "baslik": "Mutfak, baştan.",
     "metin": "Full redesign: kabuk sabit kalır, içerideki her şey yenilenir.",
-    "gorsel": "/assets/v1/img/proje/vesira/mutfak-sonra.webp",
+    "gorsel": "/assets/v1/img/proje/vesira/mutfak-abd-sonra-2611.webp",
     "alt": "Mutfak yeniden tasarlandıktan sonra: yeşil dolaplar, desenli koşucu halı, bar taburesi",
     "tur": "oncesonra",
-    "cift": "/assets/v1/img/proje/vesira/mutfak-once.webp",
-    "once": "/assets/v1/img/proje/vesira/mutfak-once.webp",
-    "sonra": "/assets/v1/img/proje/vesira/mutfak-sonra.webp",
+    "cift": "/assets/v1/img/proje/vesira/mutfak-abd-once-2611.webp",
+    "once": "/assets/v1/img/proje/vesira/mutfak-abd-once-2611.webp",
+    "sonra": "/assets/v1/img/proje/vesira/mutfak-abd-sonra-2611.webp",
     "alt_once": "Yenilenmeden önce mutfak: açık renk dolaplar, buzdolabı, küçük masa"
    },
    {
@@ -170,24 +170,40 @@
     "dongu": true,
     "video": "/assets/v1/video/proje/vesira/salon-abd-gecis.mp4",
     "gorsel": "/assets/v1/img/proje/vesira/salon-abd-gecis.webp",
-    "alt": "ABD salonu: dağınık odadan yeniden tasarlanmış, aydınlık salona geçiş",
+    "alt": "ABD salonu: yeniden tasarlanmış aydınlık salon ve dağınık önceki hali",
     "genislik": "tam"
    },
    {
     "tur": "telefonlar",
     "dizilim": "yan",
-    "baslik": "Fotoğraftan sonuca.",
-    "metin": "Odanın fotoğrafını yükle, değişimin boyutunu seç, istersen renk teması ekle.",
+    "baslik": "Tek fotoğraf, üç seviye.",
+    "metin": "Odanın fotoğrafını yükle, değişimin dozunu seç: Light touch, Refresh ya da Full redesign. Tarayıcıda çalışır, kurulum yok; telefonda ve bilgisayarda aynı ekranlar.",
     "gorseller": [
-     "/assets/v1/img/proje/vesira/akis-foto.webp",
-     "/assets/v1/img/proje/vesira/akis-seviye.webp",
-     "/assets/v1/img/proje/vesira/akis-renk.webp"
+     "/assets/v1/img/proje/vesira/ekran-acilis-m-2611.webp",
+     "/assets/v1/img/proje/vesira/ekran-nasil-calisir-m-2611.webp",
+     "/assets/v1/img/proje/vesira/ekran-giris-m-2611.webp"
     ],
     "altlar": [
-     "Vesira iOS: odanın fotoğrafını yükleme ekranı (Choose from library, Camera)",
-     "Vesira iOS: değişim seviyesi seçimi, Light touch, Refresh ve Full redesign",
-     "Vesira iOS: isteğe bağlı renk teması seçimi"
+     "vesira.app açılış ekranı, telefonda: 'See the new look before you renovate.'",
+     "vesira.app 'How it works' bölümü, telefonda: üç adım",
+     "vesira.app giriş ekranı, telefonda: Google, GitHub ya da e-posta ile giriş"
     ]
+   },
+   {
+    "tur": "manset",
+    "baslik": "Aynı oda, yeni hali.",
+    "metin": "Kaydırıcıyla iki hali karşılaştır. Pencereler, gün ışığı ve yapı yerinde kalır; tasarım değişir."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "yarim",
+    "gorsel": "/assets/v1/img/proje/vesira/yatak-abd-sonra-2611.webp",
+    "cift": "/assets/v1/img/proje/vesira/yatak-abd-once-2611.webp",
+    "p": 22,
+    "etiketsiz": true,
+    "alt": "ABD yatak odası, yeniden tasarlanmış hali",
+    "alt_once": "ABD yatak odası, önceki hali",
+    "aria": "Yatak odası"
    },
    {
     "tur": "manset",
@@ -199,7 +215,7 @@
     "dongu": true,
     "video": "/assets/v1/video/proje/vesira/mutfak-abd-gecis.mp4",
     "gorsel": "/assets/v1/img/proje/vesira/mutfak-abd-gecis.webp",
-    "alt": "ABD mutfağı: meşe dolaplı eski mutfaktan açık ahşap ve beyaz mutfağa geçiş",
+    "alt": "ABD mutfağı: yeniden tasarlanmış açık ahşap ve beyaz mutfak ve meşe dolaplı önceki hali",
     "genislik": "yarim"
    },
    {
@@ -207,31 +223,19 @@
     "dongu": true,
     "video": "/assets/v1/video/proje/vesira/giris-abd-gecis.mp4",
     "gorsel": "/assets/v1/img/proje/vesira/giris-abd-gecis.webp",
-    "alt": "Giriş holü: askıda yığılmış montlardan ahşap çıtalı duvara, banka ve aynaya geçiş",
+    "alt": "Giriş holü: ahşap çıtalı duvar, bank ve ayna; askıda yığılmış montlu önceki hali",
     "genislik": "genis",
     "baslik": "Giriş holü.",
     "metin": "Aynı kadraj, yeni bir giriş: ahşap çıtalı duvar, bank ve ayna."
    },
    {
-    "tur": "telefonlar",
-    "dizilim": "yan",
-    "baslik": "Karşılaştır, düzelt, sakla.",
-    "metin": "Önce/sonra kaydırıcısıyla odanın iki halini gör; hazır seçenekle ya da kısa bir notla yeni sürüm iste. Eski sürümler kaybolmaz.",
-    "gorseller": [
-     "/assets/v1/img/proje/vesira/akis-sonuc.webp"
-    ],
-    "altlar": [
-     "Vesira iOS: sonuç ekranı, önce/sonra kaydırıcısı"
-    ]
-   },
-   {
     "tur": "gorsel",
     "genislik": "genis",
     "cerceve": "tarayici",
-    "gorsel": "/assets/v1/img/proje/vesira/web-stiller.webp",
-    "alt": "vesira.app stil seçimi bölümü: 'Suggest for me' ve on tasarım stili",
-    "baslik": "Stil seçmek zorunlu değil.",
-    "metin": "Varsayılan olarak Vesira senin için önerir; istersen on tasarım stilinden birini seçersin."
+    "gorsel": "/assets/v1/img/proje/vesira/ekran-oda-sayfasi-d-2611.webp",
+    "alt": "vesira.app mutfak sayfası (/kitchen-remodel-ideas): 'See your kitchen's new look before you tear anything out.'",
+    "baslik": "İngilizce öncelikli, ABD odaklı.",
+    "metin": "Sayfa adresleri İngilizce (ör. /kitchen-remodel-ideas), örnek odalar Amerikan evleri. Türkçe seçeneği de var."
    },
    {
     "tur": "ozellikler",
@@ -261,8 +265,8 @@
    },
    {
     "tur": "baglanti",
-    "baslik": "Web'de de.",
-    "metin": "Vesira web uygulaması 20 Ekim 2026'dan beri canlı; telefonda ve bilgisayarda tarayıcıdan çalışır. İngilizce öncelikli, Türkçe seçeneği var. iOS uygulaması yolda.",
+    "baslik": "Web'de canlı.",
+    "metin": "Vesira web uygulaması 20 Ekim 2026'dan beri canlı; telefonda ve bilgisayarda tarayıcıdan çalışır. Varsayılan dil İngilizce, Türkçe seçeneği var. iOS uygulaması yolda.",
     "gorsel": "/assets/v1/img/proje/vesira/logo.webp",
     "alt": "Vesira logosu",
     "etiket": "vesira.app",

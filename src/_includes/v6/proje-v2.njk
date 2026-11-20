@@ -19,11 +19,12 @@
 {%- macro gorsel(x, boyut, ilk) -%}
 {%- set yukle = 'eager' if ilk else 'lazy' -%}
 {%- if x.cift -%}
-<div class="kk v2-kk" data-kars style="--p:50;aspect-ratio:{{ oran(x.gorsel, boyut, '3/2') }}">
+{%- set kp = x.p if x.p is number else 50 -%}
+<div class="kk v2-kk" data-kars style="--p:{{ kp }};aspect-ratio:{{ oran(x.gorsel, boyut, '3/2') }}">
 <img class="kk-sonra" src="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} alt="{{ x.alt }}" loading="{{ yukle }}" decoding="async">
 <img class="kk-once" src="{{ x.cift }}"{{ olcu(x.cift, boyut) }} alt="{{ x.alt_once or 'Önceki hali' }}" loading="{{ yukle }}" decoding="async">
-<span class="kk-et kk-et--sol">Önce</span><span class="kk-et kk-et--sag">Sonra</span>
-<div class="kk-ayrac" role="slider" tabindex="0" aria-orientation="horizontal" aria-label="{{ x.baslik or 'Görsel' }} Önce ve sonra karşılaştırması" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="Önce yüzde 50, sonra yüzde 50"><span class="kk-tutac" aria-hidden="true"></span></div>
+{% if not x.etiketsiz %}<span class="kk-et kk-et--sol">Önce</span><span class="kk-et kk-et--sag">Sonra</span>{% endif %}
+<div class="kk-ayrac" role="slider" tabindex="0" aria-orientation="horizontal" aria-label="{{ x.aria or x.baslik or 'Görsel' }}: önce ve sonra karşılaştırması" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ kp }}" aria-valuetext="Önce yüzde {{ kp }}, sonra yüzde {{ 100 - kp }}"><span class="kk-tutac" aria-hidden="true"></span></div>
 </div>
 {%- elif x.cerceve == 'tarayici' -%}
 <div class="v6-tar v2-tar"><div class="v6-tar__bar" aria-hidden="true"><i></i><i></i><i></i>{% if p.baglanti and ('.' in p.baglanti.etiket) %}<span>{{ p.baglanti.etiket }}</span>{% endif %}</div>{% if x.gorsel_mobil %}<picture><source media="(max-width: 600px)" srcset="{{ x.gorsel_mobil }}"{{ olcu(x.gorsel_mobil, boyut) }}>{% endif %}<img src="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} alt="{{ x.alt }}" loading="{{ yukle }}" decoding="async">{% if x.gorsel_mobil %}</picture>{% endif %}</div>
