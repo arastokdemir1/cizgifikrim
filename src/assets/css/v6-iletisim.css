@@ -1,5 +1,5 @@
 /* V6.8 /tr/iletisim/: koyu, sade. Solda tek başlık + e-posta + konum, sağda satır içi Cal.com takvimi. Yedek: takvim yüklenmezse "yeni sekmede aç" bağlantısı. Frontend-1 */
-main.v6i{--v6i-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem));margin-bottom:-.875rem}
+main.v6i{--v6i-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem));margin-bottom:-.125rem}
 .v6i-sahne{padding-block:clamp(1.5rem,.5rem + 3vw,3rem) 0;display:grid;gap:var(--sp-8);align-items:start}
 .v6i-metin{display:grid;gap:var(--sp-5);align-content:start}
 .v6i-metin h1{margin:0;font-size:clamp(2.25rem,1.2rem + 3.6vw,4.25rem);line-height:1.04;letter-spacing:-.035em;font-weight:var(--fw-head);text-wrap:balance}
