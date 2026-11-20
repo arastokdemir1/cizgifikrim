@@ -1,28 +1,29 @@
-/* V6.8 /tr/iletisim/: koyu, sade. Solda tek başlık + e-posta + konum, sağda satır içi Cal.com takvimi. Yedek: takvim yüklenmezse "yeni sekmede aç" bağlantısı. Frontend-1 */
-main.v6i{--v6i-y:var(--bolum-y,clamp(4rem,2rem + 6vw,7rem));margin-bottom:-.125rem}
-.v6i-sahne{padding-block:clamp(1.5rem,.5rem + 3vw,3rem) 0;display:grid;gap:var(--sp-8);align-items:start}
-.v6i-metin{display:grid;gap:var(--sp-5);align-content:start}
-.v6i-metin h1{margin:0;font-size:clamp(2.25rem,1.2rem + 3.6vw,4.25rem);line-height:1.04;letter-spacing:-.035em;font-weight:var(--fw-head);text-wrap:balance}
-.v6i-satir{margin:0;font-size:var(--fs-lg);color:var(--muted);max-width:26rem}
-.v6i-bilgi{margin:0;padding:0;list-style:none;display:grid;gap:var(--sp-3)}
-.v6i-bilgi li{display:grid;gap:.125rem}
-.v6i-etiket{font-size:var(--fs-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.v6i-bilgi a,.v6i-bilgi span:not(.v6i-etiket){font-size:var(--fs-md);color:var(--ink)}
-.v6i-bilgi a{text-decoration:underline;text-underline-offset:.2em;width:fit-content}
-.v6i-bilgi a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
-.v6i-takvim{position:relative;min-height:36rem;border:1px solid var(--line);border-radius:var(--r-panel);background:var(--surface);overflow:hidden}
-.v6i-cal{position:relative;z-index:1;width:100%;min-height:36rem;overflow:auto}
+/* V6.9 /tr/iletisim/ (Frontend-2, Yönetici tarifi): koyu sayfa; başlık ve takvim tek kompozisyon (tek section, v45 aralığı yok, 1440×900 tek ekran). Üstte ortalı başlık + tek satır + güçlü e-posta satırı (mailto + Kopyala),
+   altında TEK ortalı takvim kartı (en çok 1000px; Cal.com month_view, saatler takvimin sağında; 1440×900'de tek ekrana sığar), altında okunur not satırı.
+   375: başlık → e-posta → tam genişlik takvim (Cal mobil düzeni). Kart içinde kart yok: kartın kenarı bizde, Cal'ın kendi kenarı kapalı (v6-iletisim.js cssVars). */
+main.v6i{margin-bottom:-.125rem}
+.v6i-ust{display:grid;justify-items:center;text-align:center;padding-top:clamp(1rem,.5rem + 1vw,1.5rem)}
+.v6i-ust h1{margin:0;max-width:18ch;font-size:clamp(2.25rem,1.4rem + 2.4vw,3.25rem);line-height:1.04;letter-spacing:-.035em;font-weight:var(--fw-head);text-wrap:balance}
+.v6i-satir{margin:var(--sp-3) 0 0;max-width:72ch;font-size:clamp(var(--fs-md),.95rem + .3vw,var(--fs-lg));line-height:1.5;color:var(--muted);text-wrap:pretty}
+.v6i-eposta{position:relative;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:var(--sp-3) var(--sp-4);margin-top:var(--sp-5)}
+.v6i-eposta__a{font-size:clamp(1.25rem,1rem + 1vw,1.75rem);font-weight:var(--fw-sub);letter-spacing:-.015em;color:var(--ink);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:.22em;overflow-wrap:anywhere}
+.v6i-eposta__a:hover{text-decoration-color:currentColor}
+.v6i-kopyala{min-height:2.75rem}
+.v6i-kopya-durum{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:.375rem;font-size:var(--fs-sm);color:var(--muted);white-space:nowrap;min-height:1.25rem}
+
+/* takvim kartı */
+.v6i-alan{display:grid;justify-items:center;margin-top:clamp(2rem,1.75rem + .5vw,2.25rem)}
+.v6i-takvim{position:relative;width:100%;max-width:1000px;min-height:min(36rem,72svh);border:1px solid var(--line);border-radius:var(--r-panel);background:var(--surface);overflow:hidden}
+.v6i-cal{position:relative;z-index:1;width:100%;min-height:inherit}
 .v6i-yedek{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:var(--sp-4);text-align:center;padding:var(--sp-6)}
-.v6i-yedek p{margin:0;color:var(--muted);font-size:var(--fs-sm)}
+.v6i-yedek p{margin:0;color:var(--muted);font-size:var(--fs-md)}
 .v6i-takvim[data-durum="yuklendi"] .v6i-yedek{display:none}
-.v6i-takvim[data-durum="yuklendi"]{background:transparent}
+.v6i-takvim[data-durum="yuklendi"]{min-height:0}
 .v6i-takvim[data-durum="yedek"] .v6i-cal{display:none}
-.v6i-takvim[data-durum="yedek"] .v6i-yedek p{font-size:var(--fs-sm)}
-.v6i-not{margin:calc(var(--sp-8) * -.5) 0 0;font-size:var(--fs-xs);color:var(--muted)}
+.v6i-not{margin:var(--sp-3) 0 0;font-size:.8125rem;line-height:1.5;color:var(--muted);text-align:center}
 .v6i-not a{color:var(--ink);text-decoration:underline;text-underline-offset:.2em}
-@media (min-width:861px){
-  .v6i-not{grid-column:2}
-  .v6i-sahne{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(2rem,1rem + 5vw,5rem);align-items:start}
-  .v6i-metin{padding-top:clamp(1rem,2vw,2rem)}
+.v6i-not a:focus-visible,.v6i-eposta__a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+@media (max-width:55.99rem){
+  .v6i-alan{margin-top:var(--sp-10)}
+  .v6i-takvim{border-radius:var(--r-card)}
 }
-@media (max-width:860px){.v6i-takvim,.v6i-cal{min-height:32rem}}

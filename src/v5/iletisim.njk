@@ -10,21 +10,25 @@ v5Koyu: true
 v5MainSinif: v6i
 og: /assets/v1/img/og/tr-contact.png
 ---
-<section class="wrap v6i-sahne" aria-labelledby="v6i-h1">
-  <div class="v6i-metin">
-    <h1 id="v6i-h1">Bir saat seçin, konuşalım.</h1>
-    <p class="v6i-satir">Projenizi birkaç cümleyle anlatmanız yeterli.</p>
-    <ul class="v6i-bilgi" role="list">
-      <li><span class="v6i-etiket">E-posta</span><a href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a></li>
-      <li><span class="v6i-etiket">Konum</span><span>İstanbul, Türkiye</span></li>
-    </ul>
+{#- V6.9 iletişim (Frontend-2, Yönetici tarifi): üstte ortalı başlık + e-posta (kopyala), altında tek ortalı takvim kartı (Cal.com month_view, saatler sağda), altında küçük not. Takvim yükleme/yedek: v6-iletisim.js. -#}
+<section class="v6i-sahne" aria-labelledby="v6i-h1">
+<div class="wrap v6i-ust">
+  <h1 id="v6i-h1">Bir saat seçin, konuşalım.</h1>
+  <p class="v6i-satir">Projenizi birkaç cümleyle anlatmanız yeterli. Takvimden bir saat seçin ya da doğrudan yazın.</p>
+  <div class="v6i-eposta">
+    <a class="v6i-eposta__a" href="mailto:cizgifikrimnet@gmail.com">cizgifikrimnet@gmail.com</a>
+    <button type="button" class="btn btn--line v6i-kopyala" data-kopyala="cizgifikrimnet@gmail.com" aria-describedby="v6i-kopya-durum">Kopyala</button>
+    <span class="v6i-kopya-durum" id="v6i-kopya-durum" role="status" aria-live="polite"></span>
   </div>
-  <div class="v6i-takvim" data-takvim data-cal-link="cizgifikrim/30dk-telefon" data-durum="bekliyor">
+</div>
+<div class="wrap v6i-alan">
+  <div class="v6i-takvim" role="region" aria-label="Görüşme takvimi" data-takvim data-cal-link="cizgifikrim/30dk-telefon" data-durum="bekliyor">
     <div class="v6i-yedek">
       <p>Takvim yükleniyor…</p>
       <a class="btn btn--line" href="https://cal.com/cizgifikrim/30dk-telefon" target="_blank" rel="noopener">Takvimi yeni sekmede aç <span aria-hidden="true">↗</span></a>
     </div>
     <div class="v6i-cal" id="cal-ic"></div>
   </div>
-  <p class="v6i-not">Takvim Cal.com tarafından sağlanır; ayrıntılar <a href="/tr/gizlilik/">Gizlilik</a>'te.</p>
+  <p class="v6i-not">İstanbul, Türkiye <span aria-hidden="true">·</span> Takvim Cal.com tarafından sağlanır <span aria-hidden="true">—</span> <a href="/tr/gizlilik/">Gizlilik</a></p>
+</div>
 </section>
