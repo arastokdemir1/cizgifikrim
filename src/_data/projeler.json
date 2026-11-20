@@ -14,15 +14,6 @@
   "kart_gorsel": "/assets/v1/img/proje/vesira/kart.webp",
   "bolumler": [
    {
-    "tur": "demo",
-    "baslik": "Canlı demo.",
-    "metin": "Vesira arayüzünü örnek görsellerle tarayıcıda dene.",
-    "url": "/demo/vesira/",
-    "oran": "telefon",
-    "gorsel": "/assets/v1/img/proje/vesira/demo-ilk-ekran.webp",
-    "alt": "Vesira etkileşimli demosu: ana ekran"
-   },
-   {
     "baslik": "Kendi odan, aynı oda.",
     "metin": "Bir fotoğraftan, aynı odanın yeniden tasarlanmış hali. Pencereler, gün ışığı ve yapı yerinde kalır.",
     "gorsel": "/assets/v1/img/proje/vesira/yatak-sonra.webp",
@@ -34,10 +25,24 @@
     "alt_once": "Yenilenmeden önce yatak odası: sade yatak, perdeli pencere"
    },
    {
-    "baslik": "Değişimin boyutunu sen seç.",
-    "metin": "Light touch, Refresh ya da Full redesign. Mobilyaların kalsın mı, her şey yenilensin mi, sen karar verirsin.",
-    "gorsel": "/assets/v1/img/proje/vesira/ios-yeni-oda.webp",
-    "alt": "Vesira iOS ekranı: değişim seviyesi (Light touch, Refresh, Full redesign) ve renk teması seçimi",
+    "baslik": "Önce fotoğraf.",
+    "metin": "Odanın fotoğrafını kütüphaneden seç ya da kamerayla çek.",
+    "gorsel": "/assets/v1/img/proje/vesira/akis-foto.webp",
+    "alt": "Vesira iOS: odanın fotoğrafını yükleme ekranı (Choose from library, Camera)",
+    "tur": "telefon"
+   },
+   {
+    "baslik": "Değişimin boyutunu seç.",
+    "metin": "Light touch, Refresh ya da Full redesign.",
+    "gorsel": "/assets/v1/img/proje/vesira/akis-seviye.webp",
+    "alt": "Vesira iOS: değişim seviyesi seçimi, Light touch, Refresh ve Full redesign",
+    "tur": "telefon"
+   },
+   {
+    "baslik": "İstersen renk teması.",
+    "metin": "Seçmezsen Vesira senin için seçer.",
+    "gorsel": "/assets/v1/img/proje/vesira/akis-renk.webp",
+    "alt": "Vesira iOS: isteğe bağlı renk teması seçimi",
     "tur": "telefon"
    },
    {
@@ -52,10 +57,24 @@
     "alt_once": "Yenilenmeden önce mutfak: açık renk dolaplar, buzdolabı, küçük masa"
    },
    {
-    "baslik": "Sonucu birkaç dokunuşla düzelt.",
-    "metin": "Hazır seçeneklerle ya da kısa bir notla yeni sürüm iste. Eski sürümler kaybolmaz.",
-    "gorsel": "/assets/v1/img/proje/vesira/ios-duzelt.webp",
-    "alt": "Vesira iOS düzeltme ekranı: Brighter, Warmer tones, Simpler gibi hazır seçenekler",
+    "baslik": "Önce ve sonra.",
+    "metin": "Kaydırıcıyla odanın iki halini karşılaştır.",
+    "gorsel": "/assets/v1/img/proje/vesira/akis-sonuc.webp",
+    "alt": "Vesira iOS: sonuç ekranı, önce/sonra kaydırıcısı",
+    "tur": "telefon"
+   },
+   {
+    "baslik": "Bir şeyi düzelt.",
+    "metin": "Hazır seçenekle ya da kısa bir notla yeni sürüm iste.",
+    "gorsel": "/assets/v1/img/proje/vesira/akis-duzelt.webp",
+    "alt": "Vesira iOS: düzelt, hazır seçenek ya da kısa notla yeni sürüm",
+    "tur": "telefon"
+   },
+   {
+    "baslik": "Eski sürümler kaybolmaz.",
+    "metin": "Her fikir yeni bir sürüm olarak saklanır.",
+    "gorsel": "/assets/v1/img/proje/vesira/akis-surumler.webp",
+    "alt": "Vesira iOS: her fikir yeni bir sürüm olarak saklanır",
     "tur": "telefon"
    },
    {
@@ -64,30 +83,12 @@
     "gorsel": "/assets/v1/img/proje/vesira/web-stiller.webp",
     "alt": "vesira.app stil seçimi bölümü: 'Suggest for me' ve on tasarım stili",
     "tur": "tarayici"
-   },
-   {
-    "baslik": "Salon, Refresh.",
-    "metin": "Renk, ışık ve birkaç parça değişir; oda aynı oda kalır.",
-    "gorsel": "/assets/v1/img/proje/vesira/salon-sonra.webp",
-    "alt": "Salon Refresh sonrası: yeşil duvar, sanat eseri, turuncu yastıklar",
-    "tur": "oncesonra",
-    "cift": "/assets/v1/img/proje/vesira/salon-once.webp",
-    "once": "/assets/v1/img/proje/vesira/salon-once.webp",
-    "sonra": "/assets/v1/img/proje/vesira/salon-sonra.webp",
-    "alt_once": "Yenilenmeden önce salon: gri koltuk, perdeli pencere"
-   },
-   {
-    "baslik": "Odaların tek yerde.",
-    "metin": "Web ile aynı hesap, odalar ve kredilerle çalışan yerel iOS uygulaması yolda; henüz yayında değil.",
-    "gorsel": "/assets/v1/img/proje/vesira/ios-odalarim.webp",
-    "alt": "Vesira iOS Odalarım ekranı: salon, koridor ve mutfak",
-    "tur": "telefon"
    }
   ],
   "kaynaklar": [
    "site-referans/urun-materyalleri/vesira/durum.md",
    "src/_data/modern.js (eski site verisi, herkese açık)",
-   "demo/vesira/index.html (sayfa açıklaması)"
+   "site-referans/urun-materyalleri/vesira/guncel_2026-11-20/NOT.md (iOS build 12 akış ekranları, ham önce/sonra, logo; web 20 Ekim 2026'dan beri canlı; varsayılan dil İngilizce, Türkçe seçenek)"
   ],
   "detay": [
    {
@@ -138,33 +139,26 @@
    {
     "tur": "gorsel",
     "genislik": "genis",
-    "gorsel": "/assets/v1/img/proje/vesira/salon-sonra.webp",
-    "cift": "/assets/v1/img/proje/vesira/salon-once.webp",
-    "alt": "Salon Refresh sonrası: yeşil duvar, sanat eseri, turuncu yastıklar",
-    "alt_once": "Yenilenmeden önce salon: gri koltuk, perdeli pencere",
-    "baslik": "Salon, Refresh."
-   },
-   {
-    "tur": "demo",
-    "baslik": "Canlı demo.",
-    "metin": "Vesira arayüzünü örnek görsellerle tarayıcıda dene.",
-    "url": "/demo/vesira/",
-    "oran": "telefon",
-    "gorsel": "/assets/v1/img/proje/vesira/demo-ilk-ekran.webp",
-    "alt": "Vesira etkileşimli demosu: ana ekran"
+    "gorsel": "/assets/v1/img/proje/vesira/yatak-sonra.webp",
+    "cift": "/assets/v1/img/proje/vesira/yatak-once.webp",
+    "alt": "Yatak odası yeniden tasarlandıktan sonra: ahşap panel, koyu mavi yastıklar, desenli halı",
+    "alt_once": "Yenilenmeden önce yatak odası: sade yatak, perdeli pencere",
+    "baslik": "Yatak odası, Full redesign."
    },
    {
     "tur": "telefonlar",
     "dizilim": "yan",
-    "baslik": "Değişimin boyutunu sen seç.",
-    "metin": "Light touch, Refresh ya da Full redesign. Sonucu hazır seçeneklerle ya da kısa bir notla düzelt; eski sürümler kaybolmaz.",
+    "baslik": "Fotoğraftan sonuca.",
+    "metin": "Odanın fotoğrafını yükle, değişimin boyutunu seç, istersen renk teması ekle.",
     "gorseller": [
-     "/assets/v1/img/proje/vesira/ios-yeni-oda.webp",
-     "/assets/v1/img/proje/vesira/ios-duzelt.webp"
+     "/assets/v1/img/proje/vesira/akis-foto.webp",
+     "/assets/v1/img/proje/vesira/akis-seviye.webp",
+     "/assets/v1/img/proje/vesira/akis-renk.webp"
     ],
     "altlar": [
-     "Vesira iOS ekranı: değişim seviyesi (Light touch, Refresh, Full redesign) ve renk teması seçimi",
-     "Vesira iOS düzeltme ekranı: Brighter, Warmer tones, Simpler gibi hazır seçenekler"
+     "Vesira iOS: odanın fotoğrafını yükleme ekranı (Choose from library, Camera)",
+     "Vesira iOS: değişim seviyesi seçimi, Light touch, Refresh ve Full redesign",
+     "Vesira iOS: isteğe bağlı renk teması seçimi"
     ]
    },
    {
@@ -182,13 +176,20 @@
     "baslik": "Mutfak, Full redesign."
    },
    {
-    "tur": "gorsel",
-    "genislik": "yarim",
-    "gorsel": "/assets/v1/img/proje/vesira/yatak-sonra.webp",
-    "cift": "/assets/v1/img/proje/vesira/yatak-once.webp",
-    "alt": "Yatak odası yeniden tasarlandıktan sonra: ahşap panel, koyu mavi yastıklar, desenli halı",
-    "alt_once": "Yenilenmeden önce yatak odası: sade yatak, perdeli pencere",
-    "baslik": "Yatak odası."
+    "tur": "telefonlar",
+    "dizilim": "yan",
+    "baslik": "Karşılaştır, düzelt, sakla.",
+    "metin": "Önce/sonra kaydırıcısıyla odanın iki halini gör; hazır seçenekle ya da kısa bir notla yeni sürüm iste. Eski sürümler kaybolmaz.",
+    "gorseller": [
+     "/assets/v1/img/proje/vesira/akis-sonuc.webp",
+     "/assets/v1/img/proje/vesira/akis-duzelt.webp",
+     "/assets/v1/img/proje/vesira/akis-surumler.webp"
+    ],
+    "altlar": [
+     "Vesira iOS: sonuç ekranı, önce/sonra kaydırıcısı",
+     "Vesira iOS: düzelt, hazır seçenek ya da kısa notla yeni sürüm",
+     "Vesira iOS: her fikir yeni bir sürüm olarak saklanır"
+    ]
    },
    {
     "tur": "gorsel",
@@ -226,16 +227,13 @@
     ]
    },
    {
-    "tur": "telefonlar",
-    "dizilim": "yan",
-    "baslik": "Odaların tek yerde.",
-    "metin": "Web ile aynı hesap, odalar ve kredilerle çalışan yerel iOS uygulaması yolda; henüz yayında değil.",
-    "gorseller": [
-     "/assets/v1/img/proje/vesira/ios-odalarim.webp"
-    ],
-    "altlar": [
-     "Vesira iOS Odalarım ekranı: salon, koridor ve mutfak"
-    ]
+    "tur": "baglanti",
+    "baslik": "Web'de de.",
+    "metin": "Vesira web uygulaması 20 Ekim 2026'dan beri canlı. Varsayılan dil İngilizce, Türkçe seçeneği var.",
+    "gorsel": "/assets/v1/img/proje/vesira/logo.webp",
+    "alt": "Vesira logosu",
+    "etiket": "vesira.app",
+    "url": "https://vesira.app"
    }
   ]
  },
@@ -1003,6 +1001,93 @@
    {
     "baslik": "Platform ve teknoloji",
     "metin": "Web; tarayıcıda çalışır, telefonda da kullanılabilir. Arayüz İngilizce."
+   }
+  ],
+  "sablon": "v2",
+  "renk": {
+   "vurgu": "#4f7cff",
+   "zemin": "#060c1c",
+   "zemin_koyu": "#060c1c",
+   "metin_vurgu": "#93b4ff"
+  },
+  "cta": {
+   "etiket": "Simülatörü aç",
+   "url": "/baupilotaj/",
+   "dis": true
+  },
+  "anlati": [
+   {
+    "tur": "manset",
+    "baslik": "PPL sınavına uçarak hazırlan.",
+    "metin": "PPL teorik sınavına hazırlanmak için tarayıcıda çalışan uçuş simülatörü ve EASA soru bankası."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "genis",
+    "cerceve": "tarayici",
+    "gorsel": "/assets/v1/img/proje/pilotaj-sinav-simulatoru/kokpit.webp",
+    "alt": "Simülatörde Cessna 172 kokpiti, gösterge paneli ve bir EASA sorusu"
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "genis",
+    "cerceve": "tarayici",
+    "gorsel": "/assets/v1/img/proje/pilotaj-sinav-simulatoru/giris.webp",
+    "alt": "Pilotaj Sınav Simülatörü açılış ekranı: Flight Simulator ve EASA Exam Bank seçenekleri",
+    "baslik": "Uçuş simülatörü ve soru bankası.",
+    "metin": "Açılışta iki mod: Cessna 172 kokpitinde uçuş simülatörü ve EASA soru bankası. Simülatörde 6 uçuş evresi boyunca 28 karışık EASA sorusu."
+   },
+   {
+    "tur": "manset",
+    "baslik": "Telsiz, arıza ve açıklama.",
+    "metin": "Kuleden canlı ATIS ve telsiz konuşmaları, uçuş sırasında motor arızası gibi acil durumlar; telsiz metninin Türkçe çevirisi de görünür. Yanıtlanan soruda doğru ve yanlış seçenek işaretlenir, EASA mevzuat atfı açıklamayla gelir."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "yarim",
+    "cerceve": "tarayici",
+    "gorsel": "/assets/v1/img/proje/pilotaj-sinav-simulatoru/telsiz-ariza.webp",
+    "alt": "Simülatörde kule ATIS mesajı, Türkçe çevirisi ve motor arızası dumanı",
+    "baslik": "Kule telsizi, Türkçe çevirisi ve motor arızası."
+   },
+   {
+    "tur": "gorsel",
+    "genislik": "yarim",
+    "cerceve": "tarayici",
+    "gorsel": "/assets/v1/img/proje/pilotaj-sinav-simulatoru/aciklama.webp",
+    "alt": "Yanıtlanmış bir soru: doğru seçenek yeşil, yanlış seçenek kırmızı; EASA mevzuat açıklaması",
+    "baslik": "Yanıt ve EASA mevzuat açıklaması."
+   },
+   {
+    "tur": "ozellikler",
+    "baslik": "Sınavın konuları, uçuşun içinde.",
+    "maddeler": [
+     {
+      "isaret": "01",
+      "metin": "Cessna 172 ile 6 uçuş evresi ve 28 karışık EASA sorusu."
+     },
+     {
+      "isaret": "02",
+      "metin": "Canlı ICAO kule telsizi ve uçuş içi arıza senaryoları; telsiz metninin Türkçe çevirisi."
+     },
+     {
+      "isaret": "03",
+      "metin": "280 soruluk soru bankası."
+     },
+     {
+      "isaret": "04",
+      "metin": "Dokuz EASA konusuna göre filtre; mevzuat atfı anında görünür."
+     }
+    ]
+   },
+   {
+    "tur": "baglanti",
+    "baslik": "280 soruluk soru bankası.",
+    "metin": "Dokuz EASA konusuna göre filtrele. Tarayıcıda çalışır, telefonda da kullanılabilir.",
+    "gorsel": "/assets/v1/img/proje/pilotaj-sinav-simulatoru/soru-bankasi.webp",
+    "etiket": "Simülatörü aç",
+    "url": "/baupilotaj/",
+    "dis": true
    }
   ]
  },

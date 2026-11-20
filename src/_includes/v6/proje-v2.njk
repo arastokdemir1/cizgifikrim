@@ -40,8 +40,9 @@
       <h1 id="v2-h1"><span class="v2-ad">{% if p.ikon %}<img src="{{ p.ikon }}" width="40" height="40" alt="">{% endif %}{{ p.ad }}</span>{% if h %}<span class="v2-baslik">{{ h.manset.baslik }}</span>{% endif %}</h1>
       <p class="v2-giris">{{ h.manset.metin if h else p.ne }}</p>
       <p class="v2-cta">
-        {%- if v2.demo %}<a class="btn v2-btn" href="#v2-demo">Canlı demoyu dene</a>{% endif %}
-        {%- if p.baglanti and p.baglanti.url %}{% set dis = p.baglanti.url.indexOf('http') == 0 %}<a class="v2-link" href="{{ p.baglanti.url }}"{% if dis %} rel="noopener" target="_blank"{% endif %}>{{ p.baglanti.etiket }}{% if dis %}<span class="v6-gizli"> (yeni sekmede açılır)</span> <span aria-hidden="true">↗</span>{% endif %}</a>{% endif %}
+        {%- if p.cta and p.cta.url %}{% set cdis = (p.cta.dis or p.cta.url.indexOf('http') == 0) %}<a class="btn v2-btn" href="{{ p.cta.url }}"{% if cdis %} rel="noopener" target="_blank"{% endif %}>{{ p.cta.etiket }}{% if cdis %}<span class="v6-gizli"> (yeni sekmede açılır)</span> <span aria-hidden="true">↗</span>{% endif %}</a>
+        {%- elif v2.demo %}<a class="btn v2-btn" href="#v2-demo">Canlı demoyu dene</a>{% endif %}
+        {%- if p.baglanti and p.baglanti.url and not (p.cta and p.cta.url == p.baglanti.url) %}{% set dis = p.baglanti.url.indexOf('http') == 0 %}{% set anaDugme = not (p.cta and p.cta.url) and not v2.demo %}<a class="{{ 'btn v2-btn' if anaDugme else 'v2-link' }}" href="{{ p.baglanti.url }}"{% if dis %} rel="noopener" target="_blank"{% endif %}>{{ p.baglanti.etiket }}{% if dis %}<span class="v6-gizli"> (yeni sekmede açılır)</span> <span aria-hidden="true">↗</span>{% endif %}</a>{% endif %}
       </p>
     </div>
     {%- if h and h.gorsel %}
@@ -92,6 +93,23 @@
       <li class="v2-ozellik__oge"><span class="v2-ozellik__no" aria-hidden="true">{{ m.isaret }}</span><span class="v2-ozellik__metin">{{ m.metin }}</span></li>
       {%- endfor %}
     </ul>
+  </section>
+
+  {%- elif x.tur == 'baglanti' %}
+  {%- set bdis = (x.dis or x.url.indexOf('http') == 0) %}
+  {%- set bo = gorselBoyut[x.gorsel] if x.gorsel else null %}
+  {%- set alan = (x.url if x.url.indexOf('http') == 0 else site.url + x.url) | replace('https://', '') | replace('http://', '') | replace('www.', '') %}{% if alan.slice(-1) == '/' %}{% set alan = alan.slice(0, -1) %}{% endif %}
+  <section class="v2-blok v2-baglanti" id="v2-baglanti" aria-labelledby="v2b{{ no }}">
+    <div class="wrap v2-manset v2-manset--ust"><h2 id="v2b{{ no }}">{{ x.baslik }}</h2>{% if x.metin %}<p>{{ x.metin }}</p>{% endif %}</div>
+    {%- if x.gorsel %}
+    <div class="wrap v2-baglanti__sahne">
+      <a class="v2-baglanti__gorsel" href="{{ x.url }}"{% if bdis %} rel="noopener" target="_blank"{% endif %} tabindex="-1" aria-hidden="true">
+      {%- if bo and (bo[0] / bo[1]) < 0.6 %}<span class="v6-tel v2-baglanti__tel"><span class="v6-tel__ekran"><img src="{{ x.gorsel }}"{{ olcu(x.gorsel, gorselBoyut) }} alt="" loading="lazy" decoding="async"></span></span>
+      {%- else %}<span class="v6-tar v2-tar v2-baglanti__tar"><span class="v6-tar__bar"><i></i><i></i><i></i><span>{{ alan }}</span></span><img src="{{ x.gorsel }}"{{ olcu(x.gorsel, gorselBoyut) }} alt="" loading="lazy" decoding="async"></span>{% endif %}
+      </a>
+    </div>
+    {%- endif %}
+    <p class="v2-baglanti__ac"><a class="btn v2-btn" href="{{ x.url }}"{% if bdis %} rel="noopener" target="_blank"{% endif %}>{{ x.etiket }}{% if bdis %}<span class="v6-gizli"> (yeni sekmede açılır)</span> <span aria-hidden="true">↗</span>{% endif %}</a></p>
   </section>
 
   {%- elif x.tur == 'demo' %}

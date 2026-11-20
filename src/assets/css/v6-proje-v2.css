@@ -136,3 +136,18 @@
   .v2-hero__gorsel .v2-tels--yan{max-height:none}
 }
 @media (prefers-reduced-motion:reduce){.v2-tels{scroll-behavior:auto}}
+
+/* V6.3 bağlantı bölümü: demonun yerinde büyük görsel + belirgin düğme (iframe yok) */
+.v2-baglanti__sahne{display:grid;justify-items:center}
+.v2-baglanti__gorsel{display:block;width:100%;max-width:68rem;border-radius:var(--r-card)}
+.v2-baglanti__gorsel:has(.v2-baglanti__tel){width:auto}
+.v2-baglanti__tar{display:block}
+.v2-baglanti__tar>img{display:block;width:100%;height:auto}
+.v2-baglanti__tar .v6-tar__bar span{display:inline-block}
+.v2-baglanti__tel{display:block;width:clamp(16.5rem,12rem + 8vw,20rem);padding:.5rem;border-radius:2.75rem}
+.v2-baglanti__tel .v6-tel__ekran{display:block;border-radius:2.3rem}
+.v2-baglanti__tel img{display:block;width:100%;height:auto}
+.v2-baglanti__gorsel img{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.v2-baglanti__gorsel:hover img{transform:scale(1.01)}
+.v2-baglanti__ac{display:flex;justify-content:center;margin:clamp(1.5rem,1rem + 1.5vw,2.5rem) 0 0}
+@media (prefers-reduced-motion:reduce){.v2-baglanti__gorsel img{transition:none}.v2-baglanti__gorsel:hover img{transform:none}}
