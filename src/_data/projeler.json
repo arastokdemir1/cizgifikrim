@@ -1847,7 +1847,8 @@
     "genislik": "genis",
     "gorsel": "/assets/v1/img/proje/gnomon/pano.webp",
     "alt": "Gnomon pano görünümü: Open, In progress, Done sütunları",
-    "baslik": "Pano: açık, devam eden ve tamamlanan görevler üç sütunda."
+    "baslik": "Pano: açık, devam eden ve tamamlanan görevler üç sütunda.",
+    "gorsel_mobil": "/assets/v1/img/proje/gnomon/pano-yakin.webp"
    },
    {
     "tur": "gorsel",
@@ -1855,7 +1856,8 @@
     "gorsel": "/assets/v1/img/proje/gnomon/liste.webp",
     "alt": "Gnomon liste görünümü: örnek proje, görevler ve alt görevler, odak sayacı",
     "baslik": "Liste.",
-    "metin": "Görevler, alt görevler ve odak sayacı bir arada."
+    "metin": "Görevler, alt görevler ve odak sayacı bir arada.",
+    "gorsel_mobil": "/assets/v1/img/proje/gnomon/liste-yakin.webp"
    },
    {
     "tur": "gorsel",
@@ -1863,7 +1865,8 @@
     "gorsel": "/assets/v1/img/proje/gnomon/graf.webp",
     "alt": "Gnomon bağımlılık grafiği: görev düğümleri ve aralarındaki bağlantı",
     "baslik": "Bağımlılık grafiği.",
-    "metin": "Bir görevin hangi görevden sonra gelebileceğini bağlantılarla gör."
+    "metin": "Bir görevin hangi görevden sonra gelebileceğini bağlantılarla gör.",
+    "gorsel_mobil": "/assets/v1/img/proje/gnomon/graf-yakin.webp"
    },
    {
     "tur": "gorsel",
@@ -1871,7 +1874,8 @@
     "gorsel": "/assets/v1/img/proje/gnomon/zaman-cizelgesi.webp",
     "alt": "Gnomon zaman çizelgesi görünümü",
     "baslik": "Zaman çizelgesi.",
-    "metin": "Görevleri günlere yayarak gör."
+    "metin": "Görevleri günlere yayarak gör.",
+    "gorsel_mobil": "/assets/v1/img/proje/gnomon/zaman-cizelgesi-yakin.webp"
    },
    {
     "tur": "ozellikler",

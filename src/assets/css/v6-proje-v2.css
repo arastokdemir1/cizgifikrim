@@ -185,3 +185,5 @@
 .v2--tipo .v2-manset p:not(.v2-etiket){max-width:46ch}
 .v2-etiket{margin:0 0 var(--sp-4);color:var(--vurgu-metin);font-size:var(--fs-xs);font-weight:var(--fw-sub);letter-spacing:var(--ls-label);text-transform:uppercase}
 @media (max-width:55.99rem){.v2-hero--tipo{min-height:min(62svh,34rem)}}
+.v2-medya picture,.v2-tar picture{display:block}
+.v2-tar picture img{display:block;width:100%;height:auto}

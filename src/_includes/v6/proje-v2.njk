@@ -15,6 +15,7 @@
 </div>
 {%- endmacro -%}
 
+{#- gorsel_mobil (isteğe bağlı): ≤600px ekranda aynı görselin okunur yakın kırpımı (<picture>). -#}
 {%- macro gorsel(x, boyut, ilk) -%}
 {%- set yukle = 'eager' if ilk else 'lazy' -%}
 {%- if x.cift -%}
@@ -25,11 +26,11 @@
 <div class="kk-ayrac" role="slider" tabindex="0" aria-orientation="horizontal" aria-label="{{ x.baslik or 'Görsel' }} Önce ve sonra karşılaştırması" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="Önce yüzde 50, sonra yüzde 50"><span class="kk-tutac" aria-hidden="true"></span></div>
 </div>
 {%- elif x.cerceve == 'tarayici' -%}
-<div class="v6-tar v2-tar"><div class="v6-tar__bar" aria-hidden="true"><i></i><i></i><i></i>{% if p.baglanti and ('.' in p.baglanti.etiket) %}<span>{{ p.baglanti.etiket }}</span>{% endif %}</div><img src="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} alt="{{ x.alt }}" loading="{{ yukle }}" decoding="async"></div>
+<div class="v6-tar v2-tar"><div class="v6-tar__bar" aria-hidden="true"><i></i><i></i><i></i>{% if p.baglanti and ('.' in p.baglanti.etiket) %}<span>{{ p.baglanti.etiket }}</span>{% endif %}</div>{% if x.gorsel_mobil %}<picture><source media="(max-width: 600px)" srcset="{{ x.gorsel_mobil }}"{{ olcu(x.gorsel_mobil, boyut) }}>{% endif %}<img src="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} alt="{{ x.alt }}" loading="{{ yukle }}" decoding="async">{% if x.gorsel_mobil %}</picture>{% endif %}</div>
 {%- elif x.video -%}
 <span class="v2-medya v2-medya--video" style="--oran:{{ oran(x.gorsel, boyut, '9/16') }}"><video class="v2-video" controls muted playsinline preload="none" poster="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} aria-label="{{ x.alt }}"><source src="{{ x.video }}" type="video/mp4"></video>{% if p.cip %}<span class="v6-cip v6-cip--ust">{{ p.cip }}</span>{% endif %}</span>
 {%- else -%}
-<span class="v2-medya"><img class="v2-foto" src="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} alt="{{ x.alt }}" loading="{{ yukle }}" decoding="async">{% if p.cip %}<span class="v6-cip v6-cip--ust">{{ p.cip }}</span>{% endif %}</span>
+<span class="v2-medya">{% if x.gorsel_mobil %}<picture><source media="(max-width: 600px)" srcset="{{ x.gorsel_mobil }}"{{ olcu(x.gorsel_mobil, boyut) }}>{% endif %}<img class="v2-foto" src="{{ x.gorsel }}"{{ olcu(x.gorsel, boyut) }} alt="{{ x.alt }}" loading="{{ yukle }}" decoding="async">{% if x.gorsel_mobil %}</picture>{% endif %}{% if p.cip %}<span class="v6-cip v6-cip--ust">{{ p.cip }}</span>{% endif %}</span>
 {%- endif -%}
 {%- endmacro -%}
 
