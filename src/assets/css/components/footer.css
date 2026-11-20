@@ -1,9 +1,0 @@
-/* FOOTER (X07 İnce): çerçevesiz, üstte 1 px çizgi, metin --ink-muted 12.5 px, başında 6 px vurgu nokta. Yasal bağlantılar ve e-posta burada. */
-.site-footer { border-top: 1px solid var(--line); color: var(--c-ink-muted); margin-top: var(--sec-y); }
-.footer-in { max-width: calc(var(--w-content) + 2 * var(--gutter)); margin-inline: auto; padding: 22px var(--gutter); display: flex; flex-wrap: wrap; gap: 10px 24px; justify-content: space-between; align-items: center; font-size: 12.5px; }
-.footer-sol { display: inline-flex; align-items: center; gap: 8px; }
-.footer-sol::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--c-accent); flex: none; }
-.footer-links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
-.footer-links a { display: inline-flex; align-items: center; min-height: 28px; color: var(--c-ink-muted); }
-.footer-links a:hover { color: var(--c-ink); }
-@media (max-width: 640px) { .footer-links { gap: 2px 16px; } }

@@ -177,11 +177,6 @@
       "status": 301
     },
     {
-      "from": "/istasyon-yakinda/",
-      "to": "/tr/iletisim/",
-      "status": 301
-    },
-    {
       "from": "/calismalar/polishreel/",
       "to": "/tr/urunler/polishreel/",
       "status": 301

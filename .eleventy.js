@@ -53,9 +53,6 @@ function sonDegisiklik(girdiYolu) {
 }
 
 export default function (eleventyConfig) {
-  // The bilingual product site replaces these presentation routes. Product-owned
-  // directories and demos continue to pass through without modification.
-  for (const pattern of ['src/index.njk', 'src/hakkinda.njk', 'src/nasil-calisiyoruz.njk', 'src/istasyon-yakinda.njk', 'src/404.njk', 'src/calismalar/**', 'src/hizmetler/**', 'src/gorusme/**', 'src/gizlilik/**', 'src/kosullar/**']) eleventyConfig.ignores.add(pattern);
   // ── Bayt aynı kopya (passthrough) ───────────────────────────────────────
   const var_ = (p) => fs.existsSync(p);
   for (const d of KORUNAN_KLASORLER) if (var_(d)) eleventyConfig.addPassthroughCopy({ [d]: d });
