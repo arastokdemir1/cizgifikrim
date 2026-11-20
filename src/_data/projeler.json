@@ -305,7 +305,7 @@
    "site-referans/urun-materyalleri/polishreel/durum.md",
    "durum.md 'Sunulan çıktılar': kısa dikey video yaklaşık 10–30 sn; 'Görseller': ornek-video-dikey-yazisiz-720x1280.mp4 (20 sn, yazısız, sessiz); ffprobe süre 20.0 sn; 'Videodaki kişi yapay zekâ üretimi'",
    "src/_data/modern.js (eski site verisi, herkese açık)",
-   "katalog ikonu: monogram (PolishReel durum.md: logo dosyası yok)"
+   "katalog ikonu: site-referans/urun-materyalleri/polishreel/gorseller/yazi-logo-sitedeki-baslik.png (sitedeki 'PolishReel' yazısı, 230×80, büyütülmedi; durum.md: logo dosyası yok, yazı logosu var)"
   ],
   "detay": [
    {
@@ -340,7 +340,8 @@
    }
   ],
   "katalog_ikon": {
-   "tur": "monogram"
+   "tur": "logo",
+   "dosya": "/assets/v1/img/proje/polishreel/ikon.png"
   }
  },
  {
