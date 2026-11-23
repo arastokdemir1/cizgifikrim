@@ -14,7 +14,7 @@
     apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlla2RrdGRoaHJ5cWV3dmNybm1yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQzMTA4NjIsImV4cCI6MjA5OTg4Njg2Mn0.1R70BzCmDdXbTpVGGk19y9ThY9n7dDJ7SMcJWc5Uhl4',
     consentVersion: 'gizlilik-2026-11',
     turnstileSiteKey: '',                       // TURNSTILE_MODE=off
-    eposta: 'cizgifikrimnet@gmail.com', calUrl: 'https://cal.com/cizgifikrim',
+    eposta: 'hello@cizgifikrim.net', calUrl: 'https://cal.com/cizgifikrim',
     tesekkur: '/gorusme/tesekkurler/', minWaitMs: 3600
   };
   CFG.tesekkur = root.getAttribute('data-thanks') || CFG.tesekkur;
